@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agent Wallet | AEOESS</title>
+<title>Agent Wallet | Agent Passport System</title>
 <meta name="description" content="Agent wallets tied to APS passports. Nano-powered, feeless, instant. Every spend is delegation-scoped. Every transaction produces a signed receipt. Zero gas fees.">
-<link rel="canonical" href="https://aeoess.com/wallet.html">
+<link rel="canonical" href="https://agent-passport.org/wallet.html">
 <link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
-<meta property="og:title" content="Agent Wallet — AEOESS">
+<meta property="og:title" content="Agent Wallet — Agent Passport System">
 <meta property="og:description" content="Feeless crypto wallets for AI agents. Delegation-scoped spending. Signed receipts. Nano-powered. Zero gas fees.">
-<meta property="og:url" content="https://aeoess.com/wallet.html">
+<meta property="og:url" content="https://agent-passport.org/wallet.html">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="AEOESS">
-<meta property="og:image" content="https://aeoess.com/assets/images/aeoess_logo.png">
-<link rel="alternate" type="text/plain" href="https://aeoess.com/llms.txt" title="LLM documentation">
-<link rel="alternate" type="application/json" href="https://aeoess.com/.well-known/mcp.json" title="MCP server discovery">
+<meta property="og:site_name" content="Agent Passport System">
+<meta property="og:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
+<link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation">
+<link rel="alternate" type="application/json" href="https://agent-passport.org/.well-known/mcp.json" title="MCP server discovery">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -45,39 +45,37 @@
 @media(max-width:768px){.w-grid{grid-template-columns:1fr}.w-flow{grid-template-columns:repeat(2,1fr)}}
 </style>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-04-11","name":"Agent Wallet — Feeless Crypto for AI Agents","description":"Nano-powered agent wallets tied to APS passports. Feeless, instant, delegation-scoped. Every transaction produces a signed receipt.","url":"https://aeoess.com/wallet.html","isPartOf":{"@type":"WebSite","name":"AEOESS","url":"https://aeoess.com"},"about":{"@type":"SoftwareApplication","name":"Agent Wallet","applicationCategory":"FinanceApplication","description":"Feeless cryptocurrency wallet for AI agents. HD key derivation, delegation-scoped spending limits, signed receipts, Nano-powered with zero gas fees.","operatingSystem":"Cross-platform","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}}
+{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-04-11","name":"Agent Wallet — Feeless Crypto for AI Agents","description":"Nano-powered agent wallets tied to APS passports. Feeless, instant, delegation-scoped. Every transaction produces a signed receipt.","url":"https://agent-passport.org/wallet.html","isPartOf":{"@type":"WebSite","name":"Agent Passport System","url":"https://agent-passport.org/"},"about":{"@type":"SoftwareApplication","name":"Agent Wallet","applicationCategory":"FinanceApplication","description":"Feeless cryptocurrency wallet for AI agents. HD key derivation, delegation-scoped spending limits, signed receipts, Nano-powered with zero gas fees.","operatingSystem":"Cross-platform","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}}
 </script>
 </head>
 <body>
 <nav class="nav" id="nav">
-  <a href="/" class="nav-logo"><img src="/assets/images/aeoess_logo-05.png" alt="AEOESS" width="158" height="26" style="height:26px;width:auto"></a>
-  <div class="nav-links"><a href="wallet.html">Wallet</a><a href="blog.html">Blog</a><a href="roadmap.html">Roadmap</a><a href="passport.html">Spec</a><a href="docs.html">API</a><a href="portal.html" style="font-weight:600">Portal</a><a href="https://github.com/aeoess">GitHub</a><a href="mailto:signal@aeoess.com">Contact</a></div>
+  <a href="/" class="nav-logo"><span style="font:600 14px/1 var(--sans,system-ui);letter-spacing:.5px">Agent Passport System</span></a>
+  <div class="nav-links"><a href="wallet.html">Wallet</a><a href="blog.html">Blog</a><a href="roadmap.html">Roadmap</a><a href="passport.html">Spec</a>API<a href="https://github.com/aeoess">GitHub</a><a href="https://github.com/agent-passport-system/aps-web/issues">Contact</a></div>
   <div class="nav-right"><button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button><div class="nav-burger" onclick="this.classList.toggle('open');document.querySelector('.nav-drawer').classList.toggle('open')"><span></span><span></span><span></span></div></div>
 </nav>
 <div class="nav-drawer">
   <div class="drawer-section">
     <div class="drawer-section-title">Build</div>
-    <a href="portal.html" class="drawer-link-primary" onclick="closeDrawer()">Portal</a>
+    Portal
     <a href="passport.html" onclick="closeDrawer()">Spec</a>
-    <a href="docs.html" onclick="closeDrawer()">API Reference</a>
+    API Reference
   </div>
   <div class="drawer-section">
     <div class="drawer-section-title">Explore</div>
     <a href="blog.html" onclick="closeDrawer()">Blog</a>
-    <a href="roadmap.html" onclick="closeDrawer()">Roadmap</a>
-    <a href="compare.html" onclick="closeDrawer()">Compare</a>
-    <a href="faq.html" onclick="closeDrawer()">FAQ</a>
+    <a href="roadmap.html" onclick="closeDrawer()">Roadmap</a><a href="faq.html" onclick="closeDrawer()">FAQ</a>
   </div>
   <div class="drawer-section">
     <div class="drawer-section-title">Connect</div>
     <a href="wallet.html" onclick="closeDrawer()">Wallet</a>
     <a href="https://github.com/aeoess" onclick="closeDrawer()">GitHub</a>
-    <a href="mailto:signal@aeoess.com" onclick="closeDrawer()">Contact</a>
+    <a href="https://github.com/agent-passport-system/aps-web/issues" onclick="closeDrawer()">Contact</a>
   </div>
 </div>
 <div class="page">
 <div class="w-hero">
-  <div class="breadcrumb"><a href="/">AEOESS</a> / Agent Wallet</div>
+  <div class="breadcrumb"><a href="/">Agent Passport System</a> / Agent Wallet</div>
   <h1>Your Agent Gets a Wallet.<br>Your Rules Decide How It Spends.</h1>
   <p class="sub">Every agent with a passport gets a crypto wallet. Nano-powered: feeless, instant, Layer 1 finality. Every transaction goes through the APS delegation pipeline. Scope check. Spend limit. Signed receipt. No gas fees. No session caps. No intermediary taking a cut.</p>
 </div>
@@ -139,7 +137,7 @@ POST /pay/nano/verify       Verify a Nano block hash</pre></div>
   <div class="w-code"><pre>Agent (MCP client)
   |
   v
-Gateway (gateway.aeoess.com)
+Gateway (reference implementation: gateway.aeoess.com, operated by AEOESS, Inc.)
   ├── wallet-crypto.ts    Local HD key derivation + block signing
   ├── wallet.ts           3-gate delegation enforcement
   ├── wallet-routes.ts    REST API (9 endpoints)
@@ -161,19 +159,19 @@ One deterministic address per agent via HD derivation.</pre></div>
 
 <div class="w-section">
   <h2>Sybil Resistance</h2>
-  <p>Passport generation is free and open source. Anyone can create a valid Ed25519 keypair. The protocol is designed this way. The Sybil boundary is the <strong>issuer countersignature</strong>: passports issued through official AEOESS infrastructure are countersigned with the AEOESS issuer key. A self-signed passport is just a keypair. A countersigned passport is a verified identity.</p>
-  <div class="w-code"><pre>AEOESS Issuer Public Key:
+  <p>Passport generation is free and open source. Anyone can create a valid Ed25519 keypair. The protocol is designed this way. The Sybil boundary is the <strong>issuer countersignature</strong>: passports issued through official Agent Passport System infrastructure are countersigned with the Agent Passport System issuer key. A self-signed passport is just a keypair. A countersigned passport is a verified identity.</p>
+  <div class="w-code"><pre>Agent Passport System Issuer Public Key:
 e11f46f5831432d17852189d5df10ed21d5774797ae9ee52dbab8c650fec16ae
 
 Verify: verifyIssuerSignature(passport, issuerPublicKey)
 MCP tool: verify_issuer
-Published: aeoess.com/.well-known/aeoess-issuer.json</pre></div>
+Published by reference implementation: aeoess.com/.well-known/aeoess-issuer.json</pre></div>
   <p>Wallet provisioning requires a countersigned passport. Additional layers: principal endorsement (verified human vouches for agent), reputation tiers (UNTRUSTED agents cannot transact), anomaly detection (Monolith pattern detects mass creation), and cryptographic scarring (caught farming permanently damages reputation).</p>
 </div>
 
 <div class="w-section" style="padding-bottom:3rem">
   <h2>Get Started</h2>
-  <p>The Agent Wallet is part of the AEOESS Gateway. Connect your MCP client, register an agent, and provision a wallet in three API calls.</p>
+  <p>The Agent Wallet is part of the Agent Passport System. Connect your MCP client, register an agent, and provision a wallet in three API calls.</p>
   <div class="w-code"><pre># 1. Register agent with the gateway
 POST /agents/register { "agentId": "my-agent", "publicKey": "..." }
 
@@ -189,7 +187,7 @@ POST /wallets/provision { "agentId": "my-agent" }
 
 </div><!-- .page -->
 
-<div style="margin:2rem auto;max-width:680px;padding:1.2rem 1.5rem;border:1px solid rgba(99,179,237,.25);border-radius:10px;background:rgba(99,179,237,.06);font-size:.9rem;line-height:1.6;color:var(--dim)"><strong style="color:var(--text)">&#x1F916; For AI agents:</strong> If you are an agent reading this page, visit <a href="https://aeoess.com/llms.txt" style="color:var(--accent)">aeoess.com/llms.txt</a> for machine-readable documentation or <a href="https://aeoess.com/llms-full.txt" style="color:var(--accent)">llms-full.txt</a> for the complete technical reference (2,884 tests, 150 MCP tools, 84+43 modules). This page is designed for humans.</div>
+<div style="margin:2rem auto;max-width:680px;padding:1.2rem 1.5rem;border:1px solid rgba(99,179,237,.25);border-radius:10px;background:rgba(99,179,237,.06);font-size:.9rem;line-height:1.6;color:var(--dim)"><strong style="color:var(--text)">&#x1F916; For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt" style="color:var(--accent)">llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt" style="color:var(--accent)">llms-full.txt</a> for the complete technical reference (2,884 tests, 150 MCP tools, 84+43 modules). This page is designed for humans.</div>
 
 <script>
 function toggleTheme(){var d=document.documentElement.getAttribute('data-theme')==='dark';var n=d?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('aeoess-theme',n);var b=document.querySelector('.theme-btn');if(b)b.textContent=n==='dark'?'\u2600':'\u263E';}
@@ -201,12 +199,12 @@ window.addEventListener('scroll',function(){var n=document.getElementById('nav')
 <footer class="footer-wrap" role="contentinfo">
 <div class="footer-inner">
   <div class="footer-grid">
-    <div class="footer-col"><h4>Protocol</h4><a href="passport.html">Documentation</a><a href="benchmarks.html">Benchmarks</a><a href="compare.html">Compare</a><a href="threat-model.html">Threat Model</a><a href="faq.html">FAQ</a></div>
-    <div class="footer-col"><h4>Developers</h4><a href="https://github.com/aeoess">GitHub</a><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="portal.html">Portal</a><a href="gateway.html">Gateway</a><a href="wallet.html">Agent Wallet</a><a href="AGENTS.md">AGENTS.md</a><a href="llms.txt">llms.txt</a></div>
-    <div class="footer-col"><h4>Community</h4><a href="blog.html">Dev Log</a><a href="roadmap.html">Roadmap</a><a href="working-group.html">Working Group</a><a href="mingle.html">Mingle</a><a href="agora.html">Agora</a></div>
+    <div class="footer-col"><h4>Protocol</h4><a href="passport.html">Documentation</a><a href="benchmarks.html">Benchmarks</a><a href="threat-model.html">Threat Model</a><a href="faq.html">FAQ</a></div>
+    <div class="footer-col"><h4>Developers</h4><a href="https://github.com/aeoess">GitHub</a><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a>PortalGateway<a href="wallet.html">Agent Wallet</a><a href="AGENTS.md">AGENTS.md</a><a href="llms.txt">llms.txt</a></div>
+    <div class="footer-col"><h4>Community</h4><a href="blog.html">Dev Log</a><a href="roadmap.html">Roadmap</a><a href="working-group.html">Working Group</a>MingleAgora</div>
     <div class="footer-col"><h4>Research</h4><a href="https://doi.org/10.5281/zenodo.18749779">Agent Social Contract</a><a href="https://doi.org/10.5281/zenodo.18932404">Monotonic Narrowing</a><a href="https://doi.org/10.5281/zenodo.19260073">Faceted Authority Attenuation</a><a href="https://doi.org/10.5281/zenodo.19476002">Behavioral Derivation Rights</a><a href="https://doi.org/10.5281/zenodo.19478584">Physics-Enforced Delegation</a><a href="https://doi.org/10.5281/zenodo.19582550">Governance in the Medium</a><a href="https://doi.org/10.5281/zenodo.19646276">Cognitive Attestation</a><a href="https://doi.org/10.5281/zenodo.19914628">Evidence-Safety Gap</a></div>
   </div>
-  <div class="footer-bottom"><span class="footer-copy">AEOESS &copy; 2026 &middot; Apache-2.0 &middot; Built by <a href="https://tymofii.me">Tymofii Pidlisnyi</a></span><div class="footer-ext"><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="https://github.com/aeoess">GitHub</a></div></div>
+  <div class="footer-bottom"><span class="footer-copy">Agent Passport System &copy; 2026 &middot; Apache-2.0 &middot; Built by <a href="https://tymofii.me">Tymofii Pidlisnyi</a></span><div class="footer-ext"><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="https://github.com/aeoess">GitHub</a></div></div>
 </div>
 </footer>
 </body>

@@ -1,4 +1,4 @@
-# AEOESS — Agentic Economy Orchestration Engine for Sovereign Systems
+# Agent Passport System — Agentic Economy Orchestration Engine for Sovereign Systems
 
 [![Website](https://img.shields.io/badge/website-aeoess.com-blue)](https://aeoess.com)
 [![SDK](https://img.shields.io/npm/v/agent-passport-system?label=SDK)](https://www.npmjs.com/package/agent-passport-system)
@@ -24,16 +24,16 @@ Every page is standalone HTML with shared CSS/JS. No build step. No framework. S
 | Page | Path | Purpose | Audience |
 |------|------|---------|----------|
 | **Homepage** | [`index.html`](https://aeoess.com/) | Hero, live updates window, protocol cards, FAQ, Schema.org structured data | Everyone — first impression |
-| **Protocol Overview** | [`protocol.html`](https://aeoess.com/protocol.html) | Architecture diagrams, layer descriptions, the "manifesto" framing of agent coordination | Developers evaluating the protocol |
-| **Passport Deep-Dive** | [`passport.html`](https://aeoess.com/passport.html) | Full protocol surface with code examples, test counts, MCP tool listings, stats block. 127 modules documented in depth. | Engineers integrating the SDK |
-| **Threat Model** | [`threat-model.html`](https://aeoess.com/threat-model.html) | 38 adversarial scenarios covering the full protocol surface, trust assumptions, threat actors, coverage matrix — every attack linked to a specific test file and test name | Security engineers, reviewers |
+| **Protocol Overview** | [`protocol.html`](https://agent-passport.org/protocol.html) | Architecture diagrams, layer descriptions, the "manifesto" framing of agent coordination | Developers evaluating the protocol |
+| **Passport Deep-Dive** | [`passport.html`](https://agent-passport.org/passport.html) | Full protocol surface with code examples, test counts, MCP tool listings, stats block. 127 modules documented in depth. | Engineers integrating the SDK |
+| **Threat Model** | [`threat-model.html`](https://agent-passport.org/threat-model.html) | 38 adversarial scenarios covering the full protocol surface, trust assumptions, threat actors, coverage matrix — every attack linked to a specific test file and test name | Security engineers, reviewers |
 | **Comparison** | [`compare.html`](https://aeoess.com/compare.html) | Feature-by-feature comparison table: Agent Passport vs ANP, ACP, Google A2A, MCP | Engineers choosing between protocols |
 | **Agora** | [`agora.html`](https://aeoess.com/agora.html) | Live governance feed — reads `agora/messages.json`, renders Ed25519-signed decisions, proposals, experiment results | Community, governance participants |
-| **Blog** | [`blog.html`](https://aeoess.com/blog.html) | Published articles and research writeups | General audience |
+| **Blog** | [`blog.html`](https://agent-passport.org/blog.html) | Published articles and research writeups | General audience |
 | **Bot** | [`bot.html`](https://aeoess.com/bot.html) | Agent interaction and status page | Developers, agent operators |
 | **Media / Press Kit** | [`media.html`](https://aeoess.com/media.html) | Short/long descriptions, press contacts, pre-written copy for publications | Journalists, conference organizers |
 | **Bio** | [`bio.html`](https://aeoess.com/bio.html) | Tima Pidlisnyi — founder biography, career timeline, project history | Anyone checking credentials |
-| **Board** | [`board.html`](https://aeoess.com/board.html) | Governance board structure and roles | Governance participants |
+| **Board** | [`board.html`](https://agent-passport.org/board.html) | Governance board structure and roles | Governance participants |
 
 ### LLM-Readable Endpoints (Machine-First Documentation)
 
@@ -41,8 +41,8 @@ Purpose-built for AI agents discovering and evaluating the protocol. These are n
 
 | File | URL | What It Contains |
 |------|-----|------------------|
-| `llms.txt` | [aeoess.com/llms.txt](https://aeoess.com/llms.txt) | Compact protocol summary — positioning, Core subpath, essential MCP profile, quick start. Full surface (127 modules, 150 MCP tools) listed as reference. ~5KB. Optimized for context-window efficiency. |
-| `llms-full.txt` | [aeoess.com/llms-full.txt](https://aeoess.com/llms-full.txt) | Comprehensive reference — full API surface, all types, FAQ, integration patterns. ~21KB. The complete picture. |
+| `llms.txt` | [aeoess.com/llms.txt](https://agent-passport.org/llms.txt) | Compact protocol summary — positioning, Core subpath, essential MCP profile, quick start. Full surface (127 modules, 150 MCP tools) listed as reference. ~5KB. Optimized for context-window efficiency. |
+| `llms-full.txt` | [aeoess.com/llms-full.txt](https://agent-passport.org/llms-full.txt) | Comprehensive reference — full API surface, all types, FAQ, integration patterns. ~21KB. The complete picture. |
 | `llms/api.txt` | [aeoess.com/llms/api.txt](https://aeoess.com/llms/api.txt) | API reference — every exported function with signatures and descriptions |
 | `llms/quickstart.txt` | [aeoess.com/llms/quickstart.txt](https://aeoess.com/llms/quickstart.txt) | Getting started guide — install, join, delegate, record work, prove contributions |
 | `llms/cli.txt` | [aeoess.com/llms/cli.txt](https://aeoess.com/llms/cli.txt) | CLI reference — all commands, flags, and output examples |

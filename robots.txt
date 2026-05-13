@@ -33,14 +33,14 @@ Disallow: /*.zip$
 Sitemap: https://aeoess.com/sitemap.xml
 
 # LLM discovery (llmstxt.org standard)
-# Compact: https://aeoess.com/llms.txt
-# Full: https://aeoess.com/llms-full.txt
+# Compact: https://agent-passport.org/llms.txt
+# Full: https://agent-passport.org/llms-full.txt
 
 # MCP server discovery
-# https://aeoess.com/.well-known/mcp.json
+# https://agent-passport.org/.well-known/mcp.json
 
 # Agent governance
-# https://aeoess.com/.well-known/aps.txt
+# https://agent-passport.org/.well-known/aps.txt
 
 # AI crawlers welcome
 User-agent: GPTBot

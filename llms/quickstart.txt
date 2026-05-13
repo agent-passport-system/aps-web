@@ -182,4 +182,4 @@ const complaint = affectedPartyStanding.fileComplaint(registry, {
 ```
 
 30 v2 modules total. 9 attack defenses, 14 structural safeguards, 7 core governance primitives.
-Full reference: https://aeoess.com/llms-full.txt
+Full reference: https://agent-passport.org/llms-full.txt

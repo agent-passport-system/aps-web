@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Protocol Overview | AEOESS</title>
-<meta name="description" content="AEOESS protocol overview: cryptographic identity, scoped delegation, reputation, enforcement, commerce, institutional governance. 127 modules for the agent economy.">
-<link rel="canonical" href="https://aeoess.com/protocol.html">
+<title>Protocol Overview | Agent Passport System</title>
+<meta name="description" content="Agent Passport System protocol overview: cryptographic identity, scoped delegation, reputation, enforcement, commerce, institutional governance. 127 modules for the agent economy.">
+<link rel="canonical" href="https://agent-passport.org/protocol.html">
 <link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
-<link rel="alternate" type="text/plain" href="https://aeoess.com/llms.txt" title="LLM documentation">
-<link rel="alternate" type="application/json" href="https://aeoess.com/.well-known/mcp.json" title="MCP server discovery">
-<meta property="og:title" content="Protocol Overview — AEOESS | Governance for the Agent Economy">
+<link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation">
+<link rel="alternate" type="application/json" href="https://agent-passport.org/.well-known/mcp.json" title="MCP server discovery">
+<meta property="og:title" content="Protocol Overview — Agent Passport System | An open protocol for accountable AI agents">
 <meta property="og:description" content="Enforcement infrastructure for AI agents. Policy eval under 2ms. Cryptographic identity, delegation, reputation, agent-to-agent payments. 127 modules.">
-<meta property="og:url" content="https://aeoess.com/protocol.html">
-<meta property="og:image" content="https://aeoess.com/assets/images/aeoess_logo.png">
+<meta property="og:url" content="https://agent-passport.org/protocol.html">
+<meta property="og:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css?v=20260428a">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"TechArticle","dateModified":"2026-05-02","headline":"AEOESS Protocol — Governance for the Agent Economy","description":"Open-source cryptographic protocol for AI agent governance. Identity, delegation, reputation, enforcement, commerce, institutional governance. 127 modules.","author":{"@type":"Person","name":"Tymofii Pidlisnyi","url":"https://tymofii.me"},"url":"https://aeoess.com/protocol.html","publisher":{"@type":"Organization","name":"AEOESS"}}
+{"@context":"https://schema.org","@type":"TechArticle","dateModified":"2026-05-02","headline":"Agent Passport System Protocol — An open protocol for accountable AI agents","description":"Open-source cryptographic protocol for AI agent governance. Identity, delegation, reputation, enforcement, commerce, institutional governance. 127 modules.","author":{"@type":"Person","name":"Tymofii Pidlisnyi","url":"https://tymofii.me"},"url":"https://agent-passport.org/protocol.html","publisher":{"@type":"Organization","name":"Agent Passport System"}}
 </script>
 
 <!-- Google Analytics -->
@@ -30,9 +30,9 @@
   gtag('config', 'G-S7QVCJGMKR');
 </script>
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AEOESS Protocol — Agent Governance Framework">
+<meta name="twitter:title" content="Agent Passport System Protocol — Agent Governance Framework">
 <meta name="twitter:description" content="How AI agents from different creators collaborate under shared governance with cryptographic accountability.">
-<meta name="twitter:image" content="https://aeoess.com/assets/images/aeoess_logo.png">
+<meta name="twitter:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
 
 <style>
 .site-footer-sub{border-top:1px solid var(--text);padding:2rem 0 1.5rem;margin-top:3rem}
@@ -65,7 +65,7 @@
   },
   "revocation_policy": {
     "mechanism": "aps_txt",
-    "endpoint": "https://aeoess.com/.well-known/aps.txt"
+    "endpoint": "https://agent-passport.org/.well-known/aps.txt"
   },
   "signature": "7ca0da4d9cf3c6cd70aecf89f1c253f57d6e1ecae9f1890008d47a592bf3ff7800eafc0bc8209958401bb60384b0833a3b145800a9d87b3aaa349c147407d40a"
 }
@@ -73,34 +73,32 @@
 </head>
 <body>
 <nav class="nav" id="nav">
-  <a href="/" class="nav-logo"><img src="/assets/images/aeoess_logo-05.png" alt="AEOESS" width="158" height="26" style="height:26px;width:auto"></a>
-  <div class="nav-links"><a href="wallet.html">Wallet</a><a href="blog.html">Blog</a><a href="roadmap.html">Roadmap</a><a href="passport.html">Spec</a><a href="docs.html">API</a><a href="portal.html" style="font-weight:600">Portal</a><a href="https://github.com/aeoess">GitHub</a><a href="mailto:signal@aeoess.com">Contact</a></div>
+  <a href="/" class="nav-logo"><span style="font:600 14px/1 var(--sans,system-ui);letter-spacing:.5px">Agent Passport System</span></a>
+  <div class="nav-links"><a href="wallet.html">Wallet</a><a href="blog.html">Blog</a><a href="roadmap.html">Roadmap</a><a href="passport.html">Spec</a>API<a href="https://github.com/aeoess">GitHub</a><a href="https://github.com/agent-passport-system/aps-web/issues">Contact</a></div>
   <div class="nav-right"><button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button><div class="nav-burger" onclick="this.classList.toggle('open');document.querySelector('.nav-drawer').classList.toggle('open')"><span></span><span></span><span></span></div></div>
 </nav>
 <div class="nav-drawer">
   <div class="drawer-section">
     <div class="drawer-section-title">Build</div>
-    <a href="portal.html" class="drawer-link-primary" onclick="closeDrawer()">Portal</a>
+    Portal
     <a href="passport.html" onclick="closeDrawer()">Spec</a>
-    <a href="docs.html" onclick="closeDrawer()">API Reference</a>
+    API Reference
   </div>
   <div class="drawer-section">
     <div class="drawer-section-title">Explore</div>
     <a href="blog.html" onclick="closeDrawer()">Blog</a>
-    <a href="roadmap.html" onclick="closeDrawer()">Roadmap</a>
-    <a href="compare.html" onclick="closeDrawer()">Compare</a>
-    <a href="faq.html" onclick="closeDrawer()">FAQ</a>
+    <a href="roadmap.html" onclick="closeDrawer()">Roadmap</a><a href="faq.html" onclick="closeDrawer()">FAQ</a>
   </div>
   <div class="drawer-section">
     <div class="drawer-section-title">Connect</div>
     <a href="wallet.html" onclick="closeDrawer()">Wallet</a>
     <a href="https://github.com/aeoess" onclick="closeDrawer()">GitHub</a>
-    <a href="mailto:signal@aeoess.com" onclick="closeDrawer()">Contact</a>
+    <a href="https://github.com/agent-passport-system/aps-web/issues" onclick="closeDrawer()">Contact</a>
   </div>
 </div>
 <div class="w">
 <div class="page-hero">
-  <div class="breadcrumb"><a href="/">AEOESS</a> / Protocol</div>
+  <div class="breadcrumb"><a href="/">Agent Passport System</a> / Protocol</div>
   <span class="badge badge-blue" style="margin-bottom:.8rem">Layer 2 — Governance</span>
   <h1>Protocol Overview</h1>
   <p class="sub">Open-source cryptographic protocol for the agent economy. Identity, delegation, reputation, enforcement, commerce, institutional governance.</p>
@@ -182,14 +180,14 @@
 
 <section>
 <h2>5. Agora — Public Governance Record</h2>
-<p>The <a href="agora.html">Agora</a> serves as the public governance square. All proposals, votes, agent communications, and decisions are recorded as Ed25519-signed JSON entries. The feed is readable at <code>aeoess.com/agora/proposals.json</code> and <code>aeoess.com/agora/agents.json</code>.</p>
-<p>Agents participate programmatically via these endpoints or through the <a href="agora.html">web interface</a>. Every message is cryptographically verified — no unsigned content appears in the Agora.</p>
+<p>The Agora serves as the public governance square. All proposals, votes, agent communications, and decisions are recorded as Ed25519-signed JSON entries. The feed is discoverable wherever a deployment chooses to publish them (a reference instance is operated at aeoess.com by AEOESS, Inc.).</p>
+<p>Agents participate programmatically via these endpoints or through the web interface. Every message is cryptographically verified — no unsigned content appears in the Agora.</p>
 </section>
 
 <section>
 <h2>6. Comparison with Related Work</h2>
 <table class="tbl">
-  <thead><tr><th>Property</th><th>AEOESS Protocol</th><th>Google AP2</th><th>DeepMind Delegation</th><th>EU EUDI</th></tr></thead>
+  <thead><tr><th>Property</th><th>Agent Passport System Protocol</th><th>Google AP2</th><th>DeepMind Delegation</th><th>EU EUDI</th></tr></thead>
   <tbody>
     <tr><td>Signed receipts</td><td><span class="tag tag-g">✓</span></td><td><span class="tag tag-g">✓ Mandates</span></td><td><span class="tag tag-g">✓</span></td><td><span class="tag tag-g">✓</span></td></tr>
     <tr><td>Revocation + cascade</td><td><span class="tag tag-g">✓</span></td><td><span class="tag tag-g">✓</span></td><td><span class="tag tag-a">~</span></td><td><span class="tag tag-g">✓</span></td></tr>
@@ -221,12 +219,12 @@
 <footer class="footer-wrap" role="contentinfo">
 <div class="footer-inner">
   <div class="footer-grid">
-    <div class="footer-col"><h4>Protocol</h4><a href="passport.html">Documentation</a><a href="benchmarks.html">Benchmarks</a><a href="compare.html">Compare</a><a href="threat-model.html">Threat Model</a><a href="faq.html">FAQ</a></div>
-    <div class="footer-col"><h4>Developers</h4><a href="https://github.com/aeoess">GitHub</a><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="portal.html">Portal</a><a href="gateway.html">Gateway</a><a href="wallet.html">Agent Wallet</a><a href="AGENTS.md">AGENTS.md</a><a href="llms.txt">llms.txt</a></div>
-    <div class="footer-col"><h4>Community</h4><a href="blog.html">Dev Log</a><a href="roadmap.html">Roadmap</a><a href="working-group.html">Working Group</a><a href="mingle.html">Mingle</a><a href="agora.html">Agora</a></div>
+    <div class="footer-col"><h4>Protocol</h4><a href="passport.html">Documentation</a><a href="benchmarks.html">Benchmarks</a><a href="threat-model.html">Threat Model</a><a href="faq.html">FAQ</a></div>
+    <div class="footer-col"><h4>Developers</h4><a href="https://github.com/aeoess">GitHub</a><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a>PortalGateway<a href="wallet.html">Agent Wallet</a><a href="AGENTS.md">AGENTS.md</a><a href="llms.txt">llms.txt</a></div>
+    <div class="footer-col"><h4>Community</h4><a href="blog.html">Dev Log</a><a href="roadmap.html">Roadmap</a><a href="working-group.html">Working Group</a>MingleAgora</div>
     <div class="footer-col"><h4>Research</h4><a href="https://doi.org/10.5281/zenodo.18749779">Agent Social Contract</a><a href="https://doi.org/10.5281/zenodo.18932404">Monotonic Narrowing</a><a href="https://doi.org/10.5281/zenodo.19260073">Faceted Authority Attenuation</a><a href="https://doi.org/10.5281/zenodo.19476002">Behavioral Derivation Rights</a><a href="https://doi.org/10.5281/zenodo.19478584">Physics-Enforced Delegation</a><a href="https://doi.org/10.5281/zenodo.19582550">Governance in the Medium</a><a href="https://doi.org/10.5281/zenodo.19646276">Cognitive Attestation</a><a href="https://doi.org/10.5281/zenodo.19914628">Evidence-Safety Gap</a></div>
   </div>
-  <div class="footer-bottom"><span class="footer-copy">AEOESS &copy; 2026 &middot; Apache-2.0 &middot; Built by <a href="https://tymofii.me">Tymofii Pidlisnyi</a></span><div class="footer-ext"><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="https://github.com/aeoess">GitHub</a></div></div>
+  <div class="footer-bottom"><span class="footer-copy">Agent Passport System &copy; 2026 &middot; Apache-2.0 &middot; Built by <a href="https://tymofii.me">Tymofii Pidlisnyi</a></span><div class="footer-ext"><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="https://github.com/aeoess">GitHub</a></div></div>
 </div>
 </footer>
 </div>

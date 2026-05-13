@@ -2,13 +2,13 @@
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="canonical" href="https://aeoess.com/aivss.html">
-<title>AIVSS Risk Mapping | AEOESS</title>
+    <link rel="canonical" href="https://agent-passport.org/aivss.html">
+<title>AIVSS Risk Mapping | Agent Passport System</title>
 <meta name="description" content="Honest mapping of the Agent Passport System against the OWASP AIVSS risk taxonomy. 5 strong, 3 partial, 2 weak.">
 <link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
-<link rel="alternate" type="text/plain" href="https://aeoess.com/llms.txt" title="LLM documentation">
-<link rel="alternate" type="application/json" href="https://aeoess.com/.well-known/mcp.json" title="MCP server discovery">
-<meta property="og:title" content="AIVSS Risk Mapping — AEOESS"><meta property="og:description" content="How the Agent Passport System maps against 10 AIVSS risks. 5 strong, 3 partial, 2 weak. Honest assessment."><meta property="og:type" content="website"><meta property="og:url" content="https://aeoess.com/aivss.html">
+<link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation">
+<link rel="alternate" type="application/json" href="https://agent-passport.org/.well-known/mcp.json" title="MCP server discovery">
+<meta property="og:title" content="AIVSS Risk Mapping — Agent Passport System"><meta property="og:description" content="How the Agent Passport System maps against 10 AIVSS risks. 5 strong, 3 partial, 2 weak. Honest assessment."><meta property="og:type" content="website"><meta property="og:url" content="https://agent-passport.org/aivss.html">
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,37 +56,35 @@
   },
   "revocation_policy": {
     "mechanism": "aps_txt",
-    "endpoint": "https://aeoess.com/.well-known/aps.txt"
+    "endpoint": "https://agent-passport.org/.well-known/aps.txt"
   },
   "signature": "3c6695030a8a5f62078c07466a5f0a4298f6db8fe99f5bb4a93b1e41a88ad5d09b41a205f634d830dab9473eb230873e3ab9c2954e8165be918dacf6334f9601"
 }
 </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"AIVSS Risk Mapping \u2014 AEOESS","description":"Honest mapping of the Agent Passport System against the OWASP AIVSS risk taxonomy. 5 strong, 3 partial, 2 weak.","url":"https://aeoess.com/aivss.html","dateModified":"2026-05-01","publisher":{"@type":"Organization","name":"AEOESS","url":"https://aeoess.com","logo":{"@type":"ImageObject","url":"https://aeoess.com/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"AIVSS Risk Mapping for the Agent Passport System","articleSection":"Security Analysis"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"AIVSS Risk Mapping \u2014 Agent Passport System","description":"Honest mapping of the Agent Passport System against the OWASP AIVSS risk taxonomy. 5 strong, 3 partial, 2 weak.","url":"https://agent-passport.org/aivss.html","dateModified":"2026-05-01","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"AIVSS Risk Mapping for the Agent Passport System","articleSection":"Security Analysis"}</script>
 </head><body>
 <nav class="nav" id="nav">
-  <a href="/" class="nav-logo"><img src="/assets/images/aeoess_logo-05.png" alt="AEOESS" width="158" height="26" style="height:26px;width:auto"></a>
-  <div class="nav-links"><a href="wallet.html">Wallet</a><a href="blog.html">Blog</a><a href="roadmap.html">Roadmap</a><a href="passport.html">Spec</a><a href="docs.html">API</a><a href="portal.html" style="font-weight:600">Portal</a><a href="https://github.com/aeoess">GitHub</a><a href="mailto:signal@aeoess.com">Contact</a></div>
+  <a href="/" class="nav-logo"><span style="font:600 14px/1 var(--sans,system-ui);letter-spacing:.5px">Agent Passport System</span></a>
+  <div class="nav-links"><a href="wallet.html">Wallet</a><a href="blog.html">Blog</a><a href="roadmap.html">Roadmap</a><a href="passport.html">Spec</a>API<a href="https://github.com/aeoess">GitHub</a><a href="https://github.com/agent-passport-system/aps-web/issues">Contact</a></div>
   <div class="nav-right"><button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button><div class="nav-burger" onclick="this.classList.toggle('open');document.querySelector('.nav-drawer').classList.toggle('open')"><span></span><span></span><span></span></div></div>
 </nav>
 <div class="nav-drawer">
   <div class="drawer-section">
     <div class="drawer-section-title">Build</div>
-    <a href="portal.html" class="drawer-link-primary" onclick="closeDrawer()">Portal</a>
+    Portal
     <a href="passport.html" onclick="closeDrawer()">Spec</a>
-    <a href="docs.html" onclick="closeDrawer()">API Reference</a>
+    API Reference
   </div>
   <div class="drawer-section">
     <div class="drawer-section-title">Explore</div>
     <a href="blog.html" onclick="closeDrawer()">Blog</a>
-    <a href="roadmap.html" onclick="closeDrawer()">Roadmap</a>
-    <a href="compare.html" onclick="closeDrawer()">Compare</a>
-    <a href="faq.html" onclick="closeDrawer()">FAQ</a>
+    <a href="roadmap.html" onclick="closeDrawer()">Roadmap</a><a href="faq.html" onclick="closeDrawer()">FAQ</a>
   </div>
   <div class="drawer-section">
     <div class="drawer-section-title">Connect</div>
     <a href="wallet.html" onclick="closeDrawer()">Wallet</a>
     <a href="https://github.com/aeoess" onclick="closeDrawer()">GitHub</a>
-    <a href="mailto:signal@aeoess.com" onclick="closeDrawer()">Contact</a>
+    <a href="https://github.com/agent-passport-system/aps-web/issues" onclick="closeDrawer()">Contact</a>
   </div>
 </div>
 <div id="nav-placeholder"></div><main style="max-width:960px;margin:0 auto;padding-bottom:4rem">
@@ -109,19 +107,19 @@
 <div class="risk-card"><h3><span class="risk-num">#10</span> Goal Manipulation</h3><p class="mechanism">The protocol enforces scope, not intent alignment. An agent pursuing misaligned goals within literal scope passes all deterministic checks. F-008 (Epistemic Security) provides a governance principle, not a hard mitigation.</p><div class="layers"><span class="layer-tag">F-008: Epistemic Security</span><span class="layer-tag">Adversarial: S10 (expected fail)</span></div><div class="gap-note weak-gap"><strong>Acknowledged gap.</strong> Goal manipulation is internal to agent reasoning (Class 3 attacker). This is fundamentally outside protocol-level enforcement. Future work: evidence-gated mechanisms, runtime attestation (Layer 9).</div></div>
 </div>
 <div class="paper-link"><p style="color:var(--dim);margin-bottom:1rem">Full analysis in the paper: "Monotonic Narrowing for Agent Authority" (Section 7). All adversarial scenarios (S1-S10) have running tests against SDK v1.35.0.</p><a href="https://zenodo.org/records/18749779">Read Paper on Zenodo</a></div>
-<div style="margin:2rem auto;max-width:680px;padding:1.2rem 1.5rem;border:1px solid rgba(99,179,237,.25);border-radius:10px;background:rgba(99,179,237,.06);font-size:.9rem;line-height:1.6;color:var(--dim)"><strong style="color:var(--text)">🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://aeoess.com/llms.txt" style="color:var(--accent)">aeoess.com/llms.txt</a> for machine-readable documentation or <a href="https://aeoess.com/llms-full.txt" style="color:var(--accent)">llms-full.txt</a> for the complete technical reference (2,884 tests, 150 MCP tools, 84+43 modules). This page is designed for humans.</div>
+<div style="margin:2rem auto;max-width:680px;padding:1.2rem 1.5rem;border:1px solid rgba(99,179,237,.25);border-radius:10px;background:rgba(99,179,237,.06);font-size:.9rem;line-height:1.6;color:var(--dim)"><strong style="color:var(--text)">🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt" style="color:var(--accent)">llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt" style="color:var(--accent)">llms-full.txt</a> for the complete technical reference (2,884 tests, 150 MCP tools, 84+43 modules). This page is designed for humans.</div>
 </main>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-S7QVCJGMKR');</script>
 <footer class="footer-wrap" role="contentinfo">
 <div class="footer-inner">
   <div class="footer-grid">
-    <div class="footer-col"><h4>Protocol</h4><a href="passport.html">Documentation</a><a href="benchmarks.html">Benchmarks</a><a href="compare.html">Compare</a><a href="threat-model.html">Threat Model</a><a href="faq.html">FAQ</a></div>
-    <div class="footer-col"><h4>Developers</h4><a href="https://github.com/aeoess">GitHub</a><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="portal.html">Portal</a><a href="gateway.html">Gateway</a><a href="wallet.html">Agent Wallet</a><a href="AGENTS.md">AGENTS.md</a><a href="llms.txt">llms.txt</a></div>
-    <div class="footer-col"><h4>Community</h4><a href="blog.html">Dev Log</a><a href="roadmap.html">Roadmap</a><a href="working-group.html">Working Group</a><a href="mingle.html">Mingle</a><a href="agora.html">Agora</a></div>
+    <div class="footer-col"><h4>Protocol</h4><a href="passport.html">Documentation</a><a href="benchmarks.html">Benchmarks</a><a href="threat-model.html">Threat Model</a><a href="faq.html">FAQ</a></div>
+    <div class="footer-col"><h4>Developers</h4><a href="https://github.com/aeoess">GitHub</a><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a>PortalGateway<a href="wallet.html">Agent Wallet</a><a href="AGENTS.md">AGENTS.md</a><a href="llms.txt">llms.txt</a></div>
+    <div class="footer-col"><h4>Community</h4><a href="blog.html">Dev Log</a><a href="roadmap.html">Roadmap</a><a href="working-group.html">Working Group</a>MingleAgora</div>
     <div class="footer-col"><h4>Research</h4><a href="https://doi.org/10.5281/zenodo.18749779">Agent Social Contract</a><a href="https://doi.org/10.5281/zenodo.18932404">Monotonic Narrowing</a><a href="https://doi.org/10.5281/zenodo.19260073">Faceted Authority Attenuation</a><a href="https://doi.org/10.5281/zenodo.19476002">Behavioral Derivation Rights</a><a href="https://doi.org/10.5281/zenodo.19478584">Physics-Enforced Delegation</a><a href="https://doi.org/10.5281/zenodo.19582550">Governance in the Medium</a><a href="https://doi.org/10.5281/zenodo.19646276">Cognitive Attestation</a><a href="https://doi.org/10.5281/zenodo.19914628">Evidence-Safety Gap</a></div>
   </div>
-  <div class="footer-bottom"><span class="footer-copy">AEOESS &copy; 2026 &middot; Apache-2.0 &middot; Built by <a href="https://tymofii.me">Tymofii Pidlisnyi</a></span><div class="footer-ext"><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="https://github.com/aeoess">GitHub</a></div></div>
+  <div class="footer-bottom"><span class="footer-copy">Agent Passport System &copy; 2026 &middot; Apache-2.0 &middot; Built by <a href="https://tymofii.me">Tymofii Pidlisnyi</a></span><div class="footer-ext"><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="https://github.com/aeoess">GitHub</a></div></div>
 </div>
 </footer>
 <script>
