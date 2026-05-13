@@ -858,18 +858,7 @@ footer a:hover {
 <p class="rm-item-desc">Open-source race-test runner against APS SDK's RevocationStorage primitive landed at SDK commit 20de7e9. Same methodology shape as VeloGerber's audit-pack-signing v0.5 fixture (4 workers, 500 qps, 3 seconds, 3 runs, 18,000 requests; revocation fires at run midpoint; measure time from revocation commit to last ACCEPT for the revoked delegation). Day 80 baseline: 18,000 requests, 0 ACCEPTs after revocation commit, P50/P95/P99/MAX = 0.00ms across all percentiles. Identical headline numbers across two independent substrates (in-process Map vs SQLite WAL multi-process). Methodology portability empirically established. Public-commitment closed within 12 hours of being made on a formal standards-body surface.</p>
 <ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/race-test-revocation.ts">Race-test runner</a></li></ul>
 </article>
-<article class="rm-item rm-item-done" id="d80-pricing-surface-live">
-<header class="rm-item-h">
-<h3 class="rm-item-title">Pricing page goes live with working checkout</h3>
-<p class="rm-item-meta">
-<span class="rm-item-day">Day 80</span> 
-<span class="rm-item-ws">infra</span> 
-<span class="rm-item-status">done</span>
-</p>
-</header>
-<p class="rm-item-desc">Team tier ($99/month, 14-day trial) actually purchasable end-to-end. Stripe payment link wired to /welcome.html on success. Cloudflare Worker at hook.aeoess.com receives Stripe webhook events (checkout.session.completed, customer.subscription.deleted, invoice.payment_failed), verifies HMAC-SHA256 signature, sends notification email to signal@aeoess.com via Resend, and sends welcome email to the customer with 24-hour manual-provisioning posture. Three internal updates landed: CLAIMS.md RESOLVED on Mycelium dual-chain framing, new memory rule for standards-body vs major-company-observer signature forms, orphan $499/mo Enterprise price archived to keep the page sales-led.</p>
-<ul class="rm-item-links"><li><a href="https://aeoess.com/pricing.html">Pricing page</a></li><li><a href="https://aeoess.com/welcome.html">Welcome page</a></li></ul>
-</article>
+
 <article class="rm-item rm-item-done" id="d80-vocab-system-attributes-wave">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Vocab system_attributes wave: three merges, two opens, one under review</h3>
@@ -1838,18 +1827,7 @@ footer a:hover {
 <p class="rm-item-deps"><strong>Depends on:</strong> <code>build-a-attribution-primitive</code></p>
 <ul class="rm-item-links"><li><a href="https://www.npmjs.com/package/agent-passport-system">SDK v1.44.0</a></li><li><a href="https://aeoess.com/blog.html#day-59">Blog</a></li></ul>
 </article>
-<article class="rm-item rm-item-done" id="d59-build-d2-jws-signing">
-<header class="rm-item-h">
-<h3 class="rm-item-title">Build D2 — JWS-signed gateway trust profiles</h3>
-<p class="rm-item-meta">
-<span class="rm-item-day">Day 59</span> 
-<span class="rm-item-ws">Protocol</span> 
-<span class="rm-item-status">done</span>
-</p>
-</header>
-<p class="rm-item-desc">Gateway /api/v1/public/trust/:agentId now attaches compact Ed25519 JWS to successful responses via three headers: X-APS-JWS, X-APS-JWS-KID: gateway-v1, X-APS-JWS-JWKS pointing at the public JWKS. Body unchanged — non-breaking for existing consumers. Cross-engine verifiable with jose: kid matches, alg is EdDSA, signature checks out against the public key. Closes the gap between 'the gateway told me X' and 'I can prove the gateway told me X.'</p>
-<ul class="rm-item-links"><li><a href="https://gateway.aeoess.com/.well-known/jwks.json">Gateway JWKS</a></li></ul>
-</article>
+
 <article class="rm-item rm-item-done" id="d59-portal-retirement">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Coordination layer consolidated</h3>
@@ -2239,18 +2217,7 @@ footer a:hover {
 <p class="rm-item-deps"><strong>Depends on:</strong> <code>paper-3-faceted-authority</code></p>
 <ul class="rm-item-links"><li><a href="https://doi.org/10.5281/zenodo.19478584">Zenodo</a></li></ul>
 </article>
-<article class="rm-item rm-item-done" id="customer-ready-gateway">
-<header class="rm-item-h">
-<h3 class="rm-item-title">Customer-Ready Gateway</h3>
-<p class="rm-item-meta">
-<span class="rm-item-day">Day 50</span> 
-<span class="rm-item-ws">Product</span> 
-<span class="rm-item-status">done</span>
-</p>
-</header>
-<p class="rm-item-desc">Longest session yet. 4-pass audit (30 findings, all fixed). Email infrastructure. Portal redesign. Full API docs. Status page. Admin endpoints. SDK v1.36.4, MCP v2.21.3, Gateway v0.4.0, 2,497 tests.</p>
-<p class="rm-item-deps"><strong>Depends on:</strong> <code>d49-twelve-primitives</code></p>
-</article>
+
 <article class="rm-item rm-item-done" id="d49-twelve-primitives">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Twelve Primitives in One Day</h3>
@@ -2456,42 +2423,9 @@ footer a:hover {
 <p class="rm-item-desc">Agents need to spend money. Coinbase charges gas. ChainHop takes 0.75%. We charge nothing. Three commits, 1,430 new lines. Gateway v0.3.0, 18 → 36 API routes.</p>
 <p class="rm-item-deps"><strong>Depends on:</strong> <code>d40-gateway-wiring</code></p>
 </article>
-<article class="rm-item rm-item-done" id="d40-gateway-dogfood-mini">
-<header class="rm-item-h">
-<h3 class="rm-item-title">Gateway dogfood on Mac Mini + gw CLI</h3>
-<p class="rm-item-meta">
-<span class="rm-item-day">Day 40–42</span> 
-<span class="rm-item-ws">Product</span> 
-<span class="rm-item-status">done</span>
-</p>
-</header>
-<p class="rm-item-desc">Private gateway cloned to the Mac Mini and run via PM2 on port 3200 alongside the Intent Network API. Four agents registered with real Ed25519 keys (tima-principal, claude-operator, portalx2-reviewer, aeoess-gpt-executor). Delegation chain bootstrapped with scoped authority and spend limits (tima→claude $500 build, tima→portal $0 review, claude→portal sub-delegation). Full enforcement test battery passed: scope enforcement, spend tracking, cascade revocation. Built the gw CLI (gw eval, gw receipt, gw dash, gw audit, gw agents) for one-line authorization checks against the live gateway. APS runs on APS — this is the dogfood milestone.</p>
-<p class="rm-item-deps"><strong>Depends on:</strong> <code>gateway-production</code></p>
-</article>
-<article class="rm-item rm-item-done" id="d40-gateway-wiring">
-<header class="rm-item-h">
-<h3 class="rm-item-title">Gateway Wiring</h3>
-<p class="rm-item-meta">
-<span class="rm-item-day">Day 40</span> 
-<span class="rm-item-ws">Protocol</span> 
-<span class="rm-item-status">done</span>
-</p>
-</header>
-<p class="rm-item-desc">Import graph showed only 20% of modules connected to gateway enforcement hub. Four rounds of wiring. 20% → 79% interconnection. SDK v1.29.1, 96 modules, 1,987 tests, 503 suites.</p>
-<p class="rm-item-deps"><strong>Depends on:</strong> <code>institutional-layer</code></p>
-</article>
-<article class="rm-item rm-item-done" id="gateway-production">
-<header class="rm-item-h">
-<h3 class="rm-item-title">Gateway on Railway</h3>
-<p class="rm-item-meta">
-<span class="rm-item-day">Day 40–41</span> 
-<span class="rm-item-ws">Product</span> 
-<span class="rm-item-status">done</span>
-</p>
-</header>
-<p class="rm-item-desc">Production enforcement at gateway.aeoess.com. Multi-tenant. Policy evaluation &lt;1ms. Pixel attribution live.</p>
-<p class="rm-item-deps"><strong>Depends on:</strong> <code>institutional-layer</code></p>
-</article>
+
+
+
 <article class="rm-item rm-item-done" id="paper-3-faceted-authority">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Paper 3: Faceted Authority</h3>
@@ -2696,18 +2630,7 @@ footer a:hover {
 <p class="rm-item-deps"><strong>Depends on:</strong> <code>substack-launch</code></p>
 <ul class="rm-item-links"><li><a href="blog.html#day-28">Blog</a></li></ul>
 </article>
-<article class="rm-item rm-item-done" id="d27-stats-sweep">
-<header class="rm-item-h">
-<h3 class="rm-item-title">Full Stats Sweep + Gateway Decision</h3>
-<p class="rm-item-meta">
-<span class="rm-item-day">Day 27</span> 
-<span class="rm-item-ws">Product</span> 
-<span class="rm-item-status">done</span>
-</p>
-</header>
-<p class="rm-item-desc">Strategic decision day. Full staleness audit across all surfaces. 33 tools → 55 tools. 481 → 511 tests. 16 modules. Gateway architecture call that shaped the next month.</p>
-<p class="rm-item-deps"><strong>Depends on:</strong> <code>d26-mingle-v2</code></p>
-</article>
+
 <article class="rm-item rm-item-done" id="d26-mcp-registry-submission">
 <header class="rm-item-h">
 <h3 class="rm-item-title">MCP Registry listing (distribution)</h3>
@@ -2781,18 +2704,7 @@ footer a:hover {
 <p class="rm-item-desc">Three-layer integration of an AI-native publication with APS. Layer 1 (article provenance): every published article carries an APS signature over canonical article JSON, verifiable at article-level permalink. Layer 2 (journalist passports): each AI journalist persona gets a scoped delegation (topic areas, token budget per article). Layer 3 (Ethics Engine binding): 274 scored articles against 10 checks, credentialing mirrored on NPC membership tiers. Full CTO audit of the 68-file Python pipeline completed before any protocol binding. First production publication running APS receipts end-to-end in its editorial pipeline.</p>
 <p class="rm-item-deps"><strong>Depends on:</strong> <code>reputation-gates</code></p>
 </article>
-<article class="rm-item rm-item-done" id="d24-security-hardening">
-<header class="rm-item-h">
-<h3 class="rm-item-title">Gateway Security Hardening</h3>
-<p class="rm-item-meta">
-<span class="rm-item-day">Day 24</span> 
-<span class="rm-item-ws">Protocol</span> 
-<span class="rm-item-status">done</span>
-</p>
-</header>
-<p class="rm-item-desc">Three gateway bugs fixed. NW-001 memory leak in replay protection. NW-003 crash on unregistered agent. Setup commands, cross-protocol resolve.</p>
-<p class="rm-item-deps"><strong>Depends on:</strong> <code>reputation-gates</code></p>
-</article>
+
 <article class="rm-item rm-item-done" id="d23-mingle-v1">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Mingle v1</h3>
@@ -3381,18 +3293,7 @@ footer a:hover {
 <p class="rm-item-desc">Offered on AARS#32 Day 65 as the path to make the §3.3 conformance bar legible rather than implicit. Lift interop/fixtures/ from the main SDK into a standalone repo with JCS-canonical test vectors covering happy-path, scope expansion, cascade revocation, chain-root verification. Any implementation (Python reimpl, Rust, Go) runs the test matrix and demonstrates conformance without needing to mirror our codebase. Not speculative — only builds if VeloGerber picks path (a) or another reimplementer signals demand. Standalone repo is cleaner to cite in OWASP/IETF documents than pointing at the interop directory of a main SDK.</p>
 <p class="rm-item-deps"><strong>Depends on:</strong> <code>aivss-32-3-3-pr</code></p>
 </article>
-<article class="rm-item rm-item-backlog" id="build-d-gateway-enterprise">
-<header class="rm-item-h">
-<h3 class="rm-item-title">Build D: Gateway Enterprise</h3>
-<p class="rm-item-meta">
-<span class="rm-item-day">Day 70–85</span> 
-<span class="rm-item-ws">Product</span> 
-<span class="rm-item-status">backlog</span>
-</p>
-</header>
-<p class="rm-item-desc">Multi-tenant isolation. Dashboard views. Compliance reports (EU AI Act, GDPR, SOC 2). The monetization layer.</p>
-<p class="rm-item-deps"><strong>Depends on:</strong> <code>build-d1-audit-export</code>, <code>build-d2-jws-fix</code></p>
-</article>
+
 <article class="rm-item rm-item-backlog" id="paper-5-attribution-primitive">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Attribution primitive formal paper (deferred)</h3>
@@ -3441,18 +3342,7 @@ footer a:hover {
 <p class="rm-item-desc">Contingent on AAIF TC triage outcome on project-proposals#14. If AAIF accepts: execute stewardship handoff over Q2 (governance reference, WG continuity, trademark assignment). If AAIF declines or stalls: LF AI &amp; Data as secondary target, or CNCF sandbox as tertiary. Not about replacing the current Working Group — about giving the protocol layer a neutral home so enterprise procurement conversations stop tripping on sole-founder governance.</p>
 <p class="rm-item-deps"><strong>Depends on:</strong> <code>aaif-tc-review-wait</code></p>
 </article>
-<article class="rm-item rm-item-backlog" id="first-paying-gateway-customer">
-<header class="rm-item-h">
-<h3 class="rm-item-title">First paying gateway customer (revenue threshold)</h3>
-<p class="rm-item-meta">
-<span class="rm-item-day">Day 65–90</span> 
-<span class="rm-item-ws">Product</span> 
-<span class="rm-item-status">backlog</span>
-</p>
-</header>
-<p class="rm-item-desc">Commercial milestone: first tenant on the hosted gateway converts from free tier to paid (Team $99/mo or Enterprise $499/mo). Until this hits, gateway revenue is zero regardless of how much governance evidence the protocol generates. Portal + billing infrastructure is already live (Day 49-50 customer-ready work). Actual conversion is a sales-and-outreach motion, not a build motion. Tima's lane.</p>
-<p class="rm-item-deps"><strong>Depends on:</strong> <code>customer-ready-gateway</code></p>
-</article>
+
 <article class="rm-item rm-item-backlog" id="a2a-1713-dual-signature">
 <header class="rm-item-h">
 <h3 class="rm-item-title">A2A #1713: Dual-Signature</h3>
@@ -3606,17 +3496,7 @@ footer a:hover {
 </header>
 <p class="rm-item-desc">Email to security@cursor.com framing IPR as a structural mitigation for the recent instruction-file advisory class. Subject: 'Action time drift check for authority bearing instruction files.' Honest-scope language about what IPR does not do (it does not classify files as malicious; it only binds authority to the file state at delegation time). 5-business-day acknowledgment cadence per Cursor's published disclosure path.</p>
 </article>
-<article class="rm-item rm-item-unspecified" id="d72-gateway-poc-public">
-<header class="rm-item-h">
-<h3 class="rm-item-title">Gateway proof-of-concept made public</h3>
-<p class="rm-item-meta">
-<span class="rm-item-day">Day 72</span> 
-<span class="rm-item-ws">unassigned</span> 
-<span class="rm-item-status">unspecified</span>
-</p>
-</header>
-<p class="rm-item-desc">aeoess/aeoess-gateway-v0-poc is a minimal HTTP service that recomputes the IPR context_root against the declared file set at action time and denies if the digest no longer matches the receipt. Three case fixtures (create_pr, read_file, send_payment) demonstrate before/after deny semantics. APS is one implementation of the receipt shape; the pattern works for any agent runtime that wants to bind authority to a file-content digest.</p>
-</article>
+
 <article class="rm-item rm-item-unspecified" id="d72-ipr-module-shipped">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Instruction Provenance Receipt module shipped</h3>
