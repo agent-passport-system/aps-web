@@ -87,7 +87,7 @@
     <div class="b-stat"><span class="num">&lt;2ms</span><span class="label">p50 Policy Eval</span></div>
     <div class="b-stat"><span class="num">403</span><span class="label">Ops/sec</span></div>
     <div class="b-stat"><span class="num">&lt;1ms</span><span class="label">Deny Latency</span></div>
-    <div class="b-stat"><span class="num">14</span><span class="label">Constraint Dims</span></div>
+    <div class="b-stat"><span class="num">15</span><span class="label">Constraint Dims</span></div>
   </div>
 
   <div class="b-section">
@@ -95,7 +95,7 @@
     <p>Every agent action passes through the ProxyGateway enforcement boundary. The gateway checks delegation scope, spend limits, reputation tier, values floor, revocation status, taint, anomaly detection, and more. The design principle: deny fast, log everything.</p>
     <table class="b-table">
       <tr><th>Metric</th><th class="num">Value</th><th>Notes</th></tr>
-      <tr><td>Policy evaluation p50</td><td class="num">&lt;2ms</td><td>Full 14-dimension constraint check</td></tr>
+      <tr><td>Policy evaluation p50</td><td class="num">&lt;2ms</td><td>Full 15-dimension constraint check</td></tr>
       <tr><td>Policy evaluation p95</td><td class="num">&lt;5ms</td><td>Including reputation lookup</td></tr>
       <tr><td>Policy evaluation p99</td><td class="num">&lt;10ms</td><td>Worst case with cold cache</td></tr>
       <tr><td>Denial latency</td><td class="num">&lt;1ms</td><td>Fail-fast on first constraint violation</td></tr>
@@ -134,10 +134,10 @@
       <tr><th>Component</th><th class="num">Count</th><th>Notes</th></tr>
       <tr><td>Protocol modules</td><td class="num">127</td><td>84 core + 43 v2 constitutional</td></tr>
       <tr><td>MCP tools</td><td class="num">150</td><td>Full protocol surface via MCP</td></tr>
-      <tr><td>Tests</td><td class="num">2,546</td><td>Including adversarial + invariant suites</td></tr>
+      <tr><td>Tests</td><td class="num">2,884</td><td>Including adversarial + invariant suites</td></tr>
       <tr><td>Gateway routes</td><td class="num">33</td><td>REST API for enforcement + admin</td></tr>
       <tr><td>Module connectivity</td><td class="num">79%</td><td>Connected through gateway enforcement hub</td></tr>
-      <tr><td>Research papers</td><td class="num">3</td><td>Zenodo, independently cited</td></tr>
+      <tr><td>Research papers</td><td class="num">8</td><td>Zenodo, independently cited</td></tr>
     </table>
   </div>
 
