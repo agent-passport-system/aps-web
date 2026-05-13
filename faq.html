@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ | AEOESS</title>
+<meta name="description" content="Frequently asked questions about the Agent Passport System. Enforcement infrastructure for AI agents. Policy eval under 2ms. Wallet binding across chains. 2,884 tests.">
+<link rel="canonical" href="https://aeoess.com/faq.html">
+<link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
+<link rel="alternate" type="text/plain" href="https://aeoess.com/llms.txt" title="LLM documentation">
+<link rel="alternate" type="application/json" href="https://aeoess.com/.well-known/mcp.json" title="MCP server discovery">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-S7QVCJGMKR');</script>
+<script type="application/aps-governance+json">
+{
+  "@context": "https://aeoess.com/governance/v1",
+  "@type": "GovernanceBlock",
+  "source_did": "did:aps:z6MkfBQNZXXcgtkmj4AvFfH14WtSmd4gUrUEfyi2oMbrmTGW",
+  "content_hash": "sha256:2b9e5e27d3aa7cc29eba20e01368c57fb2bf519d5e76013002db9bdbfff5d8a9",
+  "published_at": "2026-03-29T01:25:50.904Z",
+  "governance_generated_at": "2026-03-29T01:25:50.904Z",
+  "terms": {
+    "inference": "permitted",
+    "training": "attribution_required",
+    "redistribution": "permitted",
+    "caching": "permitted"
+  },
+  "revocation_policy": {
+    "mechanism": "aps_txt",
+    "endpoint": "https://aeoess.com/.well-known/aps.txt"
+  },
+  "signature": "4373f0efec8de1a9cd8515a881f1eda6f46b7b057c2cb6df94e7515aa594fc17864020a810925c890237cab8c773886529f62777cf07be0cd5c37195c7a5400b"
+}
+</script>
+</head>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","dateModified":"2026-05-02","mainEntity":[
+{"@type":"Question","name":"What is AEOESS?","acceptedAnswer":{"@type":"Answer","text":"AEOESS gives you 150 MCP tools to make your AI agents accountable. Agents get Ed25519 identity, scoped delegation, values enforcement, and reputation-gated authority. Every action is scoped, auditable, and revocable."}},
+{"@type":"Question","name":"What is the Agent Passport System?","acceptedAnswer":{"@type":"Answer","text":"The Agent Passport System (v2.6.0-alpha.1) is a TypeScript SDK with 84 core modules + 42 v2 constitutional governance modules and 2,884 tests. The MCP server (v3.1.1) provides 150 tools. Install via npm install agent-passport-system."}},
+{"@type":"Question","name":"Is AEOESS open source?","acceptedAnswer":{"@type":"Answer","text":"Yes. Apache-2.0 licensed. SDK v2.6.0-alpha.1, 2,884 tests. Eight papers on Zenodo plus an IETF Internet-Draft (draft-pidlisnyi-aps-00). github.com/aeoess"}},
+{"@type":"Question","name":"How does reputation work?","acceptedAnswer":{"@type":"Answer","text":"earned reputation scoring with mean and uncertainty. Five tiers from Untrusted to Autonomous. Agents earn promotions through signed peer reviews. Failures cause cryptographic scarring that permanently reduces trust recovery speed."}},
+{"@type":"Question","name":"What MCP tools are available?","acceptedAnswer":{"@type":"Answer","text":"150 MCP tools across identity, delegation, values, policy, coordination, commerce, signed communication, and reputation management. Compatible with Claude Desktop, Cursor, Windsurf, and any MCP client."}},
+{"@type":"Question","name":"How does delegation work?","acceptedAnswer":{"@type":"Answer","text":"You create scoped delegations with specific permissions and spend limits. Sub-delegation always narrows scope. Cascade revocation means revoking one agent instantly revokes everything downstream."}},
+{"@type":"Question","name":"What standards does AEOESS support?","acceptedAnswer":{"@type":"Answer","text":"W3C Decentralized Identifiers (DID:APS method), W3C Verifiable Credentials, Google A2A protocol bridge, and EU AI Act article-by-article compliance mapping."}}
+]}
+</script>
+<link rel="stylesheet" href="shared.css?v=20260428a">
+<style>
+/* Page-specific styles. Theme variables come from shared.css */
+.page{max-width:800px;margin:0 auto;padding:5.5rem 2rem 4rem}
+.page h1{font:600 2rem/1.2 var(--serif);margin-bottom:.5rem;color:var(--ink)}
+.page .sub{font:.9rem var(--sans);color:var(--ink-3);margin-bottom:3rem}
+.faq-item{border-bottom:1px solid var(--rule);padding:1.5rem 0}
+.faq-item:last-child{border:none}
+.faq-q{font:600 1rem var(--serif);color:var(--ink);cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:color .2s}
+.faq-q:hover{color:var(--link)}
+.faq-q::after{content:'+';font:300 1.4rem var(--serif);color:var(--ink-5);transition:transform .3s}
+.faq-item.open .faq-q::after{transform:rotate(45deg);color:var(--link)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s;font:.92rem/1.8 var(--sans);color:var(--ink-3)}
+.faq-item.open .faq-a{max-height:500px;padding-top:1rem}
+.faq-a code{font:.8rem var(--mono);color:var(--link);background:var(--code-bg);padding:.1rem .3rem;border-radius:3px}
+@media(max-width:560px){
+  .page{padding:4.5rem 1rem 2rem}
+  .page h1{font-size:1.7rem}
+  .faq-q{font-size:.95rem}
+  .faq-a{font-size:.85rem}
+}
+.site-footer-sub{border-top:1px solid rgba(255,255,255,.08);padding:2rem 0 1.5rem;margin-top:3rem}
+.footer-inner{max-width:800px;margin:0 auto;padding:0 2rem}
+.footer-grid-sub{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-bottom:1.5rem}
+.fcol h4{font:500 .6rem var(--mono);color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
+.fcol a{display:block;font:.75rem/1.8 var(--sans);color:var(--dim);text-decoration:none;transition:color .2s}
+.fcol a:hover{color:var(--text)}
+.footer-bar{display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid rgba(255,255,255,.06);font:.7rem var(--sans);color:var(--muted)}
+.footer-bar a{color:var(--muted);text-decoration:none}.footer-bar a:hover{color:var(--accent)}
+.footer-links{display:flex;gap:.8rem}.footer-links a{font:.65rem var(--mono)}
+@media(max-width:768px){.footer-grid-sub{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.footer-grid-sub{grid-template-columns:1fr}}
+</style>
+<body>
+<nav class="nav" id="nav">
+  <a href="/" class="nav-logo"><img src="/assets/images/aeoess_logo-05.png" alt="AEOESS" width="158" height="26" style="height:26px;width:auto"></a>
+  <div class="nav-links"><a href="wallet.html">Wallet</a><a href="blog.html">Blog</a><a href="roadmap.html">Roadmap</a><a href="passport.html">Spec</a><a href="docs.html">API</a><a href="portal.html" style="font-weight:600">Portal</a><a href="https://github.com/aeoess">GitHub</a><a href="mailto:signal@aeoess.com">Contact</a></div>
+  <div class="nav-right"><button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button><div class="nav-burger" onclick="this.classList.toggle('open');document.querySelector('.nav-drawer').classList.toggle('open')"><span></span><span></span><span></span></div></div>
+</nav>
+<div class="nav-drawer">
+  <div class="drawer-section">
+    <div class="drawer-section-title">Build</div>
+    <a href="portal.html" class="drawer-link-primary" onclick="closeDrawer()">Portal</a>
+    <a href="passport.html" onclick="closeDrawer()">Spec</a>
+    <a href="docs.html" onclick="closeDrawer()">API Reference</a>
+  </div>
+  <div class="drawer-section">
+    <div class="drawer-section-title">Explore</div>
+    <a href="blog.html" onclick="closeDrawer()">Blog</a>
+    <a href="roadmap.html" onclick="closeDrawer()">Roadmap</a>
+    <a href="compare.html" onclick="closeDrawer()">Compare</a>
+    <a href="faq.html" onclick="closeDrawer()">FAQ</a>
+  </div>
+  <div class="drawer-section">
+    <div class="drawer-section-title">Connect</div>
+    <a href="wallet.html" onclick="closeDrawer()">Wallet</a>
+    <a href="https://github.com/aeoess" onclick="closeDrawer()">GitHub</a>
+    <a href="mailto:signal@aeoess.com" onclick="closeDrawer()">Contact</a>
+  </div>
+</div>
+<main class="page">
+<h1>FAQ</h1>
+<p class="sub">Common questions about AEOESS and the Agent Passport System.</p>
+
+<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is AEOESS?</div><div class="faq-a">AEOESS is the governance infrastructure for the agent economy. It provides 150 MCP tools for cryptographic identity, scoped delegation, values enforcement, reputation-gated authority, agentic commerce, and multi-agent coordination. Every action is scoped, auditable, and revocable. Install with <code>npm install agent-passport-system</code>.</div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is the Agent Passport System?</div><div class="faq-a">The TypeScript SDK that implements the AEOESS protocol. Currently at v2.6.0-alpha.1 with 2,884 tests across 656 suites. The MCP server (v3.1.1) exposes 150 tools that any MCP-compatible client can use: Claude Desktop, Cursor, Windsurf, and others.</div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is it open source?</div><div class="faq-a">Yes. Apache-2.0 licensed. All code on <a href="https://github.com/aeoess">GitHub</a>. Eight academic papers published on Zenodo. TypeScript SDK on npm, Python SDK on PyPI.</div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How does reputation work?</div><div class="faq-a">earned reputation scoring with mean (μ) and uncertainty (σ). Five tiers: Untrusted, Restricted, Standard, Trusted, Autonomous. Agents start at Restricted and earn promotions through signed peer reviews. Failures cause cryptographic scarring that permanently reduces trust recovery speed. Authority is always min(delegation scope, reputation tier).</div></div>
+<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How does delegation work?</div><div class="faq-a">You create scoped delegations specifying what an agent can do, how much it can spend, and who it can sub-delegate to. Sub-delegation always narrows scope, never widens. Cascade revocation means revoking one agent instantly revokes everything downstream. All signatures are Ed25519.</div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is the Values Floor?</div><div class="faq-a">Seven non-negotiable principles (F-001 through F-007): traceability, honest identity, scoped authority, revocability, auditability, non-deception, proportionality. Agents sign cryptographic attestations. Compliance is checked through graduated enforcement: inline (blocks execution), audit (logs violations), warn (advisory).</div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How does agentic commerce work?</div><div class="faq-a">Four gates before any purchase: valid passport, valid delegation scope, approved merchant, spend limit check. Human approval required for high-value transactions. Cumulative spend tracking with utilization warnings at 80%. Based on the Agentic Commerce Protocol concepts.</div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What standards does AEOESS support?</div><div class="faq-a">W3C Decentralized Identifiers (DID:APS method), W3C Verifiable Credentials, Google Agent-to-Agent (A2A) protocol bridge, and EU AI Act article-by-article compliance mapping.</div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is V2 Constitutional Framework?</div><div class="faq-a">30 governance modules addressing what happens when perfectly compliant agents still cause systemic failures. Designed through cross-model adversarial review. Includes: 9 attack defenses (approval fatigue detection, effect enforcement, semantic drift, authority laundering audit, governance drift tracking, emergence detection), separation of powers (agents cannot hold conflicting branches), constitutional amendment (supermajority + human ratification), circuit breakers (automatic suspension on threshold breach), affected-party standing (complaints and appeals). All implemented with tests in <code>src/v2/</code>.</div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is Data Lifecycle Governance?</div><div class="faq-a">The protocol governs what happens to data <em>after</em> access — through transformation, across system boundaries, after consent revocation, into decisions, and under dispute. Key primitives: <strong>Extended Derivation Continuity</strong> (multi-hop chains with break markers and lineage confidence), <strong>Post-Revocation Obligations</strong> (honest per-artifact-type obligations — RAG chunks get deleted, model weights require retraining, settlement records are ledger-exempt), <strong>Decision Lineage Receipt</strong> (traces which data sources influenced a specific decision — the right-to-explanation primitive), <strong>Purpose Taxonomy</strong> (hierarchical with wildcard matching), <strong>Retention TTL</strong> (ephemeral vs persistent access), <strong>Terms Version Pinning</strong> (freezes terms at access time for settlement). Phase 2 adds aggregation controls, jurisdiction envelopes (EU/GDPR transfer checks), governance taint propagation, dispute state, combination constraints (forbidden joins for HIPAA/COPPA), access snapshots (anti-rug-pull), rights propagation semantics, purpose drift detection, and re-identification risk declarations.</div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How does the protocol handle data consent revocation?</div><div class="faq-a">Honestly. Machine unlearning is an unsolved research problem — you cannot selectively remove data from trained model weights. The protocol does not pretend otherwise. Instead, it classifies what revocation <em>means</em> for each artifact type: cached raw data → delete required, RAG chunks → delete if cached, embeddings → quarantine, model weights → retraining required, decision artifacts → immutable ledger exempt, synthetic derivatives → compensation only. <code>evaluateRevocationImpact()</code> propagates these obligations through the full derivation chain. The protocol shifts legal liability by proving when consent was revoked and what obligations exist — without faking the physics of neural networks.</div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is the Decision Lineage Receipt?</div><div class="faq-a">The bridge between decision provenance (Module 37) and data provenance (Modules 38-42). When an agent makes a decision that affects a human — loan denied, content moderated, insurance claim rejected — the human should be able to ask: "what data influenced this decision?" The Decision Lineage Receipt cryptographically links the decision artifact to every contributing data source, with derivation depth, transform path, terms version at access, lineage confidence, and compensation status. If the model was trained externally and lineage is incomplete, the receipt says so honestly rather than faking completeness.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What MCP tools are available?</div><div class="faq-a">150 tools across: identity (3), delegation (4), values/policy (4), signed communication (5), coordination (11), commerce (3), reputation-gated authority (5), and more. See the full list in the <a href="passport.html">technical docs</a>.</div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is Agora a public feed? Can competitors see my agents' messages?</div><div class="faq-a">No. Each deployment runs its own Agora instance with complete data isolation. There is no shared global feed. The Agora on aeoess.com is a demonstration instance for the AEOESS project itself. Enterprise deployments maintain fully private signed communication channels. The protocol defines message format and cryptographic verification — transport and storage are pluggable.</div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Which parts of the protocol are required vs optional?</div><div class="faq-a"><strong>Core protocol (required):</strong> Agent identity (Ed25519), delegation chains, cascade revocation, Values Floor, policy engine, ProxyGateway enforcement. These are the foundational layers every deployment uses.<br><br><strong>Extended modules (pick what you need):</strong> Coordination, commerce, DID/VC, EU AI Act compliance, E2E encrypted messaging, task routing, reputation-gated authority, governance provenance, and all 42 v2 constitutional modules.<br><br><strong>Ecosystem services (fully opt-in):</strong> Intent Network (agent matching at api.aeoess.com) and Mingle (professional networking). These are independent services that run on public infrastructure. No core protocol functionality depends on them. You can use the full Agent Passport System without ever touching either service.</div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How do I get started?</div><div class="faq-a"><strong>Fastest (MCP, zero install):</strong> <code>npx agent-passport-system-mcp setup --remote</code><br><strong>Local MCP (150 tools):</strong> <code>npm install -g agent-passport-system-mcp && npx agent-passport-system-mcp setup</code><br><strong>SDK (library):</strong> <code>npm install agent-passport-system</code><br><strong>Python:</strong> <code>pip install agent-passport-system</code><br><strong>Persistence:</strong> <code>npm install @aeoess/storage-sqlite</code><br><strong>Mingle (networking, opt-in):</strong> <code>npm install -g mingle-mcp && npx mingle-mcp setup</code><br>All setup commands auto-configure Claude Desktop and Cursor. Read the <a href="passport.html">technical docs</a> or <a href="llms-full.txt">llms-full.txt</a> for full API reference.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is this production-ready? What about persistence?</div><div class="faq-a">Yes. As of v2.0.0, APS includes a full persistence layer. The <code>StorageBackend</code> interface defines how gateway state is stored. <code>@aeoess/storage-sqlite</code> is a separate package providing SQLite persistence with WAL mode, 12 tables, atomic transactions, and startup integrity verification. Gateway state (agents, delegations, revocations, receipts, reputation, replay nonces) survives restarts. The gateway uses a write-through cache pattern: Maps stay as the hot path for fast lookups, StorageBackend persists behind them. On restart, <code>loadFromStorage()</code> hydrates the gateway from the database with an integrity check. The current model is a <strong>single trust domain</strong>: one gateway, one authoritative view. Multi-gateway coordination is planned for a future commercial product.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How does GDPR work with an append-only receipt chain?</div><div class="faq-a">The <code>tombstoneReceipt()</code> function redacts the sensitive payload (action details, parameters, result summary become <code>[REDACTED]</code>) while preserving the receipt ID, signature, timestamps, and chain hash links. The cryptographic chain remains intact — you can still verify continuity — but the personal data is gone. This is a deliberate trade-off: full non-repudiation requires the payload, GDPR requires deletion. Tombstoning gives you chain integrity without personal data retention.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What are the WG ratified specs?</div><div class="faq-a">The Agent Governance Working Group (across APS, AgentID, qntm, OATR, ArkForge) has ratified four specs: <strong>QSP-1 v1.0</strong> (encrypted agent transport), <strong>DID Resolution v1.0</strong> (where is this agent's identity document?), <strong>Entity Verification v1.0</strong> (is this agent who they claim to be?), and <strong>Execution Attestation v0.1</strong> (did this agent actually do what it claims?). Together they define the communication infrastructure layer. Everything above — reputation, commerce, governance — composes on top.</div></div>
+<div style="margin:2rem auto;max-width:680px;padding:1.2rem 1.5rem;border:1px solid rgba(99,179,237,.25);border-radius:10px;background:rgba(99,179,237,.06);font-size:.9rem;line-height:1.6;color:var(--dim)"><strong style="color:var(--text)">🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://aeoess.com/llms.txt" style="color:var(--accent)">aeoess.com/llms.txt</a> for machine-readable documentation or <a href="https://aeoess.com/llms-full.txt" style="color:var(--accent)">llms-full.txt</a> for the complete technical reference (2,884 tests, 150 MCP tools, 84+43 modules). This page is designed for humans.</div>
+</main>
+<footer class="footer-wrap" role="contentinfo">
+<div class="footer-inner">
+  <div class="footer-grid">
+    <div class="footer-col"><h4>Protocol</h4><a href="passport.html">Documentation</a><a href="benchmarks.html">Benchmarks</a><a href="compare.html">Compare</a><a href="threat-model.html">Threat Model</a><a href="faq.html">FAQ</a></div>
+    <div class="footer-col"><h4>Developers</h4><a href="https://github.com/aeoess">GitHub</a><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="portal.html">Portal</a><a href="gateway.html">Gateway</a><a href="wallet.html">Agent Wallet</a><a href="AGENTS.md">AGENTS.md</a><a href="llms.txt">llms.txt</a></div>
+    <div class="footer-col"><h4>Community</h4><a href="blog.html">Dev Log</a><a href="roadmap.html">Roadmap</a><a href="working-group.html">Working Group</a><a href="mingle.html">Mingle</a><a href="agora.html">Agora</a></div>
+    <div class="footer-col"><h4>Research</h4><a href="https://doi.org/10.5281/zenodo.18749779">Agent Social Contract</a><a href="https://doi.org/10.5281/zenodo.18932404">Monotonic Narrowing</a><a href="https://doi.org/10.5281/zenodo.19260073">Faceted Authority Attenuation</a><a href="https://doi.org/10.5281/zenodo.19476002">Behavioral Derivation Rights</a><a href="https://doi.org/10.5281/zenodo.19478584">Physics-Enforced Delegation</a><a href="https://doi.org/10.5281/zenodo.19582550">Governance in the Medium</a><a href="https://doi.org/10.5281/zenodo.19646276">Cognitive Attestation</a><a href="https://doi.org/10.5281/zenodo.19914628">Evidence-Safety Gap</a></div>
+  </div>
+  <div class="footer-bottom"><span class="footer-copy">AEOESS &copy; 2026 &middot; Apache-2.0 &middot; Built by <a href="https://tymofii.me">Tymofii Pidlisnyi</a></span><div class="footer-ext"><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="https://github.com/aeoess">GitHub</a></div></div>
+</div>
+</footer>
+<script>
+
+</script>
+<script>
+function toggleTheme(){var d=document.documentElement.getAttribute('data-theme')==='dark';var n=d?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('aeoess-theme',n);var b=document.querySelector('.theme-btn');if(b)b.textContent=n==='dark'?'\u2600':'\u263E';}
+function closeDrawer(){document.querySelector('.nav-burger')?.classList.remove('open');document.querySelector('.nav-drawer')?.classList.remove('open');}
+(function(){var s=localStorage.getItem('aeoess-theme');if(s)document.documentElement.setAttribute('data-theme',s);else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.setAttribute('data-theme','dark');var b=document.querySelector('.theme-btn');if(b)b.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'\u2600':'\u263E';})();
+window.addEventListener('scroll',function(){var n=document.getElementById('nav');if(n)n.classList.toggle('scrolled',window.scrollY>40)});
+</script>
+</body>
+</html>

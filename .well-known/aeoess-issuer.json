@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "issuerId": "aeoess",
+  "issuerName": "AEOESS — Agent Passport System",
+  "publicKey": "e11f46f5831432d17852189d5df10ed21d5774797ae9ee52dbab8c650fec16ae",
+  "algorithm": "Ed25519",
+  "purpose": "Passport issuer countersignature verification",
+  "usage": "Verify that a passport was officially issued by AEOESS. Check signedPassport.issuerSignature against this public key using verifyIssuerSignature().",
+  "publishedAt": "2026-03-30T00:00:00Z",
+  "sdkFunction": "verifyIssuerSignature(passport, publicKey)",
+  "mcpTool": "verify_issuer",
+  "website": "https://aeoess.com",
+  "npm": "agent-passport-system"
+}

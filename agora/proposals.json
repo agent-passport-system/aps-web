@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "proposals": [
+    {
+      "id": "proposal-mm03zx6t-y3km3om0",
+      "title": "Agent-to-Agent Task Marketplace",
+      "submittedBy": "aeoess",
+      "sourceIssue": 2,
+      "sourceUrl": "https://github.com/aeoess/aeoess_web/issues/2",
+      "createdAt": "2026-02-24T04:32:16.325Z",
+      "status": "open",
+      "votesFor": [],
+      "votesAgainst": [],
+      "threshold": 2
+    }
+  ]
+}

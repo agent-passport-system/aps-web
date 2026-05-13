@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+    <link rel="canonical" href="https://aeoess.com/docs.html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API Reference | AEOESS</title>
+<meta name="description" content="AEOESS Gateway API reference. Endpoints for agent governance, delegations, evaluations, trust profiles, wallets, and governance export.">
+<link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css?v=20260428a">
+<style>
+.docs-wrap{max-width:900px;margin:0 auto;padding:2rem 1.5rem}
+.docs-nav{position:sticky;top:60px;float:left;width:180px;padding-right:1.5rem;font-size:.8rem;line-height:2}
+.docs-nav a{display:block;color:var(--ink-4);text-decoration:none;padding:.1rem 0}
+.docs-nav a:hover{color:var(--ink)}
+.docs-content{margin-left:200px}
+@media(max-width:768px){.docs-nav{display:none}.docs-content{margin-left:0}}
+
+.endpoint{margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--rule)}
+.endpoint:last-child{border-bottom:none}
+.endpoint h3{font:600 1rem var(--sans);margin-bottom:.5rem;display:flex;align-items:center;gap:.6rem}
+.method{font:.7rem var(--mono);padding:.2rem .5rem;border-radius:4px;text-transform:uppercase;letter-spacing:.04em}
+.method.post{background:rgba(59,130,246,.1);color:#3b82f6}
+.method.get{background:rgba(22,163,74,.1);color:#16a34a}
+.method.put{background:rgba(234,179,8,.1);color:#ca8a04}
+.method.delete{background:rgba(220,38,38,.1);color:#dc2626}
+.path{font:500 .85rem var(--mono);color:var(--ink)}
+.desc{font:.9rem var(--sans);color:var(--ink-3);margin-bottom:.8rem;line-height:1.5}
+
+.params{width:100%;border-collapse:collapse;font:.82rem var(--sans);margin:.8rem 0}
+.params th{font:.65rem var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-4);text-align:left;padding:.4rem .5rem;border-bottom:1px solid var(--rule)}
+.params td{padding:.4rem .5rem;border-bottom:1px solid var(--rule-light);color:var(--ink-2);vertical-align:top}
+.params td code{font:.78rem var(--mono);background:var(--code-bg);padding:.1rem .3rem;border-radius:3px}
+.tag{font:.65rem var(--mono);padding:.1rem .3rem;border-radius:3px}
+.tag.req{background:rgba(220,38,38,.08);color:#dc2626}
+.tag.opt{background:rgba(59,130,246,.08);color:#3b82f6}
+
+pre.example{background:var(--code-bg);color:var(--ink);padding:.8rem 1rem;border-radius:8px;font:.78rem/1.6 var(--mono);overflow-x:auto;margin:.6rem 0}
+pre.example .comment{color:#6b7280}
+
+.section-title{font:700 1.6rem var(--serif);color:var(--ink);margin:2.5rem 0 1rem;padding-top:1rem}
+.section-title:first-child{margin-top:0}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"API Reference \u2014 AEOESS Gateway","description":"AEOESS Gateway API reference. Endpoints for agent governance, delegations, evaluations, trust profiles, wallets, and governance export.","url":"https://aeoess.com/docs.html","dateModified":"2026-04-11","publisher":{"@type":"Organization","name":"AEOESS","url":"https://aeoess.com","logo":{"@type":"ImageObject","url":"https://aeoess.com/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"AEOESS Gateway API Reference","articleSection":"API Documentation","proficiencyLevel":"Expert"}</script>
+</head>
+<body>
+<nav class="nav" id="nav">
+  <a href="/" class="nav-logo"><img src="/assets/images/aeoess_logo-05.png" alt="AEOESS" width="158" height="26" style="height:26px;width:auto"></a>
+  <div class="nav-links"><a href="wallet.html">Wallet</a><a href="blog.html">Blog</a><a href="roadmap.html">Roadmap</a><a href="passport.html">Spec</a><a href="docs.html">API</a><a href="portal.html" style="font-weight:600">Portal</a><a href="https://github.com/aeoess">GitHub</a><a href="mailto:signal@aeoess.com">Contact</a></div>
+  <div class="nav-right"><button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button><div class="nav-burger" onclick="this.classList.toggle('open');document.querySelector('.nav-drawer').classList.toggle('open')"><span></span><span></span><span></span></div></div>
+</nav>
+<div class="nav-drawer">
+  <div class="drawer-section">
+    <div class="drawer-section-title">Build</div>
+    <a href="portal.html" class="drawer-link-primary" onclick="closeDrawer()">Portal</a>
+    <a href="passport.html" onclick="closeDrawer()">Spec</a>
+    <a href="docs.html" onclick="closeDrawer()">API Reference</a>
+  </div>
+  <div class="drawer-section">
+    <div class="drawer-section-title">Explore</div>
+    <a href="blog.html" onclick="closeDrawer()">Blog</a>
+    <a href="roadmap.html" onclick="closeDrawer()">Roadmap</a>
+    <a href="compare.html" onclick="closeDrawer()">Compare</a>
+    <a href="faq.html" onclick="closeDrawer()">FAQ</a>
+  </div>
+  <div class="drawer-section">
+    <div class="drawer-section-title">Connect</div>
+    <a href="wallet.html" onclick="closeDrawer()">Wallet</a>
+    <a href="https://github.com/aeoess" onclick="closeDrawer()">GitHub</a>
+    <a href="mailto:signal@aeoess.com" onclick="closeDrawer()">Contact</a>
+  </div>
+</div>
+
+<div class="docs-wrap">
+
+<aside class="docs-nav">
+  <strong style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-4)">API Reference</strong>
+  <a href="#getting-started">Getting Started</a>
+  <a href="#authentication">Authentication</a>
+  <a href="#agents">Agents</a>
+  <a href="#delegations">Delegations</a>
+  <a href="#evaluations">Evaluations</a>
+  <a href="#trust">Trust</a>
+  <a href="#wallets">Wallets</a>
+  <a href="#governance">Governance Export</a>
+  <a href="#billing">Billing</a>
+</aside>
+
+<div class="docs-content">
+
+<h1 style="font:700 2rem var(--serif);margin-bottom:.3rem">API Reference</h1>
+<p style="color:var(--ink-3);font-size:1rem;margin-bottom:2rem">AEOESS Gateway v0.4.0</p>
+
+<!-- GETTING STARTED -->
+<div id="getting-started">
+<h2 class="section-title">Getting Started</h2>
+
+<div style="background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:1.2rem;margin-bottom:1.5rem;font:.9rem var(--sans);line-height:1.7">
+  <strong>Base URL:</strong> <code style="font:.85rem var(--mono)">https://gateway.aeoess.com/api/v1</code><br>
+  <strong>Authentication:</strong> Bearer token in <code>Authorization</code> header<br>
+  <strong>Get your API key:</strong> <a href="/portal.html" style="color:var(--link)">portal.html</a><br>
+  <strong>All responses:</strong> JSON (<code>Content-Type: application/json</code>)
+</div>
+
+<pre class="example"><span class="comment"># Every authenticated request looks like this:</span>
+curl -H "Authorization: Bearer aps_live_..." \
+  https://gateway.aeoess.com/api/v1/dashboard</pre>
+</div>
+
+<!-- AUTHENTICATION -->
+<div id="authentication">
+<h2 class="section-title">Authentication</h2>
+
+<div class="endpoint">
+  <h3><span class="method post">POST</span> <span class="path">/signup</span></h3>
+  <p class="desc">Create a new tenant account. Returns an API key. No authentication required.</p>
+  <table class="params"><thead><tr><th>Field</th><th>Type</th><th></th><th>Description</th></tr></thead><tbody>
+    <tr><td><code>name</code></td><td>string</td><td><span class="tag req">required</span></td><td>Organization name</td></tr>
+    <tr><td><code>email</code></td><td>string</td><td><span class="tag req">required</span></td><td>Contact email (unique)</td></tr>
+  </tbody></table>
+<pre class="example">curl -X POST https://gateway.aeoess.com/api/v1/signup \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Acme AI","email":"ops@acme.com"}'
+
+<span class="comment"># Response:</span>
+{ "message": "Account created. Save your API key.",
+  "tenant_id": "abc-123",
+  "plan": "free",
+  "api_key": "aps_live_..." }</pre>
+</div>
+
+<div class="endpoint">
+  <h3><span class="method get">GET</span> <span class="path">/account</span></h3>
+  <p class="desc">Account info, current usage, and plan limits.</p>
+<pre class="example">curl -H "Authorization: Bearer $KEY" \
+  https://gateway.aeoess.com/api/v1/account
+
+<span class="comment"># Response includes: name, email, plan, usage { agents, delegations, evaluations_this_month, receipts }, limits</span></pre>
+</div>
+</div>
+
+<!-- AGENTS -->
+<div id="agents">
+<h2 class="section-title">Agents</h2>
+
+<div class="endpoint">
+  <h3><span class="method post">POST</span> <span class="path">/agents</span></h3>
+  <p class="desc">Register an agent. The agent must be registered before it can be evaluated or receive delegations.</p>
+  <table class="params"><thead><tr><th>Field</th><th>Type</th><th></th><th>Description</th></tr></thead><tbody>
+    <tr><td><code>agent_id</code></td><td>string</td><td><span class="tag req">required</span></td><td>Unique agent identifier</td></tr>
+    <tr><td><code>public_key</code></td><td>string</td><td><span class="tag req">required</span></td><td>Ed25519 public key (64-char hex)</td></tr>
+    <tr><td><code>name</code></td><td>string</td><td><span class="tag opt">optional</span></td><td>Human-readable name</td></tr>
+    <tr><td><code>did</code></td><td>string</td><td><span class="tag opt">optional</span></td><td>DID (did:key:..., did:web:...)</td></tr>
+    <tr><td><code>agent_type</code></td><td>string</td><td><span class="tag opt">optional</span></td><td>general | explorer | planner | executor | reviewer | monitor</td></tr>
+  </tbody></table>
+<pre class="example">curl -X POST https://gateway.aeoess.com/api/v1/agents \
+  -H "Authorization: Bearer $KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"agent_id":"my-agent","name":"Research Agent","public_key":"a1b2c3..."}'</pre>
+</div>
+
+<div class="endpoint">
+  <h3><span class="method get">GET</span> <span class="path">/agents</span></h3>
+  <p class="desc">List all agents. Supports pagination: <code>?limit=20&amp;offset=0&amp;sort=created_at:desc</code></p>
+</div>
+
+<div class="endpoint">
+  <h3><span class="method post">POST</span> <span class="path">/agents/:agentId/posture</span></h3>
+  <p class="desc">Update agent posture. Restricted agents are denied specific scopes. Suspended agents are denied all actions.</p>
+  <table class="params"><thead><tr><th>Field</th><th>Type</th><th></th><th>Description</th></tr></thead><tbody>
+    <tr><td><code>status</code></td><td>string</td><td><span class="tag req">required</span></td><td>active | restricted | suspended</td></tr>
+    <tr><td><code>reason</code></td><td>string</td><td><span class="tag req">required</span></td><td>Reason for posture change</td></tr>
+    <tr><td><code>restricted_scopes</code></td><td>string[]</td><td><span class="tag opt">optional</span></td><td>Scopes to block (for restricted status)</td></tr>
+  </tbody></table>
+</div>
+</div>
+
+<!-- DELEGATIONS -->
+<div id="delegations">
+<h2 class="section-title">Delegations</h2>
+
+<div class="endpoint">
+  <h3><span class="method post">POST</span> <span class="path">/delegations</span></h3>
+  <p class="desc">Create a delegation granting an agent scoped authority. The child agent must already exist.</p>
+  <table class="params"><thead><tr><th>Field</th><th>Type</th><th></th><th>Description</th></tr></thead><tbody>
+    <tr><td><code>parent_agent_id</code></td><td>string</td><td><span class="tag req">required</span></td><td>Delegating agent (or "_root" for principal)</td></tr>
+    <tr><td><code>child_agent_id</code></td><td>string</td><td><span class="tag req">required</span></td><td>Receiving agent (must exist in your tenant)</td></tr>
+    <tr><td><code>scope</code></td><td>string | string[]</td><td><span class="tag req">required</span></td><td>Comma-separated or array of scopes</td></tr>
+    <tr><td><code>spend_limit</code></td><td>number</td><td><span class="tag opt">optional</span></td><td>Budget cap for this delegation</td></tr>
+    <tr><td><code>max_depth</code></td><td>number</td><td><span class="tag opt">optional</span></td><td>Sub-delegation depth (default: 3)</td></tr>
+  </tbody></table>
+<pre class="example">curl -X POST https://gateway.aeoess.com/api/v1/delegations \
+  -H "Authorization: Bearer $KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"parent_agent_id":"_root","child_agent_id":"my-agent","scope":"data:read,tool:web_search","spend_limit":100}'</pre>
+</div>
+
+<div class="endpoint">
+  <h3><span class="method get">GET</span> <span class="path">/delegations</span></h3>
+  <p class="desc">List delegations. Supports pagination.</p>
+</div>
+</div>
+
+<!-- EVALUATIONS -->
+<div id="evaluations">
+<h2 class="section-title">Evaluations</h2>
+
+<div class="endpoint">
+  <h3><span class="method post">POST</span> <span class="path">/evaluate</span></h3>
+  <p class="desc">The core enforcement endpoint. Checks if an agent is permitted to perform an action. This is the billable unit.</p>
+  <table class="params"><thead><tr><th>Field</th><th>Type</th><th></th><th>Description</th></tr></thead><tbody>
+    <tr><td><code>agent_id</code></td><td>string</td><td><span class="tag req">required</span></td><td>Agent requesting the action</td></tr>
+    <tr><td><code>action_type</code></td><td>string</td><td><span class="tag req">required</span></td><td>What the agent wants to do (e.g. tool:web_search)</td></tr>
+    <tr><td><code>scope_required</code></td><td>string</td><td><span class="tag req">required</span></td><td>Required scope for this action</td></tr>
+    <tr><td><code>action_args</code></td><td>object</td><td><span class="tag opt">optional</span></td><td>Arguments for pattern-based scope matching (path, target)</td></tr>
+    <tr><td><code>estimated_cost</code></td><td>number</td><td><span class="tag opt">optional</span></td><td>Estimated cost (checked against spend limit)</td></tr>
+  </tbody></table>
+<pre class="example">curl -X POST https://gateway.aeoess.com/api/v1/evaluate \
+  -H "Authorization: Bearer $KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"agent_id":"my-agent","action_type":"tool:web_search","scope_required":"tool:web_search"}'
+
+<span class="comment"># Response:</span>
+{ "evaluation_id": "...",
+  "verdict": "permit",
+  "reason": "Permitted: scope \"tool:web_search\" authorized",
+  "duration_ms": 1,
+  "agent_id": "my-agent",
+  "action": { "type": "tool:web_search", ... } }</pre>
+</div>
+
+<div class="endpoint">
+  <h3><span class="method get">GET</span> <span class="path">/audit</span></h3>
+  <p class="desc">Evaluation history with filters.</p>
+  <table class="params"><thead><tr><th>Param</th><th>Type</th><th>Description</th></tr></thead><tbody>
+    <tr><td><code>agent_id</code></td><td>string</td><td>Filter by agent</td></tr>
+    <tr><td><code>verdict</code></td><td>string</td><td>permit | deny</td></tr>
+    <tr><td><code>action_type</code></td><td>string</td><td>Filter by action type</td></tr>
+    <tr><td><code>from</code></td><td>string</td><td>ISO 8601 start date</td></tr>
+    <tr><td><code>to</code></td><td>string</td><td>ISO 8601 end date</td></tr>
+    <tr><td><code>limit</code></td><td>number</td><td>Page size (max 100, default 20)</td></tr>
+    <tr><td><code>offset</code></td><td>number</td><td>Pagination offset</td></tr>
+  </tbody></table>
+</div>
+</div>
+
+<!-- TRUST -->
+<div id="trust">
+<h2 class="section-title">Trust</h2>
+
+<div class="endpoint">
+  <h3><span class="method get">GET</span> <span class="path">/trust/:agentId/profile</span></h3>
+  <p class="desc">Per-task-class trust breakdown. Shows overall trust score and per-category (data, commerce, tool) scores. Supports temporal windowing.</p>
+  <table class="params"><thead><tr><th>Param</th><th>Type</th><th>Description</th></tr></thead><tbody>
+    <tr><td><code>window_days</code></td><td>number</td><td>Only include evaluations from the last N days</td></tr>
+  </tbody></table>
+<pre class="example">curl -H "Authorization: Bearer $KEY" \
+  "https://gateway.aeoess.com/api/v1/trust/my-agent/profile?window_days=30"
+
+<span class="comment"># Response:</span>
+{ "agent_id": "my-agent",
+  "window_days": 30,
+  "overall": { "evaluations": 150, "permits": 142, "denials": 8, "trust_score": 0.94 },
+  "by_task_class": {
+    "data": { "evaluations": 80, "permits": 79, "denials": 1, "trust_score": 0.98 },
+    "tool": { "evaluations": 50, "permits": 48, "denials": 2, "trust_score": 0.96 }
+  } }</pre>
+</div>
+
+<div class="endpoint">
+  <h3><span class="method get">GET</span> <span class="path">/public/trust/:agentId</span></h3>
+  <p class="desc">Public trust profile. No authentication required. Returns grade, trust level, DID binding, activity stats, and per-task-class breakdown.</p>
+<pre class="example"><span class="comment"># No auth needed:</span>
+curl https://gateway.aeoess.com/api/v1/public/trust/my-agent</pre>
+</div>
+</div>
+
+<!-- WALLETS -->
+<div id="wallets">
+<h2 class="section-title">Wallets</h2>
+
+<div class="endpoint">
+  <h3><span class="method post">POST</span> <span class="path">/wallets/provision</span></h3>
+  <p class="desc">Provision a Nano wallet for an agent. Requires active delegation with commerce scope. 4-gate Sybil protection.</p>
+  <table class="params"><thead><tr><th>Field</th><th>Type</th><th></th><th>Description</th></tr></thead><tbody>
+    <tr><td><code>agent_id</code></td><td>string</td><td><span class="tag req">required</span></td><td>Agent to provision wallet for</td></tr>
+  </tbody></table>
+</div>
+
+<div class="endpoint">
+  <h3><span class="method post">POST</span> <span class="path">/wallets/send</span></h3>
+  <p class="desc">Send Nano payment. 3-gate enforcement: active wallet, commerce scope, spend limit. Atomic debit-before-send.</p>
+  <table class="params"><thead><tr><th>Field</th><th>Type</th><th></th><th>Description</th></tr></thead><tbody>
+    <tr><td><code>from_agent_id</code></td><td>string</td><td><span class="tag req">required</span></td><td>Sending agent</td></tr>
+    <tr><td><code>to_address</code></td><td>string</td><td><span class="tag req">required</span></td><td>Nano destination address</td></tr>
+    <tr><td><code>amount_xno</code></td><td>number</td><td><span class="tag req">required</span></td><td>Amount in XNO</td></tr>
+  </tbody></table>
+</div>
+
+<div class="endpoint">
+  <h3><span class="method get">GET</span> <span class="path">/wallets/dashboard</span></h3>
+  <p class="desc">Wallet overview: active wallets, total balance, frozen count.</p>
+</div>
+</div>
+
+<!-- GOVERNANCE -->
+<div id="governance">
+<h2 class="section-title">Governance Export</h2>
+
+<div class="endpoint">
+  <h3><span class="method get">GET</span> <span class="path">/governance/export</span></h3>
+  <p class="desc">Full signed governance evidence package. 9 sections: evaluations, receipts, agents, delegations, revocations, alerts, data attribution, settlements, receipt seals. Gateway-signed for third-party verification.</p>
+  <table class="params"><thead><tr><th>Param</th><th>Type</th><th>Description</th></tr></thead><tbody>
+    <tr><td><code>format</code></td><td>string</td><td><code>json</code> (default) or <code>csv</code></td></tr>
+    <tr><td><code>since</code></td><td>string</td><td>ISO 8601 start date</td></tr>
+    <tr><td><code>until</code></td><td>string</td><td>ISO 8601 end date</td></tr>
+    <tr><td><code>agent_id</code></td><td>string</td><td>Filter by agent</td></tr>
+  </tbody></table>
+<pre class="example"><span class="comment"># JSON (signed):</span>
+curl -H "Authorization: Bearer $KEY" \
+  "https://gateway.aeoess.com/api/v1/governance/export"
+
+<span class="comment"># CSV (4-table flat format):</span>
+curl -H "Authorization: Bearer $KEY" \
+  "https://gateway.aeoess.com/api/v1/governance/export?format=csv" \
+  -o governance.csv</pre>
+</div>
+</div>
+
+<!-- BILLING -->
+<div id="billing">
+<h2 class="section-title">Billing</h2>
+
+<div class="endpoint">
+  <h3><span class="method post">POST</span> <span class="path">/billing/checkout</span></h3>
+  <p class="desc">Create a Stripe checkout session for plan upgrade.</p>
+  <table class="params"><thead><tr><th>Field</th><th>Type</th><th></th><th>Description</th></tr></thead><tbody>
+    <tr><td><code>plan</code></td><td>string</td><td><span class="tag req">required</span></td><td>pro | enterprise</td></tr>
+  </tbody></table>
+<pre class="example">curl -X POST https://gateway.aeoess.com/api/v1/billing/checkout \
+  -H "Authorization: Bearer $KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"plan":"pro"}'
+
+<span class="comment"># Response: { "url": "https://checkout.stripe.com/..." }</span></pre>
+</div>
+</div>
+
+<div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--rule);text-align:center;font:.85rem var(--sans);color:var(--ink-4)">
+  <a href="/portal.html" style="color:var(--link)">Get API Key</a> &middot;
+  <a href="/gateway.html" style="color:var(--link)">Dashboard</a> &middot;
+  <a href="https://www.npmjs.com/package/agent-passport-system" style="color:var(--link)">npm SDK</a> &middot;
+  <a href="/llms-full.txt" style="color:var(--link)">LLM Docs</a> &middot;
+  <a href="https://github.com/aeoess" style="color:var(--link)">GitHub</a>
+</div>
+
+</div><!-- .docs-content -->
+</div><!-- .docs-wrap -->
+
+<script>
+function closeDrawer(){document.querySelector('.nav-burger')?.classList.remove('open');document.querySelector('.nav-drawer')?.classList.remove('open');}
+function toggleTheme(){var d=document.documentElement.getAttribute('data-theme')==='dark';var n=d?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('aeoess-theme',n);var b=document.querySelector('.theme-btn');if(b)b.textContent=n==='dark'?'\u2600':'\u263E';}
+(function(){var s=localStorage.getItem('aeoess-theme');if(s)document.documentElement.setAttribute('data-theme',s);else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.setAttribute('data-theme','dark');var b=document.querySelector('.theme-btn');if(b)b.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'\u2600':'\u263E';})();
+window.addEventListener('scroll',function(){var n=document.getElementById('nav');if(n)n.classList.toggle('scrolled',window.scrollY>40)});
+</script>
+
+<footer class="footer-wrap" role="contentinfo">
+<div class="footer-inner">
+  <div class="footer-grid">
+    <div class="footer-col"><h4>Protocol</h4><a href="passport.html">Documentation</a><a href="benchmarks.html">Benchmarks</a><a href="compare.html">Compare</a><a href="threat-model.html">Threat Model</a><a href="faq.html">FAQ</a></div>
+    <div class="footer-col"><h4>Developers</h4><a href="https://github.com/aeoess">GitHub</a><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="portal.html">Portal</a><a href="gateway.html">Gateway</a><a href="wallet.html">Agent Wallet</a><a href="AGENTS.md">AGENTS.md</a><a href="llms.txt">llms.txt</a></div>
+    <div class="footer-col"><h4>Community</h4><a href="blog.html">Dev Log</a><a href="roadmap.html">Roadmap</a><a href="working-group.html">Working Group</a><a href="mingle.html">Mingle</a><a href="agora.html">Agora</a></div>
+    <div class="footer-col"><h4>Research</h4><a href="https://doi.org/10.5281/zenodo.18749779">Agent Social Contract</a><a href="https://doi.org/10.5281/zenodo.18932404">Monotonic Narrowing</a><a href="https://doi.org/10.5281/zenodo.19260073">Faceted Authority Attenuation</a><a href="https://doi.org/10.5281/zenodo.19476002">Behavioral Derivation Rights</a><a href="https://doi.org/10.5281/zenodo.19478584">Physics-Enforced Delegation</a><a href="https://doi.org/10.5281/zenodo.19582550">Governance in the Medium</a><a href="https://doi.org/10.5281/zenodo.19646276">Cognitive Attestation</a><a href="https://doi.org/10.5281/zenodo.19914628">Evidence-Safety Gap</a></div>
+  </div>
+  <div class="footer-bottom"><span class="footer-copy">AEOESS &copy; 2026 &middot; Apache-2.0 &middot; Built by <a href="https://tymofii.me">Tymofii Pidlisnyi</a></span><div class="footer-ext"><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="https://github.com/aeoess">GitHub</a></div></div>
+</div>
+</footer>
+</body>
+</html>

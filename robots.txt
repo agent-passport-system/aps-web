@@ -1,0 +1,65 @@
+User-agent: *
+Allow: /
+
+# LLM-readable content (for AI agent discovery)
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /llms/
+Allow: /protocol-registry.json
+Allow: /agora/
+Allow: /.well-known/mcp.json
+Allow: /.well-known/aps.txt
+Allow: /.well-known/agent-trust.json
+Allow: /.well-known/agents.json
+
+# Private / admin / legacy
+Disallow: /ideas-admin.html
+Disallow: /forvlad.html
+Disallow: /board.html
+Disallow: /comms/
+Disallow: /mywork/
+Disallow: /datadividend/
+Disallow: /index_old*.html
+Disallow: /index_v2.html
+Disallow: /index_new.html
+Disallow: /index_aeoess.html
+Disallow: /index-old-backup.html
+Disallow: /index-v2.html
+
+# Assets
+# Disallow: /*.pdf$  (removed 2026-04-11: was blocking Zenodo papers + IETF drafts from Google Scholar)
+Disallow: /*.zip$
+
+Sitemap: https://aeoess.com/sitemap.xml
+
+# LLM discovery (llmstxt.org standard)
+# Compact: https://aeoess.com/llms.txt
+# Full: https://aeoess.com/llms-full.txt
+
+# MCP server discovery
+# https://aeoess.com/.well-known/mcp.json
+
+# Agent governance
+# https://aeoess.com/.well-known/aps.txt
+
+# AI crawlers welcome
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Cohere-AI
+Allow: /

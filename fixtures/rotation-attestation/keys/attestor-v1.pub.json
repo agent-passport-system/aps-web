@@ -1,0 +1,7 @@
+{
+  "kid": "aeoess-fixture-attestor-v1",
+  "kty": "OKP",
+  "crv": "Ed25519",
+  "publicKeyHex": "ce62dc38a3c0b720daf124b7ed4a5538b10484b9755380ff148e6bb3f02b3d8b",
+  "description": "Deterministic Ed25519 public key used to sign migration attestations in v1 fixtures. Fixtures are reproducible without depending on gateway.aeoess.com."
+}

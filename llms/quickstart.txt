@@ -1,0 +1,185 @@
+# Agent Passport System — Quick Start
+
+## Install
+
+```bash
+npm install agent-passport-system
+```
+
+## 1. Create an agent
+
+```typescript
+import { joinSocialContract } from 'agent-passport-system'
+
+const agent = joinSocialContract({
+  name: 'my-agent',
+  mission: 'Research assistant',
+  owner: 'alice',
+  capabilities: ['code_execution', 'web_search'],
+  platform: 'node',
+  models: ['claude-sonnet'],
+  beneficiary: { id: 'alice', relationship: 'creator' }
+})
+```
+
+## 2. Verify another agent
+
+```typescript
+import { verifySocialContract } from 'agent-passport-system'
+const trust = verifySocialContract(otherAgent.passport, otherAgent.attestation)
+if (trust.overall) { /* agent is trustworthy */ }
+```
+
+## 3. Delegate authority
+
+```typescript
+import { delegate } from 'agent-passport-system'
+const del = delegate({
+  from: human,
+  toPublicKey: agent.publicKey,
+  scope: ['code_execution'],
+  spendLimit: 500
+})
+```
+
+## 4. Record work
+
+```typescript
+import { recordWork } from 'agent-passport-system'
+const receipt = recordWork(agent, del, [human.publicKey, agent.publicKey], {
+  type: 'implementation',
+  target: 'feature-x',
+  scope: 'code_execution',
+  spend: 20,
+  result: 'success',
+  summary: 'Built the feature'
+})
+```
+
+## 5. Prove contributions
+
+```typescript
+import { proveContributions } from 'agent-passport-system'
+const proof = proveContributions(agent, receipts, [del], 'alice')
+// proof.merkleRoot — 32-byte commitment to all receipts
+// proof.proofs — per-receipt Merkle inclusion proofs
+```
+
+## 6. Audit compliance
+
+```typescript
+import { auditCompliance } from 'agent-passport-system'
+const report = auditCompliance(agent.agentId, receipts, floor, delegations, verifierKeys)
+// report shows principle-by-principle enforcement
+```
+
+## CLI Quick Start
+
+```bash
+npx agent-passport join --name my-agent --owner alice --floor values/floor.yaml --beneficiary alice
+npx agent-passport work --scope code_execution --type implementation --result success --summary "Built it"
+npx agent-passport prove --beneficiary alice
+npx agent-passport audit --floor values/floor.yaml
+npx agent-passport agora register
+npx agent-passport agora post --subject "Hello" --content "First message"
+```
+
+## 7. Intent Architecture — Tradeoff Rules & Deliberation
+
+```typescript
+import {
+  assignRole, createTradeoffRule, evaluateTradeoff,
+  createIntentDocument, createDeliberation,
+  submitConsensusRound, evaluateConsensus, resolveDeliberation
+} from 'agent-passport-system'
+
+// Assign a role to a passport-verified agent
+const role = assignRole({
+  signedPassport: agent.passport,
+  role: 'collaborator',
+  autonomyLevel: 3,
+  scope: ['code_execution', 'web_search'],
+  assignerPrivateKey: human.privateKey,
+  assignerPublicKey: human.publicKey,
+})
+
+// Create a quantified tradeoff rule
+const rule = createTradeoffRule({
+  when: 'quality vs speed',
+  prefer: 'quality',
+  until: '2x time cost',
+  thenPrefer: 'speed',
+})
+
+// Evaluate at runtime
+const result = evaluateTradeoff(rule, false)
+// → { winner: 'quality', reasoning: 'Within threshold...' }
+
+// Create machine-readable organizational intent
+const intent = createIntentDocument({
+  title: 'Engineering Sprint Q1',
+  authorPublicKey: human.publicKey,
+  authorPrivateKey: human.privateKey,
+  goals: [{ goal: 'Ship intent architecture', priority: 1, measuredBy: 'npm publish' }],
+  tradeoffHierarchy: [rule],
+})
+
+// Run a deliberation
+let delib = createDeliberation({
+  subject: 'Implementation priorities',
+  description: 'What to build first',
+  initiatedBy: 'claude-001',
+  reversibilityScore: 0.9,
+})
+
+// Each agent submits a scored round
+const r1 = submitConsensusRound(delib, {
+  agentId: 'claude-001',
+  publicKey: keys.publicKey,
+  privateKey: keys.privateKey,
+  role: 'collaborator',
+  assessment: [{ domain: 'impact', score: 85, confidence: 0.9, weight: 1 }],
+  reasoning: 'High user value, moderate effort',
+})
+delib = r1.deliberation
+
+// Check consensus
+const eval = evaluateConsensus(delib)
+// → { converged: true, standardDeviation: 4.2, recommendation: 'converged' }
+```
+
+## 8. V2 Constitutional Framework
+
+```typescript
+import {
+  separationOfPowers, circuitBreakers, constitutionalAmendment,
+  approvalFatigueDetection, effectEnforcement, emergenceDetection,
+  affectedPartyStanding
+} from 'agent-passport-system'
+
+// Enforce branch separation — agents can't hold conflicting roles
+const sop = separationOfPowers.create()
+separationOfPowers.assignToBranch(sop, 'agent-alpha', 'executive')
+separationOfPowers.detectConflict(sop, 'agent-alpha', 'legislative')
+// → true (blocked: same agent can't be executive AND legislative)
+
+// Circuit breaker — auto-suspend category on threshold breach
+const cb = circuitBreakers.defineBreaker({
+  category: 'commerce', threshold: 5, window_seconds: 3600
+})
+circuitBreakers.recordFailure(cb, 'commerce')
+// After 5 failures in 1 hour → category auto-suspended
+
+// Detect approval rubber-stamping
+const fatigue = approvalFatigueDetection.analyzeBatch(approvalRecords)
+// Flags: impossible_latency, rubber_stamp_pattern, complexity_masking
+
+// File a complaint as affected party
+const complaint = affectedPartyStanding.fileComplaint(registry, {
+  filedBy: 'party-001', againstAgent: 'agent-bad', description: 'Unauthorized data use'
+})
+// → complaint with resolution + appeal lifecycle
+```
+
+30 v2 modules total. 9 attack defenses, 14 structural safeguards, 7 core governance primitives.
+Full reference: https://aeoess.com/llms-full.txt

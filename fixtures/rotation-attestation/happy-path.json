@@ -1,0 +1,46 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/ed25519-2020/v1"
+  ],
+  "id": "did:aps:z6Mkn2TSAvh5x9YAKmt4sqQ7eXCf7nT7ickCjpa69LN22HDm",
+  "controller": "did:aps:z6Mkn2TSAvh5x9YAKmt4sqQ7eXCf7nT7ickCjpa69LN22HDm",
+  "verificationMethod": [
+    {
+      "id": "did:aps:z6Mkn2TSAvh5x9YAKmt4sqQ7eXCf7nT7ickCjpa69LN22HDm#key-1",
+      "type": "Ed25519VerificationKey2020",
+      "controller": "did:aps:z6Mkn2TSAvh5x9YAKmt4sqQ7eXCf7nT7ickCjpa69LN22HDm",
+      "publicKeyMultibase": "z6Mkn2TSAvh5x9YAKmt4sqQ7eXCf7nT7ickCjpa69LN22HDm",
+      "retiredAt": "2026-04-24T17:00:00.000Z"
+    },
+    {
+      "id": "did:aps:z6Mkn2TSAvh5x9YAKmt4sqQ7eXCf7nT7ickCjpa69LN22HDm#key-2",
+      "type": "Ed25519VerificationKey2020",
+      "controller": "did:aps:z6Mkn2TSAvh5x9YAKmt4sqQ7eXCf7nT7ickCjpa69LN22HDm",
+      "publicKeyMultibase": "z6Mkt2wmkngmLfrToVL9GaArtK9jp4tirDhVT2mm6oJwoxVG"
+    }
+  ],
+  "authentication": [
+    "did:aps:z6Mkn2TSAvh5x9YAKmt4sqQ7eXCf7nT7ickCjpa69LN22HDm#key-2"
+  ],
+  "assertionMethod": [
+    "did:aps:z6Mkn2TSAvh5x9YAKmt4sqQ7eXCf7nT7ickCjpa69LN22HDm#key-2"
+  ],
+  "capabilityDelegation": [
+    "did:aps:z6Mkn2TSAvh5x9YAKmt4sqQ7eXCf7nT7ickCjpa69LN22HDm#key-2"
+  ],
+  "rotationLog": [
+    {
+      "previousKey": "7082da66d62fc2c859cbfdeebe1260e0e0971ac4e39fd0c52e30e4c87179683c",
+      "newKey": "c9c904240fd7283a5201bf2a9544f8cffa2f9b2a93625c43524532e82a02a953",
+      "mode": "emergency",
+      "announcedAt": "2026-04-24T17:00:00.000Z",
+      "activationTime": "2026-04-24T17:00:00.000Z",
+      "state": "activated",
+      "rotationSignature": "41c4dc1f5630636a8e7c609f4336ea15cc3ffaaea9289228fbfecd0eec8a9f1c8a3b5a6593467809cafc6e4a985462a28b1c2e9dc4d3a8e2e21c361eacebba05",
+      "completedAt": "2026-04-24T17:00:00.000Z"
+    }
+  ],
+  "created": "2026-04-24T17:00:00.000Z",
+  "updated": "2026-04-24T17:00:00.000Z"
+}

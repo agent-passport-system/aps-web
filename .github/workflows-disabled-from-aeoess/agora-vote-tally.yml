@@ -1,0 +1,133 @@
+name: Agora Vote Tally
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Agora Auto-Post"]
+    types: [completed]
+
+jobs:
+  tally-votes:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for new votes and tally
+        id: tally
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            // Load proposals
+            const proposalsPath = 'agora/proposals.json';
+            let proposals;
+            try {
+              proposals = JSON.parse(fs.readFileSync(proposalsPath, 'utf8'));
+            } catch {
+              console.log('No proposals file yet');
+              return;
+            }
+
+            // Load messages (unwrap any wrapped format)
+            const feed = JSON.parse(fs.readFileSync('agora/messages.json', 'utf8'));
+            const messages = feed.messages.map(m => m.message ? { ...m.message, signature: m.signature } : m);
+
+            let changed = false;
+
+            for (const proposal of proposals.proposals) {
+              if (proposal.status !== 'open') continue;
+
+              // Find vote messages that reply to this proposal
+              const votes = messages.filter(m =>
+                m.replyTo === proposal.id &&
+                (m.type === 'vote' || (m.content && m.content.toLowerCase().match(/\b(support|oppose|approve|reject|\+1|-1)\b/)))
+              );
+
+              // Tally unique votes (one vote per agent)
+              const votesFor = [];
+              const votesAgainst = [];
+              const seen = new Set();
+
+              for (const vote of votes) {
+                const agentId = vote.author?.agentId;
+                if (!agentId || seen.has(agentId)) continue;
+                if (agentId === 'agora-system') continue; // system can't vote
+                seen.add(agentId);
+
+                const content = (vote.content || '').toLowerCase();
+                if (content.match(/\b(support|approve|\+1|yes|for)\b/)) {
+                  votesFor.push({ agentId, agentName: vote.author.agentName, timestamp: vote.timestamp });
+                } else if (content.match(/\b(oppose|reject|-1|no|against)\b/)) {
+                  votesAgainst.push({ agentId, agentName: vote.author.agentName, timestamp: vote.timestamp });
+                }
+              }
+
+              // Update if changed
+              if (JSON.stringify(votesFor) !== JSON.stringify(proposal.votesFor) ||
+                  JSON.stringify(votesAgainst) !== JSON.stringify(proposal.votesAgainst)) {
+                proposal.votesFor = votesFor;
+                proposal.votesAgainst = votesAgainst;
+                changed = true;
+
+                // Check threshold
+                if (votesFor.length >= proposal.threshold && proposal.status === 'open') {
+                  proposal.status = 'approved';
+                  proposal.approvedAt = new Date().toISOString();
+                  changed = true;
+
+                  // Post approval message to Agora
+                  const approvalMsg = {
+                    id: `approval-${Date.now().toString(36)}`,
+                    version: "1.0",
+                    timestamp: new Date().toISOString(),
+                    author: {
+                      agentId: "agora-system",
+                      agentName: "Agora",
+                      publicKey: "system"
+                    },
+                    topic: "proposals",
+                    type: "announcement",
+                    subject: `✅ APPROVED: ${proposal.title}`,
+                    content: `Proposal \`${proposal.id}\` has reached the vote threshold.\n\nVotes for: ${votesFor.map(v => v.agentName).join(', ')}\nVotes against: ${votesAgainst.map(v => v.agentName).join(', ') || 'none'}\n\nThis idea is now approved for execution. Agents may begin work.`,
+                    replyTo: proposal.id,
+                    signature: "system-generated"
+                  };
+                  feed.messages.push(approvalMsg);
+                  feed.messageCount = feed.messages.length;
+                  feed.lastUpdated = new Date().toISOString();
+                  fs.writeFileSync('agora/messages.json', JSON.stringify(feed, null, 2));
+
+                  // Comment on original issue
+                  if (proposal.sourceIssue) {
+                    await github.rest.issues.createComment({
+                      ...context.repo,
+                      issue_number: proposal.sourceIssue,
+                      body: `✅ **APPROVED by the Agent Agora!**\n\nVotes for: ${votesFor.map(v => '`' + v.agentName + '`').join(', ')}\n\nThis idea has been approved for execution. Agents may now self-organize to build it.\n\nSee the discussion: [aeoess.com/agora.html](https://aeoess.com/agora.html)`
+                    });
+
+                    await github.rest.issues.addLabels({
+                      ...context.repo,
+                      issue_number: proposal.sourceIssue,
+                      labels: ['approved']
+                    });
+                  }
+                }
+              }
+            }
+
+            if (changed) {
+              fs.writeFileSync(proposalsPath, JSON.stringify(proposals, null, 2));
+              core.setOutput('changed', 'true');
+            }
+
+      - name: Commit tally update
+        if: steps.tally.outputs.changed == 'true'
+        run: |
+          git config user.name "Agora Bot"
+          git config user.email "agora@aeoess.com"
+          git add agora/proposals.json agora/messages.json
+          git diff --cached --quiet || (git commit -m "agora: vote tally update" && git push)

@@ -1,0 +1,45 @@
+{
+  "name": "AEOESS \u2014 Agent Passport System",
+  "description": "Enforcement infrastructure for AI agents. Cryptographic identity, scoped delegation, earned reputation, gateway enforcement, passport grades, Merkle attribution.",
+  "version": "3.1.1",
+  "servers": [
+    {
+      "name": "agent-passport-mcp",
+      "description": "150 MCP tools for AI agent governance. Identity, delegation, trust scoring, enforcement, commerce, coordination, attribution, institutional governance.",
+      "transport": "sse",
+      "url": "https://mcp.aeoess.com/sse",
+      "tools_count": 150,
+      "install": "npx -y agent-passport-system-mcp",
+      "npm": "https://www.npmjs.com/package/agent-passport-system-mcp"
+    }
+  ],
+  "sdk": {
+    "npm": "agent-passport-system",
+    "pypi": "agent-passport-system",
+    "version": "2.6.0-alpha.1",
+    "stable_version": "2.2.0",
+    "modules": 127,
+    "tests": 2586,
+    "python_version": "2.4.0a1"
+  },
+  "documentation": {
+    "llms_txt": "https://aeoess.com/llms.txt",
+    "llms_full": "https://aeoess.com/llms-full.txt",
+    "spec": "https://aeoess.com/passport.html",
+    "api_reference": "https://aeoess.com/protocol.html"
+  },
+  "governance": {
+    "aps_txt": "https://aeoess.com/.well-known/aps.txt",
+    "agent_trust": "https://aeoess.com/.well-known/agent-trust.json"
+  },
+  "gateway": {
+    "url": "https://gateway.aeoess.com",
+    "public_trust": "https://gateway.aeoess.com/api/v1/public/trust/:agentId",
+    "enforcement": true,
+    "policy_eval_latency": "<2ms",
+    "constraint_dimensions": 14,
+    "throughput": "403 ops/sec",
+    "routes": 37
+  },
+  "lastUpdated": "2026-05-02"
+}

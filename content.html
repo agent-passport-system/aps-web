@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content | AEOESS</title>
+<meta name="description" content="Governance for publishers and data providers whose content is read by AI agents. Signed governance blocks, source and access receipts, derivation lineage, revocation cascade. Apache-2.0.">
+<link rel="canonical" href="https://aeoess.com/content.html">
+<link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
+<link rel="alternate" type="text/plain" href="https://aeoess.com/llms.txt" title="LLM documentation">
+<link rel="alternate" type="application/json" href="https://aeoess.com/.well-known/mcp.json" title="MCP server discovery">
+<meta property="og:title" content="Content Governance — AEOESS">
+<meta property="og:description" content="Cryptographic terms enforcement for content consumed by AI agents. aps.txt, signed governance blocks, access receipts, derivation lineage, revocation cascade.">
+<meta property="og:url" content="https://aeoess.com/content.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Content Governance — AEOESS">
+<meta name="twitter:description" content="Terms publishers can enforce. Receipts agents must carry. Revocation that propagates to derivatives.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css?v=20260504a">
+<style>
+.primitives{display:grid;grid-template-columns:repeat(2,1fr);gap:.9rem;margin:1.6rem 0}
+@media(max-width:720px){.primitives{grid-template-columns:1fr}}
+.prim{border:1px solid var(--border);border-radius:8px;padding:.95rem 1.1rem;background:var(--card-bg,var(--paper))}
+.prim h3{font:600 .98rem var(--serif);color:var(--text);margin:0 0 .25rem}
+.prim p{font:.78rem/1.55 var(--sans);color:var(--muted);margin:0}
+.prim code{font:.74rem var(--mono);color:var(--text);background:var(--code-bg);padding:.05rem .25rem;border-radius:3px}
+.flow{display:grid;gap:.7rem;margin:1.5rem 0;padding:1.2rem 1.4rem;border:1px solid var(--border);border-radius:8px;background:var(--card-bg,var(--paper))}
+.flow-step{display:flex;align-items:flex-start;gap:.85rem;padding:.4rem 0;border-bottom:1px dashed var(--border)}
+.flow-step:last-child{border-bottom:none}
+.flow-step .num{min-width:26px;height:26px;border-radius:50%;background:var(--accent,var(--link));color:#fff;display:flex;align-items:center;justify-content:center;font:600 .7rem var(--mono);flex-shrink:0;margin-top:1px}
+.flow-step .body{flex:1;min-width:0;font:.85rem/1.55 var(--sans);color:var(--text)}
+.flow-step .body code{font:.74rem var(--mono);background:var(--code-bg);padding:.05rem .25rem;border-radius:3px}
+.cta-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin:2rem 0}
+@media(max-width:720px){.cta-row{grid-template-columns:1fr}}
+.cta{border:1px solid var(--border);border-radius:8px;padding:1.2rem 1.4rem;background:var(--card-bg,var(--paper))}
+.cta h3{font:600 1rem var(--serif);margin:0 0 .4rem;color:var(--text)}
+.cta p{font:.84rem/1.55 var(--sans);color:var(--muted);margin-bottom:.7rem}
+.cta a{font:500 .82rem var(--sans);color:var(--accent,var(--link))}
+.code-block{font:500 .78rem/1.55 var(--mono);color:var(--text);background:var(--code-bg);border:1px solid var(--border);padding:.85rem 1.05rem;border-radius:8px;overflow-x:auto;margin:1rem 0;-webkit-overflow-scrolling:touch}
+.code-block .c{color:var(--muted)}
+.code-block .s{color:#22863a}
+.adjacent{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin:2rem 0}
+@media(max-width:720px){.adjacent{grid-template-columns:1fr}}
+.adj{border:1px solid var(--border);border-radius:8px;padding:.85rem 1rem;background:var(--paper);text-decoration:none;display:block;transition:border-color .15s}
+.adj:hover{border-color:var(--text)}
+.adj h4{font:600 .9rem var(--serif);color:var(--text);margin:0 0 .25rem}
+.adj p{font:.74rem/1.45 var(--sans);color:var(--muted);margin:0}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-S7QVCJGMKR');</script>
+</head>
+<body>
+<nav class="nav" id="nav">
+  <a href="/" class="nav-logo"><img src="/assets/images/aeoess_logo-05.png" alt="AEOESS" width="158" height="26" style="height:26px;width:auto"></a>
+  <div class="nav-links"><a href="solutions.html">Solutions</a><a href="blog.html">Blog</a><a href="roadmap.html">Roadmap</a><a href="passport.html">Spec</a><a href="portal.html" style="font-weight:600">Portal</a><a href="https://github.com/aeoess">GitHub</a><a href="mailto:signal@aeoess.com">Contact</a></div>
+  <div class="nav-right"><button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button><div class="nav-burger" onclick="this.classList.toggle('open');document.querySelector('.nav-drawer').classList.toggle('open')"><span></span><span></span><span></span></div></div>
+</nav>
+<div class="nav-drawer">
+  <div class="drawer-section">
+    <div class="drawer-section-title">Solutions</div>
+    <a href="payments.html" onclick="closeDrawer()">Payments</a>
+    <a href="content.html" class="drawer-link-primary" onclick="closeDrawer()">Content</a>
+    <a href="compliance.html" onclick="closeDrawer()">Compliance</a>
+    <a href="enterprise.html" onclick="closeDrawer()">Enterprise</a>
+  </div>
+  <div class="drawer-section">
+    <div class="drawer-section-title">Build</div>
+    <a href="portal.html" onclick="closeDrawer()">Portal</a>
+    <a href="passport.html" onclick="closeDrawer()">Spec</a>
+    <a href="docs.html" onclick="closeDrawer()">API Reference</a>
+  </div>
+  <div class="drawer-section">
+    <div class="drawer-section-title">Explore</div>
+    <a href="blog.html" onclick="closeDrawer()">Blog</a>
+    <a href="roadmap.html" onclick="closeDrawer()">Roadmap</a>
+    <a href="compare.html" onclick="closeDrawer()">Compare</a>
+    <a href="faq.html" onclick="closeDrawer()">FAQ</a>
+  </div>
+  <div class="drawer-section">
+    <div class="drawer-section-title">Connect</div>
+    <a href="https://github.com/aeoess" onclick="closeDrawer()">GitHub</a>
+    <a href="mailto:signal@aeoess.com" onclick="closeDrawer()">Contact</a>
+  </div>
+</div>
+<div class="w">
+<div class="page-hero">
+  <div class="breadcrumb"><a href="/">AEOESS</a> / <a href="solutions.html">Solutions</a> / Content</div>
+  <div style="display:flex;gap:.5rem;margin-bottom:.8rem">
+    <span class="badge badge-green">Live primitives</span>
+    <span class="badge badge-blue">Apache-2.0</span>
+  </div>
+  <h1>Content</h1>
+  <p class="sub">Governance for publishers and data providers whose content is read, embedded, and trained on by AI agents.</p>
+</div>
+
+<section class="section">
+  <h2 style="font:600 1.3rem var(--serif);margin:1.5rem 0 .6rem;color:var(--text)">Who this is for</h2>
+  <p style="font:.95rem/1.7 var(--sans);color:var(--text);max-width:680px">News publishers, knowledge bases, scientific journals, data marketplaces, enterprise documentation owners. Anyone whose content is consumed by AI agents and who needs terms enforcement, attribution, and the ability to revoke.</p>
+  <p style="font:.95rem/1.7 var(--sans);color:var(--muted);max-width:680px;margin-top:.7rem">robots.txt is advisory. It cannot enforce, cannot audit, cannot revoke. When an agent ingests your archive and an embedding lands in a derivative system three steps removed, you have no signed evidence of who took what and no way to pull it back.</p>
+</section>
+
+<section class="section">
+  <h2 style="font:600 1.3rem var(--serif);margin:2rem 0 .6rem;color:var(--text)">What we ship</h2>
+  <div class="primitives">
+    <div class="prim">
+      <h3>Governance blocks</h3>
+      <p>Ed25519-signed JSON-LD embedded in your HTML. Declares terms (inference, training, redistribution, caching), revocation policy, and content hash. Any agent that reads the page sees the signed terms.</p>
+    </div>
+    <div class="prim">
+      <h3><code>aps.txt</code></h3>
+      <p>Signed file at <code>/.well-known/aps.txt</code>. Site-wide governance with optional path overrides. Like robots.txt, but cryptographically signed and bound to a revocation endpoint.</p>
+    </div>
+    <div class="prim">
+      <h3>Source receipts</h3>
+      <p>Publisher-issued receipt declaring "this is content I authored under these terms." Agents bind their access to a SourceReceipt, creating the cryptographic anchor for everything downstream.</p>
+    </div>
+    <div class="prim">
+      <h3>Access receipts</h3>
+      <p>Agent-signed proof of "I read this content under these terms at this time for this stated purpose." Carries the source DID, the terms version, and the intended usage.</p>
+    </div>
+    <div class="prim">
+      <h3>Derivation receipts</h3>
+      <p>Multi-hop lineage. RAG chunks, embeddings, summaries, model weights, synthetic derivatives all chain back to source via signed derivation receipts. Cycle detection and break markers for external boundaries.</p>
+    </div>
+    <div class="prim">
+      <h3>Decision lineage receipts</h3>
+      <p>For decisions made on top of your content (loan approval, content moderation, risk assessment), the decision artifact carries a signed list of contributing sources. Right-to-explanation primitive.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2 style="font:600 1.3rem var(--serif);margin:2rem 0 .6rem;color:var(--text)">How revocation works</h2>
+  <p style="font:.88rem/1.65 var(--sans);color:var(--muted);max-width:680px;margin-bottom:.4rem">A publisher revokes one source. The cascade propagates through every receipt that depends on it. Downstream consumers see their bundles taint and can choose how to respond.</p>
+  <div class="flow">
+    <div class="flow-step"><div class="num">1</div><div class="body">Publisher updates <code>aps.txt</code> revocation endpoint, marks source <code>did:web:example.com#article-42</code> as revoked.</div></div>
+    <div class="flow-step"><div class="num">2</div><div class="body">Every <code>AccessReceipt</code> citing that source is now flagged. Verifier checks the revocation endpoint; receipts emitted before revocation remain valid for compliance, but new access fails.</div></div>
+    <div class="flow-step"><div class="num">3</div><div class="body"><code>DerivationReceipt</code> chains rooted at the revoked source carry the revocation signal. Embeddings, summaries, RAG chunks all surface the taint to downstream consumers.</div></div>
+    <div class="flow-step"><div class="num">4</div><div class="body"><code>DecisionLineageReceipt</code> on top of derivatives flags decisions that depended on revoked sources. Audit can replay and quantify impact.</div></div>
+  </div>
+</section>
+
+<section class="section">
+  <h2 style="font:600 1.3rem var(--serif);margin:2rem 0 .6rem;color:var(--text)">How it looks in code</h2>
+  <p style="font:.88rem/1.65 var(--sans);color:var(--muted);max-width:680px">Publisher side: sign a governance block and embed it in the page. The full pipeline (parse, verify, access receipt, terms enforcement) runs in one call on the consumer side.</p>
+<pre class="code-block"><span class="c">// CONSUMER SIDE</span>
+<span class="c">// One call covers the full Governance 360 loop:</span>
+<span class="c">// extract block from HTML, verify signature + content hash,</span>
+<span class="c">// check terms against intended usage, sign access receipt.</span>
+
+import { governance360 } from <span class="s">'agent-passport-system'</span>
+
+const result = await governance360({
+  html: pageHtml,
+  contentBody: articleText,
+  sourceUrl: <span class="s">'https://example.com/article-42'</span>,
+  publisherPublicKey: publisherPubKeyHex,
+  intendedUsage: <span class="s">'inference'</span>,         <span class="c">// or 'training', 'redistribution', etc.</span>
+  agentPrivateKey: agentPrivKeyHex,
+  agentPublicKey: agentPubKeyHex,
+})
+
+if (!result.allowed) {
+  <span class="c">// result.reason: 'usage_not_permitted' | 'signature_invalid' | 'content_hash_mismatch' | 'revoked'</span>
+  return result
+}
+
+<span class="c">// result.accessReceipt: signed proof the agent read the content under the terms.</span>
+<span class="c">// Bind it to whatever you produce; downstream verifiers can check the chain.</span>
+return result.accessReceipt</pre>
+</section>
+
+<section class="section">
+  <h2 style="font:600 1.3rem var(--serif);margin:2rem 0 .6rem;color:var(--text)">Two paths</h2>
+  <div class="cta-row">
+    <div class="cta">
+      <h3>Self-serve (open SDK)</h3>
+      <p>Apache-2.0. Publisher tools to sign aps.txt and governance blocks. Agent-side helpers to verify, enforce, and emit access receipts. <code style="font:.74rem var(--mono);background:var(--code-bg);padding:.05rem .25rem;border-radius:3px">npm install agent-passport-system</code> covers both sides.</p>
+      <a href="https://www.npmjs.com/package/agent-passport-system">npm package</a>
+      &nbsp;&nbsp;
+      <a href="passport.html">Spec</a>
+    </div>
+    <div class="cta">
+      <h3>Managed (gateway product)</h3>
+      <p>For publishers who want a hosted revocation endpoint, dashboard for cascade events, and reporting on who consumed what under which terms. Compliance-grade tier includes audit export.</p>
+      <a href="gateway.html">Gateway</a>
+      &nbsp;&nbsp;
+      <a href="mailto:signal@aeoess.com">Talk to us</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2 style="font:600 1.3rem var(--serif);margin:2rem 0 .6rem;color:var(--text)">What access receipts do not prove</h2>
+  <p style="font:.88rem/1.65 var(--sans);color:var(--text);max-width:680px;margin-bottom:.4rem">A signed <code style="font:.78rem var(--mono);background:var(--code-bg);padding:.1rem .3rem;border-radius:3px">AccessReceipt</code> proves an agent fetched content from a source under stated terms at a stated time for a stated purpose. It does not prove:</p>
+  <ul style="font:.88rem/1.7 var(--sans);color:var(--muted);max-width:680px;padding-left:1.2rem;margin:.4rem 0">
+    <li>The agent obeyed the declared purpose downstream (signed intent, not enforcement of intent)</li>
+    <li>The content was authored by whom the source claims (signed by the publisher's key, not an external authority)</li>
+    <li>Compensation was paid (separate receipt class, separate ceremony)</li>
+    <li>The terms are legally enforceable in your jurisdiction</li>
+  </ul>
+</section>
+
+<section class="section">
+  <h2 style="font:600 1.3rem var(--serif);margin:2rem 0 .6rem;color:var(--text)">Adjacent solutions</h2>
+  <div class="adjacent">
+    <a class="adj" href="payments.html">
+      <h4>Payments</h4>
+      <p>Agent-to-agent settlement. Six rails. Use with content compensation flows.</p>
+    </a>
+    <a class="adj" href="compliance.html">
+      <h4>Compliance</h4>
+      <p>EU AI Act, NIST AI RMF, ISO 42001. Audit trail across content access and derivation.</p>
+    </a>
+    <a class="adj" href="enterprise.html">
+      <h4>Enterprise</h4>
+      <p>Identity, delegation, mutual auth, charter governance for internal agent fleets.</p>
+    </a>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer-wrap" role="contentinfo">
+<div class="footer-inner">
+  <div class="footer-grid">
+    <div class="footer-col"><h4>Protocol</h4><a href="passport.html">Documentation</a><a href="benchmarks.html">Benchmarks</a><a href="compare.html">Compare</a><a href="threat-model.html">Threat Model</a><a href="faq.html">FAQ</a></div>
+    <div class="footer-col"><h4>Solutions</h4><a href="payments.html">Payments</a><a href="content.html">Content</a><a href="compliance.html">Compliance</a><a href="enterprise.html">Enterprise</a></div>
+    <div class="footer-col"><h4>Developers</h4><a href="https://github.com/aeoess">GitHub</a><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="portal.html">Portal</a><a href="gateway.html">Gateway</a></div>
+    <div class="footer-col"><h4>Community</h4><a href="blog.html">Dev Log</a><a href="roadmap.html">Roadmap</a><a href="working-group.html">Working Group</a><a href="mingle.html">Mingle</a><a href="agora.html">Agora</a></div>
+  </div>
+  <div class="footer-bottom"><span class="footer-copy">AEOESS &copy; 2026 &middot; Apache-2.0 &middot; Built by <a href="https://tymofii.me">Tymofii Pidlisnyi</a></span><div class="footer-ext"><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="https://github.com/aeoess">GitHub</a></div></div>
+</div>
+</footer>
+<script>
+function toggleTheme(){var d=document.documentElement.getAttribute('data-theme')==='dark';var n=d?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('aeoess-theme',n);var b=document.querySelector('.theme-btn');if(b)b.textContent=n==='dark'?'\u2600':'\u263E';}
+function closeDrawer(){document.querySelector('.nav-burger')?.classList.remove('open');document.querySelector('.nav-drawer')?.classList.remove('open');}
+(function(){var s=localStorage.getItem('aeoess-theme');if(s)document.documentElement.setAttribute('data-theme',s);else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.setAttribute('data-theme','dark');var b=document.querySelector('.theme-btn');if(b)b.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'\u2600':'\u263E';})();
+window.addEventListener('scroll',function(){var n=document.getElementById('nav');if(n)n.classList.toggle('scrolled',window.scrollY>40)});
+</script>
+</body>
+</html>

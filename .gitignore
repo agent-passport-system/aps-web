@@ -1,0 +1,89 @@
+# Private keys — NEVER commit
+.keys/
+
+# macOS
+.DS_Store
+*.swp
+*~
+
+# Node
+node_modules/
+package.json
+package-lock.json
+*.tgz
+
+# Logs/cache
+comms/.last_hash
+comms/poller.log
+scripts/.propagate-cache.json
+
+# Nested repo — canonical home: github.com/aeoess/cognitive-attestation-poc
+papers/paper-4/poc/
+
+# Personal correspondence drafts (NEVER commit — public repo)
+specs/DRAFTS-*/email-to-*.md
+specs/**/email-to-*.md
+*.bak
+
+# ── ALL OF specs/ IS PRIVATE BY DEFAULT (Tier 1) ──────────
+# 2026-04-29 incident: 65 internal docs were public until force-push scrub.
+# specs/ is local working scratch space. Nothing in specs/ goes public.
+# To make a single file public, move it OUT of specs/ to a sibling location.
+specs/
+
+# ── Tier 2: internal process artifacts ─────────────────────
+specs/CC-PROMPT-*
+specs/cc-prompts/
+specs/contribution-map/
+specs/drafts/
+specs/DAILY-UPDATE-RHYTHM.md
+specs/anti-ai-writing-style.md
+
+# ── Tier 3: archives + dated draft folders ─────────────────
+specs/_archive/
+specs/archive-portal-era/
+specs/killed/
+specs/model-citizen/
+specs/reports/
+specs/DRAFTS-*/
+
+# ── 2026-04-29 second sweep: internal-staging dirs + root docs ──
+# Same pattern as the specs/ sweep earlier today. These dirs are
+# private working space.
+archive-portal-era/
+comms/*
+!comms/shared-state.json
+drafts/
+articles/
+experiments/
+papers/paper-4/
+papers/RETITLE-*.diff
+AGENT-INSTRUCTIONS.md
+TEAM-OPS.md
+OPS-LOG.md
+UPDATE-PROPAGATION-SPEC.md
+ONBOARDING.md
+docs/article-note.txt
+
+# Local-state cache for build-roadmap.mjs (matches .propagate-cache.json convention)
+scripts/.roadmap-build-cache.json
+
+# ─────────────────────────────────────────────────
+# AEOESS drift prevention — never commit these patterns.
+# These complement the pre-commit hook and CI scan.
+# ─────────────────────────────────────────────────
+specs/cc-prompts/
+specs/consilium/
+specs/briefings/
+specs/CONSILIUM-*
+specs/ROME-COMPLETE-*
+specs/DAILY-*
+specs/CC-PROMPT-*
+specs/OPEN-COMMITMENTS*
+specs/MODEL-CITIZEN*
+specs/MUTUAL-MODE*
+specs/THE-SYNTHESIS*
+specs/ERIK-NEWTON*
+/tmp-*.md
+/scratch-*.md
+*.private.md

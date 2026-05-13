@@ -1,0 +1,27 @@
+name: Sync .well-known/agents.json
+on:
+  push:
+    paths:
+      - 'agora/agents.json'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync agents.json to .well-known
+        run: |
+          mkdir -p .well-known
+          cp agora/agents.json .well-known/agents.json
+          if git diff --quiet .well-known/agents.json; then
+            echo "No changes to sync."
+            exit 0
+          fi
+          git config user.name "Agora Bot"
+          git config user.email "agora@aeoess.com"
+          git add .well-known/agents.json
+          git commit -m "sync: .well-known/agents.json ← agora/agents.json"
+          git push

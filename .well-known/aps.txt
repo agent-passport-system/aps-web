@@ -1,0 +1,42 @@
+{
+  "@context": "https://aeoess.com/governance/v1",
+  "@type": "ApsTxt",
+  "domain": "aeoess.com",
+  "publisher_did": "did:aps:z6MkfBQNZXXcgtkmj4AvFfH14WtSmd4gUrUEfyi2oMbrmTGW",
+  "publisher_name": "AEOESS",
+  "default_terms": {
+    "inference": "permitted",
+    "training": "attribution_required",
+    "redistribution": "permitted",
+    "caching": "permitted"
+  },
+  "default_revocation_policy": {
+    "cached_copy": "delete",
+    "rag_chunk": "delete",
+    "embedding": "quarantine",
+    "fine_tune": "no_future_use",
+    "synthetic": "compensation_only"
+  },
+  "generated_at": "2026-03-29T01:26:52.509Z",
+  "revocation_endpoint": "https://aeoess.com/.well-known/aps.txt",
+  "mcp_endpoint": "https://mcp.aeoess.com",
+  "path_overrides": [
+    {
+      "pattern": "/llms*.txt",
+      "terms": {
+        "inference": "permitted",
+        "training": "permitted",
+        "caching": "permitted"
+      }
+    },
+    {
+      "pattern": "/world.html",
+      "terms": {
+        "inference": "permitted",
+        "training": "denied",
+        "redistribution": "denied"
+      }
+    }
+  ],
+  "signature": "c8a3fb2ed65bd06f409df2df271cea69dec23e28fd6b1b0bf4f2c2661196834b8f57852dda52d5aec819b1b59058447a21adace5728226b9571a2aa9ec29a003"
+}

@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aeoess.com/fixtures/rotation-attestation/schema-v1.json",
+  "title": "Rotation-Attested DID Document (APS continuity-layer claim)",
+  "type": "object",
+  "required": [
+    "@context",
+    "id",
+    "controller",
+    "verificationMethod",
+    "rotationLog",
+    "created",
+    "updated"
+  ],
+  "properties": {
+    "@context": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^did:aps:"
+    },
+    "controller": {
+      "type": "string"
+    },
+    "verificationMethod": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/VerificationMethod"
+      }
+    },
+    "authentication": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assertionMethod": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "capabilityDelegation": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rotationLog": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/RotationEntry"
+      }
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "$defs": {
+    "VerificationMethod": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "controller",
+        "publicKeyMultibase"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "const": "Ed25519VerificationKey2020"
+        },
+        "controller": {
+          "type": "string"
+        },
+        "publicKeyMultibase": {
+          "type": "string"
+        },
+        "retiredAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "RotationEntry": {
+      "type": "object",
+      "required": [
+        "previousKey",
+        "newKey",
+        "mode",
+        "announcedAt",
+        "activationTime",
+        "state",
+        "rotationSignature"
+      ],
+      "properties": {
+        "previousKey": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "newKey": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "mode": {
+          "enum": [
+            "planned",
+            "emergency"
+          ]
+        },
+        "announcedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "activationTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "state": {
+          "enum": [
+            "announced",
+            "activated",
+            "cancelled"
+          ]
+        },
+        "rotationSignature": {
+          "type": "string",
+          "description": "Ed25519 signature by old key over JCS canonicalization of {previousKey, newKey, mode, activationTime}. Empty string indicates missing continuity evidence; verifier MUST return INVALID_CLAIM_SCOPE."
+        },
+        "crossSignature": {
+          "type": "string",
+          "description": "Optional Ed25519 signature by NEW key over the same canonical rotation payload."
+        },
+        "migrationAttestation": {
+          "$ref": "#/$defs/MigrationAttestation"
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "MigrationAttestation": {
+      "type": "object",
+      "required": [
+        "attestorKey",
+        "attestorSignature",
+        "migrationType",
+        "fromClass",
+        "toClass",
+        "migratedAt"
+      ],
+      "properties": {
+        "attestorKey": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "attestorSignature": {
+          "type": "string",
+          "description": "Ed25519 signature by attestor over JCS of {previousKey, newKey, migrationType, fromClass, toClass, migratedAt}."
+        },
+        "migrationType": {
+          "enum": [
+            "key_class_upgrade"
+          ],
+          "description": "v1 = {key_class_upgrade}. v2 adds {did_method_migration, pq_migration}."
+        },
+        "fromClass": {
+          "enum": [
+            "self_asserted",
+            "infrastructure_attested",
+            "provider_attested",
+            "hardware_attested"
+          ]
+        },
+        "toClass": {
+          "enum": [
+            "self_asserted",
+            "infrastructure_attested",
+            "provider_attested",
+            "hardware_attested"
+          ]
+        },
+        "migratedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

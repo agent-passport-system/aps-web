@@ -1,0 +1,1336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>AEOESS — Protocol Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0b0d;
+    --bg-2: #101216;
+    --ink: #e8eaec;
+    --ink-2: #9ba1a9;
+    --ink-3: #5a6069;
+    --line: rgba(255,255,255,0.08);
+    --line-2: rgba(255,255,255,0.16);
+    --accent: #7cf6b9;     /* cryptographic green */
+    --accent-glow: rgba(124,246,185,0.35);
+    --danger: #ff6b6b;
+    --warn: #ffcc66;
+    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --serif: 'Fraunces', Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background: var(--bg); color: var(--ink); font-family: var(--mono); font-size: 14px; line-height: 1.5; }
+  body { min-height: 100vh; overflow-x: hidden; }
+
+  /* ---------- shell (embed mode) ---------- */
+  .shell { max-width: 100%; margin: 0; padding: 12px 18px 16px; }
+  @media (max-width: 720px) { .shell { padding: 10px 12px 14px; } }
+
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
+
+  /* ---------- tabs ---------- */
+  .scene-tabs { display: flex; gap: 0; margin: 0 0 8px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  .tab { appearance: none; background: transparent; color: var(--ink-3); border: none; font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 16px 9px; cursor: pointer; position: relative; transition: color 0.2s; display: flex; align-items: baseline; gap: 10px; }
+  .tab:hover { color: var(--ink-2); }
+  .tab[aria-selected="true"] { color: var(--ink); }
+  .tab[aria-selected="true"]::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); }
+  .tab .num { color: var(--ink-3); font-weight: 400; }
+  .tab[aria-selected="true"] .num { color: var(--accent); }
+
+  .scene-meta { display: flex; justify-content: space-between; align-items: center; padding: 10px 0 12px; color: var(--ink-3); font-size: 12px; flex-wrap: wrap; gap: 16px; }
+  .scene-meta .title { color: var(--ink-2); font-size: 13px; }
+  .scene-meta .title strong { color: var(--ink); font-weight: 500; }
+  .scene-meta .stats { display:flex; gap: 28px; }
+  .scene-meta .stat { display:flex; align-items: baseline; gap: 6px; }
+  .scene-meta .stat b { color: var(--accent); font-weight: 500; letter-spacing: 0.04em; }
+
+  /* ---------- stage ---------- */
+  .stage {
+    position: relative; width: 100%;
+    aspect-ratio: 16 / 6.5;
+    background: radial-gradient(ellipse at center, #13161b 0%, var(--bg) 70%);
+    border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+  }
+  @media (max-width: 720px) { .stage { aspect-ratio: 4/4.2; } }
+
+  .scene { position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity 0.4s; }
+  .scene.active { opacity: 1; pointer-events: auto; }
+  .scene svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+  /* ---------- caption (inside stage) ---------- */
+  .caption {
+    position: absolute; bottom: 18px; left: 20px; right: 20px;
+    display: flex; justify-content: space-between; gap: 16px;
+    font-size: 11px; color: var(--ink-3); letter-spacing: 0.06em;
+    pointer-events: none;
+  }
+  .caption .key { color: var(--ink); }
+
+  /* ---------- controls strip below stage ---------- */
+  .below {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px;
+    background: var(--line); margin-top: 1px;
+    border: 1px solid var(--line); border-top: none; border-radius: 0 0 6px 6px; overflow: hidden;
+  }
+  @media (max-width: 720px) { .below { grid-template-columns: 1fr; } }
+  .below .cell { background: var(--bg-2); padding: 11px 16px; }
+  .below .cell .h { color: var(--ink-3); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px; }
+  .below .cell .v { color: var(--ink); font-size: 12px; line-height: 1.4; }
+  .below .cell .v code { color: var(--accent); font-size: 12px; }
+
+  /* ---------- tweaks panel ---------- */
+  .tweaks {
+    position: fixed; bottom: 24px; right: 24px; z-index: 50;
+    background: rgba(16,18,22,0.92); backdrop-filter: blur(12px);
+    border: 1px solid var(--line-2); border-radius: 8px;
+    width: 300px; max-width: calc(100vw - 48px);
+    font-size: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    display: none;
+  }
+  .tweaks.open { display: block; }
+  .tweaks header { padding: 12px 14px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; }
+  .tweaks header h3 { margin: 0; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-2); font-weight: 500; }
+  .tweaks header button { background: transparent; border: 0; color: var(--ink-3); cursor: pointer; padding: 0; font-size: 16px; line-height: 1; }
+  .tweaks header button:hover { color: var(--ink); }
+  .tweaks .body { padding: 14px; display: grid; gap: 14px; }
+  .field { display: grid; gap: 6px; }
+  .field label { color: var(--ink-3); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; display:flex; justify-content: space-between; }
+  .field label b { color: var(--accent); font-weight: 400; }
+  .field input[type="range"] { width: 100%; accent-color: var(--accent); }
+  .swatch-row { display:flex; gap: 6px; }
+  .swatch { width: 28px; height: 28px; border-radius: 4px; border: 1px solid var(--line-2); cursor: pointer; position: relative; }
+  .swatch.sel { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .seg { display:flex; gap: 0; border: 1px solid var(--line-2); border-radius: 4px; overflow: hidden; }
+  .seg button { flex: 1; background: transparent; color: var(--ink-2); border: 0; padding: 6px 4px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
+  .seg button + button { border-left: 1px solid var(--line-2); }
+  .seg button.sel { background: var(--accent); color: #0a0b0d; font-weight: 600; }
+  .tweaks-open-btn {
+    position: fixed; bottom: 24px; right: 24px; z-index: 49;
+    background: rgba(16,18,22,0.92); backdrop-filter: blur(12px);
+    border: 1px solid var(--line-2); border-radius: 999px;
+    color: var(--ink); padding: 10px 16px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
+    display: none;
+  }
+
+
+
+  /* scene1 specifics */
+  .token-label { font-family: var(--mono); font-size: 10px; fill: var(--ink-2); letter-spacing: 0.04em; }
+  .node-label { font-family: var(--mono); font-size: 11px; fill: var(--ink); letter-spacing: 0.06em; }
+  .node-sub { font-family: var(--mono); font-size: 9px; fill: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* density label show/hide */
+  .label-verbose { display: none; }
+  body[data-labels="verbose"] .label-verbose { display: inline; }
+  body[data-labels="sparse"] .label-medium { display: none; }
+  body[data-labels="sparse"] .label-verbose { display: none; }
+
+  /* accent-driven styling */
+  .accent-stroke { stroke: var(--accent); }
+  .accent-fill { fill: var(--accent); }
+  .ink-stroke { stroke: var(--ink-2); }
+
+  /* glow filter reuse via css */
+  .glow { filter: drop-shadow(0 0 4px var(--accent-glow)); }
+</style>
+</head>
+<body data-labels="medium">
+<script>if(window!==window.top)document.documentElement.classList.add('embedded');</script>
+<style>html.embedded .nav, html.embedded .nav-drawer, html.embedded footer.footer-wrap { display: none !important; }</style>
+<nav class="nav" id="nav">
+  <a href="/" class="nav-logo"><img src="/assets/images/aeoess_logo-05.png" alt="AEOESS" width="158" height="26" style="height:26px;width:auto"></a>
+  <div class="nav-links"><a href="wallet.html">Wallet</a><a href="blog.html">Blog</a><a href="roadmap.html">Roadmap</a><a href="passport.html">Spec</a><a href="docs.html">API</a><a href="portal.html" style="font-weight:600">Portal</a><a href="https://github.com/aeoess">GitHub</a><a href="mailto:signal@aeoess.com">Contact</a></div>
+  <div class="nav-right"><button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button><div class="nav-burger" onclick="this.classList.toggle('open');document.querySelector('.nav-drawer').classList.toggle('open')"><span></span><span></span><span></span></div></div>
+</nav>
+
+
+<div class="shell">
+
+  <!-- Tabs -->
+  <div class="scene-tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true"  data-scene="0"><span class="num">01</span>Life of an Action</button>
+    <button class="tab" role="tab" aria-selected="false" data-scene="1"><span class="num">02</span>Delegation &amp; Cascade</button>
+    <button class="tab" role="tab" aria-selected="false" data-scene="2"><span class="num">03</span>Gateway Judgement</button>
+    <button class="tab" role="tab" aria-selected="false" data-scene="3"><span class="num">04</span>Trust Mesh</button>
+  </div>
+
+  <div class="scene-meta">
+    <div class="title" id="scene-title"><strong>01 · Life of an Action.</strong> Passport → Delegation → Intent → Gateway → Enforcement → Receipt.</div>
+    <div class="stats">
+      <div class="stat" id="stat-a-wrap"><span id="stat-a-label">policy eval</span> <b id="stat-a">1.4ms</b></div>
+      <div class="stat" id="stat-b-wrap"><span id="stat-b-label">throughput</span> <b id="stat-b">403 ops/s</b></div>
+      <div class="stat" id="stat-c-wrap"><span id="stat-c-label">tests</span> <b id="stat-c">2,586</b></div>
+    </div>
+  </div>
+
+  <!-- Stage -->
+  <div class="stage" id="stage">
+    <div class="scene active" data-id="0" id="scene-0"></div>
+    <div class="scene" data-id="1" id="scene-1"></div>
+    <div class="scene" data-id="2" id="scene-2"></div>
+    <div class="scene" data-id="3" id="scene-3"></div>
+
+    <div class="caption" id="caption">
+      <div><span class="key" id="cap-left">—</span></div>
+      <div id="cap-right">— — —</div>
+    </div>
+  </div>
+
+  <!-- Below stage info strip -->
+  <div class="below" id="below"></div>
+
+</div>
+
+<!-- Tweaks -->
+<button class="tweaks-open-btn" id="tweaks-toggle">⚙ Tweaks</button>
+<div class="tweaks" id="tweaks">
+  <header>
+    <h3>Tweaks</h3>
+    <button id="tweaks-close" aria-label="close">×</button>
+  </header>
+  <div class="body">
+    <div class="field">
+      <label>Speed <b id="speed-val">1.0×</b></label>
+      <input type="range" id="speed" min="0.25" max="2.5" step="0.25" value="1">
+    </div>
+    <div class="field">
+      <label>Density <b id="density-val">medium</b></label>
+      <div class="seg" id="density-seg">
+        <button data-v="low">low</button><button data-v="medium" class="sel">med</button><button data-v="high">high</button>
+      </div>
+    </div>
+    <div class="field">
+      <label>Labels <b id="labels-val">medium</b></label>
+      <div class="seg" id="labels-seg">
+        <button data-v="sparse">sparse</button><button data-v="medium" class="sel">med</button><button data-v="verbose">verbose</button>
+      </div>
+    </div>
+    <div class="field">
+      <label>Accent <b id="accent-name">crypto green</b></label>
+      <div class="swatch-row" id="swatch-row">
+        <div class="swatch sel" data-c="#7cf6b9" data-n="crypto green" style="background:#7cf6b9"></div>
+        <div class="swatch" data-c="#6ecbff" data-n="trust blue" style="background:#6ecbff"></div>
+        <div class="swatch" data-c="#ffb366" data-n="seal amber" style="background:#ffb366"></div>
+        <div class="swatch" data-c="#c69bff" data-n="court violet" style="background:#c69bff"></div>
+        <div class="swatch" data-c="#f0f0f0" data-n="mono" style="background:#f0f0f0"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================================================================
+   AEOESS — Protocol Architecture
+   4 scenes, pure SVG + JS rAF. No deps.
+   ================================================================ */
+
+const TWEAK_DEFAULS = /*EDITMODE-BEGIN*/{
+  "speed": 1,
+  "density": "medium",
+  "labels": "medium",
+  "accent": "#7cf6b9",
+  "accentName": "crypto green"
+}/*EDITMODE-END*/;
+
+const state = {
+  speed: TWEAK_DEFAULS.speed,
+  density: TWEAK_DEFAULS.density,
+  labels: TWEAK_DEFAULS.labels,
+  accent: TWEAK_DEFAULS.accent,
+  accentName: TWEAK_DEFAULS.accentName,
+  sceneIdx: 0,
+  t0: performance.now(),
+};
+
+/* ---------- applyAccent ---------- */
+function setAccent(hex, name) {
+  state.accent = hex; state.accentName = name;
+  const rgb = hex.replace('#','').match(/.{2}/g).map(h=>parseInt(h,16));
+  document.documentElement.style.setProperty('--accent', hex);
+  document.documentElement.style.setProperty('--accent-glow', `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.35)`);
+  document.getElementById('accent-name').textContent = name;
+}
+
+/* ---------- tabs ---------- */
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => selectScene(parseInt(t.dataset.scene)));
+});
+const TITLES = [
+  ['01 · Life of an Action.', 'Passport → Delegation → Intent → Gateway → Enforcement → Receipt.'],
+  ['02 · Delegation & Cascade.', 'Authority can only narrow. Revoke a node — the whole subtree dies in one call.'],
+  ['03 · Gateway Judgement.', 'Every action evaluated against 14 constraint dimensions. Sub-2ms. Fail-closed.'],
+  ['04 · Trust Mesh.', 'Agents, humans, and services bound by signed delegations, receipts and reputation.'],
+];
+const BELOW = [
+  [
+    ['Identity', 'Ed25519 keypair bound to a human principal. <code>did:key</code>, <code>did:web</code>, SPIFFE, OAuth — BYO.'],
+    ['Scope', 'Each delegation narrows tools, budget, services. Never expands. Monotonic.'],
+    ['Receipt', 'Signed Merkle leaf across D/P/G/C axes. Independently verifiable. Wave 1 accountability primitives — Ed25519 ActionReceipt, AuthorityBoundaryReceipt, CustodyReceipt, ContestabilityReceipt, APSBundle. RFC 8785 JCS canonicalized, byte-match across implementations.'],
+  ],
+  [
+    ['Root', 'Human principal. Authority originates here.'],
+    ['Narrow', 'Child scopes are strict subsets of parent scopes. Enforced at issuance.'],
+    ['Cascade', 'One API call revokes a node and every descendant — instantly, at the gateway.'],
+  ],
+  [
+    ['14 gates', 'Identity · signature · scope · budget · rate · values · reputation · freshness · …'],
+    ['<2ms', 'Median policy eval. 403 ops/s sustained. Sub-ms denials.'],
+    ['Fail-closed', 'Missing a check = deny. No bypass on cache miss or ambiguity.'],
+  ],
+  [
+    ['Agents', 'Passports as nodes. Colors encode reputation earned through completed work.'],
+    ['Edges', 'Each edge is a signed delegation or a signed receipt. No unsigned content on the mesh.'],
+    ['Humans', 'Every chain terminates at a human principal. Attribution is Merkle-proven.'],
+  ],
+];
+// Per-scene stats: [[labelA, valueA, labelB, valueB, labelC, valueC], ...]
+const STATS_PER_SCENE = [
+  ['issuance', '<1ms',     'chain depth', 'up to 12', 'tests', '2,586'],
+  ['cascade',  '<3ms',     'max fanout',  '2,048',    'tests', '2,586'],
+  ['policy eval', '1.4ms', 'throughput',  '403 ops/s','tests', '2,586'],
+  ['mesh size','65k nodes','signed edges','all',      'tests', '2,586'],
+];
+
+function reportHeight() {
+  try {
+    const shell = document.querySelector('.shell');
+    if (!shell) return;
+    const h = Math.ceil(shell.getBoundingClientRect().bottom) + 4;
+    window.parent.postMessage({ type: 'aeoess-arch-embed:height', height: h }, '*');
+  } catch (e) {}
+}
+
+function selectScene(i) {
+  state.sceneIdx = i;
+  document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', parseInt(t.dataset.scene) === i));
+  document.querySelectorAll('.scene').forEach(s => s.classList.toggle('active', parseInt(s.dataset.id) === i));
+  const [t, sub] = TITLES[i];
+  document.getElementById('scene-title').innerHTML = `<strong>${t}</strong> ${sub}`;
+  // stats per scene
+  const S = STATS_PER_SCENE[i];
+  document.getElementById('stat-a-label').textContent = S[0];
+  document.getElementById('stat-a').textContent = S[1];
+  document.getElementById('stat-b-label').textContent = S[2];
+  document.getElementById('stat-b').textContent = S[3];
+  document.getElementById('stat-c-label').textContent = S[4];
+  document.getElementById('stat-c').textContent = S[5];
+  // below
+  const below = document.getElementById('below'); below.innerHTML = '';
+  BELOW[i].forEach(([h,v]) => {
+    const cell = document.createElement('div'); cell.className = 'cell';
+    cell.innerHTML = `<div class="h">${h}</div><div class="v">${v}</div>`;
+    below.appendChild(cell);
+  });
+  try { localStorage.setItem('aeoess-scene', String(i)); } catch(e) {}
+  // notify parent of content height for iframe auto-resize
+  reportHeight();
+}
+
+/* restore */
+try { const s = parseInt(localStorage.getItem('aeoess-scene')); if (!isNaN(s)) selectScene(s); else selectScene(0); } catch(e) { selectScene(0); }
+
+/* iframe auto-resize: continuously report content height to parent */
+window.addEventListener('load', reportHeight);
+window.addEventListener('resize', reportHeight);
+if (typeof ResizeObserver !== 'undefined') {
+  const ro = new ResizeObserver(() => reportHeight());
+  const shell = document.querySelector('.shell');
+  if (shell) ro.observe(shell);
+}
+/* also poll briefly during initial animation settling */
+let _heightPolls = 0;
+const _heightPoll = setInterval(() => {
+  reportHeight();
+  if (++_heightPolls > 20) clearInterval(_heightPoll);
+}, 200);
+
+/* ---------- tweaks UI ---------- */
+const tweaks = document.getElementById('tweaks');
+const tweaksBtn = document.getElementById('tweaks-toggle');
+document.getElementById('tweaks-close').onclick = () => tweaks.classList.remove('open');
+tweaksBtn.onclick = () => tweaks.classList.toggle('open');
+
+// edit-mode protocol
+window.addEventListener('message', (e) => {
+  const d = e.data || {};
+  if (d.type === '__activate_edit_mode') { tweaksBtn.style.display = 'inline-block'; }
+  if (d.type === '__deactivate_edit_mode') { tweaksBtn.style.display = 'none'; tweaks.classList.remove('open'); }
+});
+window.parent.postMessage({type: '__edit_mode_available'}, '*');
+
+function persist(edits) {
+  try { window.parent.postMessage({type: '__edit_mode_set_keys', edits}, '*'); } catch(e) {}
+}
+
+document.getElementById('speed').addEventListener('input', (e) => {
+  state.speed = parseFloat(e.target.value);
+  document.getElementById('speed-val').textContent = state.speed.toFixed(2)+'×';
+  persist({speed: state.speed});
+});
+document.getElementById('density-seg').addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  document.querySelectorAll('#density-seg button').forEach(x => x.classList.toggle('sel', x===b));
+  state.density = b.dataset.v;
+  document.getElementById('density-val').textContent = state.density;
+  rebuildAllScenes();
+  persist({density: state.density});
+});
+document.getElementById('labels-seg').addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  document.querySelectorAll('#labels-seg button').forEach(x => x.classList.toggle('sel', x===b));
+  state.labels = b.dataset.v;
+  document.getElementById('labels-val').textContent = state.labels;
+  document.body.dataset.labels = state.labels;
+  persist({labels: state.labels});
+});
+document.getElementById('swatch-row').addEventListener('click', (e) => {
+  const s = e.target.closest('.swatch'); if (!s) return;
+  document.querySelectorAll('#swatch-row .swatch').forEach(x => x.classList.toggle('sel', x===s));
+  setAccent(s.dataset.c, s.dataset.n);
+  persist({accent: s.dataset.c, accentName: s.dataset.n});
+});
+
+// initial
+setAccent(state.accent, state.accentName);
+document.body.dataset.labels = state.labels;
+
+/* clock */
+function tickClock() {
+  const d = new Date(); const pad = n => String(n).padStart(2,'0');
+  document.getElementById('clock').textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())} UTC`;
+}
+try { const c = document.getElementById('clock'); if (c) setInterval(tickClock, 1000); if (c) tickClock(); } catch(e) {}
+
+/* caption */
+function setCap(left, right) {
+  document.getElementById('cap-left').textContent = left || '—';
+  document.getElementById('cap-right').textContent = right || '';
+}
+
+/* ============================================================
+   SCENE 0 — LIFE OF AN ACTION (horizontal pipeline)
+   ============================================================ */
+const scene0 = {
+  stages: [
+    { key:'PASSPORT',   label:'Passport',    sub:'ed25519 · did:key',           detail:'identity minted' },
+    { key:'DELEGATION', label:'Delegation',  sub:'scope · budget · ttl',        detail:'authority narrowed' },
+    { key:'INTENT',     label:'Intent',      sub:'tool call · signed',          detail:'agent requests action' },
+    { key:'GATEWAY',    label:'Gateway',     sub:'14 gates · <2ms',             detail:'policy evaluated' },
+    { key:'ACT',        label:'Action',      sub:'executed · witnessed',        detail:'effect in the world' },
+    { key:'RECEIPT',    label:'Receipt',     sub:'merkle · d/p/g/c',            detail:'signed & anchored' },
+  ],
+  particles: [],
+  init(host) {
+    host.innerHTML = '';
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 1600 900');
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    host.appendChild(svg);
+    this.svg = svg;
+
+    const y = 450;
+    const leftPad = 110, rightPad = 110;
+    const usable = 1600 - leftPad - rightPad;
+    const nStages = this.stages.length;
+    const gap = usable / (nStages - 1);
+    this.positions = this.stages.map((s, i) => ({ x: leftPad + i*gap, y, ...s }));
+
+    // rail
+    const rail = document.createElementNS('http://www.w3.org/2000/svg','line');
+    rail.setAttribute('x1', leftPad); rail.setAttribute('x2', 1600 - rightPad);
+    rail.setAttribute('y1', y); rail.setAttribute('y2', y);
+    rail.setAttribute('stroke', 'rgba(255,255,255,0.08)'); rail.setAttribute('stroke-width','1');
+    svg.appendChild(rail);
+
+    // dashed rail (animated forward)
+    const railA = document.createElementNS('http://www.w3.org/2000/svg','line');
+    railA.setAttribute('x1', leftPad); railA.setAttribute('x2', 1600 - rightPad);
+    railA.setAttribute('y1', y); railA.setAttribute('y2', y);
+    railA.setAttribute('stroke', 'var(--accent)'); railA.setAttribute('stroke-width','1');
+    railA.setAttribute('stroke-dasharray','2 8'); railA.setAttribute('opacity','0.5');
+    railA.classList.add('s0-rail');
+    svg.appendChild(railA);
+    this.rail = railA;
+
+    // step nodes
+    this.nodes = this.positions.map((p, i) => {
+      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('transform', `translate(${p.x},${p.y})`);
+      // index above
+      const ix = document.createElementNS('http://www.w3.org/2000/svg','text');
+      ix.setAttribute('x',0); ix.setAttribute('y',-90); ix.setAttribute('text-anchor','middle');
+      ix.setAttribute('font-family','JetBrains Mono'); ix.setAttribute('font-size','10');
+      ix.setAttribute('fill', 'rgba(255,255,255,0.3)'); ix.setAttribute('letter-spacing','0.2em');
+      ix.textContent = '0' + (i+1);
+      g.appendChild(ix);
+      // label
+      const lbl = document.createElementNS('http://www.w3.org/2000/svg','text');
+      lbl.setAttribute('x',0); lbl.setAttribute('y',-60); lbl.setAttribute('text-anchor','middle');
+      lbl.setAttribute('font-family','Fraunces'); lbl.setAttribute('font-size','26');
+      lbl.setAttribute('fill','#e8eaec'); lbl.setAttribute('font-weight','300');
+      lbl.textContent = p.label;
+      g.appendChild(lbl);
+      // sublabel
+      const sub = document.createElementNS('http://www.w3.org/2000/svg','text');
+      sub.setAttribute('x',0); sub.setAttribute('y',-38); sub.setAttribute('text-anchor','middle');
+      sub.setAttribute('font-family','JetBrains Mono'); sub.setAttribute('font-size','10');
+      sub.setAttribute('fill','rgba(255,255,255,0.45)'); sub.setAttribute('letter-spacing','0.12em');
+      sub.setAttribute('text-transform','uppercase');
+      sub.textContent = p.sub.toUpperCase();
+      g.appendChild(sub);
+
+      // stage shape: circle
+      const ring = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      ring.setAttribute('r','24'); ring.setAttribute('fill','#0a0b0d');
+      ring.setAttribute('stroke','rgba(255,255,255,0.25)'); ring.setAttribute('stroke-width','1');
+      g.appendChild(ring);
+      const inner = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      inner.setAttribute('r','4'); inner.setAttribute('fill','rgba(255,255,255,0.25)');
+      g.appendChild(inner);
+
+      // tick line down + detail label below
+      const tick = document.createElementNS('http://www.w3.org/2000/svg','line');
+      tick.setAttribute('x1',0); tick.setAttribute('x2',0); tick.setAttribute('y1',30); tick.setAttribute('y2',56);
+      tick.setAttribute('stroke','rgba(255,255,255,0.15)'); tick.setAttribute('stroke-width','1');
+      g.appendChild(tick);
+      const det = document.createElementNS('http://www.w3.org/2000/svg','text');
+      det.setAttribute('x',0); det.setAttribute('y',78); det.setAttribute('text-anchor','middle');
+      det.setAttribute('font-family','JetBrains Mono'); det.setAttribute('font-size','11');
+      det.setAttribute('fill','rgba(255,255,255,0.55)'); det.setAttribute('font-style','italic');
+      det.setAttribute('font-family','Fraunces');
+      det.textContent = p.detail;
+      g.appendChild(det);
+
+      svg.appendChild(g);
+      return { g, ring, inner };
+    });
+
+    // header band (top) - big evolving payload
+    this.payload = document.createElementNS('http://www.w3.org/2000/svg','g');
+    this.payload.setAttribute('transform', 'translate(0,110)');
+    svg.appendChild(this.payload);
+
+    // scope narrowing visualization (bottom)
+    this.scopeGroup = document.createElementNS('http://www.w3.org/2000/svg','g');
+    this.scopeGroup.setAttribute('transform', 'translate(0,680)');
+    svg.appendChild(this.scopeGroup);
+    this.drawScope();
+
+    this.lastSpawn = 0;
+    this.particles = [];
+  },
+
+  drawScope() {
+    this.scopeGroup.innerHTML = '';
+    const y = 0;
+    // labeled bar per stage, shrinking
+    const x0 = 110, x1 = 1490;
+    const barY = 40;
+    const scopes = [
+      { lbl:'full key', w:1.00 },
+      { lbl:'scope: {tools,budget}', w:0.78 },
+      { lbl:'intent: one call', w:0.52 },
+      { lbl:'accepted: narrowed', w:0.38 },
+      { lbl:'executed', w:0.26 },
+      { lbl:'final receipt', w:0.18 },
+    ];
+    // title
+    const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+    t.setAttribute('x',110); t.setAttribute('y',14);
+    t.setAttribute('font-family','JetBrains Mono'); t.setAttribute('font-size','10');
+    t.setAttribute('fill','rgba(255,255,255,0.4)'); t.setAttribute('letter-spacing','0.2em');
+    t.textContent = 'AUTHORITY  —  monotonic narrowing  →';
+    this.scopeGroup.appendChild(t);
+
+    const totalW = x1 - x0;
+    scopes.forEach((s, i) => {
+      const stepX = x0 + (totalW / (scopes.length)) * i;
+      const stepW = (totalW / scopes.length) * s.w * 0.82;
+      const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      r.setAttribute('x', stepX); r.setAttribute('y', barY);
+      r.setAttribute('width', stepW); r.setAttribute('height', 14);
+      r.setAttribute('fill','var(--accent)'); r.setAttribute('opacity', 0.15 + i*0.1);
+      r.setAttribute('rx','1');
+      this.scopeGroup.appendChild(r);
+
+      const l = document.createElementNS('http://www.w3.org/2000/svg','text');
+      l.setAttribute('x', stepX); l.setAttribute('y', barY + 36);
+      l.setAttribute('font-family','JetBrains Mono'); l.setAttribute('font-size','10');
+      l.setAttribute('fill','rgba(255,255,255,0.5)');
+      l.textContent = s.lbl;
+      this.scopeGroup.appendChild(l);
+    });
+  },
+
+  spawnParticle(t) {
+    // particle that travels across stages
+    const p = {
+      start: t,
+      dur: 5200 / state.speed,
+      id: Math.random().toString(36).slice(2,7),
+    };
+    this.particles.push(p);
+  },
+
+  step(now) {
+    if (!this.svg) return;
+    const t = now;
+
+    // spawn rhythm scaled by density
+    const rate = state.density === 'low' ? 3200 : state.density === 'high' ? 1100 : 1900;
+    if (t - this.lastSpawn > rate / state.speed) {
+      this.spawnParticle(t);
+      this.lastSpawn = t;
+    }
+
+    // animate rail dash
+    const dashOffset = - ((t/20) % 1000) * state.speed;
+    this.rail.setAttribute('stroke-dashoffset', dashOffset);
+
+    // render particles
+    // clear payload layer each frame
+    this.payload.innerHTML = '';
+
+    const x0 = this.positions[0].x;
+    const xN = this.positions[this.positions.length-1].x;
+    const yLine = 450;
+
+    // keep track of which stage highlights now
+    let activeStages = new Set();
+
+    for (let i = this.particles.length-1; i>=0; i--) {
+      const p = this.particles[i];
+      const u = (t - p.start) / p.dur;
+      if (u >= 1) { this.particles.splice(i,1); continue; }
+      const x = x0 + (xN - x0) * u;
+      const stage = Math.min(this.stages.length-1, Math.floor(u * this.stages.length));
+      activeStages.add(stage);
+
+      // particle on rail (svg)
+      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('transform', `translate(${x},${yLine - 110})`);
+
+      // pill
+      const pill = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      pill.setAttribute('x', -56); pill.setAttribute('y', -14);
+      pill.setAttribute('width', 112); pill.setAttribute('height', 28);
+      pill.setAttribute('rx', 14);
+      pill.setAttribute('fill', 'rgba(124,246,185,0.08)');
+      pill.setAttribute('stroke', 'var(--accent)');
+      pill.setAttribute('stroke-width','1');
+      g.appendChild(pill);
+
+      const lab = document.createElementNS('http://www.w3.org/2000/svg','text');
+      lab.setAttribute('x',0); lab.setAttribute('y',4); lab.setAttribute('text-anchor','middle');
+      lab.setAttribute('font-family','JetBrains Mono'); lab.setAttribute('font-size','11');
+      lab.setAttribute('fill','var(--accent)');
+      lab.textContent = `act#${p.id}`;
+      g.appendChild(lab);
+
+      // drop line to rail
+      const drop = document.createElementNS('http://www.w3.org/2000/svg','line');
+      drop.setAttribute('x1',0); drop.setAttribute('x2',0); drop.setAttribute('y1',14); drop.setAttribute('y2', 104);
+      drop.setAttribute('stroke','var(--accent)'); drop.setAttribute('stroke-width','1');
+      drop.setAttribute('opacity','0.4');
+      g.appendChild(drop);
+
+      // dot on rail
+      const dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      dot.setAttribute('cx',0); dot.setAttribute('cy',110); dot.setAttribute('r',5);
+      dot.setAttribute('fill','var(--accent)');
+      dot.setAttribute('filter','drop-shadow(0 0 6px var(--accent-glow))');
+      g.appendChild(dot);
+
+      this.payload.appendChild(g);
+    }
+
+    // stage highlighting
+    this.nodes.forEach((n, i) => {
+      const hot = activeStages.has(i);
+      n.ring.setAttribute('stroke', hot ? 'var(--accent)' : 'rgba(255,255,255,0.25)');
+      n.ring.setAttribute('stroke-width', hot ? 2 : 1);
+      n.inner.setAttribute('fill', hot ? 'var(--accent)' : 'rgba(255,255,255,0.25)');
+      if (hot) n.g.setAttribute('filter','drop-shadow(0 0 10px var(--accent-glow))');
+      else n.g.removeAttribute('filter');
+    });
+
+    // caption
+    if (this.particles.length) {
+      const p = this.particles[this.particles.length-1];
+      const u = (t - p.start) / p.dur;
+      const s = Math.min(this.stages.length-1, Math.floor(u * this.stages.length));
+      setCap(`act#${p.id} → ${this.stages[s].label.toLowerCase()}`, this.stages[s].sub);
+    }
+    // simulated latency
+    document.getElementById('stat-a').textContent =
+      (1.1 + Math.sin(t/800)*0.35).toFixed(2) + 'ms';
+  }
+};
+
+/* ============================================================
+   SCENE 1 — DELEGATION TREE + CASCADE REVOKE
+   ============================================================ */
+const scene1 = {
+  init(host) {
+    host.innerHTML = '';
+    const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('viewBox','0 0 1600 900'); svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+    host.appendChild(svg); this.svg = svg;
+
+    this.buildTree();
+    this.draw();
+
+    // auto demo
+    this.lastRevoke = 0;
+  },
+
+  buildTree() {
+    // root at top-left, then generations going right
+    // tree is a real hierarchy; authority narrows with depth (shown as alpha + width)
+    const gens = state.density === 'low' ? 3 : state.density === 'high' ? 5 : 4;
+    const spread = state.density === 'high' ? 2.6 : 2.2;
+    const nodes = [];
+    function add(parentIdx, depth, maxDepth, y0, y1) {
+      const myIdx = nodes.length;
+      const x = 160 + depth * ((1600-260) / (maxDepth));
+      const y = (y0 + y1) / 2;
+      nodes.push({ idx: myIdx, parent: parentIdx, depth, x, y, alive: true, pulse: 0, dying: 0 });
+      if (depth >= maxDepth) return;
+      // children count depends on depth and density
+      const kids = depth === 0 ? (state.density === 'high' ? 4 : 3)
+                 : depth === 1 ? (state.density === 'high' ? 3 : 2)
+                 : (state.density === 'high' ? 3 : 2);
+      for (let k=0;k<kids;k++) {
+        const ya = y0 + (y1-y0) * (k / kids);
+        const yb = y0 + (y1-y0) * ((k+1) / kids);
+        add(myIdx, depth+1, maxDepth, ya, yb);
+      }
+    }
+    add(-1, 0, gens, 100, 800);
+    this.nodes = nodes;
+  },
+
+  draw() {
+    const svg = this.svg; svg.innerHTML = '';
+
+    // HUMAN principal label on the far left of root
+    const nodes = this.nodes;
+    const root = nodes[0];
+    const human = document.createElementNS('http://www.w3.org/2000/svg','g');
+    human.setAttribute('transform', `translate(60,${root.y})`);
+    const hRect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    hRect.setAttribute('x',-50); hRect.setAttribute('y',-22); hRect.setAttribute('width',100); hRect.setAttribute('height',44);
+    hRect.setAttribute('fill','transparent'); hRect.setAttribute('stroke','rgba(255,255,255,0.25)'); hRect.setAttribute('stroke-width','1');
+    human.appendChild(hRect);
+    const hT = document.createElementNS('http://www.w3.org/2000/svg','text');
+    hT.setAttribute('text-anchor','middle'); hT.setAttribute('y',-2);
+    hT.setAttribute('font-family','Fraunces'); hT.setAttribute('font-size','14'); hT.setAttribute('fill','#e8eaec');
+    hT.textContent = 'HUMAN';
+    human.appendChild(hT);
+    const hS = document.createElementNS('http://www.w3.org/2000/svg','text');
+    hS.setAttribute('text-anchor','middle'); hS.setAttribute('y',14);
+    hS.setAttribute('font-family','JetBrains Mono'); hS.setAttribute('font-size','9'); hS.setAttribute('fill','rgba(255,255,255,0.45)');
+    hS.setAttribute('letter-spacing','0.15em');
+    hS.textContent = 'PRINCIPAL';
+    human.appendChild(hS);
+    // connector human->root
+    const hc = document.createElementNS('http://www.w3.org/2000/svg','line');
+    hc.setAttribute('x1',10); hc.setAttribute('x2', root.x - 60); hc.setAttribute('y1', 0); hc.setAttribute('y2', 0);
+    hc.setAttribute('stroke','var(--accent)'); hc.setAttribute('stroke-width','2');
+    human.appendChild(hc);
+    svg.appendChild(human);
+
+    // edges
+    this.edgeEls = [];
+    for (const n of nodes) {
+      if (n.parent < 0) continue;
+      const p = nodes[n.parent];
+      const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+      const mx = (p.x + n.x) / 2;
+      const d = `M ${p.x} ${p.y} C ${mx} ${p.y}, ${mx} ${n.y}, ${n.x} ${n.y}`;
+      path.setAttribute('d', d);
+      path.setAttribute('fill','none');
+      path.setAttribute('stroke','var(--accent)');
+      path.setAttribute('stroke-opacity', 0.8 - n.depth * 0.12);
+      path.setAttribute('stroke-width', Math.max(1, 3 - n.depth*0.5));
+      svg.appendChild(path);
+      this.edgeEls.push({ path, from: p, to: n });
+    }
+
+    // nodes
+    this.nodeEls = nodes.map((n) => {
+      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('transform', `translate(${n.x},${n.y})`);
+
+      const r = Math.max(6, 18 - n.depth*3);
+      const outer = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      outer.setAttribute('r', r+6); outer.setAttribute('fill','transparent');
+      outer.setAttribute('stroke','var(--accent)'); outer.setAttribute('stroke-width','1'); outer.setAttribute('stroke-opacity','0');
+      g.appendChild(outer);
+
+      const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('r', r);
+      c.setAttribute('fill', n.depth === 0 ? 'var(--accent)' : '#13161b');
+      c.setAttribute('stroke','var(--accent)');
+      c.setAttribute('stroke-width', n.depth === 0 ? 0 : 1);
+      g.appendChild(c);
+
+      const inner = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      inner.setAttribute('r', Math.max(2, r*0.35));
+      inner.setAttribute('fill', n.depth === 0 ? '#0a0b0d' : 'var(--accent)');
+      g.appendChild(inner);
+
+      // label
+      const label = document.createElementNS('http://www.w3.org/2000/svg','text');
+      label.setAttribute('y', r + 16); label.setAttribute('text-anchor','middle');
+      label.setAttribute('font-family','JetBrains Mono'); label.setAttribute('font-size', n.depth === 0 ? 11 : 9);
+      label.setAttribute('fill','rgba(255,255,255,0.55)');
+      label.setAttribute('letter-spacing','0.08em');
+      label.textContent = n.depth === 0 ? 'root.pass' : `agent-${String(n.idx).padStart(2,'0')}`;
+      g.appendChild(label);
+
+      // clickability on all except root
+      if (n.depth > 0) {
+        const hit = document.createElementNS('http://www.w3.org/2000/svg','circle');
+        hit.setAttribute('r', r+10); hit.setAttribute('fill','transparent');
+        hit.style.cursor = 'pointer';
+        hit.addEventListener('click', () => this.revoke(n.idx));
+        hit.addEventListener('mouseenter', () => { outer.setAttribute('stroke-opacity','0.6'); });
+        hit.addEventListener('mouseleave', () => { outer.setAttribute('stroke-opacity','0'); });
+        g.appendChild(hit);
+      }
+
+      svg.appendChild(g);
+      return { g, c, inner, outer, label };
+    });
+
+    // legend / action hint (top-left)
+    const hint = document.createElementNS('http://www.w3.org/2000/svg','g');
+    hint.setAttribute('transform','translate(40,40)');
+    const ht = document.createElementNS('http://www.w3.org/2000/svg','text');
+    ht.setAttribute('font-family','JetBrains Mono'); ht.setAttribute('font-size','11');
+    ht.setAttribute('fill','rgba(255,255,255,0.5)'); ht.setAttribute('letter-spacing','0.1em');
+    ht.textContent = 'CLICK ANY NODE → revoke(agentId) cascades to every descendant';
+    hint.appendChild(ht);
+    svg.appendChild(hint);
+  },
+
+  descendantsOf(idx) {
+    const out = [idx];
+    let added = true;
+    while (added) {
+      added = false;
+      for (const n of this.nodes) {
+        if (!out.includes(n.idx) && out.includes(n.parent)) { out.push(n.idx); added = true; }
+      }
+    }
+    return out;
+  },
+
+  revoke(idx) {
+    const now = performance.now();
+    const victims = this.descendantsOf(idx);
+    victims.forEach((vi, i) => {
+      const n = this.nodes[vi];
+      n.dying = now + i * (60 / state.speed);
+    });
+    setCap(`revoke(${this.nodes[idx].label || 'agent-'+idx}) → ${victims.length} nodes cascading`, 'one call · at the gateway · fail-closed');
+  },
+
+  step(now) {
+    if (!this.svg) return;
+
+    // auto demo: every few seconds, pick a random mid-depth node and revoke; after death reset
+    const interval = 6500 / state.speed;
+    if (now - this.lastRevoke > interval) {
+      // pick a random node that's alive and mid-depth
+      const candidates = this.nodes.filter(n => n.alive && n.depth >= 1 && n.depth <= 2);
+      if (candidates.length) {
+        const pick = candidates[Math.floor(Math.random()*candidates.length)];
+        this.revoke(pick.idx);
+      }
+      this.lastRevoke = now;
+    }
+
+    // animate state
+    for (let i=0;i<this.nodes.length;i++) {
+      const n = this.nodes[i];
+      const el = this.nodeEls[i];
+      // gentle idle pulse on outer ring for alive
+      if (n.alive && n.dying === 0) {
+        const p = (Math.sin(now/900 + i) + 1) / 2;
+        el.outer.setAttribute('stroke-opacity', (0.05 + p*0.12).toFixed(2));
+      }
+      // death animation
+      if (n.dying && now >= n.dying && n.alive) {
+        n.alive = false;
+        n.pulse = 1;
+      }
+      if (!n.alive) {
+        n.pulse = Math.max(0, n.pulse - 0.02 * state.speed);
+        const op = Math.max(0.12, n.pulse);
+        el.c.setAttribute('stroke','var(--danger)');
+        el.c.setAttribute('fill', n.depth===0 ? 'var(--danger)' : 'rgba(255,107,107,0.08)');
+        el.inner.setAttribute('fill', n.depth===0 ? '#0a0b0d' : 'var(--danger)');
+        el.inner.setAttribute('opacity', op);
+        el.outer.setAttribute('stroke','var(--danger)');
+        el.outer.setAttribute('stroke-opacity', n.pulse.toFixed(2));
+        el.outer.setAttribute('r', 18 + (1-n.pulse)*30);
+        el.label.setAttribute('fill', 'rgba(255,107,107,0.6)');
+        el.label.setAttribute('text-decoration','line-through');
+      }
+    }
+
+    // edge styling: if either endpoint dead, mark red fading
+    for (const e of this.edgeEls) {
+      if (!e.from.alive || !e.to.alive) {
+        e.path.setAttribute('stroke','var(--danger)');
+        e.path.setAttribute('stroke-opacity', 0.2);
+        e.path.setAttribute('stroke-dasharray','2 6');
+      }
+    }
+
+    // check reset: if too few alive, rebuild after delay
+    const aliveCount = this.nodes.filter(n=>n.alive).length;
+    if (aliveCount < this.nodes.length * 0.4 && !this._resetAt) {
+      this._resetAt = now + 2400 / state.speed;
+    }
+    if (this._resetAt && now >= this._resetAt) {
+      this._resetAt = null;
+      this.buildTree(); this.draw();
+      this.lastRevoke = now - interval * 0.4;
+    }
+  }
+};
+
+/* ============================================================
+   SCENE 2 — GATEWAY JUDGEMENT (requests pouring through 14 gates)
+   ============================================================ */
+const scene2 = {
+  gates: [
+    { k:'IDENT',   d:'ed25519 sig' },
+    { k:'FRESH',   d:'ts < 60s' },
+    { k:'SCOPE',   d:'tool ⊂ scope' },
+    { k:'BUDGET',  d:'spend ≤ cap' },
+    { k:'RATE',    d:'calls/s' },
+    { k:'VALUES',  d:'floor 7/7' },
+    { k:'REP',     d:'bayes ≥ θ' },
+    { k:'SYBIL',   d:'1 per principal' },
+    { k:'REVOKE',  d:'chain alive' },
+    { k:'DEPTH',   d:'ttl > 0' },
+    { k:'POLICY',  d:'hash match' },
+    { k:'ORIGIN',  d:'network lane' },
+    { k:'AUDIT',   d:'receipt ready' },
+    { k:'PROOF',   d:'merkle leaf' },
+  ],
+  reqs: [],
+  init(host) {
+    host.innerHTML = '';
+    const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('viewBox','0 0 1600 900'); svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+    host.appendChild(svg); this.svg = svg;
+
+    // title band
+    const tb = document.createElementNS('http://www.w3.org/2000/svg','text');
+    tb.setAttribute('x',800); tb.setAttribute('y',50); tb.setAttribute('text-anchor','middle');
+    tb.setAttribute('font-family','Fraunces'); tb.setAttribute('font-size','18'); tb.setAttribute('fill','rgba(255,255,255,0.55)');
+    tb.textContent = 'AGENT  →  GATEWAY ( 14 gates · <2ms )  →  ENFORCED';
+    svg.appendChild(tb);
+
+    // gates vertical column: 14 horizontal gate lines
+    const padTop = 110, padBot = 180;
+    const gateAreaH = 900 - padTop - padBot;
+    const x0 = 360, x1 = 1240;
+    this.x0 = x0; this.x1 = x1;
+    this.gatesY = this.gates.map((g,i) => padTop + (gateAreaH/(this.gates.length-1))*i);
+
+    // left: incoming requests zone label
+    // right: accept/deny zones
+    const leftLbl = document.createElementNS('http://www.w3.org/2000/svg','text');
+    leftLbl.setAttribute('x',160); leftLbl.setAttribute('y', 450); leftLbl.setAttribute('text-anchor','middle');
+    leftLbl.setAttribute('font-family','Fraunces'); leftLbl.setAttribute('font-size','22'); leftLbl.setAttribute('fill','rgba(255,255,255,0.75)');
+    leftLbl.textContent = 'intents';
+    const leftSub = document.createElementNS('http://www.w3.org/2000/svg','text');
+    leftSub.setAttribute('x',160); leftSub.setAttribute('y',478); leftSub.setAttribute('text-anchor','middle');
+    leftSub.setAttribute('font-family','JetBrains Mono'); leftSub.setAttribute('font-size','10');
+    leftSub.setAttribute('fill','rgba(255,255,255,0.4)'); leftSub.setAttribute('letter-spacing','0.15em');
+    leftSub.textContent = 'SIGNED · INBOUND';
+    svg.appendChild(leftLbl); svg.appendChild(leftSub);
+
+    // gate lines
+    this.gateEls = this.gates.map((g,i) => {
+      const y = this.gatesY[i];
+      const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1',x0); line.setAttribute('x2',x1); line.setAttribute('y1',y); line.setAttribute('y2',y);
+      line.setAttribute('stroke','rgba(255,255,255,0.08)'); line.setAttribute('stroke-width','1');
+      svg.appendChild(line);
+      // label left
+      const l = document.createElementNS('http://www.w3.org/2000/svg','text');
+      l.setAttribute('x', x0-12); l.setAttribute('y', y+4); l.setAttribute('text-anchor','end');
+      l.setAttribute('font-family','JetBrains Mono'); l.setAttribute('font-size','10');
+      l.setAttribute('fill','rgba(255,255,255,0.55)'); l.setAttribute('letter-spacing','0.1em');
+      l.textContent = g.k;
+      svg.appendChild(l);
+      // sublabel right
+      const sub = document.createElementNS('http://www.w3.org/2000/svg','text');
+      sub.setAttribute('x', x1+12); sub.setAttribute('y', y+4);
+      sub.setAttribute('font-family','JetBrains Mono'); sub.setAttribute('font-size','9');
+      sub.setAttribute('fill','rgba(255,255,255,0.3)'); sub.setAttribute('letter-spacing','0.08em');
+      sub.textContent = g.d;
+      svg.appendChild(sub);
+
+      // count pip
+      const pip = document.createElementNS('http://www.w3.org/2000/svg','text');
+      pip.setAttribute('x', x0-70); pip.setAttribute('y', y+4); pip.setAttribute('text-anchor','end');
+      pip.setAttribute('font-family','JetBrains Mono'); pip.setAttribute('font-size','9');
+      pip.setAttribute('fill','var(--accent)'); pip.setAttribute('letter-spacing','0.08em');
+      pip.textContent = '0';
+      svg.appendChild(pip);
+
+      return { line, pip, count: 0 };
+    });
+
+    // accept/deny zones
+    const accY = 900 - 100;
+    const acc = document.createElementNS('http://www.w3.org/2000/svg','text');
+    acc.setAttribute('x', 1430); acc.setAttribute('y', accY);
+    acc.setAttribute('font-family','Fraunces'); acc.setAttribute('font-size','22'); acc.setAttribute('fill','var(--accent)');
+    acc.setAttribute('text-anchor','middle');
+    acc.textContent = 'ALLOW';
+    svg.appendChild(acc);
+    const acS = document.createElementNS('http://www.w3.org/2000/svg','text');
+    acS.setAttribute('x',1430); acS.setAttribute('y',accY+20); acS.setAttribute('text-anchor','middle');
+    acS.setAttribute('font-family','JetBrains Mono'); acS.setAttribute('font-size','10');
+    acS.setAttribute('fill','rgba(255,255,255,0.4)'); acS.setAttribute('letter-spacing','0.15em');
+    acS.textContent = 'SIGNED RECEIPT';
+    svg.appendChild(acS);
+    this.allowCountEl = document.createElementNS('http://www.w3.org/2000/svg','text');
+    this.allowCountEl.setAttribute('x',1430); this.allowCountEl.setAttribute('y',accY-20); this.allowCountEl.setAttribute('text-anchor','middle');
+    this.allowCountEl.setAttribute('font-family','Fraunces'); this.allowCountEl.setAttribute('font-size','36');
+    this.allowCountEl.setAttribute('fill','var(--accent)'); this.allowCountEl.textContent='0';
+    svg.appendChild(this.allowCountEl);
+
+    const denY = 900 - 100;
+    const den = document.createElementNS('http://www.w3.org/2000/svg','text');
+    den.setAttribute('x', 160); den.setAttribute('y', denY);
+    den.setAttribute('font-family','Fraunces'); den.setAttribute('font-size','22'); den.setAttribute('fill','var(--danger)');
+    den.setAttribute('text-anchor','middle');
+    den.textContent = 'DENY';
+    svg.appendChild(den);
+    const dnS = document.createElementNS('http://www.w3.org/2000/svg','text');
+    dnS.setAttribute('x',160); dnS.setAttribute('y',denY+20); dnS.setAttribute('text-anchor','middle');
+    dnS.setAttribute('font-family','JetBrains Mono'); dnS.setAttribute('font-size','10');
+    dnS.setAttribute('fill','rgba(255,255,255,0.4)'); dnS.setAttribute('letter-spacing','0.15em');
+    dnS.textContent = 'FAIL-CLOSED';
+    svg.appendChild(dnS);
+    this.denyCountEl = document.createElementNS('http://www.w3.org/2000/svg','text');
+    this.denyCountEl.setAttribute('x',160); this.denyCountEl.setAttribute('y',denY-20); this.denyCountEl.setAttribute('text-anchor','middle');
+    this.denyCountEl.setAttribute('font-family','Fraunces'); this.denyCountEl.setAttribute('font-size','36');
+    this.denyCountEl.setAttribute('fill','var(--danger)'); this.denyCountEl.textContent='0';
+    svg.appendChild(this.denyCountEl);
+
+    // live request layer
+    this.reqLayer = document.createElementNS('http://www.w3.org/2000/svg','g');
+    svg.appendChild(this.reqLayer);
+
+    this.allow = 0; this.deny = 0;
+    this.reqs = [];
+    this.lastSpawn = 0;
+  },
+
+  spawn(now) {
+    const gateIdx = Math.floor(Math.random()*this.gates.length);
+    const willFail = Math.random() < 0.22; // 22% are denied
+    const failAt = willFail ? gateIdx : -1;
+    const lane = Math.floor(Math.random()*this.gates.length);
+    this.reqs.push({
+      born: now,
+      dur: 2600 / state.speed,
+      lane,
+      failAt,
+      id: Math.random().toString(36).slice(2,6).toUpperCase()
+    });
+  },
+
+  step(now) {
+    if (!this.svg) return;
+    const rate = state.density === 'low' ? 360 : state.density === 'high' ? 110 : 200;
+    if (now - this.lastSpawn > rate / state.speed) {
+      this.spawn(now);
+      this.lastSpawn = now;
+    }
+
+    // clear layer and redraw live reqs
+    this.reqLayer.innerHTML = '';
+
+    for (let i=this.reqs.length-1; i>=0; i--) {
+      const r = this.reqs[i];
+      const u = (now - r.born) / r.dur;
+      if (u >= 1) {
+        // final tally
+        if (r.failAt >= 0) { this.deny++; }
+        else { this.allow++; }
+        this.reqs.splice(i,1); continue;
+      }
+
+      // position: horizontal travel x0→x1
+      const x = this.x0 + (this.x1 - this.x0) * Math.min(1, u + 0.0);
+      const y = this.gatesY[r.lane];
+
+      // check if failed at a gate (failAt index) — means stop at that gate's x position
+      let stopped = false;
+      if (r.failAt >= 0) {
+        // stop at the gate's x based on "progress" — each gate crossed takes dur/14
+        const gateReached = Math.floor(u * this.gates.length);
+        if (gateReached >= r.failAt) {
+          // render denied particle at that gate
+          const gx = this.x0 + (this.x1 - this.x0) * (r.failAt / (this.gates.length-1));
+          drawReq(this.reqLayer, gx, y, r.id, false);
+          // bump gate pip color
+          const gp = this.gateEls[r.failAt].pip;
+          gp.setAttribute('fill','var(--danger)');
+          stopped = true;
+        }
+      }
+      if (!stopped) {
+        drawReq(this.reqLayer, x, y, r.id, true);
+      }
+    }
+
+    this.allowCountEl.textContent = this.allow;
+    this.denyCountEl.textContent = this.deny;
+
+    function drawReq(layer, x, y, id, ok) {
+      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('transform', `translate(${x},${y})`);
+      const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('r','4');
+      c.setAttribute('fill', ok ? 'var(--accent)' : 'var(--danger)');
+      c.setAttribute('filter', ok ? 'drop-shadow(0 0 6px var(--accent-glow))' : 'drop-shadow(0 0 6px rgba(255,107,107,0.5))');
+      g.appendChild(c);
+      if (state.labels !== 'sparse') {
+        const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+        t.setAttribute('x',8); t.setAttribute('y',-6);
+        t.setAttribute('font-family','JetBrains Mono'); t.setAttribute('font-size','8');
+        t.setAttribute('fill', ok ? 'rgba(124,246,185,0.7)' : 'rgba(255,107,107,0.7)');
+        t.textContent = id;
+        g.appendChild(t);
+      }
+      layer.appendChild(g);
+    }
+
+    // latency jitter
+    document.getElementById('stat-a').textContent = (1.2 + Math.random()*0.5).toFixed(2) + 'ms';
+  }
+};
+
+/* ============================================================
+   SCENE 3 — TRUST MESH (agents, edges, humans, reputation)
+   ============================================================ */
+const scene3 = {
+  init(host) {
+    host.innerHTML = '';
+    const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('viewBox','0 0 1600 900'); svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+    host.appendChild(svg); this.svg = svg;
+
+    const n = state.density === 'low' ? 28 : state.density === 'high' ? 72 : 48;
+    const humans = state.density === 'low' ? 4 : state.density === 'high' ? 9 : 6;
+
+    // lay humans on a left column; agents scattered
+    const nodes = [];
+    for (let i=0;i<humans;i++) {
+      const y = 120 + i * ((900-240)/(humans-1));
+      nodes.push({ t:'h', x: 120, y, rep: 1, id: 'H'+i, fx: true });
+    }
+    for (let i=0;i<n;i++) {
+      nodes.push({
+        t:'a',
+        x: 260 + Math.random()*1280,
+        y: 80 + Math.random()*740,
+        rep: Math.random(), // 0..1
+        id: 'a'+String(i).padStart(2,'0'),
+        vx: (Math.random()-0.5)*0.2, vy: (Math.random()-0.5)*0.2,
+      });
+    }
+
+    // edges: delegations from humans to nearby agents; receipts between agents
+    const edges = [];
+    // human → few agents
+    for (let i=0;i<humans;i++) {
+      // pick 3-6 closest agents (by y proximity)
+      const hn = nodes[i];
+      const agents = nodes.filter(x => x.t === 'a');
+      agents.sort((a,b) => (Math.abs(a.y-hn.y)) - (Math.abs(b.y-hn.y)));
+      const k = Math.min(6, Math.floor(2 + Math.random()*4));
+      for (let j=0;j<k;j++) edges.push({ a:hn, b:agents[j], kind:'deleg' });
+    }
+    // agent <-> agent (receipts / comms)
+    const agents = nodes.filter(x => x.t==='a');
+    for (let i=0;i<agents.length;i++) {
+      const k = 1 + Math.floor(Math.random()*3);
+      for (let j=0;j<k;j++) {
+        const other = agents[Math.floor(Math.random()*agents.length)];
+        if (other !== agents[i]) edges.push({ a:agents[i], b: other, kind:'recpt' });
+      }
+    }
+
+    this.nodes = nodes; this.edges = edges;
+
+    // container groups
+    this.edgeLayer = document.createElementNS('http://www.w3.org/2000/svg','g');
+    this.nodeLayer = document.createElementNS('http://www.w3.org/2000/svg','g');
+    this.pulseLayer = document.createElementNS('http://www.w3.org/2000/svg','g');
+    svg.appendChild(this.edgeLayer);
+    svg.appendChild(this.pulseLayer);
+    svg.appendChild(this.nodeLayer);
+
+    // draw
+    this.edgeEls = this.edges.map(e => {
+      const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('stroke', e.kind==='deleg' ? 'var(--accent)' : 'rgba(255,255,255,0.12)');
+      line.setAttribute('stroke-width', e.kind==='deleg' ? '1' : '0.6');
+      line.setAttribute('stroke-opacity', e.kind==='deleg' ? '0.35' : '0.8');
+      this.edgeLayer.appendChild(line);
+      return line;
+    });
+
+    this.nodeEls = this.nodes.map(n => {
+      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      if (n.t === 'h') {
+        // human: square outline
+        const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        r.setAttribute('x',-10); r.setAttribute('y',-10); r.setAttribute('width',20); r.setAttribute('height',20);
+        r.setAttribute('fill','transparent'); r.setAttribute('stroke','#e8eaec'); r.setAttribute('stroke-width','1');
+        g.appendChild(r);
+        if (state.labels !== 'sparse') {
+          const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+          t.setAttribute('x',-18); t.setAttribute('y',4); t.setAttribute('text-anchor','end');
+          t.setAttribute('font-family','JetBrains Mono'); t.setAttribute('font-size','10');
+          t.setAttribute('fill','rgba(255,255,255,0.7)');
+          t.textContent = n.id;
+          g.appendChild(t);
+        }
+      } else {
+        // agent: dot, size ~ reputation
+        const size = 3 + n.rep * 6;
+        const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+        c.setAttribute('r', size);
+        c.setAttribute('fill','var(--accent)'); c.setAttribute('fill-opacity', (0.25 + n.rep*0.6).toFixed(2));
+        c.setAttribute('stroke','var(--accent)'); c.setAttribute('stroke-opacity','0.3');
+        g.appendChild(c);
+        if (state.labels === 'verbose') {
+          const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+          t.setAttribute('x', size+4); t.setAttribute('y',3);
+          t.setAttribute('font-family','JetBrains Mono'); t.setAttribute('font-size','8');
+          t.setAttribute('fill','rgba(255,255,255,0.4)');
+          t.textContent = n.id;
+          g.appendChild(t);
+        }
+      }
+      this.nodeLayer.appendChild(g);
+      return g;
+    });
+
+    this.pulses = [];
+    this.lastPulse = 0;
+  },
+
+  step(now) {
+    if (!this.svg) return;
+    // physics tick
+    for (const n of this.nodes) {
+      if (n.fx) continue;
+      n.x += n.vx * state.speed;
+      n.y += n.vy * state.speed;
+      if (n.x < 240 || n.x > 1560) n.vx *= -1;
+      if (n.y < 60 || n.y > 840) n.vy *= -1;
+      // gentle random
+      n.vx += (Math.random()-0.5)*0.01;
+      n.vy += (Math.random()-0.5)*0.01;
+      n.vx = Math.max(-0.6, Math.min(0.6, n.vx));
+      n.vy = Math.max(-0.6, Math.min(0.6, n.vy));
+    }
+
+    // update positions
+    for (let i=0;i<this.nodes.length;i++) {
+      this.nodeEls[i].setAttribute('transform', `translate(${this.nodes[i].x},${this.nodes[i].y})`);
+    }
+    for (let i=0;i<this.edges.length;i++) {
+      const e = this.edges[i]; const el = this.edgeEls[i];
+      el.setAttribute('x1', e.a.x); el.setAttribute('y1', e.a.y);
+      el.setAttribute('x2', e.b.x); el.setAttribute('y2', e.b.y);
+    }
+
+    // signed-message pulses travel along random edges
+    const rate = state.density === 'low' ? 260 : state.density === 'high' ? 90 : 150;
+    if (now - this.lastPulse > rate / state.speed) {
+      const e = this.edges[Math.floor(Math.random()*this.edges.length)];
+      this.pulses.push({ e, born: now, dur: 900 / state.speed });
+      this.lastPulse = now;
+    }
+    this.pulseLayer.innerHTML = '';
+    for (let i=this.pulses.length-1; i>=0; i--) {
+      const p = this.pulses[i];
+      const u = (now - p.born) / p.dur;
+      if (u >= 1) { this.pulses.splice(i,1); continue; }
+      const x = p.e.a.x + (p.e.b.x - p.e.a.x) * u;
+      const y = p.e.a.y + (p.e.b.y - p.e.a.y) * u;
+      const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', 2.5);
+      c.setAttribute('fill','var(--accent)');
+      c.setAttribute('filter','drop-shadow(0 0 5px var(--accent-glow))');
+      this.pulseLayer.appendChild(c);
+    }
+
+    // small reputation drift
+    if (Math.random() < 0.03) {
+      const a = this.nodes.filter(n=>n.t==='a');
+      const pick = a[Math.floor(Math.random()*a.length)];
+      pick.rep = Math.max(0.05, Math.min(1, pick.rep + (Math.random()-0.4)*0.1));
+      const el = this.nodeEls[this.nodes.indexOf(pick)];
+      const c = el.querySelector('circle');
+      const size = 3 + pick.rep * 6;
+      c.setAttribute('r', size);
+      c.setAttribute('fill-opacity', (0.25 + pick.rep*0.6).toFixed(2));
+    }
+  }
+};
+
+/* ============================================================
+   orchestration
+   ============================================================ */
+const scenes = [scene0, scene1, scene2, scene3];
+const hosts = scenes.map((_, i) => document.getElementById('scene-'+i));
+function rebuildAllScenes() {
+  scenes.forEach((s, i) => s.init(hosts[i]));
+}
+rebuildAllScenes();
+
+function loop(now) {
+  const s = scenes[state.sceneIdx];
+  if (s && s.step) s.step(now);
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+</script>
+<footer class="footer-wrap" role="contentinfo">
+<div class="footer-inner">
+  <div class="footer-grid">
+    <div class="footer-col"><h4>Protocol</h4><a href="passport.html">Documentation</a><a href="benchmarks.html">Benchmarks</a><a href="compare.html">Compare</a><a href="threat-model.html">Threat Model</a><a href="faq.html">FAQ</a></div>
+    <div class="footer-col"><h4>Developers</h4><a href="https://github.com/aeoess">GitHub</a><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="portal.html">Portal</a><a href="gateway.html">Gateway</a><a href="wallet.html">Agent Wallet</a><a href="AGENTS.md">AGENTS.md</a><a href="llms.txt">llms.txt</a></div>
+    <div class="footer-col"><h4>Community</h4><a href="blog.html">Dev Log</a><a href="roadmap.html">Roadmap</a><a href="working-group.html">Working Group</a><a href="mingle.html">Mingle</a><a href="agora.html">Agora</a></div>
+    <div class="footer-col"><h4>Research</h4><a href="https://doi.org/10.5281/zenodo.18749779">Agent Social Contract</a><a href="https://doi.org/10.5281/zenodo.18932404">Monotonic Narrowing</a><a href="https://doi.org/10.5281/zenodo.19260073">Faceted Authority Attenuation</a><a href="https://doi.org/10.5281/zenodo.19476002">Behavioral Derivation Rights</a><a href="https://doi.org/10.5281/zenodo.19478584">Physics-Enforced Delegation</a><a href="https://doi.org/10.5281/zenodo.19582550">Governance in the Medium</a><a href="https://doi.org/10.5281/zenodo.19646276">Cognitive Attestation</a><a href="https://doi.org/10.5281/zenodo.19914628">Evidence-Safety Gap</a></div>
+  </div>
+  <div class="footer-bottom"><span class="footer-copy">AEOESS &copy; 2026 &middot; Apache-2.0 &middot; Built by <a href="https://tymofii.me">Tymofii Pidlisnyi</a></span><div class="footer-ext"><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="https://github.com/aeoess">GitHub</a></div></div>
+</div>
+</footer>
+</body>
+</html>

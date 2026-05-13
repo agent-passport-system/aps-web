@@ -1,0 +1,66 @@
+{
+  "$comment": "Single source of truth for site-wide propagation. Hand-edited; consumed by scripts/propagate.mjs. Bumping any value here propagates to every target file the propagator knows about.",
+  "updated": "2026-05-05",
+  "versions": {
+    "sdk": "2.6.0-alpha.3",
+    "sdk_dist_tag": "alpha",
+    "sdk_stable": "2.2.0",
+    "mcp": "3.2.0",
+    "mcp_dist_tag": "latest",
+    "mcp_stable": "3.1.0",
+    "python": "2.4.0a2",
+    "python_dist_tag": "pre",
+    "python_stable": "2.3.0"
+  },
+  "counts": {
+    "$comment": "tests is the PASSING count (node test runner 'pass' line), not the registered total. modules_total = modules_core + modules_v2.",
+    "tests": 2884,
+    "papers": 8,
+    "modules_core": 84,
+    "modules_v2": 43,
+    "modules_total": 127,
+    "mcp_tools": 150,
+    "core_surface_functions": 24,
+    "extended_surface_exports": 925
+  },
+  "papers": [
+    {
+      "title": "The Agent Social Contract",
+      "doi": "10.5281/zenodo.18749779"
+    },
+    {
+      "title": "Monotonic Narrowing",
+      "doi": "10.5281/zenodo.18932404"
+    },
+    {
+      "title": "Faceted Authority Attenuation",
+      "doi": "10.5281/zenodo.19260073"
+    },
+    {
+      "title": "Behavioral Derivation Rights",
+      "doi": "10.5281/zenodo.19476002"
+    },
+    {
+      "title": "Physics-Enforced Delegation",
+      "doi": "10.5281/zenodo.19478584"
+    },
+    {
+      "title": "Governance in the Medium",
+      "doi": "10.5281/zenodo.19582550"
+    },
+    {
+      "title": "Cognitive Attestation",
+      "doi": "10.5281/zenodo.19646276"
+    },
+    {
+      "title": "The Evidence-Safety Gap",
+      "doi": "10.5281/zenodo.19914628"
+    }
+  ],
+  "language_replacements": {
+    "$comment": "Future: copy normalization. Not yet wired in propagate.mjs; documented here as the canonical edit list for any human/CC sweeping prose.",
+    "Bayesian reputation": "earned reputation",
+    "feeless Nano wallet": "wallet binding",
+    "feeless Nano payments": "wallet binding"
+  }
+}

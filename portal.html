@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+    <link rel="canonical" href="https://aeoess.com/portal.html">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portal | AEOESS</title>
+<meta name="description" content="Governance infrastructure for AI agents. Get an API key, enforce delegation chains, prove every action with signed receipts.">
+<link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css?v=20260428a">
+<style>
+.portal-wrap{max-width:980px;margin:0 auto;padding:5.5rem 2rem 2rem}
+.portal-hero{text-align:center;margin-bottom:2.5rem;padding-top:1rem}
+.portal-hero h1{font:700 2.4rem/1.15 'Crimson Pro',serif;margin-bottom:.6rem;color:var(--text)}
+.portal-hero p{color:var(--dim);font:400 1.05rem/1.6 'DM Sans',sans-serif;max-width:520px;margin:0 auto}
+.portal-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:2rem;margin-bottom:2rem}
+.portal-card h2{font:600 1.4rem 'Crimson Pro',serif;margin-bottom:1rem;color:var(--text)}
+.portal-field{display:block;margin-bottom:1rem}
+.portal-field label{display:block;font-size:.85rem;font-weight:500;margin-bottom:.3rem;color:var(--dim)}
+.portal-field input{width:100%;padding:.65rem .8rem;border:1px solid var(--border);border-radius:6px;font:.95rem 'DM Sans',sans-serif;background:var(--bg);color:var(--text);box-sizing:border-box}
+.portal-field input:focus{outline:none;border-color:var(--link)}
+.portal-btn{display:inline-block;padding:.7rem 1.8rem;background:var(--text);color:var(--bg);border:none;border-radius:6px;font:600 .95rem 'DM Sans',sans-serif;cursor:pointer;transition:opacity .2s}
+.portal-btn:hover{opacity:.85}
+.portal-btn:disabled{opacity:.5;cursor:not-allowed}
+.portal-btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+.portal-btn-outline:hover{border-color:var(--text)}
+.portal-btn-sm{padding:.5rem 1.2rem;font-size:.85rem}
+.key-display{background:var(--code-bg);color:var(--ink);font-family:'JetBrains Mono',monospace;padding:1rem;border:1px solid var(--rule);border-radius:8px;font-size:.85rem;word-break:break-all;margin:1rem 0;position:relative;user-select:all;line-height:1.5}
+.key-display .copy-btn{position:absolute;top:.5rem;right:.5rem;background:var(--ink);color:var(--bg);border:none;border-radius:4px;padding:.3rem .6rem;font-size:.75rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500}
+.key-display .copy-btn:hover{opacity:.85}
+.key-warning{color:var(--red);font-size:.85rem;font-weight:500;margin-top:.5rem}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0}
+.plan{border:1px solid var(--border);border-radius:10px;padding:1.2rem;text-align:center;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.plan:hover{border-color:var(--link);box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.plan.active{border-color:var(--link);background:var(--surface)}
+.plan h3{font:600 1.1rem 'DM Sans',sans-serif;margin-bottom:.3rem}
+.plan .price{font:700 1.8rem 'Crimson Pro',serif;margin:.3rem 0}
+.plan .price span{font:400 .9rem 'DM Sans',sans-serif;color:var(--dim)}
+.plan ul{list-style:none;padding:0;margin:.8rem 0;text-align:left;font-size:.85rem;line-height:1.8}
+.plan ul li::before{content:"\2713 ";color:var(--link)}
+.plan .plan-cta{display:block;margin-top:.8rem;padding:.45rem 0;border:1px solid var(--border);border-radius:6px;font:500 .82rem 'DM Sans',sans-serif;color:var(--text);text-decoration:none;transition:background .15s,border-color .15s}
+.plan .plan-cta:hover{background:var(--surface);border-color:var(--link)}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:1.5rem 0}
+.feature h3{font:600 1rem 'DM Sans',sans-serif;margin-bottom:.3rem}
+.feature p{font:.87rem/1.5 'DM Sans',sans-serif;color:var(--dim)}
+.step{display:flex;gap:1rem;margin-bottom:1.5rem;align-items:flex-start}
+.step-num{background:var(--text);color:var(--bg);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 .8rem 'DM Sans',sans-serif;flex-shrink:0;margin-top:.1rem}
+.step-body{flex:1;min-width:0}
+.step-body h3{font:600 1rem 'DM Sans',sans-serif;margin-bottom:.3rem}
+.step-body p{font:.9rem/1.5 'DM Sans',sans-serif;color:var(--dim)}
+.step-body pre{background:var(--code-bg);color:var(--ink);border:1px solid var(--rule);padding:.75rem .9rem;border-radius:6px;font:.78rem/1.6 'JetBrains Mono',monospace;overflow-x:auto;margin:.4rem 0;-webkit-overflow-scrolling:touch;max-width:100%;white-space:pre}
+.portal-card{overflow:hidden}
+.status-msg{padding:.8rem;border-radius:6px;margin:1rem 0;font-size:.9rem}
+.status-msg.success{background:rgba(22,101,52,.1);color:var(--green);border:1px solid var(--green)}
+.status-msg.error{background:rgba(185,28,28,.1);color:var(--red);border:1px solid var(--red)}
+.hidden{display:none}
+.section-divider{border:none;border-top:1px solid var(--border);margin:2rem 0}
+.bottom-links{text-align:center;font:.85rem 'DM Sans',sans-serif;color:var(--dim);margin:2rem 0}
+.bottom-links a{color:var(--link);margin:0 .5rem}
+@media(max-width:900px){
+  .portal-wrap{padding:5rem 1.5rem 1.5rem}
+  .portal-hero h1{font-size:2rem}
+  .portal-card{padding:1.6rem}
+  .plans,.features{grid-template-columns:1fr;gap:.8rem}
+}
+@media(max-width:560px){
+  .portal-wrap{padding:4.5rem 1rem 1rem}
+  .portal-hero{margin-bottom:1.6rem;padding-top:.5rem}
+  .portal-hero h1{font-size:1.7rem;line-height:1.2}
+  .portal-hero h1 br{display:none}
+  .portal-hero p{font-size:.95rem}
+  .portal-card{padding:1.2rem;margin-bottom:1.2rem;border-radius:10px}
+  .portal-card h2{font-size:1.2rem;margin-bottom:.7rem}
+  .plan{padding:1rem}
+  .plan h3{font-size:1rem}
+  .plan .price{font-size:1.5rem}
+  .step{gap:.7rem;margin-bottom:1.1rem}
+  .step-num{width:24px;height:24px;font-size:.72rem}
+  .step-body h3{font-size:.95rem}
+  .step-body pre{font-size:.66rem;padding:.6rem .7rem;line-height:1.55}
+  .key-display{font-size:.72rem;padding:.8rem;line-height:1.5}
+  .key-display .copy-btn{position:static;display:block;margin-top:.5rem;width:100%;padding:.45rem}
+  .portal-btn{padding:.7rem 1.4rem;font-size:.9rem;width:100%;text-align:center}
+  .portal-field input{font-size:.9rem;padding:.6rem .7rem}
+}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"AEOESS Gateway Portal \u2014 Get Your API Key","description":"Governance infrastructure for AI agents. Get an API key, enforce delegation chains, prove every action with signed receipts.","url":"https://aeoess.com/portal.html","dateModified":"2026-04-11","publisher":{"@type":"Organization","name":"AEOESS","url":"https://aeoess.com","logo":{"@type":"ImageObject","url":"https://aeoess.com/assets/images/aeoess_logo.png"}},"inLanguage":"en","isPartOf":{"@type":"WebSite","name":"AEOESS","url":"https://aeoess.com"},"about":{"@type":"Thing","name":"Agent governance API portal"}}</script>
+</head>
+<body>
+<nav class="nav" id="nav">
+  <a href="/" class="nav-logo"><img src="/assets/images/aeoess_logo-05.png" alt="AEOESS" width="158" height="26" style="height:26px;width:auto"></a>
+  <div class="nav-links"><a href="wallet.html">Wallet</a><a href="blog.html">Blog</a><a href="roadmap.html">Roadmap</a><a href="passport.html">Spec</a><a href="docs.html">API</a><a href="portal.html" style="font-weight:600">Portal</a><a href="https://github.com/aeoess">GitHub</a><a href="mailto:signal@aeoess.com">Contact</a></div>
+  <div class="nav-right"><button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button><div class="nav-burger" onclick="this.classList.toggle('open');document.querySelector('.nav-drawer').classList.toggle('open')"><span></span><span></span><span></span></div></div>
+</nav>
+<div class="nav-drawer">
+  <div class="drawer-section">
+    <div class="drawer-section-title">Build</div>
+    <a href="portal.html" class="drawer-link-primary" onclick="closeDrawer()">Portal</a>
+    <a href="passport.html" onclick="closeDrawer()">Spec</a>
+    <a href="docs.html" onclick="closeDrawer()">API Reference</a>
+  </div>
+  <div class="drawer-section">
+    <div class="drawer-section-title">Explore</div>
+    <a href="blog.html" onclick="closeDrawer()">Blog</a>
+    <a href="roadmap.html" onclick="closeDrawer()">Roadmap</a>
+    <a href="compare.html" onclick="closeDrawer()">Compare</a>
+    <a href="faq.html" onclick="closeDrawer()">FAQ</a>
+  </div>
+  <div class="drawer-section">
+    <div class="drawer-section-title">Connect</div>
+    <a href="wallet.html" onclick="closeDrawer()">Wallet</a>
+    <a href="https://github.com/aeoess" onclick="closeDrawer()">GitHub</a>
+    <a href="mailto:signal@aeoess.com" onclick="closeDrawer()">Contact</a>
+  </div>
+</div>
+
+<div class="portal-wrap">
+
+  <!-- HERO -->
+  <div class="portal-hero">
+    <h1>Governance infrastructure<br>for AI agents</h1>
+    <p>One API key. Signed receipts for every action. Trust scores that mean something.</p>
+  </div>
+
+  <!-- PLANS -->
+  <div class="portal-card">
+    <h2>Choose a plan</h2>
+    <div class="plans">
+      <div class="plan active" id="plan-free" onclick="document.getElementById('signup-section').scrollIntoView({behavior:'smooth'})">
+        <h3>Free</h3>
+        <div class="price">$0<span>/mo</span></div>
+        <ul>
+          <li>3 agents</li>
+          <li>1,000 evaluations/mo</li>
+          <li>Trust endpoint</li>
+          <li>JWKS verification</li>
+        </ul>
+        <span class="plan-cta">Get Started</span>
+      </div>
+      <div class="plan" id="plan-pro" onclick="document.getElementById('signup-section').scrollIntoView({behavior:'smooth'})">
+        <h3>Team</h3>
+        <div class="price">$99<span>/mo</span></div>
+        <ul>
+          <li>25 agents</li>
+          <li>50,000 evaluations/mo</li>
+          <li>Compliance reports</li>
+          <li>30-day retention</li>
+        </ul>
+        <span class="plan-cta">Start Team Plan</span>
+        <button class="portal-btn portal-btn-sm plan-upgrade hidden" data-plan="pro" onclick="event.stopPropagation();upgradePlan('pro')" style="width:100%;margin-top:.5rem">Upgrade</button>
+      </div>
+      <div class="plan" id="plan-enterprise" onclick="window.location.href='mailto:signal@aeoess.com?subject=Enterprise%20Plan%20Inquiry'">
+        <h3>Enterprise</h3>
+        <div class="price">Custom</div>
+        <ul>
+          <li>Unlimited agents</li>
+          <li>Unlimited evaluations</li>
+          <li>SLA + priority support</li>
+          <li>Data attribution</li>
+        </ul>
+        <span class="plan-cta">Contact Us</span>
+        <button class="portal-btn portal-btn-sm plan-upgrade hidden" data-plan="enterprise" onclick="event.stopPropagation();upgradePlan('enterprise')" style="width:100%;margin-top:.5rem">Contact Us</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT YOU GET -->
+  <div class="portal-card">
+    <h2>What you get</h2>
+    <div class="features">
+      <div class="feature">
+        <h3>Signed Receipts</h3>
+        <p>Every agent action gets an Ed25519-signed receipt. Cryptographic proof of what was authorized and what happened.</p>
+      </div>
+      <div class="feature">
+        <h3>Trust Profiles</h3>
+        <p>Per-agent trust scores, per-task-class breakdowns, DID binding status. Publicly verifiable at <code style="font:.78rem 'JetBrains Mono',monospace">/public/trust/:agentId</code>.</p>
+      </div>
+      <div class="feature">
+        <h3>Audit Trail</h3>
+        <p>Full evaluation history, denial analysis, spend tracking, governance export. CSV and JSON formats.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGNUP FORM -->
+  <div class="portal-card" id="signup-section">
+    <h2>Create your account</h2>
+    <div id="signup-form">
+      <div class="portal-field">
+        <label for="signup-name">Organization name</label>
+        <input type="text" id="signup-name" placeholder="Acme AI Labs">
+      </div>
+      <div class="portal-field">
+        <label for="signup-email">Email</label>
+        <input type="email" id="signup-email" placeholder="you@company.com">
+      </div>
+      <div id="signup-status"></div>
+      <button class="portal-btn" id="signup-btn" onclick="doSignup()">Get API Key</button>
+    </div>
+
+    <!-- Key reveal (shown after signup) -->
+    <div id="key-reveal" class="hidden">
+      <div class="status-msg success">Account created. Your API key is below.</div>
+      <div class="key-display">
+        <span id="api-key-value"></span>
+        <button class="copy-btn" onclick="copyKey()">Copy</button>
+      </div>
+      <p class="key-warning">Save this key now. It will not be shown again.</p>
+      <p style="margin-top:1rem;font-size:.9rem;color:var(--dim)">Tenant ID: <code id="tenant-id-value"></code></p>
+    </div>
+  </div>
+
+  <!-- QUICK START (curl examples) -->
+  <div class="portal-card" id="quickstart-section">
+    <h2>Quick start</h2>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>Register an agent</h3>
+        <pre>curl -X POST https://gateway.aeoess.com/api/v1/agents \
+  -H "Authorization: Bearer YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"agent_id":"my-agent","name":"My First Agent","public_key":"..."}'</pre>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>Create a delegation</h3>
+        <pre>curl -X POST https://gateway.aeoess.com/api/v1/delegations \
+  -H "Authorization: Bearer YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"parent_agent_id":"_root","child_agent_id":"my-agent","scope":"data:read,tool:web_search","spend_limit":100}'</pre>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>Run an evaluation</h3>
+        <pre>curl -X POST https://gateway.aeoess.com/api/v1/evaluate \
+  -H "Authorization: Bearer YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"agent_id":"my-agent","action_type":"tool:web_search","scope_required":"tool:web_search"}'</pre>
+        <p>Response includes <code>verdict</code>, <code>evaluation_id</code>, and a signed receipt in the audit trail.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXISTING ACCOUNT -->
+  <hr class="section-divider">
+  <div class="portal-card">
+    <h2>Already have an account?</h2>
+    <div class="portal-field">
+      <label for="existing-key">API Key</label>
+      <input type="password" id="existing-key" placeholder="aps_live_...">
+    </div>
+    <button class="portal-btn portal-btn-outline" onclick="checkAccount()">View Account</button>
+    <button class="portal-btn portal-btn-outline hidden" id="manage-billing-btn" onclick="manageBilling()" style="margin-left:.5rem">Manage Billing</button>
+    <div id="account-info" class="hidden" style="margin-top:1rem"></div>
+  </div>
+
+  <!-- BOTTOM LINKS -->
+  <div class="bottom-links">
+    <a href="/docs.html">Full API Reference</a> &middot;
+    <a href="/gateway.html">Dashboard</a> &middot;
+    <a href="https://www.npmjs.com/package/agent-passport-system">SDK on npm</a> &middot;
+    <a href="/llms-full.txt">LLM docs</a>
+  </div>
+
+</div>
+
+<script>
+// Theme + nav
+function closeDrawer(){document.querySelector('.nav-burger')?.classList.remove('open');document.querySelector('.nav-drawer')?.classList.remove('open');}
+function toggleTheme(){var d=document.documentElement.getAttribute('data-theme')==='dark';var n=d?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('aeoess-theme',n);var b=document.querySelector('.theme-btn');if(b)b.textContent=n==='dark'?'\u2600':'\u263E';}
+(function(){var s=localStorage.getItem('aeoess-theme');if(s)document.documentElement.setAttribute('data-theme',s);else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.setAttribute('data-theme','dark');var b=document.querySelector('.theme-btn');if(b)b.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'\u2600':'\u263E';})();
+window.addEventListener('scroll',function(){var n=document.getElementById('nav');if(n)n.classList.toggle('scrolled',window.scrollY>40)});
+
+const GW = 'https://gateway.aeoess.com'
+function esc(s){if(!s)return'';const d=document.createElement('div');d.textContent=String(s);return d.innerHTML}
+
+async function doSignup() {
+  const name = document.getElementById('signup-name').value.trim()
+  const email = document.getElementById('signup-email').value.trim()
+  const btn = document.getElementById('signup-btn')
+  const status = document.getElementById('signup-status')
+
+  if (!name || !email) {
+    status.innerHTML = '<div class="status-msg error">Please fill in both fields.</div>'
+    return
+  }
+
+  btn.disabled = true
+  btn.textContent = 'Creating account...'
+  status.innerHTML = ''
+
+  try {
+    const res = await fetch(`${GW}/api/v1/signup`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, plan: 'free' })
+    })
+    const data = await res.json()
+
+    if (!res.ok) {
+      status.innerHTML = '<div class="status-msg error">' + esc(data.error || 'Signup failed') + '</div>'
+      btn.disabled = false
+      btn.textContent = 'Get API Key'
+      return
+    }
+
+    // Show key
+    document.getElementById('signup-form').classList.add('hidden')
+    document.getElementById('key-reveal').classList.remove('hidden')
+    document.getElementById('api-key-value').textContent = data.api_key
+    document.getElementById('tenant-id-value').textContent = data.tenant_id
+
+  } catch (e) {
+    status.innerHTML = '<div class="status-msg error">Network error. Try again.</div>'
+    btn.disabled = false
+    btn.textContent = 'Get API Key'
+  }
+}
+
+function copyKey() {
+  const key = document.getElementById('api-key-value').textContent
+  navigator.clipboard.writeText(key).then(() => {
+    const btn = document.querySelector('.copy-btn')
+    btn.textContent = 'Copied!'
+    setTimeout(() => btn.textContent = 'Copy', 2000)
+  })
+}
+
+let savedApiKey = null
+
+async function checkAccount() {
+  const key = document.getElementById('existing-key').value.trim()
+  const info = document.getElementById('account-info')
+
+  if (!key) return
+  savedApiKey = key
+
+  try {
+    const res = await fetch(`${GW}/api/v1/account`, {
+      headers: { 'Authorization': `Bearer ${key}` }
+    })
+
+    if (!res.ok) {
+      info.classList.remove('hidden')
+      info.innerHTML = '<div class="status-msg error">Invalid API key</div>'
+      return
+    }
+
+    const d = await res.json()
+    info.classList.remove('hidden')
+
+    const limitBar = (current, limit) => {
+      if (limit === -1) return `${current} / &infin;`
+      const pct = Math.min(100, Math.round(current / limit * 100))
+      const color = pct > 90 ? '#e74c3c' : pct > 70 ? '#f39c12' : 'var(--link)'
+      return `${current} / ${limit} <span style="display:inline-block;width:60px;height:6px;background:var(--border);border-radius:3px;vertical-align:middle;margin-left:4px"><span style="display:block;width:${pct}%;height:100%;background:${color};border-radius:3px"></span></span>`
+    }
+
+    info.innerHTML = `
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem;font-size:.9rem;line-height:2">
+        <strong>${esc(d.name)}</strong> <span style="background:var(--text);color:var(--bg);padding:.1rem .5rem;border-radius:4px;font-size:.75rem;font-weight:600;text-transform:uppercase">${esc(d.plan)}</span><br>
+        Agents: ${limitBar(d.usage.agents, d.limits.max_agents)}<br>
+        Evaluations: ${limitBar(d.usage.evaluations_this_month, d.limits.evaluations_per_month)}<br>
+        Delegations: ${esc(String(d.usage.delegations))} &middot; Receipts: ${esc(String(d.usage.receipts))}<br>
+        <div style="margin-top:.5rem;display:flex;gap:.5rem;flex-wrap:wrap">
+          <a href="/gateway.html" style="color:var(--link)">Dashboard &rarr;</a>
+          ${d.plan === 'free' ? '<a href="#" onclick="upgradePlan(&quot;pro&quot;);return false" style="color:var(--link)">Upgrade to Team &rarr;</a>' : ''}
+        </div>
+      </div>
+    `
+
+    // Show upgrade buttons and manage billing
+    document.querySelectorAll('.plan-upgrade').forEach(b => b.classList.remove('hidden'))
+    if (d.plan !== 'free') {
+      document.getElementById('manage-billing-btn').classList.remove('hidden')
+    }
+
+    // Highlight current plan
+    document.querySelectorAll('.plan').forEach(p => p.classList.remove('active'))
+    const planEl = document.getElementById('plan-' + d.plan) || document.getElementById('plan-free')
+    if (planEl) planEl.classList.add('active')
+
+  } catch (e) {
+    info.classList.remove('hidden')
+    info.innerHTML = '<div class="status-msg error">Network error</div>'
+  }
+}
+
+async function upgradePlan(plan) {
+  if (!savedApiKey) {
+    alert('Enter your API key first in the "Already have an account?" section')
+    return
+  }
+  if (plan === 'enterprise') {
+    window.location.href = 'mailto:signal@aeoess.com?subject=Enterprise%20Plan%20Inquiry'
+    return
+  }
+  try {
+    const res = await fetch(`${GW}/api/v1/billing/checkout`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${savedApiKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ plan })
+    })
+    const data = await res.json()
+    if (data.url) {
+      window.location.href = data.url
+    } else {
+      alert(data.error || 'Failed to start checkout')
+    }
+  } catch (e) {
+    alert('Network error. Try again.')
+  }
+}
+
+async function manageBilling() {
+  if (!savedApiKey) return
+  try {
+    const res = await fetch(`${GW}/api/v1/billing/portal`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${savedApiKey}` }
+    })
+    const data = await res.json()
+    if (data.url) window.location.href = data.url
+    else alert(data.error || 'Failed to open billing portal')
+  } catch (e) {
+    alert('Network error')
+  }
+}
+
+// Handle upgrade success/cancel from Stripe redirect
+const params = new URLSearchParams(window.location.search)
+if (params.get('upgrade') === 'success') {
+  document.getElementById('signup-status').innerHTML = '<div class="status-msg success">Plan upgraded successfully! Enter your API key below to see your new limits.</div>'
+}
+if (params.get('upgrade') === 'cancelled') {
+  document.getElementById('signup-status').innerHTML = '<div class="status-msg error">Upgrade cancelled. You can try again anytime.</div>'
+}
+</script>
+
+<footer class="footer-wrap" role="contentinfo">
+<div class="footer-inner">
+  <div class="footer-grid">
+    <div class="footer-col"><h4>Protocol</h4><a href="passport.html">Documentation</a><a href="benchmarks.html">Benchmarks</a><a href="compare.html">Compare</a><a href="threat-model.html">Threat Model</a><a href="faq.html">FAQ</a></div>
+    <div class="footer-col"><h4>Developers</h4><a href="https://github.com/aeoess">GitHub</a><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="portal.html">Portal</a><a href="gateway.html">Gateway</a><a href="wallet.html">Agent Wallet</a><a href="AGENTS.md">AGENTS.md</a><a href="llms.txt">llms.txt</a></div>
+    <div class="footer-col"><h4>Community</h4><a href="blog.html">Dev Log</a><a href="roadmap.html">Roadmap</a><a href="working-group.html">Working Group</a><a href="mingle.html">Mingle</a><a href="agora.html">Agora</a></div>
+    <div class="footer-col"><h4>Research</h4><a href="https://doi.org/10.5281/zenodo.18749779">Agent Social Contract</a><a href="https://doi.org/10.5281/zenodo.18932404">Monotonic Narrowing</a><a href="https://doi.org/10.5281/zenodo.19260073">Faceted Authority Attenuation</a><a href="https://doi.org/10.5281/zenodo.19476002">Behavioral Derivation Rights</a><a href="https://doi.org/10.5281/zenodo.19478584">Physics-Enforced Delegation</a><a href="https://doi.org/10.5281/zenodo.19582550">Governance in the Medium</a><a href="https://doi.org/10.5281/zenodo.19646276">Cognitive Attestation</a><a href="https://doi.org/10.5281/zenodo.19914628">Evidence-Safety Gap</a></div>
+  </div>
+  <div class="footer-bottom"><span class="footer-copy">AEOESS &copy; 2026 &middot; Apache-2.0 &middot; Built by <a href="https://tymofii.me">Tymofii Pidlisnyi</a></span><div class="footer-ext"><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="https://github.com/aeoess">GitHub</a></div></div>
+</div>
+</footer>
+</body>
+</html>
