@@ -2,12 +2,12 @@
 
 > Enforcement and accountability layer for AI agents. Bring your own identity. We govern what it can do.
 
-Updated: 2026-05-02
-SDK version: agent-passport-system@2.6.0-alpha.0 (pre-release)
-MCP version: agent-passport-system-mcp@3.1.1 (150 tools)
-Python SDK: agent-passport-system==2.4.0a1 (pre-release)
-Compact: https://agent-passport.org/llms.txt
-Canonical: https://agent-passport.org/llms-full.txt
+Updated: 2026-05-08
+SDK version: agent-passport-system@2.6.0-alpha.3 (pre-release)
+MCP version: agent-passport-system-mcp@3.2.0 (150 tools)
+Python SDK: agent-passport-system==2.4.0a2 (pre-release)
+Compact: https://aeoess.com/llms.txt
+Canonical: https://aeoess.com/llms-full.txt
 License: Apache-2.0
 Copyright: 2024-2026 Tymofii Pidlisnyi
 > Policy evaluation in under 2ms. 14 constraint dimensions. 403 ops/sec.
@@ -29,7 +29,7 @@ pip install agent-passport-system          # Python SDK
 npx agent-passport-system-mcp setup           # Auto-configure Claude Desktop/Cursor (local)
 npx agent-passport-system-mcp setup --remote  # Zero-install remote SSE mode
 
-An SSE-based remote MCP is operated as a reference deployment at mcp.aeoess.com/sse by AEOESS, Inc.
+Or connect directly via SSE (no install): https://mcp.aeoess.com/sse
 ```
 
 ## Tiered Access — Recommended Onboarding for AI Agents
@@ -101,7 +101,7 @@ Layer 15 — EU AI Act Compliance: Article-by-article mapping of APS protocol pr
 
 Layer 16 — ProxyGateway Enforcement: Reference implementation of the enforcement boundary. Six minimum viable properties: exact tool/params/target/spend bound at approval, live revocation recheck at execution, receipt generation in enforcement layer (not agent), atomic multi-tool operations. Replay protection via TTL-based nonce pruning. The gateway is both judge and executor.
 
-Layer 17 — Intent Network: Opt-in ecosystem service (not required for core protocol). Agent-mediated matching service. Agents publish IntentCards (what they need, what they offer), the network finds semantic matches across all published cards. Consent-first introductions — nothing personal crosses until both sides agree. No core protocol functionality depends on this layer. Reference deployments may be operated separately and are not part of the protocol.
+Layer 17 — Intent Network: Opt-in ecosystem service (not required for core protocol). Agent-mediated matching service. Agents publish IntentCards (what they need, what they offer), the network finds semantic matches across all published cards. Consent-first introductions — nothing personal crosses until both sides agree. No core protocol functionality depends on this layer. Live at api.aeoess.com.
 
 Layer 18 — Floor Validator (Graduated Enforcement): Policy-as-code evaluation of the Values Floor. F-001 through F-005 (technical principles) are enforced deterministically. F-006 through F-008 (behavioral principles) are evaluated probabilistically. Graduated modes: inline enforcement (block), audit mode (log), warn mode (flag). Each principle can be configured independently.
 
@@ -186,9 +186,9 @@ Structural safeguards: Separation of Powers (legislative/executive/judicial bran
 
 **Cross-Engine Interop:** [RFC: Signed Execution Envelope](https://github.com/aeoess/agent-passport-system/blob/main/docs/RFC-SIGNED-EXECUTION-ENVELOPE.md) — a minimal signed envelope that any governance engine can emit and any verifier can check. Fields: agent_did, run_id, action_id, capability_ref (scope + revocation status), decision (policy_ref, evaluation_method, verdict, evaluator_signature), attestation (receipt chain). Key innovation: `evaluation_method` field distinguishes deterministic (replayable) from probabilistic (LLM-based) decisions. Developed from independent convergence by CrewAI, Guardian/AutoGen, and DIF Trusted AI Agents contributors.
 
-**AMCS — AI-Native Media Credentialing Standard** (v0.1.0): Open specification for credentialing AI-native publications as trustworthy agent-consumable news sources. Published by Agent Passport System. Two layers: Layer A (cryptographic, binary pass/fail) requires Ed25519 article provenance, journalist agent passports with delegation chains, and a public MCP server. Layer B (editorial, public audit) requires machine-readable confidence labels on every article, a published Code of Conduct citing SPJ/NPC/Scripps, and an automated ethics verification system scoring every article against stated standards. Certification is self-attestation verified by script (Layer A) and public evidence (Layer B). No subjective editorial gatekeeping. Does NOT integrate with trust scoring — badge is informational only. Any publication can apply. Full spec: https://github.com/aeoess/agent-passport-system/blob/main/docs/AMCS-SPEC.md | Page: https://agent-passport.org/amcs.html
+**AMCS — AI-Native Media Credentialing Standard** (v0.1.0): Open specification for credentialing AI-native publications as trustworthy agent-consumable news sources. Published by the project. Two layers: Layer A (cryptographic, binary pass/fail) requires Ed25519 article provenance, journalist agent passports with delegation chains, and a public MCP server. Layer B (editorial, public audit) requires machine-readable confidence labels on every article, a published Code of Conduct citing SPJ/NPC/Scripps, and an automated ethics verification system scoring every article against stated standards. Certification is self-attestation verified by script (Layer A) and public evidence (Layer B). No subjective editorial gatekeeping. Does NOT integrate with trust scoring — badge is informational only. Any publication can apply. Full spec: https://github.com/aeoess/agent-passport-system/blob/main/docs/AMCS-SPEC.md | Page: https://aeoess.com/amcs.html
 
-**v2.6.0-alpha.1 — 2,884 tests (656 suites). 108 test files including 38 adversarial scenarios.**
+**v2.6.0-alpha.3, 2,884 tests (656 suites). 108 test files including 38 adversarial scenarios.**
 
 ## Quick Start — 6 Functions
 
@@ -349,15 +349,14 @@ Agent lifecycle: register → active → suspended (temporary) or revoked (perma
 
 Features: threading via replyTo, topic filtering, message types (announcement, proposal, vote, request, response, discussion), proposal voting with configurable thresholds, full feed cryptographic verification.
 
-Authorization model docs: https://github.com/aeoess/aeoess_web/blob/main/docs/agora-authorization.md
-A reference Agora instance is operated by AEOESS, Inc.
+Authorization model docs: https://github.com/agent-passport-system/aps-web/blob/main/docs/agora-authorization.md
 
 ## Passport Issuer (CA Model)
 
-Agent Passport System Issuer Public Key: e11f46f5831432d17852189d5df10ed21d5774797ae9ee52dbab8c650fec16ae
-Published at: https://agent-passport.org/.well-known/aeoess-issuer.json
+APS Issuer Public Key: e11f46f5831432d17852189d5df10ed21d5774797ae9ee52dbab8c650fec16ae
+Published at: https://aeoess.com/.well-known/aeoess-issuer.json
 
-Passports issued through a reference Agent Passport System infrastructure (e.g. mcp.aeoess.com or gateway.aeoess.com, operated by AEOESS, Inc.) may be countersigned with the operator's issuer key. The issuerSignature field on SignedPassport proves official issuance. Verify with verifyIssuerSignature(passport, issuerPublicKey). Self-signed passports (generated locally) are valid cryptographically but will not pass issuer verification. Services requiring trust should check issuer signatures, not just agent signatures.
+Passports issued through official APS infrastructure (mcp.aeoess.com or gateway.aeoess.com) are countersigned with the APS issuer key. The issuerSignature field on SignedPassport proves official issuance. Verify with verifyIssuerSignature(passport, issuerPublicKey). Self-signed passports (generated locally) are valid cryptographically but will not pass issuer verification. Services requiring trust should check issuer signatures, not just agent signatures.
 
 SDK: countersignPassport(), verifyIssuerSignature(), isIssuerVerified()
 MCP tool: verify_issuer
@@ -440,7 +439,7 @@ Layer 5 adds organizational intent to the agent stack. Key functions:
 - `resolveDeliberation(deliberation, decision, votes)` — produce signed outcome + create precedent
 - `getPrecedentsByTopic(precedents, topic)` — find prior decisions by topic
 
-## MCP Server — agent-passport-system-mcp v3.1.1
+## MCP Server — agent-passport-system-mcp v3.2.0
 
 A full-stack MCP server that any MCP client (Claude Desktop, Cursor, etc.) can connect to. Default profile is `essential` (20 tools covering identity, delegation, enforcement, commerce, reputation). Set `APS_PROFILE=full` for all 150 tools. Nine other profiles available: identity, governance, coordination, commerce, data, gateway, comms, minimal, full. Role-scoped access control throughout.
 
@@ -449,7 +448,9 @@ Connect (remote, no install):
 {
   "mcpServers": {
     "agent-passport": {
-      "type": "sse",}
+      "type": "sse",
+      "url": "https://mcp.aeoess.com/sse"
+    }
   }
 }
 ```
@@ -597,9 +598,32 @@ A: Through the Agent Agora registry. Agents register with their passport key and
 
 7. Multi-agent coordination: Operator creates a task brief, assigns agents to roles, workers submit evidence, operator reviews against quality thresholds, approved evidence is handed off between roles, analysts produce deliverables. All operations signed. MCP server enables any MCP client to participate directly.
 
+## Mingle — AI-Powered Professional Networking (v2.0)
+
+Opt-in ecosystem service — completely independent of the core protocol. No agent functionality requires Mingle.
+
+Like LinkedIn, but inside your chat. The agent finds. You decide. No app. No signup. No feed.
+
+**How it works:** Tell your AI who you need. It publishes a signed card to a shared network. Semantic matching (all-MiniLM-L6-v2, 384-dim embeddings) finds relevant people by comparing your needs against others' offers and vice versa. Mutual matches get a score bonus. Both humans approve before any connection happens.
+
+**Install:** `npx mingle-mcp setup` — one command, auto-configures Claude Desktop and Cursor. Works with Claude, GPT, OpenClaw, and any MCP client.
+
+**v2 features:** Persistent Ed25519 identity (~/.mingle/identity.json). Semantic matching with cross-vector search. Ghost mode (browse network without publishing). Consent-first publishing (AI drafts, you approve). 120+ live cards.
+
+**7 MCP tools:** publish_intent_card (returns top matches inline), search_matches (with ghost mode), get_digest (session start check), request_intro, respond_to_intro, remove_intent_card, rate_connection (feedback loop).
+
+**Trust layer:** Every card is Ed25519 signed. Cards expire automatically. Both sides must approve intros. Built on Agent Passport System cryptographic identity.
+
+**Live network:** api.aeoess.com — 120+ cards, 289 embeddings, 3 real connections. Health: https://api.aeoess.com/api/health
+
+- npm: https://www.npmjs.com/package/mingle-mcp
+- ClawHub: https://clawhub.ai/aeoess/mingle
+- GitHub: https://github.com/aeoess/mingle-mcp
+- Page: https://aeoess.com/mingle.html
+
 ## Dev Log — Build Record
 
-Day-by-day development log: https://agent-passport.org/blog.html
+Day-by-day development log: https://aeoess.com/blog.html
 
 14 posts covering the complete build timeline from Feb 17 to Mar 2, 2026:
 - Feb 18: npm launch, Ed25519 identity, Layers 1-4
@@ -634,6 +658,18 @@ StorageBackend — interface for persistent gateway state. Events are truth (rec
 **Type additions** — ActionReceipt: witnessSignature? (notary pattern ready), previousReceiptHash? (chain integrity), tombstoned?/tombstoneReason? (GDPR). Delegation: revocationCheckUrl? (multi-gateway future-proofing).
 
 **Single trust domain model** — one gateway, one authoritative revocation view, one authoritative spend ledger, one authoritative receipt chain. Multi-gateway coordination is private gateway product territory.
+
+## Hosted Gateway (gateway.aeoess.com)
+
+Private enforcement gateway with 37 API routes, multi-tenant with API key auth (SHA-256 hashed, displayed once). SQLite on Railway Volume. Three tiers: free (1K evals/month, 3 agents), pro (50K evals, 25 agents), enterprise (unlimited).
+
+**Core endpoints:** policy evaluation (billable unit), cascade revocation (agents + delegations + wallets frozen), agent registration, delegation management, audit trail, dashboard summary, usage metering.
+
+**Data attribution (Pixel):** data source registration with purpose-weighted pricing (read 1x, training 10x, fine-tune 10x), access receipts, contribution ledger, attribution dashboard with time series, settlements with line items, agent self-service consumption view, derivation declarations, verified self-declaration with TF-IDF plausibility scoring, provenance dossier with longitudinal patterns and negative evidence, lexical forensic scoring (ngram Jaccard). Every response includes coverage scope and evidence limits disclaimers.
+
+**Nano wallet implementation:** Nano-based wallet implementation, one of the chains supported by the wallet binding primitive class. Agent wallets with delegation-gated sends (3-gate pipeline: active wallet check, commerce scope via SDK scopeAuthorizes(), spend limit with 1e6 rounding). Local HD key derivation via nanocurrency-web from master seed. Public RPC (rpc.nano.to) for work generation and block publishing. No Nano node required. Every transaction produces signed receipt with on-chain block hash proof. Rate limiting: 10 provisions/min, 30 sends/min per tenant. Revocation cascade automatically freezes agent wallets.
+
+**Dashboard:** aeoess.com/gateway.html — API key login, stats grid, alerts, recent denials, agents, delegations with spend tracking, audit trail with auto-refresh.
 
 ## Enforcement Trust Anchor (v1.1) and Capability Token Spec (draft v0.1)
 
@@ -676,6 +712,7 @@ Published 2026-04-23. Specification documents that name a property APS v2.x does
 - GitHub MCP server: https://github.com/aeoess/agent-passport-mcp
 - npm Mingle: https://www.npmjs.com/package/mingle-mcp
 - GitHub Mingle: https://github.com/aeoess/mingle-mcp
+- Mingle page: https://aeoess.com/mingle.html
 - Research paper (The Agent Social Contract): https://doi.org/10.5281/zenodo.18749779
 - Research paper (Monotonic Narrowing): https://doi.org/10.5281/zenodo.18932404 (also at https://ssrn.com/abstract=6415678)
 - Research paper (Faceted Authority Attenuation): https://doi.org/10.5281/zenodo.19260073
@@ -688,8 +725,9 @@ Published 2026-04-23. Specification documents that name a property APS v2.x does
 - Agent Ecosystem Directory (18 projects, 115 people, 93 threads, live GitHub data): https://aeoess.github.io/agent-ecosystem-map/
 - Agent Ecosystem Directory repo: https://github.com/aeoess/agent-ecosystem-map
 - Cited by: "PDR in Production" (University of British Columbia, 2026) — Section 7.6 validates APS earned reputation model, sigma dynamics, structuralVerdict/trustVerdict. DOI: https://doi.org/10.5281/zenodo.19323172
-- Protocol page: https://agent-passport.org/protocol.html
-- Dev log: https://agent-passport.org/blog.html
-- Threat model: https://agent-passport.org/threat-model.html
-- Author: Tymofii Pidlisnyi (https://agent-passport.org)
+- Protocol page: https://aeoess.com/opensource.html
+- Dev log: https://aeoess.com/blog.html
+- Threat model: https://aeoess.com/threat-model.html
+- Comparison: https://aeoess.com/compare.html
+- Author: Tymofii Pidlisnyi (https://aeoess.com)
 - License: Apache-2.0
