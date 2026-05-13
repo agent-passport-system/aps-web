@@ -15033,16 +15033,7 @@ import { /* anything from the full surface */ } from 'agent-passport-system'</pr
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Microsoft AGT PR#598.</strong> imran-siddique reviewed, requested 6 changes. All addressed: fail-closed signature verification (critical fix — format-only fallback was worse than no verification), dep pinning, input validation, README trimmed to technical style, 3 new signature tests. Awaiting re-review.</p>
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">SDK v1.32.0 (2,884 tests, 559 suites, 103 modules). Python SDK v0.8.0 (2884 tests). MCP v2.19.1 (150 tools). Gateway v0.3.4. 27+ GitHub posts across 15 threads. YC application finalized. Every competitor is now a feeder.</p>
 </article>
-<article class="post" id="day-45">
-  <time class="post-date" datetime="2026-04-02">April 2, 2026</time>
-  <h2>Day 45: SDK v1.31.0 — Governance Hardening + Gateway Bridge</h2>
-  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">SDK v1.31.0 shipped. Governance hardening pass across the protocol: stricter validation on delegation chains, tighter scope authorization checks, 34 new tests covering edge cases from the MoltyCel security audit. 2,884 tests now, 533 suites, 99 modules.</p>
-  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Gateway bridge.</strong> The MCP remote server now auto-registers every issued passport on the hosted gateway. Issue a passport from any MCP client — Claude, OpenClaw, any SSE connection — and the agent appears on <code>gateway.aeoess.com</code> with a trust profile and public verification endpoint. No manual registration. The bridge reads the <code>issue_passport</code> response, extracts the DID and public key, and POSTs to the gateway's agent registration API. Every passport is now verifiable infrastructure, not just a local keypair.</p>
-  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Gateway v0.3.4.</strong> Context continuity scoring: activity regularity, behavioral consistency, and identity maturity combined into a 0-100 score on every trust profile query. Fixed evaluate endpoint (stale SDK v1.27→v1.31, <code>incrementUsage</code> manual upsert for Railway's SQLite without UNIQUE constraint). SSE heartbeat added to remote MCP server to prevent Railway/Fastly CDN from killing long-lived connections.</p>
-  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">0xbrainkid on NVIDIA/OpenShell#682.</strong> Deep technical exchange: sandbox-as-attestor model (the sandbox signs what it observed, the agent can't forge it), fidelity probe under constraint pressure (Hold/Bend/Break), <code>trust_context</code> now embedded in <code>ExecutionAttestation</code> — trust score at execution time is signed and tamper-detectable. Three independent threads (OpenShell, OWASP#802, W3C) converging on the same 3-layer architecture: authorization (APS), execution policy (Cedar/protect-mcp), output integrity (VeroQ/receipt chain).</p>
-  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Infrastructure.</strong> README rewritten for infrastructure positioning — APS is not an identity solution, it's governance infrastructure. Integration guide published: "build on APS, don't rebuild underneath." CLAUDE.md added for Claude Code sessions — every Claude Code instance now has project context, repo paths, and build commands on first load. Propagation sweep across all surfaces with updated numbers.</p>
-  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">SDK v1.31.0 (2,884 tests, 533 suites, 99 modules). MCP v2.19.1 (150 tools). Gateway v0.3.4. 12,500+ installs across npm and PyPI. 35+ active GitHub threads across the ecosystem.</p>
-</article>
+
 <article class="post" id="day-44">
   <time class="post-date" datetime="2026-04-01">April 1, 2026</time>
   <h2>Day 44: First Code Integration + 5 Security Fixes</h2>
@@ -15080,14 +15071,7 @@ import { /* anything from the full surface */ } from 'agent-passport-system'</pr
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Agent wallets.</strong> Every agent with a passport gets a Nano wallet via HD key derivation. Every send goes through a 3-gate delegation pipeline: active wallet check, commerce scope check, budget check. Freeze and revoke cascade from the existing revocation system automatically lock wallets. Nine new REST endpoints. Private keys never leave the gateway process. <a href="wallet.html">wallet.html</a></p>
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Local crypto.</strong> <code>wallet-crypto.ts</code> (323 lines): master seed auto-generates on first run, HD key derivation gives one deterministic address per agent, local block signing with Ed25519, public RPC for work generation. No Docker. No Nano node. Just one seed file and a public RPC endpoint.</p>
 </article>
-<article class="post" id="day-40">
-  <time class="post-date" datetime="2026-03-29">March 29, 2026</time>
-  <h2>Day 40: Gateway Wiring</h2>
-  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Import graph analysis showed only 20% of modules were connected to the gateway enforcement hub. Built four rounds of wiring. Final interconnection rate: 79%.</p>
-  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Fidelity probe.</strong> New measurement protocol based on the Hold/Bend/Break model. Tests whether agents actually follow their delegation constraints by measuring behavioral responses to boundary conditions. Wired into gateway scheduling.</p>
-  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Module wiring.</strong> Gateway identity layer connects DID, principal endorsement, and entity verification into agent registration. Data cluster wires data-source, data-contribution, data-enforcement, and data-gateway into the processToolCall pipeline. Gateway-wiring adapter connects 13 more modules: commerce, charter, coordination, routing, precedent, oracle-witness, reserve, context, governance-consumer, encrypted-messaging, messaging-audit, federation, EU AI Act.</p>
-  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Ecosystem.</strong> 12 substantive GitHub replies across 10 threads. Accepted lowkey-divine's fidelity probe collaboration on crewAI. Gave honest answers about Merkle anchoring gaps on A2A. Pinged four dormant contacts with specific collaboration offers. SDK v1.29.1. 2884 tests, 503 suites, 96 modules.</p>
-</article>
+
 <article class="post" id="day-39">
   <time class="post-date" datetime="2026-03-28">March 28, 2026</time>
   <h2>Day 39: An open protocol for accountable AI agents</h2>
@@ -15206,14 +15190,7 @@ import { /* anything from the full surface */ } from 'agent-passport-system'</pr
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Research grant.</strong> Applied to the Adaption Research Grant Program (Sara Hooker, ex-Cohere/DeepMind, $50M seed). Project: adaptive policy enforcement. Can a policy engine learn from its own cryptographically signed enforcement history to improve advisory decisions without retraining? Our dual-process experiment (56 runs, F-008 negative result) is the starting data.</p>
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Four weeks ago this was a TypeScript file on a MacBook Air. Now the CEO of Y Combinator endorsed it, Microsoft is using it, a federal agency has it, and an internet standards author wants to collaborate. Nobody told them about each other.</p>
 </article>
-<article class="post" id="day-27">
-  <time class="post-date" datetime="2026-03-15">March 15, 2026</time>
-  <h2>Day 27: Full Stats Sweep + Gateway Strategic Decision</h2>
-  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Housekeeping day. Two things: a strategic decision and a full staleness audit.</p>
-  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">The gateway question.</strong> The ProxyGateway is the enforcement boundary. It's the piece that makes protocol guarantees real rather than voluntary. That makes it the most commercially valuable component. Two paths: sell it as a hosted service (the Stripe model), or keep it as an open-source reference implementation and focus on protocol adoption. Decision: reference implementation now, product later. Reasoning: nobody pays for enforcement of a protocol nobody uses yet. Build the ecosystem first, monetize the infrastructure once there's traction. Path B now, Path A later.</p>
-  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">The staleness audit.</strong> Swept every page, README, GitHub description, and LLM-readable file across all three repos. Found 11 stale endpoints. SDK README badge said 2884 tests (now 534). GitHub org README said 150 tools (now 61) and 16 modules (now 17). MCP README section header said 150 tools (now 61). Both repo descriptions on GitHub referenced 2884 tests. llms-full.txt and passport.html said 22 test files (now 28). llms.txt said "eleven" modules (now seventeen). All fixed. Also added <code>floor-validator.test.ts</code> to the test script (was on disk but never ran in CI).</p>
-  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">This is why the propagation spec exists. Numbers drift. Pages get updated in one place but not another. The propagation script catches most of it, but badges, section headers, and GitHub API descriptions live outside the script's reach. Manual sweep still needed occasionally.</p>
-</article>
+
 <article class="post" id="day-26">
   <time class="post-date" datetime="2026-03-15">March 15, 2026</time>
   <h2>Day 26: Mingle v2 — Semantic Matching, Ghost Mode, Consent Flow</h2>
@@ -15232,13 +15209,7 @@ import { /* anything from the full surface */ } from 'agent-passport-system'</pr
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Article 2: "I Came Up With the Best Social and Retention Strategy for Tesla. Then I Built It."</strong> Every airline has miles, every hotel has points, Tesla has nothing. Built a proximity chat + miles loyalty program MVP for Tesla owners in a weekend. React + Supabase + Vercel. Working app at tesla-social.vercel.app.</p>
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Also pitched Mingle on X ("DNS for AI agents") to an 81k-reach thread. The protocol is starting to get in front of people.</p>
 </article>
-<article class="post" id="day-24">
-  <time class="post-date" datetime="2026-03-13">March 13, 2026</time>
-  <h2>Day 24: Security Hardening — Gateway Bugs, Setup Commands, Cross-Protocol Resolve</h2>
-  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Three gateway bugs found and fixed. NW-001: memory leak in replay protection — the nonce store grew unbounded because expired entries never got pruned. Added TTL-based cleanup. NW-003: crash when an unregistered agent tried two-phase execution. Now returns a proper error instead of throwing. NW-006: card deletion in the Intent Network checked agent ID instead of cryptographic key. Anyone who knew an agent's ID could delete their card. Fixed to require signature verification.</p>
-  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">All 30 gateway tests pass. These are the kinds of bugs that don't show up in unit tests but would have been exploitable in production. Finding them before anyone else did is the point of security hardening.</p>
-  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">SECURITY.md</strong> published with a proper threat model and responsible disclosure process. Prompt injection sanitization added to Mingle. <code>npx agent-passport-system-mcp setup</code> now auto-configures Claude Desktop and Cursor — zero JSON editing required. Cross-protocol resolve endpoint live at api.aeoess.com for external protocol bridges.</p>
-</article>
+
 <article class="post" id="day-23">
   <time class="post-date" datetime="2026-03-12">March 12, 2026</time>
   <h2>Day 23: Mingle Ships — Your AI Finds People for You</h2>
