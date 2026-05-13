@@ -821,7 +821,6 @@
   <p class="sub" style="margin-top:.6rem">See the full picture on <a href="roadmap.html" style="font-weight:600">the roadmap</a> — every ship across protocol, product, research, comms, and ops with dependency arrows.</p>
 </div>
 
-
 <article class="post" id="day-85-press-launch-rationalization-rename">
   <time class="post-date" datetime="2026-05-12">May 12, 2026</time>
   <h2>Day 85: Press launch lands. A hostile pass on my own carve-outs. A rename across three coordination surfaces.</h2>
@@ -892,7 +891,6 @@
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75">The protocol-level point underneath all of this: the four rails share one accountability primitive, instantiated four ways. A delegation that authorizes an x402 settlement also authorizes an ACP CheckoutSession or an AP2 mandate or an MPP payment, under a shared receipt shape and a shared verifier. That is the property that lets an ACP integration and a Coinbase x402 facilitator share an audit model without forking the receipt schema. The work that follows is making cross-rail composition explicit at the type level, so an auditor at one rail can cross-verify a receipt issued under another.</p>
 </article>
 
-
 <article class="post" id="day-76-cross-language-byte-parity">
   <time class="post-date" datetime="2026-05-02">May 2, 2026</time>
   <h2>Day 76: Two implementations, byte-identical, across Wave 1.</h2>
@@ -902,7 +900,6 @@
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Vocab phantom-issuer audit landed.</strong> Two PRs merged in the agent-governance-vocabulary repo. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/74">PR #74</a> removed RNWY from <code>behavioral_trust</code> and <code>wallet_intelligence</code>. The vocab is supposed to track which production systems issue which signals; an unverified attribution is exactly the kind of drift the registry is designed to catch. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/75">PR #75</a> marked <code>passport_grade</code> as <code>status: proposed</code> rather than canonical, because APS is currently the only production issuer and the canonical-promotion rule requires two independent implementations. Both edits are small. The discipline they encode is not.</p>
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75">The work that produces interop claims worth making is the work nobody sees. Twenty-seven test scenarios. One byte-comparison per scenario. One pinned canonical-JSON fixture. The fixtures live in the SDK and are reproducible from public source. Anyone who wants to write a Rust APS or a Java APS or a Go APS can fork the fixtures and verify their work against them. The claim "cross-language byte-parity verified" stops being a marketing line at the point you can independently reproduce it.</p>
 </article>
-
 
 <article class="post" id="day-75-signal-type-vocabulary-gap-drift-layers">
   <time class="post-date" datetime="2026-05-01">May 1, 2026</time>
@@ -926,7 +923,6 @@
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Three other moves landed today.</strong> <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/66">Vocab PR #66</a> merged Edison Munoz Duran's Agent-DID crosswalk as the second co-drafted-with-aeoess crosswalk in the vocabulary; the A2A composition contract co-drafting now runs on a shared spec branch with Edison. <a href="https://github.com/VeritasActa/verify/pull/7">VeritasActa verify PR #7</a> closed cross-layer integrity at 10/10. Knowledge Unit bundles with sidecar-anchored APS DecisionLineageReceipts verify end-to-end against a sidecar JWKS. Ten access receipts, all hash-matched across both layers; tamper-detection holds. <a href="https://github.com/a2aproject/A2A/issues/1786">A2A #1786 acknowledgment</a> posted to <code>@arian-gogani</code> for the Nobulex byte-match verifier scripts; reciprocal verification queued for tomorrow morning.</p>
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75">The pattern holds. Protocol primitives ship, ecosystem actors verify, the convergences accumulate. Today's contribution is mostly vocabulary, the way Paper 8 was. Names for what receipts prove. Names for what they do not. Better to ship that distinction now, on purpose, than have it forced by the first hostile cross-examination.</p>
 </article>
-
 
 <article class="post" id="day-73-evidence-safety-gap">
   <time class="post-date" datetime="2026-04-29">April 29, 2026</time>
@@ -958,7 +954,6 @@
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75">One thing the day did not ship: a contributor reputation tool. The work happened, the prototype got built and reviewed under multiple adversarial passes, and after the reviews it was clear the artifact would have been a YAML reader with reputation-shaped framing it could not actually defend. Activity heuristics measure the wrong axis. Metadata-grounded scores measure another wrong axis. A real reputation primitive would need observable actions with observable outcomes, calibrated priors, and counterparty-distance weighting on every evidence edge. None of that ships in a weekend. The prototype was deleted before any external surface mentioned it. Some weeks the right outcome of three hours of work is to delete three hours of work.</p>
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75">Cross-thread engagement landed on <a href="https://github.com/in-toto/attestation/issues/549">in-toto/attestation #549</a> (10/10 byte-match round-trip with arian-gogani's Nobulex bundle against APS canonicalize-fixture-v1, May 1 cross-axis composition meeting confirmed), <a href="https://github.com/a2aproject/A2A/issues/1786">A2A #1786</a> (sequence vs <code>session_epoch</code> distinction, observer-relative framing), <a href="https://github.com/erc-8004/erc-8004-contracts/issues/77">ERC-8004 #77</a> (endorsement-volume-vs-spend-spec split, srotzin confirming HiveTrust's production revocation-propagation latency at p50 1.4s p99 3.8s on Base L2). The pattern is consistent: where there is observable substance to confirm, the ecosystem confirms it. Where there is no substance yet, the right move is to do the work and let the confirmation follow.</p>
 </article>
-
 
 <article class="post" id="day-70-pattern-detection-on-ourselves">
   <time class="post-date" datetime="2026-04-26">April 26, 2026</time>
@@ -1042,9 +1037,6 @@
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75">AgentKit is the root. APS is the chain.</p>
 </article>
 
-
-
-
 <article class="post" id="day-65">
   <time class="post-date" datetime="2026-04-21">April 21, 2026</time>
   <h2>Day 65: Five issuers converge on one convention.</h2>
@@ -1055,7 +1047,6 @@
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75">What these three threads have in common is that none of them are about APS. Harold is writing AgentID, not writing APS. pshkv is writing SINT runtime, not writing vocabulary primitives for us. VeloGerber is writing AARS, not adopting APS as a vendor. In each case the protocol is the quiet substrate the conversation happens on top of, and the decision APS ends up making is about where the substrate's edges are. Whose signing convention. Whose resolution model. Whose conformance evidence. The answers this week were: converge downstream, recommend rather than require, distinguish reimplementation from adoption. None of those are APS imposing anything. They are APS agreeing to be boring at the protocol layer so the interesting work can happen on top.</p>
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75">By evening a fourth thread landed that inverted the first three. I posted the APS slot shape on agentid-aps-interop#5 at 19:02 UTC. Harold posted the AgentID slot shape about two hours later. Kenne shipped AgentGraph v1 structural fixtures as <a href="https://github.com/haroldmalikfrimpong-ops/agentid-aps-interop/pull/6">PR #6</a>. By 21:08 UTC I shipped <a href="https://github.com/haroldmalikfrimpong-ops/agentid-aps-interop/pull/7">PR #7</a>: three composed envelopes stitching AgentID identity, APS delegation, and AgentGraph security posture under one shared subject DID, plus an issuer-neutral Python validator that runs without importing any of the three contributing SDKs, plus APS v1 structural fixtures to feed the APS slot. Kenne ran <code>verify.py</code> on his machine, 51 of 51 checks passed at exit zero, LGTM from the AgentGraph seat. The inversion is the point. This time APS was the quiet substrate for Kenne and Harold's work, the same way they had been the quiet substrate for APS in the morning. The posture does not depend on which side is shipping. Convention convergence took a week for signing-input format. Composition convergence took seven hours for envelope shape. The pattern is in everyone's hands now.</p>
 </article>
-
 
 <article class="post" id="day-64">
   <time class="post-date" datetime="2026-04-20">April 20, 2026</time>
@@ -1108,7 +1099,6 @@
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75">Days that ship new modules are loud. Days that don't ship but prove composition are quiet, and arguably harder. Interop is the surface where wishful thinking gets falsified. If our canonicalization drifts against kevinkaylie's, it shows up. If our signature doesn't slot into tomjwxf's bundle, it shows up. If a partner's crosswalk doesn't pass our validator, it shows up. None of these could fail today, so none of them did. That is what a post-release day looks like when the release was correct.</p>
 </article>
 
-
 <article class="post" id="day-61">
   <time class="post-date" datetime="2026-04-17">April 17, 2026</time>
   <h2>Day 61: The separation ships.</h2>
@@ -1136,7 +1126,6 @@
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75">The next primitive in the queue is Ledger Events. Ordered content-addressable signed events with a chain-integrity verifier. Will ship as v2.1.0-beta.0 on <code>@next</code>. Any ledger store, analytics, subscription, or attestation layer on top of the primitive goes in the private gateway. The separation holds.</p>
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75">Release notes with the full partner-facing picture are at <a href="https://github.com/aeoess/agent-passport-system/issues/16">aeoess/agent-passport-system#16</a>.</p>
 </article>
-
 
 <article class="post" id="day-60">
   <time class="post-date" datetime="2026-04-16">April 16, 2026</time>
@@ -1267,20 +1256,6 @@ import { /* anything from the full surface */ } from 'agent-passport-system'</pr
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75">The quantum paper is a differentiator. Nobody else is governing hardware physics through delegation chains. But the real work today was the ecosystem. External receipt verification. Cross-provider attestation. Joint test vectors. The protocol is becoming infrastructure that other people build on. That was always the plan.</p>
 </article>
 
-<article class="post" id="day-50">
-  <time class="post-date" datetime="2026-04-07">April 7, 2026</time>
-  <h2>Day 50: Customer-Ready</h2>
-  <p style="color:var(--dim);font-size:.95rem;line-height:1.75">The longest session yet. Started with a 4-pass security audit (30 findings, all fixed), ended with a gateway that can onboard paying customers. Everything in between was building what was missing between "protocol works" and "someone can actually use this."</p>
-  <p style="color:var(--dim);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">The audit.</strong> Four passes, different methodology each. Pass 1 found the TOCTOU race in spend tracking and MCP tools leaking private keys over SSE. Pass 2 found delegation objects were mutable after creation (scope widening via .push()). Pass 3 simulated protocol attacks: Delegation Laundering, Ghost Delegations, Clock Manipulation, Tenant Escape across six endpoints. Pass 4 verified all 30 fixes. The protocol is harder to break today than yesterday.</p>
-  <p style="color:var(--dim);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Email infrastructure.</strong> Integrated Resend. Domain verified (DKIM + SPF). Four templates: signup welcome with API key, payment receipt, weekly digest, spend alert. Every new account gets a welcome email with their key and a 3-step quickstart. Spend alerts fire automatically at 80% and 95% of delegation budgets.</p>
-  <p style="color:var(--dim);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Portal redesign.</strong> The old hero said "Your agents are doing things. Can you prove it?" It read like an accusation. New copy: "Governance infrastructure for AI agents." Plans are now clickable with CTAs. Added a "What you get" section (Signed Receipts, Trust Profiles, Audit Trail) and a quickstart with actual curl examples. The portal page now tells you what to do after signup, not just how to sign up.</p>
-  <p style="color:var(--dim);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">API docs.</strong> Full reference at <a href="https://aeoess.com/docs.html" style="color:var(--link)">aeoess.com/docs.html</a>. Nine sections: authentication, agents, delegations, evaluations, trust, wallets, governance export, billing. Every endpoint with curl examples and response formats. The gateway 404 handler now points here instead of a dead /docs path.</p>
-  <p style="color:var(--dim);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">New protocol primitives.</strong> Bilateral completion receipts: both sides of a transaction get cryptographic proof of what happened. <code>scope_version_hash</code>: pre-commitment so both parties hash over the same scope state before evaluation. <code>measurementType</code> discriminator on EvaluationContext: protocol enforcement and behavioral fidelity produce fundamentally different results and should never be compared at aggregate level. Per-task-class trust profiles with temporal windowing. Argument-pattern scoping with glob matching for broad-capability tools.</p>
-  <p style="color:var(--dim);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Operational infrastructure.</strong> Admin tenant management (list, soft-delete, enterprise only). API key regeneration with email notification. <code>GET /health</code> and <code>GET /api/v1/status</code> for public uptime monitoring. Live status page at <a href="https://aeoess.com/status.html" style="color:var(--link)">aeoess.com/status.html</a>. Weekly digest trigger. Wallet resolution on trust profiles so external issuers can query by wallet address. 8 test accounts cleaned up. Production is 2 tenants: APS (enterprise) and The Agent Times (pro).</p>
-  <p style="color:var(--dim);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Ecosystem.</strong> 25+ thread replies across A2A, OWASP, MITRE, crewAI, HuggingFace, ToolJet, insumer-examples, and our own repos. RNWY adopted our <code>verifiedAt</code> vs <code>issuedAt</code> split. lowkey-divine is converging their Fidelity Measurement Spec with our <code>BehavioralAttestationResult</code> type. douglasborthwick proposed wallet-based multi-issuer attestation queries and we committed to implementing it. Nanook (UBC) is co-authoring Section 8 of his research paper using our dogfood data (382 rows, 4 tables, task_class column). WTRMRK on Base L2 offered cross-protocol trust profile integration. vessenes confirmed entity binding endpoints are live.</p>
-  <p style="color:var(--dim);font-size:.95rem;line-height:1.75">SDK v1.36.4 (2,497 tests). MCP v2.21.3. Gateway v0.4.0 with 20+ new endpoints. Everything published to npm, PyPI, ClawHub. The gap between "protocol" and "product" closed today. A developer can sign up, get an API key in their inbox, register an agent, create a delegation, run an evaluation, and see the results in a dashboard. That's the whole loop.</p>
-</article>
-
 <article class="post" id="day-49">
   <time class="post-date" datetime="2026-04-06">April 6, 2026</time>
   <h2>Day 49: Twelve Primitives, One Day</h2>
@@ -1291,8 +1266,7 @@ import { /* anything from the full surface */ } from 'agent-passport-system'</pr
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Agent type enforcement (Primitive #12).</strong> Six types: general, explorer, planner, executor, reviewer, monitor. Each type has blocked scopes and optional rate limits. An explorer agent with a delegation that includes <code>admin:delete</code> still gets denied. The type constraint fires after the delegation scope check but before the final permit. Behavioral boundaries that survive delegation.</p>
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Adapter pipeline.</strong> The SDK had 8 adapters producing receipts that vanished into the void. Now every adapter has an optional <code>gateway?</code> config. When set, <code>reportReceipt()</code> fires a POST to the gateway after every success and denial. Five adapters wired with 14 emission points. All fire-and-forget: the adapter never blocks on a gateway failure. Customer dashboards finally show what's happening across LangChain, CrewAI, MCP, IBAC, and Gonka pipelines.</p>
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Pagination and filtering.</strong> Eight list endpoints converted from unbounded queries to <code>?limit=20&amp;offset=0&amp;sort=created_at:desc</code> with total counts and <code>has_more</code> flags. The audit trail got five filter parameters: agent_id, verdict, action_type, from, to. Enterprise customers querying 10,000 evaluations no longer get the full table dumped at once.</p>
-  <p style="color:var(--dim);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Stripe billing.</strong> The gateway has payment plans. Free: 1,000 evaluations, 3 agents. Team ($99/mo): 50,000 evaluations, 25 agents, compliance reports. Enterprise ($499/mo): unlimited. Self-serve portal at <code>aeoess.com/portal.html</code> with signup, API key management, one-click upgrade via Stripe Checkout. The protocol is Apache 2.0 and always will be. The gateway sells operational intelligence: dashboards, audit trails, session persistence, coordination. Free to govern your agents. Pay to see how well it's working.</p>
-  <p style="color:var(--dim);font-size:.95rem;line-height:1.75">Someone asked if paid plans hurt the open source strategy. They are the open source strategy. Redis, Elastic, Grafana, Supabase, GitLab. The protocol defines what governance IS. The gateway defines how well it WORKS. Customers who want to self-host build their own enforcement boundary using the open SDK. Customers who want it to just work use the hosted gateway. Having a paid tier signals sustainability. Nobody builds on infrastructure whose creator can't maintain it.</p>
+
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75">SDK v1.36.2 (2,497 tests, 626 suites). MCP v2.21.1 (132 tools, scope filtering across 12 scopes). Gateway v0.4.0 (30 tables, 100+ routes, 46 SSE emissions, 28 event types). Gonka adapter shipped (decentralized GPU compute governance). All 12 Nate B Jones primitives verified live against production. Published to <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>, <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>, <a href="https://clawhub.ai/aeoess/agent-passport-system">ClawHub</a>.</p>
 </article>
 
@@ -1430,7 +1404,7 @@ import { /* anything from the full surface */ } from 'agent-passport-system'</pr
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">The Agent Times integration.</strong> PR #58 merged. Every article page on theagenttimes.com now includes a governance block in its HTML <code>&lt;head&gt;</code> and governance headers on every HTTP response. Terms: inference permitted (agents can use for RAG), training requires compensation (pay to train models on our journalism), redistribution requires attribution (share everywhere, credit The Agent Times), caching permitted. Signed with the tat-editor Ed25519 key. The first publication on the internet with cryptographically signed content governance embedded in every article.</p>
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Framework adapters.</strong> Governance hooks for CrewAI, Google ADK, LangChain, and A2A — each one maps the protocol's delegation verification and policy evaluation to the framework's native concepts. A CrewAI agent verifies its delegation chain before executing a task. An ADK agent checks policy before tool calls. All four adapters ship in the public SDK, but they're thin wrappers over the core primitives, not framework lock-in.</p>
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Conformance suite.</strong> 21 invariants across 4 categories: delegation invariants (authority never increases, revoked chains stay dead), identity invariants (DID determinism, signature verification), policy invariants (intent-evaluation-receipt chain completeness), and commerce invariants (spend bounds, human approval gates). Any implementation claiming APS conformance can run the suite.</p>
-  <p style="color:var(--dim);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Hosted enforcement gateway.</strong> Private repo at aeoess-gateway. Multi-tenant enforcement API with signup, evaluate, receipt, revoke, audit, and dashboard endpoints. Three plan tiers (Free/Pro $99/Enterprise $999). Cascade revocation. Alert system. E2E tested. The protocol is open and free. The hosted gateway that makes it easy is the business. Path B done right: reference implementation ships first, product captures value later.</p>
+  
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">MCP remote passport tracking.</strong> The hosted server at mcp.aeoess.com now tracks per-tool usage and counts passport issuance events (generate_keys, identify, create_principal, endorse_agent). Public at <code>/stats</code>. 61 sessions, 48 tool calls since launch. The counter starts from zero — honest numbers, not inflated ones.</p>
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75">SDK v1.25.0 (1480 tests, 384 suites, 78 files). MCP v2.15.1 (108 tools). Python v0.7.0 (141 tests). ~9,000 npm downloads in the first month. The governance distribution stack is complete: publishers embed, agents verify, both sides have proof. What's left is adoption.</p>
 </article>
@@ -1573,17 +1547,6 @@ import { /* anything from the full surface */ } from 'agent-passport-system'</pr
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75">Six tools: <code>publish_card</code>, <code>search_matches</code>, <code>get_digest</code>, <code>request_intro</code>, <code>respond_to_intro</code>, <code>remove_card</code>. Everything Ed25519 signed. The network is live at api.aeoess.com.</p>
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75">Landing page at aeoess.com/mingle with live network stats. Published to ClawHub as mingle@1.0.0 and agent-passport-system@3.0.0. Product Hunt, LinkedIn, and X launch posts went out. The framing: "Like LinkedIn, but inside your chat."</p>
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75">This is the first piece of the protocol that non-technical people can actually use. You don't need to understand Ed25519 or delegation chains. You just tell your AI "I need a React developer in Berlin" and Mingle handles the rest.</p>
-</article>
-
-<article class="post" id="day-22">
-  <time class="post-date" datetime="2026-03-11">March 11, 2026</time>
-  <h2>Day 22: The Intent Network — Your Agent Finds People for You</h2>
-  <p style="color:var(--dim);font-size:.95rem;line-height:1.75">The biggest ship since the protocol launched. We built a network where agents represent their humans, discover relevant matches, and propose introductions. No app. No signup. Your existing AI conversation is the interface.</p>
-  <p style="color:var(--dim);font-size:.95rem;line-height:1.75">The core object is an <strong style="color:var(--text)">IntentCard</strong>: a live, signed signal that carries what you need, what you offer, and what you're open to. Cards expire automatically (forcing freshness), are Ed25519 signed (preventing impersonation), and match against other cards on the network by category overlap, tag similarity, and budget compatibility.</p>
-  <p style="color:var(--dim);font-size:.95rem;line-height:1.75">Six MCP tools: <code>publish_intent_card</code>, <code>search_matches</code>, <code>get_digest</code>, <code>request_intro</code>, <code>respond_to_intro</code>, <code>remove_intent_card</code>. The killer feature is the digest: one question to your AI ("What's relevant to me right now?") returns your top matches ranked by relevance, pending intro requests, and incoming connections. Not a feed. Just the few things that matter.</p>
-  <p style="color:var(--dim);font-size:.95rem;line-height:1.75">Also shipped the <strong style="color:var(--text)">Intent Network API</strong> at <code>api.aeoess.com</code>. Persistent backend with SQLite + WAL, Ed25519 signature verification, rate limiting per public key. Deployed on Mac Mini via PM2 + cloudflared tunnel. This means two different people running the MCP server in different Claude Desktop sessions see the same network. Cards persist across sessions.</p>
-  <p style="color:var(--dim);font-size:.95rem;line-height:1.75">Plus: ProxyGateway enforcement boundary (30 tests, replay protection, two-phase execution), 16→16 protocol modules recount, and full version propagation sweep across all repos and GitHub READMEs.</p>
-  <p style="color:var(--dim);font-size:.95rem;line-height:1.75">SDK v1.21.2 (1178 tests, 320 suites). MCP v2.12.0 (83 tools). Both on npm. Intent Network API v0.1.0 live at <a href="https://api.aeoess.com" target="_blank">api.aeoess.com</a>.</p>
 </article>
 
 <article class="post" id="day-21">
