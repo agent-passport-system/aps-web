@@ -158,6 +158,8 @@
     <button class="tab" role="tab" aria-selected="false" data-scene="1"><span class="num">02</span>Delegation &amp; Cascade</button>
     <button class="tab" role="tab" aria-selected="false" data-scene="2"><span class="num">03</span>Gateway Judgement</button>
     <button class="tab" role="tab" aria-selected="false" data-scene="3"><span class="num">04</span>Trust Mesh</button>
+    <button class="tab" role="tab" aria-selected="false" data-scene="4"><span class="num">05</span>Payment Rails</button>
+    <button class="tab" role="tab" aria-selected="false" data-scene="5"><span class="num">06</span>Cross-Impl Interop</button>
   </div>
 
   <div class="scene-meta">
@@ -175,6 +177,8 @@
     <div class="scene" data-id="1" id="scene-1"></div>
     <div class="scene" data-id="2" id="scene-2"></div>
     <div class="scene" data-id="3" id="scene-3"></div>
+    <div class="scene" data-id="4" id="scene-4"></div>
+    <div class="scene" data-id="5" id="scene-5"></div>
 
     <div class="caption" id="caption">
       <div><span class="key" id="cap-left">—</span></div>
@@ -214,19 +218,19 @@
     <div class="field">
       <label>Accent <b id="accent-name">crypto green</b></label>
       <div class="swatch-row" id="swatch-row">
-        <div class="swatch sel" data-c="#7cf6b9" data-n="crypto green" style="background:#7cf6b9"></div>
+        <div class="swatch sel" data-c="#5fb8a4" data-n="restrained teal" style="background:#5fb8a4"></div>
+        <div class="swatch" data-c="#7a8b6b" data-n="olive" style="background:#7a8b6b"></div>
         <div class="swatch" data-c="#6ecbff" data-n="trust blue" style="background:#6ecbff"></div>
-        <div class="swatch" data-c="#ffb366" data-n="seal amber" style="background:#ffb366"></div>
         <div class="swatch" data-c="#c69bff" data-n="court violet" style="background:#c69bff"></div>
-        <div class="swatch" data-c="#f0f0f0" data-n="mono" style="background:#f0f0f0"></div>
+        <div class="swatch" data-c="#e8eaec" data-n="mono ink" style="background:#e8eaec"></div>
       </div>
     </div>
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ================================================================
-   Agent Passport System — Protocol Architecture
+   APS — Protocol Architecture
    4 scenes, pure SVG + JS rAF. No deps.
    ================================================================ */
 
@@ -234,8 +238,8 @@ const TWEAK_DEFAULS = /*EDITMODE-BEGIN*/{
   "speed": 1,
   "density": "medium",
   "labels": "medium",
-  "accent": "#7cf6b9",
-  "accentName": "crypto green"
+  "accent": "#5fb8a4",
+  "accentName": "restrained teal"
 }/*EDITMODE-END*/;
 
 const state = {
@@ -262,39 +266,54 @@ document.querySelectorAll('.tab').forEach(t => {
   t.addEventListener('click', () => selectScene(parseInt(t.dataset.scene)));
 });
 const TITLES = [
-  ['01 · Life of an Action.', 'Passport → Delegation → Intent → Gateway → Enforcement → Receipt.'],
-  ['02 · Delegation & Cascade.', 'Authority can only narrow. Revoke a node — the whole subtree dies in one call.'],
-  ['03 · Gateway Judgement.', 'Every action evaluated against 14 constraint dimensions. Sub-2ms. Fail-closed.'],
-  ['04 · Trust Mesh.', 'Agents, humans, and services bound by signed delegations, receipts and reputation.'],
+  ['01 · Life of an Action.', 'Passport, delegation, intent, gateway, enforcement, receipt. Each step signed.'],
+  ['02 · Delegation & Cascade.', 'Authority can only narrow. Revoke a node, the whole subtree dies in one call.'],
+  ['03 · Gateway Judgement.', 'Every action evaluated against 14 constraint dimensions. Fail-closed.'],
+  ['04 · Trust Mesh.', 'Agents, humans, services bound by signed delegations, receipts, reputation.'],
+  ['05 · Payment Rails.', 'Agent pays. Scope narrows. Merchant receives. Settlement record signed.'],
+  ['06 · Cross-Impl Interop.', 'Six independent implementations. Same fixture. Byte-match SHA-256.'],
 ];
 const BELOW = [
   [
-    ['Identity', 'Ed25519 keypair bound to a human principal. <code>did:key</code>, <code>did:web</code>, SPIFFE, OAuth — BYO.'],
+    ['Identity', 'Ed25519 keypair bound to a human principal. <code>did:key</code>, <code>did:web</code>, SPIFFE, OAuth. BYO.'],
     ['Scope', 'Each delegation narrows tools, budget, services. Never expands. Monotonic.'],
-    ['Receipt', 'Signed Merkle leaf across D/P/G/C axes. Independently verifiable. Wave 1 accountability primitives — Ed25519 ActionReceipt, AuthorityBoundaryReceipt, CustodyReceipt, ContestabilityReceipt, APSBundle. RFC 8785 JCS canonicalized, byte-match across implementations.'],
+    ['Receipts', 'Wave 1 accountability set: <code>ActionReceipt</code>, <code>AuthorityBoundaryReceipt</code>, <code>CustodyReceipt</code>, <code>ContestabilityReceipt</code>, <code>APSBundle</code>. RFC 8785 JCS canonicalized.'],
   ],
   [
     ['Root', 'Human principal. Authority originates here.'],
     ['Narrow', 'Child scopes are strict subsets of parent scopes. Enforced at issuance.'],
-    ['Cascade', 'One API call revokes a node and every descendant — instantly, at the gateway.'],
+    ['Cascade', 'One API call revokes a node and every descendant. At the gateway, fail-closed.'],
   ],
   [
-    ['14 gates', 'Identity · signature · scope · budget · rate · values · reputation · freshness · …'],
-    ['<2ms', 'Median policy eval. 403 ops/s sustained. Sub-ms denials.'],
-    ['Fail-closed', 'Missing a check = deny. No bypass on cache miss or ambiguity.'],
+    ['14 gates', 'Identity, signature, scope, budget, rate, values, reputation, freshness, plus six more.'],
+    ['Conformance', '37 + 10 conformance vectors. <code>aps-conformance-suite</code>, public repo.'],
+    ['Fail-closed', 'Missing a check is a deny. No bypass on cache miss or ambiguity.'],
   ],
   [
-    ['Agents', 'Passports as nodes. Colors encode reputation earned through completed work.'],
-    ['Edges', 'Each edge is a signed delegation or a signed receipt. No unsigned content on the mesh.'],
+    ['Agents', 'Passports as nodes. Reputation earned through completed work, not declared.'],
+    ['Mutual auth', 'Four-step downgrade-proof handshake (v1, Apr 22). A2A and MCP adapters.'],
     ['Humans', 'Every chain terminates at a human principal. Attribution is Merkle-proven.'],
+  ],
+  [
+    ['Rails', '<code>x402</code>, <code>AP2</code>, <code>ACP</code>, <code>MPP</code>, <code>Stripe Issuing</code>. Phase 4.1 alpha across four registries (May 03).'],
+    ['Scope check', 'Spend cap, merchant allow-list, single-use intent. Narrowed at the delegation, enforced at the rail adapter.'],
+    ['Settlement', 'Per-period signed settlement records. Build C pipeline (Apr 16).'],
+  ],
+  [
+    ['Fixture', 'Canonical input. CTEF v0.3.2 §A draft, public.'],
+    ['Implementations', 'qntm v0.3.2, AgentGraph, Foxbook, AgentID, Nobulex, ArkForge. Eight independent canonicalizers.'],
+    ['Commitment', 'Identical SHA-256 across all six runs. Independently reproducible.'],
   ],
 ];
 // Per-scene stats: [[labelA, valueA, labelB, valueB, labelC, valueC], ...]
+// CLAIMS.md compliant: only verifiable numbers. No latency, no throughput.
 const STATS_PER_SCENE = [
-  ['issuance', '<1ms',     'chain depth', 'up to 12', 'tests', '2,586'],
-  ['cascade',  '<3ms',     'max fanout',  '2,048',    'tests', '2,586'],
-  ['policy eval', '1.4ms', 'throughput',  '403 ops/s','tests', '2,586'],
-  ['mesh size','65k nodes','signed edges','all',      'tests', '2,586'],
+  ['receipts',     '5 primitives', 'modules',        '127',       'tests',       '2,884'],
+  ['narrowing',    'monotonic',    'cascade',        'one call',  'tests',       '2,884'],
+  ['gates',        '14',           'conformance',    '37 + 10',   'fail-closed', 'yes'],
+  ['vocab',        '25 crosswalks','papers',         '8',         'tests',       '2,884'],
+  ['rails',        '5',            'registries',     '4',         'phase',       '4.1 alpha'],
+  ['implementations','6',          'canonicalizers', '8',         'CTEF',        'v0.3.2 §A'],
 ];
 
 function reportHeight() {
@@ -308,6 +327,7 @@ function reportHeight() {
 
 function selectScene(i) {
   state.sceneIdx = i;
+  setCap('', ''); // clear stale caption from prior scene
   document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', parseInt(t.dataset.scene) === i));
   document.querySelectorAll('.scene').forEach(s => s.classList.toggle('active', parseInt(s.dataset.id) === i));
   const [t, sub] = TITLES[i];
@@ -332,8 +352,31 @@ function selectScene(i) {
   reportHeight();
 }
 
+/* ---------- URL hash routing (for embed splits) ----------
+   Examples:
+     #scene=2          → start on scene 2 (no persistence)
+     #scene=2&solo=1   → start on scene 2, hide tab strip (single-scene embed)
+     #scene=2&solo=1&theme=light → also force light theme
+*/
+function parseHash() {
+  const h = (location.hash || '').replace(/^#/, '');
+  const o = {};
+  h.split('&').forEach(p => { const [k,v] = p.split('='); if (k) o[k] = decodeURIComponent(v || ''); });
+  return o;
+}
+const _hash = parseHash();
+const _hashScene = _hash.scene !== undefined ? parseInt(_hash.scene) : NaN;
+const _solo = _hash.solo === '1' || _hash.solo === 'true';
+if (_solo) document.body.classList.add('solo');
+if (_hash.theme === 'light') document.documentElement.setAttribute('data-theme', 'light');
+else if (_hash.theme === 'dark') document.documentElement.removeAttribute('data-theme');
+
 /* restore */
-try { const s = parseInt(localStorage.getItem('aeoess-scene')); if (!isNaN(s)) selectScene(s); else selectScene(0); } catch(e) { selectScene(0); }
+if (!isNaN(_hashScene) && _hashScene >= 0 && _hashScene < 6) {
+  selectScene(_hashScene);
+} else {
+  try { const s = parseInt(localStorage.getItem('aeoess-scene')); if (!isNaN(s)) selectScene(s); else selectScene(0); } catch(e) { selectScene(0); }
+}
 
 /* iframe auto-resize: continuously report content height to parent */
 window.addEventListener('load', reportHeight);
@@ -445,7 +488,7 @@ const scene0 = {
     const rail = document.createElementNS('http://www.w3.org/2000/svg','line');
     rail.setAttribute('x1', leftPad); rail.setAttribute('x2', 1600 - rightPad);
     rail.setAttribute('y1', y); rail.setAttribute('y2', y);
-    rail.setAttribute('stroke', 'rgba(255,255,255,0.08)'); rail.setAttribute('stroke-width','1');
+    rail.setAttribute('stroke', 'rgba(var(--ink-rgb),0.08)'); rail.setAttribute('stroke-width','1');
     svg.appendChild(rail);
 
     // dashed rail (animated forward)
@@ -466,7 +509,7 @@ const scene0 = {
       const ix = document.createElementNS('http://www.w3.org/2000/svg','text');
       ix.setAttribute('x',0); ix.setAttribute('y',-90); ix.setAttribute('text-anchor','middle');
       ix.setAttribute('font-family','JetBrains Mono'); ix.setAttribute('font-size','10');
-      ix.setAttribute('fill', 'rgba(255,255,255,0.3)'); ix.setAttribute('letter-spacing','0.2em');
+      ix.setAttribute('fill', 'rgba(var(--ink-rgb),0.3)'); ix.setAttribute('letter-spacing','0.2em');
       ix.textContent = '0' + (i+1);
       g.appendChild(ix);
       // label
@@ -480,29 +523,29 @@ const scene0 = {
       const sub = document.createElementNS('http://www.w3.org/2000/svg','text');
       sub.setAttribute('x',0); sub.setAttribute('y',-38); sub.setAttribute('text-anchor','middle');
       sub.setAttribute('font-family','JetBrains Mono'); sub.setAttribute('font-size','10');
-      sub.setAttribute('fill','rgba(255,255,255,0.45)'); sub.setAttribute('letter-spacing','0.12em');
+      sub.setAttribute('fill','rgba(var(--ink-rgb),0.45)'); sub.setAttribute('letter-spacing','0.12em');
       sub.setAttribute('text-transform','uppercase');
       sub.textContent = p.sub.toUpperCase();
       g.appendChild(sub);
 
       // stage shape: circle
       const ring = document.createElementNS('http://www.w3.org/2000/svg','circle');
-      ring.setAttribute('r','24'); ring.setAttribute('fill','#0a0b0d');
-      ring.setAttribute('stroke','rgba(255,255,255,0.25)'); ring.setAttribute('stroke-width','1');
+      ring.setAttribute('r','24'); ring.setAttribute('fill','var(--bg)');
+      ring.setAttribute('stroke','rgba(var(--ink-rgb),0.25)'); ring.setAttribute('stroke-width','1');
       g.appendChild(ring);
       const inner = document.createElementNS('http://www.w3.org/2000/svg','circle');
-      inner.setAttribute('r','4'); inner.setAttribute('fill','rgba(255,255,255,0.25)');
+      inner.setAttribute('r','4'); inner.setAttribute('fill','rgba(var(--ink-rgb),0.25)');
       g.appendChild(inner);
 
       // tick line down + detail label below
       const tick = document.createElementNS('http://www.w3.org/2000/svg','line');
       tick.setAttribute('x1',0); tick.setAttribute('x2',0); tick.setAttribute('y1',30); tick.setAttribute('y2',56);
-      tick.setAttribute('stroke','rgba(255,255,255,0.15)'); tick.setAttribute('stroke-width','1');
+      tick.setAttribute('stroke','rgba(var(--ink-rgb),0.15)'); tick.setAttribute('stroke-width','1');
       g.appendChild(tick);
       const det = document.createElementNS('http://www.w3.org/2000/svg','text');
       det.setAttribute('x',0); det.setAttribute('y',78); det.setAttribute('text-anchor','middle');
       det.setAttribute('font-family','JetBrains Mono'); det.setAttribute('font-size','11');
-      det.setAttribute('fill','rgba(255,255,255,0.55)'); det.setAttribute('font-style','italic');
+      det.setAttribute('fill','rgba(var(--ink-rgb),0.55)'); det.setAttribute('font-style','italic');
       det.setAttribute('font-family','Fraunces');
       det.textContent = p.detail;
       g.appendChild(det);
@@ -544,7 +587,7 @@ const scene0 = {
     const t = document.createElementNS('http://www.w3.org/2000/svg','text');
     t.setAttribute('x',110); t.setAttribute('y',14);
     t.setAttribute('font-family','JetBrains Mono'); t.setAttribute('font-size','10');
-    t.setAttribute('fill','rgba(255,255,255,0.4)'); t.setAttribute('letter-spacing','0.2em');
+    t.setAttribute('fill','rgba(var(--ink-rgb),0.4)'); t.setAttribute('letter-spacing','0.2em');
     t.textContent = 'AUTHORITY  —  monotonic narrowing  →';
     this.scopeGroup.appendChild(t);
 
@@ -562,7 +605,7 @@ const scene0 = {
       const l = document.createElementNS('http://www.w3.org/2000/svg','text');
       l.setAttribute('x', stepX); l.setAttribute('y', barY + 36);
       l.setAttribute('font-family','JetBrains Mono'); l.setAttribute('font-size','10');
-      l.setAttribute('fill','rgba(255,255,255,0.5)');
+      l.setAttribute('fill','rgba(var(--ink-rgb),0.5)');
       l.textContent = s.lbl;
       this.scopeGroup.appendChild(l);
     });
@@ -653,9 +696,9 @@ const scene0 = {
     // stage highlighting
     this.nodes.forEach((n, i) => {
       const hot = activeStages.has(i);
-      n.ring.setAttribute('stroke', hot ? 'var(--accent)' : 'rgba(255,255,255,0.25)');
+      n.ring.setAttribute('stroke', hot ? 'var(--accent)' : 'rgba(var(--ink-rgb),0.25)');
       n.ring.setAttribute('stroke-width', hot ? 2 : 1);
-      n.inner.setAttribute('fill', hot ? 'var(--accent)' : 'rgba(255,255,255,0.25)');
+      n.inner.setAttribute('fill', hot ? 'var(--accent)' : 'rgba(var(--ink-rgb),0.25)');
       if (hot) n.g.setAttribute('filter','drop-shadow(0 0 10px var(--accent-glow))');
       else n.g.removeAttribute('filter');
     });
@@ -667,9 +710,6 @@ const scene0 = {
       const s = Math.min(this.stages.length-1, Math.floor(u * this.stages.length));
       setCap(`act#${p.id} → ${this.stages[s].label.toLowerCase()}`, this.stages[s].sub);
     }
-    // simulated latency
-    document.getElementById('stat-a').textContent =
-      (1.1 + Math.sin(t/800)*0.35).toFixed(2) + 'ms';
   }
 };
 
@@ -726,7 +766,7 @@ const scene1 = {
     human.setAttribute('transform', `translate(60,${root.y})`);
     const hRect = document.createElementNS('http://www.w3.org/2000/svg','rect');
     hRect.setAttribute('x',-50); hRect.setAttribute('y',-22); hRect.setAttribute('width',100); hRect.setAttribute('height',44);
-    hRect.setAttribute('fill','transparent'); hRect.setAttribute('stroke','rgba(255,255,255,0.25)'); hRect.setAttribute('stroke-width','1');
+    hRect.setAttribute('fill','transparent'); hRect.setAttribute('stroke','rgba(var(--ink-rgb),0.25)'); hRect.setAttribute('stroke-width','1');
     human.appendChild(hRect);
     const hT = document.createElementNS('http://www.w3.org/2000/svg','text');
     hT.setAttribute('text-anchor','middle'); hT.setAttribute('y',-2);
@@ -735,7 +775,7 @@ const scene1 = {
     human.appendChild(hT);
     const hS = document.createElementNS('http://www.w3.org/2000/svg','text');
     hS.setAttribute('text-anchor','middle'); hS.setAttribute('y',14);
-    hS.setAttribute('font-family','JetBrains Mono'); hS.setAttribute('font-size','9'); hS.setAttribute('fill','rgba(255,255,255,0.45)');
+    hS.setAttribute('font-family','JetBrains Mono'); hS.setAttribute('font-size','9'); hS.setAttribute('fill','rgba(var(--ink-rgb),0.45)');
     hS.setAttribute('letter-spacing','0.15em');
     hS.textContent = 'PRINCIPAL';
     human.appendChild(hS);
@@ -776,21 +816,21 @@ const scene1 = {
 
       const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
       c.setAttribute('r', r);
-      c.setAttribute('fill', n.depth === 0 ? 'var(--accent)' : '#13161b');
+      c.setAttribute('fill', n.depth === 0 ? 'var(--accent)' : 'var(--bg-2)');
       c.setAttribute('stroke','var(--accent)');
       c.setAttribute('stroke-width', n.depth === 0 ? 0 : 1);
       g.appendChild(c);
 
       const inner = document.createElementNS('http://www.w3.org/2000/svg','circle');
       inner.setAttribute('r', Math.max(2, r*0.35));
-      inner.setAttribute('fill', n.depth === 0 ? '#0a0b0d' : 'var(--accent)');
+      inner.setAttribute('fill', n.depth === 0 ? 'var(--bg)' : 'var(--accent)');
       g.appendChild(inner);
 
       // label
       const label = document.createElementNS('http://www.w3.org/2000/svg','text');
       label.setAttribute('y', r + 16); label.setAttribute('text-anchor','middle');
       label.setAttribute('font-family','JetBrains Mono'); label.setAttribute('font-size', n.depth === 0 ? 11 : 9);
-      label.setAttribute('fill','rgba(255,255,255,0.55)');
+      label.setAttribute('fill','rgba(var(--ink-rgb),0.55)');
       label.setAttribute('letter-spacing','0.08em');
       label.textContent = n.depth === 0 ? 'root.pass' : `agent-${String(n.idx).padStart(2,'0')}`;
       g.appendChild(label);
@@ -815,7 +855,7 @@ const scene1 = {
     hint.setAttribute('transform','translate(40,40)');
     const ht = document.createElementNS('http://www.w3.org/2000/svg','text');
     ht.setAttribute('font-family','JetBrains Mono'); ht.setAttribute('font-size','11');
-    ht.setAttribute('fill','rgba(255,255,255,0.5)'); ht.setAttribute('letter-spacing','0.1em');
+    ht.setAttribute('fill','rgba(var(--ink-rgb),0.5)'); ht.setAttribute('letter-spacing','0.1em');
     ht.textContent = 'CLICK ANY NODE → revoke(agentId) cascades to every descendant';
     hint.appendChild(ht);
     svg.appendChild(hint);
@@ -877,7 +917,7 @@ const scene1 = {
         const op = Math.max(0.12, n.pulse);
         el.c.setAttribute('stroke','var(--danger)');
         el.c.setAttribute('fill', n.depth===0 ? 'var(--danger)' : 'rgba(255,107,107,0.08)');
-        el.inner.setAttribute('fill', n.depth===0 ? '#0a0b0d' : 'var(--danger)');
+        el.inner.setAttribute('fill', n.depth===0 ? 'var(--bg)' : 'var(--danger)');
         el.inner.setAttribute('opacity', op);
         el.outer.setAttribute('stroke','var(--danger)');
         el.outer.setAttribute('stroke-opacity', n.pulse.toFixed(2));
@@ -939,7 +979,7 @@ const scene2 = {
     // title band
     const tb = document.createElementNS('http://www.w3.org/2000/svg','text');
     tb.setAttribute('x',800); tb.setAttribute('y',50); tb.setAttribute('text-anchor','middle');
-    tb.setAttribute('font-family','Fraunces'); tb.setAttribute('font-size','18'); tb.setAttribute('fill','rgba(255,255,255,0.55)');
+    tb.setAttribute('font-family','Fraunces'); tb.setAttribute('font-size','18'); tb.setAttribute('fill','rgba(var(--ink-rgb),0.55)');
     tb.textContent = 'AGENT  →  GATEWAY ( 14 gates · <2ms )  →  ENFORCED';
     svg.appendChild(tb);
 
@@ -954,12 +994,12 @@ const scene2 = {
     // right: accept/deny zones
     const leftLbl = document.createElementNS('http://www.w3.org/2000/svg','text');
     leftLbl.setAttribute('x',160); leftLbl.setAttribute('y', 450); leftLbl.setAttribute('text-anchor','middle');
-    leftLbl.setAttribute('font-family','Fraunces'); leftLbl.setAttribute('font-size','22'); leftLbl.setAttribute('fill','rgba(255,255,255,0.75)');
+    leftLbl.setAttribute('font-family','Fraunces'); leftLbl.setAttribute('font-size','22'); leftLbl.setAttribute('fill','rgba(var(--ink-rgb),0.75)');
     leftLbl.textContent = 'intents';
     const leftSub = document.createElementNS('http://www.w3.org/2000/svg','text');
     leftSub.setAttribute('x',160); leftSub.setAttribute('y',478); leftSub.setAttribute('text-anchor','middle');
     leftSub.setAttribute('font-family','JetBrains Mono'); leftSub.setAttribute('font-size','10');
-    leftSub.setAttribute('fill','rgba(255,255,255,0.4)'); leftSub.setAttribute('letter-spacing','0.15em');
+    leftSub.setAttribute('fill','rgba(var(--ink-rgb),0.4)'); leftSub.setAttribute('letter-spacing','0.15em');
     leftSub.textContent = 'SIGNED · INBOUND';
     svg.appendChild(leftLbl); svg.appendChild(leftSub);
 
@@ -968,20 +1008,20 @@ const scene2 = {
       const y = this.gatesY[i];
       const line = document.createElementNS('http://www.w3.org/2000/svg','line');
       line.setAttribute('x1',x0); line.setAttribute('x2',x1); line.setAttribute('y1',y); line.setAttribute('y2',y);
-      line.setAttribute('stroke','rgba(255,255,255,0.08)'); line.setAttribute('stroke-width','1');
+      line.setAttribute('stroke','rgba(var(--ink-rgb),0.08)'); line.setAttribute('stroke-width','1');
       svg.appendChild(line);
       // label left
       const l = document.createElementNS('http://www.w3.org/2000/svg','text');
       l.setAttribute('x', x0-12); l.setAttribute('y', y+4); l.setAttribute('text-anchor','end');
       l.setAttribute('font-family','JetBrains Mono'); l.setAttribute('font-size','10');
-      l.setAttribute('fill','rgba(255,255,255,0.55)'); l.setAttribute('letter-spacing','0.1em');
+      l.setAttribute('fill','rgba(var(--ink-rgb),0.55)'); l.setAttribute('letter-spacing','0.1em');
       l.textContent = g.k;
       svg.appendChild(l);
       // sublabel right
       const sub = document.createElementNS('http://www.w3.org/2000/svg','text');
       sub.setAttribute('x', x1+12); sub.setAttribute('y', y+4);
       sub.setAttribute('font-family','JetBrains Mono'); sub.setAttribute('font-size','9');
-      sub.setAttribute('fill','rgba(255,255,255,0.3)'); sub.setAttribute('letter-spacing','0.08em');
+      sub.setAttribute('fill','rgba(var(--ink-rgb),0.3)'); sub.setAttribute('letter-spacing','0.08em');
       sub.textContent = g.d;
       svg.appendChild(sub);
 
@@ -1007,7 +1047,7 @@ const scene2 = {
     const acS = document.createElementNS('http://www.w3.org/2000/svg','text');
     acS.setAttribute('x',1430); acS.setAttribute('y',accY+20); acS.setAttribute('text-anchor','middle');
     acS.setAttribute('font-family','JetBrains Mono'); acS.setAttribute('font-size','10');
-    acS.setAttribute('fill','rgba(255,255,255,0.4)'); acS.setAttribute('letter-spacing','0.15em');
+    acS.setAttribute('fill','rgba(var(--ink-rgb),0.4)'); acS.setAttribute('letter-spacing','0.15em');
     acS.textContent = 'SIGNED RECEIPT';
     svg.appendChild(acS);
     this.allowCountEl = document.createElementNS('http://www.w3.org/2000/svg','text');
@@ -1026,7 +1066,7 @@ const scene2 = {
     const dnS = document.createElementNS('http://www.w3.org/2000/svg','text');
     dnS.setAttribute('x',160); dnS.setAttribute('y',denY+20); dnS.setAttribute('text-anchor','middle');
     dnS.setAttribute('font-family','JetBrains Mono'); dnS.setAttribute('font-size','10');
-    dnS.setAttribute('fill','rgba(255,255,255,0.4)'); dnS.setAttribute('letter-spacing','0.15em');
+    dnS.setAttribute('fill','rgba(var(--ink-rgb),0.4)'); dnS.setAttribute('letter-spacing','0.15em');
     dnS.textContent = 'FAIL-CLOSED';
     svg.appendChild(dnS);
     this.denyCountEl = document.createElementNS('http://www.w3.org/2000/svg','text');
@@ -1105,6 +1145,8 @@ const scene2 = {
 
     this.allowCountEl.textContent = this.allow;
     this.denyCountEl.textContent = this.deny;
+    // caption
+    setCap(`gates ${this.gates.length} · fail-closed`, `allow ${this.allow}  ·  deny ${this.deny}`);
 
     function drawReq(layer, x, y, id, ok) {
       const g = document.createElementNS('http://www.w3.org/2000/svg','g');
@@ -1125,8 +1167,6 @@ const scene2 = {
       layer.appendChild(g);
     }
 
-    // latency jitter
-    document.getElementById('stat-a').textContent = (1.2 + Math.random()*0.5).toFixed(2) + 'ms';
   }
 };
 
@@ -1194,7 +1234,7 @@ const scene3 = {
     // draw
     this.edgeEls = this.edges.map(e => {
       const line = document.createElementNS('http://www.w3.org/2000/svg','line');
-      line.setAttribute('stroke', e.kind==='deleg' ? 'var(--accent)' : 'rgba(255,255,255,0.12)');
+      line.setAttribute('stroke', e.kind==='deleg' ? 'var(--accent)' : 'rgba(var(--ink-rgb),0.12)');
       line.setAttribute('stroke-width', e.kind==='deleg' ? '1' : '0.6');
       line.setAttribute('stroke-opacity', e.kind==='deleg' ? '0.35' : '0.8');
       this.edgeLayer.appendChild(line);
@@ -1213,7 +1253,7 @@ const scene3 = {
           const t = document.createElementNS('http://www.w3.org/2000/svg','text');
           t.setAttribute('x',-18); t.setAttribute('y',4); t.setAttribute('text-anchor','end');
           t.setAttribute('font-family','JetBrains Mono'); t.setAttribute('font-size','10');
-          t.setAttribute('fill','rgba(255,255,255,0.7)');
+          t.setAttribute('fill','rgba(var(--ink-rgb),0.7)');
           t.textContent = n.id;
           g.appendChild(t);
         }
@@ -1229,7 +1269,7 @@ const scene3 = {
           const t = document.createElementNS('http://www.w3.org/2000/svg','text');
           t.setAttribute('x', size+4); t.setAttribute('y',3);
           t.setAttribute('font-family','JetBrains Mono'); t.setAttribute('font-size','8');
-          t.setAttribute('fill','rgba(255,255,255,0.4)');
+          t.setAttribute('fill','rgba(var(--ink-rgb),0.4)');
           t.textContent = n.id;
           g.appendChild(t);
         }
@@ -1304,9 +1344,689 @@ const scene3 = {
 };
 
 /* ============================================================
+   SCENE 4 — PAYMENT RAILS (agent → rail → merchant)
+   x402 micropayments, AP2 multi-agent, ACP commerce, MPP proxy, Stripe Issuing
+   ============================================================ */
+const scene4 = {
+  rails: [
+    { k:'x402',          d:'micropayments',         interval: 380, paired:false, glyph:'·', desc:'agent · 0.001 USDC' },
+    { k:'AP2',           d:'multi-agent payments',  interval: 1100,paired:true,  glyph:'∷', desc:'two-agent intent' },
+    { k:'ACP',           d:'commerce intent',       interval: 2200,paired:false, glyph:'◇', desc:'commerce delegation' },
+    { k:'MPP',           d:'merchant proxy',        interval: 1700,paired:false, glyph:'⊳', desc:'proxied · scope-narrowed' },
+    { k:'Stripe Issuing',d:'card-rail fallback',    interval: 2600,paired:false, glyph:'▢', desc:'virtual card · single-use' },
+  ],
+  init(host) {
+    host.innerHTML = '';
+    const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('viewBox','0 0 1600 900'); svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+    host.appendChild(svg); this.svg = svg;
+
+    // header band
+    const head = document.createElementNS('http://www.w3.org/2000/svg','text');
+    head.setAttribute('x',800); head.setAttribute('y',54); head.setAttribute('text-anchor','middle');
+    head.setAttribute('font-family','Fraunces'); head.setAttribute('font-size','18');
+    head.setAttribute('fill','rgba(var(--ink-rgb),0.55)');
+    head.textContent = 'AGENT  →  RAIL ( scope-narrowed )  →  MERCHANT';
+    svg.appendChild(head);
+
+    // ---- AGENT card (left)
+    const agentX = 70, agentW = 220, agentY = 130, agentH = 660;
+    const aBox = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    aBox.setAttribute('x',agentX); aBox.setAttribute('y',agentY);
+    aBox.setAttribute('width',agentW); aBox.setAttribute('height',agentH);
+    aBox.setAttribute('fill','transparent'); aBox.setAttribute('stroke','rgba(var(--ink-rgb),0.18)');
+    aBox.setAttribute('stroke-width','1'); aBox.setAttribute('rx','3');
+    svg.appendChild(aBox);
+    // agent header label
+    const aH = document.createElementNS('http://www.w3.org/2000/svg','text');
+    aH.setAttribute('x',agentX+agentW/2); aH.setAttribute('y',agentY+38); aH.setAttribute('text-anchor','middle');
+    aH.setAttribute('font-family','Fraunces'); aH.setAttribute('font-size','22'); aH.setAttribute('fill','#e8eaec');
+    aH.setAttribute('font-weight','300');
+    aH.textContent = 'AGENT';
+    svg.appendChild(aH);
+    const aS = document.createElementNS('http://www.w3.org/2000/svg','text');
+    aS.setAttribute('x',agentX+agentW/2); aS.setAttribute('y',agentY+58); aS.setAttribute('text-anchor','middle');
+    aS.setAttribute('font-family','JetBrains Mono'); aS.setAttribute('font-size','9');
+    aS.setAttribute('fill','rgba(var(--ink-rgb),0.4)'); aS.setAttribute('letter-spacing','0.18em');
+    aS.textContent = 'SIGNED INTENT';
+    svg.appendChild(aS);
+    // intent body — scope chips
+    const chips = [
+      ['cap',     '$24.00 / day'],
+      ['merchant','allow-list: 1'],
+      ['use',     'single-use'],
+      ['ttl',     '600s'],
+    ];
+    chips.forEach((c, i) => {
+      const cy = agentY + 110 + i*52;
+      const cBox = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      cBox.setAttribute('x',agentX+18); cBox.setAttribute('y',cy);
+      cBox.setAttribute('width',agentW-36); cBox.setAttribute('height',38);
+      cBox.setAttribute('fill','rgba(var(--ink-rgb),0.03)');
+      cBox.setAttribute('stroke','rgba(var(--ink-rgb),0.1)'); cBox.setAttribute('stroke-width','1');
+      cBox.setAttribute('rx','2');
+      svg.appendChild(cBox);
+      const cl = document.createElementNS('http://www.w3.org/2000/svg','text');
+      cl.setAttribute('x',agentX+30); cl.setAttribute('y',cy+16);
+      cl.setAttribute('font-family','JetBrains Mono'); cl.setAttribute('font-size','9');
+      cl.setAttribute('fill','rgba(var(--ink-rgb),0.4)'); cl.setAttribute('letter-spacing','0.15em');
+      cl.textContent = c[0].toUpperCase();
+      svg.appendChild(cl);
+      const cv = document.createElementNS('http://www.w3.org/2000/svg','text');
+      cv.setAttribute('x',agentX+30); cv.setAttribute('y',cy+30);
+      cv.setAttribute('font-family','JetBrains Mono'); cv.setAttribute('font-size','11');
+      cv.setAttribute('fill','#e8eaec');
+      cv.textContent = c[1];
+      svg.appendChild(cv);
+    });
+    // sig glyph at bottom of agent
+    const sig = document.createElementNS('http://www.w3.org/2000/svg','text');
+    sig.setAttribute('x',agentX+agentW/2); sig.setAttribute('y',agentY+agentH-22); sig.setAttribute('text-anchor','middle');
+    sig.setAttribute('font-family','JetBrains Mono'); sig.setAttribute('font-size','9');
+    sig.setAttribute('fill','var(--accent)'); sig.setAttribute('letter-spacing','0.2em');
+    sig.textContent = '◈ ed25519 sig';
+    svg.appendChild(sig);
+
+    // ---- MERCHANT card (right)
+    const mX = 1310, mW = 220, mY = agentY, mH = agentH;
+    const mBox = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    mBox.setAttribute('x',mX); mBox.setAttribute('y',mY);
+    mBox.setAttribute('width',mW); mBox.setAttribute('height',mH);
+    mBox.setAttribute('fill','transparent'); mBox.setAttribute('stroke','rgba(var(--ink-rgb),0.18)');
+    mBox.setAttribute('stroke-width','1'); mBox.setAttribute('rx','3');
+    svg.appendChild(mBox);
+    const mHd = document.createElementNS('http://www.w3.org/2000/svg','text');
+    mHd.setAttribute('x',mX+mW/2); mHd.setAttribute('y',mY+38); mHd.setAttribute('text-anchor','middle');
+    mHd.setAttribute('font-family','Fraunces'); mHd.setAttribute('font-size','22'); mHd.setAttribute('fill','#e8eaec');
+    mHd.setAttribute('font-weight','300');
+    mHd.textContent = 'MERCHANT';
+    svg.appendChild(mHd);
+    const mSb = document.createElementNS('http://www.w3.org/2000/svg','text');
+    mSb.setAttribute('x',mX+mW/2); mSb.setAttribute('y',mY+58); mSb.setAttribute('text-anchor','middle');
+    mSb.setAttribute('font-family','JetBrains Mono'); mSb.setAttribute('font-size','9');
+    mSb.setAttribute('fill','rgba(var(--ink-rgb),0.4)'); mSb.setAttribute('letter-spacing','0.18em');
+    mSb.textContent = 'SETTLEMENT';
+    svg.appendChild(mSb);
+
+    // counters in merchant
+    this.merchantTotalEl = document.createElementNS('http://www.w3.org/2000/svg','text');
+    this.merchantTotalEl.setAttribute('x',mX+mW/2); this.merchantTotalEl.setAttribute('y',mY+170);
+    this.merchantTotalEl.setAttribute('text-anchor','middle');
+    this.merchantTotalEl.setAttribute('font-family','Fraunces'); this.merchantTotalEl.setAttribute('font-size','42');
+    this.merchantTotalEl.setAttribute('fill','var(--accent)');
+    this.merchantTotalEl.textContent = '0';
+    svg.appendChild(this.merchantTotalEl);
+    const mLab = document.createElementNS('http://www.w3.org/2000/svg','text');
+    mLab.setAttribute('x',mX+mW/2); mLab.setAttribute('y',mY+196); mLab.setAttribute('text-anchor','middle');
+    mLab.setAttribute('font-family','JetBrains Mono'); mLab.setAttribute('font-size','9');
+    mLab.setAttribute('fill','rgba(var(--ink-rgb),0.4)'); mLab.setAttribute('letter-spacing','0.18em');
+    mLab.textContent = 'PAYMENTS RECEIVED';
+    svg.appendChild(mLab);
+
+    // periodic settlement record indicator
+    const sepY = mY + 260;
+    const sepLine = document.createElementNS('http://www.w3.org/2000/svg','line');
+    sepLine.setAttribute('x1',mX+22); sepLine.setAttribute('x2',mX+mW-22);
+    sepLine.setAttribute('y1',sepY); sepLine.setAttribute('y2',sepY);
+    sepLine.setAttribute('stroke','rgba(var(--ink-rgb),0.1)');
+    svg.appendChild(sepLine);
+    const recHd = document.createElementNS('http://www.w3.org/2000/svg','text');
+    recHd.setAttribute('x',mX+mW/2); recHd.setAttribute('y',sepY+22); recHd.setAttribute('text-anchor','middle');
+    recHd.setAttribute('font-family','JetBrains Mono'); recHd.setAttribute('font-size','9');
+    recHd.setAttribute('fill','rgba(var(--ink-rgb),0.45)'); recHd.setAttribute('letter-spacing','0.18em');
+    recHd.textContent = 'PERIOD RECORD';
+    svg.appendChild(recHd);
+    this.recHashEl = document.createElementNS('http://www.w3.org/2000/svg','text');
+    this.recHashEl.setAttribute('x',mX+mW/2); this.recHashEl.setAttribute('y',sepY+44); this.recHashEl.setAttribute('text-anchor','middle');
+    this.recHashEl.setAttribute('font-family','JetBrains Mono'); this.recHashEl.setAttribute('font-size','11');
+    this.recHashEl.setAttribute('fill','var(--accent)'); this.recHashEl.setAttribute('letter-spacing','0.05em');
+    this.recHashEl.textContent = randHash(10);
+    svg.appendChild(this.recHashEl);
+    const recSig = document.createElementNS('http://www.w3.org/2000/svg','text');
+    recSig.setAttribute('x',mX+mW/2); recSig.setAttribute('y',sepY+62); recSig.setAttribute('text-anchor','middle');
+    recSig.setAttribute('font-family','JetBrains Mono'); recSig.setAttribute('font-size','8');
+    recSig.setAttribute('fill','rgba(var(--ink-rgb),0.4)'); recSig.setAttribute('letter-spacing','0.15em');
+    recSig.textContent = 'SIGNED · BUILD C';
+    svg.appendChild(recSig);
+
+    // ---- RAILS (middle, 5 stacked horizontal lanes)
+    const railX0 = agentX + agentW + 40;
+    const railX1 = mX - 40;
+    const lanesTop = 200;
+    const lanesH = 580;
+    this.railY = this.rails.map((_,i) => lanesTop + (lanesH/(this.rails.length-1)) * i);
+    this.railX0 = railX0; this.railX1 = railX1;
+
+    // gate position
+    this.gateX = (railX0 + railX1) / 2;
+
+    this.railEls = this.rails.map((r, i) => {
+      const y = this.railY[i];
+      // base rail line
+      const base = document.createElementNS('http://www.w3.org/2000/svg','line');
+      base.setAttribute('x1',railX0); base.setAttribute('x2',railX1);
+      base.setAttribute('y1',y); base.setAttribute('y2',y);
+      base.setAttribute('stroke','rgba(var(--ink-rgb),0.08)');
+      base.setAttribute('stroke-width','1');
+      svg.appendChild(base);
+      // animated dashed accent
+      const dash = document.createElementNS('http://www.w3.org/2000/svg','line');
+      dash.setAttribute('x1',railX0); dash.setAttribute('x2',railX1);
+      dash.setAttribute('y1',y); dash.setAttribute('y2',y);
+      dash.setAttribute('stroke','var(--accent)');
+      dash.setAttribute('stroke-width','1'); dash.setAttribute('opacity','0.18');
+      dash.setAttribute('stroke-dasharray','3 9');
+      svg.appendChild(dash);
+
+      // rail name (left)
+      const lbl = document.createElementNS('http://www.w3.org/2000/svg','text');
+      lbl.setAttribute('x',railX0-12); lbl.setAttribute('y',y+4); lbl.setAttribute('text-anchor','end');
+      lbl.setAttribute('font-family','JetBrains Mono'); lbl.setAttribute('font-size','11');
+      lbl.setAttribute('fill','#e8eaec'); lbl.setAttribute('letter-spacing','0.08em');
+      lbl.textContent = r.k;
+      svg.appendChild(lbl);
+      // sublabel below
+      const sub = document.createElementNS('http://www.w3.org/2000/svg','text');
+      sub.setAttribute('x',railX0-12); sub.setAttribute('y',y+18); sub.setAttribute('text-anchor','end');
+      sub.setAttribute('font-family','JetBrains Mono'); sub.setAttribute('font-size','8');
+      sub.setAttribute('fill','rgba(var(--ink-rgb),0.4)'); sub.setAttribute('letter-spacing','0.12em');
+      sub.textContent = r.d.toUpperCase();
+      svg.appendChild(sub);
+
+      // scope-check gate marker on the rail
+      const gateG = document.createElementNS('http://www.w3.org/2000/svg','g');
+      gateG.setAttribute('transform', `translate(${this.gateX},${y})`);
+      const gv = document.createElementNS('http://www.w3.org/2000/svg','line');
+      gv.setAttribute('x1',0); gv.setAttribute('x2',0); gv.setAttribute('y1',-12); gv.setAttribute('y2',12);
+      gv.setAttribute('stroke','rgba(var(--ink-rgb),0.35)'); gv.setAttribute('stroke-width','1');
+      gateG.appendChild(gv);
+      svg.appendChild(gateG);
+
+      return { dash, base, baseY: y, lastSpawn: 0, gateFlash: 0 };
+    });
+    // scope-check label on top of gate
+    const gateLbl = document.createElementNS('http://www.w3.org/2000/svg','text');
+    gateLbl.setAttribute('x',this.gateX); gateLbl.setAttribute('y', lanesTop - 30); gateLbl.setAttribute('text-anchor','middle');
+    gateLbl.setAttribute('font-family','JetBrains Mono'); gateLbl.setAttribute('font-size','10');
+    gateLbl.setAttribute('fill','rgba(var(--ink-rgb),0.5)'); gateLbl.setAttribute('letter-spacing','0.18em');
+    gateLbl.textContent = 'SCOPE CHECK';
+    svg.appendChild(gateLbl);
+    const gateSub = document.createElementNS('http://www.w3.org/2000/svg','text');
+    gateSub.setAttribute('x',this.gateX); gateSub.setAttribute('y',lanesTop - 14); gateSub.setAttribute('text-anchor','middle');
+    gateSub.setAttribute('font-family','JetBrains Mono'); gateSub.setAttribute('font-size','9');
+    gateSub.setAttribute('fill','rgba(var(--ink-rgb),0.3)'); gateSub.setAttribute('letter-spacing','0.12em');
+    gateSub.textContent = 'cap · merchant · single-use';
+    svg.appendChild(gateSub);
+
+    // moving particle layer
+    this.partLayer = document.createElementNS('http://www.w3.org/2000/svg','g');
+    svg.appendChild(this.partLayer);
+
+    // gate flash layer (separate so we can fade)
+    this.gateFlashLayer = document.createElementNS('http://www.w3.org/2000/svg','g');
+    svg.appendChild(this.gateFlashLayer);
+
+    this.parts = [];
+    this.totalReceived = 0;
+    this.lastRecRoll = 0;
+    this.lastCap = 0;
+  },
+
+  step(now) {
+    if (!this.svg) return;
+
+    // spawn per rail at its own interval
+    const speedMul = state.density === 'low' ? 1.6 : state.density === 'high' ? 0.6 : 1.0;
+    for (let i=0;i<this.rails.length;i++) {
+      const r = this.rails[i];
+      const re = this.railEls[i];
+      const interval = (r.interval * speedMul) / state.speed;
+      if (now - re.lastSpawn > interval) {
+        // emit one (or two for paired AP2)
+        const nEmit = r.paired ? 2 : 1;
+        for (let k=0;k<nEmit;k++) {
+          this.parts.push({
+            railIdx: i,
+            born: now + k*120,
+            dur: (4200 / state.speed),
+            paired: r.paired && k>0,
+            glyph: r.glyph,
+          });
+        }
+        re.lastSpawn = now;
+      }
+    }
+
+    // animate dash offsets on rails
+    for (let i=0;i<this.railEls.length;i++) {
+      const offs = -((now/24) % 1000) * state.speed;
+      this.railEls[i].dash.setAttribute('stroke-dashoffset', offs);
+    }
+
+    // render particles
+    this.partLayer.innerHTML = '';
+    this.gateFlashLayer.innerHTML = '';
+
+    for (let i=this.parts.length-1; i>=0; i--) {
+      const p = this.parts[i];
+      const u = (now - p.born) / p.dur;
+      if (u < 0) continue;
+      if (u >= 1) {
+        // arrived at merchant
+        this.totalReceived++;
+        this.parts.splice(i,1);
+        continue;
+      }
+      const r = this.rails[p.railIdx];
+      const re = this.railEls[p.railIdx];
+      const x = this.railX0 + (this.railX1 - this.railX0) * u;
+      const y = re.baseY + (p.paired ? -8 : 0);
+
+      // gate flash when crossing
+      const gateU = (this.gateX - this.railX0) / (this.railX1 - this.railX0);
+      if (Math.abs(u - gateU) < 0.012) {
+        const flash = document.createElementNS('http://www.w3.org/2000/svg','circle');
+        flash.setAttribute('cx', this.gateX); flash.setAttribute('cy', re.baseY);
+        flash.setAttribute('r', 18);
+        flash.setAttribute('fill','transparent');
+        flash.setAttribute('stroke','var(--accent)'); flash.setAttribute('stroke-width','1');
+        flash.setAttribute('opacity','0.6');
+        this.gateFlashLayer.appendChild(flash);
+      }
+
+      // particle: pill with glyph + amount
+      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('transform', `translate(${x},${y})`);
+      const dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      dot.setAttribute('r', r.paired ? 3.5 : 4.5);
+      dot.setAttribute('fill','var(--accent)');
+      dot.setAttribute('filter','drop-shadow(0 0 5px var(--accent-glow))');
+      g.appendChild(dot);
+      // glyph small label
+      if (state.labels !== 'sparse' && !p.paired) {
+        const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+        t.setAttribute('x',8); t.setAttribute('y',-6);
+        t.setAttribute('font-family','JetBrains Mono'); t.setAttribute('font-size','8');
+        t.setAttribute('fill','rgba(124,246,185,0.7)');
+        t.textContent = r.glyph + ' ' + r.k;
+        g.appendChild(t);
+      }
+      this.partLayer.appendChild(g);
+    }
+
+    // merchant counter
+    this.merchantTotalEl.textContent = this.totalReceived;
+    // settlement record hash rotates every ~5s (period boundary)
+    if (now - this.lastRecRoll > 5000 / state.speed) {
+      this.recHashEl.textContent = randHash(10);
+      this.lastRecRoll = now;
+    }
+
+    // caption rotates through rails
+    if (now - this.lastCap > 1900 / state.speed) {
+      const idx = Math.floor((now/1900) % this.rails.length);
+      const r = this.rails[idx];
+      setCap(`${r.k} · ${r.d}`, r.desc);
+      this.lastCap = now;
+    }
+  }
+};
+
+/* helper: random short hex hash */
+function randHash(n) {
+  let s = '';
+  const chars = '0123456789abcdef';
+  for (let i=0;i<n;i++) s += chars[Math.floor(Math.random()*16)];
+  return s + '…';
+}
+
+/* ============================================================
+   SCENE 5 — CROSS-IMPL INTEROP (fixture → 6 impls → byte-match)
+   ============================================================ */
+const scene5 = {
+  impls: [
+    { k:'qntm v0.3.2',  d:'fixture mirror' },
+    { k:'AgentGraph',   d:'harness aggregator' },
+    { k:'Foxbook',      d:'4/4 byte-match' },
+    { k:'AgentID',      d:'delegation-id verifier' },
+    { k:'Nobulex',      d:'bilateral-receipt' },
+    { k:'ArkForge',     d:'reference impl' },
+  ],
+  init(host) {
+    host.innerHTML = '';
+    const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('viewBox','0 0 1600 900'); svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+    host.appendChild(svg); this.svg = svg;
+
+    // header
+    const head = document.createElementNS('http://www.w3.org/2000/svg','text');
+    head.setAttribute('x',800); head.setAttribute('y',54); head.setAttribute('text-anchor','middle');
+    head.setAttribute('font-family','Fraunces'); head.setAttribute('font-size','18');
+    head.setAttribute('fill','rgba(var(--ink-rgb),0.55)');
+    head.textContent = 'FIXTURE  →  6 IMPLEMENTATIONS  →  IDENTICAL SHA-256';
+    svg.appendChild(head);
+
+    // ---- FIXTURE box (left)
+    const fX = 80, fY = 380, fW = 220, fH = 160;
+    const fcx = fX + fW/2, fcy = fY + fH/2;
+    const fb = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    fb.setAttribute('x',fX); fb.setAttribute('y',fY);
+    fb.setAttribute('width',fW); fb.setAttribute('height',fH);
+    fb.setAttribute('fill','transparent'); fb.setAttribute('stroke','rgba(var(--ink-rgb),0.18)');
+    fb.setAttribute('stroke-width','1'); fb.setAttribute('rx','3');
+    svg.appendChild(fb);
+    const fH1 = document.createElementNS('http://www.w3.org/2000/svg','text');
+    fH1.setAttribute('x',fcx); fH1.setAttribute('y',fY+44); fH1.setAttribute('text-anchor','middle');
+    fH1.setAttribute('font-family','Fraunces'); fH1.setAttribute('font-size','22');
+    fH1.setAttribute('fill','#e8eaec'); fH1.setAttribute('font-weight','300');
+    fH1.textContent = 'FIXTURE';
+    svg.appendChild(fH1);
+    const fH2 = document.createElementNS('http://www.w3.org/2000/svg','text');
+    fH2.setAttribute('x',fcx); fH2.setAttribute('y',fY+64); fH2.setAttribute('text-anchor','middle');
+    fH2.setAttribute('font-family','JetBrains Mono'); fH2.setAttribute('font-size','9');
+    fH2.setAttribute('fill','rgba(var(--ink-rgb),0.4)'); fH2.setAttribute('letter-spacing','0.18em');
+    fH2.textContent = 'CTEF v0.3.2 · §A';
+    svg.appendChild(fH2);
+    const fH3 = document.createElementNS('http://www.w3.org/2000/svg','text');
+    fH3.setAttribute('x',fcx); fH3.setAttribute('y',fY+96); fH3.setAttribute('text-anchor','middle');
+    fH3.setAttribute('font-family','JetBrains Mono'); fH3.setAttribute('font-size','11');
+    fH3.setAttribute('fill','var(--accent)'); fH3.setAttribute('letter-spacing','0.05em');
+    fH3.textContent = '{ "delegation": …';
+    svg.appendChild(fH3);
+    const fH4 = document.createElementNS('http://www.w3.org/2000/svg','text');
+    fH4.setAttribute('x',fcx); fH4.setAttribute('y',fY+114); fH4.setAttribute('text-anchor','middle');
+    fH4.setAttribute('font-family','JetBrains Mono'); fH4.setAttribute('font-size','11');
+    fH4.setAttribute('fill','var(--accent)'); fH4.setAttribute('letter-spacing','0.05em');
+    fH4.textContent = '  "scope": {…} }';
+    svg.appendChild(fH4);
+    const fH5 = document.createElementNS('http://www.w3.org/2000/svg','text');
+    fH5.setAttribute('x',fcx); fH5.setAttribute('y',fY+138); fH5.setAttribute('text-anchor','middle');
+    fH5.setAttribute('font-family','JetBrains Mono'); fH5.setAttribute('font-size','9');
+    fH5.setAttribute('fill','rgba(var(--ink-rgb),0.45)'); fH5.setAttribute('letter-spacing','0.15em');
+    fH5.textContent = 'RFC 8785 JCS';
+    svg.appendChild(fH5);
+
+    // ---- IMPLEMENTATION cards (middle, vertical stack)
+    const ix0 = 480, iw = 360, ih = 78;
+    const igapY = 28;
+    const istackTop = 130;
+    this.implPos = this.impls.map((_, i) => {
+      const y = istackTop + i*(ih + igapY);
+      return { x: ix0, y, w: iw, h: ih, cy: y + ih/2 };
+    });
+    this.implEls = this.impls.map((m, i) => {
+      const p = this.implPos[i];
+      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('transform', `translate(${p.x},${p.y})`);
+      const box = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      box.setAttribute('x',0); box.setAttribute('y',0);
+      box.setAttribute('width',p.w); box.setAttribute('height',p.h);
+      box.setAttribute('fill','rgba(var(--ink-rgb),0.02)');
+      box.setAttribute('stroke','rgba(var(--ink-rgb),0.14)'); box.setAttribute('stroke-width','1');
+      box.setAttribute('rx','2');
+      g.appendChild(box);
+      // impl name
+      const t1 = document.createElementNS('http://www.w3.org/2000/svg','text');
+      t1.setAttribute('x',18); t1.setAttribute('y',26);
+      t1.setAttribute('font-family','Fraunces'); t1.setAttribute('font-size','18');
+      t1.setAttribute('fill','#e8eaec'); t1.setAttribute('font-weight','300');
+      t1.textContent = m.k;
+      g.appendChild(t1);
+      // detail
+      const t2 = document.createElementNS('http://www.w3.org/2000/svg','text');
+      t2.setAttribute('x',18); t2.setAttribute('y',46);
+      t2.setAttribute('font-family','JetBrains Mono'); t2.setAttribute('font-size','9');
+      t2.setAttribute('fill','rgba(var(--ink-rgb),0.45)'); t2.setAttribute('letter-spacing','0.14em');
+      t2.textContent = m.d.toUpperCase();
+      g.appendChild(t2);
+      // canonicalize step indicator (small dots)
+      const dotsG = document.createElementNS('http://www.w3.org/2000/svg','g');
+      dotsG.setAttribute('transform', `translate(18,${p.h - 18})`);
+      for (let k=0;k<8;k++) {
+        const d = document.createElementNS('http://www.w3.org/2000/svg','circle');
+        d.setAttribute('cx', k*8); d.setAttribute('cy',0); d.setAttribute('r',1.5);
+        d.setAttribute('fill','rgba(var(--ink-rgb),0.18)');
+        dotsG.appendChild(d);
+      }
+      g.appendChild(dotsG);
+      // canonicalize label
+      const cnLbl = document.createElementNS('http://www.w3.org/2000/svg','text');
+      cnLbl.setAttribute('x',96); cnLbl.setAttribute('y',p.h-15);
+      cnLbl.setAttribute('font-family','JetBrains Mono'); cnLbl.setAttribute('font-size','8');
+      cnLbl.setAttribute('fill','rgba(var(--ink-rgb),0.4)'); cnLbl.setAttribute('letter-spacing','0.12em');
+      cnLbl.textContent = 'CANONICALIZE';
+      g.appendChild(cnLbl);
+      // hash on right side
+      const hsh = document.createElementNS('http://www.w3.org/2000/svg','text');
+      hsh.setAttribute('x',p.w-18); hsh.setAttribute('y',p.h-15); hsh.setAttribute('text-anchor','end');
+      hsh.setAttribute('font-family','JetBrains Mono'); hsh.setAttribute('font-size','9');
+      hsh.setAttribute('fill','rgba(124,246,185,0.65)');
+      hsh.textContent = 'sha256: …';
+      g.appendChild(hsh);
+      // status check
+      const ck = document.createElementNS('http://www.w3.org/2000/svg','text');
+      ck.setAttribute('x',p.w-18); ck.setAttribute('y',26); ck.setAttribute('text-anchor','end');
+      ck.setAttribute('font-family','JetBrains Mono'); ck.setAttribute('font-size','13');
+      ck.setAttribute('fill','rgba(var(--ink-rgb),0.2)');
+      ck.textContent = '◯';
+      g.appendChild(ck);
+      svg.appendChild(g);
+      return { box, dotsG, hsh, ck, working: false };
+    });
+
+    // ---- BYTE-MATCH box (right)
+    const bX = 1300, bY = 380, bW = 220, bH = 160;
+    const bcx = bX + bW/2;
+    const bb = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    bb.setAttribute('x',bX); bb.setAttribute('y',bY);
+    bb.setAttribute('width',bW); bb.setAttribute('height',bH);
+    bb.setAttribute('fill','transparent'); bb.setAttribute('stroke','var(--accent)');
+    bb.setAttribute('stroke-width','1'); bb.setAttribute('rx','3');
+    bb.setAttribute('opacity','0.5');
+    this.matchBox = bb;
+    svg.appendChild(bb);
+    const bH1 = document.createElementNS('http://www.w3.org/2000/svg','text');
+    bH1.setAttribute('x',bcx); bH1.setAttribute('y',bY+44); bH1.setAttribute('text-anchor','middle');
+    bH1.setAttribute('font-family','Fraunces'); bH1.setAttribute('font-size','22');
+    bH1.setAttribute('fill','#e8eaec'); bH1.setAttribute('font-weight','300');
+    bH1.textContent = 'BYTE-MATCH';
+    svg.appendChild(bH1);
+    const bH2 = document.createElementNS('http://www.w3.org/2000/svg','text');
+    bH2.setAttribute('x',bcx); bH2.setAttribute('y',bY+64); bH2.setAttribute('text-anchor','middle');
+    bH2.setAttribute('font-family','JetBrains Mono'); bH2.setAttribute('font-size','9');
+    bH2.setAttribute('fill','rgba(var(--ink-rgb),0.4)'); bH2.setAttribute('letter-spacing','0.18em');
+    bH2.textContent = 'IDENTICAL SHA-256';
+    svg.appendChild(bH2);
+    // big hash
+    this.bigHashEl = document.createElementNS('http://www.w3.org/2000/svg','text');
+    this.bigHashEl.setAttribute('x',bcx); this.bigHashEl.setAttribute('y',bY+100); this.bigHashEl.setAttribute('text-anchor','middle');
+    this.bigHashEl.setAttribute('font-family','JetBrains Mono'); this.bigHashEl.setAttribute('font-size','11');
+    this.bigHashEl.setAttribute('fill','var(--accent)'); this.bigHashEl.setAttribute('letter-spacing','0.05em');
+    this.bigHashEl.textContent = randHash(14);
+    svg.appendChild(this.bigHashEl);
+    // check + count (start dim, light up when 6/6 arrive)
+    this.checkEl = document.createElementNS('http://www.w3.org/2000/svg','text');
+    this.checkEl.setAttribute('x',bcx); this.checkEl.setAttribute('y',bY+132); this.checkEl.setAttribute('text-anchor','middle');
+    this.checkEl.setAttribute('font-family','Fraunces'); this.checkEl.setAttribute('font-size','22');
+    this.checkEl.setAttribute('fill','rgba(124,246,185,0.45)');
+    this.checkEl.textContent = '✓ 0/6';
+    svg.appendChild(this.checkEl);
+
+    // ---- Beam paths fixture → impls → byte-match
+    this.beamLayer = document.createElementNS('http://www.w3.org/2000/svg','g');
+    svg.appendChild(this.beamLayer);
+    // static base lines
+    this.implPos.forEach(p => {
+      // fixture out → impl in
+      const p1 = document.createElementNS('http://www.w3.org/2000/svg','path');
+      const fx2 = fX + fW, fy2 = fcy;
+      const ix2 = p.x;     const iy2 = p.cy;
+      const mx = (fx2 + ix2)/2;
+      p1.setAttribute('d', `M ${fx2} ${fy2} C ${mx} ${fy2}, ${mx} ${iy2}, ${ix2} ${iy2}`);
+      p1.setAttribute('fill','none');
+      p1.setAttribute('stroke','rgba(var(--ink-rgb),0.08)'); p1.setAttribute('stroke-width','1');
+      this.beamLayer.appendChild(p1);
+      // impl out → byte-match in
+      const p2 = document.createElementNS('http://www.w3.org/2000/svg','path');
+      const ix3 = p.x + p.w, iy3 = p.cy;
+      const bx3 = bX, by3 = bY + bH/2;
+      const mx2 = (ix3 + bx3)/2;
+      p2.setAttribute('d', `M ${ix3} ${iy3} C ${mx2} ${iy3}, ${mx2} ${by3}, ${bx3} ${by3}`);
+      p2.setAttribute('fill','none');
+      p2.setAttribute('stroke','rgba(var(--ink-rgb),0.08)'); p2.setAttribute('stroke-width','1');
+      this.beamLayer.appendChild(p2);
+    });
+
+    // moving particle layer
+    this.partLayer = document.createElementNS('http://www.w3.org/2000/svg','g');
+    svg.appendChild(this.partLayer);
+
+    // animation state
+    this.fX = fX; this.fY = fY; this.fW = fW; this.fH = fH; this.fcy = fcy;
+    this.bX = bX; this.bY = bY; this.bW = bW; this.bH = bH;
+    this.cycle = { phase: 'idle', start: now() };
+    this.lastCycleEnd = 0;
+
+    function now() { return performance.now(); }
+  },
+
+  step(t) {
+    if (!this.svg) return;
+    // cycle phases:
+    //  0–800ms : split out (particles travel from fixture to each impl)
+    //  800-2200ms : impls "canonicalize" (dots animate)
+    //  2200-3000ms : converge (particles travel from each impl to byte-match)
+    //  3000-3800ms : match — bigHash freezes, check pulses 6/6
+    //  3800-4400ms : reset
+    if (this.cycle.phase === 'idle' && t - this.lastCycleEnd > 600 / state.speed) {
+      this.cycle = { phase: 'split', start: t };
+      // reset all impls to working
+      this.implEls.forEach(e => {
+        e.working = false;
+        e.ck.textContent = '◯';
+        e.ck.setAttribute('fill','rgba(var(--ink-rgb),0.2)');
+        e.hsh.textContent = 'sha256: …';
+        e.hsh.setAttribute('fill','rgba(124,246,185,0.65)');
+      });
+      this.checkEl.setAttribute('fill','rgba(124,246,185,0.45)');
+      this.checkEl.textContent = '✓ 0/6';
+      this.matchBox.setAttribute('opacity','0.5');
+    }
+
+    const elapsed = t - this.cycle.start;
+    const splitDur = 800 / state.speed;
+    const canonDur = 1400 / state.speed;
+    const convergeDur = 800 / state.speed;
+    const matchDur = 800 / state.speed;
+
+    // animate canonicalize dots on each impl (continuous, but only "lit" during canon phase)
+    this.implEls.forEach((e, i) => {
+      const dots = e.dotsG.querySelectorAll('circle');
+      const phase = this.cycle.phase;
+      if (phase === 'canon' || phase === 'converge' || phase === 'match') {
+        const offsetT = (this.cycle.phase === 'canon') ? (elapsed) : canonDur;
+        const stagger = i * 60;
+        for (let k=0;k<dots.length;k++) {
+          const u = ((offsetT + stagger) / 80 + k*0.3) % 8;
+          const lit = (u < dots.length);
+          dots[k].setAttribute('fill', (k <= u) ? 'var(--accent)' : 'rgba(var(--ink-rgb),0.18)');
+        }
+      } else {
+        for (let k=0;k<dots.length;k++) dots[k].setAttribute('fill','rgba(var(--ink-rgb),0.18)');
+      }
+    });
+
+    // particles
+    this.partLayer.innerHTML = '';
+
+    if (this.cycle.phase === 'split') {
+      const u = Math.min(1, elapsed / splitDur);
+      const fx2 = this.fX + this.fW, fy2 = this.fcy;
+      this.implPos.forEach(p => {
+        const ix2 = p.x, iy2 = p.cy;
+        const x = fx2 + (ix2 - fx2) * u;
+        const mx = (fx2 + ix2)/2;
+        // simple cubic interp via T param along bezier
+        const y = bezierY(fx2, fy2, mx, fy2, mx, iy2, ix2, iy2, u);
+        const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+        c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r','3.5');
+        c.setAttribute('fill','var(--accent)');
+        c.setAttribute('filter','drop-shadow(0 0 5px var(--accent-glow))');
+        this.partLayer.appendChild(c);
+      });
+      if (elapsed >= splitDur) this.cycle = { phase:'canon', start: t };
+    } else if (this.cycle.phase === 'canon') {
+      // small "thinking" indicator inside each impl box
+      this.implEls.forEach((e, i) => {
+        const u = (elapsed - i*120) / canonDur;
+        if (u >= 1 && !e.working) {
+          e.working = true;
+          e.hsh.textContent = 'sha256: ' + randHash(8);
+        }
+      });
+      if (elapsed >= canonDur) this.cycle = { phase:'converge', start: t };
+    } else if (this.cycle.phase === 'converge') {
+      const u = Math.min(1, elapsed / convergeDur);
+      const bx3 = this.bX, by3 = this.bY + this.bH/2;
+      this.implPos.forEach(p => {
+        const ix3 = p.x + p.w, iy3 = p.cy;
+        const mx2 = (ix3 + bx3)/2;
+        const x = ix3 + (bx3 - ix3) * u;
+        const y = bezierY(ix3, iy3, mx2, iy3, mx2, by3, bx3, by3, u);
+        const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+        c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r','3.5');
+        c.setAttribute('fill','var(--accent)');
+        c.setAttribute('filter','drop-shadow(0 0 5px var(--accent-glow))');
+        this.partLayer.appendChild(c);
+      });
+      if (elapsed >= convergeDur) {
+        // freeze a single hash for the match phase
+        const finalHash = randHash(14);
+        this.bigHashEl.textContent = finalHash;
+        // also stamp every impl with the same trailing fragment
+        const frag = finalHash.slice(0, 8);
+        this.implEls.forEach(e => { e.hsh.textContent = 'sha256: ' + frag; });
+        this.cycle = { phase:'match', start: t };
+      }
+    } else if (this.cycle.phase === 'match') {
+      // 6/6 check pulses
+      const pulse = 0.65 + 0.35 * Math.sin(elapsed / 90);
+      this.checkEl.setAttribute('fill', `rgba(124,246,185,${pulse.toFixed(2)})`);
+      this.checkEl.textContent = '✓ 6/6';
+      this.matchBox.setAttribute('opacity', (0.5 + 0.4 * Math.sin(elapsed/130)).toFixed(2));
+      this.implEls.forEach(e => {
+        e.ck.textContent = '✓';
+        e.ck.setAttribute('fill', 'var(--accent)');
+      });
+      if (elapsed >= matchDur) {
+        this.cycle = { phase:'idle', start: t };
+        this.lastCycleEnd = t;
+      }
+    }
+
+    // caption
+    const phaseCaps = {
+      idle:     ['fixture · CTEF v0.3.2 §A',           'one input, six runners'],
+      split:    ['fixture → 6 implementations',          'identical input bytes'],
+      canon:    ['canonicalize · RFC 8785 JCS',          'independent code paths'],
+      converge: ['hash → byte-match',                    'six SHA-256 collected'],
+      match:    ['✓ 6/6 byte-match',                     'reproducible · independently verifiable'],
+    };
+    const cap = phaseCaps[this.cycle.phase];
+    if (cap) setCap(cap[0], cap[1]);
+  }
+};
+
+/* helper: cubic bezier Y for given t (numerical interp) */
+function bezierY(x1,y1, x2,y2, x3,y3, x4,y4, u) {
+  const oneU = 1 - u;
+  return oneU*oneU*oneU*y1 + 3*oneU*oneU*u*y2 + 3*oneU*u*u*y3 + u*u*u*y4;
+}
+
+/* ============================================================
    orchestration
    ============================================================ */
-const scenes = [scene0, scene1, scene2, scene3];
+const scenes = [scene0, scene1, scene2, scene3, scene4, scene5];
 const hosts = scenes.map((_, i) => document.getElementById('scene-'+i));
 function rebuildAllScenes() {
   scenes.forEach((s, i) => s.init(hosts[i]));
