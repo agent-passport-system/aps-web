@@ -675,7 +675,7 @@ svg.rm-svg .dep-line.to-active{stroke:var(--blue);opacity:.7;marker-end:url(#arr
 </p>
 </header>
 <p class="rm-item-desc">Six commits land the v4 redesign on aeoess.com: 33-page restrained design language, per-page SEO meta with JSON-LD Organization schema, removed Updates rail from the homepage to recover hero focus, working desktop dropdown menus without React, fully wired navigation and footer (every href points to a real page), APS logo clickable, '8 papers' linked to ORCID 0009-0002-4700-3594, draft-pidlisnyi-aps-00 linked to IETF datatracker, agent-discovery &lt;link rel='alternate'&gt; tags in &lt;head&gt; on all pages (llms.txt, llms-full.txt, AGENTS.md, .well-known/mcp.json, .well-known/aps.txt), new /sitemap.html overview catching the 17 secondary pages no nav reaches, and a runtime dark/light theme toggle. Footer tagline updated from 'Open protocol for governing AI agents' to 'Open-source enforcement protocol for AI agents'.</p>
-<ul class="rm-item-links"><li><a href="https://aeoess.com/">Live site</a></li><li><a href="https://aeoess.com/sitemap.html">Sitemap overview</a></li></ul>
+<ul class="rm-item-links"><li><a href="https://aeoess.com/">Live site</a></li><li><a href="https://agent-passport.org/sitemap.xml">Sitemap overview</a></li></ul>
 </article>
 <article class="rm-item rm-item-done" id="d77-bilateral-receipt-cross-impl-byte-match">
 <header class="rm-item-h">
@@ -1292,7 +1292,7 @@ svg.rm-svg .dep-line.to-active{stroke:var(--blue);opacity:.7;marker-end:url(#arr
 </header>
 <p class="rm-item-desc">Stability window closed clean. SDK v2.0.0 and MCP v3.0.0 flipped from @next to @latest. PyPI 2.0.0 final replaces the 2.0.0b0 pre-release. v1.46.0 and MCP v2.27.0 moved to the legacy-v1 tag, six months guaranteed availability. Propagation sweep also caught a Python __init__.py __version__ drift carrying &quot;0.15.0&quot; from the beta period, if a caller imported agent_passport.__version__ at runtime, they would have seen 0.15.0 while pyproject.toml and the wheel said 2.0.0b0. Fixed to 2.0.0 during the promotion sweep.</p>
 <p class="rm-item-deps"><strong>Depends on:</strong> <code>v2-promotion-decision</code></p>
-<ul class="rm-item-links"><li><a href="https://www.npmjs.com/package/agent-passport-system">SDK v2.0.0 @latest</a></li><li><a href="https://aeoess.com/blog.html#day-64">Blog</a></li></ul>
+<ul class="rm-item-links"><li><a href="https://www.npmjs.com/package/agent-passport-system">SDK v2.0.0 @latest</a></li><li><a href="https://agent-passport.org/blog.html#day-64">Blog</a></li></ul>
 </article>
 <article class="rm-item rm-item-done" id="d64-v210-cognitive-attestation">
 <header class="rm-item-h">
@@ -1421,7 +1421,7 @@ svg.rm-svg .dep-line.to-active{stroke:var(--blue);opacity:.7;marker-end:url(#arr
 </header>
 <p class="rm-item-desc">Two interop harnesses landed in the SDK. AgentNexus Track A fixtures (kevinkaylie, PR #17) replay end-to-end: JCS re-canonicalization, Ed25519 signature verification, delegation chain walk, monotonic narrowing check at each hop. Both fixtures match expected, happy-path accepts, scope-expansion denies at the subset gate, zero canonicalization drift. VeritasActa KU signer (tomjwxf, VeritasActa/verify#2, test vectors PR#6) slots APS into their external_receipts.aps bundle field with JCS-canonical sha256 over each knowledge unit receipt, records the chain in contributingSources, signs with deterministic test key. Cross-layer integrity is observable either direction: tampering any KU byte invalidates the recorded accessReceiptId while the APS signature stays cryptographically valid. Neither interop required a protocol change. APS slots in as specified.</p>
 <p class="rm-item-deps"><strong>Depends on:</strong> <code>d61-v2-architecture-separation</code></p>
-<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/pull/17">PR #17 AgentNexus fixtures</a></li><li><a href="https://aeoess.com/blog.html#day-62">Blog</a></li></ul>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/pull/17">PR #17 AgentNexus fixtures</a></li><li><a href="https://agent-passport.org/blog.html#day-62">Blog</a></li></ul>
 </article>
 <article class="rm-item rm-item-done" id="d62-mnemopay-framing-credit">
 <header class="rm-item-h">
@@ -1498,7 +1498,7 @@ svg.rm-svg .dep-line.to-active{stroke:var(--blue);opacity:.7;marker-end:url(#arr
 </header>
 <p class="rm-item-desc">Monolithic SDK split along the protocol-vs-product axis. Public SDK keeps crypto, types, scope logic, adapters, conformance suite, interop vectors, and the 8 core primitives (byte-identical to v1.46.0). Private gateway package takes ProxyGateway, DataEnforcementGate, ContributionLedger, SettlementGenerator, IntentNetwork, DelegationStore, ReceiptLedger, 18 behavioral-analytics modules, EscalationWorkflow, SemanticDriftTracker, AnomalyDetection, MigrationWorkflow, AttestationLedger, and runtime state management. ~647 tests moved with them. Partners on any v1 pin unaffected: v1.46.0 stays on npm @latest through stability window. Unlocks foundation submission (AAIF target) and protects the pixel attribution moat. SDK v2.0.0-beta.0 on @next (2,325 tests, 130+ modules), MCP v3.0.0 on @next (142 tools, down from 154 after removing 12 product-only tools and stubbing 10 gateway-moved tools), Python v2.0.0b0 on PyPI as PEP 440 pre-release, Gateway repinned to ^2.0.0-beta.0 and Railway-redeployed zero-downtime. Three-layer safety net: anchor tags in every repo, local snapshot kit, private archive repo (aeoess/v2-swap-archive-2026-04-17).</p>
 <p class="rm-item-deps"><strong>Depends on:</strong> <code>d59-build-a-shipped</code></p>
-<ul class="rm-item-links"><li><a href="https://www.npmjs.com/package/agent-passport-system">SDK @next v2.0.0</a></li><li><a href="https://www.npmjs.com/package/agent-passport-system-mcp">MCP @next v3.0.0</a></li><li><a href="https://pypi.org/project/agent-passport-system/">PyPI v2.0.0b0</a></li><li><a href="https://github.com/aeoess/agent-passport-system/issues/16">Release notes</a></li><li><a href="https://aeoess.com/blog.html#day-61">Blog</a></li></ul>
+<ul class="rm-item-links"><li><a href="https://www.npmjs.com/package/agent-passport-system">SDK @next v2.0.0</a></li><li><a href="https://www.npmjs.com/package/agent-passport-system-mcp">MCP @next v3.0.0</a></li><li><a href="https://pypi.org/project/agent-passport-system/">PyPI v2.0.0b0</a></li><li><a href="https://github.com/aeoess/agent-passport-system/issues/16">Release notes</a></li><li><a href="https://agent-passport.org/blog.html#day-61">Blog</a></li></ul>
 </article>
 <article class="rm-item rm-item-done" id="v2-promotion-decision">
 <header class="rm-item-h">
@@ -1547,7 +1547,7 @@ svg.rm-svg .dep-line.to-active{stroke:var(--blue);opacity:.7;marker-end:url(#arr
 </header>
 <p class="rm-item-desc">One signed Merkle envelope replaces four separate attribution receipt types. D (data), P (protocol), G (governance), C (compute). Each axis projection verifies independently; two projections of the same receipt cross-verify by shared action_ref + merkle_root + signature. 6 new SDK exports, 6 new MCP tools, 1:1 Python port with cross-language sig verification. SDK v1.44.0 (2,910 tests), MCP v2.25.0 (149 tools), Python v0.13.0. Unblocks Builds B and C.</p>
 <p class="rm-item-deps"><strong>Depends on:</strong> <code>build-a-attribution-primitive</code></p>
-<ul class="rm-item-links"><li><a href="https://www.npmjs.com/package/agent-passport-system">SDK v1.44.0</a></li><li><a href="https://aeoess.com/blog.html#day-59">Blog</a></li></ul>
+<ul class="rm-item-links"><li><a href="https://www.npmjs.com/package/agent-passport-system">SDK v1.44.0</a></li><li><a href="https://agent-passport.org/blog.html#day-59">Blog</a></li></ul>
 </article>
 
 <article class="rm-item rm-item-done" id="d59-portal-retirement">

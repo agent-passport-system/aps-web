@@ -13,24 +13,12 @@ Allow: /.well-known/agent-trust.json
 Allow: /.well-known/agents.json
 
 # Private / admin / legacy
-Disallow: /ideas-admin.html
-Disallow: /forvlad.html
-Disallow: /board.html
-Disallow: /comms/
-Disallow: /mywork/
-Disallow: /datadividend/
-Disallow: /index_old*.html
-Disallow: /index_v2.html
-Disallow: /index_new.html
-Disallow: /index_aeoess.html
-Disallow: /index-old-backup.html
-Disallow: /index-v2.html
 
 # Assets
 # Disallow: /*.pdf$  (removed 2026-04-11: was blocking Zenodo papers + IETF drafts from Google Scholar)
 Disallow: /*.zip$
 
-Sitemap: https://aeoess.com/sitemap.xml
+Sitemap: https://agent-passport.org/sitemap.xml
 
 # LLM discovery (llmstxt.org standard)
 # Compact: https://agent-passport.org/llms.txt
