@@ -759,18 +759,22 @@
 }
 .blog-feed{max-width:var(--maxw);margin:0 auto;padding:64px 48px 96px;position:relative;z-index:1}
 
-/* dev-log entry as a dated newsprint record */
+/* dev-log entry as a dated newsprint record —
+   date sits in the left margin, the whole body stacks in one column */
 .blog-feed .post{
   border-top:1px solid var(--rule);
-  padding:40px 0;
-  display:grid;grid-template-columns:170px 1fr;gap:40px;
+  padding:44px 0;
+  display:grid;grid-template-columns:170px minmax(0,820px);
+  column-gap:48px;
   align-items:start;
 }
 .blog-feed .post:first-of-type{border-top:0;padding-top:0}
+.blog-feed .post > *{grid-column:2;min-width:0}
 .blog-feed .post .post-date{
+  grid-column:1;grid-row:1;
   font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;
   font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;
-  color:var(--stamp);padding-top:6px;display:block;
+  color:var(--stamp);padding-top:7px;display:block;
 }
 .blog-feed .post h2{
   font-family:var(--tweak-body-font,"Newsreader"),Georgia,serif;
@@ -816,8 +820,9 @@
 
 @media(max-width:860px){
   .blog-feed{padding:48px 24px 72px}
-  .blog-feed .post{grid-template-columns:1fr;gap:10px}
-  .blog-feed .post .post-date{padding-top:0}
+  .blog-feed .post{grid-template-columns:1fr;row-gap:10px}
+  .blog-feed .post > *{grid-column:1}
+  .blog-feed .post .post-date{grid-row:auto;padding-top:0;margin-bottom:4px}
   .blog-feed .post h2{font-size:25px}
 }
 </style>
