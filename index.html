@@ -1298,28 +1298,6 @@ body[data-pace="Paused"] .arch-fig svg .flow-dot{display:none}
 .stat .num small{font-style:italic;color:var(--ink-3);font-size:0.42em;letter-spacing:0;margin-left:6px;font-weight:300}
 .stat .sub{font-size:14px;color:var(--ink-2);max-width:230px;line-height:1.45;font-weight:300}
 
-/* ─── PRINCIPAL MANIFEST (V5) ──────────────────────── */
-.principal-block{position:relative;background:var(--paper);border:1px solid var(--ink);box-shadow:8px 8px 0 var(--ink), 14px 14px 0 var(--paper-3);padding:36px 40px}
-.principal-block::before{content:"";position:absolute;inset:6px;border:1px dashed var(--ink-3);pointer-events:none}
-.pr-head{display:grid;grid-template-columns:1fr auto;gap:36px;align-items:flex-start;padding-bottom:28px;border-bottom:1px solid var(--ink);margin-bottom:24px;position:relative;z-index:1}
-.pr-eyebrow{font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--stamp);margin-bottom:8px}
-.pr-title{font-family:var(--tweak-body-font, "Newsreader"),serif;font-size:36px;line-height:1.08;letter-spacing:-0.02em;font-weight:400;margin:0 0 14px;color:var(--ink)}
-.pr-title .it{font-style:italic;color:var(--ink-2);font-family:"IBM Plex Serif",Georgia,serif}
-.pr-lead{font-family:"Inter",-apple-system,sans-serif;font-size:17px;line-height:1.55;color:var(--ink-2);max-width:620px;margin:0;font-weight:400}
-.pr-lead b{font-weight:600;color:var(--ink)}
-.pr-stamp{width:96px;height:96px;border:2px solid var(--stamp);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--stamp);font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;transform:rotate(-6deg);flex-shrink:0}
-.pr-stamp .big{font-family:var(--tweak-body-font, "Newsreader"),serif;font-style:italic;font-size:22px;letter-spacing:-0.01em;text-transform:none;margin:2px 0;font-weight:500}
-.pr-table{display:flex;flex-direction:column;border:1px solid var(--ink);position:relative;z-index:1;background:var(--paper)}
-.pr-row{display:grid;grid-template-columns:1.4fr 0.7fr 1.5fr 1.4fr;border-top:1px solid var(--ink);padding:18px 22px;gap:24px;align-items:start}
-.pr-row:first-child{border-top:none}
-.pr-row.pr-row-head{background:var(--ink);color:var(--paper);font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;padding:12px 22px}
-.pr-row > div{font-family:"Inter",-apple-system,sans-serif;font-size:14px;line-height:1.5;color:var(--ink-2)}
-.pr-row b{font-family:var(--tweak-body-font, "Newsreader"),serif;font-style:italic;font-weight:500;font-size:18px;color:var(--ink);letter-spacing:-0.01em}
-.pr-row .mono{font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:11px;color:var(--ink-3);font-style:normal}
-.pr-pill{display:inline-block;font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--ink);color:var(--ink);background:var(--paper-2)}
-.pr-foot{display:flex;justify-content:space-between;align-items:baseline;margin-top:22px;padding-top:18px;border-top:1px dashed var(--ink-3);font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:11.5px;color:var(--ink-3);letter-spacing:0.04em;position:relative;z-index:1}
-.pr-foot b{color:var(--ink);font-weight:500;letter-spacing:0}
-.pr-foot .mono{font-size:10.5px;letter-spacing:0.06em}
 
 /* ─── §05 PAYMENTS RAILS ──────────────────────────── */
 .rails-fig{border:1px solid var(--ink);background:var(--paper);box-shadow:6px 6px 0 var(--paper-3);padding:0}
@@ -1605,57 +1583,6 @@ to&nbsp;enforce, verify, and audit AI agent actions.</p>
           <div class="with"><div class="h">With Agent Passport System</div><p>Every agent carries a <b>signed identity.</b> Authority can only narrow. Full cryptographic audit trail.</p></div>
         </div>
         <div class="stamp-x"><span><span style="display:block">signed ✓</span><b>The shift</b><span style="display:block;font-size:8px">aps · vol 01</span></span></div>
-      </div>
-    </div>
-
-    <!-- V5 — Principal Manifest (every agent traces to a human or org) -->
-    <div class="ps-variant" style="margin-top:48px">
-      <span class="ps-variant-tag">V5 · Principal manifest</span>
-      <div class="principal-block">
-        <div class="pr-head">
-          <div>
-            <div class="pr-eyebrow">§ PRINCIPAL ATTRIBUTION</div>
-            <h3 class="pr-title">Every agent has a <span class="it">name behind it.</span></h3>
-            <p class="pr-lead">No agent runs anonymously. Every passport names the <b>person, team, or organization</b> that issued it. Every delegation in the chain inherits the principal's accountability. Revoke the principal, the agent dies.</p>
-          </div>
-          <div class="pr-stamp">
-            <span class="row">verified ✓</span>
-            <span class="big">Bound</span>
-            <span class="row">principal</span>
-          </div>
-        </div>
-
-        <div class="pr-table">
-          <div class="pr-row pr-row-head">
-            <div>Principal</div>
-            <div>Type</div>
-            <div>Agents bound</div>
-            <div>What revocation kills</div>
-          </div>
-          <div class="pr-row">
-            <div><b>Jane Doe</b><br><span class="mono">did:web:jane.example</span></div>
-            <div><span class="pr-pill">individual</span></div>
-            <div>personal-assistant · calendar-bot</div>
-            <div>All of Jane's agents, instantly.</div>
-          </div>
-          <div class="pr-row">
-            <div><b>team:finance@acme.corp</b><br><span class="mono">did:web:acme.corp#finance</span></div>
-            <div><span class="pr-pill">team</span></div>
-            <div>invoice-bot-v2 · ap-router · payroll-svc</div>
-            <div>The team's fleet. Other teams unaffected.</div>
-          </div>
-          <div class="pr-row">
-            <div><b>Acme Corp</b><br><span class="mono">did:web:acme.corp</span></div>
-            <div><span class="pr-pill">organization</span></div>
-            <div>Every team, every agent below.</div>
-            <div>The entire organizational subtree.</div>
-          </div>
-        </div>
-
-        <div class="pr-foot">
-          <span><b>Anonymity is not a feature.</b> APS treats an unsigned agent as a malformed packet.</span>
-          <span class="mono">delegation: principal → team → agent → action</span>
-        </div>
       </div>
     </div>
 
