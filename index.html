@@ -1384,6 +1384,8 @@ body[data-pace="Paused"] .arch-fig svg .flow-dot{display:none}
 .entry .tag{font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:10px;text-align:right;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-3)}
 .entry .tag span{display:inline-block;padding:3px 7px;border:1px solid var(--ink-3);margin-left:4px}
 .entry .tag .pin{color:var(--stamp);border-color:var(--stamp)}
+.entry .body p a{color:var(--stamp);text-decoration:none;border-bottom:1px solid #b83a2e55;white-space:nowrap}
+.entry .body p a:hover{border-bottom-color:var(--stamp)}
 
 /* ─── §07 FAQ ─────────────────────────────────── */
 .faq{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
@@ -2480,52 +2482,484 @@ to&nbsp;enforce, verify, and audit AI agent actions.</p>
 
     <div class="feed">
       <div class="entry">
-        <div class="ts"><b>14 May 2026</b>09:21 UTC</div>
+        <div class="ts"><b>14 May 2026</b>—</div>
         <div class="body">
-          <h4>APS v0.7.2 released — conformance suite grows to 2,884 tests.</h4>
-          <p>94 new tests cover the delegation-chain composition lemma. Two implementations failed the new tests; both have patches in flight.</p>
+          <h4>draft-pidlisnyi-aps-01 posted to the IETF Datatracker</h4>
+          <p>The APS Internet-Draft revision adds a Signed Receipts section and a Key Rotation section to the core, plus a visible attribution-axes scope marker. Posted, idnits clean, 17 pages. <a href="https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/">draft-pidlisnyi-aps →</a></p>
         </div>
-        <div class="tag"><span class="pin">★ release</span><span>spec</span></div>
+        <div class="tag"><span class="pin">★ ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>14 May 2026</b>—</div>
+        <div class="body">
+          <h4>Three vocab Track B items reviewed via Consilium, all held with conditions</h4>
+          <p>PR #95, PR #93, and the cognitive_attestation primitive question ran a three-engine blind adversarial pass. Seventeen findings, unanimous. All three held with conditions, none merged, none rejected. <a href="https://github.com/aeoess/agent-governance-vocabulary/issues/94">Issue #94 →</a></p>
+        </div>
+        <div class="tag"><span>ship</span></div>
       </div>
       <div class="entry">
         <div class="ts"><b>13 May 2026</b>—</div>
         <div class="body">
-          <h4>gitagent RFC names APS as a reference implementation.</h4>
-          <p>Independent specification authored in the gitagent working draft cites APS in § 7 as one of the reference implementations of agent passport semantics.</p>
+          <h4>PR #67 invariant-survival.md merges under Track A after de-quote</h4>
+          <p>The verbatim BBIS direct quote at lines 73-75 replaced with paraphrase preserving the substantive principle. With no direct quotes remaining, Track A artifact-fix path cleared. The PR sat blocked since May 1; de-quoting was the unstuck move. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/67">PR #67 →</a></p>
         </div>
-        <div class="tag"><span>citation</span><span>ecosystem</span></div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>13 May 2026</b>—</div>
+        <div class="body">
+          <h4>Mycelium Trails crosswalk Track B opens at vocab repo</h4>
+          <p>PR #96 lands crosswalk/mycelium-trails.yaml v0.1 documenting TrailRecord byte-contract adoption against the APS attribution_receipt envelope. Three-engine review unanimous on match: structural → partial and replay_class: full_replay → decision_replay corrections. giskard09 tagged for Mycelium-side confirmation. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/96">PR #96 →</a></p>
+        </div>
+        <div class="tag"><span>convergence</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>13 May 2026</b>—</div>
+        <div class="body">
+          <h4>Negative-paths scaffold and validator wire at aps-conformance-suite</h4>
+          <p>PR #3 lands fixtures/composition/a2a-1496-negative-paths/ scaffold plus minimal four-case validator covering INVALID_CLAIM_SCOPE, DELEGATION_DEPTH_EXCEEDED, INVALID_SIGNATURE, VALIDITY_EXPIRED. Smoke-passes on deterministic inputs. kenneives fixtures land as follow-on PR before v0.3.2 publish window. <a href="https://github.com/aeoess/aps-conformance-suite/pull/3">PR #3 →</a></p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>13 May 2026</b>—</div>
+        <div class="body">
+          <h4>giskard09 adopts all four delegation_ref points, requests APS-side crosswalk anchor</h4>
+          <p>Reply on agent-passport-system#1 confirms full adoption of the four-point composition for delegation_ref in argentum, plus explicit ask to anchor the crosswalk APS-side. Mycelium Trails PR #96 opens the same hour. <a href="https://github.com/aeoess/agent-passport-system/issues/1">agent-passport-system#1 →</a></p>
+        </div>
+        <div class="tag"><span>convergence</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>12 May 2026</b>—</div>
+        <div class="body">
+          <h4>State of Agent Security 2026 cites APS in three sections</h4>
+          <p>AgentGraph published State of Agent Security 2026. APS named in §3.7 (Proposal Phase), §3.8 (canonical publisher: bilateral-delegation and rotation-attestation fixture corpus, eight-implementation byte-match), and §4 (verbatim thesis: "Authority can only narrow, never expand."). <a href="https://agentgraph.co/state-of-agent-security-2026">State of Agent Security 2026 →</a></p>
+        </div>
+        <div class="tag"><span>traction</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>12 May 2026</b>—</div>
+        <div class="body">
+          <h4>budget_authority renames to budget_reservation; domain_incubation gated</h4>
+          <p>PR #91 renamed across vocabulary and validator. Reserve and query verbs downgraded to proposed pending Ectsang. Validator now caps crosswalk_type: domain_incubation at three concurrent and 90-day sunset, maintainer-only. Rename coordination posted on ACP#231, aeoess#25, AP2#252. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/91">PR #91 →</a></p>
+        </div>
+        <div class="tag"><span>convergence</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>12 May 2026</b>—</div>
+        <div class="body">
+          <h4>cognitive_attestation descriptor doc opens as draft PR</h4>
+          <p>PR #93 grounds the cognitive_attestation descriptor in @schchit Target Determinability framework. Four determinability classes ordered by strength. Composes with delegation_chain, entity_continuity, invariant_survival. Draft state pending schchit theory-side review. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/93">PR #93 →</a></p>
+        </div>
+        <div class="tag"><span>convergence</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>11 May 2026</b>—</div>
+        <div class="body">
+          <h4>portal sign-in and tenant dashboard go live with GitHub OAuth</h4>
+          <p>Email signup posts to /api/v1/signup. New /dashboard.html shows tenant, agents, delegations, receipts with key rotation. GitHub OAuth at /auth/github/start and /auth/github/callback. Tenant aliases let one account use multiple emails. <a href="https://aeoess.com/portal.html">portal →</a></p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>11 May 2026</b>—</div>
+        <div class="body">
+          <h4>budget_authority crosswalk v0.1 lands at vocab repo with cycles maintainer signoff</h4>
+          <p>PR #91 opens with six canonical verbs (reserve, commit, release, refund, query_budget, query_reservation) and per-verb candidate/proposed status. amavashev (Cycles maintainer) reviews against runcycles/client.py + cycles-protocol-v0.yaml, confirms two corrections on query verbs and refund row, then approves. Track B review pass and maintainer signoff complete. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/91">PR #91 →</a></p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>11 May 2026</b>—</div>
+        <div class="body">
+          <h4>A2A#1829 four-way alignment locks on v0.3.3 working-doc + canonicalization stance</h4>
+          <p>jschoemaker independently byte-match verifies our envoys-rfc9421 fixture against §13 Vector 2. kenneives commits to hosting the v0.3.3 working doc at agentgraph-co. arian-gogani confirms canonicalization position: JCS + numeric profile, no floats, semantic equivalence at tool-version layer. Five-layer composition framing carries refinement: per-receipt-type layer attribution rather than per-protocol. <a href="https://github.com/a2aproject/A2A/issues/1829">A2A#1829 →</a></p>
+        </div>
+        <div class="tag"><span>convergence</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>11 May 2026</b>—</div>
+        <div class="body">
+          <h4>SSRN approves five APS research papers for academic indexing</h4>
+          <p>Five papers cleared review with DISTRIBUTED status: Paper 1 Agent Social Contract, Paper 2 Monotonic Narrowing, Paper 5 Physics-Enforced Delegation, Paper 7 Cognitive Attestation, Paper 8 Evidence-Safety Gap. Each routed to 5-6 CS networks where reviewer audiences read. Crossref auto-updates the ORCID record. <a href="https://ssrn.com/author=10731856">SSRN Author Page →</a></p>
+        </div>
+        <div class="tag"><span>research</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>10 May 2026</b>—</div>
+        <div class="body">
+          <h4>A2A#1496 spec author commits APS sits cleanly above identity framework</h4>
+          <p>Libria (lead author of A2A#1496 base identity framework, CEO OpenA2A) posted three coordinated confirmations on A2A#1575/#1786/#1829. Codified four-layer composition: wire signature / identity framework / identity claims / delegation+continuity. APS delegation_receipt references #1496 §5 chain entries as inner cryptographic hop. Three independent endorsements now on §7.1 v1.5 standalone-section promotion.</p>
+        </div>
+        <div class="tag"><span>convergence</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>10 May 2026</b>—</div>
+        <div class="body">
+          <h4>envoys-rfc9421 composition fixture lands in conformance suite</h4>
+          <p>Three deterministic vectors over jschoemaker @envoys/sdk v1.4.0 §13 keypair: RFC 9421 wire signature alone, wrapped in bilateral_receipt, wrapped in 3-link delegation chain. 39 PASS / 0 FAIL, byte-identical across three runs. kenneives endorsed in A2A#1829 and committed cross-link from CTEF v0.3.2 §A Conformance Verification Appendix.</p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>10 May 2026</b>—</div>
+        <div class="body">
+          <h4>AIVSS v0.1 review pass converges with VeloGerber</h4>
+          <p>AiEGIS review covered Q1-Q4 open questions, five concrete section edits, four new TBD section proposals, four threat-model gaps. Accepted all decisions with two amendments: signed JSON published-scheme artifact for Q1, mandatory constraint_set_sha at v0.1 for Q4. v0.1 follow-up commit lands this week.</p>
+        </div>
+        <div class="tag"><span>convergence</span></div>
       </div>
       <div class="entry">
         <div class="ts"><b>09 May 2026</b>—</div>
         <div class="body">
-          <h4>Vocabulary repo crosses 45 external PRs from 23 contributors.</h4>
-          <p>The agent-governance-vocabulary cross-walk now maps APS terms against multiple adjacent ecosystems. Merge protocol and definition reviews are public.</p>
+          <h4>vocab #36: PDR signing key approved, Week 1 two-signal compose locked</h4>
+          <p>nanookclaw confirmed a dedicated PDR attestation key. Week 1 interop plan locks to two signals: AgentID chain root paired with PDR continuity closing, recompute via evidence_inputs[]. Nobulex byte-match verifier from arian-gogani slots in Week 2.</p>
         </div>
-        <div class="tag"><span>ecosystem</span><span>vocab</span></div>
+        <div class="tag"><span>convergence</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>09 May 2026</b>—</div>
+        <div class="body">
+          <h4>OWASP AIVSS v0.1.1 patch lands with 8 findings</h4>
+          <p>Co-author cycle landed within 12 hours of VeloGerber's review pass: bound-language framing, sanity-check vs tier-eligibility shape split, substrate-count discriminator. Eight findings applied direct-to-main.</p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>09 May 2026</b>—</div>
+        <div class="body">
+          <h4>argentum RFC 001 Active with APS receipt fields</h4>
+          <p>giskard09 published genesis records: human Lightning 2100 sats and autonomous agent Arbitrum 210 wei stake on the same date. SPORE stake computation reads APS receipts.</p>
+        </div>
+        <div class="tag"><span>convergence</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>08 May 2026</b>—</div>
+        <div class="body">
+          <h4>First external PR on aivss-enforcement-effectiveness merged</h4>
+          <p>VeloGerber published the canonical race-test fixture for the time-to-enforce dimension. SHA-256 byte-match verified against WORKING-TEXT.md citation; pure-stdlib portable runner exits 0 on fresh checkout with P99 4.57ms under the 50ms spec bound. PR-MERGE-PROTOCOL Track A discipline applied.</p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>08 May 2026</b>—</div>
+        <div class="body">
+          <h4>Four-signal interop compose locked with three production implementers</h4>
+          <p>nanookclaw committed to authoring fixtures/interop-week-1/composition-behavioral-trust.json by May 22 with PDR entity_continuity as closing attestation. AgentID trust_verification chain root, PDR continuity closing, Nobulex byte-match verifier. Three production implementers, three independent verification paths.</p>
+        </div>
+        <div class="tag"><span>convergence</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>08 May 2026</b>—</div>
+        <div class="body">
+          <h4>OWASP AIVSS enforcement_effectiveness v0.1 body shipped</h4>
+          <p>3,800-word working text covering structural enforcement, empirical block-rate, time-to-enforce, and enforcement_locus dimensions. Co-authored with @VeloGerber. Customer-locus precondition set with verification paths landed in §5.3.</p>
+        </div>
+        <div class="tag"><span>standard</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>08 May 2026</b>—</div>
+        <div class="body">
+          <h4>APS listed in awesome-x402 ecosystem directory</h4>
+          <p>xpaysh/awesome-x402 PR #328 merged. The canonical curated list for protocols building on Coinbase\'s x402 payment standard now includes APS under Related Protocols. Ecosystem map updated.</p>
+        </div>
+        <div class="tag"><span>standard</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>07 May 2026</b>—</div>
+        <div class="body">
+          <h4>Pricing page goes live with working checkout</h4>
+          <p>Team tier ($99/month, 14-day trial) actually purchasable end-to-end. Stripe payment link, Cloudflare Worker for subscription events, Resend for transactional email, manual tenant provisioning within 24 hours.</p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>07 May 2026</b>—</div>
+        <div class="body">
+          <h4>OWASP AIVSS enforcement_effectiveness working text co-authored</h4>
+          <p>VeloGerber concurred on the four-axis dimension structure: structural enforcement, empirical block-rate, time-to-enforce, enforcement_locus. Working text scoped to the dimension family, separable from the broader v1.0 rubric.</p>
+        </div>
+        <div class="tag"><span>convergence</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>07 May 2026</b>—</div>
+        <div class="body">
+          <h4>Mycelium dual-chain anchoring confirmed live</h4>
+          <p>argentum verify endpoint returns Arbitrum One (chain 42161) plus Base mainnet (8453) anchors per receipt-id. Three-surface alignment operational: APS receipts, Mycelium dual-chain TrailRecord, Asqav RFC 3161 + OpenTimestamps.</p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>07 May 2026</b>—</div>
+        <div class="body">
+          <h4>Coinbase agentkit + crewAI Guardrails ecosystem engagements</h4>
+          <p>On Coinbase agentkit#1091, two-layer reading with Aigen-Protocol\'s SafeRouter (above-chain authorization plus on-chain target-safety). On crewAI #4877, common GuardrailDecision shape proposed; two providers convergent so far (APS + AgentID).</p>
+        </div>
+        <div class="tag"><span>standard</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>07 May 2026</b>—</div>
+        <div class="body">
+          <h4>Vocab system_attributes wave</h4>
+          <p>#78 (SAR) and #79 (continuity-analyzer) merged with conformant values. #86 validator enum enforcement merged. #87 (temporal-correctness gap) and #88 (soft-fail warnings) opened for follow-up. AgentID maintainer endorsed Option C.</p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>06 May 2026</b>—</div>
+        <div class="body">
+          <h4>OWASP AISVS revocation-to-enforce dimension</h4>
+          <p>VeloGerber\'s race-test methodology engaged on owasp-aisvs#31. Time-to-enforce proposed as a third axis alongside structural enforcement and empirical block-rate. Reciprocal APS-side race-test fixture committed for v1.0 panel review.</p>
+        </div>
+        <div class="tag"><span>standard</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>06 May 2026</b>—</div>
+        <div class="body">
+          <h4>Vocab validator blocks phantom-issuer drift</h4>
+          <p>PR #86 adds CI rejection of signals that name an issuer not present at maturity:in_production in the registry. Structural fix for the failure class behind the Day 76 audit.</p>
+        </div>
+        <div class="tag"><span>standard</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>06 May 2026</b>—</div>
+        <div class="body">
+          <h4>Cross-rail PaymentReceipt locked with Mycelium + Asqav</h4>
+          <p>Three independent persistence surfaces (APS, Base, RFC 3161+OTS) aligned on the existing PaymentReceipt shape with zero new types. Permit/revocation/re-issue lifecycle fixture landed in stripe-issuing.</p>
+        </div>
+        <div class="tag"><span>convergence</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>05 May 2026</b>—</div>
+        <div class="body">
+          <h4>Tier-2 binding-adapter conformance harness</h4>
+          <p>55 new tests landed, 2,911 total. Validates payment-rails adapter behavior across the bilateral attestation surface.</p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>05 May 2026</b>—</div>
+        <div class="body">
+          <h4>bilateral_receipt schema convergence</h4>
+          <p>kenneives (AgentGraph) concurred on three positions: name, hybrid-registry pattern, normative issued_at. Awaiting Nobulex on purpose-discriminator.</p>
+        </div>
+        <div class="tag"><span>convergence</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>05 May 2026</b>—</div>
+        <div class="body">
+          <h4>Vocab issuers_in_production audit closed</h4>
+          <p>Day 76 audit both subtracks closed. Three phantom issuers downgraded to proposed (ThoughtProof, Revettr, Maiat). All 8 maintainer.confirmed_at dates backfilled. Issue #82 opened for AgentID, AgentGraph, PDR crosswalks.</p>
+        </div>
+        <div class="tag"><span>standard</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>05 May 2026</b>—</div>
+        <div class="body">
+          <h4>propagate.mjs Bug 3 fix</h4>
+          <p>Verify-pass scanner now excludes historical content (UPDATES arrays, BUILD:ROADMAP regions, APS_PROFILE subset references). False-positive count dropped from 30 to 2.</p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>04 May 2026</b>—</div>
+        <div class="body">
+          <h4>Full website redesign</h4>
+          <p>33 pages restrained design, agent-discovery alternates in head, /sitemap.html overview, every link wired, dark/light toggle.</p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>02 May 2026</b>—</div>
+        <div class="body">
+          <h4>SDK 2.6.0-alpha.0 on npm</h4>
+          <p>v2 evidentiary type safety landed: claim-evidence-types registry with BATCH_ATTESTED and EVIDENCE_CUSTODY_HELD extensions. 2,884 tests passing.</p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>02 May 2026</b>—</div>
+        <div class="body">
+          <h4>Python SDK 2.4.0a2 on PyPI</h4>
+          <p>Full Wave 1 surface ported from TS. Cross-language byte-parity verified across 27 fixtures. 518 tests.</p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>02 May 2026</b>—</div>
+        <div class="body">
+          <h4>Vocab phantom-issuer audit</h4>
+          <p>PR #74 removed RNWY from behavioral_trust and wallet_intelligence; PR #75 marked passport_grade as proposed. Single-source-of-truth discipline.</p>
+        </div>
+        <div class="tag"><span>standard</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>01 May 2026</b>—</div>
+        <div class="body">
+          <h4>Vocab PR #72 opened</h4>
+          <p>completion_ratio as canonical signal type with three production issuers (AgentID, APS, RNWY).</p>
+        </div>
+        <div class="tag"><span>standard</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>01 May 2026</b>—</div>
+        <div class="body">
+          <h4>Drift prevention infrastructure live</h4>
+          <p>Pre-commit hook + CI scan + standardized .gitignore across eight public repos. Four layers, one structural backstop.</p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>30 Apr 2026</b>—</div>
+        <div class="body">
+          <h4>Wave 1 accountability shipped</h4>
+          <p>Five signed receipt primitives. RFC 8785 + Ed25519, deterministic byte-match fixtures, 57 new tests.</p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>30 Apr 2026</b>—</div>
+        <div class="body">
+          <h4>Vocab PR #66 merged</h4>
+          <p>Edison Munoz Duran\'s Agent-DID crosswalk lands as the second co-drafted-with-aeoess crosswalk.</p>
+        </div>
+        <div class="tag"><span>traction</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>30 Apr 2026</b>—</div>
+        <div class="body">
+          <h4>VeritasActa cross-layer integrity 10/10</h4>
+          <p>All ten access receipts cross-layer hash-matched, APS signature valid against sidecar JWKS.</p>
+        </div>
+        <div class="tag"><span>convergence</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>29 Apr 2026</b>—</div>
+        <div class="body">
+          <h4>Paper 8: The Evidence-Safety Gap</h4>
+          <p>Cryptographic agent governance proves procedural validity, not effect safety. Five omitted-variable classes catalogued.</p>
+        </div>
+        <div class="tag"><span>paper</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>29 Apr 2026</b>—</div>
+        <div class="body">
+          <h4>SSRN + ORCID research surface</h4>
+          <p>Three papers entering SSRN. ORCID 0009-0002-4700-3594 live with all &lt;a href="https://orcid.org/0009-0002-4700-3594" style="color:inherit;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;"&gt;8 papers&lt;/a&gt; indexed via DOI.</p>
+        </div>
+        <div class="tag"><span>traction</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>28 Apr 2026</b>—</div>
+        <div class="body">
+          <h4>IPR module on npm</h4>
+          <p>agent-passport-system@2.5.0 ships canonicalize/envelope/verify for binding agent authority to instruction-file digest.</p>
+        </div>
+        <div class="tag"><span>ship</span></div>
       </div>
       <div class="entry">
         <div class="ts"><b>27 Apr 2026</b>—</div>
         <div class="body">
-          <h4>Bilateral receipt cross-implementation byte-match convergence.</h4>
-          <p>Two independent implementations produce byte-identical signed receipts for the same delegation chain. Conformance dimension closed.</p>
+          <h4>agent-governance-spec org created</h4>
+          <p>Cross-vendor spec home, co-edited with Lars Kroehl (MolTrust).</p>
         </div>
-        <div class="tag"><span>conformance</span><span>receipts</span></div>
+        <div class="tag"><span>standard</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>26 Apr 2026</b>—</div>
+        <div class="body">
+          <h4>aeoess/aps-conformance-suite live</h4>
+          <p>37 fixture vectors across 4 categories. All byte-identical reproducible.</p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>21 Apr 2026</b>—</div>
+        <div class="body">
+          <h4>OpenLineage upstream PR opened</h4>
+          <p>AgentAttributionRunFacet spec, four DCO-signed commits, CI green. First AEOESS contribution to LF-hosted.</p>
+        </div>
+        <div class="tag"><span>standard</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>20 Apr 2026</b>—</div>
+        <div class="body">
+          <h4>APS filed with AAIF</h4>
+          <p>Project proposal #14. Path toward Linux Foundation stewardship for the protocol layer.</p>
+        </div>
+        <div class="tag"><span>standard</span></div>
       </div>
       <div class="entry">
         <div class="ts"><b>18 Apr 2026</b>—</div>
         <div class="body">
-          <h4>Phase 4.1 alpha shipped across four registries.</h4>
-          <p>SDK, MCP server, Python SDK, and reference skill published in lockstep. Conformance suite ratchets up alongside.</p>
+          <h4>Paper 7: Cognitive Attestation</h4>
+          <p>A cryptographic commitment attached to an agent\'s action record. Envelope spec, three-stage verification.</p>
         </div>
-        <div class="tag"><span>release</span><span>sdk</span></div>
+        <div class="tag"><span>paper</span></div>
       </div>
       <div class="entry">
-        <div class="ts"><b>11 Apr 2026</b>08:50 UTC</div>
+        <div class="ts"><b>16 Apr 2026</b>—</div>
         <div class="body">
-          <h4>Receipt format frozen at COSE_Sign1 + Merkle inclusion proof.</h4>
-          <p>RFC-bound. CBOR-deterministic. Every receipt is independently verifiable with the inclusion proof alone — no log fetch required.</p>
+          <h4>Build A, unified four-axis attribution</h4>
+          <p>One signed Merkle receipt across D, P, G, C. Four independently-verifiable projections, one envelope.</p>
         </div>
-        <div class="tag"><span>spec</span><span>receipts</span></div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>14 Apr 2026</b>—</div>
+        <div class="body">
+          <h4>Governance in the Medium, published</h4>
+          <p>Unit of agent governance is the population-with-medium, not the agent. Six rounds of adversarial review.</p>
+        </div>
+        <div class="tag"><span>paper</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>03 Apr 2026</b>—</div>
+        <div class="body">
+          <h4>Bring Your Own Identity</h4>
+          <p>did:key, did:web, SPIFFE SVID, OAuth interop. Python SDK proves cross-language: signatures round-trip TS ↔ Python.</p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>28 Mar 2026</b>—</div>
+        <div class="body">
+          <h4>Gateway on Railway</h4>
+          <p>Production enforcement at gateway.aeoess.com. Multi-tenant.</p>
+        </div>
+        <div class="tag"><span>deploy</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>27 Mar 2026</b>—</div>
+        <div class="body">
+          <h4>IETF Internet-Draft submitted</h4>
+          <p>&lt;a href="https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/" style="color:inherit;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;"&gt;draft-pidlisnyi-aps-00&lt;/a&gt;. Zero idnits errors.</p>
+        </div>
+        <div class="tag"><span>standard</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>16 Mar 2026</b>—</div>
+        <div class="body">
+          <h4>YC CEO endorsed</h4>
+          <p>Garry Tan repost. Microsoft merged APS code. Federal agency reviewing.</p>
+        </div>
+        <div class="tag"><span>traction</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>21 Feb 2026</b>—</div>
+        <div class="body">
+          <h4>Paper 1: The Agent Social Contract</h4>
+          <p>First formalization.</p>
+        </div>
+        <div class="tag"><span>paper</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>18 Feb 2026</b>—</div>
+        <div class="body">
+          <h4>Project begins</h4>
+          <p>Ed25519 identity, delegation chains, first tests.</p>
+        </div>
+        <div class="tag"><span>start</span></div>
       </div>
     </div>
   </div>
