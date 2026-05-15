@@ -1374,7 +1374,14 @@ body[data-pace="Paused"] .arch-fig svg .flow-dot{display:none}
 .term .pr{color:#E0A867}
 
 /* ─── §06 UPDATES FEED ──────────────────────────── */
-.feed{display:flex;flex-direction:column;border-top:1px solid var(--ink)}
+.feed{display:flex;flex-direction:column;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);max-height:620px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--ink-3) transparent}
+.feed::-webkit-scrollbar{width:10px}
+.feed::-webkit-scrollbar-track{background:#0000000d}
+.feed::-webkit-scrollbar-thumb{background:var(--ink-3);border:2px solid var(--paper)}
+.feed::-webkit-scrollbar-thumb:hover{background:var(--ink-2)}
+.feed .entry:last-child{border-bottom:none}
+.feed-hint{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-3)}
+.feed-hint b{color:var(--ink);font-weight:500}
 .entry{display:grid;grid-template-columns:140px 1fr 320px;gap:32px;padding:22px 0;border-bottom:1px solid var(--rule-soft);align-items:start}
 .entry:hover{background:#0000000a}
 .entry .ts{font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:11.5px;color:var(--ink-3);letter-spacing:0.04em;padding-top:4px}
@@ -2962,6 +2969,7 @@ to&nbsp;enforce, verify, and audit AI agent actions.</p>
         <div class="tag"><span>start</span></div>
       </div>
     </div>
+    <div class="feed-hint"><span>↕ Scroll the worklog</span><span><b>60</b> entries · newest first</span></div>
   </div>
 </section>
 
