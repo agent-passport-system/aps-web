@@ -1,31 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agent Passport System — open-source protocol for the agent economy</title>
-<meta name="description" content="Enforcement and accountability layer for AI agents. Bring your own identity (did:key, did:web, SPIFFE, OAuth). Every action evaluated in under 2ms. 14 constraint dimensions. Monotonic narrowing, cascade revocation, earned reputation. 2,884 tests. Gateway evaluation under 2ms.">
-<meta name="keywords" content="AI agent governance, agent passport system, AI agent enforcement, agent identity protocol, multi-agent coordination, agent delegation chains, Ed25519 cryptographic identity, autonomous AI agents, MCP server, agent commerce protocol, agentic economy, values floor, agent wallet, multi-chain wallet binding, Nano cryptocurrency agents, agent trust scoring, AI agent spending controls">
+<title>Agent Passport System — An open protocol for accountable AI agents</title>
+<meta name="description" content="Open-source enforcement infrastructure for AI agents. Bring your own identity, scoped delegation, cascade revocation, gateway enforcement under 2ms. Apache-2.0. 2,884 tests.">
+<link rel="icon" type="image/png" sizes="500x500" href="/assets/images/aeoess_logo.png">
+<link rel="apple-touch-icon" href="/assets/images/aeoess_logo.png">
 <link rel="canonical" href="https://agent-passport.org/opensource.html">
-<link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
-<link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation (compact)">
-<link rel="alternate" type="text/plain" href="https://agent-passport.org/llms-full.txt" title="LLM documentation (full)">
-<link rel="alternate" type="text/markdown" href="https://agent-passport.org/AGENTS.md" title="Agent instructions (AGENTS.md standard)">
-<link rel="alternate" type="application/json" href="https://agent-passport.org/.well-known/mcp.json" title="MCP server discovery">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Agent Passport System — open-source protocol for the agent economy">
-<meta property="og:description" content="Enforcement and accountability layer for AI agents. Bring your own identity. Policy eval under 2ms. Monotonic narrowing, cascade revocation, earned reputation. 2,884 tests. Gateway eval under 2ms.">
-<meta property="og:url" content="https://agent-passport.org/opensource.html">
 <meta property="og:site_name" content="Agent Passport System">
+<meta property="og:title" content="Agent Passport System — An open protocol for accountable AI agents">
+<meta property="og:description" content="Open-source enforcement infrastructure for AI agents.">
+<meta property="og:url" content="https://agent-passport.org/opensource.html">
 <meta property="og:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Agent Passport System — open-source protocol for the agent economy">
-<meta name="twitter:description" content="Enforcement and accountability layer for AI agents. Bring your own identity. Policy eval under 2ms. Monotonic narrowing, cascade revocation. 2,884 tests. Gateway eval under 2ms.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-S7QVCJGMKR');</script>
+
 <script type="application/aps-governance+json">
 {
   "@context": "https://aeoess.com/governance/v1",
@@ -47,7 +35,6 @@
   "signature": "0154942ab7c43dfa6f6adc83aa1ec5275450921a0480efccf81ad047c356e16cb4036fbbb40cc70ef0ea09ebb2ec0a9cbff958500f12a23c7c153a7cb1b9f10b"
 }
 </script>
-</head>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
 {"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","dateModified":"2026-05-02","logo":"https://agent-passport.org/assets/images/aeoess_logo.png","description":"Enforcement and accountability layer for AI agents. Bring your own identity (did:key, did:web, SPIFFE, OAuth, did:aps). Policy evaluation in under 2ms across 14 constraint dimensions. Monotonic narrowing, cascade revocation, earned reputation, gateway enforcement. 2,884 tests. Mutual authentication primitive (v2.6.0-alpha.1). 20 essential MCP tools, 150 total. Gateway eval under 2ms.","founder":{"@type":"Person","name":"Tymofii Pidlisnyi","url":"https://tymofii.me"},"sameAs":["https://github.com/aeoess","https://www.npmjs.com/package/agent-passport-system","https://pypi.org/project/agent-passport-system/"]},
@@ -67,421 +54,493 @@
 {"@type":"Question","name":"What is the fastest way to get started?","acceptedAnswer":{"@type":"Answer","text":"npm install agent-passport-system, then import from agent-passport-system/core for the curated essentials surface: createPassport, createDelegation, evaluateIntent, commercePreflight, generateKeyPair, plus the essentials. The full API surface is still at agent-passport-system for advanced cases. The MCP server defaults to 20 essential tools (set APS_PROFILE=full for all 150)."}}
 ]}]}
 </script>
+<meta name="viewport" content="width=1440">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/aps-design.css">
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#fff;--paper:#fafaf8;--ink:#0a0a0a;--ink-2:#1a1a1a;--ink-3:#333;--ink-4:#555;--ink-5:#888;--rule:#bbb;--rule-light:#ddd;--link:#1a4fa0;--link-hover:#0d3a7a;--code-bg:#f3f3f1;--green:#166534;--blue:#1e40af;--red:#b91c1c;--serif:'Crimson Pro',Georgia,serif;--sans:'DM Sans','Helvetica Neue',sans-serif;--mono:'JetBrains Mono','Menlo',monospace}
-[data-theme="dark"]{--bg:#1c1c1e;--paper:#242426;--ink:#ececec;--ink-2:#ddd;--ink-3:#b0b0b0;--ink-4:#8a8a8e;--ink-5:#5a5a5e;--rule:#3a3a3e;--rule-light:#2e2e32;--link:#7cacde;--link-hover:#a0c8f0;--code-bg:#28282c;--green:#4ade80;--blue:#60a5fa;--red:#f87171}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font:400 18px/1.8 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .3s,color .3s}
-::selection{background:var(--ink);color:var(--bg)}
-a{color:var(--link);text-decoration:none;transition:color .15s}a:hover{color:var(--link-hover)}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.7rem 3rem;background:rgba(255,255,255,0);transition:all .3s}
-.nav.scrolled{background:rgba(255,255,255,.82);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid rgba(0,0,0,.08)}
-[data-theme="dark"] .nav.scrolled{background:rgba(28,28,30,.78);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid rgba(255,255,255,.06)}
-.nav-logo{display:flex;align-items:center;text-decoration:none}.nav-logo img{height:26px;opacity:.65;transition:opacity .15s}.nav-logo:hover img{opacity:1}
-.nav-links{display:flex;align-items:center;gap:2rem}.nav-links a{font:400 .84rem var(--sans);color:var(--ink-4)}.nav-links a:hover{color:var(--ink)}
-.theme-btn{background:var(--paper);border:1px solid var(--rule);width:2.1rem;height:2.1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);font-size:1.05rem;transition:all .15s;border-radius:50%;flex-shrink:0;line-height:1}.theme-btn:hover{border-color:var(--ink-4);color:var(--ink);transform:rotate(15deg)}
-.nav-right{display:flex;align-items:center;gap:.7rem}
-.nav-burger{display:none;flex-direction:column;justify-content:space-between;width:22px;height:16px;cursor:pointer;z-index:101}
-.nav-burger span{display:block;height:1.5px;background:var(--ink);border-radius:1px;transition:all .3s}
-.nav-burger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}.nav-burger.open span:nth-child(2){opacity:0}.nav-burger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
-.nav-drawer{display:none;position:fixed;inset:0;z-index:98;background:var(--bg);padding:5rem 1.5rem 2rem;flex-direction:column;gap:1.4rem;overflow-y:auto}.nav-drawer.open{display:flex}
-.nav-drawer a{font:400 1.05rem var(--serif);color:var(--ink-2);text-decoration:none;padding:.55rem 0;border-bottom:1px solid var(--rule-light);transition:color .15s}
-.nav-drawer a:hover{color:var(--ink)}
-.drawer-section{display:flex;flex-direction:column}
-.drawer-section .drawer-section-title{font:600 .58rem var(--mono);text-transform:uppercase;letter-spacing:.15em;color:var(--ink-5);padding-bottom:.4rem;margin-bottom:.2rem;border-bottom:1px solid var(--rule)}
-.drawer-section a:last-child{border-bottom:none}
-.drawer-link-primary{color:var(--link)!important;font-weight:600}
-.drawer-link-primary:hover{color:var(--link-hover)!important}
-.page{max-width:1260px;margin:0 auto;padding:0 3rem}
-.hero{padding:7rem 0 2rem;display:grid;grid-template-columns:1fr 320px;gap:5rem;align-items:start}
-.paper{min-width:0}
-.paper h1{font:700 2.8rem/1.1 var(--serif);color:var(--ink);letter-spacing:-.015em;margin-bottom:.15rem}
-.paper-sub{font:300 1.2rem/1.35 var(--serif);color:var(--ink-4);margin-bottom:.6rem}
-.paper-badges{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:1.2rem}
-.badge{font:500 .58rem var(--mono);padding:.18rem .5rem;border:1px solid;letter-spacing:.03em;border-radius:6px}.b-g{border-color:var(--green);color:var(--green)}.b-b{border-color:var(--blue);color:var(--blue)}
-.paper-body{font:400 1rem/1.65 var(--sans);color:var(--ink-2);max-width:640px;margin-bottom:1.2rem}
-.paper-body strong{color:var(--ink);font-weight:600}
-.paper-body .aside{display:block;margin-top:.5rem;font:300 .88rem/1.7 var(--serif);color:var(--ink-3);font-style:italic;padding-left:1rem;border-left:2px solid var(--rule)}
-.cmp-row{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:1rem 0;border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:var(--paper)}
-.cmp{padding:.55rem .85rem}.cmp:first-child{border-right:1px solid var(--rule)}
-.cmp-label{font:600 .5rem var(--mono);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.25rem;display:block}.cmp-label.r{color:var(--red)}.cmp-label.g{color:var(--green)}
-.cmp-text{font:400 .78rem/1.5 var(--sans);color:var(--ink-3)}
-.capabilities{display:grid;grid-template-columns:1fr 1fr;gap:0 .5rem;margin:.8rem 0;padding:0}
-.cap{display:flex;align-items:baseline;gap:.35rem;padding:.08rem 0}
-.cap-name{font:600 .88rem var(--serif);color:var(--ink);white-space:nowrap}.cap-dash{color:var(--rule);font-size:.7rem}.cap-desc{font:400 .72rem var(--sans);color:var(--ink-4)}
-.paper-stats{display:flex;gap:2rem;margin-bottom:.7rem}
-.ps-n{font:700 1.8rem var(--serif);color:var(--ink);letter-spacing:-.02em;line-height:1}.ps-l{font:400 .5rem var(--mono);color:var(--ink-4);text-transform:uppercase;letter-spacing:.08em;display:block;margin-top:.1rem}
-.install-cmd{font:500 .85rem var(--mono);color:var(--ink);background:var(--code-bg);border:1px solid var(--rule);padding:.55rem 1rem;display:inline-block;cursor:pointer;transition:border-color .15s;margin-bottom:.4rem;border-radius:8px}.install-cmd:hover{border-color:var(--ink-4)}.install-cmd .cm{color:var(--ink-5)}
-.pkg-links{display:flex;gap:.75rem;flex-wrap:wrap}.pkg-links a{font:500 .74rem var(--sans);color:var(--link);white-space:nowrap}
-.updates{border:1px solid var(--rule);max-height:600px;overflow-y:auto;background:var(--paper);border-radius:12px}.updates::-webkit-scrollbar{width:3px}.updates::-webkit-scrollbar-thumb{background:var(--rule)}
-.up-h{font:500 .52rem var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--ink-5);padding:.55rem .75rem;border-bottom:1px solid var(--rule);position:sticky;top:0;background:rgba(255,255,255,.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:2;border-radius:12px 12px 0 0}
-[data-theme="dark"] .up-h{background:rgba(36,36,38,.8)}
-.up-i{display:flex;gap:.45rem;padding:.4rem .75rem;border-bottom:1px solid var(--rule-light);align-items:baseline}.up-i:last-child{border-bottom:none}
-.up-d{font:400 .52rem var(--mono);color:var(--ink-5);min-width:2rem;flex-shrink:0}
-.up-t{font:400 .68rem/1.45 var(--sans);color:var(--ink-3)}.up-t strong{color:var(--ink);font-weight:600}.up-t a{color:var(--link);font-size:.62rem}
-.up-tag{display:inline-block;font:600 .42rem var(--mono);text-transform:uppercase;letter-spacing:.05em;padding:.06rem .2rem;margin-right:.12rem;border:1px solid}.t-s{border-color:var(--green);color:var(--green)}.t-d{border-color:#92400e;color:#92400e}[data-theme="dark"] .t-d{border-color:#fbbf24;color:#fbbf24}
-.t-t{border-color:#7c3aed;color:#7c3aed}[data-theme="dark"] .t-t{border-color:#c084fc;color:#c084fc}
-.t-p{border-color:#1e40af;color:#1e40af}[data-theme="dark"] .t-p{border-color:#60a5fa;color:#60a5fa}
-.arch-embed{width:100vw;position:relative;left:50%;margin-left:-50vw;border:0;display:block;background:#0a0b0d;height:720px;margin-bottom:2rem;transition:height .2s ease}
-@media (max-width:720px){.arch-embed{height:680px}}
-.faq-section{padding:2rem 0;border-top:1px solid var(--rule)}.faq-title{font:600 .52rem var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--ink-4);margin-bottom:1.2rem}
-.faq-item{padding:1rem 0;border-bottom:1px solid var(--rule-light)}.faq-item:last-child{border-bottom:none}
-.faq-q{font:600 1.05rem var(--serif);color:var(--ink);margin-bottom:.3rem}.faq-a{font:400 .92rem/1.8 var(--sans);color:var(--ink-3);max-width:700px}.faq-a strong{color:var(--ink-2);font-weight:600}
-.agent-box{border:1px solid var(--rule);padding:.7rem 1rem;font:.75rem/1.6 var(--sans);color:var(--ink-3);background:var(--paper);margin-bottom:2rem;border-radius:10px}.agent-box strong{color:var(--ink)}
-.footer-inner{border-top:1px solid var(--ink);padding:1.8rem 0 1.2rem}
-.footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.3rem;margin-bottom:1.3rem}
-.footer-col h4{font:600 .52rem var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--ink);margin-bottom:.35rem}
-.footer-col a{display:block;font:.68rem var(--sans);color:var(--ink-4);padding:.1rem 0}.footer-col a:hover{color:var(--ink)}
-.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:.5rem;border-top:1px solid var(--rule)}
-.footer-copy{font:.6rem var(--sans);color:var(--ink-5)}.footer-copy a{color:var(--ink-4)}
-.footer-ext{display:flex;gap:.6rem}.footer-ext a{font:.52rem var(--mono);color:var(--ink-5)}.footer-ext a:hover{color:var(--ink)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.paper h1{animation:fadeUp .5s ease both}.paper-sub{animation:fadeUp .5s ease .03s both}.paper-badges{animation:fadeUp .5s ease .06s both}.paper-body{animation:fadeUp .5s ease .09s both}.updates{animation:fadeUp .5s ease .15s both}
-.scroll-hint{display:none}
+/* ── opensource page, reskinned to the newsprint system ── */
+.paper-badges{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 4px}
+.badge{
+  font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;
+  font-size:11px;letter-spacing:0.06em;padding:5px 11px;
+  border:1px solid var(--ink);color:var(--ink-2);background:var(--paper);
+}
+.badge.b-g{border-color:#2E6E53;color:#2E6E53}
+.badge.b-b{border-color:var(--stamp-2);color:var(--stamp-2)}
+.cmp-row{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--ink);margin:24px 0}
+.cmp{padding:22px 24px;border-right:1px solid var(--ink)}
+.cmp:last-child{border-right:0}
+.cmp-label{
+  display:block;font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;
+  font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;margin-bottom:10px;
+}
+.cmp-label.r{color:#9C3525}
+.cmp-label.g{color:#2E6E53}
+.cmp-text{font-family:"Inter",-apple-system,system-ui,sans-serif;font-size:15px;line-height:1.55;color:var(--ink-2)}
+.capabilities{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--ink);margin:24px 0}
+.cap{
+  display:flex;gap:10px;padding:13px 18px;
+  border-bottom:1px solid var(--rule-soft);border-right:1px solid var(--rule-soft);
+  font-family:"Inter",-apple-system,system-ui,sans-serif;font-size:14px;line-height:1.4;align-items:baseline;
+}
+.cap:nth-child(2n){border-right:0}
+.cap-name{font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--stamp);flex:0 0 auto;min-width:120px}
+.cap-dash{color:var(--ink-3)}
+.cap-desc{color:var(--ink-2)}
+.paper-stats{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--ink);margin:28px 0}
+.paper-stats > div{padding:22px 24px;border-right:1px solid var(--ink);display:flex;flex-direction:column;gap:6px}
+.paper-stats > div:last-child{border-right:0}
+.ps-n{font-family:var(--tweak-body-font,"Newsreader"),serif;font-size:38px;line-height:1;letter-spacing:-0.03em;color:var(--ink);font-weight:500}
+.ps-l{font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-3)}
+.os-note{font-family:"Inter",-apple-system,system-ui,sans-serif;font-size:14px;line-height:1.55;color:var(--ink-3);margin:6px 0 16px}
+.os-cited{
+  font-family:"Inter",-apple-system,system-ui,sans-serif;font-size:14px;line-height:1.55;
+  color:var(--ink-2);margin:0 0 22px;padding:12px 18px;
+  border-left:2px solid #2E6E53;background:var(--paper-2);
+}
+.os-cited strong{color:var(--ink);font-weight:600}
+.os-cited a{color:var(--stamp);text-decoration:none;border-bottom:1px solid #b83a2e55}
+.install-cmd{
+  display:block;font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;
+  font-size:13.5px;color:var(--ink);background:var(--paper-2);
+  border:1px solid var(--ink);padding:11px 16px;margin:0 0 10px;cursor:pointer;
+  transition:background .15s;
+}
+.install-cmd:hover{background:var(--paper)}
+.install-cmd .cm{color:var(--stamp);font-weight:500;margin-right:6px}
+.pkg-links{display:flex;flex-wrap:wrap;gap:16px;margin:6px 0 8px;font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;font-size:12px}
+.pkg-links a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid transparent;transition:color .15s,border-color .15s}
+.pkg-links a:hover{color:var(--stamp);border-bottom-color:var(--stamp)}
+.qs-label{font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--stamp);margin:24px 0 8px;font-weight:500}
+.qs-label .lt{text-transform:none;letter-spacing:0;color:var(--ink-3)}
+.code-block{
+  background:var(--ink);color:var(--paper);
+  font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;font-size:13px;line-height:1.62;
+  padding:20px 22px;overflow-x:auto;margin:0 0 8px;border:1px solid var(--ink);
+}
+.code-block .cmt{color:#9C9583}
+.code-block .str{color:#A8C99A}
+/* updates panel */
+.updates{border:1px solid var(--ink);background:var(--paper);max-height:760px;overflow-y:auto}
+.up-h{
+  font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;
+  font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-3);
+  padding:14px 20px;border-bottom:1px solid var(--ink);background:var(--paper-2);
+  position:sticky;top:0;
+}
+.up-i{display:grid;grid-template-columns:54px 1fr;gap:14px;padding:14px 20px;border-bottom:1px solid var(--rule-soft);align-items:start}
+.up-i:last-child{border-bottom:0}
+.up-d{font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;font-size:11px;color:var(--ink-3);letter-spacing:0.04em;padding-top:2px}
+.up-t{font-family:"Inter",-apple-system,system-ui,sans-serif;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
+.up-t strong{color:var(--ink);font-weight:600}
+.up-t code{font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;font-size:12px;background:var(--paper-2);border:1px solid var(--rule-soft);padding:0 4px;border-radius:2px}
+.up-t a{color:var(--stamp);text-decoration:none;border-bottom:1px solid #b83a2e55}
+.up-t em{font-style:italic}
+.up-tag{
+  display:inline-block;font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;
+  font-size:9px;letter-spacing:0.1em;text-transform:uppercase;
+  padding:2px 6px;margin-right:8px;border:1px solid var(--ink-3);color:var(--ink-3);vertical-align:1px;
+}
+.up-tag.t-s{border-color:#2E6E53;color:#2E6E53}
+.up-tag.t-c{border-color:var(--stamp-2);color:var(--stamp-2)}
+.up-tag.t-d{border-color:var(--gold);color:var(--gold)}
+.up-tag.t-t{border-color:var(--stamp);color:var(--stamp)}
+.up-tag.t-p,.up-tag.t-q{border-color:var(--ink);color:var(--ink)}
+.os-cols{display:grid;grid-template-columns:1.15fr 0.85fr;gap:48px;align-items:start}
+.arch-embed{width:100%;border:1px solid var(--ink);height:560px;display:block;background:var(--paper)}
+.faq-title{
+  font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;
+  font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--stamp);margin:0 0 8px;
+}
+.faq-item{border-bottom:1px solid var(--rule-soft);padding:22px 0}
+.faq-item:last-child{border-bottom:0}
+.faq-q{
+  font-family:var(--tweak-body-font,"Newsreader"),serif;font-style:italic;
+  font-size:22px;letter-spacing:-0.01em;color:var(--ink);font-weight:500;line-height:1.25;margin-bottom:10px;
+}
+.faq-a{font-family:"Inter",-apple-system,system-ui,sans-serif;font-size:16px;line-height:1.6;color:var(--ink-2)}
+.faq-a strong{font-weight:600;color:var(--ink)}
+.faq-a code{font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;font-size:13.5px;background:var(--paper-2);padding:1px 5px;border-radius:3px}
+.agent-box{
+  font-family:"Inter",-apple-system,system-ui,sans-serif;font-size:14px;line-height:1.6;
+  color:var(--ink-2);padding:18px 22px;border:1px dashed var(--ink-3);background:var(--paper-2);margin-top:36px;
+}
+.agent-box strong{color:var(--ink);font-weight:600}
+.agent-box a{color:var(--stamp);text-decoration:none;border-bottom:1px solid #b83a2e55}
 @media(max-width:900px){
-.scroll-hint{display:inline;color:var(--ink-5)}
-.nav{padding:.8rem 1.2rem}
-.nav-links{display:none}
-.nav-burger{display:flex}
-.page{padding:0 1.2rem}
-.hero{grid-template-columns:1fr;padding:5.5rem 0 2rem;gap:2rem}
-.paper h1{font-size:clamp(1.8rem,6vw,2.3rem)}
-.capabilities{grid-template-columns:1fr}
-.cmp-row{grid-template-columns:1fr}
-.cmp:first-child{border-right:none;border-bottom:1px solid var(--rule)}
-.footer-grid{grid-template-columns:repeat(2,1fr)}
-.pkg-links{flex-wrap:wrap;gap:.6rem}
-.arch-embed{margin-bottom:1.5rem;border-radius:8px}
-.faq-section{padding:1.5rem 0}
-.faq-q{font-size:1rem}
-.faq-a{font-size:.88rem;line-height:1.7}
-.updates{max-height:480px}
-}
-@media(max-width:560px){
-.nav{padding:.7rem 1rem}
-.nav-logo img{height:22px}
-.page{padding:0 1rem}
-.hero{padding:4.5rem 0 1.5rem;gap:1.4rem}
-.paper h1{font-size:1.7rem;line-height:1.15}
-.paper-sub{font-size:1rem;line-height:1.4}
-.paper-body{font-size:.94rem;line-height:1.75}
-.paper-stats{gap:1.2rem;flex-wrap:wrap}
-.ps-n{font-size:1.5rem}
-.capabilities{display:flex;flex-direction:column;gap:.35rem;margin:1rem 0}
-.cap{display:block;padding:.15rem 0;line-height:1.45}
-.cap-name{display:inline;font-size:.92rem}
-.cap-dash{display:inline}
-.cap-desc{display:inline;font-size:.82rem}
-.pkg-links{display:flex;flex-direction:column;gap:.45rem;align-items:flex-start}
-.pkg-links a{font-size:.78rem;padding:.1rem 0;border-bottom:1px solid var(--rule-light);width:100%}
-.pkg-links a:last-child{border-bottom:none}
-.install-cmd{display:block;margin-left:0!important;margin-bottom:.4rem;font-size:.78rem;padding:.5rem .8rem;width:100%;box-sizing:border-box}
-.code-block{font-size:.7rem!important;padding:.65rem .75rem!important;line-height:1.5!important}
-.cmp-row{margin:.8rem 0}
-.cmp{padding:.6rem .8rem}
-.cmp-text{font-size:.8rem;line-height:1.55}
-.up-i{padding:.5rem .65rem;flex-direction:column;align-items:flex-start;gap:.2rem}
-.up-d{font-size:.55rem;min-width:auto}
-.up-t{font-size:.78rem;line-height:1.5}
-.up-t a{font-size:.7rem}
-.up-tag{font-size:.46rem;padding:.08rem .25rem}
-.faq-section{padding:1.2rem 0}
-.faq-item{padding:.85rem 0}
-.faq-q{font-size:.96rem;margin-bottom:.25rem}
-.faq-a{font-size:.85rem;line-height:1.65}
-.footer-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,auto);grid-auto-flow:column;gap:1.2rem 1rem}
-.footer-bottom{flex-direction:column;gap:.4rem;text-align:center;align-items:center}
-.footer-copy{font-size:.62rem;line-height:1.5}
-.agent-box{font-size:.7rem;padding:.6rem .85rem;line-height:1.55}
-.arch-embed{height:600px!important;border-radius:6px;margin-bottom:1.2rem}
-}
-@media(max-width:380px){
-.paper h1{font-size:1.55rem}
-.paper-sub{font-size:.94rem}
-.paper-stats{gap:.9rem}
-.ps-n{font-size:1.35rem}
-.arch-embed{height:520px!important}
+  .os-cols{grid-template-columns:1fr}
+  .cmp-row,.capabilities,.paper-stats{grid-template-columns:1fr}
 }
 </style>
+</head>
 <body>
-<nav class="nav" id="nav">
-  <a href="/" class="nav-logo"><span style="font:600 14px/1 var(--sans,system-ui);letter-spacing:.5px">Agent Passport System</span></a>
-  <div class="nav-links"><a href="wallet.html">Wallet</a><a href="blog.html">Blog</a><a href="roadmap.html">Roadmap</a><a href="passport.html">Spec</a><a href="https://github.com/aeoess">GitHub</a><a href="https://github.com/agent-passport-system/aps-web/issues">Contact</a></div>
-  <div class="nav-right"><button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button><div class="nav-burger" onclick="this.classList.toggle('open');document.querySelector('.nav-drawer').classList.toggle('open')"><span></span><span></span><span></span></div></div>
-</nav>
-<div class="nav-drawer">
-  <div class="drawer-section">
-    <div class="drawer-section-title">Build</div>
-    Portal
-    <a href="passport.html" onclick="closeDrawer()">Spec</a>
-    API Reference
-  </div>
-  <div class="drawer-section">
-    <div class="drawer-section-title">Explore</div>
-    <a href="blog.html" onclick="closeDrawer()">Blog</a>
-    <a href="roadmap.html" onclick="closeDrawer()">Roadmap</a><a href="faq.html" onclick="closeDrawer()">FAQ</a>
-  </div>
-  <div class="drawer-section">
-    <div class="drawer-section-title">Connect</div>
-    <a href="wallet.html" onclick="closeDrawer()">Wallet</a>
-    <a href="https://github.com/aeoess" onclick="closeDrawer()">GitHub</a>
-    <a href="https://github.com/agent-passport-system/aps-web/issues" onclick="closeDrawer()">Contact</a>
+<div class="pub-bar">
+  <div class="wrap pub-bar-inner">
+    <span>AGENT PASSPORT SYSTEM</span>
+    <div class="marquee">
+      <div class="marquee-inner">
+        <span><b>draft-pidlisnyi-aps-00</b> · IETF agent passport Internet-Draft</span>
+        <span><b>v0.7.2</b> released · conformance suite +94 tests · 2,884 total</span>
+        <span><b>npm · PyPI</b> · agent-passport-system shipped</span>
+        <span><b>Vocabulary repo</b> · 45 external PRs · 23 contributors</span>
+        <span><b>Verifier</b> · 11 lines · any runtime</span>
+        <span><b>&le; 2 ms</b> policy eval · 14 caveat dimensions</span>
+        <span><b>draft-pidlisnyi-aps-00</b> · IETF agent passport Internet-Draft</span>
+        <span><b>v0.7.2</b> released · conformance suite +94 tests · 2,884 total</span>
+        <span><b>npm · PyPI</b> · agent-passport-system shipped</span>
+        <span><b>Vocabulary repo</b> · 45 external PRs · 23 contributors</span>
+        <span><b>Verifier</b> · 11 lines · any runtime</span>
+        <span><b>&le; 2 ms</b> policy eval · 14 caveat dimensions</span>
+      </div>
+    </div>
+    <span>VOL. 01 · ISSUE 07 · 2026</span>
   </div>
 </div>
-<div class="page">
-<section class="hero">
-  <div class="paper">
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="mast-row">
+      <div class="wordmark">
+        <span class="logo"></span>
+        <span>Agent Passport System</span>
+        <span class="it">— the open protocol</span>
+      </div>
+      <nav class="mast-nav">
+        <a href="/passport.html">Spec</a>
+        <a href="https://github.com/aeoess">Quickstart</a>
+        <a href="/research.html">Papers</a>
+        <a href="/working-group.html">Community</a>
+        <a href="/blog.html">Blog</a>
+      </nav>
+      <div class="mast-meta">
+        <b>Apache 2.0 · CC0</b><br>
+        github.com/aeoess
+      </div>
+    </div>
+    <div class="mast-strap">
+      <span>Downloads</span><span class="dot"></span><b>21,529+ installs</b><span class="dot"></span><span>npm · PyPI · MCP</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero"><div class="wrap">
+    <div class="eyebrow">OPEN SOURCE</div>
     <h1>An open protocol for accountable AI agents</h1>
-    <p class="paper-sub">Open-source enforcement infrastructure for AI agents</p>
-    <div class="paper-badges"><span class="badge b-g">&#9679; Protocol Live</span><span class="badge b-b">Apache-2.0</span><span class="badge b-b" id="dl-badge">&mdash; installs</span></div>
-    <div class="paper-body">
-      AI agents are moving money, signing contracts, deploying code, and accessing sensitive data on behalf of companies and people. <strong>Today, most companies ship without cryptographic answers to who authorized them, what scope applies, or how to revoke them downstream.</strong>
-      <div class="cmp-row">
-        <div class="cmp"><span class="cmp-label r">Today</span><div class="cmp-text">Agents act anonymously. No audit trail. No spending controls. Revocation means shutting everything down. You find out after the damage.</div></div>
-        <div class="cmp"><span class="cmp-label g">With Agent Passport System</span><div class="cmp-text">Every agent carries a signed identity. Authority can only narrow, never expand. One call revokes downstream. Full cryptographic audit trail.</div></div>
-      </div>
-      <div class="capabilities">
-        <div class="cap"><span class="cap-name">Identity</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Bring your own: did:key, SPIFFE, OAuth</span></div>
-        <div class="cap"><span class="cap-name">Delegation</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Scoped, revocable chains</span></div>
-        <div class="cap"><span class="cap-name">Composition</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Cross-DID-method identity contract</span></div>
-        <div class="cap"><span class="cap-name">Mutual Auth</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Agent &harr; service handshake</span></div>
-        <div class="cap"><span class="cap-name">Reputation</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Earned trust, scoped to context</span></div>
-        <div class="cap"><span class="cap-name">Governance</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Values floor enforcement</span></div>
-        <div class="cap"><span class="cap-name">Commerce</span><span class="cap-dash">&mdash;</span><span class="cap-desc">4-gate spending controls</span></div>
-        <div class="cap"><span class="cap-name">Payments</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Agent-to-agent, delegation-scoped</span></div>
-        <div class="cap"><span class="cap-name">Attribution</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Merkle-proven audit trail</span></div>
-        <div class="cap"><span class="cap-name">Instruction Provenance</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Drift denial across turns</span></div>
-        <div class="cap"><span class="cap-name">Enforcement</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Gateway boundary, &lt;2ms</span></div>
-        <div class="cap"><span class="cap-name">Revocation</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Cascade, one call kills all</span></div>
-      </div>
-    </div>
-    <div class="paper-stats">
-      <div><span class="ps-n">&lt;2ms</span><span class="ps-l">Policy eval</span></div>
-      <div><span class="ps-n">20</span><span class="ps-l">Essential tools</span></div>
-      <div><span class="ps-n">2,884</span><span class="ps-l">Tests</span></div>
-    </div>
-    <div style="font:400 .7rem/1.55 var(--sans);color:var(--ink-5);margin:.1rem 0 .8rem">Full surface area: 150 MCP tools, TypeScript + Python SDKs.</div>
-    <div style="font:400 .72rem/1.5 var(--sans);color:var(--ink-4);margin-bottom:.6rem;padding:.4rem .6rem;border-left:2px solid var(--green);background:var(--code-bg);border-radius:0 6px 6px 0"><strong style="color:var(--ink-3)">Independently cited</strong> — PDR in Production (University of British Columbia) validates APS Bayesian model. <a href="https://doi.org/10.5281/zenodo.19323172" style="font-size:.68rem">Zenodo</a></div>
-    <div class="install-cmd" onclick="navigator.clipboard.writeText('npm install agent-passport-system')"><span class="cm">$</span> npm install agent-passport-system</div>
-    <div class="install-cmd" onclick="navigator.clipboard.writeText('clawhub install agent-passport-system')" style="margin-left:.5rem"><span class="cm">$</span> clawhub install agent-passport-system</div>
-    <div class="pkg-links">
-      <a href="https://www.npmjs.com/package/agent-passport-system">npm SDK v2.6.0-alpha.1</a>
-      <a href="https://www.npmjs.com/package/agent-passport-system-mcp">MCP Server v3.1.1</a>
-      <a href="https://clawhub.ai/aeoess/agent-passport-system">ClawHub Skill</a>
-      <a href="https://pypi.org/project/agent-passport-system/">Python SDK v2.4.0a1</a>
-      <a href="blog.html#paper">8 papers &rarr;</a>
-    </div>
-    <div style="margin-top:1rem;font:500 .52rem var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--ink-4);margin-bottom:.35rem">Quick Start <span style="text-transform:none;letter-spacing:0;color:var(--ink-5)">— Core subpath, curated essentials</span></div>
-    <pre class="code-block" style="font:500 .78rem/1.55 var(--mono);color:var(--ink-2);background:var(--code-bg);border:1px solid var(--rule);padding:.75rem 1rem;border-radius:8px;overflow-x:auto;margin-bottom:.6rem;-webkit-overflow-scrolling:touch"><span style="color:var(--ink-5)">// import the curated essentials</span>
+    <p class="dek">Open-source enforcement infrastructure for AI agents</p>
+  </div></section>
+
+  <div class="aps-prose"><div class="wrap"><div class="col" style="max-width:none">
+    <div class="os-cols">
+      <div>
+        <div class="paper-badges"><span class="badge b-g">&#9679; Protocol Live</span><span class="badge b-b">Apache-2.0</span><span class="badge b-b" id="dl-badge">&mdash; installs</span></div>
+
+        <p class="lead">AI agents are moving money, signing contracts, deploying code, and accessing sensitive data on behalf of companies and people. <strong>Today, most companies ship without cryptographic answers to who authorized them, what scope applies, or how to revoke them downstream.</strong></p>
+
+        <div class="cmp-row">
+          <div class="cmp"><span class="cmp-label r">Today</span><div class="cmp-text">Agents act anonymously. No audit trail. No spending controls. Revocation means shutting everything down. You find out after the damage.</div></div>
+          <div class="cmp"><span class="cmp-label g">With Agent Passport System</span><div class="cmp-text">Every agent carries a signed identity. Authority can only narrow, never expand. One call revokes downstream. Full cryptographic audit trail.</div></div>
+        </div>
+
+        <div class="capabilities">
+          <div class="cap"><span class="cap-name">Identity</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Bring your own: did:key, SPIFFE, OAuth</span></div>
+          <div class="cap"><span class="cap-name">Delegation</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Scoped, revocable chains</span></div>
+          <div class="cap"><span class="cap-name">Composition</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Cross-DID-method identity contract</span></div>
+          <div class="cap"><span class="cap-name">Mutual Auth</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Agent &harr; service handshake</span></div>
+          <div class="cap"><span class="cap-name">Reputation</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Earned trust, scoped to context</span></div>
+          <div class="cap"><span class="cap-name">Governance</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Values floor enforcement</span></div>
+          <div class="cap"><span class="cap-name">Commerce</span><span class="cap-dash">&mdash;</span><span class="cap-desc">4-gate spending controls</span></div>
+          <div class="cap"><span class="cap-name">Payments</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Agent-to-agent, delegation-scoped</span></div>
+          <div class="cap"><span class="cap-name">Attribution</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Merkle-proven audit trail</span></div>
+          <div class="cap"><span class="cap-name">Instruction Provenance</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Drift denial across turns</span></div>
+          <div class="cap"><span class="cap-name">Enforcement</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Gateway boundary, &lt;2ms</span></div>
+          <div class="cap"><span class="cap-name">Revocation</span><span class="cap-dash">&mdash;</span><span class="cap-desc">Cascade, one call kills all</span></div>
+        </div>
+
+        <div class="paper-stats">
+          <div><span class="ps-n">&lt;2ms</span><span class="ps-l">Policy eval</span></div>
+          <div><span class="ps-n">20</span><span class="ps-l">Essential tools</span></div>
+          <div><span class="ps-n">2,884</span><span class="ps-l">Tests</span></div>
+        </div>
+
+        <div class="os-note">Full surface area: 150 MCP tools, TypeScript + Python SDKs.</div>
+        <div class="os-cited"><strong>Independently cited</strong> — PDR in Production (University of British Columbia) validates APS Bayesian model. <a href="https://doi.org/10.5281/zenodo.19323172">Zenodo</a></div>
+
+        <div class="install-cmd" onclick="navigator.clipboard.writeText('npm install agent-passport-system')"><span class="cm">$</span> npm install agent-passport-system</div>
+        <div class="install-cmd" onclick="navigator.clipboard.writeText('clawhub install agent-passport-system')"><span class="cm">$</span> clawhub install agent-passport-system</div>
+
+        <div class="pkg-links">
+          <a href="https://www.npmjs.com/package/agent-passport-system">npm SDK v2.6.0-alpha.1</a>
+          <a href="https://www.npmjs.com/package/agent-passport-system-mcp">MCP Server v3.1.1</a>
+          <a href="https://clawhub.ai/aeoess/agent-passport-system">ClawHub Skill</a>
+          <a href="https://pypi.org/project/agent-passport-system/">Python SDK v2.4.0a1</a>
+          <a href="blog.html#paper">8 papers &rarr;</a>
+        </div>
+
+        <div class="qs-label">Quick Start <span class="lt">— Core subpath, curated essentials</span></div>
+        <pre class="code-block"><span class="cmt">// import the curated essentials</span>
 import {
   createPassport, createDelegation,
   evaluateIntent, commercePreflight, generateKeyPair
-} from <span style="color:var(--green)">'agent-passport-system/core'</span>
+} from <span class="str">'agent-passport-system/core'</span>
 
-<span style="color:var(--ink-5)">// full API surface still available at 'agent-passport-system'</span></pre>
-  </div>
-  <div>
-    <div class="updates">
-      <div class="up-h">Updates</div>
-      <div class="up-i"><span class="up-d">May 11</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>budget_authority crosswalk v0.1 lands at vocab repo with cycles maintainer signoff</strong> &mdash; PR #91 opens with six canonical verbs (reserve, commit, release, refund, query_budget, query_reservation) and per-verb candidate/proposed status. amavashev (Cycles maintainer) reviews against runcycles/client.py + cycles-protocol-v0.yaml, confirms two corrections on query verbs and refund row, then approves. Track B review pass and maintainer signoff complete.</span></div>
-      <div class="up-i"><span class="up-d">May 11</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>A2A#1829 four-way alignment locks on v0.3.3 working-doc + canonicalization stance</strong> &mdash; jschoemaker independently byte-match verifies our envoys-rfc9421 fixture against §13 Vector 2. kenneives commits to hosting the v0.3.3 working doc at agentgraph-co. arian-gogani confirms canonicalization position: JCS + numeric profile, no floats, semantic equivalence at tool-version layer. Five-layer composition framing carries refinement: per-receipt-type layer attribution rather than per-protocol.</span></div>
-      <div class="up-i"><span class="up-d">May 11</span><span class="up-t"><span class="up-tag t-d">research</span><strong>SSRN approves five APS research papers for academic indexing</strong> &mdash; Five papers cleared review with DISTRIBUTED status: Paper 1 Agent Social Contract, Paper 2 Monotonic Narrowing, Paper 5 Physics-Enforced Delegation, Paper 7 Cognitive Attestation, Paper 8 Evidence-Safety Gap. Each routed to 5-6 CS networks where reviewer audiences read. Crossref auto-updates the ORCID record.</span></div>
-      <div class="up-i"><span class="up-d">May 10</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>A2A#1496 spec author commits APS sits cleanly above identity framework</strong> &mdash; Libria (lead author of A2A#1496 base identity framework, CEO OpenA2A) posted three coordinated confirmations on A2A#1575/#1786/#1829. Codified four-layer composition: wire signature / identity framework / identity claims / delegation+continuity. APS delegation_receipt references #1496 §5 chain entries as inner cryptographic hop. Three independent endorsements now on §7.1 v1.5 standalone-section promotion.</span></div>
-      <div class="up-i"><span class="up-d">May 10</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>envoys-rfc9421 composition fixture lands in conformance suite</strong> &mdash; Three deterministic vectors over jschoemaker @envoys/sdk v1.4.0 §13 keypair: RFC 9421 wire signature alone, wrapped in bilateral_receipt, wrapped in 3-link delegation chain. 39 PASS / 0 FAIL, byte-identical across three runs. kenneives endorsed in A2A#1829 and committed cross-link from CTEF v0.3.2 §A Conformance Verification Appendix.</span></div>
-      <div class="up-i"><span class="up-d">May 10</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>AIVSS v0.1 review pass converges with VeloGerber</strong> &mdash; AiEGIS review covered Q1-Q4 open questions, five concrete section edits, four new TBD section proposals, four threat-model gaps. Accepted all decisions with two amendments: signed JSON published-scheme artifact for Q1, mandatory constraint_set_sha at v0.1 for Q4. v0.1 follow-up commit lands this week.</span></div>
-      <div class="up-i"><span class="up-d">May 09</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>vocab #36: PDR signing key approved, Week 1 two-signal compose locked</strong> &mdash; nanookclaw confirmed a dedicated PDR attestation key. Week 1 interop plan locks to two signals: AgentID chain root paired with PDR continuity closing, recompute via evidence_inputs[]. Nobulex byte-match verifier from arian-gogani slots in Week 2.</span></div>
-      <div class="up-i"><span class="up-d">May 09</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>OWASP AIVSS v0.1.1 patch lands with 8 findings</strong> &mdash; Co-author cycle landed within 12 hours of VeloGerber's review pass: bound-language framing, sanity-check vs tier-eligibility shape split, substrate-count discriminator. Eight findings applied direct-to-main.</span></div>
-      <div class="up-i"><span class="up-d">May 09</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>argentum RFC 001 Active with APS receipt fields</strong> &mdash; giskard09 published genesis records: human Lightning 2100 sats and autonomous agent Arbitrum 210 wei stake on the same date. SPORE stake computation reads APS receipts.</span></div>
-      <div class="up-i"><span class="up-d">May 08</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>First external PR on aivss-enforcement-effectiveness merged</strong> &mdash; VeloGerber published the canonical race-test fixture for the time-to-enforce dimension. SHA-256 byte-match verified against WORKING-TEXT.md citation; pure-stdlib portable runner exits 0 on fresh checkout with P99 4.57ms under the 50ms spec bound. PR-MERGE-PROTOCOL Track A discipline applied.</span></div>
-      <div class="up-i"><span class="up-d">May 08</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>Four-signal interop compose locked with three production implementers</strong> &mdash; nanookclaw committed to authoring fixtures/interop-week-1/composition-behavioral-trust.json by May 22 with PDR entity_continuity as closing attestation. AgentID trust_verification chain root, PDR continuity closing, Nobulex byte-match verifier. Three production implementers, three independent verification paths.</span></div>
-      <div class="up-i"><span class="up-d">May 08</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>OWASP AIVSS enforcement_effectiveness v0.1 body shipped</strong> &mdash; 3,800-word working text covering structural enforcement, empirical block-rate, time-to-enforce, and enforcement_locus dimensions. Co-authored with @VeloGerber. Customer-locus precondition set with verification paths landed in §5.3.</span></div>
-      <div class="up-i"><span class="up-d">May 08</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>APS listed in awesome-x402 ecosystem directory</strong> &mdash; xpaysh/awesome-x402 PR #328 merged. The canonical curated list for protocols building on Coinbase\'s x402 payment standard now includes APS under Related Protocols. Ecosystem map updated.</span></div>
-      <div class="up-i"><span class="up-d">May 07</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>OWASP AIVSS enforcement_effectiveness working text co-authored</strong> &mdash; VeloGerber concurred on the four-axis dimension structure: structural enforcement, empirical block-rate, time-to-enforce, enforcement_locus. Working text scoped to the dimension family, separable from the broader v1.0 rubric.</span></div>
-      <div class="up-i"><span class="up-d">May 07</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Mycelium dual-chain anchoring confirmed live</strong> &mdash; argentum verify endpoint returns Arbitrum One (chain 42161) plus Base mainnet (8453) anchors per receipt-id. Three-surface alignment operational: APS receipts, Mycelium dual-chain TrailRecord, Asqav RFC 3161 + OpenTimestamps.</span></div>
-      <div class="up-i"><span class="up-d">May 07</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>Coinbase agentkit + crewAI Guardrails ecosystem engagements</strong> &mdash; On Coinbase agentkit#1091, two-layer reading with Aigen-Protocol\'s SafeRouter (above-chain authorization plus on-chain target-safety). On crewAI #4877, common GuardrailDecision shape proposed; two providers convergent so far (APS + AgentID).</span></div>
-      <div class="up-i"><span class="up-d">May 07</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Vocab system_attributes wave</strong> &mdash; #78 (SAR) and #79 (continuity-analyzer) merged with conformant values. #86 validator enum enforcement merged. #87 (temporal-correctness gap) and #88 (soft-fail warnings) opened for follow-up. AgentID maintainer endorsed Option C.</span></div>
-      <div class="up-i"><span class="up-d">May 06</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>OWASP AISVS revocation-to-enforce dimension</strong> &mdash; VeloGerber\'s race-test methodology engaged on owasp-aisvs#31. Time-to-enforce proposed as a third axis alongside structural enforcement and empirical block-rate. Reciprocal APS-side race-test fixture committed for v1.0 panel review.</span></div>
-      <div class="up-i"><span class="up-d">May 06</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>Vocab validator blocks phantom-issuer drift</strong> &mdash; PR #86 adds CI rejection of signals that name an issuer not present at maturity:in_production in the registry. Structural fix for the failure class behind the Day 76 audit.</span></div>
-      <div class="up-i"><span class="up-d">May 06</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>Cross-rail PaymentReceipt locked with Mycelium + Asqav</strong> &mdash; Three independent persistence surfaces (APS, Base, RFC 3161+OTS) aligned on the existing PaymentReceipt shape with zero new types. Permit/revocation/re-issue lifecycle fixture landed in stripe-issuing.</span></div>
-      <div class="up-i"><span class="up-d">May 05</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Tier-2 binding-adapter conformance harness</strong> &mdash; 55 new tests landed, 2,911 total. Validates payment-rails adapter behavior across the bilateral attestation surface.</span></div>
-      <div class="up-i"><span class="up-d">May 05</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>bilateral_receipt schema convergence</strong> &mdash; kenneives (AgentGraph) concurred on three positions: name, hybrid-registry pattern, normative issued_at. Awaiting Nobulex on purpose-discriminator.</span></div>
-      <div class="up-i"><span class="up-d">May 05</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>Vocab issuers_in_production audit closed</strong> &mdash; Day 76 audit both subtracks closed. Three phantom issuers downgraded to proposed (ThoughtProof, Revettr, Maiat). All 8 maintainer.confirmed_at dates backfilled. Issue #82 opened for AgentID, AgentGraph, PDR crosswalks.</span></div>
-      <div class="up-i"><span class="up-d">May 05</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>propagate.mjs Bug 3 fix</strong> &mdash; Verify-pass scanner now excludes historical content (UPDATES arrays, BUILD:ROADMAP regions, APS_PROFILE subset references). False-positive count dropped from 30 to 2.</span></div>
-      <div class="up-i"><span class="up-d">May 04</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Full website redesign</strong> &mdash; 33 pages restrained design, agent-discovery alternates in head, /sitemap.html overview, every link wired, dark/light toggle.</span></div>
-      <div class="up-i"><span class="up-d">Apr 03</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Bring Your Own Identity</strong> &mdash; did:key, did:web, SPIFFE SVID, OAuth interop. Python SDK proves cross-language: signatures round-trip TS ↔ Python.</span></div>
-      <div class="up-i"><span class="up-d">May 03</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Phase 4.1 alpha across four registries</strong> &mdash; SDK <code>2.6.0-alpha.2</code>, MCP <code>3.2.0</code>, Python <code>2.4.0a2</code>, Skill <code>5.9.0</code>. Rail receipts as accountability evidence (<code>claim_type</code> + <code>scope_of_claim</code>), DID URI signer with rotation-aware verifier, cross-receipt link fields. 2,884 tests. <a href="https://www.npmjs.com/package/agent-passport-system">npm</a></span></div>
-      <div class="up-i"><span class="up-d">May 03</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>Bilateral receipt cross-impl byte-match</strong> &mdash; APS canonical-bytes path verifies 5/5 against desiorac's <code>qntm</code> v0.3.1 fixture, independent of the Wave 1 cross-language scenarios. Mirror offered into <code>aeoess/aps-conformance-suite</code> for v0.3.2 mid-May publish. <a href="https://github.com/corpollc/qntm/pull/15#issuecomment-4368169755">qntm #15</a></span></div>
-      <div class="up-i"><span class="up-d">May 02</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>SDK 2.6.0-alpha.0 on npm</strong> &mdash; v2 evidentiary type safety landed: <code>claim-evidence-types</code> registry with <code>BATCH_ATTESTED</code> and <code>EVIDENCE_CUSTODY_HELD</code> extensions, <code>claim-verifier</code> module, contestation cascade with verifier hook, path-scoped cycle detection in <code>mergeTaints</code>. 2,884 tests passing. <a href="https://www.npmjs.com/package/agent-passport-system">npm</a></span></div>
-      <div class="up-i"><span class="up-d">May 02</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Python SDK 2.4.0a1 on PyPI</strong> &mdash; Full Wave 1 surface ported from TS: <code>v2/accountability/*</code> (action, authority-boundary, bundle, custody, contestability), <code>v2/cognitive_attestation/*</code>, <code>v2/instruction_provenance/*</code>. Cross-language byte-parity verified across 27 fixtures (15 evidentiary + 12 Wave 1). 518 tests. <a href="https://pypi.org/project/agent-passport-system/2.4.0a1/">PyPI</a></span></div>
-      <div class="up-i"><span class="up-d">May 02</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>Vocab phantom-issuer audit</strong> &mdash; PR #74 removed RNWY from <code>behavioral_trust</code> and <code>wallet_intelligence</code> (couldn't verify those signals are issued in production); PR #75 marked <code>passport_grade</code> as <code>status: proposed</code> (single-issuer rule). Single-source-of-truth discipline. <a href="https://github.com/aeoess/agent-governance-vocabulary/pulls?q=is%3Apr+merged%3A2026-05-02">PRs #74 + #75</a></span></div>
-      <div class="up-i"><span class="up-d">May 01</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>Vocab PR #72 opened</strong> &mdash; <code>completion_ratio</code> as canonical signal type with three production issuers (AgentID, APS, RNWY). Descriptor enforcement_class advisory, <code>completion_ratio_method</code> constraint with strict and quality-weighted modes. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/72">PR #72</a></span></div>
-      <div class="up-i"><span class="up-d">May 01</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Vocab validator hardened</strong> &mdash; nested <code>descriptor_dimensions</code> walk under <code>signal_types</code> + legacy whitelist for #57 stale values. Three pre-resolution descriptor uses preserved without warning maintainers. <a href="https://github.com/aeoess/agent-governance-vocabulary/blob/main/scripts/validate-crosswalks.js">validator</a></span></div>
-      <div class="up-i"><span class="up-d">May 01</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Drift prevention infrastructure live</strong> &mdash; pre-commit hook + CI scan + standardized <code>.gitignore</code> + final-scan propagation across eight public repos. Four layers, one structural backstop against private-context drift.</span></div>
-      <div class="up-i"><span class="up-d">Apr 30</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Wave 1 accountability shipped</strong> &mdash; Five signed receipt primitives (action, authority-boundary, custody, contestability, bundle). RFC 8785 + Ed25519, deterministic byte-match fixtures, 57 new tests. SDK <code>v2.6.0-alpha.1</code>. <a href="https://github.com/aeoess/agent-passport-system/blob/main/src/v2/accountability/README.md">module README</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 30</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocab PR #66 merged</strong> &mdash; Edison Munoz Duran's Agent-DID crosswalk lands as the second co-drafted-with-aeoess crosswalk. A2A composition contract co-drafting in flight on a shared spec branch. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/66">PR #66</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 30</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>VeritasActa cross-layer integrity 10/10</strong> &mdash; Knowledge Unit bundle with sidecar-anchored APS DecisionLineageReceipt verifies end-to-end. All ten access receipts cross-layer hash-matched, APS signature valid against sidecar JWKS. Tamper-detection holds across both layers. <a href="https://github.com/VeritasActa/verify/pull/7">verify PR #7</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 29</span><span class="up-t"><span class="up-tag t-d">paper</span><strong>Paper 8: The Evidence-Safety Gap</strong> &mdash; Cryptographic agent governance proves <em>procedural validity</em>, not <em>effect safety</em>. Compliance-complete failure named, five omitted-variable classes catalogued, defeat traces in reference implementation. <a href="https://doi.org/10.5281/zenodo.19914628">Zenodo</a>.</span></div>
-      <div class="up-i"><span class="up-d">Apr 29</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>SSRN + ORCID research surface</strong> &mdash; Three papers entering SSRN (Agent Social Contract, Physics-Enforced Delegation, Cognitive Attestation). ORCID <a href="https://orcid.org/0009-0002-4700-3594">0009-0002-4700-3594</a> live with all 8 papers indexed via DOI.</span></div>
-      <div class="up-i"><span class="up-d">Apr 29</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocab PR #52 merged</strong> &mdash; <code>entity_continuity</code> PDR validator with @nanookclaw, 309 LOC pure-Node + 32-test suite + four reference fixture vectors. Behavioral-fingerprint-drift validator complementary to <code>continuity-analyzer</code>'s structural fixture. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/52">PR #52</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 29</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>Vocab PR #61 merged</strong> &mdash; <code>epoch</code> added to <code>validity_temporal</code> enum, observer-relative ticks on substantive state transitions distinct from <code>sequence</code>'s event-relative counts. Issue #58 settled with @lawcontinue's endorsement. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/61">PR #61</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 29</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>Vocab PR #62 merged</strong> &mdash; <code>governance_attestation.refusal_authority</code> brought into formal enum compliance (<code>structurally_impossible_to_violate</code> &rarr; <code>issuer</code>). One-line correction, @lowkey-divine concurred on issue #57. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/62">PR #62</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 29</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocab PR #56 merged</strong> &mdash; AuthorPrime's Sovereign Atom crosswalk, third independent <code>entity_continuity</code> implementation alongside SBR-002 and continuity-analyzer. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/56">PR #56</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 28</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>IPR module on npm</strong> &mdash; <code>agent-passport-system@2.4.0-alpha</code> ships canonicalize/envelope/verify for binding agent authority to instruction-file digest at delegation. <a href="https://www.npmjs.com/package/agent-passport-system">npm</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 28</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocab PR #63 merged</strong> &mdash; piiiico added <code>trust_verify</code> endpoint to AgentLair behavioral_trust, AAT-based lookup without agentId resolution. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/63">PR #63</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 27</span><span class="up-t"><span class="up-tag t-d">standard</span><strong><code>agent-governance-spec</code> org created</strong> &mdash; cross-vendor spec home, co-edited with Lars Kroehl (MolTrust). <a href="https://github.com/agent-governance-spec/agent-trust-verification-providers">spec repo</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 27</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocab PR #59 merged</strong> &mdash; DCP-AI crosswalk, composite Ed25519 + ML-DSA-65 in production. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/59">PR #59</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 27</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocab PR #53 merged</strong> &mdash; AgentNexus three-issuer fixture, Step 2 of the Interop Week 1 compose chain. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/53">PR #53</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 27</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>Vocab #58 epoch enum: three-way endorsement</strong> &mdash; lawcontinue, kenneives, srotzin. <a href="https://github.com/aeoess/agent-governance-vocabulary/issues/58">#58</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 26</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>contributor-check installed</strong> &mdash; MS AGT v3.3.0 composite action live on agent-passport-system, agent-passport-mcp, agent-governance-vocabulary. Pinned to commit <code>15e001f9b53f</code>, threshold HIGH for calibration window. <a href="https://github.com/microsoft/agent-governance-toolkit/issues/1473">action source</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 26</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Vocab PR #55 opened</strong> &mdash; APS &harr; ACTA receipt crosswalk, 14 mappings (1 exact, 7 partial, 3 divergent, 2 no_mapping, 1 non_equivalent). Calibrated against <code>@veritasacta/*</code> and <code>protect-mcp</code>. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/55">PR #55</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 26</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>aeoess/governance-attestation-predicate live</strong> &mdash; in-toto sibling to nobulex's Decision Receipt PR #549. JWS+Ed25519, 5 fixture vectors, composition test passes. <a href="https://github.com/aeoess/governance-attestation-predicate">repo</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 26</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>aeoess/aps-conformance-suite live</strong> &mdash; 37 fixture vectors across 4 categories (bilateral-delegation, inference-session, instruction-provenance, AIVSS scenarios). All byte-identical reproducible. <a href="https://github.com/aeoess/aps-conformance-suite">repo</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 25</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Vocab PR #51 opened</strong> &mdash; <code>invariant-survival.md</code> descriptor doc co-authored with QueBallSharken (BBIS). <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/51">PR #51</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 25</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Vocab PR #52 opened</strong> &mdash; <code>entity_continuity</code> PDR validator with 32 tests, co-authored with nanookclaw. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/52">PR #52</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 25</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocab PR #49 merged</strong> &mdash; PIC Standard becomes the 23rd crosswalk, modeled as parallel verification surface to visa-layer issuance. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/49">PR #49</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 25</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocab PR #46 merged</strong> &mdash; AgentLair becomes the third production issuer of <code>behavioral_trust</code>, alongside RNWY and Logpose. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/46">PR #46</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 25</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>aps-system PR #19 merged</strong> &mdash; lawcontinue's seven-vector CTEF inference-session fixture pack, all RFC 8785 JCS-canonicalized and Ed25519-signed. <a href="https://github.com/aeoess/agent-passport-system/pull/19">PR #19</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 25</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>harness PR #1</strong> &mdash; MoltyCel published moltrust v0.2.0 to PyPI and opened a draft adapter PR. Mark-ready expected Monday. <a href="https://github.com/aeoess/a2a-compliance-harness/pull/1">PR #1</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 24</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>A2A extension proposal opened</strong> &mdash; <code>claim_type</code> discriminator over {identity, transport, authority, continuity}. Aligns to CTEF v0.3.1, no proto changes. <a href="https://github.com/a2aproject/A2A/issues/1786">issue</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 24</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>Five-way <code>claim_type</code> convergence</strong> &mdash; AgentGraph, AgentID, APS, Nobulex, and HiveTrust aligned on the wire-format key after a mid-thread rename. <a href="https://github.com/a2aproject/A2A/issues/1672">#1672</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 24</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>OpenClaw #49971 closed</strong> &mdash; steipete's ruling: trust providers build on five existing public hooks rather than a new core API. <a href="https://github.com/openclaw/openclaw/issues/49971">#49971</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 24</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>Canonicalization loop closed with AgentGraph</strong> &mdash; three harnesses now lock through RFC 8785 JCS bytes. Five fixtures byte-identical. <a href="https://github.com/a2aproject/A2A/issues/1672#issuecomment-4310448182">thread</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 24</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Rotation-attestation fixtures v1 live at <code>fixtures/rotation-attestation/</code>. RFC 8785 JCS, deterministic generator.</strong> <a href="https://agent-passport.org/fixtures/rotation-attestation/test-vectors.json">test-vectors</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 24</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>autogen-governance-adapter PR #1</strong> &mdash; first external security contribution. pshkv fixed a silent JWKS kid fallback in <code>_lookup_issuer_key</code>. <a href="https://github.com/aeoess/autogen-governance-adapter/pull/1">PR #1</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 24</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Housekeeping batch shipped</strong> &mdash; seven AUDIT-2026-04-24 fixes across six packages. Audit spec bumped to v2.3. <a href="https://github.com/aeoess/aeoess_web/blob/main/specs/AUDIT-2026-04-24-FIXES.md">completion</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 23</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>Microsoft AGT #1354</strong> &mdash; interop proposal posted, mapping #1386's three questions to named APS primitives. Pending response. <a href="https://github.com/microsoft/agent-governance-toolkit/issues/1354#issuecomment-4310873128">reply</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 23</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>CTEF v0.3.1 adopts APS composition-rule table verbatim</strong> &mdash; four-row per-layer grammar pulled into &sect;6.3 as normative. <a href="https://github.com/a2aproject/A2A/issues/1672#issuecomment-4310448182">thread</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 23</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Full Code Audit v2.1</strong> &mdash; pre-publish spec rewritten to forty-two steps across fourteen repos. Three tiers: code integrity, supply chain, runtime. <a href="https://github.com/aeoess/aeoess_web/blob/main/specs/cc-prompts/10-full-code-audit-v2.md">prompt</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 23</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>PR Merge Protocol v0.2</strong> &mdash; added Seven Deep-Review Dimensions for substance issues that pass surface checks. CONTRIBUTING.md expanded. <a href="https://github.com/aeoess/agent-governance-vocabulary/blob/main/CONTRIBUTING.md">CONTRIBUTING</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 23</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>BBIS classification grammar adopted</strong> &mdash; Hensley's five-bucket model replaces the prior taxonomy. M4 EffectReceipt renamed to FRCBE per qntm#7. <a href="https://github.com/corpollc/qntm/issues/7#issuecomment-4306557584">qntm#7</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 23</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Agent Ecosystem Directory shipped</strong> &mdash; three sortable tables: 18 projects, 115 contributors, 93 governance threads. Live GitHub data. <a href="https://aeoess.github.io/agent-ecosystem-map/">directory</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 22</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>autogen-governance-adapter v0.1 shipped</strong> &mdash; glue for autogen's <code>before_tool_call</code> hook. <code>governedToolCall()</code> with provider-agnostic TrustProvider, 12 tests green. <a href="https://github.com/aeoess/autogen-governance-adapter">repo</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 22</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Third aeoess PR merged in microsoft/agent-governance-toolkit</strong> &mdash; <code>examples/cognitive-attestation-governed/</code> landed via PR #1328. <a href="https://github.com/microsoft/agent-governance-toolkit/pull/1328">PR #1328</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 22</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>composed/v1 extends from three to four signals in seven hours</strong> &mdash; schchit added JEP as <code>decision_event</code> fourth signal. <a href="https://github.com/haroldmalikfrimpong-ops/agentid-aps-interop/pull/8">PR #8</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 22</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Mutual Authentication v1 shipped (SDK v2.6.0-alpha.1)</strong> &mdash; downgrade-proof four-step handshake, A2A and MCP adapters, 29 new tests. <a href="https://github.com/aeoess/agent-passport-system/blob/main/src/v2/mutual-auth/README.md">module README</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 21</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>composed/v1 three-signal worked examples</strong> &mdash; first AgentID + APS + AgentGraph envelope under one shared subject DID. Kenne LGTM'd. <a href="https://github.com/haroldmalikfrimpong-ops/agentid-aps-interop/pull/7">PR #7</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 21</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Microsoft AGT merged ADR 0006 on constitutional constraints, after our five posts on fanout-as-risk-signal.</strong> <a href="https://github.com/microsoft/agent-governance-toolkit/pull/1199">PR #1199</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 21</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>a2a-compliance-harness v0.1 shipped</strong> &mdash; five-step Python check for A2A Agent Cards. <a href="https://github.com/aeoess/a2a-compliance-harness">repo</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 21</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>A2A trust-header Week 3</strong> &mdash; dual-provider verifier, 9/9 fixtures pass. MolTrust ready for drop-in. <a href="https://github.com/ScopeBlind/agent-governance-testvectors/pull/6">PR #6</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 21</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>OpenLineage upstream PR opened</strong> &mdash; AgentAttributionRunFacet spec, four DCO-signed commits, CI green. First Agent Passport System contribution to LF-hosted. <a href="https://github.com/OpenLineage/OpenLineage/pull/4480">PR #4480</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 21</span><span class="up-t"><span class="up-tag t-d">standard</span><strong><code>context_dimensions</code> added to vocabulary</strong> &mdash; third top-level section, four day-1 entries. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/34">PR #34</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 21</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Interop Week 1 Step 1 fixture merged</strong> &mdash; AgentID <code>trust_verification</code> fixture. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/38">PR #38</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 20</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Cognitive Attestation envelope (SDK v2.1.0)</strong> — <a href="https://doi.org/10.5281/zenodo.19646276">Paper 7</a> primitive ported to SDK. JCS canonicalization, three-stage verification, typed dispute primitives.</span></div>
-      <div class="up-i"><span class="up-d">Apr 20</span><span class="up-t"><span class="up-tag t-s">ship</span><strong><code>verifyBoundWallet</code> object-form overload</strong> — Asymmetry with <code>bindWallet</code> gone. MoltyCel's ask in SDK#16.</span></div>
-      <div class="up-i"><span class="up-d">Apr 20</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>APS filed with AAIF</strong> — Project proposal <a href="https://github.com/aaif/project-proposals/issues/14">#14</a>. Path toward Linux Foundation stewardship for the protocol layer. Commercial stack kept independent.</span></div>
-      <div class="up-i"><span class="up-d">Apr 20</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>v2.0.0 promoted to npm <code>@latest</code></strong> — SDK + MCP + Python flipped from <code>@next</code>. v1.46.0 / MCP v2.27.0 parked on <code>legacy-v1</code> for six months. Four partner integrations landed clean during the stability window. <a href="https://github.com/aeoess/agent-passport-system/issues/16">Release notes</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 19</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Interop Week 1 opened</strong> — Five-signal compose test proposal. Two fixtures confirmed within 45 minutes of open (Nobulex step 2, continuity-analyzer step 3). <a href="https://github.com/aeoess/agent-governance-vocabulary/issues/36">vocab#36</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 19</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>continuity-analyzer crosswalk merged</strong> — nutstrut's <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/33">PR #33</a> after a five-check protocol review.</span></div>
-      <div class="up-i"><span class="up-d">Apr 18</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>AgentNexus Track A round-trip</strong> — Fixtures verify end-to-end under APS. JCS + Ed25519 + delegation walk + monotonic narrowing. <a href="https://github.com/aeoess/agent-passport-system/pull/17">PR #17</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 18</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>VeritasActa KU receipt signer</strong> — APS receipt slots into <code>external_receipts.aps</code>. Cross-verified. <a href="https://github.com/VeritasActa/verify/pull/7">PR #7</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 18</span><span class="up-t"><span class="up-tag t-d">paper</span><strong>Paper 7: Cognitive Attestation</strong> — A cryptographic commitment attached to an agent's action record, to which sparse-autoencoder features were active during the decision. Envelope spec, three-stage verification, four dispute primitives. Experimental results against Llama-3.1-8B via Neuronpedia. <a href="https://doi.org/10.5281/zenodo.19646276">Zenodo</a>.</span></div>
-      <div class="up-i"><span class="up-d">Apr 18</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocab registry at 14 external crosswalks</strong> — SINT refresh (<a href="https://github.com/aeoess/agent-governance-vocabulary/pull/30">PR #30</a>) and RNWY A2A Agent Card mapping (<a href="https://github.com/aeoess/agent-governance-vocabulary/pull/32">PR #32</a>) both merged same day.</span></div>
-      <div class="up-i"><span class="up-d">Apr 18</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>MnemoPay composition hook</strong> — Three-point read on <a href="https://github.com/x402-foundation/x402/pull/1904">x402#1904</a>. Composition via <code>delegation-reference</code> in <code>X-Agent-Identity</code>.</span></div>
-      <div class="up-i"><span class="up-d">Apr 18</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>ArkForge three-plane decomposition</strong> — +1 on desiorac's delegation/decision/execution model. Notes-column cross-reference pinned in ECOSYSTEM table. <a href="https://github.com/massivescale-ai/agentic-trust-framework/issues/8">ATF#8</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 17</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>aeoess-aps crosswalk published</strong> — First time we published our own crosswalk alongside the twelve external partner crosswalks in <a href="https://github.com/aeoess/agent-governance-vocabulary">the registry</a>.</span></div>
-      <div class="up-i"><span class="up-d">Apr 17</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>APS added to <code>governance_attestation.issuers_in_production</code></strong> — 4th production issuer via Build D2 JWS trust profiles.</span></div>
-      <div class="up-i"><span class="up-d">Apr 16</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Build C — Settlement Pipeline</strong> — Per-period signed settlement records aggregating Attribution Primitives across D/P/G/C axes. 3 new MCP tools, 123 modules. <a href="blog.html#day-60">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Apr 16</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Build A — unified four-axis attribution primitive</strong> — One signed Merkle receipt across D (data), P (protocol), G (governance), C (compute). Four independently-verifiable projections, one envelope. SDK v2.0.0, MCP v3.1.1, Python v0.13.0. <a href="blog.html#day-59">Blog</a>.</span></div>
-      <div class="up-i"><span class="up-d">Apr 15</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>SDK v2.0.0 — Solana wallet_ref</strong> — Added to the chain enum with base58 validation. End-to-end wallet binding now spans Ethereum, Bitcoin, Solana.</span></div>
-      <div class="up-i"><span class="up-d">Apr 15</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocabulary registry — four PRs merged</strong> — asqav (ML-DSA-65), JEP, insumerapi license fix, validator cleanup. 14+ contributors since Apr 11. <a href="https://github.com/aeoess/agent-governance-vocabulary">Repo</a>.</span></div>
-      <div class="up-i"><span class="up-d">Apr 14</span><span class="up-t"><span class="up-tag t-d">paper</span><strong>Governance in the Medium — paper published</strong> — Unit of agent governance is the population-with-medium, not the agent. Six rounds of adversarial review. <a href="https://doi.org/10.5281/zenodo.19582550">Zenodo</a>.</span></div>
-      <div class="up-i"><span class="up-d">Apr 14</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Three boundary primitives</strong> — <code>AttributionConsent</code>, <code>ProvisionalStatement</code>, <code>HumanEscalationFlag</code>. Representation, commitment, escalation. SDK <a href="https://www.npmjs.com/package/agent-passport-system">v2.0.0</a>. <a href="blog.html#day-57">Blog</a>.</span></div>
-      <div class="up-i"><span class="up-d">Apr 14</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>WG scope ratified — Authority Constraints + Vocabulary</strong> — 72-hour window closed on qntm#7. Six co-authors accepted with shipped-code evidence. <a href="https://github.com/corpollc/qntm/issues/7">qntm#7</a>.</span></div>
-      <div class="up-i"><span class="up-d">Apr 10</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>PDR v2.19 adapter batch — six primitives</strong> — Six new exports close the gap between paper citations and shipped code. SDK v2.0.0. <a href="blog.html#day-53">Blog</a>.</span></div>
-      <div class="up-i"><span class="up-d">Apr 10</span><span class="up-t"><span class="up-tag t-d">paper</span><strong>PDR in Production v2.19 cites Agent Passport System</strong> — Three-axis framework; Agent Passport System is the within-session fidelity axis. §8.10 substrate-swap is the test that would settle the orthogonality claim.</span></div>
-      <div class="up-i"><span class="up-d">Apr 10</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Agent Governance Vocabulary repo</strong> — Neutral canonical-naming layer. Four teams converging in the first hour. <a href="blog.html#day-53">Blog</a>.</span></div>
-      <div class="up-i"><span class="up-d">Apr 10</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Cross-vendor convergence</strong> — APS + MolTrust + AgentNexus on a shared <code>governance_attestation</code> envelope. APS ↔ SINT handshake v1.0-draft landed with 11 conformance tests.</span></div>
-      <div class="up-i"><span class="up-d">Apr 9</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Repositioning</strong> — SDK leads with <code>/core</code> (25 curated functions), MCP defaults to <code>APS_PROFILE=essential</code> (20 tools). Full surface still available. <a href="blog.html#day-52">Blog</a>.</span></div>
-      <div class="up-i"><span class="up-d">Apr 8</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Quantum governance on real hardware</strong> — 7 experiments on IBM Quantum. Bell 5.2pp, GHZ 7.7pp fidelity gaps. <a href="blog.html#day-51">Blog</a>.</span></div>
-      <div class="up-i"><span class="up-d">Apr 8</span><span class="up-t"><span class="up-tag t-d">paper</span><strong>Paper 5: Physics-Enforced Delegation</strong> — Governing quantum hardware quality. <a href="https://doi.org/10.5281/zenodo.19478584">Zenodo</a> · <a href="https://github.com/aeoess/aeoess-quantum-governance">Code</a>.</span></div>
-      <div class="up-i"><span class="up-d">Apr 8</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>External verification</strong> — tomjwxf verified 3/3 APS composition receipts via protect-mcp (first cross-engine). OWASP BBIS scored APS 10/12.</span></div>
-      <div class="up-i"><span class="up-d">Apr 8</span><span class="up-t"><span class="up-tag t-d">paper</span><strong>Paper 4: Behavioral Derivation Rights</strong> — Telemetry scopes, BMOs, BYOM. <a href="https://doi.org/10.5281/zenodo.19476002">Zenodo</a>.</span></div>
-      <div class="up-i"><span class="up-d">Apr 7</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>New protocol primitives</strong> — Bilateral completion receipts, scope_version_hash, measurementType discriminator, per-task-class trust profiles.</span></div>
-      <div class="up-i"><span class="up-d">Apr 5</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>6-session build day</strong> — Key rotation, auto-mint receipts, audit packets, 9-section governance export, trust bootstrap adapters. <a href="blog.html#day-48">Blog</a>.</span></div>
-      <div class="up-i"><span class="up-d">Apr 4</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Microsoft AGT approved + SINT v0.2 shipped</strong> — AGT PR#598 approved (fail-closed signature verification). SINT v0.2 shipped with our delegation_depth_floor. <a href="blog.html#day-47">Blog</a>.</span></div>
-      <div class="up-i"><span class="up-d">Apr 4</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>W3C behavioral attestation spec normative</strong> — Timing asymmetry became normative. Evidence-based passport grading + freshness semantics across 11 threads.</span></div>
-      <div class="up-i"><span class="up-d">Apr 3</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Bring Your Own Identity</strong> — did:key, did:web, SPIFFE SVID, OAuth interop. Python SDK v0.8.0 proves cross-language: signatures round-trip TS ↔ Python. <a href="blog.html#day-46">Blog</a>.</span></div>
-      <div class="up-i"><span class="up-d">Apr 3</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Microsoft AGT PR fixes + production audit PASS</strong> — Fail-closed verification, dependency pinning, input validation pushed. Audit clean.</span></div>
-      <div class="up-i"><span class="up-d">Apr 2</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>SDK v2.0.0 — governance hardening</strong> — 34 new tests. 3-layer architecture convergence across OpenShell, OWASP, W3C. <a href="blog.html#day-45">Blog</a>.</span></div>
-      <div class="up-i"><span class="up-d">Apr 1</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>First Code Integration + 5 Security Fixes</strong> — PR merged (Solana Agent Kit). 12 features, 5 security gaps closed, compaction-drift probe, tool integrity. 29 threads, 99 modules, 2,085 tests. <a href="blog.html#day-44">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 29</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Agent Wallets</strong> — Nano payment rail + wallet system. Feeless, delegation-scoped. <a href="wallet.html">Wallet</a> · <a href="blog.html#day-41">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 29</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Pixel attribution live</strong> — Data source tracking, access receipts, derivation chains, settlement. Dashboard</span></div>
-      <div class="up-i"><span class="up-d">Mar 29</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Cited in production paper</strong> — PDR in Production (University of British Columbia) validates APS Bayesian model. <a href="https://doi.org/10.5281/zenodo.19323172">Zenodo</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 28</span><span class="up-t"><span class="up-tag t-s">rebrand</span><strong>An open protocol for accountable AI agents</strong> — Academic redesign. Enterprise positioning. 10-question FAQ. <a href="blog.html#day-39">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 27</span><span class="up-t"><span class="up-tag t-d">paper</span><strong>Faceted Authority Attenuation</strong> — Product lattice model. Seven dimensions. <a href="https://doi.org/10.5281/zenodo.19260073">Zenodo</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 27</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>IETF Internet-Draft submitted</strong> — draft-pidlisnyi-aps-00. Zero idnits errors.</span></div>
-      <div class="up-i"><span class="up-d">Mar 26</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Institutional governance layer</strong> — Charter, offices, approval, federation, reserves. <a href="blog.html#day-38">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 25</span><span class="up-t"><span class="up-tag t-p">deploy</span><strong>First publication deploys APS</strong> — Every article cryptographically governed.</span></div>
-      <div class="up-i"><span class="up-d">Mar 25</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Governance distribution</strong> — aps.txt, 360 consumer loop, 150 MCP tools. <a href="blog.html#day-37">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 25</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Interactive protocol map</strong> — 57-module molecular layout. <a href="blog.html">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 24</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>3 WG specs ratified</strong> — QSP-1, DID Resolution, Entity Verification. <a href="blog.html">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 23</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>OATR founding member + data governance</strong> — Ledger, settlement, attribution. <a href="blog.html">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 22</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Constitutional v2 complete</strong> — 32 modules. 2,085 tests. <a href="blog.html#day-34">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 22</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>First encrypted relay envelope</strong> — E2E through qntm bridge. <a href="blog.html#day-35">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 21</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Decision semantics</strong> — Content-addressable decisions. <a href="blog.html#day-33">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 20</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>AMCS v0.1.0</strong> — AI-native media credentialing spec. <a href="amcs.html">Spec</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 20</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Data attribution layer</strong> — Contribution receipts, Merkle proofs. <a href="blog.html#day-32">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 19</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>8 modules in one session</strong> — Oracle witness, audit bridge, policy conflict, key rotation. <a href="blog.html#day-31">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 17</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>WG spec demand</strong> — Three groups asked for the same thing. <a href="blog.html#day-29">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 16</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>YC CEO endorsed</strong> — Garry Tan repost. Microsoft merged APS code. Federal agency reviewing. <a href="blog.html#day-28">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 15</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Mingle v2.0</strong> — Semantic matching, persistent identity, ghost mode. More</span></div>
-      <div class="up-i"><span class="up-d">Mar 14</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Substack launch</strong> — Cross-protocol bridge article. <a href="blog.html#day-25">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 12</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Mingle v1 ships</strong> — Your AI finds people for you. <a href="blog.html#day-23">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 11</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Intent Network</strong> — Publish-discover-match for agents. <a href="blog.html#day-22">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 10</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Reputation-gated authority</strong> — Agents earn trust, not just receive it. <a href="blog.html#day-21">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 9</span><span class="up-t"><span class="up-tag t-d">paper</span><strong>Paper 2: Monotonic Narrowing</strong> — Authority attenuation formalized. <a href="https://doi.org/10.5281/zenodo.18932404">Zenodo</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 7</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Autoresearch</strong> — AI finds bugs AI wrote. <a href="blog.html#day-18">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 6</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Principal identity + Python SDK</strong> — Three new protocol extensions. <a href="blog.html#day-17">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 5</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>OWASP AI Security mapping</strong> — Community health baseline. <a href="blog.html#day-16">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 4</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>SDK v1.21.2 + MCP v2.12.0</strong> — Two agents get their next mission. <a href="blog.html#day-15">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 3</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>First real audit</strong> — Agents review the code. <a href="blog.html#day-14">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 2</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Graduated enforcement + threat model</strong> — Agent District RPG. <a href="blog.html#day-13">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Mar 1</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Agentic commerce</strong> — Layer 8. 4-gate checkout. MCP v2.1.0. <a href="blog.html#day-12">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Feb 28</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Documentation sprint</strong> — llms.txt, passport spec. <a href="blog.html#day-11">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Feb 27</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Coordination primitives</strong> — Task lifecycle, evidence, review. <a href="blog.html#day-10">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Feb 25</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Intent architecture</strong> — Layer 5 foundations. <a href="blog.html#day-8">Blog</a></span></div>
-      <div class="up-i"><span class="up-d">Feb 21</span><span class="up-t"><span class="up-tag t-d">paper</span><strong>Paper 1: The Agent Social Contract</strong> — First formalization. <a href="https://doi.org/10.5281/zenodo.18749779">Zenodo</a></span></div>
-      <div class="up-i"><span class="up-d">Feb 18</span><span class="up-t"><span class="up-tag t-s">start</span><strong>Project begins</strong> — Ed25519 identity, delegation chains, first tests.</span></div>
+<span class="cmt">// full API surface still available at 'agent-passport-system'</span></pre>
+      </div>
+      <div>
+        <div class="updates">
+          <div class="up-h">Updates</div>
+          <div class="up-i"><span class="up-d">May 11</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>budget_authority crosswalk v0.1 lands at vocab repo with cycles maintainer signoff</strong> &mdash; PR #91 opens with six canonical verbs (reserve, commit, release, refund, query_budget, query_reservation) and per-verb candidate/proposed status. amavashev (Cycles maintainer) reviews against runcycles/client.py + cycles-protocol-v0.yaml, confirms two corrections on query verbs and refund row, then approves. Track B review pass and maintainer signoff complete.</span></div>
+          <div class="up-i"><span class="up-d">May 11</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>A2A#1829 four-way alignment locks on v0.3.3 working-doc + canonicalization stance</strong> &mdash; jschoemaker independently byte-match verifies our envoys-rfc9421 fixture against §13 Vector 2. kenneives commits to hosting the v0.3.3 working doc at agentgraph-co. arian-gogani confirms canonicalization position: JCS + numeric profile, no floats, semantic equivalence at tool-version layer. Five-layer composition framing carries refinement: per-receipt-type layer attribution rather than per-protocol.</span></div>
+          <div class="up-i"><span class="up-d">May 11</span><span class="up-t"><span class="up-tag t-d">research</span><strong>SSRN approves five APS research papers for academic indexing</strong> &mdash; Five papers cleared review with DISTRIBUTED status: Paper 1 Agent Social Contract, Paper 2 Monotonic Narrowing, Paper 5 Physics-Enforced Delegation, Paper 7 Cognitive Attestation, Paper 8 Evidence-Safety Gap. Each routed to 5-6 CS networks where reviewer audiences read. Crossref auto-updates the ORCID record.</span></div>
+          <div class="up-i"><span class="up-d">May 10</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>A2A#1496 spec author commits APS sits cleanly above identity framework</strong> &mdash; Libria (lead author of A2A#1496 base identity framework, CEO OpenA2A) posted three coordinated confirmations on A2A#1575/#1786/#1829. Codified four-layer composition: wire signature / identity framework / identity claims / delegation+continuity. APS delegation_receipt references #1496 §5 chain entries as inner cryptographic hop. Three independent endorsements now on §7.1 v1.5 standalone-section promotion.</span></div>
+          <div class="up-i"><span class="up-d">May 10</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>envoys-rfc9421 composition fixture lands in conformance suite</strong> &mdash; Three deterministic vectors over jschoemaker @envoys/sdk v1.4.0 §13 keypair: RFC 9421 wire signature alone, wrapped in bilateral_receipt, wrapped in 3-link delegation chain. 39 PASS / 0 FAIL, byte-identical across three runs. kenneives endorsed in A2A#1829 and committed cross-link from CTEF v0.3.2 §A Conformance Verification Appendix.</span></div>
+          <div class="up-i"><span class="up-d">May 10</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>AIVSS v0.1 review pass converges with VeloGerber</strong> &mdash; AiEGIS review covered Q1-Q4 open questions, five concrete section edits, four new TBD section proposals, four threat-model gaps. Accepted all decisions with two amendments: signed JSON published-scheme artifact for Q1, mandatory constraint_set_sha at v0.1 for Q4. v0.1 follow-up commit lands this week.</span></div>
+          <div class="up-i"><span class="up-d">May 09</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>vocab #36: PDR signing key approved, Week 1 two-signal compose locked</strong> &mdash; nanookclaw confirmed a dedicated PDR attestation key. Week 1 interop plan locks to two signals: AgentID chain root paired with PDR continuity closing, recompute via evidence_inputs[]. Nobulex byte-match verifier from arian-gogani slots in Week 2.</span></div>
+          <div class="up-i"><span class="up-d">May 09</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>OWASP AIVSS v0.1.1 patch lands with 8 findings</strong> &mdash; Co-author cycle landed within 12 hours of VeloGerber's review pass: bound-language framing, sanity-check vs tier-eligibility shape split, substrate-count discriminator. Eight findings applied direct-to-main.</span></div>
+          <div class="up-i"><span class="up-d">May 09</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>argentum RFC 001 Active with APS receipt fields</strong> &mdash; giskard09 published genesis records: human Lightning 2100 sats and autonomous agent Arbitrum 210 wei stake on the same date. SPORE stake computation reads APS receipts.</span></div>
+          <div class="up-i"><span class="up-d">May 08</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>First external PR on aivss-enforcement-effectiveness merged</strong> &mdash; VeloGerber published the canonical race-test fixture for the time-to-enforce dimension. SHA-256 byte-match verified against WORKING-TEXT.md citation; pure-stdlib portable runner exits 0 on fresh checkout with P99 4.57ms under the 50ms spec bound. PR-MERGE-PROTOCOL Track A discipline applied.</span></div>
+          <div class="up-i"><span class="up-d">May 08</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>Four-signal interop compose locked with three production implementers</strong> &mdash; nanookclaw committed to authoring fixtures/interop-week-1/composition-behavioral-trust.json by May 22 with PDR entity_continuity as closing attestation. AgentID trust_verification chain root, PDR continuity closing, Nobulex byte-match verifier. Three production implementers, three independent verification paths.</span></div>
+          <div class="up-i"><span class="up-d">May 08</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>OWASP AIVSS enforcement_effectiveness v0.1 body shipped</strong> &mdash; 3,800-word working text covering structural enforcement, empirical block-rate, time-to-enforce, and enforcement_locus dimensions. Co-authored with @VeloGerber. Customer-locus precondition set with verification paths landed in §5.3.</span></div>
+          <div class="up-i"><span class="up-d">May 08</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>APS listed in awesome-x402 ecosystem directory</strong> &mdash; xpaysh/awesome-x402 PR #328 merged. The canonical curated list for protocols building on Coinbase\'s x402 payment standard now includes APS under Related Protocols. Ecosystem map updated.</span></div>
+          <div class="up-i"><span class="up-d">May 07</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>OWASP AIVSS enforcement_effectiveness working text co-authored</strong> &mdash; VeloGerber concurred on the four-axis dimension structure: structural enforcement, empirical block-rate, time-to-enforce, enforcement_locus. Working text scoped to the dimension family, separable from the broader v1.0 rubric.</span></div>
+          <div class="up-i"><span class="up-d">May 07</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Mycelium dual-chain anchoring confirmed live</strong> &mdash; argentum verify endpoint returns Arbitrum One (chain 42161) plus Base mainnet (8453) anchors per receipt-id. Three-surface alignment operational: APS receipts, Mycelium dual-chain TrailRecord, Asqav RFC 3161 + OpenTimestamps.</span></div>
+          <div class="up-i"><span class="up-d">May 07</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>Coinbase agentkit + crewAI Guardrails ecosystem engagements</strong> &mdash; On Coinbase agentkit#1091, two-layer reading with Aigen-Protocol\'s SafeRouter (above-chain authorization plus on-chain target-safety). On crewAI #4877, common GuardrailDecision shape proposed; two providers convergent so far (APS + AgentID).</span></div>
+          <div class="up-i"><span class="up-d">May 07</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Vocab system_attributes wave</strong> &mdash; #78 (SAR) and #79 (continuity-analyzer) merged with conformant values. #86 validator enum enforcement merged. #87 (temporal-correctness gap) and #88 (soft-fail warnings) opened for follow-up. AgentID maintainer endorsed Option C.</span></div>
+          <div class="up-i"><span class="up-d">May 06</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>OWASP AISVS revocation-to-enforce dimension</strong> &mdash; VeloGerber\'s race-test methodology engaged on owasp-aisvs#31. Time-to-enforce proposed as a third axis alongside structural enforcement and empirical block-rate. Reciprocal APS-side race-test fixture committed for v1.0 panel review.</span></div>
+          <div class="up-i"><span class="up-d">May 06</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>Vocab validator blocks phantom-issuer drift</strong> &mdash; PR #86 adds CI rejection of signals that name an issuer not present at maturity:in_production in the registry. Structural fix for the failure class behind the Day 76 audit.</span></div>
+          <div class="up-i"><span class="up-d">May 06</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>Cross-rail PaymentReceipt locked with Mycelium + Asqav</strong> &mdash; Three independent persistence surfaces (APS, Base, RFC 3161+OTS) aligned on the existing PaymentReceipt shape with zero new types. Permit/revocation/re-issue lifecycle fixture landed in stripe-issuing.</span></div>
+          <div class="up-i"><span class="up-d">May 05</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Tier-2 binding-adapter conformance harness</strong> &mdash; 55 new tests landed, 2,911 total. Validates payment-rails adapter behavior across the bilateral attestation surface.</span></div>
+          <div class="up-i"><span class="up-d">May 05</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>bilateral_receipt schema convergence</strong> &mdash; kenneives (AgentGraph) concurred on three positions: name, hybrid-registry pattern, normative issued_at. Awaiting Nobulex on purpose-discriminator.</span></div>
+          <div class="up-i"><span class="up-d">May 05</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>Vocab issuers_in_production audit closed</strong> &mdash; Day 76 audit both subtracks closed. Three phantom issuers downgraded to proposed (ThoughtProof, Revettr, Maiat). All 8 maintainer.confirmed_at dates backfilled. Issue #82 opened for AgentID, AgentGraph, PDR crosswalks.</span></div>
+          <div class="up-i"><span class="up-d">May 05</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>propagate.mjs Bug 3 fix</strong> &mdash; Verify-pass scanner now excludes historical content (UPDATES arrays, BUILD:ROADMAP regions, APS_PROFILE subset references). False-positive count dropped from 30 to 2.</span></div>
+          <div class="up-i"><span class="up-d">May 04</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Full website redesign</strong> &mdash; 33 pages restrained design, agent-discovery alternates in head, /sitemap.html overview, every link wired, dark/light toggle.</span></div>
+          <div class="up-i"><span class="up-d">Apr 03</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Bring Your Own Identity</strong> &mdash; did:key, did:web, SPIFFE SVID, OAuth interop. Python SDK proves cross-language: signatures round-trip TS ↔ Python.</span></div>
+          <div class="up-i"><span class="up-d">May 03</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Phase 4.1 alpha across four registries</strong> &mdash; SDK <code>2.6.0-alpha.2</code>, MCP <code>3.2.0</code>, Python <code>2.4.0a2</code>, Skill <code>5.9.0</code>. Rail receipts as accountability evidence (<code>claim_type</code> + <code>scope_of_claim</code>), DID URI signer with rotation-aware verifier, cross-receipt link fields. 2,884 tests. <a href="https://www.npmjs.com/package/agent-passport-system">npm</a></span></div>
+          <div class="up-i"><span class="up-d">May 03</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>Bilateral receipt cross-impl byte-match</strong> &mdash; APS canonical-bytes path verifies 5/5 against desiorac's <code>qntm</code> v0.3.1 fixture, independent of the Wave 1 cross-language scenarios. Mirror offered into <code>aeoess/aps-conformance-suite</code> for v0.3.2 mid-May publish. <a href="https://github.com/corpollc/qntm/pull/15#issuecomment-4368169755">qntm #15</a></span></div>
+          <div class="up-i"><span class="up-d">May 02</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>SDK 2.6.0-alpha.0 on npm</strong> &mdash; v2 evidentiary type safety landed: <code>claim-evidence-types</code> registry with <code>BATCH_ATTESTED</code> and <code>EVIDENCE_CUSTODY_HELD</code> extensions, <code>claim-verifier</code> module, contestation cascade with verifier hook, path-scoped cycle detection in <code>mergeTaints</code>. 2,884 tests passing. <a href="https://www.npmjs.com/package/agent-passport-system">npm</a></span></div>
+          <div class="up-i"><span class="up-d">May 02</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Python SDK 2.4.0a1 on PyPI</strong> &mdash; Full Wave 1 surface ported from TS: <code>v2/accountability/*</code> (action, authority-boundary, bundle, custody, contestability), <code>v2/cognitive_attestation/*</code>, <code>v2/instruction_provenance/*</code>. Cross-language byte-parity verified across 27 fixtures (15 evidentiary + 12 Wave 1). 518 tests. <a href="https://pypi.org/project/agent-passport-system/2.4.0a1/">PyPI</a></span></div>
+          <div class="up-i"><span class="up-d">May 02</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>Vocab phantom-issuer audit</strong> &mdash; PR #74 removed RNWY from <code>behavioral_trust</code> and <code>wallet_intelligence</code> (couldn't verify those signals are issued in production); PR #75 marked <code>passport_grade</code> as <code>status: proposed</code> (single-issuer rule). Single-source-of-truth discipline. <a href="https://github.com/aeoess/agent-governance-vocabulary/pulls?q=is%3Apr+merged%3A2026-05-02">PRs #74 + #75</a></span></div>
+          <div class="up-i"><span class="up-d">May 01</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>Vocab PR #72 opened</strong> &mdash; <code>completion_ratio</code> as canonical signal type with three production issuers (AgentID, APS, RNWY). Descriptor enforcement_class advisory, <code>completion_ratio_method</code> constraint with strict and quality-weighted modes. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/72">PR #72</a></span></div>
+          <div class="up-i"><span class="up-d">May 01</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Vocab validator hardened</strong> &mdash; nested <code>descriptor_dimensions</code> walk under <code>signal_types</code> + legacy whitelist for #57 stale values. Three pre-resolution descriptor uses preserved without warning maintainers. <a href="https://github.com/aeoess/agent-governance-vocabulary/blob/main/scripts/validate-crosswalks.js">validator</a></span></div>
+          <div class="up-i"><span class="up-d">May 01</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Drift prevention infrastructure live</strong> &mdash; pre-commit hook + CI scan + standardized <code>.gitignore</code> + final-scan propagation across eight public repos. Four layers, one structural backstop against private-context drift.</span></div>
+          <div class="up-i"><span class="up-d">Apr 30</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Wave 1 accountability shipped</strong> &mdash; Five signed receipt primitives (action, authority-boundary, custody, contestability, bundle). RFC 8785 + Ed25519, deterministic byte-match fixtures, 57 new tests. SDK <code>v2.6.0-alpha.1</code>. <a href="https://github.com/aeoess/agent-passport-system/blob/main/src/v2/accountability/README.md">module README</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 30</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocab PR #66 merged</strong> &mdash; Edison Munoz Duran's Agent-DID crosswalk lands as the second co-drafted-with-aeoess crosswalk. A2A composition contract co-drafting in flight on a shared spec branch. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/66">PR #66</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 30</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>VeritasActa cross-layer integrity 10/10</strong> &mdash; Knowledge Unit bundle with sidecar-anchored APS DecisionLineageReceipt verifies end-to-end. All ten access receipts cross-layer hash-matched, APS signature valid against sidecar JWKS. Tamper-detection holds across both layers. <a href="https://github.com/VeritasActa/verify/pull/7">verify PR #7</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 29</span><span class="up-t"><span class="up-tag t-d">paper</span><strong>Paper 8: The Evidence-Safety Gap</strong> &mdash; Cryptographic agent governance proves <em>procedural validity</em>, not <em>effect safety</em>. Compliance-complete failure named, five omitted-variable classes catalogued, defeat traces in reference implementation. <a href="https://doi.org/10.5281/zenodo.19914628">Zenodo</a>.</span></div>
+          <div class="up-i"><span class="up-d">Apr 29</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>SSRN + ORCID research surface</strong> &mdash; Three papers entering SSRN (Agent Social Contract, Physics-Enforced Delegation, Cognitive Attestation). ORCID <a href="https://orcid.org/0009-0002-4700-3594">0009-0002-4700-3594</a> live with all 8 papers indexed via DOI.</span></div>
+          <div class="up-i"><span class="up-d">Apr 29</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocab PR #52 merged</strong> &mdash; <code>entity_continuity</code> PDR validator with @nanookclaw, 309 LOC pure-Node + 32-test suite + four reference fixture vectors. Behavioral-fingerprint-drift validator complementary to <code>continuity-analyzer</code>'s structural fixture. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/52">PR #52</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 29</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>Vocab PR #61 merged</strong> &mdash; <code>epoch</code> added to <code>validity_temporal</code> enum, observer-relative ticks on substantive state transitions distinct from <code>sequence</code>'s event-relative counts. Issue #58 settled with @lawcontinue's endorsement. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/61">PR #61</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 29</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>Vocab PR #62 merged</strong> &mdash; <code>governance_attestation.refusal_authority</code> brought into formal enum compliance (<code>structurally_impossible_to_violate</code> &rarr; <code>issuer</code>). One-line correction, @lowkey-divine concurred on issue #57. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/62">PR #62</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 29</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocab PR #56 merged</strong> &mdash; AuthorPrime's Sovereign Atom crosswalk, third independent <code>entity_continuity</code> implementation alongside SBR-002 and continuity-analyzer. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/56">PR #56</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 28</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>IPR module on npm</strong> &mdash; <code>agent-passport-system@2.4.0-alpha</code> ships canonicalize/envelope/verify for binding agent authority to instruction-file digest at delegation. <a href="https://www.npmjs.com/package/agent-passport-system">npm</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 28</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocab PR #63 merged</strong> &mdash; piiiico added <code>trust_verify</code> endpoint to AgentLair behavioral_trust, AAT-based lookup without agentId resolution. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/63">PR #63</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 27</span><span class="up-t"><span class="up-tag t-d">standard</span><strong><code>agent-governance-spec</code> org created</strong> &mdash; cross-vendor spec home, co-edited with Lars Kroehl (MolTrust). <a href="https://github.com/agent-governance-spec/agent-trust-verification-providers">spec repo</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 27</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocab PR #59 merged</strong> &mdash; DCP-AI crosswalk, composite Ed25519 + ML-DSA-65 in production. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/59">PR #59</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 27</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocab PR #53 merged</strong> &mdash; AgentNexus three-issuer fixture, Step 2 of the Interop Week 1 compose chain. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/53">PR #53</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 27</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>Vocab #58 epoch enum: three-way endorsement</strong> &mdash; lawcontinue, kenneives, srotzin. <a href="https://github.com/aeoess/agent-governance-vocabulary/issues/58">#58</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 26</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>contributor-check installed</strong> &mdash; MS AGT v3.3.0 composite action live on agent-passport-system, agent-passport-mcp, agent-governance-vocabulary. Pinned to commit <code>15e001f9b53f</code>, threshold HIGH for calibration window. <a href="https://github.com/microsoft/agent-governance-toolkit/issues/1473">action source</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 26</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Vocab PR #55 opened</strong> &mdash; APS &harr; ACTA receipt crosswalk, 14 mappings (1 exact, 7 partial, 3 divergent, 2 no_mapping, 1 non_equivalent). Calibrated against <code>@veritasacta/*</code> and <code>protect-mcp</code>. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/55">PR #55</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 26</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>aeoess/governance-attestation-predicate live</strong> &mdash; in-toto sibling to nobulex's Decision Receipt PR #549. JWS+Ed25519, 5 fixture vectors, composition test passes. <a href="https://github.com/aeoess/governance-attestation-predicate">repo</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 26</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>aeoess/aps-conformance-suite live</strong> &mdash; 37 fixture vectors across 4 categories (bilateral-delegation, inference-session, instruction-provenance, AIVSS scenarios). All byte-identical reproducible. <a href="https://github.com/aeoess/aps-conformance-suite">repo</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 25</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Vocab PR #51 opened</strong> &mdash; <code>invariant-survival.md</code> descriptor doc co-authored with QueBallSharken (BBIS). <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/51">PR #51</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 25</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Vocab PR #52 opened</strong> &mdash; <code>entity_continuity</code> PDR validator with 32 tests, co-authored with nanookclaw. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/52">PR #52</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 25</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocab PR #49 merged</strong> &mdash; PIC Standard becomes the 23rd crosswalk, modeled as parallel verification surface to visa-layer issuance. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/49">PR #49</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 25</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocab PR #46 merged</strong> &mdash; AgentLair becomes the third production issuer of <code>behavioral_trust</code>, alongside RNWY and Logpose. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/46">PR #46</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 25</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>aps-system PR #19 merged</strong> &mdash; lawcontinue's seven-vector CTEF inference-session fixture pack, all RFC 8785 JCS-canonicalized and Ed25519-signed. <a href="https://github.com/aeoess/agent-passport-system/pull/19">PR #19</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 25</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>harness PR #1</strong> &mdash; MoltyCel published moltrust v0.2.0 to PyPI and opened a draft adapter PR. Mark-ready expected Monday. <a href="https://github.com/aeoess/a2a-compliance-harness/pull/1">PR #1</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 24</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>A2A extension proposal opened</strong> &mdash; <code>claim_type</code> discriminator over {identity, transport, authority, continuity}. Aligns to CTEF v0.3.1, no proto changes. <a href="https://github.com/a2aproject/A2A/issues/1786">issue</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 24</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>Five-way <code>claim_type</code> convergence</strong> &mdash; AgentGraph, AgentID, APS, Nobulex, and HiveTrust aligned on the wire-format key after a mid-thread rename. <a href="https://github.com/a2aproject/A2A/issues/1672">#1672</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 24</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>OpenClaw #49971 closed</strong> &mdash; steipete's ruling: trust providers build on five existing public hooks rather than a new core API. <a href="https://github.com/openclaw/openclaw/issues/49971">#49971</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 24</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>Canonicalization loop closed with AgentGraph</strong> &mdash; three harnesses now lock through RFC 8785 JCS bytes. Five fixtures byte-identical. <a href="https://github.com/a2aproject/A2A/issues/1672#issuecomment-4310448182">thread</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 24</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Rotation-attestation fixtures v1 live at <code>fixtures/rotation-attestation/</code>. RFC 8785 JCS, deterministic generator.</strong> <a href="https://agent-passport.org/fixtures/rotation-attestation/test-vectors.json">test-vectors</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 24</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>autogen-governance-adapter PR #1</strong> &mdash; first external security contribution. pshkv fixed a silent JWKS kid fallback in <code>_lookup_issuer_key</code>. <a href="https://github.com/aeoess/autogen-governance-adapter/pull/1">PR #1</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 24</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Housekeeping batch shipped</strong> &mdash; seven AUDIT-2026-04-24 fixes across six packages. Audit spec bumped to v2.3. <a href="https://github.com/aeoess/aeoess_web/blob/main/specs/AUDIT-2026-04-24-FIXES.md">completion</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 23</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>Microsoft AGT #1354</strong> &mdash; interop proposal posted, mapping #1386's three questions to named APS primitives. Pending response. <a href="https://github.com/microsoft/agent-governance-toolkit/issues/1354#issuecomment-4310873128">reply</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 23</span><span class="up-t"><span class="up-tag t-c">convergence</span><strong>CTEF v0.3.1 adopts APS composition-rule table verbatim</strong> &mdash; four-row per-layer grammar pulled into &sect;6.3 as normative. <a href="https://github.com/a2aproject/A2A/issues/1672#issuecomment-4310448182">thread</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 23</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Full Code Audit v2.1</strong> &mdash; pre-publish spec rewritten to forty-two steps across fourteen repos. Three tiers: code integrity, supply chain, runtime. <a href="https://github.com/aeoess/aeoess_web/blob/main/specs/cc-prompts/10-full-code-audit-v2.md">prompt</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 23</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>PR Merge Protocol v0.2</strong> &mdash; added Seven Deep-Review Dimensions for substance issues that pass surface checks. CONTRIBUTING.md expanded. <a href="https://github.com/aeoess/agent-governance-vocabulary/blob/main/CONTRIBUTING.md">CONTRIBUTING</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 23</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>BBIS classification grammar adopted</strong> &mdash; Hensley's five-bucket model replaces the prior taxonomy. M4 EffectReceipt renamed to FRCBE per qntm#7. <a href="https://github.com/corpollc/qntm/issues/7#issuecomment-4306557584">qntm#7</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 23</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Agent Ecosystem Directory shipped</strong> &mdash; three sortable tables: 18 projects, 115 contributors, 93 governance threads. Live GitHub data. <a href="https://aeoess.github.io/agent-ecosystem-map/">directory</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 22</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>autogen-governance-adapter v0.1 shipped</strong> &mdash; glue for autogen's <code>before_tool_call</code> hook. <code>governedToolCall()</code> with provider-agnostic TrustProvider, 12 tests green. <a href="https://github.com/aeoess/autogen-governance-adapter">repo</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 22</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Third aeoess PR merged in microsoft/agent-governance-toolkit</strong> &mdash; <code>examples/cognitive-attestation-governed/</code> landed via PR #1328. <a href="https://github.com/microsoft/agent-governance-toolkit/pull/1328">PR #1328</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 22</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>composed/v1 extends from three to four signals in seven hours</strong> &mdash; schchit added JEP as <code>decision_event</code> fourth signal. <a href="https://github.com/haroldmalikfrimpong-ops/agentid-aps-interop/pull/8">PR #8</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 22</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Mutual Authentication v1 shipped (SDK v2.6.0-alpha.1)</strong> &mdash; downgrade-proof four-step handshake, A2A and MCP adapters, 29 new tests. <a href="https://github.com/aeoess/agent-passport-system/blob/main/src/v2/mutual-auth/README.md">module README</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 21</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>composed/v1 three-signal worked examples</strong> &mdash; first AgentID + APS + AgentGraph envelope under one shared subject DID. Kenne LGTM'd. <a href="https://github.com/haroldmalikfrimpong-ops/agentid-aps-interop/pull/7">PR #7</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 21</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Microsoft AGT merged ADR 0006 on constitutional constraints, after our five posts on fanout-as-risk-signal.</strong> <a href="https://github.com/microsoft/agent-governance-toolkit/pull/1199">PR #1199</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 21</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>a2a-compliance-harness v0.1 shipped</strong> &mdash; five-step Python check for A2A Agent Cards. <a href="https://github.com/aeoess/a2a-compliance-harness">repo</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 21</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>A2A trust-header Week 3</strong> &mdash; dual-provider verifier, 9/9 fixtures pass. MolTrust ready for drop-in. <a href="https://github.com/ScopeBlind/agent-governance-testvectors/pull/6">PR #6</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 21</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>OpenLineage upstream PR opened</strong> &mdash; AgentAttributionRunFacet spec, four DCO-signed commits, CI green. First Agent Passport System contribution to LF-hosted. <a href="https://github.com/OpenLineage/OpenLineage/pull/4480">PR #4480</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 21</span><span class="up-t"><span class="up-tag t-d">standard</span><strong><code>context_dimensions</code> added to vocabulary</strong> &mdash; third top-level section, four day-1 entries. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/34">PR #34</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 21</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Interop Week 1 Step 1 fixture merged</strong> &mdash; AgentID <code>trust_verification</code> fixture. <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/38">PR #38</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 20</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Cognitive Attestation envelope (SDK v2.1.0)</strong> — <a href="https://doi.org/10.5281/zenodo.19646276">Paper 7</a> primitive ported to SDK. JCS canonicalization, three-stage verification, typed dispute primitives.</span></div>
+          <div class="up-i"><span class="up-d">Apr 20</span><span class="up-t"><span class="up-tag t-s">ship</span><strong><code>verifyBoundWallet</code> object-form overload</strong> — Asymmetry with <code>bindWallet</code> gone. MoltyCel's ask in SDK#16.</span></div>
+          <div class="up-i"><span class="up-d">Apr 20</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>APS filed with AAIF</strong> — Project proposal <a href="https://github.com/aaif/project-proposals/issues/14">#14</a>. Path toward Linux Foundation stewardship for the protocol layer. Commercial stack kept independent.</span></div>
+          <div class="up-i"><span class="up-d">Apr 20</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>v2.0.0 promoted to npm <code>@latest</code></strong> — SDK + MCP + Python flipped from <code>@next</code>. v1.46.0 / MCP v2.27.0 parked on <code>legacy-v1</code> for six months. Four partner integrations landed clean during the stability window. <a href="https://github.com/aeoess/agent-passport-system/issues/16">Release notes</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 19</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Interop Week 1 opened</strong> — Five-signal compose test proposal. Two fixtures confirmed within 45 minutes of open (Nobulex step 2, continuity-analyzer step 3). <a href="https://github.com/aeoess/agent-governance-vocabulary/issues/36">vocab#36</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 19</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>continuity-analyzer crosswalk merged</strong> — nutstrut's <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/33">PR #33</a> after a five-check protocol review.</span></div>
+          <div class="up-i"><span class="up-d">Apr 18</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>AgentNexus Track A round-trip</strong> — Fixtures verify end-to-end under APS. JCS + Ed25519 + delegation walk + monotonic narrowing. <a href="https://github.com/aeoess/agent-passport-system/pull/17">PR #17</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 18</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>VeritasActa KU receipt signer</strong> — APS receipt slots into <code>external_receipts.aps</code>. Cross-verified. <a href="https://github.com/VeritasActa/verify/pull/7">PR #7</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 18</span><span class="up-t"><span class="up-tag t-d">paper</span><strong>Paper 7: Cognitive Attestation</strong> — A cryptographic commitment attached to an agent's action record, to which sparse-autoencoder features were active during the decision. Envelope spec, three-stage verification, four dispute primitives. Experimental results against Llama-3.1-8B via Neuronpedia. <a href="https://doi.org/10.5281/zenodo.19646276">Zenodo</a>.</span></div>
+          <div class="up-i"><span class="up-d">Apr 18</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocab registry at 14 external crosswalks</strong> — SINT refresh (<a href="https://github.com/aeoess/agent-governance-vocabulary/pull/30">PR #30</a>) and RNWY A2A Agent Card mapping (<a href="https://github.com/aeoess/agent-governance-vocabulary/pull/32">PR #32</a>) both merged same day.</span></div>
+          <div class="up-i"><span class="up-d">Apr 18</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>MnemoPay composition hook</strong> — Three-point read on <a href="https://github.com/x402-foundation/x402/pull/1904">x402#1904</a>. Composition via <code>delegation-reference</code> in <code>X-Agent-Identity</code>.</span></div>
+          <div class="up-i"><span class="up-d">Apr 18</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>ArkForge three-plane decomposition</strong> — +1 on desiorac's delegation/decision/execution model. Notes-column cross-reference pinned in ECOSYSTEM table. <a href="https://github.com/massivescale-ai/agentic-trust-framework/issues/8">ATF#8</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 17</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>aeoess-aps crosswalk published</strong> — First time we published our own crosswalk alongside the twelve external partner crosswalks in <a href="https://github.com/aeoess/agent-governance-vocabulary">the registry</a>.</span></div>
+          <div class="up-i"><span class="up-d">Apr 17</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>APS added to <code>governance_attestation.issuers_in_production</code></strong> — 4th production issuer via Build D2 JWS trust profiles.</span></div>
+          <div class="up-i"><span class="up-d">Apr 16</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Build C — Settlement Pipeline</strong> — Per-period signed settlement records aggregating Attribution Primitives across D/P/G/C axes. 3 new MCP tools, 123 modules. <a href="blog.html#day-60">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Apr 16</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Build A — unified four-axis attribution primitive</strong> — One signed Merkle receipt across D (data), P (protocol), G (governance), C (compute). Four independently-verifiable projections, one envelope. SDK v2.0.0, MCP v3.1.1, Python v0.13.0. <a href="blog.html#day-59">Blog</a>.</span></div>
+          <div class="up-i"><span class="up-d">Apr 15</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>SDK v2.0.0 — Solana wallet_ref</strong> — Added to the chain enum with base58 validation. End-to-end wallet binding now spans Ethereum, Bitcoin, Solana.</span></div>
+          <div class="up-i"><span class="up-d">Apr 15</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Vocabulary registry — four PRs merged</strong> — asqav (ML-DSA-65), JEP, insumerapi license fix, validator cleanup. 14+ contributors since Apr 11. <a href="https://github.com/aeoess/agent-governance-vocabulary">Repo</a>.</span></div>
+          <div class="up-i"><span class="up-d">Apr 14</span><span class="up-t"><span class="up-tag t-d">paper</span><strong>Governance in the Medium — paper published</strong> — Unit of agent governance is the population-with-medium, not the agent. Six rounds of adversarial review. <a href="https://doi.org/10.5281/zenodo.19582550">Zenodo</a>.</span></div>
+          <div class="up-i"><span class="up-d">Apr 14</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Three boundary primitives</strong> — <code>AttributionConsent</code>, <code>ProvisionalStatement</code>, <code>HumanEscalationFlag</code>. Representation, commitment, escalation. SDK <a href="https://www.npmjs.com/package/agent-passport-system">v2.0.0</a>. <a href="blog.html#day-57">Blog</a>.</span></div>
+          <div class="up-i"><span class="up-d">Apr 14</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>WG scope ratified — Authority Constraints + Vocabulary</strong> — 72-hour window closed on qntm#7. Six co-authors accepted with shipped-code evidence. <a href="https://github.com/corpollc/qntm/issues/7">qntm#7</a>.</span></div>
+          <div class="up-i"><span class="up-d">Apr 10</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>PDR v2.19 adapter batch — six primitives</strong> — Six new exports close the gap between paper citations and shipped code. SDK v2.0.0. <a href="blog.html#day-53">Blog</a>.</span></div>
+          <div class="up-i"><span class="up-d">Apr 10</span><span class="up-t"><span class="up-tag t-d">paper</span><strong>PDR in Production v2.19 cites Agent Passport System</strong> — Three-axis framework; Agent Passport System is the within-session fidelity axis. §8.10 substrate-swap is the test that would settle the orthogonality claim.</span></div>
+          <div class="up-i"><span class="up-d">Apr 10</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Agent Governance Vocabulary repo</strong> — Neutral canonical-naming layer. Four teams converging in the first hour. <a href="blog.html#day-53">Blog</a>.</span></div>
+          <div class="up-i"><span class="up-d">Apr 10</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Cross-vendor convergence</strong> — APS + MolTrust + AgentNexus on a shared <code>governance_attestation</code> envelope. APS ↔ SINT handshake v1.0-draft landed with 11 conformance tests.</span></div>
+          <div class="up-i"><span class="up-d">Apr 9</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Repositioning</strong> — SDK leads with <code>/core</code> (25 curated functions), MCP defaults to <code>APS_PROFILE=essential</code> (20 tools). Full surface still available. <a href="blog.html#day-52">Blog</a>.</span></div>
+          <div class="up-i"><span class="up-d">Apr 8</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Quantum governance on real hardware</strong> — 7 experiments on IBM Quantum. Bell 5.2pp, GHZ 7.7pp fidelity gaps. <a href="blog.html#day-51">Blog</a>.</span></div>
+          <div class="up-i"><span class="up-d">Apr 8</span><span class="up-t"><span class="up-tag t-d">paper</span><strong>Paper 5: Physics-Enforced Delegation</strong> — Governing quantum hardware quality. <a href="https://doi.org/10.5281/zenodo.19478584">Zenodo</a> · <a href="https://github.com/aeoess/aeoess-quantum-governance">Code</a>.</span></div>
+          <div class="up-i"><span class="up-d">Apr 8</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>External verification</strong> — tomjwxf verified 3/3 APS composition receipts via protect-mcp (first cross-engine). OWASP BBIS scored APS 10/12.</span></div>
+          <div class="up-i"><span class="up-d">Apr 8</span><span class="up-t"><span class="up-tag t-d">paper</span><strong>Paper 4: Behavioral Derivation Rights</strong> — Telemetry scopes, BMOs, BYOM. <a href="https://doi.org/10.5281/zenodo.19476002">Zenodo</a>.</span></div>
+          <div class="up-i"><span class="up-d">Apr 7</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>New protocol primitives</strong> — Bilateral completion receipts, scope_version_hash, measurementType discriminator, per-task-class trust profiles.</span></div>
+          <div class="up-i"><span class="up-d">Apr 5</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>6-session build day</strong> — Key rotation, auto-mint receipts, audit packets, 9-section governance export, trust bootstrap adapters. <a href="blog.html#day-48">Blog</a>.</span></div>
+          <div class="up-i"><span class="up-d">Apr 4</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Microsoft AGT approved + SINT v0.2 shipped</strong> — AGT PR#598 approved (fail-closed signature verification). SINT v0.2 shipped with our delegation_depth_floor. <a href="blog.html#day-47">Blog</a>.</span></div>
+          <div class="up-i"><span class="up-d">Apr 4</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>W3C behavioral attestation spec normative</strong> — Timing asymmetry became normative. Evidence-based passport grading + freshness semantics across 11 threads.</span></div>
+          <div class="up-i"><span class="up-d">Apr 3</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Bring Your Own Identity</strong> — did:key, did:web, SPIFFE SVID, OAuth interop. Python SDK v0.8.0 proves cross-language: signatures round-trip TS ↔ Python. <a href="blog.html#day-46">Blog</a>.</span></div>
+          <div class="up-i"><span class="up-d">Apr 3</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Microsoft AGT PR fixes + production audit PASS</strong> — Fail-closed verification, dependency pinning, input validation pushed. Audit clean.</span></div>
+          <div class="up-i"><span class="up-d">Apr 2</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>SDK v2.0.0 — governance hardening</strong> — 34 new tests. 3-layer architecture convergence across OpenShell, OWASP, W3C. <a href="blog.html#day-45">Blog</a>.</span></div>
+          <div class="up-i"><span class="up-d">Apr 1</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>First Code Integration + 5 Security Fixes</strong> — PR merged (Solana Agent Kit). 12 features, 5 security gaps closed, compaction-drift probe, tool integrity. 29 threads, 99 modules, 2,085 tests. <a href="blog.html#day-44">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 29</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Agent Wallets</strong> — Nano payment rail + wallet system. Feeless, delegation-scoped. <a href="wallet.html">Wallet</a> · <a href="blog.html#day-41">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 29</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Pixel attribution live</strong> — Data source tracking, access receipts, derivation chains, settlement. Dashboard</span></div>
+          <div class="up-i"><span class="up-d">Mar 29</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>Cited in production paper</strong> — PDR in Production (University of British Columbia) validates APS Bayesian model. <a href="https://doi.org/10.5281/zenodo.19323172">Zenodo</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 28</span><span class="up-t"><span class="up-tag t-s">rebrand</span><strong>An open protocol for accountable AI agents</strong> — Academic redesign. Enterprise positioning. 10-question FAQ. <a href="blog.html#day-39">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 27</span><span class="up-t"><span class="up-tag t-d">paper</span><strong>Faceted Authority Attenuation</strong> — Product lattice model. Seven dimensions. <a href="https://doi.org/10.5281/zenodo.19260073">Zenodo</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 27</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>IETF Internet-Draft submitted</strong> — draft-pidlisnyi-aps-00. Zero idnits errors.</span></div>
+          <div class="up-i"><span class="up-d">Mar 26</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Institutional governance layer</strong> — Charter, offices, approval, federation, reserves. <a href="blog.html#day-38">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 25</span><span class="up-t"><span class="up-tag t-p">deploy</span><strong>First publication deploys APS</strong> — Every article cryptographically governed.</span></div>
+          <div class="up-i"><span class="up-d">Mar 25</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Governance distribution</strong> — aps.txt, 360 consumer loop, 150 MCP tools. <a href="blog.html#day-37">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 25</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Interactive protocol map</strong> — 57-module molecular layout. <a href="blog.html">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 24</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>3 WG specs ratified</strong> — QSP-1, DID Resolution, Entity Verification. <a href="blog.html">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 23</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>OATR founding member + data governance</strong> — Ledger, settlement, attribution. <a href="blog.html">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 22</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Constitutional v2 complete</strong> — 32 modules. 2,085 tests. <a href="blog.html#day-34">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 22</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>First encrypted relay envelope</strong> — E2E through qntm bridge. <a href="blog.html#day-35">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 21</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Decision semantics</strong> — Content-addressable decisions. <a href="blog.html#day-33">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 20</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>AMCS v0.1.0</strong> — AI-native media credentialing spec. <a href="amcs.html">Spec</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 20</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Data attribution layer</strong> — Contribution receipts, Merkle proofs. <a href="blog.html#day-32">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 19</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>8 modules in one session</strong> — Oracle witness, audit bridge, policy conflict, key rotation. <a href="blog.html#day-31">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 17</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>WG spec demand</strong> — Three groups asked for the same thing. <a href="blog.html#day-29">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 16</span><span class="up-t"><span class="up-tag t-t">traction</span><strong>YC CEO endorsed</strong> — Garry Tan repost. Microsoft merged APS code. Federal agency reviewing. <a href="blog.html#day-28">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 15</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Mingle v2.0</strong> — Semantic matching, persistent identity, ghost mode. More</span></div>
+          <div class="up-i"><span class="up-d">Mar 14</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Substack launch</strong> — Cross-protocol bridge article. <a href="blog.html#day-25">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 12</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Mingle v1 ships</strong> — Your AI finds people for you. <a href="blog.html#day-23">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 11</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Intent Network</strong> — Publish-discover-match for agents. <a href="blog.html#day-22">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 10</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Reputation-gated authority</strong> — Agents earn trust, not just receive it. <a href="blog.html#day-21">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 9</span><span class="up-t"><span class="up-tag t-d">paper</span><strong>Paper 2: Monotonic Narrowing</strong> — Authority attenuation formalized. <a href="https://doi.org/10.5281/zenodo.18932404">Zenodo</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 7</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Autoresearch</strong> — AI finds bugs AI wrote. <a href="blog.html#day-18">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 6</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Principal identity + Python SDK</strong> — Three new protocol extensions. <a href="blog.html#day-17">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 5</span><span class="up-t"><span class="up-tag t-d">standard</span><strong>OWASP AI Security mapping</strong> — Community health baseline. <a href="blog.html#day-16">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 4</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>SDK v1.21.2 + MCP v2.12.0</strong> — Two agents get their next mission. <a href="blog.html#day-15">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 3</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>First real audit</strong> — Agents review the code. <a href="blog.html#day-14">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 2</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Graduated enforcement + threat model</strong> — Agent District RPG. <a href="blog.html#day-13">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Mar 1</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Agentic commerce</strong> — Layer 8. 4-gate checkout. MCP v2.1.0. <a href="blog.html#day-12">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Feb 28</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Documentation sprint</strong> — llms.txt, passport spec. <a href="blog.html#day-11">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Feb 27</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Coordination primitives</strong> — Task lifecycle, evidence, review. <a href="blog.html#day-10">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Feb 25</span><span class="up-t"><span class="up-tag t-s">ship</span><strong>Intent architecture</strong> — Layer 5 foundations. <a href="blog.html#day-8">Blog</a></span></div>
+          <div class="up-i"><span class="up-d">Feb 21</span><span class="up-t"><span class="up-tag t-d">paper</span><strong>Paper 1: The Agent Social Contract</strong> — First formalization. <a href="https://doi.org/10.5281/zenodo.18749779">Zenodo</a></span></div>
+          <div class="up-i"><span class="up-d">Feb 18</span><span class="up-t"><span class="up-tag t-s">start</span><strong>Project begins</strong> — Ed25519 identity, delegation chains, first tests.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Protocol Architecture</h2>
+    <iframe class="arch-embed" src="protocol-architecture.html" loading="lazy" title="Agent Passport System Protocol Architecture"></iframe>
+
+    <h2>What is Agent Passport System</h2>
+    <div class="faq-section">
+      <div class="faq-item"><div class="faq-q">What does the protocol do?</div><div class="faq-a">Agent Passport System makes every AI agent accountable. Every agent gets a <strong>cryptographic identity</strong> (Ed25519). Authority can only narrow, never expand. Trust is earned through performance, not granted. One API call revokes all downstream access. Cryptographic proof of every action, every dollar, every decision.</div></div>
+      <div class="faq-item"><div class="faq-q">How is it different from other agent frameworks?</div><div class="faq-a">Most frameworks handle orchestration. Agent Passport System handles enforcement: <strong>what can this agent do, and what happens when it violates a constraint?</strong> Bring your own identity (did:key, did:web, SPIFFE, OAuth, did:aps). The gateway is both judge and executor. Monotonic narrowing, cascade revocation, earned reputation, values floor enforcement, 4-gate commerce, agent-to-agent payments, Merkle-proven attribution, cross-DID-method composition, mutual authentication, instruction-provenance receipts. Policy eval under 2ms. 2,884 tests. Works with any framework.</div></div>
+      <div class="faq-item"><div class="faq-q">Is this production-ready?</div><div class="faq-a">Policy evaluation in <strong>under 2ms</strong>. 403 ops/sec sustained throughput. Sub-millisecond denial. 14 constraint dimensions checked per action. 2,884 tests. Eight published papers. An IETF Internet-Draft (<strong>draft-pidlisnyi-aps-00</strong>). 20 essential MCP tools (150 total). SDK on npm and PyPI. <span id="faq-dl-count">tens of thousands of</span> installs. Independently cited by PDR in Production (University of British Columbia). Apache-2.0 licensed.</div></div>
+      <div class="faq-item"><div class="faq-q">Who is this for?</div><div class="faq-a">Anyone deploying AI agents that act on behalf of people or companies. <strong>Enterprises</strong> that need audit trails and spending controls. <strong>Developers</strong> building multi-agent systems. <strong>Platforms</strong> that need to verify which agents can do what.</div></div>
+      <div class="faq-item"><div class="faq-q">How does delegation work?</div><div class="faq-a">A human delegates authority to an agent with explicit scope: what tools, how much money, which services. The agent can sub-delegate, but <strong>authority can only narrow, never expand</strong>. Revoke the root and everything downstream dies instantly.</div></div>
+      <div class="faq-item"><div class="faq-q">How do I integrate with my existing framework?</div><div class="faq-a">Agent Passport System works alongside any agent framework — CrewAI, LangChain, A2A, ADK, or custom. The SDK provides the identity and governance layer; your framework handles orchestration. The MCP server exposes every protocol operation — <strong>20 essential tools by default</strong>, full surface under <code>APS_PROFILE=full</code>. Install the SDK, issue a passport, attach it to your agent. The framework doesn't need to change.</div></div>
+      <div class="faq-item"><div class="faq-q">How does revocation work at scale?</div><div class="faq-a"><strong>Cascade revocation.</strong> Delegation chains form a tree. Revoke any node and every downstream delegation dies instantly — all sub-agents, all sub-sub-agents. One API call. The gateway enforces this at the boundary, so revoked agents can't sneak through on cached credentials. Circuit breakers auto-trip on error rate spikes.</div></div>
+      <div class="faq-item"><div class="faq-q">Is there a standard?</div><div class="faq-a">Yes. <strong>draft-pidlisnyi-aps-00</strong> is submitted to the IETF. Eight papers on Zenodo formalize the theory: monotonic narrowing, product lattice authority model, institutional governance composition. Three WG specifications ratified: QSP-1, DID Resolution, Entity Verification.</div></div>
+      <div class="faq-item"><div class="faq-q">What about compliance?</div><div class="faq-a">The SDK includes <strong>EU AI Act Article 10 mapping</strong> and AIVSS risk assessment (5 strong, 3 partial, 2 weak — honestly rated). Every action produces a signed receipt. The audit trail is cryptographic, not log-based. Compliance reports can be generated from the receipt chain.</div></div>
+    </div>
+
+    <div class="agent-box"><strong>For AI agents:</strong> Visit <a href="https://agent-passport.org/AGENTS.md">AGENTS.md</a> for agent-friendly project instructions, <a href="https://agent-passport.org/llms.txt">llms.txt</a> for machine-readable documentation, <a href="https://agent-passport.org/llms-full.txt">llms-full.txt</a> for the full technical reference, or <a href="https://agent-passport.org/.well-known/mcp.json">.well-known/mcp.json</a> for MCP server discovery. This page is designed for humans.</div>
+  </div></div></div>
+</main>
+
+<footer class="colophon">
+  <div class="wrap">
+    <div class="colo-grid">
+      <div>
+        <h3 class="head">An <span class="it">open</span> protocol.<br>An open <span class="it">house.</span></h3>
+        <p>APS is maintained as a public good. The spec is CC0. The code is Apache 2.0. The conformance suite is yours to fork.</p>
+        <p>Show up. File issues. Send patches. Bring your edge case — somebody, somewhere, is running into it too.</p>
+        <a class="btn btn-light" style="color:var(--paper);border-color:var(--paper)" href="/working-group.html">Join the working group ↗</a>
+      </div>
+      <div>
+        <h5>Protocol</h5>
+        <ul>
+          <li><a href="/passport.html">Documentation</a></li>
+          <li><a href="/benchmarks.html">Benchmarks</a></li>
+          <li><a href="/threat-model.html">Threat Model</a></li>
+          <li><a href="/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Developers</h5>
+        <ul>
+          <li><a href="https://github.com/aeoess">GitHub</a></li>
+          <li><a href="https://www.npmjs.com/package/agent-passport-system">npm</a></li>
+          <li><a href="https://pypi.org/project/agent-passport-system/">PyPI</a></li>
+          <li><a href="/wallet.html">Agent Wallet</a></li>
+          <li><a href="/AGENTS.md">AGENTS.md</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Community</h5>
+        <ul>
+          <li><a href="/blog.html">Dev Log</a></li>
+          <li><a href="/roadmap.html">Roadmap</a></li>
+          <li><a href="/working-group.html">Working Group</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Research</h5>
+        <ul>
+          <li><a href="/research.html">Agent Social Contract</a></li>
+          <li><a href="/research.html">Monotonic Narrowing</a></li>
+          <li><a href="/research.html">Faceted Authority Attenuation</a></li>
+          <li><a href="/research.html">Behavioral Derivation Rights</a></li>
+          <li><a href="/research.html">Physics-Enforced Delegation</a></li>
+          <li><a href="/research.html">Governance in the Medium</a></li>
+          <li><a href="/research.html">Cognitive Attestation</a></li>
+          <li><a href="/research.html">Evidence-Safety Gap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="colo-foot">
+      <div>License<b>Spec CC0 · Code Apache 2.0</b></div>
+      <div>Editor<b>Tymofii Pidlisnyi</b></div>
+      <div>Standard<b>APS · IETF Internet-Draft</b></div>
+      <div>Imprint<b>Vol. 01 · 2026 · agent-passport.org</b></div>
     </div>
   </div>
-</section>
-<iframe class="arch-embed" src="protocol-architecture.html" loading="lazy" title="Agent Passport System Protocol Architecture"></iframe>
-<section class="faq-section">
-  <div class="faq-title">What is Agent Passport System</div>
-  <div class="faq-item"><div class="faq-q">What does the protocol do?</div><div class="faq-a">Agent Passport System makes every AI agent accountable. Every agent gets a <strong>cryptographic identity</strong> (Ed25519). Authority can only narrow, never expand. Trust is earned through performance, not granted. One API call revokes all downstream access. Cryptographic proof of every action, every dollar, every decision.</div></div>
-  <div class="faq-item"><div class="faq-q">How is it different from other agent frameworks?</div><div class="faq-a">Most frameworks handle orchestration. Agent Passport System handles enforcement: <strong>what can this agent do, and what happens when it violates a constraint?</strong> Bring your own identity (did:key, did:web, SPIFFE, OAuth, did:aps). The gateway is both judge and executor. Monotonic narrowing, cascade revocation, earned reputation, values floor enforcement, 4-gate commerce, agent-to-agent payments, Merkle-proven attribution, cross-DID-method composition, mutual authentication, instruction-provenance receipts. Policy eval under 2ms. 2,884 tests. Works with any framework.</div></div>
-  <div class="faq-item"><div class="faq-q">Is this production-ready?</div><div class="faq-a">Policy evaluation in <strong>under 2ms</strong>. 403 ops/sec sustained throughput. Sub-millisecond denial. 14 constraint dimensions checked per action. 2,884 tests. Eight published papers. An IETF Internet-Draft (<strong>draft-pidlisnyi-aps-00</strong>). 20 essential MCP tools (150 total). SDK on npm and PyPI. <span id="faq-dl-count">tens of thousands of</span> installs. Independently cited by PDR in Production (University of British Columbia). Apache-2.0 licensed.</div></div>
-  <div class="faq-item"><div class="faq-q">Who is this for?</div><div class="faq-a">Anyone deploying AI agents that act on behalf of people or companies. <strong>Enterprises</strong> that need audit trails and spending controls. <strong>Developers</strong> building multi-agent systems. <strong>Platforms</strong> that need to verify which agents can do what.</div></div>
-  <div class="faq-item"><div class="faq-q">How does delegation work?</div><div class="faq-a">A human delegates authority to an agent with explicit scope: what tools, how much money, which services. The agent can sub-delegate, but <strong>authority can only narrow, never expand</strong>. Revoke the root and everything downstream dies instantly.</div></div>
-  <div class="faq-item"><div class="faq-q">How do I integrate with my existing framework?</div><div class="faq-a">Agent Passport System works alongside any agent framework — CrewAI, LangChain, A2A, ADK, or custom. The SDK provides the identity and governance layer; your framework handles orchestration. The MCP server exposes every protocol operation — <strong>20 essential tools by default</strong>, full surface under <code>APS_PROFILE=full</code>. Install the SDK, issue a passport, attach it to your agent. The framework doesn't need to change.</div></div>
-  <div class="faq-item"><div class="faq-q">How does revocation work at scale?</div><div class="faq-a"><strong>Cascade revocation.</strong> Delegation chains form a tree. Revoke any node and every downstream delegation dies instantly — all sub-agents, all sub-sub-agents. One API call. The gateway enforces this at the boundary, so revoked agents can't sneak through on cached credentials. Circuit breakers auto-trip on error rate spikes.</div></div>
-  <div class="faq-item"><div class="faq-q">Is there a standard?</div><div class="faq-a">Yes. <strong>draft-pidlisnyi-aps-00</strong> is submitted to the IETF. Eight papers on Zenodo formalize the theory: monotonic narrowing, product lattice authority model, institutional governance composition. Three WG specifications ratified: QSP-1, DID Resolution, Entity Verification.</div></div>
-  <div class="faq-item"><div class="faq-q">What about compliance?</div><div class="faq-a">The SDK includes <strong>EU AI Act Article 10 mapping</strong> and AIVSS risk assessment (5 strong, 3 partial, 2 weak — honestly rated). Every action produces a signed receipt. The audit trail is cryptographic, not log-based. Compliance reports can be generated from the receipt chain.</div></div>
-</section>
-<div class="agent-box"><strong>For AI agents:</strong> Visit <a href="https://agent-passport.org/AGENTS.md">AGENTS.md</a> for agent-friendly project instructions, <a href="https://agent-passport.org/llms.txt">llms.txt</a> for machine-readable documentation, <a href="https://agent-passport.org/llms-full.txt">llms-full.txt</a> for the full technical reference, or <a href="https://agent-passport.org/.well-known/mcp.json">.well-known/mcp.json</a> for MCP server discovery. This page is designed for humans.</div>
-<footer class="footer-wrap" role="contentinfo">
-<div class="footer-inner">
-  <div class="footer-grid">
-    <div class="footer-col"><h4>Protocol</h4><a href="passport.html">Documentation</a><a href="benchmarks.html">Benchmarks</a><a href="threat-model.html">Threat Model</a><a href="faq.html">FAQ</a></div>
-    <div class="footer-col"><h4>Developers</h4><a href="https://github.com/aeoess">GitHub</a><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="wallet.html">Agent Wallet</a><a href="AGENTS.md">AGENTS.md</a><a href="llms.txt">llms.txt</a></div>
-    <div class="footer-col"><h4>Community</h4><a href="blog.html">Dev Log</a><a href="roadmap.html">Roadmap</a><a href="working-group.html">Working Group</a></div>
-    <div class="footer-col"><h4>Research</h4><a href="https://doi.org/10.5281/zenodo.18749779">Agent Social Contract</a><a href="https://doi.org/10.5281/zenodo.18932404">Monotonic Narrowing</a><a href="https://doi.org/10.5281/zenodo.19260073">Faceted Authority Attenuation</a><a href="https://doi.org/10.5281/zenodo.19476002">Behavioral Derivation Rights</a><a href="https://doi.org/10.5281/zenodo.19478584">Physics-Enforced Delegation</a><a href="https://doi.org/10.5281/zenodo.19582550">Governance in the Medium</a><a href="https://doi.org/10.5281/zenodo.19646276">Cognitive Attestation</a><a href="https://doi.org/10.5281/zenodo.19914628">Evidence-Safety Gap</a></div>
-  </div>
-  <div class="footer-bottom"><span class="footer-copy">Agent Passport System &copy; 2026 &middot; Apache-2.0 &middot; Built by <a href="https://tymofii.me">Tymofii Pidlisnyi</a></span><div class="footer-ext"><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="https://github.com/aeoess">GitHub</a></div></div>
-</div>
 </footer>
-</div>
 <script>
-function toggleTheme(){var d=document.documentElement.getAttribute('data-theme')==='dark';var n=d?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('aeoess-theme',n);document.querySelector('.theme-btn').textContent=n==='dark'?'\u2600':'\u263E';}
+function toggleTheme(){var d=document.documentElement.getAttribute('data-theme')==='dark';var n=d?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('aeoess-theme',n);document.querySelector('.theme-btn').textContent=n==='dark'?'☀':'☾';}
 function closeDrawer(){document.querySelector('.nav-burger')?.classList.remove('open');document.querySelector('.nav-drawer')?.classList.remove('open');}
-(function(){var s=localStorage.getItem('aeoess-theme');if(s)document.documentElement.setAttribute('data-theme',s);else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.setAttribute('data-theme','dark');var b=document.querySelector('.theme-btn');if(b)b.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'\u2600':'\u263E';})();
-window.addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('scrolled',window.scrollY>40)});
+(function(){var s=localStorage.getItem('aeoess-theme');if(s)document.documentElement.setAttribute('data-theme',s);else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.setAttribute('data-theme','dark');var b=document.querySelector('.theme-btn');if(b)b.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'☀':'☾';})();
+window.addEventListener('scroll',function(){var n=document.getElementById('nav');if(n)n.classList.toggle('scrolled',window.scrollY>40)});
 document.querySelectorAll('.install-cmd').forEach(function(el){el.addEventListener('click',function(){var txt=this.textContent.replace('$ ','');navigator.clipboard.writeText(txt);this.textContent='Copied!';var self=this;setTimeout(function(){self.innerHTML='<span class="cm">$</span> '+txt},1200)})});
 (async function(){try{var d=new Date().toISOString().slice(0,10);var r=await Promise.all([fetch('https://api.npmjs.org/downloads/point/2026-02-18:'+d+'/agent-passport-system').then(function(r){return r.json()}),fetch('https://api.npmjs.org/downloads/point/2026-02-18:'+d+'/agent-passport-system-mcp').then(function(r){return r.json()})]);var t=(r[0].downloads||0)+(r[1].downloads||0);var f=t.toLocaleString();var e=document.getElementById('dl-badge');if(e){e.textContent=f+'+ installs';e.classList.add('b-b')}var fq=document.getElementById('faq-dl-count');if(fq){fq.textContent=f+'+'}}catch(e){}})();
 // Auto-resize the protocol-architecture iframe based on its reported content height
 window.addEventListener('message',function(e){if(!e.data||e.data.type!=='aeoess-arch-embed:height')return;var ifr=document.querySelector('iframe.arch-embed');if(!ifr)return;var h=Math.max(300,Math.min(2000,parseInt(e.data.height,10)||0));if(h)ifr.style.height=h+'px'});
 </script>
-
 </body>
 </html>

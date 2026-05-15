@@ -2,8 +2,8 @@
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Blog | APS</title>
+<meta name="viewport" content="width=1440">
 <!-- PROPAGATION-ZONE-START -->
 <meta name="description" content="Day-by-day dev log of building the Agent Passport System — enforcement and accountability layer for AI agents. Bring your own identity. Policy eval under 2ms. 2,884 tests. SDK leads with /core subpath (curated essentials), MCP leads with 20 essential tools. Full surface area: 150 MCP tools, 8 research papers, IETF Internet-Draft. Started February 18, 2026.">
 <meta name="keywords" content="AI agent identity, agent passport, Ed25519, MCP server, multi-agent coordination, agentic commerce, AI governance, delegation chains, values floor, cryptographic identity, agent protocol, open source AI infrastructure, build in public">
@@ -15,8 +15,7 @@
 <link rel="alternate" type="application/json" href="https://aeoess.com/.well-known/mcp.json" title="MCP server discovery">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=20260428a">
+<link rel="stylesheet" href="/aps-design.css">
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
@@ -748,19 +747,79 @@
 </script>
 
 <style>
-.site-footer-sub{border-top:1px solid var(--text);padding:2rem 0 1.5rem;margin-top:3rem}
-.footer-inner{max-width:1200px;margin:0 auto;padding:0 2rem}
-.footer-grid-sub{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-bottom:1.5rem}
-.fcol h4{font:600 .6rem var(--mono);color:var(--text);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem}
-.fcol a{display:block;font:.75rem/1.8 var(--sans);color:var(--muted);text-decoration:none;transition:color .15s}
-.fcol a:hover{color:var(--text)}
-.footer-bar{display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid var(--border);font:.7rem var(--sans);color:var(--muted)}
-.footer-bar a{color:var(--muted);text-decoration:none;transition:color .15s}
-.footer-bar a:hover{color:var(--accent)}
-.footer-links{display:flex;gap:.8rem}
-.footer-links a{font:.6rem var(--mono)}
-@media(max-width:768px){.footer-grid-sub{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.footer-grid-sub{grid-template-columns:1fr}}
+/* ── Blog page-specific: newsprint re-skin of existing entry markup ──
+   Old inline-style color vars are aliased to newsprint tokens so the
+   .post entries restyle without editing each entry's markup. */
+:root{
+  --dim:var(--ink-2);
+  --text:var(--ink);
+  --accent:var(--stamp);
+  --link:var(--stamp);
+  --ink-5:var(--ink-3);
+}
+.blog-feed{max-width:var(--maxw);margin:0 auto;padding:64px 48px 96px;position:relative;z-index:1}
+
+/* dev-log entry as a dated newsprint record */
+.blog-feed .post{
+  border-top:1px solid var(--rule);
+  padding:40px 0;
+  display:grid;grid-template-columns:170px 1fr;gap:40px;
+  align-items:start;
+}
+.blog-feed .post:first-of-type{border-top:0;padding-top:0}
+.blog-feed .post .post-date{
+  font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;
+  font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--stamp);padding-top:6px;display:block;
+}
+.blog-feed .post h2{
+  font-family:var(--tweak-body-font,"Newsreader"),Georgia,serif;
+  font-size:30px;line-height:1.12;letter-spacing:-0.022em;font-weight:500;
+  color:var(--ink);margin:0 0 16px;text-wrap:balance;
+}
+.blog-feed .post p{
+  font-family:"Inter",-apple-system,system-ui,sans-serif;
+  font-size:16px;line-height:1.66;color:var(--ink-2)!important;
+  font-weight:400;margin:0 0 14px;
+}
+.blog-feed .post p:last-child{margin-bottom:0}
+.blog-feed .post p[style*="font-size:.95rem"]{font-size:16px!important}
+.blog-feed .post strong{color:var(--ink)!important;font-weight:600}
+.blog-feed .post a{
+  color:var(--stamp);text-decoration:none;
+  border-bottom:1px solid #b83a2e55;transition:border-color .15s;
+}
+.blog-feed .post a:hover{border-bottom-color:var(--stamp)}
+.blog-feed .post code{
+  font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;
+  font-size:13px;background:var(--paper-2);
+  border:1px solid var(--rule-soft);padding:1px 6px;border-radius:3px;
+  color:var(--ink);
+}
+.blog-feed .post pre{
+  background:var(--ink);color:var(--paper);
+  font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;
+  font-size:13px;line-height:1.62;padding:20px 22px;overflow-x:auto;
+  margin:0 0 18px;border:1px solid var(--ink);
+}
+.blog-feed .post pre code{background:none;border:0;padding:0;color:inherit}
+
+/* the "for AI agents" callout near the bottom */
+.blog-feed .agent-note{
+  margin:48px auto 0;max-width:none;
+  padding:18px 22px;border:1px solid var(--rule);background:var(--paper-2);
+  font-family:"Inter",-apple-system,system-ui,sans-serif;
+  font-size:14px;line-height:1.6;color:var(--ink-2);border-radius:0;
+}
+.blog-feed .agent-note strong{color:var(--ink);font-weight:600}
+.blog-feed .agent-note a{color:var(--stamp);border-bottom:1px solid #b83a2e55;text-decoration:none}
+
+@media(max-width:860px){
+  .blog-feed{padding:48px 24px 72px}
+  .blog-feed .post{grid-template-columns:1fr;gap:10px}
+  .blog-feed .post .post-date{padding-top:0}
+  .blog-feed .post h2{font-size:25px}
+}
 </style>
 <script type="application/aps-governance+json">
 {
@@ -785,41 +844,67 @@
 </script>
 </head>
 <body>
-<nav class="nav" id="nav">
-  <a href="/" class="nav-logo"><img src="/assets/images/aeoess_logo-05.png" alt="APS" width="158" height="26" style="height:26px;width:auto"></a>
-  <div class="nav-links"><a href="wallet.html">Wallet</a><a href="blog.html">Blog</a><a href="roadmap.html">Roadmap</a><a href="passport.html">Spec</a><a href="https://github.com/aeoess">GitHub</a><a href="https://github.com/agent-passport-system/aps-web/issues">Contact</a></div>
-  <div class="nav-right"><button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button><div class="nav-burger" onclick="this.classList.toggle('open');document.querySelector('.nav-drawer').classList.toggle('open')"><span></span><span></span><span></span></div></div>
-</nav>
-<div class="nav-drawer">
-  <div class="drawer-section">
-    <div class="drawer-section-title">Build</div>
-    Portal
-    <a href="passport.html" onclick="closeDrawer()">Spec</a>
-    API Reference
-  </div>
-  <div class="drawer-section">
-    <div class="drawer-section-title">Explore</div>
-    <a href="blog.html" onclick="closeDrawer()">Blog</a>
-    <a href="roadmap.html" onclick="closeDrawer()">Roadmap</a>
-    Compare
-    <a href="faq.html" onclick="closeDrawer()">FAQ</a>
-  </div>
-  <div class="drawer-section">
-    <div class="drawer-section-title">Connect</div>
-    <a href="wallet.html" onclick="closeDrawer()">Wallet</a>
-    <a href="https://github.com/aeoess" onclick="closeDrawer()">GitHub</a>
-    <a href="https://github.com/agent-passport-system/aps-web/issues" onclick="closeDrawer()">Contact</a>
+<div class="pub-bar">
+  <div class="wrap pub-bar-inner">
+    <span>AGENT PASSPORT SYSTEM</span>
+    <div class="marquee">
+      <div class="marquee-inner">
+        <span><b>draft-pidlisnyi-aps-00</b> · IETF agent passport Internet-Draft</span>
+        <span><b>v0.7.2</b> released · conformance suite +94 tests · 2,884 total</span>
+        <span><b>npm · PyPI</b> · agent-passport-system shipped</span>
+        <span><b>Vocabulary repo</b> · 45 external PRs · 23 contributors</span>
+        <span><b>Verifier</b> · 11 lines · any runtime</span>
+        <span><b>&le; 2 ms</b> policy eval · 14 caveat dimensions</span>
+        <span><b>draft-pidlisnyi-aps-00</b> · IETF agent passport Internet-Draft</span>
+        <span><b>v0.7.2</b> released · conformance suite +94 tests · 2,884 total</span>
+        <span><b>npm · PyPI</b> · agent-passport-system shipped</span>
+        <span><b>Vocabulary repo</b> · 45 external PRs · 23 contributors</span>
+        <span><b>Verifier</b> · 11 lines · any runtime</span>
+        <span><b>&le; 2 ms</b> policy eval · 14 caveat dimensions</span>
+      </div>
+    </div>
+    <span>VOL. 01 · ISSUE 07 · 2026</span>
   </div>
 </div>
-<div class="w">
-<div class="page-hero">
-  <div class="breadcrumb"><a href="/">APS</a> / Blog</div>
-  <h1>Dev Log: Building Agent Passport System</h1>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="mast-row">
+      <div class="wordmark">
+        <span class="logo"></span>
+        <span>Agent Passport System</span>
+        <span class="it">— the open protocol</span>
+      </div>
+      <nav class="mast-nav">
+        <a href="/passport.html">Spec</a>
+        <a href="https://github.com/aeoess">Quickstart</a>
+        <a href="/research.html">Papers</a>
+        <a href="/working-group.html">Community</a>
+        <a href="/blog.html" class="on">Blog</a>
+      </nav>
+      <div class="mast-meta">
+        <b>Apache 2.0 · CC0</b><br>
+        github.com/aeoess
+      </div>
+    </div>
+    <div class="mast-strap">
+      <span>Downloads</span><span class="dot"></span><b>21,529+ installs</b><span class="dot"></span><span>npm · PyPI · MCP</span>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">Dev Log</div>
+    <h1>Building Agent Passport System, <span class="it">day by day.</span></h1>
 <!-- PROPAGATION-ZONE-START -->
-  <p class="sub">Day-by-day record of building the enforcement and accountability layer for AI agents. Bring your own identity: did:key, did:web, SPIFFE, OAuth, native did:aps. Started February 18, 2026. 2,884 tests, eight papers, IETF draft. Open source. <span style="color:var(--ink-5)">Full surface area: 150 MCP tools.</span></p>
+    <p class="dek">Day-by-day record of building the enforcement and accountability layer for AI agents. Bring your own identity: did:key, did:web, SPIFFE, OAuth, native did:aps. Started February 18, 2026. <b>2,884 tests, eight papers, IETF draft.</b> Open source. Full surface area: 150 MCP tools.</p>
 <!-- PROPAGATION-ZONE-END -->
-  <p class="sub" style="margin-top:.6rem">See the full picture on <a href="roadmap.html" style="font-weight:600">the roadmap</a> — every ship across protocol, product, research, comms, and ops with dependency arrows.</p>
-</div>
+    <p class="dek" style="font-size:16px;margin-top:14px">See the full picture on <a href="roadmap.html" style="font-weight:600;color:var(--stamp)">the roadmap</a> — every ship across protocol, product, research, comms, and ops with dependency arrows.</p>
+  </div>
+</section>
+
+<main class="blog-feed">
 
 <article class="post" id="day-85-press-launch-rationalization-rename">
   <time class="post-date" datetime="2026-05-12">May 12, 2026</time>
@@ -1752,24 +1837,67 @@ import { /* anything from the full surface */ } from 'agent-passport-system'</pr
   <p style="color:var(--dim);font-size:.95rem;line-height:1.75">Notes on building agent infrastructure at speed. Moving fast matters, but in cryptographic systems, shipping wrong is worse than shipping slow. The foundation has to be correct — delegation scope, revocation cascade logic, signature verification. Everything above depends on these primitives working exactly right.</p>
 </article>
 
-<div style="margin:2rem auto;max-width:680px;padding:1.2rem 1.5rem;border:1px solid rgba(99,179,237,.25);border-radius:10px;background:rgba(99,179,237,.06);font-size:.9rem;line-height:1.6;color:var(--dim)"><strong style="color:var(--text)">🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://aeoess.com/llms.txt" style="color:var(--accent)">aeoess.com/llms.txt</a> for machine-readable documentation or <a href="https://aeoess.com/llms-full.txt" style="color:var(--accent)">llms-full.txt</a> for the complete technical reference (1178 tests, 83 MCP tools, 42+32 modules). This page is designed for humans.</div>
-<footer class="footer-wrap" role="contentinfo">
-<div class="footer-inner">
-  <div class="footer-grid">
-    <div class="footer-col"><h4>Protocol</h4><a href="passport.html">Documentation</a><a href="benchmarks.html">Benchmarks</a>Compare<a href="threat-model.html">Threat Model</a><a href="faq.html">FAQ</a></div>
-    <div class="footer-col"><h4>Developers</h4><a href="https://github.com/aeoess">GitHub</a><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a>PortalGateway<a href="wallet.html">Agent Wallet</a><a href="AGENTS.md">AGENTS.md</a><a href="llms.txt">llms.txt</a></div>
-    <div class="footer-col"><h4>Community</h4><a href="blog.html">Dev Log</a><a href="roadmap.html">Roadmap</a><a href="working-group.html">Working Group</a>MingleAgora</div>
-    <div class="footer-col"><h4>Research</h4><a href="https://doi.org/10.5281/zenodo.18749779">Agent Social Contract</a><a href="https://doi.org/10.5281/zenodo.18932404">Monotonic Narrowing</a><a href="https://doi.org/10.5281/zenodo.19260073">Faceted Authority Attenuation</a><a href="https://doi.org/10.5281/zenodo.19476002">Behavioral Derivation Rights</a><a href="https://doi.org/10.5281/zenodo.19478584">Physics-Enforced Delegation</a><a href="https://doi.org/10.5281/zenodo.19582550">Governance in the Medium</a><a href="https://doi.org/10.5281/zenodo.19646276">Cognitive Attestation</a><a href="https://doi.org/10.5281/zenodo.19914628">Evidence-Safety Gap</a></div>
+<div class="agent-note"><strong>🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://aeoess.com/llms.txt">aeoess.com/llms.txt</a> for machine-readable documentation or <a href="https://aeoess.com/llms-full.txt">llms-full.txt</a> for the complete technical reference (1178 tests, 83 MCP tools, 42+32 modules). This page is designed for humans.</div>
+</main>
+
+<footer class="colophon">
+  <div class="wrap">
+    <div class="colo-grid">
+      <div>
+        <h3 class="head">An <span class="it">open</span> protocol.<br>An open <span class="it">house.</span></h3>
+        <p>APS is maintained as a public good. The spec is CC0. The code is Apache 2.0. The conformance suite is yours to fork.</p>
+        <p>Show up. File issues. Send patches. Bring your edge case — somebody, somewhere, is running into it too.</p>
+        <a class="btn btn-light" style="color:var(--paper);border-color:var(--paper)" href="/working-group.html">Join the working group ↗</a>
+      </div>
+      <div>
+        <h5>Protocol</h5>
+        <ul>
+          <li><a href="/passport.html">Documentation</a></li>
+          <li><a href="/benchmarks.html">Benchmarks</a></li>
+          <li><a href="/threat-model.html">Threat Model</a></li>
+          <li><a href="/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Developers</h5>
+        <ul>
+          <li><a href="https://github.com/aeoess">GitHub</a></li>
+          <li><a href="https://www.npmjs.com/package/agent-passport-system">npm</a></li>
+          <li><a href="https://pypi.org/project/agent-passport-system/">PyPI</a></li>
+          <li><a href="/wallet.html">Agent Wallet</a></li>
+          <li><a href="/AGENTS.md">AGENTS.md</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Community</h5>
+        <ul>
+          <li><a href="/blog.html">Dev Log</a></li>
+          <li><a href="/roadmap.html">Roadmap</a></li>
+          <li><a href="/working-group.html">Working Group</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Research</h5>
+        <ul>
+          <li><a href="/research.html">Agent Social Contract</a></li>
+          <li><a href="/research.html">Monotonic Narrowing</a></li>
+          <li><a href="/research.html">Faceted Authority Attenuation</a></li>
+          <li><a href="/research.html">Behavioral Derivation Rights</a></li>
+          <li><a href="/research.html">Physics-Enforced Delegation</a></li>
+          <li><a href="/research.html">Governance in the Medium</a></li>
+          <li><a href="/research.html">Cognitive Attestation</a></li>
+          <li><a href="/research.html">Evidence-Safety Gap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="colo-foot">
+      <div>License<b>Spec CC0 · Code Apache 2.0</b></div>
+      <div>Editor<b>Tymofii Pidlisnyi</b></div>
+      <div>Standard<b>APS · IETF Internet-Draft</b></div>
+      <div>Imprint<b>Vol. 01 · 2026 · agent-passport.org</b></div>
+    </div>
   </div>
-  <div class="footer-bottom"><span class="footer-copy">APS &copy; 2026 &middot; Apache-2.0 &middot; Built by <a href="https://tymofii.me">Tymofii Pidlisnyi</a></span><div class="footer-ext"><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="https://github.com/aeoess">GitHub</a></div></div>
-</div>
 </footer>
-</div>
-<script>
-function toggleTheme(){var d=document.documentElement.getAttribute('data-theme')==='dark';var n=d?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('aeoess-theme',n);var b=document.querySelector('.theme-btn');if(b)b.textContent=n==='dark'?'\u2600':'\u263E';}
-function closeDrawer(){document.querySelector('.nav-burger')?.classList.remove('open');document.querySelector('.nav-drawer')?.classList.remove('open');}
-(function(){var s=localStorage.getItem('aeoess-theme');if(s)document.documentElement.setAttribute('data-theme',s);else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.setAttribute('data-theme','dark');var b=document.querySelector('.theme-btn');if(b)b.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'\u2600':'\u263E';})();
-window.addEventListener('scroll',function(){var n=document.getElementById('nav');if(n)n.classList.toggle('scrolled',window.scrollY>40)});
-</script>
 </body>
 </html>

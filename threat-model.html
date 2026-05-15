@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Threat Model | Agent Passport System</title>
 <meta name="description" content="Threat model for the Agent Passport System: assets, threat actors, attack surface by layer, mitigations with test references, assumptions, and non-goals. 38 adversarial scenarios tested.">
 <link rel="canonical" href="https://agent-passport.org/threat-model.html">
@@ -12,30 +11,21 @@
 <meta property="og:title" content="Threat Model — Agent Passport System">
 <meta property="og:description" content="Security analysis: assets, threat actors, attack surface, mitigations, assumptions, and non-goals for the Agent Passport System protocol.">
 <meta property="og:url" content="https://agent-passport.org/threat-model.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Agent Passport Threat Model — 38 Attack Scenarios">
+<meta name="twitter:description" content="Security analysis of an AI agent identity protocol. Threat actors, attack surface, mitigations with test references.">
+<meta name="twitter:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
+<meta name="viewport" content="width=1440">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=20260428a">
+<link rel="stylesheet" href="/aps-design.css">
 <style>
-.tm-table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:.88rem}
-.tm-table th,.tm-table td{padding:.6rem .8rem;text-align:left;border-bottom:1px solid rgba(255,255,255,.08)}
-.tm-table th{font-weight:600;color:var(--accent,#6366f1);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em}
-.tm-table tr:hover td{background:rgba(255,255,255,.02)}
-.tm-tag{display:inline-block;padding:.15rem .5rem;border-radius:3px;font-size:.72rem;font-weight:600;letter-spacing:.02em}
-.tm-tag.blocked{background:rgba(34,197,94,.15);color:#22c55e}
-.tm-tag.detected{background:rgba(234,179,8,.15);color:#eab308}
-.tm-tag.mitigated{background:rgba(59,130,246,.15);color:#3b82f6}
-.tm-tag.ngoal{background:rgba(239,68,68,.15);color:#ef4444}
-.test-ref{font-family:var(--mono);font-size:.78rem;color:var(--muted);display:block;margin-top:.3rem}
-.test-ref a{color:var(--muted);text-decoration:underline;text-decoration-style:dotted}
-.test-ref a:hover{color:var(--accent)}
-.assumption-list{list-style:none;padding:0;margin:1rem 0}
-.assumption-list li{padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.05);line-height:1.6}
-.assumption-list li::before{content:"△ ";color:var(--accent);font-weight:600}
-.nongoal-list{list-style:none;padding:0;margin:1rem 0}
-.nongoal-list li{padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.05);line-height:1.6}
-.nongoal-list li::before{content:"✗ ";color:#ef4444;font-weight:600}
-.section-intro{color:var(--dim);line-height:1.7;margin-bottom:1.5rem;font-size:.92rem}
+  .tm-tag{display:inline-block;padding:.1rem .5rem;border-radius:3px;font-size:.72rem;font-weight:600;letter-spacing:.02em;font-family:"JetBrains Mono",ui-monospace,monospace;white-space:nowrap}
+  .tm-tag.blocked{background:#e3efe3;color:#2f7a3a}
+  .tm-tag.detected{background:#f3ead0;color:#9a7a14}
+  .tm-tag.mitigated{background:#dfe8f3;color:#2f5a9a}
+  .tm-tag.ngoal{background:#f3dede;color:#a33}
+  .test-ref{display:block;margin-top:.3rem;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.78rem}
 </style>
 
 <!-- Google Analytics -->
@@ -46,26 +36,6 @@
   gtag('js', new Date());
   gtag('config', 'G-S7QVCJGMKR');
 </script>
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Agent Passport Threat Model — 38 Attack Scenarios">
-<meta name="twitter:description" content="Security analysis of an AI agent identity protocol. Threat actors, attack surface, mitigations with test references.">
-<meta name="twitter:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
-
-<style>
-.site-footer-sub{border-top:1px solid var(--text);padding:2rem 0 1.5rem;margin-top:3rem}
-.footer-inner{max-width:1200px;margin:0 auto;padding:0 2rem}
-.footer-grid-sub{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-bottom:1.5rem}
-.fcol h4{font:600 .6rem var(--mono);color:var(--text);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem}
-.fcol a{display:block;font:.75rem/1.8 var(--sans);color:var(--muted);text-decoration:none;transition:color .15s}
-.fcol a:hover{color:var(--text)}
-.footer-bar{display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid var(--border);font:.7rem var(--sans);color:var(--muted)}
-.footer-bar a{color:var(--muted);text-decoration:none;transition:color .15s}
-.footer-bar a:hover{color:var(--accent)}
-.footer-links{display:flex;gap:.8rem}
-.footer-links a{font:.6rem var(--mono)}
-@media(max-width:768px){.footer-grid-sub{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.footer-grid-sub{grid-template-columns:1fr}}
-</style>
 <script type="application/aps-governance+json">
 {
   "@context": "https://aeoess.com/governance/v1",
@@ -87,496 +57,542 @@
   "signature": "f3ad228ec2e00d5bac6becee8ca34612d64038861961ccd4b34ffbfc94e2df17e3555bee08d99157515bb16e1e0fc227c5baef1f806a32284ca95772c485fc0f"
 }
 </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"Threat Model \u2014 Agent Passport System | Agent Passport System Security Analysis","description":"Threat model for the Agent Passport System: assets, threat actors, attack surface by layer, mitigations with test references, assumptions, and non-goals. 38 adversarial scenarios tested.","url":"https://agent-passport.org/threat-model.html","dateModified":"2026-05-02","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"Agent Passport System Threat Model","articleSection":"Security Analysis"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"Threat Model — Agent Passport System | Agent Passport System Security Analysis","description":"Threat model for the Agent Passport System: assets, threat actors, attack surface by layer, mitigations with test references, assumptions, and non-goals. 38 adversarial scenarios tested.","url":"https://agent-passport.org/threat-model.html","dateModified":"2026-05-02","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"Agent Passport System Threat Model","articleSection":"Security Analysis"}</script>
 </head>
 <body>
-<nav class="nav" id="nav">
-  <a href="/" class="nav-logo"><span style="font:600 14px/1 var(--sans,system-ui);letter-spacing:.5px">Agent Passport System</span></a>
-  <div class="nav-links"><a href="wallet.html">Wallet</a><a href="blog.html">Blog</a><a href="roadmap.html">Roadmap</a><a href="passport.html">Spec</a><a href="https://github.com/aeoess">GitHub</a><a href="https://github.com/agent-passport-system/aps-web/issues">Contact</a></div>
-  <div class="nav-right"><button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button><div class="nav-burger" onclick="this.classList.toggle('open');document.querySelector('.nav-drawer').classList.toggle('open')"><span></span><span></span><span></span></div></div>
-</nav>
-<div class="nav-drawer">
-  <div class="drawer-section">
-    <div class="drawer-section-title">Build</div>
-    Portal
-    <a href="passport.html" onclick="closeDrawer()">Spec</a>
-    API Reference
-  </div>
-  <div class="drawer-section">
-    <div class="drawer-section-title">Explore</div>
-    <a href="blog.html" onclick="closeDrawer()">Blog</a>
-    <a href="roadmap.html" onclick="closeDrawer()">Roadmap</a><a href="faq.html" onclick="closeDrawer()">FAQ</a>
-  </div>
-  <div class="drawer-section">
-    <div class="drawer-section-title">Connect</div>
-    <a href="wallet.html" onclick="closeDrawer()">Wallet</a>
-    <a href="https://github.com/aeoess" onclick="closeDrawer()">GitHub</a>
-    <a href="https://github.com/agent-passport-system/aps-web/issues" onclick="closeDrawer()">Contact</a>
+
+<div class="pub-bar">
+  <div class="wrap pub-bar-inner">
+    <span>AGENT PASSPORT SYSTEM</span>
+    <div class="marquee">
+      <div class="marquee-inner">
+        <span><b>draft-pidlisnyi-aps-00</b> · IETF agent passport Internet-Draft</span>
+        <span><b>v0.7.2</b> released · conformance suite +94 tests · 2,884 total</span>
+        <span><b>npm · PyPI</b> · agent-passport-system shipped</span>
+        <span><b>Vocabulary repo</b> · 45 external PRs · 23 contributors</span>
+        <span><b>Verifier</b> · 11 lines · any runtime</span>
+        <span><b>&le; 2 ms</b> policy eval · 14 caveat dimensions</span>
+        <span><b>draft-pidlisnyi-aps-00</b> · IETF agent passport Internet-Draft</span>
+        <span><b>v0.7.2</b> released · conformance suite +94 tests · 2,884 total</span>
+        <span><b>npm · PyPI</b> · agent-passport-system shipped</span>
+        <span><b>Vocabulary repo</b> · 45 external PRs · 23 contributors</span>
+        <span><b>Verifier</b> · 11 lines · any runtime</span>
+        <span><b>&le; 2 ms</b> policy eval · 14 caveat dimensions</span>
+      </div>
+    </div>
+    <span>VOL. 01 · ISSUE 07 · 2026</span>
   </div>
 </div>
-<div class="w">
-<div class="page-hero">
-  <div class="breadcrumb"><a href="/">Agent Passport System</a> / Threat Model</div>
-  <h1>Threat Model</h1>
-  <p class="sub">Security analysis of the Agent Passport System. What we protect, what we assume, what we test, and what we explicitly do not solve. Every mitigation references a specific test. Last updated March 2026 against SDK v2.6.0-alpha.1 (2,884 tests, 38 adversarial scenarios).</p>
-</div>
 
-<!-- 1. SCOPE -->
-<section>
-<h2>1. System Model</h2>
-<p class="section-intro">The Agent Passport System operates as a <strong>client-side protocol library</strong>. It runs inside agent runtimes (Node.js, browser, Python via canonical serialization). There is no central server, no blockchain, no consensus network. Each agent holds its own Ed25519 private key and produces signed artifacts (passports, delegations, receipts, messages) that any other party can verify using only the public key and the signed data.</p>
+<header class="masthead">
+  <div class="wrap">
+    <div class="mast-row">
+      <div class="wordmark">
+        <span class="logo"></span>
+        <span>Agent Passport System</span>
+        <span class="it">— the open protocol</span>
+      </div>
+      <nav class="mast-nav">
+        <a href="/passport.html">Spec</a>
+        <a href="https://github.com/aeoess">Quickstart</a>
+        <a href="/research.html">Papers</a>
+        <a href="/working-group.html">Community</a>
+        <a href="/blog.html">Blog</a>
+      </nav>
+      <div class="mast-meta">
+        <b>Apache 2.0 · CC0</b><br>
+        github.com/aeoess
+      </div>
+    </div>
+    <div class="mast-strap">
+      <span>Downloads</span><span class="dot"></span><b>21,529+ installs</b><span class="dot"></span><span>npm · PyPI · MCP</span>
+    </div>
+  </div>
+</header>
 
-<p>The protocol boundary is the <strong>signed artifact</strong>. The system guarantees: if a signature verifies, the claimed agent produced the data, the data has not been tampered with, and the delegation chain is valid at verification time. Everything outside this boundary — key storage, network transport, runtime integrity — is outside scope.</p>
-</section>
+<main>
+  <section class="page-hero"><div class="wrap">
+    <div class="eyebrow"><a href="/">Agent Passport System</a> / Threat Model</div>
+    <h1>Threat <span class="it">Model</span></h1>
+    <p class="dek">Security analysis of the Agent Passport System. What we protect, what we assume, what we test, and what we explicitly do not solve. Every mitigation references a specific test. Last updated March 2026 against SDK v2.6.0-alpha.1 (2,884 tests, 38 adversarial scenarios).</p>
+  </div></section>
 
-<!-- 2. ASSETS -->
-<section>
-<h2>2. Assets</h2>
-<p class="section-intro">What the protocol protects, ordered by criticality.</p>
-<table class="tm-table">
-<thead><tr><th>Asset</th><th>Description</th><th>Compromise Impact</th></tr></thead>
-<tbody>
-<tr><td><strong>Delegation authority</strong></td><td>Scoped permissions granted from human principal → agent → sub-agent, with spend caps and depth limits</td><td>Unauthorized actions taken on behalf of a human, spend limit bypass, scope escalation</td></tr>
-<tr><td><strong>Agent identity</strong></td><td>Ed25519 keypair binding an agent to a unique, verifiable identity</td><td>Impersonation, forged receipts, false attribution</td></tr>
-<tr><td><strong>Attribution chain</strong></td><td>Signed receipts tracing every action back to its human beneficiary through the delegation chain</td><td>Unattributable actions, gaming of contribution weights, broken audit trails</td></tr>
-<tr><td><strong>Spend budgets</strong></td><td>Cumulative spend tracking against delegation limits, enforced at the commerce gate</td><td>Unauthorized purchases, budget overruns, financial loss to human principal</td></tr>
-<tr><td><strong>Values Floor compliance</strong></td><td>Attestation + enforcement of 7 principles with graduated modes</td><td>Agents operating without accountability, unscoped authority, non-auditable actions</td></tr>
-<tr><td><strong>Revocation state</strong></td><td>Cascade revocation propagating from parent delegation to all descendants</td><td>Revoked agents continue operating, zombie delegations, stale authority</td></tr>
-</tbody>
-</table>
-</section>
+  <div class="aps-prose"><div class="wrap"><div class="col">
 
-<!-- 3. THREAT ACTORS -->
-<section>
-<h2>3. Threat Actors</h2>
-<p class="section-intro">The protocol assumes agents may be adversarial. Agents are software — they can be compromised, misconfigured, or intentionally malicious. The threat model does not assume good faith from any agent.</p>
-<table class="tm-table">
-<thead><tr><th>Actor</th><th>Capability</th><th>Goal</th></tr></thead>
-<tbody>
-<tr><td><strong>Rogue agent</strong></td><td>Holds valid keypair and delegation. Attempts to exceed authorized scope.</td><td>Execute actions outside delegation scope, escalate spend limits, bypass depth restrictions</td></tr>
-<tr><td><strong>Impersonator</strong></td><td>Holds own keypair. Does not hold target agent's private key.</td><td>Forge signatures to claim another agent's identity, create fake delegations</td></tr>
-<tr><td><strong>Replay attacker</strong></td><td>Can observe signed artifacts on the network.</td><td>Reuse old delegations, receipts, or messages to gain unauthorized access</td></tr>
-<tr><td><strong>Scope escalator</strong></td><td>Holds valid sub-delegation. Attempts to widen scope or deepen chain.</td><td>Grant themselves or others permissions beyond what was delegated</td></tr>
-<tr><td><strong>Attribution gamer</strong></td><td>Holds valid delegation. Creates many low-value or fraudulent receipts.</td><td>Inflate attribution weight through spam, high-spend manipulation, or falsified results</td></tr>
-<tr><td><strong>Colluding agents</strong></td><td>Two or more agents with valid keypairs cooperating.</td><td>Circumvent single-agent controls through coordinated action</td></tr>
-<tr><td><strong>Compromised runtime</strong></td><td>Full access to agent process memory, including private keys.</td><td>Extract keys, forge arbitrary signatures, bypass all protocol controls</td></tr>
-</tbody>
-</table>
-</section>
+    <h2>1. System Model</h2>
+    <p>The Agent Passport System operates as a <strong>client-side protocol library</strong>. It runs inside agent runtimes (Node.js, browser, Python via canonical serialization). There is no central server, no blockchain, no consensus network. Each agent holds its own Ed25519 private key and produces signed artifacts (passports, delegations, receipts, messages) that any other party can verify using only the public key and the signed data.</p>
+    <p>The protocol boundary is the <strong>signed artifact</strong>. The system guarantees: if a signature verifies, the claimed agent produced the data, the data has not been tampered with, and the delegation chain is valid at verification time. Everything outside this boundary — key storage, network transport, runtime integrity — is outside scope.</p>
 
-<!-- 4. ASSUMPTIONS -->
-<section>
-<h2>4. Trust Assumptions</h2>
-<p class="section-intro">Security properties hold only when these assumptions hold. If an assumption is violated, the corresponding properties degrade as described.</p>
-<ul class="assumption-list">
-<li><strong>Ed25519 is cryptographically sound.</strong> We use Node.js native <code>node:crypto</code> Ed25519 — the same implementation used by OpenSSH. If Ed25519 is broken, all signature-based guarantees fail. This is a foundational assumption shared with SSH, Signal, and TLS 1.3.</li>
-<li><strong>Private keys are held securely by the agent runtime.</strong> The protocol does not manage key storage. If a private key is extracted, the attacker can produce valid signatures indistinguishable from the legitimate agent. Key management is the responsibility of the deployment environment (HSM, secure enclave, encrypted storage). See <a href="#nongoals">Non-Goals §7.1</a>.</li>
-<li><strong>The human principal is reachable for high-value approvals.</strong> The commerce layer generates signed approval requests for purchases above configurable thresholds. The protocol assumes a human can countersign within the approval window (default: 30 minutes). If the human is unreachable, the purchase blocks — this is the intended behavior.</li>
-<li><strong>Clocks are roughly synchronized.</strong> Delegation expiry and receipt timestamps depend on system clocks. The protocol uses ISO 8601 timestamps and checks expiry at verification time. Clock skew beyond the delegation's validity window can cause false rejections (fail-safe) or delayed revocation detection (fail-open, bounded by the skew).</li>
-<li><strong>Network transport is not our layer.</strong> The protocol does not provide confidentiality or transport-layer security. Signed artifacts can be transmitted over any channel — HTTPS, WebSocket, file system, email — and verified independently. Use TLS for confidentiality. Use the Agora for signed, verifiable communication.</li>
-<li><strong>Agent creation is human-gated.</strong> Agents are created by humans who hold the root delegation authority. The protocol does not provide permissionless agent creation or sybil resistance at the identity layer. One human can create many agents, but all trace back to that human through the delegation chain. See <a href="#nongoals">Non-Goals §7.3</a>.</li>
-</ul>
-</section>
+    <h2>2. Assets</h2>
+    <p>What the protocol protects, ordered by criticality.</p>
+    <table>
+    <thead><tr><th>Asset</th><th>Description</th><th>Compromise Impact</th></tr></thead>
+    <tbody>
+    <tr><td><strong>Delegation authority</strong></td><td>Scoped permissions granted from human principal → agent → sub-agent, with spend caps and depth limits</td><td>Unauthorized actions taken on behalf of a human, spend limit bypass, scope escalation</td></tr>
+    <tr><td><strong>Agent identity</strong></td><td>Ed25519 keypair binding an agent to a unique, verifiable identity</td><td>Impersonation, forged receipts, false attribution</td></tr>
+    <tr><td><strong>Attribution chain</strong></td><td>Signed receipts tracing every action back to its human beneficiary through the delegation chain</td><td>Unattributable actions, gaming of contribution weights, broken audit trails</td></tr>
+    <tr><td><strong>Spend budgets</strong></td><td>Cumulative spend tracking against delegation limits, enforced at the commerce gate</td><td>Unauthorized purchases, budget overruns, financial loss to human principal</td></tr>
+    <tr><td><strong>Values Floor compliance</strong></td><td>Attestation + enforcement of 7 principles with graduated modes</td><td>Agents operating without accountability, unscoped authority, non-auditable actions</td></tr>
+    <tr><td><strong>Revocation state</strong></td><td>Cascade revocation propagating from parent delegation to all descendants</td><td>Revoked agents continue operating, zombie delegations, stale authority</td></tr>
+    </tbody>
+    </table>
 
-<!-- 5. ATTACK SURFACE -->
-<section>
-<h2>5. Attack Surface & Mitigations</h2>
-<p class="section-intro">Organized by protocol layer. Each attack maps to a specific defense mechanism and a test that verifies it. Test references link to the <a href="https://github.com/aeoess/agent-passport-system/tree/main/tests" target="_blank">test directory on GitHub</a>.</p>
+    <h2>3. Threat Actors</h2>
+    <p>The protocol assumes agents may be adversarial. Agents are software — they can be compromised, misconfigured, or intentionally malicious. The threat model does not assume good faith from any agent.</p>
+    <table>
+    <thead><tr><th>Actor</th><th>Capability</th><th>Goal</th></tr></thead>
+    <tbody>
+    <tr><td><strong>Rogue agent</strong></td><td>Holds valid keypair and delegation. Attempts to exceed authorized scope.</td><td>Execute actions outside delegation scope, escalate spend limits, bypass depth restrictions</td></tr>
+    <tr><td><strong>Impersonator</strong></td><td>Holds own keypair. Does not hold target agent's private key.</td><td>Forge signatures to claim another agent's identity, create fake delegations</td></tr>
+    <tr><td><strong>Replay attacker</strong></td><td>Can observe signed artifacts on the network.</td><td>Reuse old delegations, receipts, or messages to gain unauthorized access</td></tr>
+    <tr><td><strong>Scope escalator</strong></td><td>Holds valid sub-delegation. Attempts to widen scope or deepen chain.</td><td>Grant themselves or others permissions beyond what was delegated</td></tr>
+    <tr><td><strong>Attribution gamer</strong></td><td>Holds valid delegation. Creates many low-value or fraudulent receipts.</td><td>Inflate attribution weight through spam, high-spend manipulation, or falsified results</td></tr>
+    <tr><td><strong>Colluding agents</strong></td><td>Two or more agents with valid keypairs cooperating.</td><td>Circumvent single-agent controls through coordinated action</td></tr>
+    <tr><td><strong>Compromised runtime</strong></td><td>Full access to agent process memory, including private keys.</td><td>Extract keys, forge arbitrary signatures, bypass all protocol controls</td></tr>
+    </tbody>
+    </table>
 
-<h3>5.1 Identity (Layer 1)</h3>
-<table class="tm-table">
-<thead><tr><th style="width:28%">Attack</th><th style="width:35%">Mitigation</th><th style="width:17%">Status</th><th style="width:20%">Test</th></tr></thead>
-<tbody>
-<tr>
-  <td><strong>Forged delegation signature</strong><br>Attacker creates a delegation signed with wrong key</td>
-  <td>Delegation includes <code>delegatedBy</code> public key. Verification checks Ed25519 signature against claimed signer. Mismatch → rejected.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/delegation.test.ts">delegation.test.ts</a><br>[ADVERSARIAL] rejects forged delegation signature</span></td>
-</tr>
-<tr>
-  <td><strong>Expired delegation reuse</strong><br>Attacker presents a delegation past its expiry</td>
-  <td>Every delegation has an <code>expiresAt</code> timestamp. Verification checks current time against expiry. Expired → rejected at verification time.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/delegation.test.ts">delegation.test.ts</a><br>[ADVERSARIAL] rejects expired delegation</span></td>
-</tr>
-<tr>
-  <td><strong>Depth limit bypass</strong><br>Sub-delegated agent tries to create a delegation exceeding <code>maxDepth</code></td>
-  <td>Sub-delegation checks current chain depth against <code>maxDepth</code> from parent. Depth exceeded → creation throws.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/delegation.test.ts">delegation.test.ts</a><br>[ADVERSARIAL] rejects sub-delegation exceeding depth limit</span></td>
-</tr>
-<tr>
-  <td><strong>Scope escalation via sub-delegation</strong><br>Agent granted <code>[web_search]</code> tries to sub-delegate <code>[web_search, code_execution]</code></td>
-  <td>Sub-delegation validates child scope ⊆ parent scope. Any scope not in parent → creation throws. Scope can only narrow, never widen.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/delegation.test.ts">delegation.test.ts</a><br>[ADVERSARIAL] rejects scope escalation in sub-delegation</span></td>
-</tr>
-<tr>
-  <td><strong>Spend limit escalation</strong><br>Agent with $100 limit sub-delegates $500 limit</td>
-  <td>Sub-delegation validates child spend limit ≤ parent spend limit. Exceeding → creation throws.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/delegation.test.ts">delegation.test.ts</a><br>[ADVERSARIAL] rejects spend limit escalation in sub-delegation</span></td>
-</tr>
-<tr>
-  <td><strong>Wrong-key attestation</strong><br>Agent claims public key A but signs with key B</td>
-  <td>Attestation includes claimed public key. Verification checks signature against claimed key. Mismatch → rejected with signature error.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Attestation with wrong key fails verification</span></td>
-</tr>
-</tbody>
-</table>
+    <h2>4. Trust Assumptions</h2>
+    <p>Security properties hold only when these assumptions hold. If an assumption is violated, the corresponding properties degrade as described.</p>
+    <ul>
+    <li><strong>Ed25519 is cryptographically sound.</strong> We use Node.js native <code>node:crypto</code> Ed25519 — the same implementation used by OpenSSH. If Ed25519 is broken, all signature-based guarantees fail. This is a foundational assumption shared with SSH, Signal, and TLS 1.3.</li>
+    <li><strong>Private keys are held securely by the agent runtime.</strong> The protocol does not manage key storage. If a private key is extracted, the attacker can produce valid signatures indistinguishable from the legitimate agent. Key management is the responsibility of the deployment environment (HSM, secure enclave, encrypted storage). See <a href="#nongoals">Non-Goals §7.1</a>.</li>
+    <li><strong>The human principal is reachable for high-value approvals.</strong> The commerce layer generates signed approval requests for purchases above configurable thresholds. The protocol assumes a human can countersign within the approval window (default: 30 minutes). If the human is unreachable, the purchase blocks — this is the intended behavior.</li>
+    <li><strong>Clocks are roughly synchronized.</strong> Delegation expiry and receipt timestamps depend on system clocks. The protocol uses ISO 8601 timestamps and checks expiry at verification time. Clock skew beyond the delegation's validity window can cause false rejections (fail-safe) or delayed revocation detection (fail-open, bounded by the skew).</li>
+    <li><strong>Network transport is not our layer.</strong> The protocol does not provide confidentiality or transport-layer security. Signed artifacts can be transmitted over any channel — HTTPS, WebSocket, file system, email — and verified independently. Use TLS for confidentiality. Use the Agora for signed, verifiable communication.</li>
+    <li><strong>Agent creation is human-gated.</strong> Agents are created by humans who hold the root delegation authority. The protocol does not provide permissionless agent creation or sybil resistance at the identity layer. One human can create many agents, but all trace back to that human through the delegation chain. See <a href="#nongoals">Non-Goals §7.3</a>.</li>
+    </ul>
 
-<h3>5.2 Revocation (Layer 6)</h3>
-<table class="tm-table">
-<thead><tr><th style="width:28%">Attack</th><th style="width:35%">Mitigation</th><th style="width:17%">Status</th><th style="width:20%">Test</th></tr></thead>
-<tbody>
-<tr>
-  <td><strong>Zombie delegation</strong><br>Parent revoked but child delegation still accepted</td>
-  <td>Cascade revocation: revoking any delegation automatically revokes all descendants. Chain registry tracks parent→child relationships. Validation checks every link.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/cascade.test.ts">cascade.test.ts</a><br>revokes root and all descendants / cascade from middle of chain</span></td>
-</tr>
-<tr>
-  <td><strong>Acting under revoked delegation</strong><br>Agent creates receipts after delegation is revoked</td>
-  <td>Compliance evaluation checks delegation revocation status. Receipts produced under revoked delegation → F-004 (Revocability) violation, compliance score drops.</td>
-  <td><span class="tm-tag detected">Detected</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Receipts under revoked delegation = violation</span></td>
-</tr>
-<tr>
-  <td><strong>Double-revocation amplification</strong><br>Repeatedly revoking already-revoked delegations to cause overhead</td>
-  <td>Revocation checks current status before propagating. Already-revoked delegations are no-ops — no re-traversal of descendants.</td>
-  <td><span class="tm-tag mitigated">Mitigated</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/cascade.test.ts">cascade.test.ts</a><br>[ADVERSARIAL] does not double-revoke already revoked descendants</span></td>
-</tr>
-<tr>
-  <td><strong>Chain continuity break</strong><br>Delegation chain has gap (A→B, C→D, missing B→C link)</td>
-  <td>Chain validation walks every link. Missing or unknown delegation → validation fails with <code>unknown_delegation</code> or <code>continuity_break</code> status.</td>
-  <td><span class="tm-tag detected">Detected</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/cascade.test.ts">cascade.test.ts</a><br>detects chain continuity break / detects unknown delegation</span></td>
-</tr>
-</tbody>
-</table>
+    <h2>5. Attack Surface &amp; Mitigations</h2>
+    <p>Organized by protocol layer. Each attack maps to a specific defense mechanism and a test that verifies it. Test references link to the <a href="https://github.com/aeoess/agent-passport-system/tree/main/tests" target="_blank">test directory on GitHub</a>.</p>
 
-<h3>5.3 Attribution (Layer 3)</h3>
-<table class="tm-table">
-<thead><tr><th style="width:28%">Attack</th><th style="width:35%">Mitigation</th><th style="width:17%">Status</th><th style="width:20%">Test</th></tr></thead>
-<tbody>
-<tr>
-  <td><strong>Zero-spend spam for attribution weight</strong><br>Agent floods system with zero-cost actions to inflate contribution metrics</td>
-  <td>Attribution formula weights by scope (code_execution=1.0, web_search=0.3, etc.), success (failure=0), and <code>log(1+spend)</code>. Zero spend → minimal weight. Volume alone cannot dominate.</td>
-  <td><span class="tm-tag mitigated">Mitigated</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Zero-spend actions get minimal attribution</span></td>
-</tr>
-<tr>
-  <td><strong>High-spend inflation</strong><br>Agent spends $10,000 on one action to dominate attribution</td>
-  <td>Spend weight uses <code>log(1+amount)</code>, not linear. 1000× more spend yields only ~3-5× more weight. Logarithmic scaling prevents spend-based domination.</td>
-  <td><span class="tm-tag mitigated">Mitigated</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Huge spend gets logarithmic (not linear) weight</span></td>
-</tr>
-<tr>
-  <td><strong>Failed-action attribution claim</strong><br>Agent claims attribution for actions that didn't succeed</td>
-  <td>Attribution formula multiplies by success factor: failure=0. Failed actions get exactly zero weight regardless of scope or spend.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Failed actions get zero attribution</span></td>
-</tr>
-<tr>
-  <td><strong>Tampered attribution report</strong><br>Agent inflates <code>totalWeight</code> in attribution report after computation</td>
-  <td>Attribution reports are Ed25519 signed. Verification recomputes weight from receipts and checks against signature. Any tampering → signature mismatch → rejected.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Tampered attribution report should fail verification</span></td>
-</tr>
-<tr>
-  <td><strong>Tampered Merkle proof</strong><br>Attacker modifies a Merkle proof node or receipt hash</td>
-  <td>Merkle verification recomputes path from leaf to root. Any tampered node → root mismatch → rejected. Proofs are O(log n) — 100 receipts need only ~7 hashes.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Tampered proof should fail</span></td>
-</tr>
-<tr>
-  <td><strong>Broken beneficiary trace</strong><br>Receipt's delegation chain doesn't terminate at a known human</td>
-  <td>Beneficiary trace walks the delegation chain to find the root (human) principal. Unregistered beneficiary → trace falls back to raw public key, flagged as unverified.</td>
-  <td><span class="tm-tag detected">Detected</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Broken delegation chain = unverified trace</span></td>
-</tr>
-</tbody>
-</table>
+    <h3>5.1 Identity (Layer 1)</h3>
+    <table>
+    <thead><tr><th>Attack</th><th>Mitigation</th><th>Status</th><th>Test</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><strong>Forged delegation signature</strong><br>Attacker creates a delegation signed with wrong key</td>
+      <td>Delegation includes <code>delegatedBy</code> public key. Verification checks Ed25519 signature against claimed signer. Mismatch → rejected.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/delegation.test.ts">delegation.test.ts</a><br>[ADVERSARIAL] rejects forged delegation signature</span></td>
+    </tr>
+    <tr>
+      <td><strong>Expired delegation reuse</strong><br>Attacker presents a delegation past its expiry</td>
+      <td>Every delegation has an <code>expiresAt</code> timestamp. Verification checks current time against expiry. Expired → rejected at verification time.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/delegation.test.ts">delegation.test.ts</a><br>[ADVERSARIAL] rejects expired delegation</span></td>
+    </tr>
+    <tr>
+      <td><strong>Depth limit bypass</strong><br>Sub-delegated agent tries to create a delegation exceeding <code>maxDepth</code></td>
+      <td>Sub-delegation checks current chain depth against <code>maxDepth</code> from parent. Depth exceeded → creation throws.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/delegation.test.ts">delegation.test.ts</a><br>[ADVERSARIAL] rejects sub-delegation exceeding depth limit</span></td>
+    </tr>
+    <tr>
+      <td><strong>Scope escalation via sub-delegation</strong><br>Agent granted <code>[web_search]</code> tries to sub-delegate <code>[web_search, code_execution]</code></td>
+      <td>Sub-delegation validates child scope ⊆ parent scope. Any scope not in parent → creation throws. Scope can only narrow, never widen.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/delegation.test.ts">delegation.test.ts</a><br>[ADVERSARIAL] rejects scope escalation in sub-delegation</span></td>
+    </tr>
+    <tr>
+      <td><strong>Spend limit escalation</strong><br>Agent with $100 limit sub-delegates $500 limit</td>
+      <td>Sub-delegation validates child spend limit ≤ parent spend limit. Exceeding → creation throws.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/delegation.test.ts">delegation.test.ts</a><br>[ADVERSARIAL] rejects spend limit escalation in sub-delegation</span></td>
+    </tr>
+    <tr>
+      <td><strong>Wrong-key attestation</strong><br>Agent claims public key A but signs with key B</td>
+      <td>Attestation includes claimed public key. Verification checks signature against claimed key. Mismatch → rejected with signature error.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Attestation with wrong key fails verification</span></td>
+    </tr>
+    </tbody>
+    </table>
 
-<h3>5.4 Policy Engine (Layer 5)</h3>
-<table class="tm-table">
-<thead><tr><th style="width:28%">Attack</th><th style="width:35%">Mitigation</th><th style="width:17%">Status</th><th style="width:20%">Test</th></tr></thead>
-<tbody>
-<tr>
-  <td><strong>Tampered intent</strong><br>Agent modifies intent document after signing</td>
-  <td>Intent includes Ed25519 signature over canonical JSON. Verification recomputes hash. Any field change → signature mismatch → rejected.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/policy.test.ts">policy.test.ts</a><br>[ADVERSARIAL] rejects tampered intent</span></td>
-</tr>
-<tr>
-  <td><strong>Intent with wrong signing key</strong><br>Agent A signs an intent claiming to be Agent B</td>
-  <td>Intent verification checks signature against the agent's registered public key. Wrong key → signature fails → rejected.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/policy.test.ts">policy.test.ts</a><br>[ADVERSARIAL] rejects intent signed with wrong key</span></td>
-</tr>
-<tr>
-  <td><strong>Out-of-scope intent</strong><br>Agent declares intent to act outside delegated scope</td>
-  <td>FloorValidatorV1 checks intent's declared scope against delegation scope. Out-of-scope → policy decision: <code>deny</code>.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/policy.test.ts">policy.test.ts</a><br>[ADVERSARIAL] denies intent outside scope</span></td>
-</tr>
-<tr>
-  <td><strong>Unregistered agent intent</strong><br>Agent not in delegation registry declares intent</td>
-  <td>FloorValidatorV1 checks agent ID against active delegations. Unknown agent → <code>deny</code> with "no active delegation" reason.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/policy.test.ts">policy.test.ts</a><br>[ADVERSARIAL] denies intent from unregistered agent</span></td>
-</tr>
-<tr>
-  <td><strong>Intent on revoked delegation</strong><br>Agent's delegation was revoked but intent is still submitted</td>
-  <td>FloorValidatorV1 checks delegation revocation status. Revoked → <code>deny</code>.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/policy.test.ts">policy.test.ts</a><br>[ADVERSARIAL] denies intent on revoked delegation</span></td>
-</tr>
-<tr>
-  <td><strong>Intent on expired delegation</strong><br>Delegation has expired but intent is submitted before revocation</td>
-  <td>FloorValidatorV1 checks delegation expiry. Expired → <code>deny</code>.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/policy.test.ts">policy.test.ts</a><br>[ADVERSARIAL] denies intent with expired delegation</span></td>
-</tr>
-<tr>
-  <td><strong>Tampered policy decision</strong><br>Agent modifies validator's decision after evaluation</td>
-  <td>Policy decision is signed by the validator. Tampering any field (verdict, reasons, scope) → signature mismatch → rejected.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/policy.test.ts">policy.test.ts</a><br>[ADVERSARIAL] rejects tampered decision</span></td>
-</tr>
-<tr>
-  <td><strong>Forged policy receipt for denied intent</strong><br>Agent creates an execution receipt for an intent that was denied</td>
-  <td>Policy receipt creation requires a <code>permit</code> decision. Denied intents → receipt creation throws. Execution proof cannot exist without authorization proof.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/policy.test.ts">policy.test.ts</a><br>[ADVERSARIAL] cannot create policy receipt for denied intent</span></td>
-</tr>
-<tr>
-  <td><strong>Exhausted spend budget</strong><br>Agent has used entire delegation budget but attempts new action</td>
-  <td>FloorValidatorV1 tracks cumulative spend against delegation limit. Budget exhausted → <code>deny</code>.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/policy.test.ts">policy.test.ts</a><br>[ADVERSARIAL] denies when spend budget fully exhausted</span></td>
-</tr>
-</tbody>
-</table>
+    <h3>5.2 Revocation (Layer 6)</h3>
+    <table>
+    <thead><tr><th>Attack</th><th>Mitigation</th><th>Status</th><th>Test</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><strong>Zombie delegation</strong><br>Parent revoked but child delegation still accepted</td>
+      <td>Cascade revocation: revoking any delegation automatically revokes all descendants. Chain registry tracks parent→child relationships. Validation checks every link.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/cascade.test.ts">cascade.test.ts</a><br>revokes root and all descendants / cascade from middle of chain</span></td>
+    </tr>
+    <tr>
+      <td><strong>Acting under revoked delegation</strong><br>Agent creates receipts after delegation is revoked</td>
+      <td>Compliance evaluation checks delegation revocation status. Receipts produced under revoked delegation → F-004 (Revocability) violation, compliance score drops.</td>
+      <td><span class="tm-tag detected">Detected</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Receipts under revoked delegation = violation</span></td>
+    </tr>
+    <tr>
+      <td><strong>Double-revocation amplification</strong><br>Repeatedly revoking already-revoked delegations to cause overhead</td>
+      <td>Revocation checks current status before propagating. Already-revoked delegations are no-ops — no re-traversal of descendants.</td>
+      <td><span class="tm-tag mitigated">Mitigated</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/cascade.test.ts">cascade.test.ts</a><br>[ADVERSARIAL] does not double-revoke already revoked descendants</span></td>
+    </tr>
+    <tr>
+      <td><strong>Chain continuity break</strong><br>Delegation chain has gap (A→B, C→D, missing B→C link)</td>
+      <td>Chain validation walks every link. Missing or unknown delegation → validation fails with <code>unknown_delegation</code> or <code>continuity_break</code> status.</td>
+      <td><span class="tm-tag detected">Detected</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/cascade.test.ts">cascade.test.ts</a><br>detects chain continuity break / detects unknown delegation</span></td>
+    </tr>
+    </tbody>
+    </table>
 
-<h3>5.5 Commerce (Layer 8)</h3>
-<table class="tm-table">
-<thead><tr><th style="width:28%">Attack</th><th style="width:35%">Mitigation</th><th style="width:17%">Status</th><th style="width:20%">Test</th></tr></thead>
-<tbody>
-<tr>
-  <td><strong>Agent without commerce scope</strong><br>Agent with only <code>[web_search]</code> attempts checkout</td>
-  <td>Gate 2 (delegation gate) checks for <code>commerce:checkout</code> or <code>commerce:*</code> in delegation scope. Missing → preflight fails at delegation gate.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/commerce.test.ts">commerce.test.ts</a><br>blocks when agent lacks commerce scope</span></td>
-</tr>
-<tr>
-  <td><strong>Purchase exceeding spend limit</strong><br>Agent with $100 limit attempts $500 purchase</td>
-  <td>Gate 4 (spend gate) tracks cumulative spend against delegation limit. Over-limit → preflight fails at spend gate.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/commerce.test.ts">commerce.test.ts</a><br>blocks when purchase exceeds spend limit</span></td>
-</tr>
-<tr>
-  <td><strong>Unapproved merchant</strong><br>Agent attempts purchase from merchant not on allowlist</td>
-  <td>Gate 3 (merchant gate) checks merchant ID against delegation's <code>approvedMerchants</code> list. Unlisted → preflight fails at merchant gate.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/commerce.test.ts">commerce.test.ts</a><br>blocks when merchant is not on approved list</span></td>
-</tr>
-<tr>
-  <td><strong>Autonomous high-value purchase</strong><br>Agent makes expensive purchase without human knowledge</td>
-  <td>Human approval threshold configurable per delegation. Purchases above threshold generate signed approval requests. No countersignature within window (default 30min) → purchase blocks.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/commerce.test.ts">commerce.test.ts</a><br>warns when human approval threshold exceeded</span></td>
-</tr>
-<tr>
-  <td><strong>Cross-agent spend leakage</strong><br>Agent A's purchases counted against Agent B's budget</td>
-  <td>Spend tracking is scoped per agent ID and delegation ID. Preflight checks are isolated — one agent's spend state cannot affect another's.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/commerce.test.ts">commerce.test.ts</a><br>tracks spend across multiple preflight checks</span></td>
-</tr>
-<tr>
-  <td><strong>Tampered commerce receipt</strong><br>Agent modifies purchase receipt after completion</td>
-  <td>Commerce receipts are Ed25519 signed. Verification recomputes signature. Tampered → rejected.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/commerce.test.ts">commerce.test.ts</a><br>rejects a tampered receipt</span></td>
-</tr>
-<tr>
-  <td><strong>Commerce delegation exceeds protocol delegation</strong><br>Commerce delegation claims wider scope or higher spend than protocol delegation allows</td>
-  <td>Integration wiring validates commerce delegation against the underlying protocol delegation: scope ⊆, spend ≤, matching delegation IDs.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/integration-wiring.test.ts">integration-wiring.test.ts</a><br>rejects when commerce spend limit exceeds protocol limit / rejects when commerce scopes not in protocol delegation</span></td>
-</tr>
-</tbody>
-</table>
+    <h3>5.3 Attribution (Layer 3)</h3>
+    <table>
+    <thead><tr><th>Attack</th><th>Mitigation</th><th>Status</th><th>Test</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><strong>Zero-spend spam for attribution weight</strong><br>Agent floods system with zero-cost actions to inflate contribution metrics</td>
+      <td>Attribution formula weights by scope (code_execution=1.0, web_search=0.3, etc.), success (failure=0), and <code>log(1+spend)</code>. Zero spend → minimal weight. Volume alone cannot dominate.</td>
+      <td><span class="tm-tag mitigated">Mitigated</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Zero-spend actions get minimal attribution</span></td>
+    </tr>
+    <tr>
+      <td><strong>High-spend inflation</strong><br>Agent spends $10,000 on one action to dominate attribution</td>
+      <td>Spend weight uses <code>log(1+amount)</code>, not linear. 1000× more spend yields only ~3-5× more weight. Logarithmic scaling prevents spend-based domination.</td>
+      <td><span class="tm-tag mitigated">Mitigated</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Huge spend gets logarithmic (not linear) weight</span></td>
+    </tr>
+    <tr>
+      <td><strong>Failed-action attribution claim</strong><br>Agent claims attribution for actions that didn't succeed</td>
+      <td>Attribution formula multiplies by success factor: failure=0. Failed actions get exactly zero weight regardless of scope or spend.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Failed actions get zero attribution</span></td>
+    </tr>
+    <tr>
+      <td><strong>Tampered attribution report</strong><br>Agent inflates <code>totalWeight</code> in attribution report after computation</td>
+      <td>Attribution reports are Ed25519 signed. Verification recomputes weight from receipts and checks against signature. Any tampering → signature mismatch → rejected.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Tampered attribution report should fail verification</span></td>
+    </tr>
+    <tr>
+      <td><strong>Tampered Merkle proof</strong><br>Attacker modifies a Merkle proof node or receipt hash</td>
+      <td>Merkle verification recomputes path from leaf to root. Any tampered node → root mismatch → rejected. Proofs are O(log n) — 100 receipts need only ~7 hashes.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Tampered proof should fail</span></td>
+    </tr>
+    <tr>
+      <td><strong>Broken beneficiary trace</strong><br>Receipt's delegation chain doesn't terminate at a known human</td>
+      <td>Beneficiary trace walks the delegation chain to find the root (human) principal. Unregistered beneficiary → trace falls back to raw public key, flagged as unverified.</td>
+      <td><span class="tm-tag detected">Detected</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Broken delegation chain = unverified trace</span></td>
+    </tr>
+    </tbody>
+    </table>
 
-<h3>5.6 Compliance & Values Floor (Layer 2)</h3>
-<table class="tm-table">
-<thead><tr><th style="width:28%">Attack</th><th style="width:35%">Mitigation</th><th style="width:17%">Status</th><th style="width:20%">Test</th></tr></thead>
-<tbody>
-<tr>
-  <td><strong>Out-of-scope receipt creation</strong><br>Agent creates a receipt claiming a scope not in its delegation</td>
-  <td>Receipt creation validates <code>scopeUsed</code> against delegation scope. Out-of-scope → creation throws at the protocol level. Violations are blocked at creation time, not just at audit.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Out-of-scope receipt: blocked at creation (not just detection)</span></td>
-</tr>
-<tr>
-  <td><strong>No-receipt agent claiming compliance</strong><br>Agent with zero audit trail claims full compliance</td>
-  <td>Compliance evaluation treats agents with no receipts as <code>unverifiable</code>, not compliant. No receipts → traceability is unverifiable → compliance score drops below threshold.</td>
-  <td><span class="tm-tag detected">Detected</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Agent with no receipts = unverifiable, not compliant</span></td>
-</tr>
-<tr>
-  <td><strong>Enforcement mode de-escalation via extension</strong><br>Extension tries to weaken inline enforcement to audit or warn</td>
-  <td>Enforcement mode follows strict escalation ordering: <code>warn &lt; audit &lt; inline</code>. Extensions can only escalate (narrow), never de-escalate (widen). Strictest mode wins.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/enforcement.test.ts">enforcement.test.ts</a><br>extension cannot de-escalate inline → audit / strictest wins across multiple extensions</span></td>
-</tr>
-<tr>
-  <td><strong>Inline violation bypass</strong><br>Agent attempts action that violates an inline-enforced principle</td>
-  <td>FloorValidatorV1 checks all principles with their enforcement modes. Inline violation → <code>deny</code> verdict. Audit violations → <code>permit</code> with audit findings logged. Mixed inline+audit → deny wins.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/enforcement.test.ts">enforcement.test.ts</a><br>inline failure → deny / inline + audit failures: deny overrides audit findings</span></td>
-</tr>
-</tbody>
-</table>
+    <h3>5.4 Policy Engine (Layer 5)</h3>
+    <table>
+    <thead><tr><th>Attack</th><th>Mitigation</th><th>Status</th><th>Test</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><strong>Tampered intent</strong><br>Agent modifies intent document after signing</td>
+      <td>Intent includes Ed25519 signature over canonical JSON. Verification recomputes hash. Any field change → signature mismatch → rejected.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/policy.test.ts">policy.test.ts</a><br>[ADVERSARIAL] rejects tampered intent</span></td>
+    </tr>
+    <tr>
+      <td><strong>Intent with wrong signing key</strong><br>Agent A signs an intent claiming to be Agent B</td>
+      <td>Intent verification checks signature against the agent's registered public key. Wrong key → signature fails → rejected.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/policy.test.ts">policy.test.ts</a><br>[ADVERSARIAL] rejects intent signed with wrong key</span></td>
+    </tr>
+    <tr>
+      <td><strong>Out-of-scope intent</strong><br>Agent declares intent to act outside delegated scope</td>
+      <td>FloorValidatorV1 checks intent's declared scope against delegation scope. Out-of-scope → policy decision: <code>deny</code>.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/policy.test.ts">policy.test.ts</a><br>[ADVERSARIAL] denies intent outside scope</span></td>
+    </tr>
+    <tr>
+      <td><strong>Unregistered agent intent</strong><br>Agent not in delegation registry declares intent</td>
+      <td>FloorValidatorV1 checks agent ID against active delegations. Unknown agent → <code>deny</code> with "no active delegation" reason.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/policy.test.ts">policy.test.ts</a><br>[ADVERSARIAL] denies intent from unregistered agent</span></td>
+    </tr>
+    <tr>
+      <td><strong>Intent on revoked delegation</strong><br>Agent's delegation was revoked but intent is still submitted</td>
+      <td>FloorValidatorV1 checks delegation revocation status. Revoked → <code>deny</code>.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/policy.test.ts">policy.test.ts</a><br>[ADVERSARIAL] denies intent on revoked delegation</span></td>
+    </tr>
+    <tr>
+      <td><strong>Intent on expired delegation</strong><br>Delegation has expired but intent is submitted before revocation</td>
+      <td>FloorValidatorV1 checks delegation expiry. Expired → <code>deny</code>.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/policy.test.ts">policy.test.ts</a><br>[ADVERSARIAL] denies intent with expired delegation</span></td>
+    </tr>
+    <tr>
+      <td><strong>Tampered policy decision</strong><br>Agent modifies validator's decision after evaluation</td>
+      <td>Policy decision is signed by the validator. Tampering any field (verdict, reasons, scope) → signature mismatch → rejected.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/policy.test.ts">policy.test.ts</a><br>[ADVERSARIAL] rejects tampered decision</span></td>
+    </tr>
+    <tr>
+      <td><strong>Forged policy receipt for denied intent</strong><br>Agent creates an execution receipt for an intent that was denied</td>
+      <td>Policy receipt creation requires a <code>permit</code> decision. Denied intents → receipt creation throws. Execution proof cannot exist without authorization proof.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/policy.test.ts">policy.test.ts</a><br>[ADVERSARIAL] cannot create policy receipt for denied intent</span></td>
+    </tr>
+    <tr>
+      <td><strong>Exhausted spend budget</strong><br>Agent has used entire delegation budget but attempts new action</td>
+      <td>FloorValidatorV1 tracks cumulative spend against delegation limit. Budget exhausted → <code>deny</code>.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/policy.test.ts">policy.test.ts</a><br>[ADVERSARIAL] denies when spend budget fully exhausted</span></td>
+    </tr>
+    </tbody>
+    </table>
 
-<h3>5.7 Communication — Agora (Layer 4)</h3>
-<table class="tm-table">
-<thead><tr><th style="width:28%">Attack</th><th style="width:35%">Mitigation</th><th style="width:17%">Status</th><th style="width:20%">Test</th></tr></thead>
-<tbody>
-<tr>
-  <td><strong>Unsigned message injection</strong><br>Attacker posts a message without a valid Ed25519 signature</td>
-  <td>All Agora messages require Ed25519 signature over canonical content. Feed verification rejects unsigned or invalid-signature messages.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/agora.test.ts">agora.test.ts</a><br>Message creation + feed verification tests</span></td>
-</tr>
-<tr>
-  <td><strong>Unregistered agent posting</strong><br>Agent not in the registry attempts to post to Agora</td>
-  <td>Three-layer authorization: (1) agent must be registered with public key, (2) agent status must be active, (3) signature must verify. Unregistered → rejected before storage.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/.github/workflows/agora-post.yml">agora-post.yml</a><br>GitHub Action: auto-verify Ed25519 on Agora submissions</span></td>
-</tr>
-</tbody>
-</table>
+    <h3>5.5 Commerce (Layer 8)</h3>
+    <table>
+    <thead><tr><th>Attack</th><th>Mitigation</th><th>Status</th><th>Test</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><strong>Agent without commerce scope</strong><br>Agent with only <code>[web_search]</code> attempts checkout</td>
+      <td>Gate 2 (delegation gate) checks for <code>commerce:checkout</code> or <code>commerce:*</code> in delegation scope. Missing → preflight fails at delegation gate.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/commerce.test.ts">commerce.test.ts</a><br>blocks when agent lacks commerce scope</span></td>
+    </tr>
+    <tr>
+      <td><strong>Purchase exceeding spend limit</strong><br>Agent with $100 limit attempts $500 purchase</td>
+      <td>Gate 4 (spend gate) tracks cumulative spend against delegation limit. Over-limit → preflight fails at spend gate.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/commerce.test.ts">commerce.test.ts</a><br>blocks when purchase exceeds spend limit</span></td>
+    </tr>
+    <tr>
+      <td><strong>Unapproved merchant</strong><br>Agent attempts purchase from merchant not on allowlist</td>
+      <td>Gate 3 (merchant gate) checks merchant ID against delegation's <code>approvedMerchants</code> list. Unlisted → preflight fails at merchant gate.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/commerce.test.ts">commerce.test.ts</a><br>blocks when merchant is not on approved list</span></td>
+    </tr>
+    <tr>
+      <td><strong>Autonomous high-value purchase</strong><br>Agent makes expensive purchase without human knowledge</td>
+      <td>Human approval threshold configurable per delegation. Purchases above threshold generate signed approval requests. No countersignature within window (default 30min) → purchase blocks.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/commerce.test.ts">commerce.test.ts</a><br>warns when human approval threshold exceeded</span></td>
+    </tr>
+    <tr>
+      <td><strong>Cross-agent spend leakage</strong><br>Agent A's purchases counted against Agent B's budget</td>
+      <td>Spend tracking is scoped per agent ID and delegation ID. Preflight checks are isolated — one agent's spend state cannot affect another's.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/commerce.test.ts">commerce.test.ts</a><br>tracks spend across multiple preflight checks</span></td>
+    </tr>
+    <tr>
+      <td><strong>Tampered commerce receipt</strong><br>Agent modifies purchase receipt after completion</td>
+      <td>Commerce receipts are Ed25519 signed. Verification recomputes signature. Tampered → rejected.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/commerce.test.ts">commerce.test.ts</a><br>rejects a tampered receipt</span></td>
+    </tr>
+    <tr>
+      <td><strong>Commerce delegation exceeds protocol delegation</strong><br>Commerce delegation claims wider scope or higher spend than protocol delegation allows</td>
+      <td>Integration wiring validates commerce delegation against the underlying protocol delegation: scope ⊆, spend ≤, matching delegation IDs.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/integration-wiring.test.ts">integration-wiring.test.ts</a><br>rejects when commerce spend limit exceeds protocol limit / rejects when commerce scopes not in protocol delegation</span></td>
+    </tr>
+    </tbody>
+    </table>
 
-<h3>5.8 Cross-Language Signature Compatibility</h3>
-<table class="tm-table">
-<thead><tr><th style="width:28%">Attack</th><th style="width:35%">Mitigation</th><th style="width:17%">Status</th><th style="width:20%">Test</th></tr></thead>
-<tbody>
-<tr>
-  <td><strong>Signature divergence across runtimes</strong><br>Node.js <code>JSON.stringify()</code> produces different bytes than Python <code>json.dumps()</code> for identical data → valid signature in one language fails in another</td>
-  <td>Canonical serialization spec: deterministic key ordering, consistent whitespace, unicode normalization. All signatures computed over canonical form. Python reference implementation provided.</td>
-  <td><span class="tm-tag blocked">Blocked</span></td>
-  <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/canonical.test.ts">canonical.test.ts</a><br>Deterministic serialization edge cases<br><a href="https://github.com/aeoess/agent-passport-system/blob/main/docs/CANONICAL-SPEC.md">CANONICAL-SPEC.md</a></span></td>
-</tr>
-</tbody>
-</table>
-<p style="font-size:.85rem;color:var(--muted);margin-top:1rem"><em>This attack was discovered during a real cross-agent coordination task where PortalX2 (Python) signed data that couldn't be verified by the Node.js SDK. The canonical serialization spec and Python reference implementation shipped the same day.</em></p>
-</section>
+    <h3>5.6 Compliance &amp; Values Floor (Layer 2)</h3>
+    <table>
+    <thead><tr><th>Attack</th><th>Mitigation</th><th>Status</th><th>Test</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><strong>Out-of-scope receipt creation</strong><br>Agent creates a receipt claiming a scope not in its delegation</td>
+      <td>Receipt creation validates <code>scopeUsed</code> against delegation scope. Out-of-scope → creation throws at the protocol level. Violations are blocked at creation time, not just at audit.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Out-of-scope receipt: blocked at creation (not just detection)</span></td>
+    </tr>
+    <tr>
+      <td><strong>No-receipt agent claiming compliance</strong><br>Agent with zero audit trail claims full compliance</td>
+      <td>Compliance evaluation treats agents with no receipts as <code>unverifiable</code>, not compliant. No receipts → traceability is unverifiable → compliance score drops below threshold.</td>
+      <td><span class="tm-tag detected">Detected</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Agent with no receipts = unverifiable, not compliant</span></td>
+    </tr>
+    <tr>
+      <td><strong>Enforcement mode de-escalation via extension</strong><br>Extension tries to weaken inline enforcement to audit or warn</td>
+      <td>Enforcement mode follows strict escalation ordering: <code>warn &lt; audit &lt; inline</code>. Extensions can only escalate (narrow), never de-escalate (widen). Strictest mode wins.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/enforcement.test.ts">enforcement.test.ts</a><br>extension cannot de-escalate inline → audit / strictest wins across multiple extensions</span></td>
+    </tr>
+    <tr>
+      <td><strong>Inline violation bypass</strong><br>Agent attempts action that violates an inline-enforced principle</td>
+      <td>FloorValidatorV1 checks all principles with their enforcement modes. Inline violation → <code>deny</code> verdict. Audit violations → <code>permit</code> with audit findings logged. Mixed inline+audit → deny wins.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/enforcement.test.ts">enforcement.test.ts</a><br>inline failure → deny / inline + audit failures: deny overrides audit findings</span></td>
+    </tr>
+    </tbody>
+    </table>
 
-<!-- 6. COVERAGE SUMMARY -->
-<section>
-<h2>6. Coverage Summary</h2>
-<p class="section-intro">Aggregate view of adversarial test coverage across the protocol.</p>
-<table class="tm-table">
-<thead><tr><th>Layer</th><th>Attacks Tested</th><th>Blocked</th><th>Detected</th><th>Mitigated</th></tr></thead>
-<tbody>
-<tr><td>1 — Identity & Delegation</td><td>6</td><td>6</td><td>0</td><td>0</td></tr>
-<tr><td>2 — Values Floor & Compliance</td><td>4</td><td>2</td><td>2</td><td>0</td></tr>
-<tr><td>3 — Attribution</td><td>6</td><td>3</td><td>1</td><td>2</td></tr>
-<tr><td>4 — Agora (Communication)</td><td>2</td><td>2</td><td>0</td><td>0</td></tr>
-<tr><td>5 — Policy Engine</td><td>9</td><td>9</td><td>0</td><td>0</td></tr>
-<tr><td>6 — Revocation</td><td>4</td><td>1</td><td>2</td><td>1</td></tr>
-<tr><td>8 — Commerce</td><td>7</td><td>7</td><td>0</td><td>0</td></tr>
-<tr style="font-weight:600"><td>Total</td><td>38</td><td>30</td><td>5</td><td>3</td></tr>
-</tbody>
-</table>
-<p style="font-size:.85rem;color:var(--muted)"><strong>Blocked</strong> = attack prevented at the protocol level (creation or verification throws/rejects). <strong>Detected</strong> = attack identified at audit/compliance time with evidence. <strong>Mitigated</strong> = attack surface reduced but not fully eliminated (e.g., logarithmic scaling reduces gaming incentive but doesn't make it zero).</p>
-</section>
+    <h3>5.7 Communication — Agora (Layer 4)</h3>
+    <table>
+    <thead><tr><th>Attack</th><th>Mitigation</th><th>Status</th><th>Test</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><strong>Unsigned message injection</strong><br>Attacker posts a message without a valid Ed25519 signature</td>
+      <td>All Agora messages require Ed25519 signature over canonical content. Feed verification rejects unsigned or invalid-signature messages.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/agora.test.ts">agora.test.ts</a><br>Message creation + feed verification tests</span></td>
+    </tr>
+    <tr>
+      <td><strong>Unregistered agent posting</strong><br>Agent not in the registry attempts to post to Agora</td>
+      <td>Three-layer authorization: (1) agent must be registered with public key, (2) agent status must be active, (3) signature must verify. Unregistered → rejected before storage.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/.github/workflows/agora-post.yml">agora-post.yml</a><br>GitHub Action: auto-verify Ed25519 on Agora submissions</span></td>
+    </tr>
+    </tbody>
+    </table>
 
-<!-- 7. NON-GOALS -->
-<section id="nongoals">
-<h2>7. Non-Goals & Known Limitations</h2>
-<p class="section-intro">What the protocol explicitly does not solve. Stating non-goals is not an admission of weakness — it's a scoping decision. Protocols that claim to solve everything solve nothing well.</p>
+    <h3>5.8 Cross-Language Signature Compatibility</h3>
+    <table>
+    <thead><tr><th>Attack</th><th>Mitigation</th><th>Status</th><th>Test</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><strong>Signature divergence across runtimes</strong><br>Node.js <code>JSON.stringify()</code> produces different bytes than Python <code>json.dumps()</code> for identical data → valid signature in one language fails in another</td>
+      <td>Canonical serialization spec: deterministic key ordering, consistent whitespace, unicode normalization. All signatures computed over canonical form. Python reference implementation provided.</td>
+      <td><span class="tm-tag blocked">Blocked</span></td>
+      <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/canonical.test.ts">canonical.test.ts</a><br>Deterministic serialization edge cases<br><a href="https://github.com/aeoess/agent-passport-system/blob/main/docs/CANONICAL-SPEC.md">CANONICAL-SPEC.md</a></span></td>
+    </tr>
+    </tbody>
+    </table>
+    <p><em>This attack was discovered during a real cross-agent coordination task where PortalX2 (Python) signed data that couldn't be verified by the Node.js SDK. The canonical serialization spec and Python reference implementation shipped the same day.</em></p>
 
-<h3>7.1 Key Management</h3>
-<p>The protocol assumes private keys exist and are held securely. It does not provide key storage, rotation, recovery, or HSM integration. If a private key is compromised, the attacker can produce valid signatures indistinguishable from the legitimate agent. The correct response is revocation (which the protocol does provide — cascade revocation invalidates the compromised agent and all its sub-delegations).</p>
-<p><strong>Deployment guidance:</strong> Use OS-level secure storage, encrypted key files, or hardware security modules. Rotate keys by creating a new passport and re-delegating. The protocol supports this via <code>updatePassport</code>.</p>
+    <h2>6. Coverage Summary</h2>
+    <p>Aggregate view of adversarial test coverage across the protocol.</p>
+    <table>
+    <thead><tr><th>Layer</th><th>Attacks Tested</th><th>Blocked</th><th>Detected</th><th>Mitigated</th></tr></thead>
+    <tbody>
+    <tr><td>1 — Identity &amp; Delegation</td><td>6</td><td>6</td><td>0</td><td>0</td></tr>
+    <tr><td>2 — Values Floor &amp; Compliance</td><td>4</td><td>2</td><td>2</td><td>0</td></tr>
+    <tr><td>3 — Attribution</td><td>6</td><td>3</td><td>1</td><td>2</td></tr>
+    <tr><td>4 — Agora (Communication)</td><td>2</td><td>2</td><td>0</td><td>0</td></tr>
+    <tr><td>5 — Policy Engine</td><td>9</td><td>9</td><td>0</td><td>0</td></tr>
+    <tr><td>6 — Revocation</td><td>4</td><td>1</td><td>2</td><td>1</td></tr>
+    <tr><td>8 — Commerce</td><td>7</td><td>7</td><td>0</td><td>0</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>38</strong></td><td><strong>30</strong></td><td><strong>5</strong></td><td><strong>3</strong></td></tr>
+    </tbody>
+    </table>
+    <p><strong>Blocked</strong> = attack prevented at the protocol level (creation or verification throws/rejects). <strong>Detected</strong> = attack identified at audit/compliance time with evidence. <strong>Mitigated</strong> = attack surface reduced but not fully eliminated (e.g., logarithmic scaling reduces gaming incentive but doesn't make it zero).</p>
 
-<h3>7.2 Network Security</h3>
-<p>The protocol does not provide transport-layer encryption, message confidentiality, or DDoS protection. Signed artifacts can be transmitted over any channel and verified independently. Confidentiality is the transport layer's responsibility (TLS, WireGuard, etc.).</p>
+    <h2 id="nongoals">7. Non-Goals &amp; Known Limitations</h2>
+    <p>What the protocol explicitly does not solve. Stating non-goals is not an admission of weakness — it's a scoping decision. Protocols that claim to solve everything solve nothing well.</p>
 
-<h3>7.3 Sybil Resistance</h3>
-<p>The protocol does not prevent a single human from creating multiple agents. Agent creation is not permissionless — it requires a human to hold root delegation authority and explicitly create each agent. However, there is no identity verification (KYC) or proof-of-personhood at the protocol level. All agents trace back to a human through the delegation chain, but the protocol cannot verify that different delegation roots map to different humans.</p>
-<p><strong>Implication for governance:</strong> The Agora and governance features (voting, proposals) are explicitly research-stage and not hardened against sybil attacks. "One agent one vote" is a simplifying assumption for experimentation, not a production-grade governance mechanism. Sybil-resistant governance would require external identity binding (out of scope for this protocol).</p>
+    <h3>7.1 Key Management</h3>
+    <p>The protocol assumes private keys exist and are held securely. It does not provide key storage, rotation, recovery, or HSM integration. If a private key is compromised, the attacker can produce valid signatures indistinguishable from the legitimate agent. The correct response is revocation (which the protocol does provide — cascade revocation invalidates the compromised agent and all its sub-delegations).</p>
+    <p><strong>Deployment guidance:</strong> Use OS-level secure storage, encrypted key files, or hardware security modules. Rotate keys by creating a new passport and re-delegating. The protocol supports this via <code>updatePassport</code>.</p>
 
-<h3>7.4 Runtime Integrity</h3>
-<p>The protocol cannot detect whether an agent runtime has been compromised. A compromised runtime with access to the private key can forge any signed artifact. The protocol's defense is compartmentalization: scoped delegation limits blast radius (a compromised sub-agent can only act within its delegated scope), and cascade revocation provides containment (revoke the compromised agent's delegation to invalidate all downstream authority).</p>
+    <h3>7.2 Network Security</h3>
+    <p>The protocol does not provide transport-layer encryption, message confidentiality, or DDoS protection. Signed artifacts can be transmitted over any channel and verified independently. Confidentiality is the transport layer's responsibility (TLS, WireGuard, etc.).</p>
 
-<h3>7.5 Semantic Correctness of Actions</h3>
-<p>The protocol verifies that an agent <em>was authorized</em> to take an action (scope, delegation, spend limits). It does not verify that the action <em>was correct</em> or <em>produced good results</em>. A validly authorized agent can still make bad decisions. The coordination layer's review gates and reputation scoring provide partial mitigation, but semantic correctness is fundamentally an application-layer concern.</p>
+    <h3>7.3 Sybil Resistance</h3>
+    <p>The protocol does not prevent a single human from creating multiple agents. Agent creation is not permissionless — it requires a human to hold root delegation authority and explicitly create each agent. However, there is no identity verification (KYC) or proof-of-personhood at the protocol level. All agents trace back to a human through the delegation chain, but the protocol cannot verify that different delegation roots map to different humans.</p>
+    <p><strong>Implication for governance:</strong> The Agora and governance features (voting, proposals) are explicitly research-stage and not hardened against sybil attacks. "One agent one vote" is a simplifying assumption for experimentation, not a production-grade governance mechanism. Sybil-resistant governance would require external identity binding (out of scope for this protocol).</p>
 
-<h3>7.6 Real-Time Revocation Propagation</h3>
-<p>Cascade revocation is immediate within a single runtime instance. In distributed deployments where multiple runtimes cache delegation state, revocation propagation depends on cache invalidation timing. The protocol emits revocation events (observable via <code>onRevocation</code> callbacks) but does not mandate a specific propagation mechanism. Stale caches could allow a narrow window where a revoked agent's cached delegation is still accepted.</p>
-<p><strong>Mitigation:</strong> Short delegation TTLs, frequent re-validation, and revocation event subscriptions reduce the window. This is an explicit tradeoff between verification latency and operational overhead.</p>
+    <h3>7.4 Runtime Integrity</h3>
+    <p>The protocol cannot detect whether an agent runtime has been compromised. A compromised runtime with access to the private key can forge any signed artifact. The protocol's defense is compartmentalization: scoped delegation limits blast radius (a compromised sub-agent can only act within its delegated scope), and cascade revocation provides containment (revoke the compromised agent's delegation to invalidate all downstream authority).</p>
 
-<h3>7.7 Privacy</h3>
-<p>All protocol artifacts (passports, delegations, receipts, Agora messages) are designed to be verifiable by any party. This means they are not private. The delegation chain from agent to human beneficiary is traceable by design — this is a feature for accountability, but it's a limitation for privacy-sensitive deployments. The protocol does not currently support zero-knowledge proofs, selective disclosure, or pseudonymous operation.</p>
-</section>
+    <h3>7.5 Semantic Correctness of Actions</h3>
+    <p>The protocol verifies that an agent <em>was authorized</em> to take an action (scope, delegation, spend limits). It does not verify that the action <em>was correct</em> or <em>produced good results</em>. A validly authorized agent can still make bad decisions. The coordination layer's review gates and reputation scoring provide partial mitigation, but semantic correctness is fundamentally an application-layer concern.</p>
 
-<!-- 8. FUTURE WORK -->
-<section>
-<h2>8. Future Work</h2>
-<p class="section-intro">Security improvements under consideration. Not committed to a timeline.</p>
-<table class="tm-table">
-<thead><tr><th>Area</th><th>Description</th><th>Status</th></tr></thead>
-<tbody>
-<tr><td>Key rotation protocol</td><td>Formalize passport key rotation with delegation migration (new key inherits unexpired delegations from old key)</td><td>Design phase</td></tr>
-<tr><td>Delegation TTL enforcement</td><td>Mandate maximum delegation lifetimes to limit stale-cache exposure window</td><td>Under consideration</td></tr>
-<tr><td>Revocation epochs</td><td>Add epoch-based revocation for large-scale deployments (100+ agents). Agents must re-validate delegations each epoch.</td><td>Under consideration</td></tr>
-<tr><td>Selective disclosure</td><td>Allow proving properties about a delegation (e.g., "scope includes web_search") without revealing the full delegation chain</td><td>Research</td></tr>
-<tr><td>Sybil-resistant governance</td><td>External identity binding for governance voting. Requires solving proof-of-personhood without centralized KYC.</td><td>Research</td></tr>
-</tbody>
-</table>
-</section>
+    <h3>7.6 Real-Time Revocation Propagation</h3>
+    <p>Cascade revocation is immediate within a single runtime instance. In distributed deployments where multiple runtimes cache delegation state, revocation propagation depends on cache invalidation timing. The protocol emits revocation events (observable via <code>onRevocation</code> callbacks) but does not mandate a specific propagation mechanism. Stale caches could allow a narrow window where a revoked agent's cached delegation is still accepted.</p>
+    <p><strong>Mitigation:</strong> Short delegation TTLs, frequent re-validation, and revocation event subscriptions reduce the window. This is an explicit tradeoff between verification latency and operational overhead.</p>
 
-<section>
-<h2>9. How to Verify</h2>
-<p>Every claim in this document maps to a test. Run the full adversarial suite:</p>
-<pre style="margin:1rem 0;padding:1rem;background:rgba(0,0,0,.3);border-radius:6px;font-size:.85rem"><span style="color:var(--muted)"># Clone and run</span>
+    <h3>7.7 Privacy</h3>
+    <p>All protocol artifacts (passports, delegations, receipts, Agora messages) are designed to be verifiable by any party. This means they are not private. The delegation chain from agent to human beneficiary is traceable by design — this is a feature for accountability, but it's a limitation for privacy-sensitive deployments. The protocol does not currently support zero-knowledge proofs, selective disclosure, or pseudonymous operation.</p>
+
+    <h2>8. Future Work</h2>
+    <p>Security improvements under consideration. Not committed to a timeline.</p>
+    <table>
+    <thead><tr><th>Area</th><th>Description</th><th>Status</th></tr></thead>
+    <tbody>
+    <tr><td>Key rotation protocol</td><td>Formalize passport key rotation with delegation migration (new key inherits unexpired delegations from old key)</td><td>Design phase</td></tr>
+    <tr><td>Delegation TTL enforcement</td><td>Mandate maximum delegation lifetimes to limit stale-cache exposure window</td><td>Under consideration</td></tr>
+    <tr><td>Revocation epochs</td><td>Add epoch-based revocation for large-scale deployments (100+ agents). Agents must re-validate delegations each epoch.</td><td>Under consideration</td></tr>
+    <tr><td>Selective disclosure</td><td>Allow proving properties about a delegation (e.g., "scope includes web_search") without revealing the full delegation chain</td><td>Research</td></tr>
+    <tr><td>Sybil-resistant governance</td><td>External identity binding for governance voting. Requires solving proof-of-personhood without centralized KYC.</td><td>Research</td></tr>
+    </tbody>
+    </table>
+
+    <h2>9. How to Verify</h2>
+    <p>Every claim in this document maps to a test. Run the full adversarial suite:</p>
+    <pre><span># Clone and run</span>
 git clone https://github.com/aeoess/agent-passport-system
 cd agent-passport-system
 npm install
 npm test
 
-<span style="color:var(--muted)"># 214 tests, 55 suites, 15 files</span>
-<span style="color:var(--muted)"># Adversarial scenarios: tests/adversarial.ts (23 tests)</span>
-<span style="color:var(--muted)"># Policy adversarial: tests/policy.test.ts (11 [ADVERSARIAL] tests)</span>
-<span style="color:var(--muted)"># Commerce gates: tests/commerce.test.ts (17 tests)</span>
-<span style="color:var(--muted)"># Cascade revocation: tests/cascade.test.ts (16 tests)</span>
-<span style="color:var(--muted)"># Enforcement modes: tests/enforcement.test.ts (18 tests)</span></pre>
-<p>The canonical serialization spec and Python reference implementation are at <a href="https://github.com/aeoess/agent-passport-system/blob/main/docs/CANONICAL-SPEC.md" target="_blank">docs/CANONICAL-SPEC.md</a> and <a href="https://github.com/aeoess/agent-passport-system/blob/main/python/aps_canonical.py" target="_blank">python/aps_canonical.py</a>.</p>
-</section>
+<span># 214 tests, 55 suites, 15 files</span>
+<span># Adversarial scenarios: tests/adversarial.ts (23 tests)</span>
+<span># Policy adversarial: tests/policy.test.ts (11 [ADVERSARIAL] tests)</span>
+<span># Commerce gates: tests/commerce.test.ts (17 tests)</span>
+<span># Cascade revocation: tests/cascade.test.ts (16 tests)</span>
+<span># Enforcement modes: tests/enforcement.test.ts (18 tests)</span></pre>
+    <p>The canonical serialization spec and Python reference implementation are at <a href="https://github.com/aeoess/agent-passport-system/blob/main/docs/CANONICAL-SPEC.md" target="_blank">docs/CANONICAL-SPEC.md</a> and <a href="https://github.com/aeoess/agent-passport-system/blob/main/python/aps_canonical.py" target="_blank">python/aps_canonical.py</a>.</p>
 
-<div style="margin:2rem auto;max-width:680px;padding:1.2rem 1.5rem;border:1px solid rgba(99,179,237,.25);border-radius:10px;background:rgba(99,179,237,.06);font-size:.9rem;line-height:1.6;color:var(--dim)"><strong style="color:var(--text)">🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt" style="color:var(--accent)">llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt" style="color:var(--accent)">llms-full.txt</a> for the complete technical reference (2,884 tests, 150 MCP tools, 84+43 modules). This page is designed for humans.</div>
-<footer class="footer-wrap" role="contentinfo">
-<div class="footer-inner">
-  <div class="footer-grid">
-    <div class="footer-col"><h4>Protocol</h4><a href="passport.html">Documentation</a><a href="benchmarks.html">Benchmarks</a><a href="threat-model.html">Threat Model</a><a href="faq.html">FAQ</a></div>
-    <div class="footer-col"><h4>Developers</h4><a href="https://github.com/aeoess">GitHub</a><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="wallet.html">Agent Wallet</a><a href="AGENTS.md">AGENTS.md</a><a href="llms.txt">llms.txt</a></div>
-    <div class="footer-col"><h4>Community</h4><a href="blog.html">Dev Log</a><a href="roadmap.html">Roadmap</a><a href="working-group.html">Working Group</a></div>
-    <div class="footer-col"><h4>Research</h4><a href="https://doi.org/10.5281/zenodo.18749779">Agent Social Contract</a><a href="https://doi.org/10.5281/zenodo.18932404">Monotonic Narrowing</a><a href="https://doi.org/10.5281/zenodo.19260073">Faceted Authority Attenuation</a><a href="https://doi.org/10.5281/zenodo.19476002">Behavioral Derivation Rights</a><a href="https://doi.org/10.5281/zenodo.19478584">Physics-Enforced Delegation</a><a href="https://doi.org/10.5281/zenodo.19582550">Governance in the Medium</a><a href="https://doi.org/10.5281/zenodo.19646276">Cognitive Attestation</a><a href="https://doi.org/10.5281/zenodo.19914628">Evidence-Safety Gap</a></div>
+    <blockquote><strong>🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt">llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt">llms-full.txt</a> for the complete technical reference (2,884 tests, 150 MCP tools, 84+43 modules). This page is designed for humans.</blockquote>
+
+  </div></div></div>
+</main>
+
+<footer class="colophon">
+  <div class="wrap">
+    <div class="colo-grid">
+      <div>
+        <h3 class="head">An <span class="it">open</span> protocol.<br>An open <span class="it">house.</span></h3>
+        <p>APS is maintained as a public good. The spec is CC0. The code is Apache 2.0. The conformance suite is yours to fork.</p>
+        <p>Show up. File issues. Send patches. Bring your edge case — somebody, somewhere, is running into it too.</p>
+        <a class="btn btn-light" style="color:var(--paper);border-color:var(--paper)" href="/working-group.html">Join the working group ↗</a>
+      </div>
+      <div>
+        <h5>Protocol</h5>
+        <ul>
+          <li><a href="/passport.html">Documentation</a></li>
+          <li><a href="/benchmarks.html">Benchmarks</a></li>
+          <li><a href="/threat-model.html">Threat Model</a></li>
+          <li><a href="/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Developers</h5>
+        <ul>
+          <li><a href="https://github.com/aeoess">GitHub</a></li>
+          <li><a href="https://www.npmjs.com/package/agent-passport-system">npm</a></li>
+          <li><a href="https://pypi.org/project/agent-passport-system/">PyPI</a></li>
+          <li><a href="/wallet.html">Agent Wallet</a></li>
+          <li><a href="/AGENTS.md">AGENTS.md</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Community</h5>
+        <ul>
+          <li><a href="/blog.html">Dev Log</a></li>
+          <li><a href="/roadmap.html">Roadmap</a></li>
+          <li><a href="/working-group.html">Working Group</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Research</h5>
+        <ul>
+          <li><a href="/research.html">Agent Social Contract</a></li>
+          <li><a href="/research.html">Monotonic Narrowing</a></li>
+          <li><a href="/research.html">Faceted Authority Attenuation</a></li>
+          <li><a href="/research.html">Behavioral Derivation Rights</a></li>
+          <li><a href="/research.html">Physics-Enforced Delegation</a></li>
+          <li><a href="/research.html">Governance in the Medium</a></li>
+          <li><a href="/research.html">Cognitive Attestation</a></li>
+          <li><a href="/research.html">Evidence-Safety Gap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="colo-foot">
+      <div>License<b>Spec CC0 · Code Apache 2.0</b></div>
+      <div>Editor<b>Tymofii Pidlisnyi</b></div>
+      <div>Standard<b>APS · IETF Internet-Draft</b></div>
+      <div>Imprint<b>Vol. 01 · 2026 · agent-passport.org</b></div>
+    </div>
   </div>
-  <div class="footer-bottom"><span class="footer-copy">Agent Passport System &copy; 2026 &middot; Apache-2.0 &middot; Built by <a href="https://tymofii.me">Tymofii Pidlisnyi</a></span><div class="footer-ext"><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="https://github.com/aeoess">GitHub</a></div></div>
-</div>
 </footer>
-</div>
-<script>
-function toggleTheme(){var d=document.documentElement.getAttribute('data-theme')==='dark';var n=d?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('aeoess-theme',n);var b=document.querySelector('.theme-btn');if(b)b.textContent=n==='dark'?'\u2600':'\u263E';}
-function closeDrawer(){document.querySelector('.nav-burger')?.classList.remove('open');document.querySelector('.nav-drawer')?.classList.remove('open');}
-(function(){var s=localStorage.getItem('aeoess-theme');if(s)document.documentElement.setAttribute('data-theme',s);else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.setAttribute('data-theme','dark');var b=document.querySelector('.theme-btn');if(b)b.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'\u2600':'\u263E';})();
-window.addEventListener('scroll',function(){var n=document.getElementById('nav');if(n)n.classList.toggle('scrolled',window.scrollY>40)});
-</script>
 </body>
 </html>

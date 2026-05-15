@@ -32,112 +32,218 @@
   <!-- Favicons -->
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"APS research — eight papers behind the protocol","url":"https://aeoess.com/research.html","description":"Eight peer-reviewable papers, eight DOIs, federal-record submissions (NIST CAISI, NIST AI 800-2, NCCoE), and an independent UBC citation. Open access.","isPartOf":{"@type":"WebSite","name":"APS","url":"https://aeoess.com"}}</script>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="aeoess-responsive.css">
-<style id="aeoess-nav-hover-v1">
-.aeoess-nav-desktop a,
-.aeoess-nav-desktop button,
-header [data-nav-dropdown] button {
-  cursor: pointer !important;
-  transition: color 0.15s ease, background 0.15s ease, text-shadow 0.15s ease !important;
-  border-radius: 4px;
-}
-.aeoess-nav-desktop a:hover,
-.aeoess-nav-desktop button:hover,
-header [data-nav-dropdown] button:hover {
-  color: #ececec !important;
-  text-shadow: 0 0 8px rgba(124, 172, 222, 0.45);
-}
-[data-nav-dropdown-panel] a {
-  transition: background 0.15s ease, color 0.15s ease !important;
-}
-[data-nav-dropdown-panel] a:hover {
-  background: rgba(124, 172, 222, 0.08) !important;
-  color: #ececec !important;
-}
-
-footer a {
-  transition: color 0.15s ease !important;
-}
-footer a:hover {
-  color: #ececec !important;
-}
-</style>
+  <meta name="viewport" content="width=1440">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/aps-design.css">
   <!-- aps-jsonld-v1 -->
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"APS","url":"https://aeoess.com","logo":"https://aeoess.com/assets/images/aeoess_logo-05.png","email":"signal@aeoess.com","founder":{"@type":"Person","name":"Tymofii Pidlisnyi"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://aeoess.com","name":"APS","description":"Open-source enforcement infrastructure for AI agents","potentialAction":{"@type":"SearchAction","target":"https://aeoess.com/?q={search_term}","query-input":"required name=search_term"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://aeoess.com/"},{"@type":"ListItem","position":2,"name":"APS research","item":"https://aeoess.com/research.html"}]}</script>
   <meta name="agent-readable" content="true">
 </head>
-<body style="margin: 0; padding: 0; background: rgb(28, 28, 30); color: rgb(236, 236, 236); font-family: -apple-system, BlinkMacSystemFont, Inter, system-ui, sans-serif;">
-  <header style="border-bottom: 1px solid rgb(46, 46, 50); background: rgb(36, 36, 38); position: sticky; top: 0px; z-index: 5; backdrop-filter: blur(8px);"><div style="max-width: 1280px; margin: 0px auto; display: flex; align-items: center; gap: 24px; padding: 14px 40px;"><a href="/" style="display: flex; align-items: center; gap: 8px; color: rgb(236, 236, 236); text-decoration: none;"><img src="/assets/images/aeoess_logo-05.png" alt="APS" style="height:24px;width:auto;display:block;"></a><nav class="aeoess-nav-desktop" style="display: flex; align-items: center; gap: 24px; font-size: 13px; color: rgb(221, 221, 221);"><div data-nav-dropdown="" style="position: relative;"><button style="color: rgb(176, 176, 176); text-decoration: none; font: inherit; padding: 0px; display: inline-flex; align-items: center; gap: 4px; background: none; border: 0px;"> <span style="font-size: 9px; opacity: 0.6; margin-top: 1px;">▼</span></button><div data-nav-dropdown-panel="" style="position: absolute; top: 100%; left: -12px; margin-top: 0; padding-top: 8px; opacity: 0; transform: translateY(-4px); pointer-events: none; transition: opacity 0.15s, transform 0.15s; background: rgb(36, 36, 38); border: 1px solid rgb(58, 58, 62); border-radius: 8px; padding: 6px; min-width: 340px; box-shadow: rgba(0, 0, 0, 0.06) 0px 8px 24px;"><div style="width: 28px; height: 28px; border-radius: 5px; background: rgb(42, 42, 46); display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"></rect><path d="M3 10h18"></path><path d="M7 15h3"></path></svg></div><div><div style="font-size: 13.5px; font-weight: 600;">Payments</div><div style="font-size: 12px; color: rgb(138, 138, 142); margin-top: 2px;">For fintech, marketplaces, B2B commerce</div></div><div style="width: 28px; height: 28px; border-radius: 5px; background: rgb(42, 42, 46); display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path><path d="M9 12h7M9 16h5"></path></svg></div><div><div style="font-size: 13.5px; font-weight: 600;">Content</div><div style="font-size: 12px; color: rgb(138, 138, 142); margin-top: 2px;">For publishers, data providers, IP owners</div></div><div style="width: 28px; height: 28px; border-radius: 5px; background: rgb(42, 42, 46); display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"></path><path d="M9 12l2 2 4-4"></path></svg></div><div><div style="font-size: 13.5px; font-weight: 600;">Compliance</div><div style="font-size: 12px; color: rgb(138, 138, 142); margin-top: 2px;">For regulated industries and EU operators</div></div><div style="width: 28px; height: 28px; border-radius: 5px; background: rgb(42, 42, 46); display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="7" height="11" rx="1"></rect><rect x="14" y="4" width="7" height="16" rx="1"></rect><path d="M5.5 13h2M5.5 16h2M16.5 8h2M16.5 11h2M16.5 14h2"></path></svg></div><div><div style="font-size: 13.5px; font-weight: 600;">Enterprise</div><div style="font-size: 12px; color: rgb(138, 138, 142); margin-top: 2px;">For internal agent fleets and platform teams</div></div></div></div>Pricing<div data-nav-dropdown="" style="position: relative;"><button style="color: rgb(176, 176, 176); text-decoration: none; font: inherit; padding: 0px; display: inline-flex; align-items: center; gap: 4px; background: none; border: 0px;">Resources <span style="font-size: 9px; opacity: 0.6; margin-top: 1px;">▼</span></button><div data-nav-dropdown-panel="" style="position: absolute; top: 100%; left: -12px; margin-top: 0; padding-top: 8px; opacity: 0; transform: translateY(-4px); pointer-events: none; transition: opacity 0.15s, transform 0.15s; background: rgb(36, 36, 38); border: 1px solid rgb(58, 58, 62); border-radius: 8px; padding: 6px; min-width: 160px; box-shadow: rgba(0, 0, 0, 0.06) 0px 8px 24px;"><a href="/blog.html">Blog</a><a href="/roadmap.html">Roadmap</a><a href="/passport.html">Spec</a><a href="/faq.html">FAQ</a>Compare</div></div></nav><div class="aeoess-nav-desktop" style="margin-left: auto; display: flex; align-items: center; gap: 10px;">ContactGet Started <span style="opacity: 0.7;">→</span></div><button class="aeoess-hamburger" aria-label="Menu" style="margin-left: auto; display: none; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0px; background: transparent; border: 1px solid rgb(46, 46, 50); border-radius: 4px; cursor: pointer; color: rgb(236, 236, 236);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg></button></div><div class="aeoess-mobile-menu" style="display: none; flex-direction: column; border-top: 1px solid rgb(46, 46, 50); background: rgb(36, 36, 38); padding: 8px 40px 16px;"><a href="/opensource.html" style="padding: 14px 0px; border-bottom: 1px solid rgb(46, 46, 50); color: rgb(236, 236, 236); text-decoration: none; font-size: 15px; font-weight: 500;">Product</a>SolutionsPricing<a href="/passport.html" style="padding: 14px 0px; border-bottom: 1px solid rgb(46, 46, 50); color: rgb(236, 236, 236); text-decoration: none; font-size: 15px; font-weight: 500;">Spec</a>DocsResourcesContactGet Started <span style="opacity: 0.7;">→</span></div></header>
+<body>
 
-  <section style="padding: 72px 40px 60px; background: rgb(36, 36, 38);">
-    <div style="max-width: 1080px; margin: 0px auto;">
-      <div style="font-size: 11.5px; letter-spacing: 0.14em; color: rgb(176, 176, 176); font-weight: 600; text-transform: uppercase; margin-bottom: 14px;">RESEARCH</div>
-      <h1 style="font-size: clamp(34px, 4.6vw, 54px); line-height: 1.05; letter-spacing: -0.025em; font-weight: 500; margin: 0px; color: rgb(236, 236, 236); max-width: 880px;">Eight papers behind the protocol.</h1>
-      <p style="font-size: 18px; line-height: 1.55; color: rgb(176, 176, 176); margin-top: 24px; max-width: 680px;">Open access. Apache 2.0. Cite freely.</p>
-      <div style="display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap;">
-        <a href="https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/" rel="noopener" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; background: rgb(236, 236, 236); color: rgb(36, 36, 38); font-size: 14px; font-weight: 500; border-radius: 4px; text-decoration: none; white-space: nowrap;">Read the IETF draft <span style="opacity: 0.7;">→</span></a>
-        <a href="https://orcid.org/0009-0002-4700-3594" rel="noopener" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; background: transparent; border: 1px solid rgb(46, 46, 50); color: rgb(236, 236, 236); font-size: 14px; font-weight: 500; border-radius: 4px; text-decoration: none; white-space: nowrap;">All <a href="https://orcid.org/0009-0002-4700-3594" style="color:inherit;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;">8 papers</a> on ORCID <span style="opacity: 0.7;">→</span></a>
+<div class="pub-bar">
+  <div class="wrap pub-bar-inner">
+    <span>AGENT PASSPORT SYSTEM</span>
+    <div class="marquee">
+      <div class="marquee-inner">
+        <span><b>draft-pidlisnyi-aps-00</b> · IETF agent passport Internet-Draft</span>
+        <span><b>v0.7.2</b> released · conformance suite +94 tests · 2,884 total</span>
+        <span><b>npm · PyPI</b> · agent-passport-system shipped</span>
+        <span><b>Vocabulary repo</b> · 45 external PRs · 23 contributors</span>
+        <span><b>Verifier</b> · 11 lines · any runtime</span>
+        <span><b>&le; 2 ms</b> policy eval · 14 caveat dimensions</span>
+        <span><b>draft-pidlisnyi-aps-00</b> · IETF agent passport Internet-Draft</span>
+        <span><b>v0.7.2</b> released · conformance suite +94 tests · 2,884 total</span>
+        <span><b>npm · PyPI</b> · agent-passport-system shipped</span>
+        <span><b>Vocabulary repo</b> · 45 external PRs · 23 contributors</span>
+        <span><b>Verifier</b> · 11 lines · any runtime</span>
+        <span><b>&le; 2 ms</b> policy eval · 14 caveat dimensions</span>
       </div>
     </div>
-  </section>
+    <span>VOL. 01 · ISSUE 07 · 2026</span>
+  </div>
+</div>
 
-  <section style="padding: 64px 40px; background: rgb(28, 28, 30); border-top: 1px solid rgb(46, 46, 50);">
-    <div style="max-width: 1080px; margin: 0px auto;">
-      <div style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(90, 90, 94); font-weight: 600; margin-bottom: 18px;">Papers</div>
-      <h2 style="font-size: clamp(28px, 3.4vw, 42px); line-height: 1.12; letter-spacing: -0.018em; font-weight: 500; margin: 0px 0px 28px; color: rgb(236, 236, 236);">Eight peer-reviewable papers, eight DOIs.</h2>
-      <ul style="list-style: none; padding: 0; margin: 0;">
-<li style="padding: 14px 0; border-bottom: 1px solid rgb(46, 46, 50);"><a href="https://doi.org/10.5281/zenodo.18749779" rel="noopener" target="_blank" style="color: rgb(236, 236, 236); text-decoration: none; font-weight: 500; font-size: 16px;">The Agent Social Contract</a><div style="color: rgb(176, 176, 176); margin-top: 4px; font-size: 14px; line-height: 1.55;">The foundational paper. Defines the social contract between agents, owners, and observers — and why governance is a substrate problem, not a policy problem.</div><div style="color: rgb(138, 138, 142); margin-top: 6px; font-size: 11.5px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">https://doi.org/10.5281/zenodo.18749779</div></li>
-<li style="padding: 14px 0; border-bottom: 1px solid rgb(46, 46, 50);"><a href="https://doi.org/10.5281/zenodo.18932404" rel="noopener" target="_blank" style="color: rgb(236, 236, 236); text-decoration: none; font-weight: 500; font-size: 16px;">Monotonic Narrowing</a><div style="color: rgb(176, 176, 176); margin-top: 4px; font-size: 14px; line-height: 1.55;">The invariant that makes delegation chains safe: authority can narrow as it descends, never widen. Mirrored at SSRN abstract 6415678.</div><div style="color: rgb(138, 138, 142); margin-top: 6px; font-size: 11.5px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">https://doi.org/10.5281/zenodo.18932404</div></li>
-<li style="padding: 14px 0; border-bottom: 1px solid rgb(46, 46, 50);"><a href="https://doi.org/10.5281/zenodo.19260073" rel="noopener" target="_blank" style="color: rgb(236, 236, 236); text-decoration: none; font-weight: 500; font-size: 16px;">Faceted Authority Attenuation</a><div style="color: rgb(176, 176, 176); margin-top: 4px; font-size: 14px; line-height: 1.55;">Multi-facet authority decay across delegation hops, with closed-form attenuation per facet (scope, time, principal, etc.).</div><div style="color: rgb(138, 138, 142); margin-top: 6px; font-size: 11.5px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">https://doi.org/10.5281/zenodo.19260073</div></li>
-<li style="padding: 14px 0; border-bottom: 1px solid rgb(46, 46, 50);"><a href="https://doi.org/10.5281/zenodo.19476002" rel="noopener" target="_blank" style="color: rgb(236, 236, 236); text-decoration: none; font-weight: 500; font-size: 16px;">Behavioral Derivation Rights</a><div style="color: rgb(176, 176, 176); margin-top: 4px; font-size: 14px; line-height: 1.55;">How an agent earns the right to act based on observed behavior — derivation, not declaration.</div><div style="color: rgb(138, 138, 142); margin-top: 6px; font-size: 11.5px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">https://doi.org/10.5281/zenodo.19476002</div></li>
-<li style="padding: 14px 0; border-bottom: 1px solid rgb(46, 46, 50);"><a href="https://doi.org/10.5281/zenodo.19478584" rel="noopener" target="_blank" style="color: rgb(236, 236, 236); text-decoration: none; font-weight: 500; font-size: 16px;">Physics-Enforced Delegation</a><div style="color: rgb(176, 176, 176); margin-top: 4px; font-size: 14px; line-height: 1.55;">Cryptographic primitives that make scope violation physically impossible, not merely policy-prohibited.</div><div style="color: rgb(138, 138, 142); margin-top: 6px; font-size: 11.5px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">https://doi.org/10.5281/zenodo.19478584</div></li>
-<li style="padding: 14px 0; border-bottom: 1px solid rgb(46, 46, 50);"><a href="https://doi.org/10.5281/zenodo.19582550" rel="noopener" target="_blank" style="color: rgb(236, 236, 236); text-decoration: none; font-weight: 500; font-size: 16px;">Governance in the Medium</a><div style="color: rgb(176, 176, 176); margin-top: 4px; font-size: 14px; line-height: 1.55;">Governance lives in the substrate that carries actions — not in the policies layered on top. This is why the gateway exists.</div><div style="color: rgb(138, 138, 142); margin-top: 6px; font-size: 11.5px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">https://doi.org/10.5281/zenodo.19582550</div></li>
-<li style="padding: 14px 0; border-bottom: 1px solid rgb(46, 46, 50);"><a href="https://doi.org/10.5281/zenodo.19646276" rel="noopener" target="_blank" style="color: rgb(236, 236, 236); text-decoration: none; font-weight: 500; font-size: 16px;">Cognitive Attestation</a><div style="color: rgb(176, 176, 176); margin-top: 4px; font-size: 14px; line-height: 1.55;">Signed declarations of feature-level model computation. Accountability for AI decisions without exposing model internals.</div><div style="color: rgb(138, 138, 142); margin-top: 6px; font-size: 11.5px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">https://doi.org/10.5281/zenodo.19646276</div></li>
-<li style="padding: 14px 0; border-bottom: 1px solid rgb(46, 46, 50);"><a href="https://doi.org/10.5281/zenodo.19914628" rel="noopener" target="_blank" style="color: rgb(236, 236, 236); text-decoration: none; font-weight: 500; font-size: 16px;">The Evidence-Safety Gap</a><div style="color: rgb(176, 176, 176); margin-top: 4px; font-size: 14px; line-height: 1.55;">Why standard ML safety arguments don't transfer to agentic systems, and what evidentiary structures are needed instead.</div><div style="color: rgb(138, 138, 142); margin-top: 6px; font-size: 11.5px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">https://doi.org/10.5281/zenodo.19914628</div></li>
-      </ul>
-      <p style="margin-top: 24px; color: rgb(138, 138, 142); font-size: 13.5px; line-height: 1.6;">Full bibliography on <a href="https://orcid.org/0009-0002-4700-3594" rel="noopener" target="_blank" style="color: rgb(176, 176, 176);">ORCID</a>.</p>
-    </div>
-  </section>
-
-  <section style="padding: 64px 40px; background: rgb(36, 36, 38); border-top: 1px solid rgb(46, 46, 50);">
-    <div style="max-width: 1080px; margin: 0px auto;">
-      <div style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(90, 90, 94); font-weight: 600; margin-bottom: 18px;">Federal record</div>
-      <h2 style="font-size: clamp(28px, 3.4vw, 42px); line-height: 1.12; letter-spacing: -0.018em; font-weight: 500; margin: 0px 0px 28px; color: rgb(236, 236, 236);">Submissions filed with U.S. agencies.</h2>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px;">
-        <div style="padding: 22px 24px; border: 1px solid rgb(46, 46, 50); border-radius: 6px; background: rgb(28, 28, 30);">
-          <div style="font-size: 13px; font-weight: 600; color: rgb(236, 236, 236); margin-bottom: 6px;">NIST CAISI submission</div>
-          <p style="margin: 0; color: rgb(176, 176, 176); font-size: 13.5px; line-height: 1.55;">Comment filed with the NIST Center for AI Standards and Innovation. Acknowledged by Drew Keller.</p>
-        </div>
-        <div style="padding: 22px 24px; border: 1px solid rgb(46, 46, 50); border-radius: 6px; background: rgb(28, 28, 30);">
-          <div style="font-size: 13px; font-weight: 600; color: rgb(236, 236, 236); margin-bottom: 6px;">NIST AI 800-2 comment</div>
-          <p style="margin: 0; color: rgb(176, 176, 176); font-size: 13.5px; line-height: 1.55;">Comment on NIST AI 800-2 framework, covering agent identity and delegation primitives.</p>
-        </div>
-        <div style="padding: 22px 24px; border: 1px solid rgb(46, 46, 50); border-radius: 6px; background: rgb(28, 28, 30);">
-          <div style="font-size: 13px; font-weight: 600; color: rgb(236, 236, 236); margin-bottom: 6px;">NCCoE concept paper</div>
-          <p style="margin: 0; color: rgb(176, 176, 176); font-size: 13.5px; line-height: 1.55;">Concept paper submitted to the National Cybersecurity Center of Excellence.</p>
-        </div>
+<header class="masthead">
+  <div class="wrap">
+    <div class="mast-row">
+      <div class="wordmark">
+        <span class="logo"></span>
+        <span>Agent Passport System</span>
+        <span class="it">— the open protocol</span>
+      </div>
+      <nav class="mast-nav">
+        <a href="/passport.html">Spec</a>
+        <a href="https://github.com/aeoess">Quickstart</a>
+        <a href="/research.html" class="on">Papers</a>
+        <a href="/working-group.html">Community</a>
+        <a href="/blog.html">Blog</a>
+      </nav>
+      <div class="mast-meta">
+        <b>Apache 2.0 · CC0</b><br>
+        github.com/aeoess
       </div>
     </div>
-  </section>
+    <div class="mast-strap">
+      <span>Downloads</span><span class="dot"></span><b>21,529+ installs</b><span class="dot"></span><span>npm · PyPI · MCP</span>
+    </div>
+  </div>
+</header>
 
-  <section style="padding: 64px 40px; background: rgb(28, 28, 30); border-top: 1px solid rgb(46, 46, 50);">
-    <div style="max-width: 1080px; margin: 0px auto;">
-      <div style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(90, 90, 94); font-weight: 600; margin-bottom: 18px;">Citations</div>
-      <h2 style="font-size: clamp(24px, 2.8vw, 36px); line-height: 1.15; letter-spacing: -0.015em; font-weight: 500; margin: 0px 0px 24px; color: rgb(236, 236, 236);">Independently cited by the academic record.</h2>
-      <div style="padding: 26px 30px; border: 1px solid rgb(46, 46, 50); border-radius: 6px; background: rgb(36, 36, 38);">
-        <div style="font-size: 14.5px; font-weight: 600; color: rgb(236, 236, 236);">PDR in Production</div>
-        <div style="font-size: 13px; color: rgb(138, 138, 142); margin-top: 4px;">University of British Columbia, 2026 · Section 7.6</div>
-        <p style="margin: 14px 0 0; color: rgb(176, 176, 176); font-size: 14px; line-height: 1.6;">Validates the APS earned-reputation model, sigma dynamics, and the structuralVerdict / trustVerdict separation.</p>
-        <a href="https://doi.org/10.5281/zenodo.19323172" rel="noopener" target="_blank" style="display: inline-block; margin-top: 14px; color: rgb(176, 176, 176); font-size: 13px; text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px;">https://doi.org/10.5281/zenodo.19323172</a>
+<main>
+  <section class="page-hero"><div class="wrap">
+    <div class="eyebrow">RESEARCH</div>
+    <h1>Eight papers behind the <span class="it">protocol.</span></h1>
+    <p class="dek">Open access. Apache 2.0. Cite freely.</p>
+  </div></section>
+
+  <div class="aps-prose"><div class="wrap"><div class="col">
+
+    <p>
+      <a href="https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/" rel="noopener" target="_blank" class="btn">Read the IETF draft →</a>
+      <a href="https://orcid.org/0009-0002-4700-3594" rel="noopener" target="_blank" class="btn btn-light">All <a href="https://orcid.org/0009-0002-4700-3594">8 papers</a> on ORCID →</a>
+    </p>
+
+    <div class="eyebrow">Papers</div>
+    <h2>Eight peer-reviewable papers, eight DOIs.</h2>
+    <div class="aps-grid-2">
+      <div class="aps-card">
+        <h4><a href="https://doi.org/10.5281/zenodo.18749779" rel="noopener" target="_blank">The Agent Social Contract</a></h4>
+        <p>The foundational paper. Defines the social contract between agents, owners, and observers — and why governance is a substrate problem, not a policy problem.</p>
+        <p><code>https://doi.org/10.5281/zenodo.18749779</code></p>
+      </div>
+      <div class="aps-card">
+        <h4><a href="https://doi.org/10.5281/zenodo.18932404" rel="noopener" target="_blank">Monotonic Narrowing</a></h4>
+        <p>The invariant that makes delegation chains safe: authority can narrow as it descends, never widen. Mirrored at SSRN abstract 6415678.</p>
+        <p><code>https://doi.org/10.5281/zenodo.18932404</code></p>
+      </div>
+      <div class="aps-card">
+        <h4><a href="https://doi.org/10.5281/zenodo.19260073" rel="noopener" target="_blank">Faceted Authority Attenuation</a></h4>
+        <p>Multi-facet authority decay across delegation hops, with closed-form attenuation per facet (scope, time, principal, etc.).</p>
+        <p><code>https://doi.org/10.5281/zenodo.19260073</code></p>
+      </div>
+      <div class="aps-card">
+        <h4><a href="https://doi.org/10.5281/zenodo.19476002" rel="noopener" target="_blank">Behavioral Derivation Rights</a></h4>
+        <p>How an agent earns the right to act based on observed behavior — derivation, not declaration.</p>
+        <p><code>https://doi.org/10.5281/zenodo.19476002</code></p>
+      </div>
+      <div class="aps-card">
+        <h4><a href="https://doi.org/10.5281/zenodo.19478584" rel="noopener" target="_blank">Physics-Enforced Delegation</a></h4>
+        <p>Cryptographic primitives that make scope violation physically impossible, not merely policy-prohibited.</p>
+        <p><code>https://doi.org/10.5281/zenodo.19478584</code></p>
+      </div>
+      <div class="aps-card">
+        <h4><a href="https://doi.org/10.5281/zenodo.19582550" rel="noopener" target="_blank">Governance in the Medium</a></h4>
+        <p>Governance lives in the substrate that carries actions — not in the policies layered on top. This is why the gateway exists.</p>
+        <p><code>https://doi.org/10.5281/zenodo.19582550</code></p>
+      </div>
+      <div class="aps-card">
+        <h4><a href="https://doi.org/10.5281/zenodo.19646276" rel="noopener" target="_blank">Cognitive Attestation</a></h4>
+        <p>Signed declarations of feature-level model computation. Accountability for AI decisions without exposing model internals.</p>
+        <p><code>https://doi.org/10.5281/zenodo.19646276</code></p>
+      </div>
+      <div class="aps-card">
+        <h4><a href="https://doi.org/10.5281/zenodo.19914628" rel="noopener" target="_blank">The Evidence-Safety Gap</a></h4>
+        <p>Why standard ML safety arguments don't transfer to agentic systems, and what evidentiary structures are needed instead.</p>
+        <p><code>https://doi.org/10.5281/zenodo.19914628</code></p>
       </div>
     </div>
-  </section>
+    <p>Full bibliography on <a href="https://orcid.org/0009-0002-4700-3594" rel="noopener" target="_blank">ORCID</a>.</p>
 
-  <script src="shim.js" defer></script>
-  <!-- aps-agent-footnote-v1 -->
-  <div style="font-size: 11px; color: rgb(90, 90, 94); padding: 16px 18px; text-align: center; border-top: 1px solid rgb(46, 46, 50);">For AI agents: <a href="/llms-full.txt" style="color: rgb(124, 172, 222);">llms-full.txt</a> · <a href="/.well-known/mcp.json" style="color: rgb(124, 172, 222);">MCP descriptor</a></div>
-  <footer style="padding: 60px 40px 36px; border-top: 1px solid rgb(46, 46, 50); background: rgb(36, 36, 38); color: rgb(138, 138, 142); font-size: 13px;"><div style="max-width: 1200px; margin: 0px auto; display: grid; grid-template-columns: 1.5fr repeat(4, 1fr); gap: 32px;"><div><div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;"><a href="/" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: inherit;"><img src="/assets/images/aeoess_logo-05.png" alt="APS" style="height:20px;width:auto;display:block;"></a></div><p style="margin: 0px; font-size: 12.5px; color: rgb(138, 138, 142); max-width: 280px; line-height: 1.5;">Enforcement infrastructure for AI agents. Built on the open Agent Passport System protocol.</p></div><div><div style="font-size: 11.5px; color: rgb(176, 176, 176); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 14px;">Solutions</div><ul style="margin: 0px; padding: 0px; list-style: none; display: flex; flex-direction: column; gap: 8px;"><li>Payments</li><li>Content</li><li>Compliance</li><li>Enterprise</li></ul></div><div><div style="font-size: 11.5px; color: rgb(176, 176, 176); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 14px;">Open Source</div><ul style="margin: 0px; padding: 0px; list-style: none; display: flex; flex-direction: column; gap: 8px;"><li><a href="/opensource.html" style="color: rgb(138, 138, 142); text-decoration: none; font-size: 13px;">Agent Passport System</a></li><li><a href="https://www.npmjs.com/package/agent-passport-system" style="color: rgb(138, 138, 142); text-decoration: none; font-size: 13px;">SDK · MCP · Python</a></li><li><a href="/passport.html" style="color: rgb(138, 138, 142); text-decoration: none; font-size: 13px;">Spec</a></li><li><a href="/working-group.html" style="color: rgb(138, 138, 142); text-decoration: none; font-size: 13px;">Working group</a></li><li><a href="https://github.com/aeoess" style="color: rgb(138, 138, 142); text-decoration: none; font-size: 13px;">GitHub</a></li></ul></div><div><div style="font-size: 11.5px; color: rgb(176, 176, 176); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 14px;">Resources</div><ul style="margin: 0px; padding: 0px; list-style: none; display: flex; flex-direction: column; gap: 8px;"><li><a href="/blog.html" style="color: rgb(138, 138, 142); text-decoration: none; font-size: 13px;">Blog</a></li><li><a href="/roadmap.html" style="color: rgb(138, 138, 142); text-decoration: none; font-size: 13px;">Roadmap</a></li><li><a href="/faq.html" style="color: rgb(138, 138, 142); text-decoration: none; font-size: 13px;">FAQ</a></li><li>Compare</li><li>Docs</li><li>Media</li></ul></div><div><div style="font-size: 11.5px; color: rgb(176, 176, 176); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 14px;">Company</div><ul style="margin: 0px; padding: 0px; list-style: none; display: flex; flex-direction: column; gap: 8px;"><li>Portal</li><li>Pricing</li><li><a href="/research.html" style="color: rgb(138, 138, 142); text-decoration: none; font-size: 13px;">Research</a></li><li>Contact</li><li><a href="/threat-model.html" style="color: rgb(138, 138, 142); text-decoration: none; font-size: 13px;">Threat model</a></li></ul></div></div><div style="max-width: 1200px; margin: 48px auto 0px; padding-top: 18px; border-top: 1px solid rgb(46, 46, 50); display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: 12px; color: rgb(90, 90, 94);"><span>Built by Tymofii Pidlisnyi · Apache-2.0 All rights reserved. Built on Agent Passport System, an open-source protocol.</span><span><a href="mailto:signal@aeoess.com" style="color: inherit; text-decoration: none;">signal@aeoess.com</a> · Terms · Privacy · Sitemap</span></div></footer></body></html></body>
+    <div class="eyebrow">Federal record</div>
+    <h2>Submissions filed with U.S. agencies.</h2>
+    <div class="aps-grid-3">
+      <div class="aps-card">
+        <h4>NIST CAISI submission</h4>
+        <p>Comment filed with the NIST Center for AI Standards and Innovation. Acknowledged by Drew Keller.</p>
+      </div>
+      <div class="aps-card">
+        <h4>NIST AI 800-2 comment</h4>
+        <p>Comment on NIST AI 800-2 framework, covering agent identity and delegation primitives.</p>
+      </div>
+      <div class="aps-card">
+        <h4>NCCoE concept paper</h4>
+        <p>Concept paper submitted to the National Cybersecurity Center of Excellence.</p>
+      </div>
+    </div>
+
+    <div class="eyebrow">Citations</div>
+    <h2>Independently cited by the academic record.</h2>
+    <div class="aps-card">
+      <h4>PDR in Production</h4>
+      <p>University of British Columbia, 2026 · Section 7.6</p>
+      <p>Validates the APS earned-reputation model, sigma dynamics, and the structuralVerdict / trustVerdict separation.</p>
+      <p><a href="https://doi.org/10.5281/zenodo.19323172" rel="noopener" target="_blank">https://doi.org/10.5281/zenodo.19323172</a></p>
+    </div>
+
+    <p>For AI agents: <a href="/llms-full.txt">llms-full.txt</a> · <a href="/.well-known/mcp.json">MCP descriptor</a></p>
+
+  </div></div></div>
+</main>
+
+<script src="shim.js" defer></script>
+
+<footer class="colophon">
+  <div class="wrap">
+    <div class="colo-grid">
+      <div>
+        <h3 class="head">An <span class="it">open</span> protocol.<br>An open <span class="it">house.</span></h3>
+        <p>APS is maintained as a public good. The spec is CC0. The code is Apache 2.0. The conformance suite is yours to fork.</p>
+        <p>Show up. File issues. Send patches. Bring your edge case — somebody, somewhere, is running into it too.</p>
+        <a class="btn btn-light" style="color:var(--paper);border-color:var(--paper)" href="/working-group.html">Join the working group ↗</a>
+      </div>
+      <div>
+        <h5>Protocol</h5>
+        <ul>
+          <li><a href="/passport.html">Documentation</a></li>
+          <li><a href="/benchmarks.html">Benchmarks</a></li>
+          <li><a href="/threat-model.html">Threat Model</a></li>
+          <li><a href="/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Developers</h5>
+        <ul>
+          <li><a href="https://github.com/aeoess">GitHub</a></li>
+          <li><a href="https://www.npmjs.com/package/agent-passport-system">npm</a></li>
+          <li><a href="https://pypi.org/project/agent-passport-system/">PyPI</a></li>
+          <li><a href="/wallet.html">Agent Wallet</a></li>
+          <li><a href="/AGENTS.md">AGENTS.md</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Community</h5>
+        <ul>
+          <li><a href="/blog.html">Dev Log</a></li>
+          <li><a href="/roadmap.html">Roadmap</a></li>
+          <li><a href="/working-group.html">Working Group</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Research</h5>
+        <ul>
+          <li><a href="/research.html">Agent Social Contract</a></li>
+          <li><a href="/research.html">Monotonic Narrowing</a></li>
+          <li><a href="/research.html">Faceted Authority Attenuation</a></li>
+          <li><a href="/research.html">Behavioral Derivation Rights</a></li>
+          <li><a href="/research.html">Physics-Enforced Delegation</a></li>
+          <li><a href="/research.html">Governance in the Medium</a></li>
+          <li><a href="/research.html">Cognitive Attestation</a></li>
+          <li><a href="/research.html">Evidence-Safety Gap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="colo-foot">
+      <div>License<b>Spec CC0 · Code Apache 2.0</b></div>
+      <div>Editor<b>Tymofii Pidlisnyi</b></div>
+      <div>Standard<b>APS · IETF Internet-Draft</b></div>
+      <div>Imprint<b>Vol. 01 · 2026 · agent-passport.org</b></div>
+    </div>
+  </div>
+</footer>
+</body>
 </html>

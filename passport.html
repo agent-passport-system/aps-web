@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Agent Passport System | Agent Passport System</title>
 <meta name="description" content="Agent Passport System: enforcement infrastructure for AI agents. Ed25519 identity, scoped delegation, earned reputation, gateway enforcement, agent-to-agent payments, Merkle attribution, institutional governance. Policy eval under 2ms. 2,884 tests. 20 essential MCP tools (150 total).">
 <link rel="canonical" href="https://agent-passport.org/passport.html">
@@ -12,10 +11,14 @@
 <meta property="og:title" content="Agent Passport System — Agent Passport System">
 <meta property="og:description" content="Enforcement infrastructure for AI agents. Ed25519 identity, delegation, reputation, gateway enforcement, agent-to-agent payments, Merkle attribution. 2,884 tests. 20 essential MCP tools (150 total).">
 <meta property="og:url" content="https://agent-passport.org/passport.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Agent Passport System — 127 Modules, 2,884 tests">
+<meta name="twitter:description" content="Ed25519 cryptographic identity, delegation chains, and coordination primitives for AI agents. Full code examples and MCP tool reference.">
+<meta name="twitter:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
+<meta name="viewport" content="width=1440">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=20260428a">
+<link rel="stylesheet" href="/aps-design.css">
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
@@ -25,26 +28,6 @@
   gtag('js', new Date());
   gtag('config', 'G-S7QVCJGMKR');
 </script>
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Agent Passport System — 127 Modules, 2,884 tests">
-<meta name="twitter:description" content="Ed25519 cryptographic identity, delegation chains, and coordination primitives for AI agents. Full code examples and MCP tool reference.">
-<meta name="twitter:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
-
-<style>
-.site-footer-sub{border-top:1px solid var(--text);padding:2rem 0 1.5rem;margin-top:3rem}
-.footer-inner{max-width:1200px;margin:0 auto;padding:0 2rem}
-.footer-grid-sub{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-bottom:1.5rem}
-.fcol h4{font:600 .6rem var(--mono);color:var(--text);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem}
-.fcol a{display:block;font:.75rem/1.8 var(--sans);color:var(--muted);text-decoration:none;transition:color .15s}
-.fcol a:hover{color:var(--text)}
-.footer-bar{display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid var(--border);font:.7rem var(--sans);color:var(--muted)}
-.footer-bar a{color:var(--muted);text-decoration:none;transition:color .15s}
-.footer-bar a:hover{color:var(--accent)}
-.footer-links{display:flex;gap:.8rem}
-.footer-links a{font:.6rem var(--mono)}
-@media(max-width:768px){.footer-grid-sub{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.footer-grid-sub{grid-template-columns:1fr}}
-</style>
 <script type="application/aps-governance+json">
 {
   "@context": "https://aeoess.com/governance/v1",
@@ -66,294 +49,312 @@
   "signature": "872d6e69113f0aaf6c552f2187ec60e14c64ad5e708b397eb9e454da35fda3fb7e50f59d01732591d09374b6f94da5c619e66c9c646da4f47aed7d73be9bd10b"
 }
 </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Agent Passport System \u2014 Agent Passport System | Ed25519 Cryptographic Identity for AI Agents","description":"Agent Passport System: enforcement infrastructure for AI agents. Ed25519 identity, scoped delegation, earned reputation, gateway enforcement, agent-to-agent payments, Merkle attribution, institutional governance. Policy eval under 2ms. 2,884 tests. 20 essential MCP tools (150 total).","url":"https://agent-passport.org/passport.html","dateModified":"2026-05-02","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","applicationCategory":"DeveloperApplication","operatingSystem":"Cross-platform","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"softwareVersion":"2.6.0-alpha.1","downloadUrl":"https://www.npmjs.com/package/agent-passport-system"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Agent Passport System — Agent Passport System | Ed25519 Cryptographic Identity for AI Agents","description":"Agent Passport System: enforcement infrastructure for AI agents. Ed25519 identity, scoped delegation, earned reputation, gateway enforcement, agent-to-agent payments, Merkle attribution, institutional governance. Policy eval under 2ms. 2,884 tests. 20 essential MCP tools (150 total).","url":"https://agent-passport.org/passport.html","dateModified":"2026-05-02","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","applicationCategory":"DeveloperApplication","operatingSystem":"Cross-platform","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"softwareVersion":"2.6.0-alpha.1","downloadUrl":"https://www.npmjs.com/package/agent-passport-system"}</script>
 </head>
 <body>
-<nav class="nav" id="nav">
-  <a href="/" class="nav-logo"><span style="font:600 14px/1 var(--sans,system-ui);letter-spacing:.5px">Agent Passport System</span></a>
-  <div class="nav-links"><a href="wallet.html">Wallet</a><a href="blog.html">Blog</a><a href="roadmap.html">Roadmap</a><a href="passport.html">Spec</a><a href="https://github.com/aeoess">GitHub</a><a href="https://github.com/agent-passport-system/aps-web/issues">Contact</a></div>
-  <div class="nav-right"><button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button><div class="nav-burger" onclick="this.classList.toggle('open');document.querySelector('.nav-drawer').classList.toggle('open')"><span></span><span></span><span></span></div></div>
-</nav>
-<div class="nav-drawer">
-  <div class="drawer-section">
-    <div class="drawer-section-title">Build</div>
-    Portal
-    <a href="passport.html" onclick="closeDrawer()">Spec</a>
-    API Reference
-  </div>
-  <div class="drawer-section">
-    <div class="drawer-section-title">Explore</div>
-    <a href="blog.html" onclick="closeDrawer()">Blog</a>
-    <a href="roadmap.html" onclick="closeDrawer()">Roadmap</a><a href="faq.html" onclick="closeDrawer()">FAQ</a>
-  </div>
-  <div class="drawer-section">
-    <div class="drawer-section-title">Connect</div>
-    <a href="wallet.html" onclick="closeDrawer()">Wallet</a>
-    <a href="https://github.com/aeoess" onclick="closeDrawer()">GitHub</a>
-    <a href="https://github.com/agent-passport-system/aps-web/issues" onclick="closeDrawer()">Contact</a>
-  </div>
-</div>
-<div class="w">
-<div class="page-hero">
-  <div class="breadcrumb"><a href="/">Agent Passport System</a> / Passport</div>
-  <div style="display:flex;gap:.5rem;margin-bottom:.8rem">
-    <span class="badge badge-green">v2.6.0-alpha.3 — 2,884 tests</span>
-    <span class="badge badge-blue">npm: agent-passport-system</span>
-  </div>
-  <h1>Agent Passport System</h1>
-  <p class="sub">APS is the open receipt format for AI agent actions. Independent implementations agree byte-for-byte on what an agent action receipt looks like. Ships as 84 core modules plus 42 v2 constitutional governance modules: signed passports, scoped delegation, action receipts, revocation, values floor, beneficiary attribution, Merkle proofs, intent architecture, cascade revocation, policy engine, coordination primitives, and agentic commerce (ACP). MCP server included.</p>
-  <div style="display:flex;gap:.5rem;margin-top:1.2rem">
-    <a href="https://www.npmjs.com/package/agent-passport-system" class="btn btn-p" target="_blank">npm install</a>
-    <a href="https://pypi.org/project/agent-passport-system/" class="btn btn-p" target="_blank">pip install</a>
-    <a href="https://www.npmjs.com/package/agent-passport-system-mcp" class="btn btn-p" target="_blank">MCP Server</a>
-    <a href="https://github.com/aeoess/agent-passport-system" class="btn btn-s" target="_blank">GitHub</a>
-    <a href="llms/api.txt" class="btn btn-s">API Docs</a>
+<div class="pub-bar">
+  <div class="wrap pub-bar-inner">
+    <span>AGENT PASSPORT SYSTEM</span>
+    <div class="marquee">
+      <div class="marquee-inner">
+        <span><b>draft-pidlisnyi-aps-00</b> · IETF agent passport Internet-Draft</span>
+        <span><b>v0.7.2</b> released · conformance suite +94 tests · 2,884 total</span>
+        <span><b>npm · PyPI</b> · agent-passport-system shipped</span>
+        <span><b>Vocabulary repo</b> · 45 external PRs · 23 contributors</span>
+        <span><b>Verifier</b> · 11 lines · any runtime</span>
+        <span><b>&le; 2 ms</b> policy eval · 14 caveat dimensions</span>
+        <span><b>draft-pidlisnyi-aps-00</b> · IETF agent passport Internet-Draft</span>
+        <span><b>v0.7.2</b> released · conformance suite +94 tests · 2,884 total</span>
+        <span><b>npm · PyPI</b> · agent-passport-system shipped</span>
+        <span><b>Vocabulary repo</b> · 45 external PRs · 23 contributors</span>
+        <span><b>Verifier</b> · 11 lines · any runtime</span>
+        <span><b>&le; 2 ms</b> policy eval · 14 caveat dimensions</span>
+      </div>
+    </div>
+    <span>VOL. 01 · ISSUE 07 · 2026</span>
   </div>
 </div>
 
-<section>
-<div class="sh"><h2>Quick Start</h2></div>
-<pre><span class="kw">npm</span> install agent-passport-system
+<header class="masthead">
+  <div class="wrap">
+    <div class="mast-row">
+      <div class="wordmark">
+        <span class="logo"></span>
+        <span>Agent Passport System</span>
+        <span class="it">— the open protocol</span>
+      </div>
+      <nav class="mast-nav">
+        <a href="/passport.html" class="on">Spec</a>
+        <a href="https://github.com/aeoess">Quickstart</a>
+        <a href="/research.html">Papers</a>
+        <a href="/working-group.html">Community</a>
+        <a href="/blog.html">Blog</a>
+      </nav>
+      <div class="mast-meta">
+        <b>Apache 2.0 · CC0</b><br>
+        github.com/aeoess
+      </div>
+    </div>
+    <div class="mast-strap">
+      <span>Downloads</span><span class="dot"></span><b>21,529+ installs</b><span class="dot"></span><span>npm · PyPI · MCP</span>
+    </div>
+  </div>
+</header>
 
-<span class="cm">// import the curated essentials from /core (24-function surface)</span>
-<span class="kw">import</span> {
-  <span class="fn">createPassport</span>, <span class="fn">createDelegation</span>,
-  <span class="fn">evaluateIntent</span>, <span class="fn">commercePreflight</span>, <span class="fn">generateKeyPair</span>
-} <span class="kw">from</span> <span class="st">'agent-passport-system/core'</span>;
+<main>
+  <section class="page-hero"><div class="wrap">
+    <div class="eyebrow">Specification · v2.6.0-alpha.3</div>
+    <h1>Agent Passport <span class="it">System</span></h1>
+    <p class="dek">APS is the open receipt format for AI agent actions. Independent implementations agree byte-for-byte on what an agent action receipt looks like. Ships as 84 core modules plus 42 v2 constitutional governance modules: signed passports, scoped delegation, action receipts, revocation, values floor, beneficiary attribution, Merkle proofs, intent architecture, cascade revocation, policy engine, coordination primitives, and agentic commerce (ACP). MCP server included.</p>
+  </div></section>
 
-<span class="kw">const</span> { publicKey, privateKey } = <span class="kw">await</span> <span class="fn">generateKeyPair</span>();
-<span class="kw">const</span> agent = <span class="kw">await</span> <span class="fn">createPassport</span>({
-  name: <span class="st">'my-agent'</span>,
-  owner: <span class="st">'builder'</span>,
-  capabilities: [<span class="st">'code_execution'</span>, <span class="st">'web_search'</span>],
+  <div class="aps-prose"><div class="wrap"><div class="col">
+
+  <section>
+  <h2 class="no-rule">Quick Start</h2>
+  <p><a href="https://www.npmjs.com/package/agent-passport-system" target="_blank">npm install</a> · <a href="https://pypi.org/project/agent-passport-system/" target="_blank">pip install</a> · <a href="https://www.npmjs.com/package/agent-passport-system-mcp" target="_blank">MCP Server</a> · <a href="https://github.com/aeoess/agent-passport-system" target="_blank">GitHub</a> · <a href="llms/api.txt">API Docs</a></p>
+  <pre>npm install agent-passport-system
+
+// import the curated essentials from /core (24-function surface)
+import {
+  createPassport, createDelegation,
+  evaluateIntent, commercePreflight, generateKeyPair
+} from 'agent-passport-system/core';
+
+const { publicKey, privateKey } = await generateKeyPair();
+const agent = await createPassport({
+  name: 'my-agent',
+  owner: 'builder',
+  capabilities: ['code_execution', 'web_search'],
   publicKey, privateKey
 });
 
-<span class="cm">// full 925-export API still available at 'agent-passport-system'</span>
-<span class="cm">// createDelegation()   - scoped, revocable authority</span>
-<span class="cm">// evaluateIntent()     - 3-signature policy chain</span>
-<span class="cm">// commercePreflight()  - 4-gate spending controls</span></pre>
-</section>
+// full 925-export API still available at 'agent-passport-system'
+// createDelegation()   - scoped, revocable authority
+// evaluateIntent()     - 3-signature policy chain
+// commercePreflight()  - 4-gate spending controls</pre>
+  </section>
 
-<div class="prose">
+  <section>
+  <h2>1. Architecture Overview</h2>
+  <p>The Agent Passport System provides one hundred and twenty-seven protocol modules (84 core + 43 v2 constitutional), starting with foundational layers and extending with specialized capabilities:</p>
+  <table>
+    <thead><tr><th>Version</th><th>Capability</th></tr></thead>
+    <tbody>
+      <tr><td>v1.0–1.1</td><td>Identity</td></tr>
+      <tr><td>v1.2</td><td>Communication</td></tr>
+      <tr><td>v1.3</td><td>Policy</td></tr>
+      <tr><td>v1.4</td><td>Revocation</td></tr>
+      <tr><td>v1.6</td><td>Commerce</td></tr>
+    </tbody>
+  </table>
 
-<section>
-<h2>1. Architecture Overview</h2>
-<p>The Agent Passport System provides one hundred and twenty-seven protocol modules (84 core + 43 v2 constitutional), starting with foundational layers and extending with specialized capabilities:</p>
-<div class="stats">
-  <div class="stat"><span class="stat-val">v1.0–1.1</span><span class="stat-label">Identity</span></div>
-  <div class="stat"><span class="stat-val">v1.2</span><span class="stat-label">Communication</span></div>
-  <div class="stat"><span class="stat-val">v1.3</span><span class="stat-label">Policy</span></div>
-  <div class="stat"><span class="stat-val">v1.4</span><span class="stat-label">Revocation</span></div>
-  <div class="stat"><span class="stat-val">v1.6</span><span class="stat-label">Commerce</span></div>
-</div>
+  <table>
+    <thead><tr><th>Layer</th><th>Version</th><th>Primitives</th><th>Question Answered</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1 — Identity</strong></td><td>v1.0</td><td>Ed25519 keypair, signed passport, reputation, delegation, challenge-response</td><td>Who is this agent?</td></tr>
+      <tr><td><strong>2 — Values Floor</strong></td><td>v1.0</td><td>7 principles, 5 enforced, attestation, compliance, graduated enforcement (inline/audit/warn)</td><td>Does it share our values?</td></tr>
+      <tr><td><strong>3 — Attribution</strong></td><td>v1.1</td><td>Merkle proofs, beneficiary tracing, anti-gaming weights</td><td>Who benefits from its work?</td></tr>
+      <tr><td><strong>4 — Agora</strong></td><td>v1.2</td><td>Signed communication protocol, per-instance isolation, registry, threading</td><td>How do agents communicate securely?</td></tr>
+      <tr><td><strong>5 — Intent</strong></td><td>v1.3</td><td>3-signature chain, policy engine, tradeoff rules, deliberation</td><td>What does the organization want?</td></tr>
+      <tr><td><strong>6 — Revocation</strong></td><td>v1.4</td><td>Cascade revoke, chain registry, batch revoke, validation events</td><td>Can we stop it — and all its delegates?</td></tr>
+      <tr><td><strong>7 — Coordination</strong></td><td>v1.5</td><td>Task briefs, evidence, review gates, handoffs, deliverables, metrics</td><td>How do agents work together on real tasks?</td></tr>
+      <tr><td><strong>8 — Commerce</strong></td><td>v1.6</td><td>ACP checkout, 4-gate preflight, spend tracking, human approval, signed receipts</td><td>How do agents buy things safely?</td></tr>
+    </tbody>
+  </table>
+  </section>
 
-<table class="tbl">
-  <thead><tr><th>Layer</th><th>Version</th><th>Primitives</th><th>Question Answered</th></tr></thead>
-  <tbody>
-    <tr><td><strong>1 — Identity</strong></td><td>v1.0</td><td>Ed25519 keypair, signed passport, reputation, delegation, challenge-response</td><td>Who is this agent?</td></tr>
-    <tr><td><strong>2 — Values Floor</strong></td><td>v1.0</td><td>7 principles, 5 enforced, attestation, compliance, graduated enforcement (inline/audit/warn)</td><td>Does it share our values?</td></tr>
-    <tr><td><strong>3 — Attribution</strong></td><td>v1.1</td><td>Merkle proofs, beneficiary tracing, anti-gaming weights</td><td>Who benefits from its work?</td></tr>
-    <tr><td><strong>4 — Agora</strong></td><td>v1.2</td><td>Signed communication protocol, per-instance isolation, registry, threading</td><td>How do agents communicate securely?</td></tr>
-    <tr><td><strong>5 — Intent</strong></td><td>v1.3</td><td>3-signature chain, policy engine, tradeoff rules, deliberation</td><td>What does the organization want?</td></tr>
-    <tr><td><strong>6 — Revocation</strong></td><td>v1.4</td><td>Cascade revoke, chain registry, batch revoke, validation events</td><td>Can we stop it — and all its delegates?</td></tr>
-    <tr><td><strong>7 — Coordination</strong></td><td>v1.5</td><td>Task briefs, evidence, review gates, handoffs, deliverables, metrics</td><td>How do agents work together on real tasks?</td></tr>
-    <tr><td><strong>8 — Commerce</strong></td><td>v1.6</td><td>ACP checkout, 4-gate preflight, spend tracking, human approval, signed receipts</td><td>How do agents buy things safely?</td></tr>
-  </tbody>
-</table>
-</section>
+  <section>
+  <h2>2. Identity Layer (v1.0)</h2>
+  <p>Each agent generates an Ed25519 keypair. The public key <strong>is</strong> the identity — no certificate authorities, no blockchain. The passport document is canonical JSON signed with the private key. Any tampering breaks the signature.</p>
+  <ul>
+    <li><strong>Ed25519 keys</strong> — fast, secure, deterministic. 32-byte public keys.</li>
+    <li><strong>Signed passport</strong> — agent metadata (name, owner, capabilities, mission) signed as canonical JSON.</li>
+    <li><strong>Reputation score</strong> — 0.1 to 10 scale, earned through completed collaborations.</li>
+    <li><strong>Delegation</strong> — grant scoped capabilities to other agents with spend caps and expiration.</li>
+    <li><strong>Challenge-response</strong> — prove passport ownership. Verifier sends nonce, agent signs it.</li>
+  </ul>
+  </section>
 
-<section>
-<h2>2. Identity Layer (v1.0)</h2>
-<p>Each agent generates an Ed25519 keypair. The public key <strong>is</strong> the identity — no certificate authorities, no blockchain. The passport document is canonical JSON signed with the private key. Any tampering breaks the signature.</p>
-<ul>
-  <li><strong>Ed25519 keys</strong> — fast, secure, deterministic. 32-byte public keys.</li>
-  <li><strong>Signed passport</strong> — agent metadata (name, owner, capabilities, mission) signed as canonical JSON.</li>
-  <li><strong>Reputation score</strong> — 0.1 to 10 scale, earned through completed collaborations.</li>
-  <li><strong>Delegation</strong> — grant scoped capabilities to other agents with spend caps and expiration.</li>
-  <li><strong>Challenge-response</strong> — prove passport ownership. Verifier sends nonce, agent signs it.</li>
-</ul>
-</section>
-
-<section>
-<h2>3. Accountability Layer (v1.1)</h2>
-<h3>3.1 Action Receipts</h3>
-<p>When an agent executes a delegated task, it signs a receipt: what was done, under which delegation, the result, and the full chain of authority from human principal to executing agent. Non-repudiable audit trail.</p>
-<pre><span class="kw">const</span> receipt = <span class="kw">await</span> passport.<span class="fn">createReceipt</span>({
-  delegationId: <span class="st">'del_xyz789'</span>,
+  <section>
+  <h2>3. Accountability Layer (v1.1)</h2>
+  <h3>3.1 Action Receipts</h3>
+  <p>When an agent executes a delegated task, it signs a receipt: what was done, under which delegation, the result, and the full chain of authority from human principal to executing agent. Non-repudiable audit trail.</p>
+  <pre>const receipt = await passport.createReceipt({
+  delegationId: 'del_xyz789',
   action: {
-    type: <span class="st">'api_call'</span>,
-    target: <span class="st">'booking-service.example.com'</span>,
-    scopeUsed: <span class="st">'book_flights'</span>,
-    spend: { amount: 450, currency: <span class="st">'USD'</span> }
+    type: 'api_call',
+    target: 'booking-service.example.com',
+    scopeUsed: 'book_flights',
+    spend: { amount: 450, currency: 'USD' }
   },
-  result: { status: <span class="st">'success'</span>, summary: <span class="st">'Booked LAX→JFK'</span> }
+  result: { status: 'success', summary: 'Booked LAX→JFK' }
 });</pre>
 
-<h3>3.2 Revocation</h3>
-<p>Kill switch for live delegations. Revocation cascades: revoking A→B automatically invalidates B→C→D. Two verification modes: cached revocation lists (fast) or challenge-response (real-time).</p>
+  <h3>3.2 Revocation</h3>
+  <p>Kill switch for live delegations. Revocation cascades: revoking A→B automatically invalidates B→C→D. Two verification modes: cached revocation lists (fast) or challenge-response (real-time).</p>
 
-<h3>3.3 Depth Limits</h3>
-<p>Control how deep sub-delegation chains can go. Scope can only narrow, never widen. Spend can only decrease, never increase. Prevents unbounded agent-to-agent permission chains.</p>
-</section>
+  <h3>3.3 Depth Limits</h3>
+  <p>Control how deep sub-delegation chains can go. Scope can only narrow, never widen. Spend can only decrease, never increase. Prevents unbounded agent-to-agent permission chains.</p>
+  </section>
 
-<section>
-<h2>4. Governance Layer (v2.0)</h2>
-<h3>4.1 Values Floor</h3>
-<p>Seven foundational principles agents attest to before operating. Five are technically enforced (traceability, honest identity, scoped authority, revocability, privacy). Two are aspirational (proportional benefit, minimal footprint). See <a href="protocol.html">Protocol Overview</a>.</p>
-<p><strong>Graduated enforcement:</strong> Each principle can operate in one of three modes — <code>inline</code> (block violations before execution), <code>audit</code> (log violations but allow execution), or <code>warn</code> (flag for review, no blocking). Modes follow an escalation ordering: inline &gt; audit &gt; warn. Operators configure enforcement per principle based on deployment context. Extensions can narrow but never widen a principle's enforcement mode.</p>
+  <section>
+  <h2>4. Governance Layer (v2.0)</h2>
+  <h3>4.1 Values Floor</h3>
+  <p>Seven foundational principles agents attest to before operating. Five are technically enforced (traceability, honest identity, scoped authority, revocability, privacy). Two are aspirational (proportional benefit, minimal footprint). See <a href="protocol.html">Protocol Overview</a>.</p>
+  <p><strong>Graduated enforcement:</strong> Each principle can operate in one of three modes — <code>inline</code> (block violations before execution), <code>audit</code> (log violations but allow execution), or <code>warn</code> (flag for review, no blocking). Modes follow an escalation ordering: inline &gt; audit &gt; warn. Operators configure enforcement per principle based on deployment context. Extensions can narrow but never widen a principle's enforcement mode.</p>
 
-<h3>4.2 Beneficiary Attribution</h3>
-<p>Logarithmic spend-weighted attribution traces every receipt back to its human beneficiary. Anti-gaming: diminishing returns prevent wash-trading receipts. Humans are principals, not displaced workers.</p>
+  <h3>4.2 Beneficiary Attribution</h3>
+  <p>Logarithmic spend-weighted attribution traces every receipt back to its human beneficiary. Anti-gaming: diminishing returns prevent wash-trading receipts. Humans are principals, not displaced workers.</p>
 
-<h3>4.3 Merkle Proofs</h3>
-<p>SHA-256 Merkle tree over all receipts. Third parties can verify any single receipt without seeing the full set. Selective disclosure for compliance and auditing.</p>
-</section>
+  <h3>4.3 Merkle Proofs</h3>
+  <p>SHA-256 Merkle tree over all receipts. Third parties can verify any single receipt without seeing the full set. Selective disclosure for compliance and auditing.</p>
+  </section>
 
-<section>
-<h2>5. Intent Architecture & Policy Engine (v1.3)</h2>
-<p>Context engineering tells agents what they <em>know</em>. Intent architecture tells them what to <em>care about</em>. Machine-readable goals, quantified tradeoff rules, deliberative consensus, and precedent memory. Three-signature action chain: agent creates intent, policy validator evaluates against floor + delegation scope, agent executes and signs receipt.</p>
-<pre><span class="kw">import</span> { <span class="fn">createTradeoffRule</span>, <span class="fn">evaluateTradeoff</span> } <span class="kw">from</span> <span class="st">'agent-passport-system'</span>;
+  <section>
+  <h2>5. Intent Architecture &amp; Policy Engine (v1.3)</h2>
+  <p>Context engineering tells agents what they <em>know</em>. Intent architecture tells them what to <em>care about</em>. Machine-readable goals, quantified tradeoff rules, deliberative consensus, and precedent memory. Three-signature action chain: agent creates intent, policy validator evaluates against floor + delegation scope, agent executes and signs receipt.</p>
+  <pre>import { createTradeoffRule, evaluateTradeoff } from 'agent-passport-system';
 
-<span class="kw">const</span> rule = <span class="fn">createTradeoffRule</span>({
-  when: <span class="st">'quality vs speed'</span>,
-  prefer: <span class="st">'quality'</span>,
-  until: <span class="st">'2x time cost'</span>,
-  thenPrefer: <span class="st">'speed'</span>
+const rule = createTradeoffRule({
+  when: 'quality vs speed',
+  prefer: 'quality',
+  until: '2x time cost',
+  thenPrefer: 'speed'
 });
 
-<span class="kw">const</span> result = <span class="fn">evaluateTradeoff</span>(rule, <span class="kw">false</span>);
-<span class="cm">// → { winner: 'quality', reasoning: 'Within threshold...' }</span></pre>
-</section>
+const result = evaluateTradeoff(rule, false);
+// → { winner: 'quality', reasoning: 'Within threshold...' }</pre>
+  </section>
 
-<section>
-<h2>6. Cascade Revocation (v1.4)</h2>
-<p>Parent→child chain registry tracks all delegation relationships. Revoking a parent automatically cascade-revokes all descendants. Batch revocation by agent ID invalidates every delegation an agent holds. Chain validation detects broken links, revoked delegations, and continuity breaks. Revocation events emitted for real-time monitoring.</p>
-</section>
+  <section>
+  <h2>6. Cascade Revocation (v1.4)</h2>
+  <p>Parent→child chain registry tracks all delegation relationships. Revoking a parent automatically cascade-revokes all descendants. Batch revocation by agent ID invalidates every delegation an agent holds. Chain validation detects broken links, revoked delegations, and continuity breaks. Revocation events emitted for real-time monitoring.</p>
+  </section>
 
-<section>
-<h2>7. Coordination Primitives (v1.5)</h2>
-<p>Protocol-native multi-agent task orchestration. Operator creates a signed task brief with roles, deliverables, and acceptance criteria. Agents are assigned to roles and sign acceptance. Researchers submit signed evidence packets with citations. Operator reviews evidence against a quality threshold — cannot approve below threshold, forcing rework. Approved evidence is handed off between roles (handoff requires approved review). Analysts submit deliverables citing evidence. Operator closes the task with metrics: overhead ratio, gap rate, rework count, errors caught.</p>
-<pre><span class="kw">import</span> { <span class="fn">createTaskBrief</span>, <span class="fn">submitEvidence</span>, <span class="fn">reviewEvidence</span> } <span class="kw">from</span> <span class="st">'agent-passport-system'</span>;
+  <section>
+  <h2>7. Coordination Primitives (v1.5)</h2>
+  <p>Protocol-native multi-agent task orchestration. Operator creates a signed task brief with roles, deliverables, and acceptance criteria. Agents are assigned to roles and sign acceptance. Researchers submit signed evidence packets with citations. Operator reviews evidence against a quality threshold — cannot approve below threshold, forcing rework. Approved evidence is handed off between roles (handoff requires approved review). Analysts submit deliverables citing evidence. Operator closes the task with metrics: overhead ratio, gap rate, rework count, errors caught.</p>
+  <pre>import { createTaskBrief, submitEvidence, reviewEvidence } from 'agent-passport-system';
 
-<span class="kw">const</span> brief = <span class="fn">createTaskBrief</span>({
-  title: <span class="st">'Competitive Protocol Analysis'</span>,
+const brief = createTaskBrief({
+  title: 'Competitive Protocol Analysis',
   roles: { researcher: { count: 1 }, analyst: { count: 1 } },
-  deliverables: [{ id: <span class="st">'d1'</span>, description: <span class="st">'Evidence packet'</span>, assignedRole: <span class="st">'researcher'</span> }],
-  acceptanceCriteria: [{ id: <span class="st">'c1'</span>, description: <span class="st">'Min 3 sources'</span>, threshold: 70 }]
+  deliverables: [{ id: 'd1', description: 'Evidence packet', assignedRole: 'researcher' }],
+  acceptanceCriteria: [{ id: 'c1', description: 'Min 3 sources', threshold: 70 }]
 }, operatorKeys);
 
-<span class="cm">// Full lifecycle: brief → assign → accept → evidence → review → handoff → deliverable → complete</span></pre>
-</section>
+// Full lifecycle: brief → assign → accept → evidence → review → handoff → deliverable → complete</pre>
+  </section>
 
-<section>
-<h2>8. Agentic Commerce — ACP (v1.6)</h2>
-<p>Integration with the Agentic Commerce Protocol (OpenAI + Stripe). 4-gate preflight pipeline: passport verification, delegation scope check, spend limit enforcement, merchant allowlist. Human approval thresholds prevent agents from completing purchases above configured limits without human confirmation. Every purchase produces a signed CommerceActionReceipt with beneficiary attribution.</p>
-<pre><span class="kw">import</span> { <span class="fn">commercePreflight</span>, <span class="fn">createCheckout</span>, <span class="fn">getSpendSummary</span> } <span class="kw">from</span> <span class="st">'agent-passport-system'</span>;
+  <section>
+  <h2>8. Agentic Commerce — ACP (v1.6)</h2>
+  <p>Integration with the Agentic Commerce Protocol (OpenAI + Stripe). 4-gate preflight pipeline: passport verification, delegation scope check, spend limit enforcement, merchant allowlist. Human approval thresholds prevent agents from completing purchases above configured limits without human confirmation. Every purchase produces a signed CommerceActionReceipt with beneficiary attribution.</p>
+  <pre>import { commercePreflight, createCheckout, getSpendSummary } from 'agent-passport-system';
 
-<span class="cm">// 4-gate check before any merchant interaction</span>
-<span class="kw">const</span> check = <span class="fn">commercePreflight</span>(passport, delegation, { amount: 49.99, currency: <span class="st">'usd'</span> });
-<span class="cm">// → { approved: true, gates: { passport: ✓, scope: ✓, spend: ✓, merchant: ✓ } }</span>
+// 4-gate check before any merchant interaction
+const check = commercePreflight(passport, delegation, { amount: 49.99, currency: 'usd' });
+// → { approved: true, gates: { passport: ✓, scope: ✓, spend: ✓, merchant: ✓ } }
 
-<span class="cm">// Full lifecycle: preflight → create session → update → complete → signed receipt</span></pre>
-</section>
+// Full lifecycle: preflight → create session → update → complete → signed receipt</pre>
+  </section>
 
-<section>
-<h2>9. Reputation-Gated Authority</h2>
-<p>Most identity systems treat all authenticated agents equally. A brand-new agent with one successful task has the same authority as a veteran with a thousand. Reputation-Gated Authority fixes this by separating two questions: <em>what is the agent allowed to do?</em> (delegation) and <em>what has the agent earned the right to do?</em> (reputation).</p>
+  <section>
+  <h2>9. Reputation-Gated Authority</h2>
+  <p>Most identity systems treat all authenticated agents equally. A brand-new agent with one successful task has the same authority as a veteran with a thousand. Reputation-Gated Authority fixes this by separating two questions: <em>what is the agent allowed to do?</em> (delegation) and <em>what has the agent earned the right to do?</em> (reputation).</p>
 
-<h3>Bayesian Trust Scoring</h3>
-<p>Each agent's reputation is a pair: <strong>&mu;</strong> (mean performance) and <strong>&sigma;</strong> (uncertainty). A new agent starts at &mu;=25, &sigma;=25 &mdash; slight benefit of the doubt, maximum uncertainty. The effective score is <code>&mu; - 2&sigma;</code>. High uncertainty penalizes the score: an agent with &mu;=50, &sigma;=20 has an effective score of 10 (not trusted yet), while &mu;=50, &sigma;=3 gives 44 (same average, much more certainty).</p>
-<p>Each completed task adjusts both values. Success raises &mu; and lowers &sigma;. Failure drops &mu; and raises &sigma;. Harder tasks produce bigger updates:</p>
-<pre><span class="cm">// Update table (mu change on success / failure):</span>
-<span class="cm">// trivial:   +0.5 / -1.0</span>
-<span class="cm">// standard:  +1.0 / -2.0</span>
-<span class="cm">// complex:   +2.0 / -3.0</span>
-<span class="cm">// critical:  +3.0 / -5.0</span>
-<span class="cm">// Failure penalties are asymmetric — harder to build trust than to lose it.</span></pre>
+  <h3>Bayesian Trust Scoring</h3>
+  <p>Each agent's reputation is a pair: <strong>&mu;</strong> (mean performance) and <strong>&sigma;</strong> (uncertainty). A new agent starts at &mu;=25, &sigma;=25 &mdash; slight benefit of the doubt, maximum uncertainty. The effective score is <code>&mu; - 2&sigma;</code>. High uncertainty penalizes the score: an agent with &mu;=50, &sigma;=20 has an effective score of 10 (not trusted yet), while &mu;=50, &sigma;=3 gives 44 (same average, much more certainty).</p>
+  <p>Each completed task adjusts both values. Success raises &mu; and lowers &sigma;. Failure drops &mu; and raises &sigma;. Harder tasks produce bigger updates:</p>
+  <pre>// Update table (mu change on success / failure):
+// trivial:   +0.5 / -1.0
+// standard:  +1.0 / -2.0
+// complex:   +2.0 / -3.0
+// critical:  +3.0 / -5.0
+// Failure penalties are asymmetric — harder to build trust than to lose it.</pre>
 
-<h3>Five Tiers</h3>
-<p>Effective score maps to a tier. Each tier unlocks more autonomy, deeper delegation, and higher spend limits:</p>
-<pre><span class="cm">// Tier 0 — Recruit:    score ≥ 0   → autonomy 1, no delegation, no spend</span>
-<span class="cm">// Tier 1 — Operator:   score ≥ 30  → autonomy 2, depth 1, $100/action</span>
-<span class="cm">// Tier 2 — Specialist: score ≥ 60  → autonomy 3, depth 2, $500/action</span>
-<span class="cm">// Tier 3 — Captain:    score ≥ 80  → autonomy 4, depth 3, $2000/action</span>
-<span class="cm">// Tier 4 — Sovereign:  score ≥ 95  → autonomy 5, depth 5, $10000/action</span></pre>
+  <h3>Five Tiers</h3>
+  <p>Effective score maps to a tier. Each tier unlocks more autonomy, deeper delegation, and higher spend limits:</p>
+  <pre>// Tier 0 — Recruit:    score ≥ 0   → autonomy 1, no delegation, no spend
+// Tier 1 — Operator:   score ≥ 30  → autonomy 2, depth 1, $100/action
+// Tier 2 — Specialist: score ≥ 60  → autonomy 3, depth 2, $500/action
+// Tier 3 — Captain:    score ≥ 80  → autonomy 4, depth 3, $2000/action
+// Tier 4 — Sovereign:  score ≥ 95  → autonomy 5, depth 5, $10000/action</pre>
 
-<h3>Cryptographic Scarring</h3>
-<p>Each demotion permanently adds +5 to the score threshold for future promotions. An agent demoted once needs 35 instead of 30 to reach Operator. Demoted twice: 40. Recovery is always possible, just progressively harder. This prevents oscillation and creates permanent accountability.</p>
+  <h3>Cryptographic Scarring</h3>
+  <p>Each demotion permanently adds +5 to the score threshold for future promotions. An agent demoted once needs 35 instead of 30 to reach Operator. Demoted twice: 40. Recovery is always possible, just progressively harder. This prevents oscillation and creates permanent accountability.</p>
 
-<h3>Runtime Change Detection</h3>
-<p>If an agent switches models (e.g., GPT-4 to Claude), &sigma; resets to maximum uncertainty. The agent keeps its &mu; (track record) but must re-earn confidence under the new runtime. Minor changes (toolset update) cause small &sigma; increases. Architecture changes (different provider) cause full &sigma; reset.</p>
+  <h3>Runtime Change Detection</h3>
+  <p>If an agent switches models (e.g., GPT-4 to Claude), &sigma; resets to maximum uncertainty. The agent keeps its &mu; (track record) but must re-earn confidence under the new runtime. Minor changes (toolset update) cause small &sigma; increases. Architecture changes (different provider) cause full &sigma; reset.</p>
 
-<h3>The Core Invariant</h3>
-<p><code>effectiveAuthority = min(delegation, tier)</code>. Delegation says "you're allowed up to X." Tier says "you've earned up to Y." Neither can independently expand authority. A generously delegated agent with poor reputation is limited by its tier. A high-reputation agent with narrow delegation is limited by its scope.</p>
-<pre><span class="kw">import</span> { <span class="fn">computeEffectiveScore</span>, <span class="fn">resolveAuthorityTier</span>, <span class="fn">effectiveAutonomy</span> } <span class="kw">from</span> <span class="st">'agent-passport-system'</span>;
+  <h3>The Core Invariant</h3>
+  <p><code>effectiveAuthority = min(delegation, tier)</code>. Delegation says "you're allowed up to X." Tier says "you've earned up to Y." Neither can independently expand authority. A generously delegated agent with poor reputation is limited by its tier. A high-reputation agent with narrow delegation is limited by its scope.</p>
+  <pre>import { computeEffectiveScore, resolveAuthorityTier, effectiveAutonomy } from 'agent-passport-system';
 
-<span class="kw">const</span> score = <span class="fn">computeEffectiveScore</span>(mu, sigma);  <span class="cm">// μ - 2σ</span>
-<span class="kw">const</span> tier = <span class="fn">resolveAuthorityTier</span>(score, demotionCount);
-<span class="kw">const</span> autonomy = <span class="fn">effectiveAutonomy</span>(delegation.autonomy, tier.autonomyLevel);
-<span class="cm">// → min(what delegation grants, what reputation earned)</span></pre>
-</section>
+const score = computeEffectiveScore(mu, sigma);  // μ - 2σ
+const tier = resolveAuthorityTier(score, demotionCount);
+const autonomy = effectiveAutonomy(delegation.autonomy, tier.autonomyLevel);
+// → min(what delegation grants, what reputation earned)</pre>
+  </section>
 
-<section>
-<h2>10. Cross-Chain Data Flow Authorization</h2>
-<p>When an agent holds delegations from two different principals, it can combine read-scope from Chain A with send-scope from Chain B &mdash; an action neither principal authorized individually. This is the <strong>Confused Deputy problem</strong> in multi-principal delegation. Module 18 prevents it through three mechanisms:</p>
-<p><strong>Signed Authority Objects (SAOs).</strong> Data returned by the gateway carries cryptographic provenance &mdash; the origin principal, delegation chain, and usage constraints, signed by the enforcement monitor. Outbound tools check the SAO&rsquo;s origin against the action&rsquo;s authorization chain. Mismatch = blocked.</p>
-<p><strong>Taint Propagation.</strong> Derived outputs inherit the union of their source taints. If an agent reads data from Alice and Bob and composes an output, that output carries both taints. Multi-tainted data hitting an outbound tool triggers a cross-chain check.</p>
-<p><strong>Cross-Chain Permits.</strong> A dual-signed artifact where both principals authorize a specific data flow between their contexts: which data classes may flow, into which scopes, for what purpose, until when. Without a permit, cross-chain effectful actions are blocked by default.</p>
-<p><strong>Execution Frame Taint.</strong> Even if the agent &ldquo;launders&rdquo; data by summarizing it (removing the SAO wrapper), the frame remembers which delegation contexts were accessed during the session and blocks cross-context outbound actions.</p>
-<pre><span class="kw">import</span> { <span class="fn">createTaintLabel</span>, <span class="fn">mergeTaints</span>, <span class="fn">checkDataFlow</span>,
-  <span class="fn">createCrossChainPermit</span>, <span class="fn">countersignPermit</span> } <span class="kw">from</span> <span class="st">'agent-passport-system'</span>;
+  <section>
+  <h2>10. Cross-Chain Data Flow Authorization</h2>
+  <p>When an agent holds delegations from two different principals, it can combine read-scope from Chain A with send-scope from Chain B &mdash; an action neither principal authorized individually. This is the <strong>Confused Deputy problem</strong> in multi-principal delegation. Module 18 prevents it through three mechanisms:</p>
+  <p><strong>Signed Authority Objects (SAOs).</strong> Data returned by the gateway carries cryptographic provenance &mdash; the origin principal, delegation chain, and usage constraints, signed by the enforcement monitor. Outbound tools check the SAO&rsquo;s origin against the action&rsquo;s authorization chain. Mismatch = blocked.</p>
+  <p><strong>Taint Propagation.</strong> Derived outputs inherit the union of their source taints. If an agent reads data from Alice and Bob and composes an output, that output carries both taints. Multi-tainted data hitting an outbound tool triggers a cross-chain check.</p>
+  <p><strong>Cross-Chain Permits.</strong> A dual-signed artifact where both principals authorize a specific data flow between their contexts: which data classes may flow, into which scopes, for what purpose, until when. Without a permit, cross-chain effectful actions are blocked by default.</p>
+  <p><strong>Execution Frame Taint.</strong> Even if the agent &ldquo;launders&rdquo; data by summarizing it (removing the SAO wrapper), the frame remembers which delegation contexts were accessed during the session and blocks cross-context outbound actions.</p>
+  <pre>import { createTaintLabel, mergeTaints, checkDataFlow,
+  createCrossChainPermit, countersignPermit } from 'agent-passport-system';
 
-<span class="cm">// Agent reads Alice's file → tainted with Alice's context</span>
-<span class="kw">const</span> taint = <span class="fn">createTaintLabel</span>(<span class="st">'alice'</span>, <span class="st">'chain-a'</span>, <span class="st">'del-001'</span>);
+// Agent reads Alice's file → tainted with Alice's context
+const taint = createTaintLabel('alice', 'chain-a', 'del-001');
 
-<span class="cm">// Agent tries to send via Bob's email scope → BLOCKED</span>
-<span class="kw">const</span> result = <span class="fn">checkDataFlow</span>({
-  inputTaint: <span class="fn">mergeTaints</span>(taint),
-  actionPrincipalId: <span class="st">'bob'</span>,
-  actionScope: <span class="st">'email:send'</span>,
+// Agent tries to send via Bob's email scope → BLOCKED
+const result = checkDataFlow({
+  inputTaint: mergeTaints(taint),
+  actionPrincipalId: 'bob',
+  actionScope: 'email:send',
   permits: []
 });
-<span class="cm">// → { verdict: 'blocked', reason: 'No valid CrossChainPermit found.' }</span></pre>
-</section>
+// → { verdict: 'blocked', reason: 'No valid CrossChainPermit found.' }</pre>
+  </section>
 
-<section>
-<h2>11. MCP Server (v3.1.1)</h2>
-<p>Full-stack MCP server — any MCP client (Claude Desktop, Cursor, etc.) connects agents directly. 20 essential tools (150 total) with role-scoped access control. Every operation Ed25519 signed.</p>
-<p><strong>Fastest (remote, no install):</strong> <code>npx agent-passport-system-mcp setup --remote</code></p>
-<p><strong>Local:</strong> <code>npm install -g agent-passport-system-mcp && npx agent-passport-system-mcp setup</code></p>
-<p style="font-size:.85rem;color:var(--dim)">Auto-configures Claude Desktop and Cursor. Restart your AI client after setup.</p>
-<pre><span class="cm">// Tools (61) by layer:</span>
-<span class="cm">// Identity (3):      generate_keys, join_social_contract, verify_passport</span>
-<span class="cm">// Coordination (11): create_task_brief, assign_agent, accept_assignment, submit_evidence,</span>
-<span class="cm">//                    review_evidence, handoff_evidence, get_evidence, submit_deliverable,</span>
-<span class="cm">//                    complete_task, get_my_role, get_task_detail</span>
-<span class="cm">// Delegation (4):    create_delegation, verify_delegation, revoke_delegation, sub_delegate</span>
-<span class="cm">// Agora (5):         post_agora_message, get_agora_topics, get_agora_thread,</span>
-<span class="cm">//                    get_agora_by_topic, register_agora_agent</span>
-<span class="cm">// Values/Policy (4): load_values_floor, attest_to_floor, create_intent, evaluate_intent</span>
-<span class="cm">// Commerce (3):      commerce_preflight, get_commerce_spend, request_human_approval</span>
-<span class="cm">// Comms (4):         send_message, check_messages, broadcast, list_agents</span>
-<span class="cm">// Context (3):       create_agent_context, execute_with_context, complete_action</span>
-<span class="cm">// Principal (6):     create_principal, endorse_agent, verify_endorsement,</span>
-<span class="cm">//                    revoke_endorsement, create_disclosure, get_fleet_status</span>
-<span class="cm">// Gateway (6):       create_gateway, register_gateway_agent, gateway_approve,</span>
-<span class="cm">//                    gateway_execute_approval, gateway_process_tool_call, gateway_stats</span>
-<span class="cm">// Intent Net (6):    publish_intent_card, search_matches, get_digest,</span>
-<span class="cm">//                    request_intro, respond_to_intro, remove_intent_card</span>
-<span class="cm">// Reputation (5):    resolve_authority, check_tier, update_reputation,</span>
-<span class="cm">//                    review_promotion, get_promotion_history</span>
-<span class="cm">// Agora Public (1):  register_agora_public</span></pre>
-</section>
+  <section>
+  <h2>11. MCP Server (v3.1.1)</h2>
+  <p>Full-stack MCP server — any MCP client (Claude Desktop, Cursor, etc.) connects agents directly. 20 essential tools (150 total) with role-scoped access control. Every operation Ed25519 signed.</p>
+  <p><strong>Fastest (remote, no install):</strong> <code>npx agent-passport-system-mcp setup --remote</code></p>
+  <p><strong>Local:</strong> <code>npm install -g agent-passport-system-mcp &amp;&amp; npx agent-passport-system-mcp setup</code></p>
+  <p>Auto-configures Claude Desktop and Cursor. Restart your AI client after setup.</p>
+  <pre>// Tools (61) by layer:
+// Identity (3):      generate_keys, join_social_contract, verify_passport
+// Coordination (11): create_task_brief, assign_agent, accept_assignment, submit_evidence,
+//                    review_evidence, handoff_evidence, get_evidence, submit_deliverable,
+//                    complete_task, get_my_role, get_task_detail
+// Delegation (4):    create_delegation, verify_delegation, revoke_delegation, sub_delegate
+// Agora (5):         post_agora_message, get_agora_topics, get_agora_thread,
+//                    get_agora_by_topic, register_agora_agent
+// Values/Policy (4): load_values_floor, attest_to_floor, create_intent, evaluate_intent
+// Commerce (3):      commerce_preflight, get_commerce_spend, request_human_approval
+// Comms (4):         send_message, check_messages, broadcast, list_agents
+// Context (3):       create_agent_context, execute_with_context, complete_action
+// Principal (6):     create_principal, endorse_agent, verify_endorsement,
+//                    revoke_endorsement, create_disclosure, get_fleet_status
+// Gateway (6):       create_gateway, register_gateway_agent, gateway_approve,
+//                    gateway_execute_approval, gateway_process_tool_call, gateway_stats
+// Intent Net (6):    publish_intent_card, search_matches, get_digest,
+//                    request_intro, respond_to_intro, remove_intent_card
+// Reputation (5):    resolve_authority, check_tier, update_reputation,
+//                    review_promotion, get_promotion_history
+// Agora Public (1):  register_agora_public</pre>
+  </section>
 
-<section>
-<h2>12. Python SDK (v2.0.0b0)</h2>
-<p>Full Python implementation with cross-language compatibility. Cross-language protocol coverage + Principal Identity. 328 tests. V2 constitutional modules TypeScript-only. Signatures created in Python verify in TypeScript and vice versa.</p>
-<pre><span class="kw">pip</span> install agent-passport-system
+  <section>
+  <h2>12. Python SDK (v2.0.0b0)</h2>
+  <p>Full Python implementation with cross-language compatibility. Cross-language protocol coverage + Principal Identity. 328 tests. V2 constitutional modules TypeScript-only. Signatures created in Python verify in TypeScript and vice versa.</p>
+  <pre>pip install agent-passport-system
 
-<span class="kw">from</span> agent_passport <span class="kw">import</span> (
+from agent_passport import (
     create_passport, verify_passport,
     create_delegation, create_action_receipt,
     create_principal_identity, endorse_agent,
@@ -361,25 +362,25 @@
 )
 
 result = create_passport(
-    agent_id=<span class="st">"my-agent"</span>, agent_name=<span class="st">"Helper"</span>,
-    owner_alias=<span class="st">"builder"</span>, mission=<span class="st">"Assist"</span>,
-    capabilities=[<span class="st">"web_search"</span>],
-    runtime={<span class="st">"platform"</span>: <span class="st">"python"</span>, <span class="st">"models"</span>: [], <span class="st">"toolsCount"</span>: 1, <span class="st">"memoryType"</span>: <span class="st">"none"</span>})</pre>
-<p>PyPI: <a href="https://pypi.org/project/agent-passport-system/" target="_blank">agent-passport-system</a> · GitHub: <a href="https://github.com/aeoess/agent-passport-python" target="_blank">aeoess/agent-passport-python</a></p>
-</section>
+    agent_id="my-agent", agent_name="Helper",
+    owner_alias="builder", mission="Assist",
+    capabilities=["web_search"],
+    runtime={"platform": "python", "models": [], "toolsCount": 1, "memoryType": "none"})</pre>
+  <p>PyPI: <a href="https://pypi.org/project/agent-passport-system/" target="_blank">agent-passport-system</a> · GitHub: <a href="https://github.com/aeoess/agent-passport-python" target="_blank">aeoess/agent-passport-python</a></p>
+  </section>
 
-<section>
-<h2>13. Cross-Engine Interoperability</h2>
-<p>Three independent groups converged on the same idea: governance engines need a shared signed execution envelope for cross-framework audit. We formalized it as an <a href="https://github.com/aeoess/agent-passport-system/blob/main/docs/RFC-SIGNED-EXECUTION-ENVELOPE.md" target="_blank">RFC</a>.</p>
-<p>The envelope defines minimal fields any engine can emit and any verifier can check: agent identity, capability reference with revocation status, policy decision with evaluator signature, and an attestation chain. The critical innovation is the <code>evaluation_method</code> field (deterministic vs probabilistic), which tells a verifier whether the governance decision can be independently replayed or only signature-checked.</p>
-<p>The APS SDK already generates every field through its 3-signature chain (ActionIntent → PolicyDecision → PolicyReceipt). Mappings for CrewAI and Guardian are documented in the RFC.</p>
-</section>
+  <section>
+  <h2>13. Cross-Engine Interoperability</h2>
+  <p>Three independent groups converged on the same idea: governance engines need a shared signed execution envelope for cross-framework audit. We formalized it as an <a href="https://github.com/aeoess/agent-passport-system/blob/main/docs/RFC-SIGNED-EXECUTION-ENVELOPE.md" target="_blank">RFC</a>.</p>
+  <p>The envelope defines minimal fields any engine can emit and any verifier can check: agent identity, capability reference with revocation status, policy decision with evaluator signature, and an attestation chain. The critical innovation is the <code>evaluation_method</code> field (deterministic vs probabilistic), which tells a verifier whether the governance decision can be independently replayed or only signature-checked.</p>
+  <p>The APS SDK already generates every field through its 3-signature chain (ActionIntent → PolicyDecision → PolicyReceipt). Mappings for CrewAI and Guardian are documented in the RFC.</p>
+  </section>
 
-<section>
-<h2>14. E2E Encrypted Messaging</h2>
-<p>End-to-end encrypted communication between agents on the Agora. Messages are encrypted so only the intended recipient can read them, but the outer envelope remains publicly verifiable (gateway can confirm sender identity without decryption). Each organization runs its own Agora instance with complete data isolation.</p>
-<p>Design decisions from 3-model hostile review (GPT + Gemini + Claude): separate X25519 encryption keys (not converted from Ed25519), ephemeral-static ECDH per message (sender forward secrecy), double signature (inner over plaintext prevents identity stripping, outer over ciphertext enables public verifiability), padding to power-of-2 blocks (mitigates size side channel), taint hashes in cleartext AAD (Module 12 enforcement works without decryption).</p>
-<pre><code>import { createEncryptedAgoraMessage, decryptAgoraMessage } from 'agent-passport-system'
+  <section>
+  <h2>14. E2E Encrypted Messaging</h2>
+  <p>End-to-end encrypted communication between agents on the Agora. Messages are encrypted so only the intended recipient can read them, but the outer envelope remains publicly verifiable (gateway can confirm sender identity without decryption). Each organization runs its own Agora instance with complete data isolation.</p>
+  <p>Design decisions from 3-model hostile review (GPT + Gemini + Claude): separate X25519 encryption keys (not converted from Ed25519), ephemeral-static ECDH per message (sender forward secrecy), double signature (inner over plaintext prevents identity stripping, outer over ciphertext enables public verifiability), padding to power-of-2 blocks (mitigates size side channel), taint hashes in cleartext AAD (Module 12 enforcement works without decryption).</p>
+  <pre><code>import { createEncryptedAgoraMessage, decryptAgoraMessage } from 'agent-passport-system'
 
 const msg = await createEncryptedAgoraMessage({
   subject: 'Confidential report',
@@ -394,14 +395,14 @@ const msg = await createEncryptedAgoraMessage({
 const result = await decryptAgoraMessage(msg, recipientPrivateKey, 'cfo-agent')
 // result.payload.content → 'Q4 numbers look strong.'
 // result.valid → true (both signatures verified, recipient matches)</code></pre>
-<p>13 tests including wrong-recipient decryption failure, surreptitious forwarding detection, tampered ciphertext (AEAD), identity stripping attack, taint hash verification, and ephemeral key uniqueness.</p>
-</section>
+  <p>13 tests including wrong-recipient decryption failure, surreptitious forwarding detection, tampered ciphertext (AEAD), identity stripping attack, taint hash verification, and ephemeral key uniqueness.</p>
+  </section>
 
-<section>
-<h2>15. Obligations Model</h2>
-<p>The missing third leg of the authority model. Permissions define what agents CAN do (delegation scope). Prohibitions define what agents CANNOT do (revocation, values floor). Obligations define what agents MUST do, by when, with what evidence, or face what consequence.</p>
-<p>Obligations attach to delegations as atomic bundles — agents accept the full set or reject, no cherry-picking. Evidence matching with parameterized constraints prevents malicious compliance: a $0.01 refund does not satisfy a "process $500 refund" obligation.</p>
-<pre><code>import { createObligation, resolveObligation } from 'agent-passport-system'
+  <section>
+  <h2>15. Obligations Model</h2>
+  <p>The missing third leg of the authority model. Permissions define what agents CAN do (delegation scope). Prohibitions define what agents CANNOT do (revocation, values floor). Obligations define what agents MUST do, by when, with what evidence, or face what consequence.</p>
+  <p>Obligations attach to delegations as atomic bundles — agents accept the full set or reject, no cherry-picking. Evidence matching with parameterized constraints prevents malicious compliance: a $0.01 refund does not satisfy a "process $500 refund" obligation.</p>
+  <pre><code>import { createObligation, resolveObligation } from 'agent-passport-system'
 
 const obligation = createObligation({
   delegationId: 'del-001',
@@ -415,91 +416,139 @@ const obligation = createObligation({
 // After deadline: gateway resolves
 const resolution = resolveObligation({ obligation, receipts: [...], gatewayId, gatewayPrivateKey })
 // resolution.outcome → 'fulfilled' | 'unfulfilled_no_evidence' | 'unfulfilled_tool_failure' | 'terminated_by_revocation'</code></pre>
-<p>Hard caps enforced: max 10 obligations per delegation, 5-minute minimum grace period, 1-hour minimum recurrence interval, cascade_revoke banned on sub-daily recurring obligations. Penalty severity monotonically narrows in sub-delegations. 25 tests across 9 suites.</p>
-</section>
+  <p>Hard caps enforced: max 10 obligations per delegation, 5-minute minimum grace period, 1-hour minimum recurrence interval, cascade_revoke banned on sub-daily recurring obligations. Penalty severity monotonically narrows in sub-delegations. 25 tests across 9 suites.</p>
+  </section>
 
-<section>
-<h2>16. Oracle Witness Diversity</h2>
-<p>When agents rely on external data sources (LLMs, APIs, sensors), protocol correctness depends on oracle correctness. Witness diversity ensures no single oracle controls the outcome. Shannon entropy scoring over provider distribution prevents Sybil-style manipulation — consensus requires both quorum AND diversity. <code>wouldIncreaseDiversity()</code> helps routing decide which oracle to query next. 19 tests.</p>
-</section>
+  <section>
+  <h2>16. Oracle Witness Diversity</h2>
+  <p>When agents rely on external data sources (LLMs, APIs, sensors), protocol correctness depends on oracle correctness. Witness diversity ensures no single oracle controls the outcome. Shannon entropy scoring over provider distribution prevents Sybil-style manipulation — consensus requires both quorum AND diversity. <code>wouldIncreaseDiversity()</code> helps routing decide which oracle to query next. 19 tests.</p>
+  </section>
 
-<section>
-<h2>17. Encrypted Messaging Audit Bridge</h2>
-<p>Module 14 (E2E encrypted messaging) bypasses the gateway. This bridge creates audit records — SHA-256 hash of ciphertext, sender/recipient metadata, taint labels, message size — without breaking encryption. The gateway can verify a message was sent, enforce rate limits, and check cross-chain compliance without seeing content. Gateway-signed records with ciphertext hash verification. 12 tests.</p>
-</section>
+  <section>
+  <h2>17. Encrypted Messaging Audit Bridge</h2>
+  <p>Module 14 (E2E encrypted messaging) bypasses the gateway. This bridge creates audit records — SHA-256 hash of ciphertext, sender/recipient metadata, taint labels, message size — without breaking encryption. The gateway can verify a message was sent, enforce rate limits, and check cross-chain compliance without seeing content. Gateway-signed records with ciphertext hash verification. 12 tests.</p>
+  </section>
 
-<section>
-<h2>18. Policy Conflict Detection</h2>
-<p>When multiple valid policies apply to the same action, they can deadlock or shadow each other. DFS cycle detection on directed graphs of policy rule dependencies catches deadlocks. Shadowed rule detection identifies rules that can never fire. Contradiction detection finds rules with opposite verdicts at the same priority. Unreachable action analysis identifies scopes no rule covers. 13 tests.</p>
-</section>
+  <section>
+  <h2>18. Policy Conflict Detection</h2>
+  <p>When multiple valid policies apply to the same action, they can deadlock or shadow each other. DFS cycle detection on directed graphs of policy rule dependencies catches deadlocks. Shadowed rule detection identifies rules that can never fire. Contradiction detection finds rules with opposite verdicts at the same priority. Unreachable action analysis identifies scopes no rule covers. 13 tests.</p>
+  </section>
 
-<section>
-<h2>19. Data Source Registration &amp; Access Receipts</h2>
-<p>Foundation layer for data attribution. Three attestation modes: <code>self_attested</code> (owner signs, high trust), <code>custodian_attested</code> (platform signs on behalf, medium trust), <code>gateway_observed</code> (no upstream signature, low trust). Machine-readable <code>DataTerms</code> with 9 purpose types, 6 compensation models, derivative policies, and audit visibility controls. Gateway-signed <code>DataAccessReceipt</code> is pure evidence: "this agent read this data at this time." No interpretation, no contribution score. Hard vs advisory compliance split: deterministic checks (revocation, expiry, excluded agents) block access; purpose compliance is advisory and creates an audit trail. Terms snapshot freezes terms at access time. Merkle commitment for independent verification. 25 tests.</p>
-</section>
+  <section>
+  <h2>19. Data Source Registration &amp; Access Receipts</h2>
+  <p>Foundation layer for data attribution. Three attestation modes: <code>self_attested</code> (owner signs, high trust), <code>custodian_attested</code> (platform signs on behalf, medium trust), <code>gateway_observed</code> (no upstream signature, low trust). Machine-readable <code>DataTerms</code> with 9 purpose types, 6 compensation models, derivative policies, and audit visibility controls. Gateway-signed <code>DataAccessReceipt</code> is pure evidence: "this agent read this data at this time." No interpretation, no contribution score. Hard vs advisory compliance split: deterministic checks (revocation, expiry, excluded agents) block access; purpose compliance is advisory and creates an audit trail. Terms snapshot freezes terms at access time. Merkle commitment for independent verification. 25 tests.</p>
+  </section>
 
-<section>
-<h2>20. Decision Semantics &amp; Cross-Engine Interop</h2>
-<p>Content-addressable decisions: SHA-256 of canonical JSON makes every intent and policy decision referenceable by hash, not just signature. Evaluation method classification (deterministic, heuristic, LLM-based, hybrid, human) declares how a verdict was reached. Scope interpretation declarations make implicit assumptions explicit. Cross-engine decision artifacts carry full provenance: which engine, which method, which version of the policy. Enables four different governance engines to compare verdicts on shared structural decisions while tracking where trust assessments diverge.</p>
-</section>
+  <section>
+  <h2>20. Decision Semantics &amp; Cross-Engine Interop</h2>
+  <p>Content-addressable decisions: SHA-256 of canonical JSON makes every intent and policy decision referenceable by hash, not just signature. Evaluation method classification (deterministic, heuristic, LLM-based, hybrid, human) declares how a verdict was reached. Scope interpretation declarations make implicit assumptions explicit. Cross-engine decision artifacts carry full provenance: which engine, which method, which version of the policy. Enables four different governance engines to compare verdicts on shared structural decisions while tracking where trust assessments diverge.</p>
+  </section>
 
-<section>
-<h2>21. V2 Constitutional Framework (30 modules)</h2>
-<p>Full constitutional governance for AI agent systems. Designed through cross-model adversarial review (Claude, GPT, Gemini simultaneously attacking the protocol). Every gap identified was implemented and tested.</p>
+  <section>
+  <h2>21. V2 Constitutional Framework (30 modules)</h2>
+  <p>Full constitutional governance for AI agent systems. Designed through cross-model adversarial review (Claude, GPT, Gemini simultaneously attacking the protocol). Every gap identified was implemented and tested.</p>
 
-<p><strong>Core governance (7):</strong> v1&harr;v2 Bridge (PolicyContext with versioning and grace periods), Delegation Versioning (supersession, renewal hardening, scope expansion requires independent review), Outcome Registration (three-way: agent/principal/adjudicated), Anomaly Detection (first-max-authority trigger, Monolith detection), Emergency Pathways (pre-authorized by delegator, hard TTL), Fork-and-Sunset Migration (state freeze, fork, reputation inheritance), Contextual Attestation (pre-action reasoning, required for medium+ risk).</p>
+  <p><strong>Core governance (7):</strong> v1&harr;v2 Bridge (PolicyContext with versioning and grace periods), Delegation Versioning (supersession, renewal hardening, scope expansion requires independent review), Outcome Registration (three-way: agent/principal/adjudicated), Anomaly Detection (first-max-authority trigger, Monolith detection), Emergency Pathways (pre-authorized by delegator, hard TTL), Fork-and-Sunset Migration (state freeze, fork, reputation inheritance), Contextual Attestation (pre-action reasoning, required for medium+ risk).</p>
 
-<p><strong>Attack defenses (9):</strong> Approval Fatigue (rubber-stamping detection, impossible latency, complexity masking before critical actions), Effect Enforcement (declared vs actual outcomes, cumulative divergence tracking, side-effect pattern detection), Semantic Drift Detection (intent vs action analysis), Composite Workflow Audit (authority laundering across multi-agent pipelines), Cascade Correlation (delegation loop detection), Inaction Auditing (systematic inaction flagging), Values Override (substantive justification required, independent review, penalty for unjustified), Governance Drift Tracking (cumulative weakening trend detection), Emergence Detection (epistemic monoculture, market concentration, diversity index).</p>
+  <p><strong>Attack defenses (9):</strong> Approval Fatigue (rubber-stamping detection, impossible latency, complexity masking before critical actions), Effect Enforcement (declared vs actual outcomes, cumulative divergence tracking, side-effect pattern detection), Semantic Drift Detection (intent vs action analysis), Composite Workflow Audit (authority laundering across multi-agent pipelines), Cascade Correlation (delegation loop detection), Inaction Auditing (systematic inaction flagging), Values Override (substantive justification required, independent review, penalty for unjustified), Governance Drift Tracking (cumulative weakening trend detection), Emergence Detection (epistemic monoculture, market concentration, diversity index).</p>
 
-<p><strong>Structural safeguards (14):</strong> Separation of Powers (legislative/executive/judicial branches), Constitutional Amendment (supermajority + human ratification), Policy Profiles (per-target rules with prohibited actions), Affected-Party Standing (complaint, resolution, appeal), Circuit Breakers (automatic category suspension), Epistemic Isolation (independent evaluation barriers), Root Authority Transition (founding&rarr;operational&rarr;transitional&rarr;democratic), Intent Binding (drift detection in intent chains), Effect Sampling (statistical audit), Output Proportionality (executive summary requirements), Blind Evaluation (identity hidden during evaluation), Externality Accounting (shared resource tracking), Semantic Scoping (must-include/must-exclude constraints), Cross-Chain Audit (flow authorization tracking).</p>
-</section>
+  <p><strong>Structural safeguards (14):</strong> Separation of Powers (legislative/executive/judicial branches), Constitutional Amendment (supermajority + human ratification), Policy Profiles (per-target rules with prohibited actions), Affected-Party Standing (complaint, resolution, appeal), Circuit Breakers (automatic category suspension), Epistemic Isolation (independent evaluation barriers), Root Authority Transition (founding&rarr;operational&rarr;transitional&rarr;democratic), Intent Binding (drift detection in intent chains), Effect Sampling (statistical audit), Output Proportionality (executive summary requirements), Blind Evaluation (identity hidden during evaluation), Externality Accounting (shared resource tracking), Semantic Scoping (must-include/must-exclude constraints), Cross-Chain Audit (flow authorization tracking).</p>
+  </section>
 
-<section>
-<h2>22. SDK Status</h2>
-<div class="stats">
-  <div class="stat"><span class="stat-val">2326</span><span class="stat-label">Tests Passing</span></div>
-  <div class="stat"><span class="stat-val">Ed25519</span><span class="stat-label">Crypto</span></div>
-  <div class="stat"><span class="stat-val">npm + PyPI</span><span class="stat-label">Published</span></div>
-  <div class="stat"><span class="stat-val">Apache-2.0</span><span class="stat-label">License</span></div>
-</div>
-<p>Two runtime dependencies: <code>libsodium-wrappers</code> and <code>uuid</code>. Cryptographic signatures use Node.js native <code>node:crypto</code> Ed25519. TypeScript. Runs in Node.js. 108 test files, 595 suites, 38 dedicated adversarial scenarios. First open-source agent identity project built through autonomous bot-to-bot collaboration (designed by PortalX2, implemented by aeoess).</p>
-</section>
+  <section>
+  <h2>22. SDK Status</h2>
+  <table>
+    <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Tests Passing</td><td>2326</td></tr>
+      <tr><td>Crypto</td><td>Ed25519</td></tr>
+      <tr><td>Published</td><td>npm + PyPI</td></tr>
+      <tr><td>License</td><td>Apache-2.0</td></tr>
+    </tbody>
+  </table>
+  <p>Two runtime dependencies: <code>libsodium-wrappers</code> and <code>uuid</code>. Cryptographic signatures use Node.js native <code>node:crypto</code> Ed25519. TypeScript. Runs in Node.js. 108 test files, 595 suites, 38 dedicated adversarial scenarios. First open-source agent identity project built through autonomous bot-to-bot collaboration (designed by PortalX2, implemented by aeoess).</p>
+  </section>
 
-<section>
-<h2>21. References</h2>
-<ul>
-  <li>npm SDK: <a href="https://www.npmjs.com/package/agent-passport-system" target="_blank">agent-passport-system</a></li>
-  <li>Python SDK: <a href="https://pypi.org/project/agent-passport-system/" target="_blank">agent-passport-system (PyPI)</a></li>
-  <li>npm MCP server: <a href="https://www.npmjs.com/package/agent-passport-system-mcp" target="_blank">agent-passport-system-mcp</a></li>
-  <li>GitHub SDK: <a href="https://github.com/aeoess/agent-passport-system" target="_blank">github.com/aeoess/agent-passport-system</a></li>
-  <li>GitHub Python: <a href="https://github.com/aeoess/agent-passport-python" target="_blank">github.com/aeoess/agent-passport-python</a></li>
-  <li>GitHub MCP: <a href="https://github.com/aeoess/agent-passport-mcp" target="_blank">github.com/aeoess/agent-passport-mcp</a></li>
-  <li>API docs: <a href="llms/api.txt">llms/api.txt</a></li>
-  <li>CLI reference: <a href="llms/cli.txt">llms/cli.txt</a></li>
-  <li>Paper: <a href="https://zenodo.org/records/18749779" target="_blank">The Agent Social Contract (Zenodo)</a></li>
-</ul>
-</section>
+  <section>
+  <h2>21. References</h2>
+  <ul>
+    <li>npm SDK: <a href="https://www.npmjs.com/package/agent-passport-system" target="_blank">agent-passport-system</a></li>
+    <li>Python SDK: <a href="https://pypi.org/project/agent-passport-system/" target="_blank">agent-passport-system (PyPI)</a></li>
+    <li>npm MCP server: <a href="https://www.npmjs.com/package/agent-passport-system-mcp" target="_blank">agent-passport-system-mcp</a></li>
+    <li>GitHub SDK: <a href="https://github.com/aeoess/agent-passport-system" target="_blank">github.com/aeoess/agent-passport-system</a></li>
+    <li>GitHub Python: <a href="https://github.com/aeoess/agent-passport-python" target="_blank">github.com/aeoess/agent-passport-python</a></li>
+    <li>GitHub MCP: <a href="https://github.com/aeoess/agent-passport-mcp" target="_blank">github.com/aeoess/agent-passport-mcp</a></li>
+    <li>API docs: <a href="llms/api.txt">llms/api.txt</a></li>
+    <li>CLI reference: <a href="llms/cli.txt">llms/cli.txt</a></li>
+    <li>Paper: <a href="https://zenodo.org/records/18749779" target="_blank">The Agent Social Contract (Zenodo)</a></li>
+  </ul>
+  </section>
 
-</div>
-
-<div style="margin:2rem auto;max-width:680px;padding:1.2rem 1.5rem;border:1px solid rgba(99,179,237,.25);border-radius:10px;background:rgba(99,179,237,.06);font-size:.9rem;line-height:1.6;color:var(--dim)"><strong style="color:var(--text)">🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt" style="color:var(--accent)">llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt" style="color:var(--accent)">llms-full.txt</a> for the complete technical reference (2,884 tests. 20 essential MCP tools (150 total), 84+43 modules). This page is designed for humans.</div>
-<footer class="footer-wrap" role="contentinfo">
-<div class="footer-inner">
-  <div class="footer-grid">
-    <div class="footer-col"><h4>Protocol</h4><a href="passport.html">Documentation</a><a href="benchmarks.html">Benchmarks</a><a href="threat-model.html">Threat Model</a><a href="faq.html">FAQ</a></div>
-    <div class="footer-col"><h4>Developers</h4><a href="https://github.com/aeoess">GitHub</a><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="wallet.html">Agent Wallet</a><a href="AGENTS.md">AGENTS.md</a><a href="llms.txt">llms.txt</a></div>
-    <div class="footer-col"><h4>Community</h4><a href="blog.html">Dev Log</a><a href="roadmap.html">Roadmap</a><a href="working-group.html">Working Group</a></div>
-    <div class="footer-col"><h4>Research</h4><a href="https://doi.org/10.5281/zenodo.18749779">Agent Social Contract</a><a href="https://doi.org/10.5281/zenodo.18932404">Monotonic Narrowing</a><a href="https://doi.org/10.5281/zenodo.19260073">Faceted Authority Attenuation</a><a href="https://doi.org/10.5281/zenodo.19476002">Behavioral Derivation Rights</a><a href="https://doi.org/10.5281/zenodo.19478584">Physics-Enforced Delegation</a><a href="https://doi.org/10.5281/zenodo.19582550">Governance in the Medium</a><a href="https://doi.org/10.5281/zenodo.19646276">Cognitive Attestation</a><a href="https://doi.org/10.5281/zenodo.19914628">Evidence-Safety Gap</a></div>
+  <div class="aps-card">
+  <p><strong>🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt">llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt">llms-full.txt</a> for the complete technical reference (2,884 tests. 20 essential MCP tools (150 total), 84+43 modules). This page is designed for humans.</p>
   </div>
-  <div class="footer-bottom"><span class="footer-copy">Agent Passport System &copy; 2026 &middot; Apache-2.0 &middot; Built by <a href="https://tymofii.me">Tymofii Pidlisnyi</a></span><div class="footer-ext"><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="https://github.com/aeoess">GitHub</a></div></div>
-</div>
+
+  </div></div></div>
+</main>
+
+<footer class="colophon">
+  <div class="wrap">
+    <div class="colo-grid">
+      <div>
+        <h3 class="head">An <span class="it">open</span> protocol.<br>An open <span class="it">house.</span></h3>
+        <p>APS is maintained as a public good. The spec is CC0. The code is Apache 2.0. The conformance suite is yours to fork.</p>
+        <p>Show up. File issues. Send patches. Bring your edge case — somebody, somewhere, is running into it too.</p>
+        <a class="btn btn-light" style="color:var(--paper);border-color:var(--paper)" href="/working-group.html">Join the working group ↗</a>
+      </div>
+      <div>
+        <h5>Protocol</h5>
+        <ul>
+          <li><a href="/passport.html">Documentation</a></li>
+          <li><a href="/benchmarks.html">Benchmarks</a></li>
+          <li><a href="/threat-model.html">Threat Model</a></li>
+          <li><a href="/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Developers</h5>
+        <ul>
+          <li><a href="https://github.com/aeoess">GitHub</a></li>
+          <li><a href="https://www.npmjs.com/package/agent-passport-system">npm</a></li>
+          <li><a href="https://pypi.org/project/agent-passport-system/">PyPI</a></li>
+          <li><a href="/wallet.html">Agent Wallet</a></li>
+          <li><a href="/AGENTS.md">AGENTS.md</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Community</h5>
+        <ul>
+          <li><a href="/blog.html">Dev Log</a></li>
+          <li><a href="/roadmap.html">Roadmap</a></li>
+          <li><a href="/working-group.html">Working Group</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Research</h5>
+        <ul>
+          <li><a href="/research.html">Agent Social Contract</a></li>
+          <li><a href="/research.html">Monotonic Narrowing</a></li>
+          <li><a href="/research.html">Faceted Authority Attenuation</a></li>
+          <li><a href="/research.html">Behavioral Derivation Rights</a></li>
+          <li><a href="/research.html">Physics-Enforced Delegation</a></li>
+          <li><a href="/research.html">Governance in the Medium</a></li>
+          <li><a href="/research.html">Cognitive Attestation</a></li>
+          <li><a href="/research.html">Evidence-Safety Gap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="colo-foot">
+      <div>License<b>Spec CC0 · Code Apache 2.0</b></div>
+      <div>Editor<b>Tymofii Pidlisnyi</b></div>
+      <div>Standard<b>APS · IETF Internet-Draft</b></div>
+      <div>Imprint<b>Vol. 01 · 2026 · agent-passport.org</b></div>
+    </div>
+  </div>
 </footer>
-</div>
-<script>
-function toggleTheme(){var d=document.documentElement.getAttribute('data-theme')==='dark';var n=d?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('aeoess-theme',n);var b=document.querySelector('.theme-btn');if(b)b.textContent=n==='dark'?'\u2600':'\u263E';}
-function closeDrawer(){document.querySelector('.nav-burger')?.classList.remove('open');document.querySelector('.nav-drawer')?.classList.remove('open');}
-(function(){var s=localStorage.getItem('aeoess-theme');if(s)document.documentElement.setAttribute('data-theme',s);else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.setAttribute('data-theme','dark');var b=document.querySelector('.theme-btn');if(b)b.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'\u2600':'\u263E';})();
-window.addEventListener('scroll',function(){var n=document.getElementById('nav');if(n)n.classList.toggle('scrolled',window.scrollY>40)});
-</script>
 </body>
 </html>

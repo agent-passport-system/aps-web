@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FAQ | Agent Passport System</title>
 <meta name="description" content="Frequently asked questions about the Agent Passport System. Enforcement infrastructure for AI agents. Policy eval under 2ms. Wallet binding across chains. 2,884 tests.">
 <link rel="canonical" href="https://agent-passport.org/faq.html">
 <link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
 <link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation">
 <link rel="alternate" type="application/json" href="https://agent-passport.org/.well-known/mcp.json" title="MCP server discovery">
+<meta name="viewport" content="width=1440">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/aps-design.css">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-S7QVCJGMKR');</script>
 <script type="application/aps-governance+json">
@@ -35,7 +35,6 @@
   "signature": "4373f0efec8de1a9cd8515a881f1eda6f46b7b057c2cb6df94e7515aa594fc17864020a810925c890237cab8c773886529f62777cf07be0cd5c37195c7a5400b"
 }
 </script>
-</head>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","dateModified":"2026-05-02","mainEntity":[
 {"@type":"Question","name":"What is Agent Passport System?","acceptedAnswer":{"@type":"Answer","text":"Agent Passport System gives you 150 MCP tools to make your AI agents accountable. Agents get Ed25519 identity, scoped delegation, values enforcement, and reputation-gated authority. Every action is scoped, auditable, and revocable."}},
@@ -47,127 +46,231 @@
 {"@type":"Question","name":"What standards does Agent Passport System support?","acceptedAnswer":{"@type":"Answer","text":"W3C Decentralized Identifiers (DID:APS method), W3C Verifiable Credentials, Google A2A protocol bridge, and EU AI Act article-by-article compliance mapping."}}
 ]}
 </script>
-<link rel="stylesheet" href="shared.css?v=20260428a">
-<style>
-/* Page-specific styles. Theme variables come from shared.css */
-.page{max-width:800px;margin:0 auto;padding:5.5rem 2rem 4rem}
-.page h1{font:600 2rem/1.2 var(--serif);margin-bottom:.5rem;color:var(--ink)}
-.page .sub{font:.9rem var(--sans);color:var(--ink-3);margin-bottom:3rem}
-.faq-item{border-bottom:1px solid var(--rule);padding:1.5rem 0}
-.faq-item:last-child{border:none}
-.faq-q{font:600 1rem var(--serif);color:var(--ink);cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:color .2s}
-.faq-q:hover{color:var(--link)}
-.faq-q::after{content:'+';font:300 1.4rem var(--serif);color:var(--ink-5);transition:transform .3s}
-.faq-item.open .faq-q::after{transform:rotate(45deg);color:var(--link)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s;font:.92rem/1.8 var(--sans);color:var(--ink-3)}
-.faq-item.open .faq-a{max-height:500px;padding-top:1rem}
-.faq-a code{font:.8rem var(--mono);color:var(--link);background:var(--code-bg);padding:.1rem .3rem;border-radius:3px}
-@media(max-width:560px){
-  .page{padding:4.5rem 1rem 2rem}
-  .page h1{font-size:1.7rem}
-  .faq-q{font-size:.95rem}
-  .faq-a{font-size:.85rem}
-}
-.site-footer-sub{border-top:1px solid rgba(255,255,255,.08);padding:2rem 0 1.5rem;margin-top:3rem}
-.footer-inner{max-width:800px;margin:0 auto;padding:0 2rem}
-.footer-grid-sub{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-bottom:1.5rem}
-.fcol h4{font:500 .6rem var(--mono);color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
-.fcol a{display:block;font:.75rem/1.8 var(--sans);color:var(--dim);text-decoration:none;transition:color .2s}
-.fcol a:hover{color:var(--text)}
-.footer-bar{display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid rgba(255,255,255,.06);font:.7rem var(--sans);color:var(--muted)}
-.footer-bar a{color:var(--muted);text-decoration:none}.footer-bar a:hover{color:var(--accent)}
-.footer-links{display:flex;gap:.8rem}.footer-links a{font:.65rem var(--mono)}
-@media(max-width:768px){.footer-grid-sub{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.footer-grid-sub{grid-template-columns:1fr}}
-</style>
+</head>
 <body>
-<nav class="nav" id="nav">
-  <a href="/" class="nav-logo"><span style="font:600 14px/1 var(--sans,system-ui);letter-spacing:.5px">Agent Passport System</span></a>
-  <div class="nav-links"><a href="wallet.html">Wallet</a><a href="blog.html">Blog</a><a href="roadmap.html">Roadmap</a><a href="passport.html">Spec</a><a href="https://github.com/aeoess">GitHub</a><a href="https://github.com/agent-passport-system/aps-web/issues">Contact</a></div>
-  <div class="nav-right"><button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button><div class="nav-burger" onclick="this.classList.toggle('open');document.querySelector('.nav-drawer').classList.toggle('open')"><span></span><span></span><span></span></div></div>
-</nav>
-<div class="nav-drawer">
-  <div class="drawer-section">
-    <div class="drawer-section-title">Build</div>
-    Portal
-    <a href="passport.html" onclick="closeDrawer()">Spec</a>
-    API Reference
-  </div>
-  <div class="drawer-section">
-    <div class="drawer-section-title">Explore</div>
-    <a href="blog.html" onclick="closeDrawer()">Blog</a>
-    <a href="roadmap.html" onclick="closeDrawer()">Roadmap</a><a href="faq.html" onclick="closeDrawer()">FAQ</a>
-  </div>
-  <div class="drawer-section">
-    <div class="drawer-section-title">Connect</div>
-    <a href="wallet.html" onclick="closeDrawer()">Wallet</a>
-    <a href="https://github.com/aeoess" onclick="closeDrawer()">GitHub</a>
-    <a href="https://github.com/agent-passport-system/aps-web/issues" onclick="closeDrawer()">Contact</a>
+<div class="pub-bar">
+  <div class="wrap pub-bar-inner">
+    <span>AGENT PASSPORT SYSTEM</span>
+    <div class="marquee">
+      <div class="marquee-inner">
+        <span><b>draft-pidlisnyi-aps-00</b> · IETF agent passport Internet-Draft</span>
+        <span><b>v0.7.2</b> released · conformance suite +94 tests · 2,884 total</span>
+        <span><b>npm · PyPI</b> · agent-passport-system shipped</span>
+        <span><b>Vocabulary repo</b> · 45 external PRs · 23 contributors</span>
+        <span><b>Verifier</b> · 11 lines · any runtime</span>
+        <span><b>&le; 2 ms</b> policy eval · 14 caveat dimensions</span>
+        <span><b>draft-pidlisnyi-aps-00</b> · IETF agent passport Internet-Draft</span>
+        <span><b>v0.7.2</b> released · conformance suite +94 tests · 2,884 total</span>
+        <span><b>npm · PyPI</b> · agent-passport-system shipped</span>
+        <span><b>Vocabulary repo</b> · 45 external PRs · 23 contributors</span>
+        <span><b>Verifier</b> · 11 lines · any runtime</span>
+        <span><b>&le; 2 ms</b> policy eval · 14 caveat dimensions</span>
+      </div>
+    </div>
+    <span>VOL. 01 · ISSUE 07 · 2026</span>
   </div>
 </div>
-<main class="page">
-<h1>FAQ</h1>
-<p class="sub">Common questions about Agent Passport System and the Agent Passport System.</p>
 
-<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What does the protocol do?</div><div class="faq-a">Agent Passport System makes every AI agent accountable. Every agent gets a cryptographic identity (Ed25519). Authority can only narrow, never expand. Trust is earned through performance. One API call revokes all downstream access.</div></div>
+<header class="masthead">
+  <div class="wrap">
+    <div class="mast-row">
+      <div class="wordmark">
+        <span class="logo"></span>
+        <span>Agent Passport System</span>
+        <span class="it">— the open protocol</span>
+      </div>
+      <nav class="mast-nav">
+        <a href="/passport.html">Spec</a>
+        <a href="https://github.com/aeoess">Quickstart</a>
+        <a href="/research.html">Papers</a>
+        <a href="/working-group.html">Community</a>
+        <a href="/blog.html">Blog</a>
+      </nav>
+      <div class="mast-meta">
+        <b>Apache 2.0 · CC0</b><br>
+        github.com/aeoess
+      </div>
+    </div>
+    <div class="mast-strap">
+      <span>Downloads</span><span class="dot"></span><b>21,529+ installs</b><span class="dot"></span><span>npm · PyPI · MCP</span>
+    </div>
+  </div>
+</header>
 
-<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How is it different from agent frameworks?</div><div class="faq-a">Most frameworks handle orchestration. Agent Passport System handles enforcement: what can this agent do, and what happens when it violates a constraint? Bring your own identity. The gateway is both judge and executor. Works with any framework.</div></div>
+<main>
+  <section class="page-hero"><div class="wrap">
+    <div class="eyebrow">FAQ</div>
+    <h1>Frequently asked <span class="it">questions</span>.</h1>
+    <p class="dek">Common questions about Agent Passport System and the Agent Passport System.</p>
+  </div></section>
 
-<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is this production-ready?</div><div class="faq-a">110 modules across SDK, MCP, and Python implementations. 2,884 tests. Eight published papers in the federal record. An IETF Internet-Draft. Independently cited by PDR in Production (UBC). 25 vocab crosswalks.</div></div>
+  <div class="aps-prose"><div class="wrap"><div class="col">
 
-<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How does delegation work?</div><div class="faq-a">A human delegates authority to an agent with explicit scope: tools, money, services. The agent can sub-delegate, but authority can only narrow, never expand. Revoke the root and everything downstream dies instantly.</div></div>
+  <div class="faq">
 
-<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How does revocation work at scale?</div><div class="faq-a">Cascade revocation. Delegation chains form a tree. Revoke any node and every downstream delegation dies instantly. The gateway enforces this at the boundary, so revoked agents can't sneak through on cached credentials.</div></div>
+    <details>
+      <summary><span class="n">01</span><span class="q">What does the protocol do?</span><span class="pm">+</span></summary>
+      <div class="ans">Agent Passport System makes every AI agent accountable. Every agent gets a cryptographic identity (Ed25519). Authority can only narrow, never expand. Trust is earned through performance. One API call revokes all downstream access.</div>
+    </details>
 
-<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What identity systems are supported?</div><div class="faq-a">Bring your own: did:key, did:web, SPIFFE SVID, OAuth. Cross-language: signatures round-trip TS ↔ Python byte-identically across 27 fixtures.</div></div>
+    <details>
+      <summary><span class="n">02</span><span class="q">How is it different from agent frameworks?</span><span class="pm">+</span></summary>
+      <div class="ans">Most frameworks handle orchestration. Agent Passport System handles enforcement: what can this agent do, and what happens when it violates a constraint? Bring your own identity. The gateway is both judge and executor. Works with any framework.</div>
+    </details>
 
-<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can I self-host?</div><div class="faq-a">Yes. The gateway image is published. You own your keys, your audit log, and your enforcement decisions. The hosted version exists for convenience, not lock-in.</div></div>
+    <details>
+      <summary><span class="n">03</span><span class="q">Is this production-ready?</span><span class="pm">+</span></summary>
+      <div class="ans">110 modules across SDK, MCP, and Python implementations. 2,884 tests. Eight published papers in the federal record. An IETF Internet-Draft. Independently cited by PDR in Production (UBC). 25 vocab crosswalks.</div>
+    </details>
 
-<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Who else has adopted this?</div><div class="faq-a">Microsoft Agent Toolkit (PR in review). MolTrust co-edits the spec. Edison Munoz Duran contributed the Agent-DID crosswalk. UBC PDR in Production cites the Bayesian model. Federal agency review underway.</div></div>
+    <details>
+      <summary><span class="n">04</span><span class="q">How does delegation work?</span><span class="pm">+</span></summary>
+      <div class="ans">A human delegates authority to an agent with explicit scope: tools, money, services. The agent can sub-delegate, but authority can only narrow, never expand. Revoke the root and everything downstream dies instantly.</div>
+    </details>
 
-<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How do I contribute?</div><div class="faq-a">GitHub issues, vocab PRs, conformance fixtures. The agent-governance-spec org is the cross-vendor home; aeoess/agent-passport-system is the reference SDK.</div></div>
+    <details>
+      <summary><span class="n">05</span><span class="q">How does revocation work at scale?</span><span class="pm">+</span></summary>
+      <div class="ans">Cascade revocation. Delegation chains form a tree. Revoke any node and every downstream delegation dies instantly. The gateway enforces this at the boundary, so revoked agents can't sneak through on cached credentials.</div>
+    </details>
 
-<!-- Protocol-specific FAQ items preserved from earlier site version -->
-<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is it open source?</div><div class="faq-a">Yes. Apache-2.0 licensed. All code on <a href="https://github.com/aeoess">GitHub</a>. Eight academic papers published on Zenodo. TypeScript SDK on npm, Python SDK on PyPI.</div></div>
+    <details>
+      <summary><span class="n">06</span><span class="q">What identity systems are supported?</span><span class="pm">+</span></summary>
+      <div class="ans">Bring your own: did:key, did:web, SPIFFE SVID, OAuth. Cross-language: signatures round-trip TS ↔ Python byte-identically across 27 fixtures.</div>
+    </details>
 
-<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is the Values Floor?</div><div class="faq-a">Seven non-negotiable principles (F-001 through F-007): traceability, honest identity, scoped authority, revocability, auditability, non-deception, proportionality. Agents sign cryptographic attestations. Compliance is checked through graduated enforcement: inline (blocks execution), audit (logs violations), warn (advisory).</div></div>
+    <details>
+      <summary><span class="n">07</span><span class="q">Can I self-host?</span><span class="pm">+</span></summary>
+      <div class="ans">Yes. The gateway image is published. You own your keys, your audit log, and your enforcement decisions. The hosted version exists for convenience, not lock-in.</div>
+    </details>
 
-<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is V2 Constitutional Framework?</div><div class="faq-a">30 governance modules addressing what happens when perfectly compliant agents still cause systemic failures. Designed through cross-model adversarial review. Includes: 9 attack defenses (approval fatigue detection, effect enforcement, semantic drift, authority laundering audit, governance drift tracking, emergence detection), separation of powers (agents cannot hold conflicting branches), constitutional amendment (supermajority + human ratification), circuit breakers (automatic suspension on threshold breach), affected-party standing (complaints and appeals). All implemented with tests in <code>src/v2/</code>.</div></div>
+    <details>
+      <summary><span class="n">08</span><span class="q">Who else has adopted this?</span><span class="pm">+</span></summary>
+      <div class="ans">Microsoft Agent Toolkit (PR in review). MolTrust co-edits the spec. Edison Munoz Duran contributed the Agent-DID crosswalk. UBC PDR in Production cites the Bayesian model. Federal agency review underway.</div>
+    </details>
 
-<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is Data Lifecycle Governance?</div><div class="faq-a">The protocol governs what happens to data <em>after</em> access — through transformation, across system boundaries, after consent revocation, into decisions, and under dispute. Key primitives: <strong>Extended Derivation Continuity</strong> (multi-hop chains with break markers and lineage confidence), <strong>Post-Revocation Obligations</strong> (honest per-artifact-type obligations — RAG chunks get deleted, model weights require retraining, settlement records are ledger-exempt), <strong>Decision Lineage Receipt</strong> (traces which data sources influenced a specific decision — the right-to-explanation primitive), <strong>Purpose Taxonomy</strong> (hierarchical with wildcard matching), <strong>Retention TTL</strong> (ephemeral vs persistent access), <strong>Terms Version Pinning</strong> (freezes terms at access time for settlement). Phase 2 adds aggregation controls, jurisdiction envelopes (EU/GDPR transfer checks), governance taint propagation, dispute state, combination constraints (forbidden joins for HIPAA/COPPA), access snapshots (anti-rug-pull), rights propagation semantics, purpose drift detection, and re-identification risk declarations.</div></div>
+    <details>
+      <summary><span class="n">09</span><span class="q">How do I contribute?</span><span class="pm">+</span></summary>
+      <div class="ans">GitHub issues, vocab PRs, conformance fixtures. The agent-governance-spec org is the cross-vendor home; aeoess/agent-passport-system is the reference SDK.</div>
+    </details>
 
-<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is the Decision Lineage Receipt?</div><div class="faq-a">The bridge between decision provenance (Module 37) and data provenance (Modules 38-42). When an agent makes a decision that affects a human — loan denied, content moderated, insurance claim rejected — the human should be able to ask: "what data influenced this decision?" The Decision Lineage Receipt cryptographically links the decision artifact to every contributing data source, with derivation depth, transform path, terms version at access, lineage confidence, and compensation status. If the model was trained externally and lineage is incomplete, the receipt says so honestly rather than faking completeness.</div></div>
+    <!-- Protocol-specific FAQ items preserved from earlier site version -->
+    <details>
+      <summary><span class="n">10</span><span class="q">Is it open source?</span><span class="pm">+</span></summary>
+      <div class="ans">Yes. Apache-2.0 licensed. All code on <a href="https://github.com/aeoess">GitHub</a>. Eight academic papers published on Zenodo. TypeScript SDK on npm, Python SDK on PyPI.</div>
+    </details>
 
-<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What MCP tools are available?</div><div class="faq-a">150 tools across: identity (3), delegation (4), values/policy (4), signed communication (5), coordination (11), commerce (3), reputation-gated authority (5), and more. See the full list in the <a href="passport.html">technical docs</a>.</div></div>
+    <details>
+      <summary><span class="n">11</span><span class="q">What is the Values Floor?</span><span class="pm">+</span></summary>
+      <div class="ans">Seven non-negotiable principles (F-001 through F-007): traceability, honest identity, scoped authority, revocability, auditability, non-deception, proportionality. Agents sign cryptographic attestations. Compliance is checked through graduated enforcement: inline (blocks execution), audit (logs violations), warn (advisory).</div>
+    </details>
 
-<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Which parts of the protocol are required vs optional?</div><div class="faq-a"><strong>Core protocol (required):</strong> Agent identity (Ed25519), delegation chains, cascade revocation, Values Floor, policy engine, ProxyGateway enforcement. These are the foundational layers every deployment uses.<br><br><strong>Extended modules (pick what you need):</strong> Coordination, commerce, DID/VC, EU AI Act compliance, E2E encrypted messaging, task routing, reputation-gated authority, governance provenance, and all 42 v2 constitutional modules.<br><br><em>Ecosystem services such as agent matching and professional networking can be built on top of these primitives, but are not part of the open protocol and not required for any core functionality.</em></div></div>
+    <details>
+      <summary><span class="n">12</span><span class="q">What is V2 Constitutional Framework?</span><span class="pm">+</span></summary>
+      <div class="ans">30 governance modules addressing what happens when perfectly compliant agents still cause systemic failures. Designed through cross-model adversarial review. Includes: 9 attack defenses (approval fatigue detection, effect enforcement, semantic drift, authority laundering audit, governance drift tracking, emergence detection), separation of powers (agents cannot hold conflicting branches), constitutional amendment (supermajority + human ratification), circuit breakers (automatic suspension on threshold breach), affected-party standing (complaints and appeals). All implemented with tests in <code>src/v2/</code>.</div>
+    </details>
 
-<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How do I get started?</div><div class="faq-a"><strong>Fastest (MCP, zero install):</strong> <code>npx agent-passport-system-mcp setup --remote</code><br><strong>Local MCP (150 tools):</strong> <code>npm install -g agent-passport-system-mcp && npx agent-passport-system-mcp setup</code><br><strong>SDK (library):</strong> <code>npm install agent-passport-system</code><br><strong>Python:</strong> <code>pip install agent-passport-system</code><br><strong>Persistence:</strong> <code>npm install @aeoess/storage-sqlite</code><br><strong>Mingle (networking, opt-in):</strong> <code>npm install -g mingle-mcp && npx mingle-mcp setup</code><br>All setup commands auto-configure Claude Desktop and Cursor. Read the <a href="passport.html">technical docs</a> or <a href="llms-full.txt">llms-full.txt</a> for full API reference.</div></div>
+    <details>
+      <summary><span class="n">13</span><span class="q">What is Data Lifecycle Governance?</span><span class="pm">+</span></summary>
+      <div class="ans">The protocol governs what happens to data <em>after</em> access — through transformation, across system boundaries, after consent revocation, into decisions, and under dispute. Key primitives: <b>Extended Derivation Continuity</b> (multi-hop chains with break markers and lineage confidence), <b>Post-Revocation Obligations</b> (honest per-artifact-type obligations — RAG chunks get deleted, model weights require retraining, settlement records are ledger-exempt), <b>Decision Lineage Receipt</b> (traces which data sources influenced a specific decision — the right-to-explanation primitive), <b>Purpose Taxonomy</b> (hierarchical with wildcard matching), <b>Retention TTL</b> (ephemeral vs persistent access), <b>Terms Version Pinning</b> (freezes terms at access time for settlement). Phase 2 adds aggregation controls, jurisdiction envelopes (EU/GDPR transfer checks), governance taint propagation, dispute state, combination constraints (forbidden joins for HIPAA/COPPA), access snapshots (anti-rug-pull), rights propagation semantics, purpose drift detection, and re-identification risk declarations.</div>
+    </details>
 
-<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How does GDPR work with an append-only receipt chain?</div><div class="faq-a">The <code>tombstoneReceipt()</code> function redacts the sensitive payload (action details, parameters, result summary become <code>[REDACTED]</code>) while preserving the receipt ID, signature, timestamps, and chain hash links. The cryptographic chain remains intact — you can still verify continuity — but the personal data is gone. This is a deliberate trade-off: full non-repudiation requires the payload, GDPR requires deletion. Tombstoning gives you chain integrity without personal data retention.</div></div>
+    <details>
+      <summary><span class="n">14</span><span class="q">What is the Decision Lineage Receipt?</span><span class="pm">+</span></summary>
+      <div class="ans">The bridge between decision provenance (Module 37) and data provenance (Modules 38-42). When an agent makes a decision that affects a human — loan denied, content moderated, insurance claim rejected — the human should be able to ask: "what data influenced this decision?" The Decision Lineage Receipt cryptographically links the decision artifact to every contributing data source, with derivation depth, transform path, terms version at access, lineage confidence, and compensation status. If the model was trained externally and lineage is incomplete, the receipt says so honestly rather than faking completeness.</div>
+    </details>
 
-<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What are the WG ratified specs?</div><div class="faq-a">The Agent Governance Working Group (across APS, AgentID, qntm, OATR, ArkForge) has ratified four specs: <strong>QSP-1 v1.0</strong> (encrypted agent transport), <strong>DID Resolution v1.0</strong> (where is this agent's identity document?), <strong>Entity Verification v1.0</strong> (is this agent who they claim to be?), and <strong>Execution Attestation v0.1</strong> (did this agent actually do what it claims?). Together they define the communication infrastructure layer. Everything above — reputation, commerce, governance — composes on top.</div></div>
-<div style="margin:2rem auto;max-width:680px;padding:1.2rem 1.5rem;border:1px solid rgba(99,179,237,.25);border-radius:10px;background:rgba(99,179,237,.06);font-size:.9rem;line-height:1.6;color:var(--dim)"><strong style="color:var(--text)">🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt" style="color:var(--accent)">llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt" style="color:var(--accent)">llms-full.txt</a> for the complete technical reference (2,884 tests, 150 MCP tools, 84+43 modules). This page is designed for humans.</div>
+    <details>
+      <summary><span class="n">15</span><span class="q">What MCP tools are available?</span><span class="pm">+</span></summary>
+      <div class="ans">150 tools across: identity (3), delegation (4), values/policy (4), signed communication (5), coordination (11), commerce (3), reputation-gated authority (5), and more. See the full list in the <a href="passport.html">technical docs</a>.</div>
+    </details>
+
+    <details>
+      <summary><span class="n">16</span><span class="q">Which parts of the protocol are required vs optional?</span><span class="pm">+</span></summary>
+      <div class="ans"><b>Core protocol (required):</b> Agent identity (Ed25519), delegation chains, cascade revocation, Values Floor, policy engine, ProxyGateway enforcement. These are the foundational layers every deployment uses.<br><br><b>Extended modules (pick what you need):</b> Coordination, commerce, DID/VC, EU AI Act compliance, E2E encrypted messaging, task routing, reputation-gated authority, governance provenance, and all 42 v2 constitutional modules.<br><br><em>Ecosystem services such as agent matching and professional networking can be built on top of these primitives, but are not part of the open protocol and not required for any core functionality.</em></div>
+    </details>
+
+    <details>
+      <summary><span class="n">17</span><span class="q">How do I get started?</span><span class="pm">+</span></summary>
+      <div class="ans"><b>Fastest (MCP, zero install):</b> <code>npx agent-passport-system-mcp setup --remote</code><br><b>Local MCP (150 tools):</b> <code>npm install -g agent-passport-system-mcp &amp;&amp; npx agent-passport-system-mcp setup</code><br><b>SDK (library):</b> <code>npm install agent-passport-system</code><br><b>Python:</b> <code>pip install agent-passport-system</code><br><b>Persistence:</b> <code>npm install @aeoess/storage-sqlite</code><br><b>Mingle (networking, opt-in):</b> <code>npm install -g mingle-mcp &amp;&amp; npx mingle-mcp setup</code><br>All setup commands auto-configure Claude Desktop and Cursor. Read the <a href="passport.html">technical docs</a> or <a href="llms-full.txt">llms-full.txt</a> for full API reference.</div>
+    </details>
+
+    <details>
+      <summary><span class="n">18</span><span class="q">How does GDPR work with an append-only receipt chain?</span><span class="pm">+</span></summary>
+      <div class="ans">The <code>tombstoneReceipt()</code> function redacts the sensitive payload (action details, parameters, result summary become <code>[REDACTED]</code>) while preserving the receipt ID, signature, timestamps, and chain hash links. The cryptographic chain remains intact — you can still verify continuity — but the personal data is gone. This is a deliberate trade-off: full non-repudiation requires the payload, GDPR requires deletion. Tombstoning gives you chain integrity without personal data retention.</div>
+    </details>
+
+    <details>
+      <summary><span class="n">19</span><span class="q">What are the WG ratified specs?</span><span class="pm">+</span></summary>
+      <div class="ans">The Agent Governance Working Group (across APS, AgentID, qntm, OATR, ArkForge) has ratified four specs: <b>QSP-1 v1.0</b> (encrypted agent transport), <b>DID Resolution v1.0</b> (where is this agent's identity document?), <b>Entity Verification v1.0</b> (is this agent who they claim to be?), and <b>Execution Attestation v0.1</b> (did this agent actually do what it claims?). Together they define the communication infrastructure layer. Everything above — reputation, commerce, governance — composes on top.</div>
+    </details>
+
+  </div>
+
+  <div class="aps-card" style="margin-top:32px">
+  <p><strong>🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt">llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt">llms-full.txt</a> for the complete technical reference (2,884 tests, 150 MCP tools, 84+43 modules). This page is designed for humans.</p>
+  </div>
+
+  </div></div></div>
 </main>
-<footer class="footer-wrap" role="contentinfo">
-<div class="footer-inner">
-  <div class="footer-grid">
-    <div class="footer-col"><h4>Protocol</h4><a href="passport.html">Documentation</a><a href="benchmarks.html">Benchmarks</a><a href="threat-model.html">Threat Model</a><a href="faq.html">FAQ</a></div>
-    <div class="footer-col"><h4>Developers</h4><a href="https://github.com/aeoess">GitHub</a><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="wallet.html">Agent Wallet</a><a href="AGENTS.md">AGENTS.md</a><a href="llms.txt">llms.txt</a></div>
-    <div class="footer-col"><h4>Community</h4><a href="blog.html">Dev Log</a><a href="roadmap.html">Roadmap</a><a href="working-group.html">Working Group</a></div>
-    <div class="footer-col"><h4>Research</h4><a href="https://doi.org/10.5281/zenodo.18749779">Agent Social Contract</a><a href="https://doi.org/10.5281/zenodo.18932404">Monotonic Narrowing</a><a href="https://doi.org/10.5281/zenodo.19260073">Faceted Authority Attenuation</a><a href="https://doi.org/10.5281/zenodo.19476002">Behavioral Derivation Rights</a><a href="https://doi.org/10.5281/zenodo.19478584">Physics-Enforced Delegation</a><a href="https://doi.org/10.5281/zenodo.19582550">Governance in the Medium</a><a href="https://doi.org/10.5281/zenodo.19646276">Cognitive Attestation</a><a href="https://doi.org/10.5281/zenodo.19914628">Evidence-Safety Gap</a></div>
-  </div>
-  <div class="footer-bottom"><span class="footer-copy">Agent Passport System &copy; 2026 &middot; Apache-2.0 &middot; Built by <a href="https://tymofii.me">Tymofii Pidlisnyi</a></span><div class="footer-ext"><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="https://github.com/aeoess">GitHub</a></div></div>
-</div>
-</footer>
-<script>
 
-</script>
-<script>
-function toggleTheme(){var d=document.documentElement.getAttribute('data-theme')==='dark';var n=d?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('aeoess-theme',n);var b=document.querySelector('.theme-btn');if(b)b.textContent=n==='dark'?'\u2600':'\u263E';}
-function closeDrawer(){document.querySelector('.nav-burger')?.classList.remove('open');document.querySelector('.nav-drawer')?.classList.remove('open');}
-(function(){var s=localStorage.getItem('aeoess-theme');if(s)document.documentElement.setAttribute('data-theme',s);else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.setAttribute('data-theme','dark');var b=document.querySelector('.theme-btn');if(b)b.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'\u2600':'\u263E';})();
-window.addEventListener('scroll',function(){var n=document.getElementById('nav');if(n)n.classList.toggle('scrolled',window.scrollY>40)});
-</script>
+<footer class="colophon">
+  <div class="wrap">
+    <div class="colo-grid">
+      <div>
+        <h3 class="head">An <span class="it">open</span> protocol.<br>An open <span class="it">house.</span></h3>
+        <p>APS is maintained as a public good. The spec is CC0. The code is Apache 2.0. The conformance suite is yours to fork.</p>
+        <p>Show up. File issues. Send patches. Bring your edge case — somebody, somewhere, is running into it too.</p>
+        <a class="btn btn-light" style="color:var(--paper);border-color:var(--paper)" href="/working-group.html">Join the working group ↗</a>
+      </div>
+      <div>
+        <h5>Protocol</h5>
+        <ul>
+          <li><a href="/passport.html">Documentation</a></li>
+          <li><a href="/benchmarks.html">Benchmarks</a></li>
+          <li><a href="/threat-model.html">Threat Model</a></li>
+          <li><a href="/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Developers</h5>
+        <ul>
+          <li><a href="https://github.com/aeoess">GitHub</a></li>
+          <li><a href="https://www.npmjs.com/package/agent-passport-system">npm</a></li>
+          <li><a href="https://pypi.org/project/agent-passport-system/">PyPI</a></li>
+          <li><a href="/wallet.html">Agent Wallet</a></li>
+          <li><a href="/AGENTS.md">AGENTS.md</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Community</h5>
+        <ul>
+          <li><a href="/blog.html">Dev Log</a></li>
+          <li><a href="/roadmap.html">Roadmap</a></li>
+          <li><a href="/working-group.html">Working Group</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Research</h5>
+        <ul>
+          <li><a href="/research.html">Agent Social Contract</a></li>
+          <li><a href="/research.html">Monotonic Narrowing</a></li>
+          <li><a href="/research.html">Faceted Authority Attenuation</a></li>
+          <li><a href="/research.html">Behavioral Derivation Rights</a></li>
+          <li><a href="/research.html">Physics-Enforced Delegation</a></li>
+          <li><a href="/research.html">Governance in the Medium</a></li>
+          <li><a href="/research.html">Cognitive Attestation</a></li>
+          <li><a href="/research.html">Evidence-Safety Gap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="colo-foot">
+      <div>License<b>Spec CC0 · Code Apache 2.0</b></div>
+      <div>Editor<b>Tymofii Pidlisnyi</b></div>
+      <div>Standard<b>APS · IETF Internet-Draft</b></div>
+      <div>Imprint<b>Vol. 01 · 2026 · agent-passport.org</b></div>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
