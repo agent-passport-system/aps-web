@@ -965,6 +965,13 @@ section.s{padding:96px 0;border-bottom:1px solid var(--rule);position:relative}
 .s-title .it{font-style:italic;color:var(--ink-2);font-weight:300;font-family:var(--tweak-display-font),var(--tweak-body-font, "Newsreader"),serif}
 .s-aside{font-family:var(--tweak-body-font, "Newsreader"),serif;font-style:italic;font-size:15px;line-height:1.5;color:var(--ink-3);text-align:right;padding-right:0}
 .s-aside b{color:var(--ink);font-style:normal;font-weight:500}
+.layer-list{display:flex;flex-direction:column;border-top:1px solid var(--rule)}
+.ll-row{display:grid;grid-template-columns:48px 150px 1fr;gap:16px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--rule)}
+.ll-n{font-family:"Geist Mono",monospace;font-size:12px;color:var(--accent)}
+.ll-k{font-weight:600}
+.ll-d{color:var(--ink-2,#555)}
+.s-link{display:inline-block;margin-top:24px;font-family:"Geist Mono",monospace;font-size:13px;color:var(--accent);text-decoration:none}
+@media(max-width:680px){.ll-row{grid-template-columns:40px 1fr}.ll-row .ll-d{grid-column:2}}
 
 /* ─── §01 LEDE TEXT ─────────────────────────────── */
 .lede{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;font-size:18.5px;line-height:1.55;color:var(--ink-2);font-weight:300}
@@ -1142,80 +1149,6 @@ body[data-pace="Paused"] .arch-fig svg .flow-dot{display:none}
 }
 .ps-variant{margin-bottom:64px;position:relative}
 .ps-variant:last-child{margin-bottom:0}
-.ps-variant-tag{
-  position:absolute;top:0;left:0;
-  font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;
-  font-size:10px;letter-spacing:0.18em;text-transform:uppercase;
-  color:var(--ink-3);background:var(--paper);
-  padding:6px 10px;border:1px solid var(--rule-soft);
-  z-index:5;
-}
-
-/* ===== VARIANT 1: FRAMED SLAB ===================== */
-.psv1{
-  border:1px solid var(--ink);
-  background:var(--paper-2);
-  padding:48px 56px;
-}
-.psv1 .lbl{font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--stamp);margin-bottom:16px}
-.psv1 .lbl::before{content:"§ ";color:var(--ink-3)}
-.psv1 .body{font-family:"Inter",-apple-system,sans-serif;font-size:22px;line-height:1.45;color:var(--ink);font-weight:400;letter-spacing:-0.01em;margin-bottom:32px}
-.psv1 .body p{margin:0 0 14px}.psv1 .body p:last-child{margin-bottom:0}
-.psv1 .body b{font-weight:600}
-.psv1 .pair{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--ink);margin:24px -56px -48px;background:var(--paper);}
-.psv1 .pair > div{padding:24px 56px 28px;display:flex;flex-direction:column;gap:10px}
-.psv1 .pair > div + div{border-left:1px solid var(--ink)}
-.psv1 .pair .h{font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;display:flex;align-items:center;gap:8px}
-.psv1 .pair .h::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%}
-.psv1 .pair .today  .h{color:#9C3525}
-.psv1 .pair .today  .h::before{background:#9C3525}
-.psv1 .pair .with .h{color:#2E6E53}
-.psv1 .pair .with .h::before{background:#2E6E53}
-.psv1 .pair p{margin:0;font-size:16px;line-height:1.5;color:var(--ink)}
-.psv1 .pair p b{font-weight:600}
-
-/* ===== VARIANT 2: DARK SLAB (inverted) ============ */
-.psv2{background:var(--ink);color:var(--paper);padding:60px 56px;border-radius:0;position:relative;overflow:hidden}
-.psv2::before{
-  content:"";position:absolute;top:0;right:0;bottom:0;width:1px;
-  background:repeating-linear-gradient(0deg, #B83A2E 0 6px, transparent 6px 12px);opacity:.4;
-}
-.psv2 .lbl{font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#E2A35A;margin-bottom:18px}
-.psv2 .lbl::before{content:"§ ";color:#9C9583}
-.psv2 .body{font-family:"Inter",-apple-system,sans-serif;font-size:22px;line-height:1.45;color:#EDE5D3;font-weight:400;letter-spacing:-0.01em;margin-bottom:36px;max-width:1040px}
-.psv2 .body p{margin:0 0 14px}.psv2 .body p:last-child{margin-bottom:0}
-.psv2 .body b{font-weight:600;color:#fff}
-.psv2 .pair{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid #ffffff1f;padding-top:24px}
-.psv2 .pair > div{padding:0 32px;display:flex;flex-direction:column;gap:10px}
-.psv2 .pair > div + div{border-left:1px solid #ffffff1f}
-.psv2 .pair .h{font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:500;display:flex;align-items:center;gap:8px}
-.psv2 .pair .h::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%}
-.psv2 .pair .today  .h{color:#E26A4D}
-.psv2 .pair .today  .h::before{background:#E26A4D}
-.psv2 .pair .with .h{color:#88D8B0}
-.psv2 .pair .with .h::before{background:#88D8B0}
-.psv2 .pair p{margin:0;font-size:16px;line-height:1.5;color:#C8C2B2}
-.psv2 .pair p b{font-weight:600;color:#EDE5D3}
-
-/* ===== VARIANT 3: MANIFESTO (centered) ============ */
-.psv3{text-align:center;padding:20px 0 0}
-.psv3 .lbl{font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--stamp);margin-bottom:32px}
-.psv3 .lbl::before{content:"§ ";color:var(--ink-3)}
-.psv3 .lbl::after{content:" ·";color:var(--ink-3)}
-.psv3 .body{font-family:var(--tweak-body-font, "Newsreader"),serif;font-size:32px;line-height:1.35;color:var(--ink);font-weight:400;letter-spacing:-0.015em;max-width:880px;margin:0 auto 40px}
-.psv3 .body p{margin:0 0 22px}.psv3 .body p:last-child{margin-bottom:0}
-.psv3 .body b{font-weight:500;font-style:italic;color:var(--stamp)}
-.psv3 .pair{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--rule);max-width:880px;margin:0 auto}
-.psv3 .pair > div{padding:24px 32px;text-align:left;display:flex;flex-direction:column;gap:10px}
-.psv3 .pair > div + div{border-left:1px solid var(--rule)}
-.psv3 .pair .h{font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;display:flex;align-items:center;gap:8px}
-.psv3 .pair .h::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%}
-.psv3 .pair .today  .h{color:#9C3525}
-.psv3 .pair .today  .h::before{background:#9C3525}
-.psv3 .pair .with .h{color:#2E6E53}
-.psv3 .pair .with .h::before{background:#2E6E53}
-.psv3 .pair p{margin:0;font-size:15.5px;line-height:1.5;color:var(--ink-2)}
-.psv3 .pair p b{font-weight:600;color:var(--ink)}
 
 /* ===== VARIANT 4: STAMPED MEMO ===================== */
 .psv4{position:relative;background:var(--paper);border:1px solid var(--ink);box-shadow:8px 8px 0 var(--ink), 14px 14px 0 var(--paper-3);padding:0}
@@ -1240,28 +1173,6 @@ body[data-pace="Paused"] .arch-fig svg .flow-dot{display:none}
 .psv4 .stamp-x{position:absolute;bottom:-14px;right:-20px;width:118px;height:118px;border:2px solid var(--stamp);color:var(--stamp);border-radius:50%;display:grid;place-items:center;text-align:center;font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;transform:rotate(-12deg);background:transparent;font-weight:500;opacity:0.92;z-index:2}
 .psv4 .stamp-x::before{content:"";position:absolute;inset:6px;border:1px solid var(--stamp);border-radius:50%}
 .psv4 .stamp-x b{font-family:var(--tweak-body-font, "Newsreader"),serif;font-style:italic;font-size:14px;letter-spacing:0;text-transform:none;font-weight:500;display:block;margin-top:2px}
-
-/* ===== VARIANT 5: EDITORIAL COLUMN ================ */
-.psv5{display:grid;grid-template-columns:0.7fr 1.3fr;gap:64px;align-items:start}
-.psv5 .left{position:sticky;top:80px}
-.psv5 .lbl{font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--stamp);margin-bottom:14px}
-.psv5 .lbl::before{content:"§ ";color:var(--ink-3)}
-.psv5 .title{font-family:var(--tweak-display-font),var(--tweak-body-font, "Newsreader"),serif;font-style:italic;font-size:54px;line-height:0.95;letter-spacing:-0.02em;font-weight:400;color:var(--ink);margin:0}
-.psv5 .body{font-family:"Inter",-apple-system,sans-serif;font-size:19px;line-height:1.55;color:var(--ink);font-weight:400;letter-spacing:-0.005em}
-.psv5 .body p{margin:0 0 14px;text-wrap:pretty}.psv5 .body p:last-child{margin-bottom:0}
-.psv5 .body b{font-weight:600}
-.psv5 .body p:first-child::first-letter{font-family:var(--tweak-body-font, "Newsreader"),serif;font-style:italic;font-size:3.6em;float:left;line-height:0.85;padding:8px 12px 0 0;color:var(--stamp);font-weight:500}
-.psv5 .pair{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rule);margin-top:32px}
-.psv5 .pair > div{padding:22px 0 0;display:flex;flex-direction:column;gap:8px}
-.psv5 .pair > div + div{margin-left:32px;padding-left:32px;border-left:1px solid var(--rule)}
-.psv5 .pair .h{font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;font-weight:500;display:flex;align-items:center;gap:8px}
-.psv5 .pair .h::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%}
-.psv5 .pair .today  .h{color:#9C3525}
-.psv5 .pair .today  .h::before{background:#9C3525}
-.psv5 .pair .with .h{color:#2E6E53}
-.psv5 .pair .with .h::before{background:#2E6E53}
-.psv5 .pair p{margin:0;font-size:15px;line-height:1.5;color:var(--ink-2)}
-.psv5 .pair p b{font-weight:600;color:var(--ink)}
 
 /* hide the old ps-head/ps-body/callout chrome */
 .ps-head,.ps-body,.callout{display:none}
@@ -1453,21 +1364,18 @@ body[data-paper="Newsprint"] { --paper:#E5E2D7; --paper-2:#DBD8CC; --paper-3:#CC
     <span>AGENT PASSPORT SYSTEM</span>
     <div class="marquee">
       <div class="marquee-inner">
-        <span><b>draft-pidlisnyi-aps-00</b> · IETF agent passport Internet-Draft</span>
-        <span><b>v0.7.2</b> released · conformance suite +94 tests · 2,884 total</span>
+        <span><b>draft-pidlisnyi-aps</b> · IETF agent passport Internet-Draft</span>
         <span><b>npm · PyPI</b> · agent-passport-system shipped</span>
-        <span><b>Vocabulary repo</b> · 45 external PRs · 23 contributors</span>
+        <span><b>Vocabulary repo</b> · external crosswalk contributions</span>
         <span><b>Verifier</b> · 11 lines · any runtime</span>
-        <span><b>≤ 2 ms</b> policy eval · 14 caveat dimensions</span>
-        <span><b>draft-pidlisnyi-aps-00</b> · IETF agent passport Internet-Draft</span>
-        <span><b>v0.7.2</b> released · conformance suite +94 tests · 2,884 total</span>
+        <span><b>≤ 2 ms</b> policy eval</span>
+        <span><b>draft-pidlisnyi-aps</b> · IETF agent passport Internet-Draft</span>
         <span><b>npm · PyPI</b> · agent-passport-system shipped</span>
-        <span><b>Vocabulary repo</b> · 45 external PRs · 23 contributors</span>
+        <span><b>Vocabulary repo</b> · external crosswalk contributions</span>
         <span><b>Verifier</b> · 11 lines · any runtime</span>
-        <span><b>≤ 2 ms</b> policy eval · 14 caveat dimensions</span>
+        <span><b>≤ 2 ms</b> policy eval</span>
       </div>
     </div>
-    <span>VOL. 01 · ISSUE 07 · 14 MAY 2026</span>
   </div>
 </div>
 
@@ -1565,14 +1473,11 @@ to&nbsp;enforce, verify, and audit AI agent actions.</p>
 <section class="ps-block">
   <div class="wrap">
 
-    <!-- V4 — stamped memo card -->
     <div class="ps-variant">
-      <span class="ps-variant-tag">V4 · Stamped memo</span>
       <div class="psv4">
         <div class="hd">
           <span>Memo · <b>aps/01</b> · the shift</span>
           <span class="title">On the new shape of authority.</span>
-          <span>filed <b>2026-05-14</b></span>
         </div>
         <div class="body">
           <p>Agent Passport System gives every AI agent a <b>verifiable identity,</b> ties it to the person or company it represents, and enforces the <b>scope, budget, and conditions</b> of its authority.</p>
@@ -1709,339 +1614,19 @@ to&nbsp;enforce, verify, and audit AI agent actions.</p>
 <section class="s" id="layers">
   <div class="wrap">
     <div class="s-head">
-      <div class="s-num">02<small>The layers</small></div>
-      <h2 class="s-title">From identity, <span class="it">to governance.</span></h2>
-      <div class="s-aside">Six layers, twelve primitives, one enforcement boundary. <b>Click a layer</b> to walk it.</div>
+      <div class="s-num">§ 02</div>
+      <h2>From identity, to governance.</h2>
+      <div class="s-aside">Six layers, one enforcement boundary. Identity is where it starts, not where it ends.</div>
     </div>
-
-    <figure class="layers-fig">
-      <div class="layers-head">
-        <span><b>Fig. 2</b> · The protocol stack</span>
-        <span>Click any layer to expand</span>
-      </div>
-
-      <nav class="layers-tabs">
-        <button data-l="L0" class="on"><span class="t">L0</span><span class="n">Identity</span></button>
-        <button data-l="L1"><span class="t">L1</span><span class="n">Delegation</span></button>
-        <button data-l="L2"><span class="t">L2</span><span class="n">Enforcement</span></button>
-        <button data-l="L3"><span class="t">L3</span><span class="n">Receipts</span></button>
-        <button data-l="L4"><span class="t">L4</span><span class="n">Aggregation</span></button>
-        <button data-l="L5"><span class="t">L5</span><span class="n">Governance</span></button>
-      </nav>
-
-      <div class="layers-stage">
-
-        <!-- L0 IDENTITY -->
-        <div class="layers-pane on" data-l="L0">
-          <div class="pane-meta">
-            <div class="pane-eye">L0 · Identity</div>
-            <h3 class="pane-name">Identity</h3>
-            <p class="pane-desc">Every actor is a passport with verifiable keys. The protocol accepts <b>did:key, did:web, SPIFFE SVID, and OAuth bridges</b> — bring your own identity method.</p>
-            <div class="pane-refs">RFC 8032 · W3C DID Core</div>
-          </div>
-          <div class="pane-viz">
-            <svg viewBox="0 0 560 360" xmlns="http://www.w3.org/2000/svg">
-              <g transform="translate(280,180)">
-                <circle r="56" fill="#1A1814" stroke="#1A1814"></circle>
-                <text text-anchor="middle" y="-6" font-family="JetBrains Mono" font-size="9" letter-spacing="2" fill="#9C9583">SUBJECT</text>
-                <text text-anchor="middle" y="14" font-family="Newsreader, serif" font-style="italic" font-size="22" fill="#EDE5D3">passport</text>
-                <text text-anchor="middle" y="30" font-family="JetBrains Mono" font-size="8" fill="#9C9583">did:aeo:0xA1F…</text>
-              </g>
-              <g font-family="JetBrains Mono" font-size="10" fill="#1A1814">
-                <g transform="translate(60,60)"><rect width="120" height="56" fill="#EDE5D3" stroke="#1A1814"></rect><text x="10" y="16" font-size="9" letter-spacing="1.6" fill="#B83A2E">METHOD</text><text x="10" y="34" font-family="Newsreader, serif" font-style="italic" font-size="16">did:key</text><text x="10" y="48" font-size="9" fill="#6B6557">ed25519</text></g>
-                <g transform="translate(380,60)"><rect width="120" height="56" fill="#EDE5D3" stroke="#1A1814"></rect><text x="10" y="16" font-size="9" letter-spacing="1.6" fill="#B83A2E">METHOD</text><text x="10" y="34" font-family="Newsreader, serif" font-style="italic" font-size="16">did:web</text><text x="10" y="48" font-size="9" fill="#6B6557">domain-bound</text></g>
-                <g transform="translate(60,244)"><rect width="120" height="56" fill="#EDE5D3" stroke="#1A1814"></rect><text x="10" y="16" font-size="9" letter-spacing="1.6" fill="#B83A2E">METHOD</text><text x="10" y="34" font-family="Newsreader, serif" font-style="italic" font-size="16">SPIFFE</text><text x="10" y="48" font-size="9" fill="#6B6557">workload SVID</text></g>
-                <g transform="translate(380,244)"><rect width="120" height="56" fill="#EDE5D3" stroke="#1A1814"></rect><text x="10" y="16" font-size="9" letter-spacing="1.6" fill="#B83A2E">BRIDGE</text><text x="10" y="34" font-family="Newsreader, serif" font-style="italic" font-size="16">OAuth</text><text x="10" y="48" font-size="9" fill="#6B6557">existing IDP</text></g>
-              </g>
-              <g stroke="#6B6557" stroke-width="0.8" stroke-dasharray="3 4" fill="none">
-                <line x1="180" y1="88" x2="232" y2="148"></line>
-                <line x1="380" y1="88" x2="328" y2="148"></line>
-                <line x1="180" y1="272" x2="232" y2="212"></line>
-                <line x1="380" y1="272" x2="328" y2="212"></line>
-              </g>
-            </svg>
-            <div class="pane-stats">resolvers · <b>4 methods</b> · 1 contract</div>
-          </div>
-        </div>
-
-        <!-- L1 DELEGATION -->
-        <div class="layers-pane" data-l="L1">
-          <div class="pane-meta">
-            <div class="pane-eye">L1 · Delegation</div>
-            <h3 class="pane-name">Delegation</h3>
-            <p class="pane-desc">Capability tokens with <b>monotonic narrowing.</b> Scope cannot expand. TTL cannot extend. A child capability is always a stricter version of its parent.</p>
-            <div class="pane-refs">Paper 4 · Paper 5 · Spec §3</div>
-          </div>
-          <div class="pane-viz">
-            <svg viewBox="0 0 560 380" xmlns="http://www.w3.org/2000/svg">
-              <defs><marker id="arN" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1A1814"></path></marker></defs>
-              <g transform="translate(180,30)"><rect width="200" height="54" fill="#1A1814"></rect><text x="10" y="16" font-family="JetBrains Mono" font-size="9" letter-spacing="1.6" fill="#9C9583">ROOT CAPABILITY</text><text x="10" y="34" font-family="Newsreader, serif" font-style="italic" font-size="16" fill="#EDE5D3">all scopes</text><text x="10" y="48" font-family="JetBrains Mono" font-size="9" fill="#9C9583">scope: * · budget: ∞ · ttl: 1y</text></g>
-              <line x1="280" y1="84" x2="280" y2="118" stroke="#1A1814" stroke-width="1" marker-end="url(#arN)"></line>
-              <g transform="translate(180,128)"><rect width="200" height="54" fill="#EDE5D3" stroke="#1A1814"></rect><text x="10" y="16" font-family="JetBrains Mono" font-size="9" letter-spacing="1.6" fill="#B83A2E">DELEGATION · dpt:finance</text><text x="10" y="34" font-family="Newsreader, serif" font-style="italic" font-size="16">narrowed.</text><text x="10" y="48" font-family="JetBrains Mono" font-size="9" fill="#6B6557">scope: write:stripe · $50k/30d</text></g>
-              <line x1="280" y1="182" x2="280" y2="216" stroke="#1A1814" stroke-width="1" marker-end="url(#arN)"></line>
-              <g transform="translate(180,226)"><rect width="200" height="54" fill="#EDE5D3" stroke="#1A1814"></rect><text x="10" y="16" font-family="JetBrains Mono" font-size="9" letter-spacing="1.6" fill="#B83A2E">DELEGATION · agent:bot</text><text x="10" y="34" font-family="Newsreader, serif" font-style="italic" font-size="16">narrowed.</text><text x="10" y="48" font-family="JetBrains Mono" font-size="9" fill="#6B6557">scope: write:stripe · $5k/24h</text></g>
-              <line x1="280" y1="280" x2="280" y2="314" stroke="#1A1814" stroke-width="1" marker-end="url(#arN)"></line>
-              <g transform="translate(180,324)"><rect width="200" height="30" fill="#EDE5D3" stroke="#1A1814"></rect><text x="10" y="19" font-family="JetBrains Mono" font-size="10" fill="#6B6557">+ ttl: 24h · + merchant allow-list</text></g>
-              <text x="40" y="180" font-family="JetBrains Mono" font-size="10" fill="#B83A2E" letter-spacing="1.4">NARROWS ↓</text>
-              <text x="40" y="196" font-family="JetBrains Mono" font-size="10" fill="#B83A2E" letter-spacing="1.4">NEVER ↑</text>
-              <line x1="50" y1="60" x2="50" y2="170" stroke="#B83A2E" stroke-width="0.8" stroke-dasharray="4 3"></line>
-              <line x1="50" y1="210" x2="50" y2="340" stroke="#B83A2E" stroke-width="0.8" stroke-dasharray="4 3"></line>
-              <text x="460" y="45" font-family="Newsreader, serif" font-style="italic" font-size="13" fill="#6B6557">principal</text>
-              <text x="460" y="143" font-family="Newsreader, serif" font-style="italic" font-size="13" fill="#6B6557">team</text>
-              <text x="460" y="241" font-family="Newsreader, serif" font-style="italic" font-size="13" fill="#6B6557">agent</text>
-              <text x="460" y="343" font-family="Newsreader, serif" font-style="italic" font-size="13" fill="#6B6557">action</text>
-            </svg>
-            <div class="pane-stats">depth · <b>any</b> · monotone narrowing</div>
-          </div>
-        </div>
-
-        <!-- L2 ENFORCEMENT -->
-        <div class="layers-pane" data-l="L2">
-          <div class="pane-meta">
-            <div class="pane-eye">L2 · Enforcement</div>
-            <h3 class="pane-name">Enforcement</h3>
-            <p class="pane-desc">The gateway runs <b>four-gate evaluation</b> on every intent. Identity, scope, budget, policy — in order, deterministic, sub-2ms. Fail-fast on any denial.</p>
-            <div class="pane-refs">Paper 7 · Spec §4</div>
-          </div>
-          <div class="pane-viz">
-            <svg viewBox="0 0 560 320" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <marker id="arE" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1A1814"></path></marker>
-                <marker id="arEr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2E8B7A"></path></marker>
-              </defs>
-              <g transform="translate(20,140)"><rect width="80" height="40" fill="#1A1814"></rect><text x="40" y="18" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing="1.6" fill="#9C9583">INTENT</text><text x="40" y="32" text-anchor="middle" font-family="Newsreader, serif" font-style="italic" font-size="13" fill="#EDE5D3">action</text></g>
-              <line x1="100" y1="160" x2="122" y2="160" stroke="#1A1814" stroke-width="1" marker-end="url(#arE)"></line>
-              <g font-family="JetBrains Mono" font-size="10" fill="#1A1814">
-                <g transform="translate(124,124)"><rect width="86" height="72" fill="#EDE5D3" stroke="#1A1814"></rect><text x="43" y="22" text-anchor="middle" font-size="9" letter-spacing="1.4" fill="#B83A2E">GATE 1</text><text x="43" y="42" text-anchor="middle" font-family="Newsreader, serif" font-style="italic" font-size="15">Identity</text><text x="43" y="58" text-anchor="middle" font-size="8.5" fill="#6B6557">verify sig</text></g>
-                <line x1="210" y1="160" x2="232" y2="160" stroke="#1A1814" stroke-width="1" marker-end="url(#arE)"></line>
-                <g transform="translate(234,124)"><rect width="86" height="72" fill="#EDE5D3" stroke="#1A1814"></rect><text x="43" y="22" text-anchor="middle" font-size="9" letter-spacing="1.4" fill="#B83A2E">GATE 2</text><text x="43" y="42" text-anchor="middle" font-family="Newsreader, serif" font-style="italic" font-size="15">Scope</text><text x="43" y="58" text-anchor="middle" font-size="8.5" fill="#6B6557">in caveats</text></g>
-                <line x1="320" y1="160" x2="342" y2="160" stroke="#1A1814" stroke-width="1" marker-end="url(#arE)"></line>
-                <g transform="translate(344,124)"><rect width="86" height="72" fill="#EDE5D3" stroke="#1A1814"></rect><text x="43" y="22" text-anchor="middle" font-size="9" letter-spacing="1.4" fill="#B83A2E">GATE 3</text><text x="43" y="42" text-anchor="middle" font-family="Newsreader, serif" font-style="italic" font-size="15">Budget</text><text x="43" y="58" text-anchor="middle" font-size="8.5" fill="#6B6557">under cap</text></g>
-                <line x1="430" y1="160" x2="452" y2="160" stroke="#1A1814" stroke-width="1" marker-end="url(#arE)"></line>
-                <g transform="translate(454,124)"><rect width="86" height="72" fill="#EDE5D3" stroke="#2E8B7A" stroke-width="1.5"></rect><text x="43" y="22" text-anchor="middle" font-size="9" letter-spacing="1.4" fill="#2E6E53">GATE 4</text><text x="43" y="42" text-anchor="middle" font-family="Newsreader, serif" font-style="italic" font-size="15">Policy</text><text x="43" y="58" text-anchor="middle" font-size="8.5" fill="#6B6557">wasm eval</text></g>
-              </g>
-              <g stroke="#B83A2E" stroke-width="0.8" fill="none">
-                <line x1="124" y1="230" x2="540" y2="230" stroke-dasharray="3 3"></line>
-                <line x1="124" y1="226" x2="124" y2="234"></line>
-                <line x1="540" y1="226" x2="540" y2="234"></line>
-              </g>
-              <text x="332" y="248" text-anchor="middle" font-family="JetBrains Mono" font-size="10" letter-spacing="1.2" fill="#B83A2E">≤ 2 MS WALL-CLOCK</text>
-              <g stroke="#9C3525" stroke-width="0.8" stroke-dasharray="3 3" fill="none">
-                <line x1="167" y1="196" x2="167" y2="280"></line>
-                <line x1="277" y1="196" x2="277" y2="280"></line>
-                <line x1="387" y1="196" x2="387" y2="280"></line>
-                <line x1="497" y1="196" x2="497" y2="280"></line>
-                <line x1="167" y1="280" x2="497" y2="280"></line>
-              </g>
-              <text x="332" y="300" text-anchor="middle" font-family="JetBrains Mono" font-size="10" letter-spacing="1.6" fill="#9C3525">FAIL-FAST DENY</text>
-            </svg>
-            <div class="pane-stats">p50 · <b>≤ 2 ms</b> · 14 caveat dims</div>
-          </div>
-        </div>
-
-        <!-- L3 RECEIPTS -->
-        <div class="layers-pane" data-l="L3">
-          <div class="pane-meta">
-            <div class="pane-eye">L3 · Receipts</div>
-            <h3 class="pane-name">Receipts</h3>
-            <p class="pane-desc">Every action emits a signed record. <b>Action receipts</b> bind the outcome. <b>Custody receipts</b> bind the inputs the agent saw. <b>Contestability receipts</b> open a structured dispute.</p>
-            <div class="pane-refs">RFC 8785 · Ed25519 · Paper 6</div>
-          </div>
-          <div class="pane-viz">
-            <svg viewBox="0 0 560 360" xmlns="http://www.w3.org/2000/svg">
-              <g font-family="JetBrains Mono" font-size="10" fill="#1A1814">
-                <g transform="translate(40,40) rotate(-4 90 116)">
-                  <rect width="180" height="232" fill="#EDE5D3" stroke="#1A1814"></rect>
-                  <line x1="0" y1="34" x2="180" y2="34" stroke="#1A1814"></line>
-                  <text x="12" y="22" font-size="9" letter-spacing="1.4" fill="#B83A2E">ACTION</text>
-                  <text x="12" y="60" font-family="Newsreader, serif" font-style="italic" font-size="19">what happened.</text>
-                  <text x="12" y="88" font-size="9.5" fill="#403B33">id    rcpt_01J9X7…</text>
-                  <text x="12" y="102" font-size="9.5" fill="#403B33">act   POST /charges</text>
-                  <text x="12" y="116" font-size="9.5" fill="#403B33">amt   $248.00</text>
-                  <text x="12" y="130" font-size="9.5" fill="#403B33">ts    2026-05-14</text>
-                  <line x1="12" y1="148" x2="168" y2="148" stroke="#1A1814" stroke-dasharray="2 3"></line>
-                  <text x="12" y="166" font-size="8.5" fill="#6B6557">canonical:</text>
-                  <text x="12" y="180" font-size="8.5" fill="#403B33">rfc8785 jcs</text>
-                  <line x1="12" y1="196" x2="168" y2="196" stroke="#1A1814" stroke-dasharray="2 3"></line>
-                  <text x="12" y="214" font-size="9" fill="#2E6E53">sig ed25519:7f2c… ✓</text>
-                </g>
-                <g transform="translate(190,56)">
-                  <rect width="180" height="232" fill="#EDE5D3" stroke="#1A1814"></rect>
-                  <line x1="0" y1="34" x2="180" y2="34" stroke="#1A1814"></line>
-                  <text x="12" y="22" font-size="9" letter-spacing="1.4" fill="#B83A2E">CUSTODY</text>
-                  <text x="12" y="60" font-family="Newsreader, serif" font-style="italic" font-size="19">what was seen.</text>
-                  <text x="12" y="88" font-size="9.5" fill="#403B33">inputs:</text>
-                  <text x="12" y="102" font-size="9.5" fill="#403B33">  invoice/8821.pdf</text>
-                  <text x="12" y="116" font-size="9.5" fill="#403B33">  contract/q2.docx</text>
-                  <line x1="12" y1="134" x2="168" y2="134" stroke="#1A1814" stroke-dasharray="2 3"></line>
-                  <text x="12" y="152" font-size="9" fill="#403B33">merkle root:</text>
-                  <text x="12" y="166" font-size="9" fill="#403B33">0x7f2c…a3e1</text>
-                  <line x1="12" y1="184" x2="168" y2="184" stroke="#1A1814" stroke-dasharray="2 3"></line>
-                  <text x="12" y="202" font-size="9" fill="#2E6E53">sig ed25519:c91d… ✓</text>
-                </g>
-                <g transform="translate(340,40) rotate(4 90 116)">
-                  <rect width="180" height="232" fill="#EDE5D3" stroke="#1A1814"></rect>
-                  <line x1="0" y1="34" x2="180" y2="34" stroke="#1A1814"></line>
-                  <text x="12" y="22" font-size="9" letter-spacing="1.4" fill="#B83A2E">CONTESTABILITY</text>
-                  <text x="12" y="60" font-family="Newsreader, serif" font-style="italic" font-size="19">what's disputed.</text>
-                  <text x="12" y="88" font-size="9.5" fill="#403B33">target rcpt_01J9X7…</text>
-                  <text x="12" y="102" font-size="9.5" fill="#403B33">claim  unauthorized</text>
-                  <text x="12" y="116" font-size="9.5" fill="#403B33">window 14d</text>
-                  <line x1="12" y1="134" x2="168" y2="134" stroke="#1A1814" stroke-dasharray="2 3"></line>
-                  <text x="12" y="152" font-size="8.5" fill="#6B6557">opens response window;</text>
-                  <text x="12" y="166" font-size="8.5" fill="#6B6557">issuer must reply or</text>
-                  <text x="12" y="180" font-size="8.5" fill="#6B6557">receipt is voided.</text>
-                  <line x1="12" y1="196" x2="168" y2="196" stroke="#1A1814" stroke-dasharray="2 3"></line>
-                  <text x="12" y="214" font-size="9" fill="#2E6E53">sig ed25519:b8e0… ✓</text>
-                </g>
-              </g>
-            </svg>
-            <div class="pane-stats">format · <b>cose_sign1</b> · canonical jcs</div>
-          </div>
-        </div>
-
-        <!-- L4 AGGREGATION -->
-        <div class="layers-pane" data-l="L4">
-          <div class="pane-meta">
-            <div class="pane-eye">L4 · Aggregation</div>
-            <h3 class="pane-name">Aggregation</h3>
-            <p class="pane-desc">Receipts batch into an <b>APSBundle</b> — a Merkle aggregation that is the unit of audit. Any one receipt verifies from <b>O(log n) sibling hashes</b> alone, no log fetch. The bundle root anchors a dispute window; cascade revocation collapses the entire subtree from the root.</p>
-            <div class="pane-refs">Paper 9 · Spec §8 · RFC 9162 (CT-style log)</div>
-          </div>
-          <div class="pane-viz">
-            <svg viewBox="0 0 560 340" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <marker id="aL4r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-                  <path d="M0,0 L10,5 L0,10 z" fill="#B83A2E"></path>
-                </marker>
-              </defs>
-
-              <!-- TREE EDGES, full set, faded -->
-              <g stroke="#1A1814" stroke-width="0.6" fill="none" opacity="0.32">
-                <line x1="260" y1="48" x2="160" y2="86"></line>
-                <line x1="260" y1="48" x2="360" y2="86"></line>
-                <line x1="160" y1="108" x2="100" y2="146"></line>
-                <line x1="160" y1="108" x2="220" y2="146"></line>
-                <line x1="360" y1="108" x2="300" y2="146"></line>
-                <line x1="360" y1="108" x2="420" y2="146"></line>
-              </g>
-
-              <!-- INCLUSION PROOF PATH for r₂ - bold red -->
-              <g stroke="#B83A2E" stroke-width="2" fill="none">
-                <line x1="220" y1="146" x2="160" y2="108"></line>
-                <line x1="160" y1="86" x2="260" y2="48"></line>
-              </g>
-
-              <!-- ROOT box -->
-              <g transform="translate(200,16)">
-                <rect width="120" height="32" fill="#1A1814"></rect>
-                <text x="60" y="14" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing="1.6" fill="#9C9583">APSBUNDLE · ROOT</text>
-                <text x="60" y="26" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#EDE5D3">0x7f2c…3e1</text>
-              </g>
-
-              <!-- INTERMEDIATE hashes: h₁₂ (on-path, red border) and h₃₄ (witness, dashed) -->
-              <g font-family="JetBrains Mono" font-size="9" fill="#1A1814">
-                <g transform="translate(120,86)">
-                  <rect width="80" height="22" fill="#EDE5D3" stroke="#B83A2E" stroke-width="1.5"></rect>
-                  <text x="40" y="15" text-anchor="middle">h₁₂ 0xa1f…</text>
-                </g>
-                <g transform="translate(320,86)">
-                  <rect width="80" height="22" fill="#EDE5D3" stroke="#1A1814" stroke-width="0.8" stroke-dasharray="3 2"></rect>
-                  <text x="40" y="15" text-anchor="middle" fill="#6B6557">h₃₄ · witness</text>
-                </g>
-              </g>
-
-              <!-- LEAVES: r₁ (witness), r₂ (the receipt), r₃, r₄ -->
-              <g font-family="JetBrains Mono" font-size="9" fill="#1A1814">
-                <g transform="translate(60,146)">
-                  <rect width="80" height="22" fill="#EDE5D3" stroke="#1A1814" stroke-dasharray="3 2"></rect>
-                  <text x="40" y="15" text-anchor="middle" fill="#6B6557">r₁ · witness</text>
-                </g>
-                <g transform="translate(180,146)">
-                  <rect width="80" height="22" fill="#B83A2E" stroke="#B83A2E"></rect>
-                  <text x="40" y="15" text-anchor="middle" fill="#EDE5D3">r₂ · this rcpt</text>
-                </g>
-                <g transform="translate(260,146)">
-                  <rect width="80" height="22" fill="#EDE5D3" stroke="#1A1814" opacity="0.45"></rect>
-                  <text x="40" y="15" text-anchor="middle" fill="#6B6557">r₃</text>
-                </g>
-                <g transform="translate(380,146)">
-                  <rect width="80" height="22" fill="#EDE5D3" stroke="#1A1814" opacity="0.45"></rect>
-                  <text x="40" y="15" text-anchor="middle" fill="#6B6557">r₄</text>
-                </g>
-              </g>
-
-              <!-- LEFT annotation: inclusion proof -->
-              <text x="20" y="64" font-family="JetBrains Mono" font-size="9" letter-spacing="1.4" fill="#B83A2E">INCLUSION PROOF</text>
-              <text x="20" y="78" font-family="Newsreader, serif" font-style="italic" font-size="11" fill="#403B33">r₂ verifies from</text>
-              <text x="20" y="92" font-family="Newsreader, serif" font-style="italic" font-size="11" fill="#403B33">r₁ + h₃₄ alone.</text>
-              <text x="20" y="108" font-family="JetBrains Mono" font-size="9" fill="#6B6557">O(log n) witnesses</text>
-
-              <!-- RIGHT annotation: cascade revoke -->
-              <text x="540" y="64" text-anchor="end" font-family="JetBrains Mono" font-size="9" letter-spacing="1.4" fill="#B83A2E">CASCADE REVOKE</text>
-              <text x="540" y="78" text-anchor="end" font-family="Newsreader, serif" font-style="italic" font-size="11" fill="#403B33">revoke root →</text>
-              <text x="540" y="92" text-anchor="end" font-family="Newsreader, serif" font-style="italic" font-size="11" fill="#403B33">entire subtree dies</text>
-              <line x1="500" y1="100" x2="500" y2="170" stroke="#B83A2E" stroke-width="0.9" stroke-dasharray="3 3" marker-end="url(#aL4r)"></line>
-
-              <!-- DISPUTE WINDOW bracket -->
-              <g stroke="#1A1814" stroke-width="0.9" fill="none">
-                <line x1="60" y1="200" x2="460" y2="200"></line>
-                <line x1="60" y1="194" x2="60" y2="206"></line>
-                <line x1="460" y1="194" x2="460" y2="206"></line>
-              </g>
-              <text x="260" y="220" text-anchor="middle" font-family="JetBrains Mono" font-size="10" letter-spacing="1.6" fill="#1A1814">DISPUTE WINDOW · CONTESTATION PERIOD</text>
-              <text x="260" y="236" text-anchor="middle" font-family="Newsreader, serif" font-style="italic" font-size="12" fill="#6B6557">after window: receipts admissible · contestable</text>
-
-              <!-- bottom rule -->
-              <line x1="20" y1="262" x2="540" y2="262" stroke="#1A1814" stroke-width="0.4" opacity="0.4"></line>
-              <text x="20" y="282" font-family="JetBrains Mono" font-size="8.5" letter-spacing="1.2" fill="#6B6557">ROOT IS PUBLIC · LEAVES SIGNED INDEPENDENTLY · LOG OPERATOR NEED NOT BE TRUSTED</text>
-            </svg>
-            <div class="pane-stats">inclusion proof · <b>O(log n)</b> · dispute window · cascade revoke</div>
-          </div>
-        </div>
-
-        <!-- L5 GOVERNANCE -->
-        <div class="layers-pane" data-l="L5">
-          <div class="pane-meta">
-            <div class="pane-eye">L5 · Governance</div>
-            <h3 class="pane-name">Governance</h3>
-            <p class="pane-desc">Signed terms travel <b>with the artifact.</b> Publishers attach governance blocks at well-known paths, in HTML embeds, and in HTTP headers — readable by humans and machines alike.</p>
-            <div class="pane-refs">Paper 11 · Spec §10 · RFC 8615</div>
-          </div>
-          <div class="pane-viz">
-            <svg viewBox="0 0 560 360" xmlns="http://www.w3.org/2000/svg">
-              <g transform="translate(30,30)">
-                <rect width="260" height="300" fill="#1A1814"></rect>
-                <text x="16" y="24" font-family="JetBrains Mono" font-size="9" letter-spacing="1.6" fill="#E2A35A">GET /.well-known/aps.txt</text>
-                <line x1="16" y1="36" x2="244" y2="36" stroke="#9C9583" stroke-dasharray="2 3" opacity=".4"></line>
-                <g font-family="JetBrains Mono" font-size="10.5" fill="#EDE5D3">
-                  <text x="16" y="58">issuer: did:aeo:0xA1F…</text>
-                  <text x="16" y="78">scope:  read:agent-text</text>
-                  <text x="16" y="98">terms:  cc-by-4.0</text>
-                  <text x="16" y="118">notify: abuse@aeoess.com</text>
-                  <text x="16" y="138" fill="#9C9583"># cascade revocation</text>
-                  <text x="16" y="158">revoke: did:web:acme/keys</text>
-                  <text x="16" y="178" fill="#9C9583"># trustbundle</text>
-                  <text x="16" y="198">bundle: ietf-2026-q2</text>
-                  <text x="16" y="218" fill="#9C9583"># aggregator</text>
-                  <text x="16" y="238">log:    aps://log/acme</text>
-                </g>
-                <line x1="16" y1="258" x2="244" y2="258" stroke="#9C9583" stroke-dasharray="2 3" opacity=".4"></line>
-                <text x="16" y="278" font-family="JetBrains Mono" font-size="9" fill="#88D8B0">signed: ed25519:7f2c… ✓</text>
-              </g>
-              <g transform="translate(320,40)">
-                <text x="0" y="-2" font-family="JetBrains Mono" font-size="10" letter-spacing="1.4" fill="#B83A2E">SAME BLOCK, OTHER SURFACES</text>
-                <g transform="translate(0,16)"><rect width="200" height="54" fill="#EDE5D3" stroke="#1A1814"></rect><text x="10" y="16" font-family="JetBrains Mono" font-size="9" letter-spacing="1.4" fill="#B83A2E">/.well-known/aps.txt</text><text x="10" y="32" font-family="Newsreader, serif" font-style="italic" font-size="13">served at the root</text><text x="10" y="46" font-family="JetBrains Mono" font-size="8.5" fill="#6B6557">RFC 8615 · well-known</text></g>
-                <g transform="translate(0,82)"><rect width="200" height="54" fill="#EDE5D3" stroke="#1A1814"></rect><text x="10" y="16" font-family="JetBrains Mono" font-size="9" letter-spacing="1.4" fill="#B83A2E">&lt;meta name="aps"&gt;</text><text x="10" y="32" font-family="Newsreader, serif" font-style="italic" font-size="13">embedded in HTML</text><text x="10" y="46" font-family="JetBrains Mono" font-size="8.5" fill="#6B6557">crawlable by agents</text></g>
-                <g transform="translate(0,148)"><rect width="200" height="54" fill="#EDE5D3" stroke="#1A1814"></rect><text x="10" y="16" font-family="JetBrains Mono" font-size="9" letter-spacing="1.4" fill="#B83A2E">x-aps-terms: …</text><text x="10" y="32" font-family="Newsreader, serif" font-style="italic" font-size="13">HTTP header</text><text x="10" y="46" font-family="JetBrains Mono" font-size="8.5" fill="#6B6557">on every response</text></g>
-                <g transform="translate(0,214)"><rect width="200" height="54" fill="#EDE5D3" stroke="#1A1814"></rect><text x="10" y="16" font-family="JetBrains Mono" font-size="9" letter-spacing="1.4" fill="#B83A2E">aps://terms/&lt;hash&gt;</text><text x="10" y="32" font-family="Newsreader, serif" font-style="italic" font-size="13">resolver URI</text><text x="10" y="46" font-family="JetBrains Mono" font-size="8.5" fill="#6B6557">network-addressed</text></g>
-              </g>
-            </svg>
-            <div class="pane-stats">surfaces · <b>4 channels</b> · same signed block</div>
-          </div>
-        </div>
-      </div>
-    </figure>
+    <div class="layer-list">
+      <div class="ll-row"><span class="ll-n">L0</span><span class="ll-k">Identity</span><span class="ll-d">Every actor is a passport with verifiable keys.</span></div>
+      <div class="ll-row"><span class="ll-n">L1</span><span class="ll-k">Delegation</span><span class="ll-d">Authority passes down chains and can only narrow.</span></div>
+      <div class="ll-row"><span class="ll-n">L2</span><span class="ll-k">Enforcement</span><span class="ll-d">The gateway checks every call before it runs.</span></div>
+      <div class="ll-row"><span class="ll-n">L3</span><span class="ll-k">Receipts</span><span class="ll-d">Permitted and denied actions both leave signed evidence.</span></div>
+      <div class="ll-row"><span class="ll-n">L4</span><span class="ll-k">Aggregation</span><span class="ll-d">Receipts compose into an auditable trail.</span></div>
+      <div class="ll-row"><span class="ll-n">L5</span><span class="ll-k">Governance</span><span class="ll-d">Policy and revocation act on the whole stack.</span></div>
+    </div>
+    <a class="s-link" href="/protocol.html">Walk the full protocol stack →</a>
   </div>
 </section>
 
