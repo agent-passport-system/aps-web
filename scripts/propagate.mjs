@@ -2,7 +2,7 @@
 /**
  * propagate.mjs — Site-wide canonical-value propagation, JSON-driven.
  *
- * Single source of truth: ~/aeoess_web/project-state.json.
+ * Single source of truth: ~/aps-web/project-state.json.
  * Edit that JSON, run this script, every target file gets rewritten.
  *
  * Usage:
@@ -36,7 +36,7 @@
  *     project-state.json under counts.tests. The schema's `$comment`
  *     reminds the editor to use the passing count, not the registered total.
  *
- * Runs from: $HOME/aeoess_web
+ * Runs from: $HOME/aps-web
  * Requires: Node 18+. Pure stdlib — no third-party deps.
  */
 
@@ -50,7 +50,7 @@ const HOME = process.env.HOME;
 const REPOS = {
   sdk: resolve(`${HOME}/agent-passport-system`),
   mcp: resolve(`${HOME}/agent-passport-mcp`),
-  web: resolve(`${HOME}/aeoess_web`),
+  web: resolve(`${HOME}/aps-web`),
   org: resolve(`${HOME}/aeoess-dot-github`), // GitHub org profile README
   python: resolve(`${HOME}/agent-passport-python`),                     // v3 audit: Python SDK
   vocab: resolve(`${HOME}/agent-governance-vocabulary`),                // v3 audit: vocabulary repo
@@ -355,7 +355,7 @@ function getTargetFiles() {
     { path: `${REPOS.web}/.well-known/mcp.json`, repo: 'web' },
     { path: `${REPOS.web}/.well-known/aeoess-issuer.json`, repo: 'web' },
     { path: `${REPOS.web}/protocol-registry.json`, repo: 'web' },
-    // NOTE (Day 76): aeoess_web/specs/{PROJECT-INSTRUCTIONS,FILE-TREE,ARCHITECTURE}.md
+    // NOTE (Day 76): aps-web/specs/{PROJECT-INSTRUCTIONS,FILE-TREE,ARCHITECTURE}.md
     // were moved to ~/aeoess-private/ on Day 75 per the public-paths-only rule
     // for public repos. Do not re-add those targets here.
   ];
@@ -998,9 +998,9 @@ const RECOVERY_VARS = new Set(['TEST_COUNT', 'MCP_TOOL_COUNT']);
 // to "agent-passport-system/README.md" tail). Empty variable means
 // skip every variable in that file.
 const RECOVERY_SKIP = [
-  { suffix: 'aeoess_web/passport.html', variable: 'TEST_COUNT' },
-  { suffix: 'aeoess_web/threat-model.html', variable: 'TEST_COUNT' },
-  { suffix: 'aeoess_web/llms-full.txt', variable: 'MCP_TOOL_COUNT' },
+  { suffix: 'aps-web/passport.html', variable: 'TEST_COUNT' },
+  { suffix: 'aps-web/threat-model.html', variable: 'TEST_COUNT' },
+  { suffix: 'aps-web/llms-full.txt', variable: 'MCP_TOOL_COUNT' },
   { suffix: 'agent-passport-mcp/README.md', variable: 'MCP_TOOL_COUNT' },
 ];
 function isRecoverySkip(filePath, variable) {
