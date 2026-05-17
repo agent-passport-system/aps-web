@@ -17,7 +17,7 @@
 
 set -e
 ROOT="$HOME"
-WEB="$ROOT/aeoess_web"
+WEB="$ROOT/aps-web"
 SDK="$ROOT/agent-passport-system"
 MCP="$ROOT/agent-passport-mcp"
 PY="$ROOT/agent-passport-python"
