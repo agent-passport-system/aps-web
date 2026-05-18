@@ -837,7 +837,7 @@ a{color:inherit}
 .mast-strap .dot{width:6px;height:6px;border-radius:50%;background:var(--stamp);display:inline-block}
 
 /* ─── HERO ──────────────────────────────────────── */
-.hero{padding:72px 0 32px;border-bottom:1px solid var(--rule);position:relative}
+.hero{padding:36px 0 16px;border-bottom:1px solid var(--rule);position:relative}
 .hero-inner{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:stretch}
 .eyebrow{font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--stamp)}
 .eyebrow::before{content:"§ ";color:var(--ink-3)}
@@ -958,6 +958,7 @@ a{color:inherit}
 
 /* ─── SECTION FRAMEWORK ──────────────────────────── */
 section.s{padding:96px 0;border-bottom:1px solid var(--rule);position:relative}
+#timeline.s{padding-top:28px;padding-bottom:28px}
 .s-head{display:grid;grid-template-columns:130px 1fr 280px;gap:40px;margin-bottom:48px;align-items:end}
 .s-num{font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:40px;line-height:1;color:var(--stamp);letter-spacing:-0.02em;font-weight:500}
 .s-num small{display:block;font-size:11px;color:var(--ink-3);letter-spacing:0.16em;text-transform:uppercase;margin-top:8px}
@@ -1527,7 +1528,7 @@ body[data-paper="Newsprint"] { --paper:#E5E2D7; --paper-2:#DBD8CC; --paper-3:#CC
 
 
 /* ─── ROADMAP TIMELINE ────────────────────────────── */
-.rmap-frame{border:1px solid var(--ink);background:var(--paper);box-shadow:6px 6px 0 var(--paper-3);margin-top:32px}
+.rmap-frame{border:1px solid var(--ink);background:var(--paper);box-shadow:6px 6px 0 var(--paper-3);margin-top:14px;margin-left:calc(-50vw + 50%);margin-right:calc(-50vw + 50%);box-sizing:border-box}
 .rmap-head{display:flex;justify-content:space-between;align-items:center;padding:18px 28px;border-bottom:1px solid var(--ink);font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-3);flex-wrap:wrap;gap:14px}
 .rmap-head b{color:var(--ink);font-weight:500}
 .rmap-legend{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -1535,12 +1536,13 @@ body[data-paper="Newsprint"] { --paper:#E5E2D7; --paper-2:#DBD8CC; --paper-3:#CC
 .rmap-pill::before{content:"";display:inline-block;width:8px;height:8px;background:var(--ink)}
 .rmap-pill.done::before{background:#2E6E53}
 .rmap-pill.flight::before{background:#B8861E}
-.rmap-pill.active::before{background:#B83A2E}
+.rmap-pill.active::before{background:#1F6E6E}
 .rmap-pill.planned::before{background:#6B6557}
 .rmap-pill.drop::before{background:#9C9583}
 .rmap-pill[data-on="0"]{opacity:0.35}
 
 .rmap-scroller{overflow-x:auto;overflow-y:hidden;border-bottom:1px solid var(--ink);background:var(--paper-2);position:relative}
+.rmap-scroller{max-height:64vh}
 .rmap-scroller::-webkit-scrollbar{height:14px}
 .rmap-scroller::-webkit-scrollbar-track{background:var(--paper-3)}
 .rmap-scroller::-webkit-scrollbar-thumb{background:var(--ink);border:3px solid var(--paper-3)}
