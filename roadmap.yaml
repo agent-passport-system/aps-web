@@ -1,6 +1,6 @@
 # APS Roadmap — source of truth for aeoess.com/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-05-11 (Day 84). Press launch eve. Budget-authority crosswalk v0.1 (PR #91) opened with six canonical verbs and per-verb candidate/proposed status, amavashev approved cycles column after two corrections. A2A#1829 four-way alignment landed across jschoemaker (byte-match verification), kenneives (v0.3.3 working-doc hosting), arian-gogani (canonicalization stance). SSRN approved five APS research papers. Roadmap drift cleanup: eight items flipped (six to done, two to dropped). media.html press kit expanded with five new sections. Klaimee (YC P26) partnership outreach sent.
+# Last updated: 2026-05-17 (Day 90). Backfill Days 85-90: vocab PRs 91/92/67/96/95 merged, conformance negative-path vectors, gitagent-protocol#73 RFC merged, draft-pidlisnyi-aps-01 to IETF, canonical domain split to agent-passport.org, AIVSS v0.1 follow-up, contribution surfaces PR 29.
 # Day 1 = 2026-02-17 (project start)
 
 # ═══ DAY 84 — 2026-05-11 ═══
@@ -3124,15 +3124,157 @@
       label: "OpenClaw plugin SDK reference"
 
 - id: d85-budget-reservation-rename
-  title: "budget_authority renames to budget_reservation; domain_incubation gated"
-  description: "PR #91 renamed the budget_authority namespace to budget_reservation across vocabulary and validator to avoid semantic collision with APS delegation authority. Three engines converged on the rename as a CTO call. Reserve and query verbs downgraded from candidate to proposed status pending Ectsang. Validator gained domain_incubation crosswalk_type with three-concurrent cap and 90-day sunset, maintainer-only. Three coordination posts on ACP#231, aeoess#25, AP2#252. amavashev confirmed and committed to apply the same rename to PR#92 himself."
-  status: active
-  workstream: protocol
-  day_start: 84
+  title: "budget_authority renamed to budget_reservation; reserve/query downgraded"
+  description: "Renamed the budget_authority namespace to budget_reservation across vocabulary.yaml and the validator to avoid semantic collision with APS delegation authority. reserve and query_* verbs downgraded from candidate to proposed. Landed via PR #91."
+  status: done
+  workstream: vocab
+  day_start: 85
+  day_end: 86
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/91"
+      label: "PR #91"
 
 - id: d85-cognitive-attestation-descriptor-draft
-  title: "cognitive_attestation descriptor doc opens as draft PR #93"
-  description: "Long-form rationale at docs/descriptor-dimensions/cognitive-attestation.md (163 lines) grounding the cognitive_attestation descriptor in schchit Target Determinability under Partial Causal Observation framework. Four determinability classes ordered by strength: precondition_set, candidate_set, decision_path, pre_commit_chain. Composes with delegation_chain, entity_continuity, invariant_survival. Builds-on attribution to schchit (not co-authored). PR opens as draft, schchit theory-side review is the gate before Consilium pass on the four-class shape."
-  status: active
+  title: "cognitive_attestation descriptor doc opened as draft"
+  description: "Long-form rationale for the cognitive_attestation descriptor, grounding it in schchit's Target Determinability under Partial Causal Observation framework with four determinability classes. Builds-on attribution to schchit, not co-authored. Opened as a draft for theory-side review."
+  status: in_progress
   workstream: research
   day_start: 85
+  day_end: 85
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/93"
+      label: "PR #93 (draft)"
+
+# ═══ DAYS 86–90 backfill (2026-05-17) ═══
+
+- id: d86-vocab-91-budget-reservation-merged
+  title: "PR #91 merged: budget_reservation.yaml v0.1 + domain_incubation validator gates"
+  description: "budget_reservation crosswalk v0.1 merged at the vocabulary repo, with validator support for a domain_incubation crosswalk_type carrying a three-concurrent cap and 90-day sunset, maintainer-only."
+  status: done
+  workstream: vocab
+  day_start: 86
+  day_end: 86
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/91"
+      label: "PR #91"
+
+- id: d86-vocab-92-cycles-crosswalk-merged
+  title: "PR #92 merged: crosswalk/cycles.yaml v0.1"
+  description: "Cycles budget-authority signal-type rows merged as crosswalk/cycles.yaml v0.1, contributed by amavashev."
+  status: done
+  workstream: vocab
+  day_start: 86
+  day_end: 86
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/92"
+      label: "PR #92"
+
+- id: d86-vocab-67-invariant-survival-merged
+  title: "PR #67 merged: invariant-survival.md descriptor doc (re-land of #51)"
+  description: "invariant-survival descriptor documentation merged at the vocabulary repo, a re-land of the earlier #51."
+  status: done
+  workstream: vocab
+  day_start: 86
+  day_end: 86
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/67"
+      label: "PR #67"
+
+- id: d86-vocab-96-mycelium-trails-merged
+  title: "PR #96 merged: crosswalk/mycelium-trails.yaml v0.1"
+  description: "TrailRecord byte-contract adoption merged as crosswalk/mycelium-trails.yaml v0.1, with giskard09's confirmed values folded in."
+  status: done
+  workstream: vocab
+  day_start: 86
+  day_end: 86
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/96"
+      label: "PR #96"
+
+- id: d86-conformance-a2a-1496-negative-paths
+  title: "Conformance: a2a-1496 negative-path fixtures land (4 CTEF v0.3.2 §A vectors)"
+  description: "Scaffold plus four CTEF v0.3.2 §A negative-path conformance vectors merged at aps-conformance-suite, all passing lib.ts."
+  status: done
+  workstream: standards
+  day_start: 86
+  day_end: 86
+  links:
+    - url: "https://github.com/aeoess/aps-conformance-suite/pull/4"
+      label: "aps-conformance-suite #4"
+
+- id: d86-gitagent-73-rfc-merged
+  title: "gitagent-protocol#73 merged: optional cryptographic-identity RFC"
+  description: "Our RFC proposing an optional cryptographic identity layer for gitagent manifests was merged into open-gitagent/gitagent-protocol by the maintainer. The layer is optional, not a required dependency."
+  status: done
+  workstream: standards
+  day_start: 86
+  day_end: 86
+  links:
+    - url: "https://github.com/open-gitagent/gitagent-protocol/pull/73"
+      label: "gitagent-protocol #73"
+
+- id: d86-88-canonical-domain-split
+  title: "Company/protocol domain split: agent-passport.org becomes canonical"
+  description: "The protocol site moved to its own repo and domain. agent-passport.org now carries the canonical protocol surface (blog, worklog, roadmap, docs, research); aeoess.com is the company surface. Content pages, the canonical blog and the updates feed were migrated and the design system aligned across both."
+  status: done
+  workstream: comms
+  day_start: 86
+  day_end: 88
+  links:
+    - url: "https://agent-passport.org"
+      label: "agent-passport.org"
+
+- id: d86-88-a2a-1850-coordination
+  title: "A2A#1850 coordination thread"
+  description: "Ongoing coordination on A2A#1850 with the A2A maintainers, two substantive posts across the window aligning the APS row for the coordination map."
+  status: active
+  workstream: standards
+  day_start: 86
+  day_end: 88
+  links:
+    - url: "https://github.com/a2aproject/A2A/pull/1850"
+      label: "A2A#1850"
+
+- id: d87-ietf-draft-01
+  title: "draft-pidlisnyi-aps-01 submitted to the IETF Datatracker"
+  description: "Revision -01 of the APS Internet-Draft submitted. Adds Signed Receipts (section 5) and Key Rotation (section 2.3) as new normative content. idnits clean, 17 pages, sole author, expires 2026-11-15."
+  status: done
+  workstream: standards
+  day_start: 87
+  day_end: 87
+  links:
+    - url: "https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/"
+      label: "draft-pidlisnyi-aps (Datatracker)"
+
+- id: d88-vocab-95-jep-draft-06
+  title: "PR #95 merged: jep.yaml updated for JEP draft-06 boundary"
+  description: "jep.yaml crosswalk updated to the JEP draft-06 boundary, with an Experimental Internet-Draft status marker added as a fast-follow."
+  status: done
+  workstream: vocab
+  day_start: 88
+  day_end: 88
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/95"
+      label: "PR #95"
+
+- id: d89-aivss-v01-followup
+  title: "AIVSS enforcement-effectiveness v0.1 follow-up shipped"
+  description: "v0.1 follow-up landed on aivss-enforcement-effectiveness: VeloGerber's accepted edits, Q1/Q2/Q4 amendments, four new sections, and enforcement_locus added as the seventh canonical receipt field inside the signed set. Status posted to AIVSS#31."
+  status: done
+  workstream: standards
+  day_start: 89
+  day_end: 89
+  links:
+    - url: "https://github.com/OWASP/www-project-artificial-intelligence-vulnerability-scoring-system/issues/31"
+      label: "OWASP AIVSS #31"
+
+- id: d90-contribution-surfaces-merged
+  title: "PR #29 merged: open contribution surfaces (doctrine docs + scaffold)"
+  description: "Open contribution path, governance surfaces, and contributor scaffold merged into agent-passport-system."
+  status: done
+  workstream: protocol
+  day_start: 90
+  day_end: 90
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/pull/29"
+      label: "PR #29"
