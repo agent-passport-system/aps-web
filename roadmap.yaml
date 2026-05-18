@@ -1,6 +1,6 @@
 # APS Roadmap — source of truth for aeoess.com/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-05-17 (Day 90). Backfill Days 85-90: vocab PRs 91/92/67/96/95 merged, conformance negative-path vectors, gitagent-protocol#73 RFC merged, draft-pidlisnyi-aps-01 to IETF, canonical domain split to agent-passport.org, AIVSS v0.1 follow-up, contribution surfaces PR 29.
+# Last updated: 2026-05-17 (Day 90). Backfill Days 85-90: vocab PRs 91/92/67/96/95 merged, conformance negative-path vectors, gitagent-protocol#73 RFC merged, draft-pidlisnyi-aps-01 to IETF, canonical domain split to agent-passport.org, AIVSS v0.1 follow-up, contribution surfaces PR 29., + Days 82-83 backfill
 # Day 1 = 2026-02-17 (project start)
 
 # ═══ DAY 84 — 2026-05-11 ═══
@@ -3278,3 +3278,71 @@
   links:
     - url: "https://github.com/aeoess/agent-passport-system/pull/29"
       label: "PR #29"
+
+# ═══ DAYS 82–83 backfill (2026-05-17) ═══
+
+- id: d82-aivss-v011-patch
+  title: "AIVSS v0.1.1 patch: all eight VeloGerber v0.1-review findings applied"
+  description: "Patch landed direct to main at commit 0b78498 within twelve hours of VeloGerber's v0.1 review. Two HIGH plus six MED-LOW findings resolved across the substrate-count discriminator, condition-set syntax, evidence-set proof signing, and the per-condition attestation question."
+  status: done
+  workstream: standards
+  day_start: 82
+  day_end: 82
+  links:
+    - url: "https://github.com/OWASP/www-project-artificial-intelligence-vulnerability-scoring-system/issues/31"
+      label: "OWASP AIVSS #31"
+
+- id: d82-argentum-rfc-active-genesis
+  title: "argentum RFC 001 goes Active; genesis stake records committed"
+  description: "giskard09 published argentum RFC 001 at Active status on the feat/mycelium-trails branch, genesis records committed the same day. argentum consumes the APS receipt fields payment_hash, rail, amount, timestamp; stake computation reads scope through receipt.delegation_ref into the delegation chain, keeping receipt and delegation as separate layers."
+  status: done
+  workstream: standards
+  day_start: 82
+  day_end: 82
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary"
+      label: "vocab repo"
+
+- id: d82-week1-interop-signals-locked
+  title: "Week 1 interop signals locked; nanookclaw PDR attestation key confirmed"
+  description: "vocab #36 reply confirmed nanookclaw's dedicated PDR attestation key. Week 1 interop locks to two signals, AgentID chain root paired with PDR continuity closing via a recompute property over evidence_inputs. Full four-signal compose with the Nobulex byte-match verifier from arian-gogani is scheduled for Week 2."
+  status: in_progress
+  workstream: vocab
+  day_start: 82
+  day_end: 82
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/issues/36"
+      label: "vocab #36"
+
+- id: d83-envoys-rfc9421-composition-fixture
+  title: "envoys-rfc9421 composition fixture shipped: 3 vectors, 39 PASS / 0 FAIL"
+  description: "Shipped to the conformance suite at commit c16aa049. Three deterministic vectors over jschoemaker's @envoys/sdk v1.4.0 keypair: a plain RFC 9421 wire signature, the same wrapped in a bilateral_receipt, and that embedded as the final delegatee in a three-link APS delegation chain. SHA-256 byte identities recorded, three back-to-back byte-identical runs. kenneives endorsed it on A2A#1829 and committed to cross-link it from CTEF v0.3.2."
+  status: done
+  workstream: standards
+  day_start: 83
+  day_end: 83
+  links:
+    - url: "https://github.com/a2aproject/A2A/issues/1829"
+      label: "A2A#1829"
+
+- id: d83-aivss-v01-review-convergence
+  title: "AIVSS v0.1 review pass converged with VeloGerber on AIVSS#31"
+  description: "The review covered the Q1 to Q4 open questions, proposed five section edits and four new sections, and flagged four threat-model gaps. All decisions accepted with two strengthening amendments: a signed published-scheme artifact for Q1 and a mandatory constraint_set_sha at v0.1 for Q4. The v0.1 follow-up shipped Day 89."
+  status: done
+  workstream: standards
+  day_start: 83
+  day_end: 83
+  links:
+    - url: "https://github.com/OWASP/www-project-artificial-intelligence-vulnerability-scoring-system/issues/31"
+      label: "OWASP AIVSS #31"
+
+- id: d83-libria-four-layer-composition
+  title: "Libria codifies four-layer composition; three endorsements on the standalone-section promotion"
+  description: "Libria, lead author of the A2A#1496 base identity framework, posted three coordinated confirmations across A2A#1575, #1786, and #1829. The four-layer composition was codified: wire signature, identity framework, identity claims, delegation and continuity. APS delegation_receipt references #1496 chain entries as an inner cryptographic hop rather than forking the primitive. Three independent endorsements now sit on the standalone-section promotion, the production-implementer threshold for normative status."
+  status: done
+  workstream: standards
+  day_start: 83
+  day_end: 83
+  links:
+    - url: "https://github.com/a2aproject/A2A/issues/1786"
+      label: "A2A#1786"
