@@ -1538,11 +1538,12 @@ body[data-paper="Newsprint"] { --paper:#E5E2D7; --paper-2:#DBD8CC; --paper-3:#CC
 .rmap-pill.flight::before{background:#B8861E}
 .rmap-pill.active::before{background:#1F6E6E}
 .rmap-pill.planned::before{background:#6B6557}
-.rmap-pill.drop::before{background:#9C9583}
+.rmap-pill.drop::before{background:#7E2A22}
 .rmap-pill[data-on="0"]{opacity:0.35}
 
 .rmap-scroller{overflow-x:auto;overflow-y:hidden;border-bottom:1px solid var(--ink);background:var(--paper-2);position:relative}
-.rmap-scroller{max-height:64vh}
+.rmap-scroller{max-height:none}
+.rmap-overflow{position:absolute;font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-3);z-index:6;pointer-events:none;background:var(--paper-2);padding:1px 6px}
 .rmap-scroller::-webkit-scrollbar{height:14px}
 .rmap-scroller::-webkit-scrollbar-track{background:var(--paper-3)}
 .rmap-scroller::-webkit-scrollbar-thumb{background:var(--ink);border:3px solid var(--paper-3)}
@@ -1571,7 +1572,7 @@ body[data-paper="Newsprint"] { --paper:#E5E2D7; --paper-2:#DBD8CC; --paper-3:#CC
 .rmap-lane[data-lane="in_progress"] .rmap-lane-label::before{background:#B8861E}
 .rmap-lane[data-lane="planned"] .rmap-lane-label::before{background:#6B6557}
 .rmap-lane[data-lane="done"] .rmap-lane-label::before{background:#2E6E53}
-.rmap-lane[data-lane="dropped"] .rmap-lane-label::before{background:#9C9583}
+.rmap-lane[data-lane="dropped"] .rmap-lane-label::before{background:#7E2A22}
 
 .rmap-lane{position:absolute;left:0;right:0;border-bottom:1px dashed #1A18141a;display:flex;align-items:stretch}
 .rmap-lane-track{flex:1;position:relative}
@@ -1582,13 +1583,13 @@ body[data-paper="Newsprint"] { --paper:#E5E2D7; --paper-2:#DBD8CC; --paper-3:#CC
 .rmap-arrow.lit{opacity:0.9;stroke-width:1.6}
 
 /* Cards */
-.rmap-card{position:absolute;height:30px;border:1px solid var(--ink);background:var(--paper);font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:10px;color:var(--ink);overflow:hidden;cursor:pointer;display:flex;align-items:center;padding:0 8px 0 0;transition:transform 0.12s, box-shadow 0.12s, opacity 0.15s;z-index:5;user-select:none;white-space:nowrap}
+.rmap-card{position:absolute;height:20px;border:1px solid var(--ink);background:var(--paper);font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:10px;color:var(--ink);overflow:hidden;cursor:pointer;display:flex;align-items:center;padding:0 8px 0 0;transition:transform 0.12s, box-shadow 0.12s, opacity 0.15s;z-index:5;user-select:none;white-space:nowrap}
 .rmap-card:hover{transform:translate(-1px, -1px);box-shadow:2px 2px 0 var(--ink);z-index:9}
 .rmap-card[data-status="done"]{background:#F2EBDC}
 .rmap-card[data-status="in_progress"]{background:#F7E9C8}
 .rmap-card[data-status="active"]{background:#D8E6E4;border-color:#1F6E6E}
 .rmap-card[data-status="planned"]{background:#E6DDC8}
-.rmap-card[data-status="dropped"]{background:#E6DDC8;opacity:0.55;text-decoration:line-through;text-decoration-color:#9C9583}
+.rmap-card[data-status="dropped"]{background:#E6DDC8;opacity:0.55;text-decoration:line-through;text-decoration-color:#7E2A22}
 .rmap-card.selected{box-shadow:3px 3px 0 var(--stamp);transform:translate(-1px,-1px);z-index:10}
 .rmap-card.dim{opacity:0.18}
 .rmap-card.dim[data-status="dropped"]{opacity:0.1}
@@ -1597,7 +1598,7 @@ body[data-paper="Newsprint"] { --paper:#E5E2D7; --paper-2:#DBD8CC; --paper-3:#CC
 .rmap-card[data-status="in_progress"] .day-tag{background:#B8861E}
 .rmap-card[data-status="done"] .day-tag{background:#2E6E53}
 .rmap-card[data-status="planned"] .day-tag{background:#6B6557}
-.rmap-card .title{font-family:var(--tweak-body-font, "Newsreader"),serif;font-style:italic;font-size:12.5px;letter-spacing:-0.005em;color:var(--ink);overflow:hidden;text-overflow:ellipsis;flex:1}
+.rmap-card .title{font-family:var(--tweak-body-font, "Newsreader"),serif;font-style:italic;font-size:11px;letter-spacing:-0.005em;color:var(--ink);overflow:hidden;text-overflow:ellipsis;flex:1}
 .rmap-card .cat{display:inline-block;font-size:8.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3);margin-left:6px;flex-shrink:0}
 
 /* Detail panel */
@@ -1623,7 +1624,6 @@ body[data-paper="Newsprint"] { --paper:#E5E2D7; --paper-2:#DBD8CC; --paper-3:#CC
 .rmap-hint{display:flex;justify-content:space-between;padding:14px 28px;background:var(--paper-2);font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-3);flex-wrap:wrap;gap:8px}
 .rmap-hint b{color:var(--ink);font-weight:500}
 
-</style>
 </style>
 <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 </head>
@@ -1841,9 +1841,11 @@ body[data-paper="Newsprint"] { --paper:#E5E2D7; --paper-2:#DBD8CC; --paper-3:#CC
   const DAY_W     = 50;
   const LABEL_W   = 140;
   const AXIS_H    = 60;
-  const CARD_H    = 30;
-  const ROW_GAP   = 4;
+  const CARD_H    = 20;
+  const ROW_GAP   = 3;
   const LANE_PAD  = 12;
+  const MAX_ROWS  = 3;
+  const OVERFLOW_H = 18;
   const DAY_1     = new Date(Date.UTC(2026, 1, 17));  // 2026-02-17 = Day 1
 
   const LANES = [
@@ -2045,7 +2047,10 @@ body[data-paper="Newsprint"] { --paper:#E5E2D7; --paper-2:#DBD8CC; --paper-3:#CC
         if (!placed) { rows.push([it]); it._row = rows.length - 1; }
       });
       lane._rows = Math.max(1, rows.length);
-      lane.h = LANE_PAD * 2 + lane._rows * CARD_H + (lane._rows - 1) * ROW_GAP;
+      lane._shown = Math.min(lane._rows, MAX_ROWS);
+      let _hid = 0; items.forEach(it => { if (it._row >= MAX_ROWS) _hid++; });
+      lane._hidden = _hid;
+      lane.h = LANE_PAD * 2 + lane._shown * CARD_H + (lane._shown - 1) * ROW_GAP + (lane._hidden > 0 ? OVERFLOW_H : 0);
     });
 
     const lanesH = LANES.reduce((s, l) => s + l.h, 0);
@@ -2122,6 +2127,7 @@ body[data-paper="Newsprint"] { --paper:#E5E2D7; --paper-2:#DBD8CC; --paper-3:#CC
       laneEl.appendChild(track);
 
       byLane[lane.id].forEach(it => {
+        if (it._row >= MAX_ROWS) return;
         const card = document.createElement("div");
         card.className = "rmap-card";
         card.setAttribute("data-id", it.id);
@@ -2141,6 +2147,16 @@ body[data-paper="Newsprint"] { --paper:#E5E2D7; --paper-2:#DBD8CC; --paper-3:#CC
         canvas.appendChild(card);
         cardEls[it.id] = card;
       });
+
+      if (lane._hidden > 0) {
+        const om = document.createElement("div");
+        om.className = "rmap-overflow";
+        const ow = lane.id === "done" ? "shipped" : lane.id === "dropped" ? "dropped" : "more";
+        om.textContent = "+ " + lane._hidden + " " + ow;
+        om.style.left = LABEL_W + "px";
+        om.style.top  = (yCursor + lane.h - LANE_PAD - 13) + "px";
+        canvas.appendChild(om);
+      }
 
       lanesHost.appendChild(laneEl);
       yCursor += lane.h;
