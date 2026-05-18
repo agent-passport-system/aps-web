@@ -882,6 +882,10 @@ a{color:inherit}
 
 /* install row below buttons */
 .hero-install{margin:24px 0 0;max-width:600px}
+.hero-install-kick{font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-3);margin:0 0 10px}
+.hero-mcp{display:inline-block;margin:14px 0 0;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:2px solid var(--ink)}
+.hero-mcp span{display:inline-block;transition:transform .15s}
+.hero-mcp:hover span{transform:translateX(3px)}
 .hero-cmds{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .hero-cmd{
   display:flex;align-items:center;gap:10px;
@@ -1151,12 +1155,12 @@ body[data-pace="Paused"] .arch-fig svg .flow-dot{display:none}
 .ps-variant:last-child{margin-bottom:0}
 
 /* ===== VARIANT 4: STAMPED MEMO ===================== */
-.psv4{position:relative;background:var(--paper);border:1px solid var(--ink);box-shadow:8px 8px 0 var(--ink), 14px 14px 0 var(--paper-3);padding:0}
+.psv4{position:relative;background:var(--paper);border:1px solid var(--ink);box-shadow:8px 8px 0 var(--ink), 14px 14px 0 var(--paper-3);padding:0;margin-left:calc(-50vw + 50%);margin-right:calc(-50vw + 50%);box-sizing:border-box}
 .psv4::before{content:"";position:absolute;inset:6px;border:1px dashed var(--ink-3);pointer-events:none}
 .psv4 .hd{display:flex;justify-content:space-between;align-items:baseline;padding:20px 32px 14px;border-bottom:1px solid var(--ink);font-family:var(--tweak-mono-font, "JetBrains Mono"),monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-3)}
 .psv4 .hd b{color:var(--ink);font-weight:500}
-.psv4 .hd .title{font-family:var(--tweak-body-font, "Newsreader"),serif;font-style:italic;font-size:22px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--ink);font-feature-settings:"ss01"}
-.psv4 .body{padding:30px 36px;font-family:"Inter",-apple-system,sans-serif;font-size:19px;line-height:1.5;color:var(--ink);font-weight:400;letter-spacing:-0.005em}
+.psv4 .hd .title{font-family:var(--tweak-body-font, "Newsreader"),serif;font-style:italic;font-size:30px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--ink);font-feature-settings:"ss01"}
+.psv4 .body{padding:30px 36px;font-family:"Inter",-apple-system,sans-serif;font-size:24px;line-height:1.5;color:var(--ink);font-weight:400;letter-spacing:-0.005em}
 .psv4 .body p{margin:0 0 14px}.psv4 .body p:last-child{margin-bottom:0}
 .psv4 .body b{font-weight:600}
 .psv4 .pair{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--ink)}
@@ -1389,9 +1393,9 @@ body[data-paper="Newsprint"] { --paper:#E5E2D7; --paper-2:#DBD8CC; --paper-3:#CC
         <span class="it">— the open protocol</span>
       </div>
       <nav class="mast-nav">
-        <a href="/passport.html" class="on">Spec</a>
-        <a href="https://github.com/aeoess">Quickstart</a>
-        <a href="/research.html">Papers</a>
+        <a href="/protocol.html">Overview</a>
+        <a href="#quickstart">Quickstart</a>
+        <a href="/roadmap.html">Roadmap</a>
         <a href="/working-group.html">Community</a>
         <a href="/blog.html">Blog</a>
       </nav>
@@ -1419,17 +1423,18 @@ to&nbsp;enforce, verify, and audit AI agent actions.</p>
         <div class="hero-stat"><div class="n">2,884</div><div class="l">conformance tests</div></div>
       </div>
       <div class="hero-foot">
-        <a class="btn btn-dark" href="#quickstart">Read the spec ↗</a>
-        <a class="btn btn-light" href="#faq">Questions ↗</a>
+        <a class="btn btn-dark" href="#quickstart">For developers ↗</a>
+        <a class="btn btn-light" href="#why">Why do I need this? ↗</a>
       </div>
       <div class="hero-install">
+        <div class="hero-install-kick">Run in your terminal</div>
         <div class="hero-cmds">
           <div class="hero-cmd"><span class="pr">$</span><span>npm install agent-passport-system</span></div>
           <div class="hero-cmd"><span class="pr">$</span><span>pip install agent-passport-system</span></div>
         </div>
         <div class="hero-links">
           <a href="https://www.npmjs.com/package/agent-passport-system">npm · SDK</a>
-          <a href="https://www.npmjs.com/package/agent-passport-system-mcp">npm · MCP server</a>
+          <a class="hero-mcp" href="https://www.npmjs.com/package/agent-passport-system-mcp">Use in your agent <span>→</span></a>
           <a href="https://pypi.org/project/agent-passport-system/">PyPI · Python</a>
           <a href="/research.html" class="papers">8 papers →</a>
         </div>
@@ -1470,7 +1475,7 @@ to&nbsp;enforce, verify, and audit AI agent actions.</p>
 </section>
 
 <!-- ═══════════════ PROBLEM / SOLUTION — 5 VARIANTS ═══════════ -->
-<section class="ps-block">
+<section class="ps-block" id="why">
   <div class="wrap">
 
     <div class="ps-variant">
