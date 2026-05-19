@@ -929,6 +929,14 @@
 
 <main class="blog-feed">
 
+<article class="post" id="cosai-tool-registry-integrity">
+  <time class="post-date" datetime="2026-05-19">May 19, 2026</time>
+  <h2>Tool-registry integrity: closing the gap so the claim is true</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The OASIS Coalition for Secure AI has a control proposal in review, <code>controlToolRegistryandDiscoveryIntegrity</code>, covering integrity of tool registries, manifests, and discovery endpoints across their lifecycle: signed manifests, publisher identity, namespace governance against typosquatting, and re-approval when tool metadata changes after vetting. The Agent Passport System already had signed registry entries and implementation-hash integrity. It did not yet have the other three pieces.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Rather than narrow what we claimed APS does, we built what was missing. Signed tool manifests with a distinct metadata hash. Publisher identity verification, resolving an external trust root or an APS-native identity, not a caller-supplied key. Namespace governance so a tool under a claimed namespace must be published by that namespace's owner. Re-approval bound to a resolved attestor identity, so a metadata change moves a manifest to pending and only a verifiable attestor can clear it, which makes the workflow cryptographically meaningful rather than only stateful. Each piece has tests, including the adversarial cases, and cross-language conformance vectors.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The work is on the <code>cosai-tool-registry-integrity</code> branch and was contributed toward the CoSAI control proposal, with APS offered as a reference implementation. Whether the reference is carried is the maintainers' call; the control stands on its own. What matters here is the discipline: a reference-implementation claim has to be true at the source before it is made, not narrowed after someone checks. The gap is closed, so the claim is accurate.</p>
+</article>
+
 <article class="post" id="draft-pidlisnyi-aps-01-signed-receipts-key-rotation">
   <time class="post-date" datetime="2026-05-17">May 17, 2026</time>
   <h2>draft-pidlisnyi-aps-01: signed receipts and key rotation in the core</h2>
