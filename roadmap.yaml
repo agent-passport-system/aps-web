@@ -3,6 +3,21 @@
 # Last updated: 2026-05-17 (Day 90). Backfill Days 85-90: vocab PRs 91/92/67/96/95 merged, conformance negative-path vectors, gitagent-protocol#73 RFC merged, draft-pidlisnyi-aps-01 to IETF, canonical domain split to agent-passport.org, AIVSS v0.1 follow-up, contribution surfaces PR 29., + Days 82-83 backfill
 # Day 1 = 2026-02-17 (project start)
 
+# ═══ DAY 93 — 2026-05-20 ═══
+
+- id: d93-prototype-1-latency-closed
+  title: "Prototype 1 latency project closed across all three §13 canonical environments"
+  description: "Full canonical scope cleared on the three environments named in spec §13: Apple Silicon developer reference (Mac M3), AWS c7i.2xlarge cloud reference (Intel Sapphire Rapids), and bare-metal Linux canonical (AMD EPYC 7313P via Latitude.sh). L4 p50: 305µs Mac M3, 1.07ms AWS c7i, 822µs bare-metal EPYC 7313P. The ~250µs gap between AWS and bare-metal at L4 is the hypervisor-removal effect. Result JSONs reproducible from benchmarks/prototype-1/results/ at commit 6e258f4. CLAIMS.md upgraded with a cpu_model pin rule for bare-metal claims since Latitude.sh ships variable EPYC SKUs under the c3-large-x86 plan. PRs #36 and #38 merged."
+  status: done
+  workstream: protocol
+  day_start: 93
+  day_end: 93
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/pull/36"
+      label: "PR #36"
+    - url: "https://github.com/aeoess/agent-passport-system/pull/38"
+      label: "PR #38"
+
 # ═══ DAY 84 — 2026-05-11 ═══
 
 - id: d84-pr-91-budget-authority-crosswalk-amavashev-approved
