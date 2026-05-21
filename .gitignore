@@ -17,6 +17,9 @@ comms/.last_hash
 comms/poller.log
 scripts/.propagate-cache.json
 
+# Pre-landing-redesign backup files (local-only, never publish)
+.*.pre-landing-redesign-bak
+
 # Nested repo — canonical home: github.com/aeoess/cognitive-attestation-poc
 papers/paper-4/poc/
 
