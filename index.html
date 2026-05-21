@@ -2009,7 +2009,7 @@ to&nbsp;enforce, verify, and audit AI agent actions.</p>
         <div class="ts"><b>21 May 2026</b>&mdash;</div>
         <div class="body">
           <h4>JCS conformance shipped across SDK, MCP, and Python</h4>
-          <p>Audit of the SDK against draft-pidlisnyi-aps-01 &sect;4.1 surfaced that <code>computeActionRef</code> and <code>computeAttributionActionRef</code> were using the legacy null-stripping canonicalization path instead of strict RFC 8785 JCS. Cross-verified the divergence against erdtman <code>canonicalize@3.0.0</code> (the RFC 8785 author's reference) and <code>rfc8785@0.1.4</code> (the x402 substrate package). Fixed and shipped across three packages: <code>agent-passport-system@2.6.0-alpha.4</code> on npm, <code>agent-passport-system-mcp@3.2.1</code>, and Python <code>agent-passport-system@2.4.0a3</code> on PyPI. 2966 + 28 + 518 tests pass. Zero fixtures changed in practice. Known gap scheduled for v3.0 coordinated rotation: <code>hashAxisLeaf</code> and <code>envelopeBytes</code> remain on legacy because flipping them changes Merkle leaf bytes and signing envelopes across the partner fixture corpus. <a href="https://github.com/aeoess/agent-passport-system/blob/main/CHANGELOG.md">changelog &rarr;</a></p>
+          <p>Audit of the SDK against draft-pidlisnyi-aps-01 &sect;4.1 surfaced that <code>computeActionRef</code> and <code>computeAttributionActionRef</code> were using the legacy null-stripping canonicalization path instead of strict RFC 8785 JCS. Cross-verified the divergence against erdtman <code>canonicalize@3.0.0</code> (the RFC 8785 author's reference) and <code>rfc8785@0.1.4</code> (the x402 substrate package). Fixed and shipped across three packages: <code>agent-passport-system@2.6.0-alpha.4</code> on npm, <code>agent-passport-system-mcp@3.2.1</code>, and Python <code>agent-passport-system@2.4.0a3</code> on PyPI. 2966 + 28 + 2884 tests pass. Zero fixtures changed in practice. Known gap scheduled for v3.0 coordinated rotation: <code>hashAxisLeaf</code> and <code>envelopeBytes</code> remain on legacy because flipping them changes Merkle leaf bytes and signing envelopes across the partner fixture corpus. <a href="https://github.com/aeoess/agent-passport-system/blob/main/CHANGELOG.md">changelog &rarr;</a></p>
         </div>
         <div class="tag"><span>ship</span></div>
       </div>
@@ -2393,7 +2393,7 @@ to&nbsp;enforce, verify, and audit AI agent actions.</p>
         <div class="ts"><b>02 May 2026</b>—</div>
         <div class="body">
           <h4>Python SDK 2.4.0a2 on PyPI</h4>
-          <p>Full Wave 1 surface ported from TS. Cross-language byte-parity verified across 27 fixtures. 518 tests.</p>
+          <p>Full Wave 1 surface ported from TS. Cross-language byte-parity verified across 27 fixtures. 2884 tests.</p>
         </div>
         <div class="tag"><span>ship</span></div>
       </div>
