@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Benchmarks | Agent Passport System</title>
-<meta name="description" content="Agent Passport System performance benchmarks. Policy evaluation p50 under 2ms. 403 ops/sec sustained throughput. Sub-millisecond denial. 14 constraint dimensions.">
+<meta name="description" content="Agent Passport System performance benchmarks. Verifier hot path p50 318ns (Mac M3) / 347ns (AWS c7i.2xlarge) / 420ns (bare-metal EPYC 7313P). L4 gateway-loopback p50 305µs (Mac M3) / 1.07ms (AWS) / 822µs (bare-metal).">
 <link rel="canonical" href="https://agent-passport.org/benchmarks.html">
 <link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
 <link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation">
 <link rel="alternate" type="application/json" href="https://agent-passport.org/.well-known/mcp.json" title="MCP server discovery">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Benchmarks — Agent Passport System">
-<meta property="og:description" content="Policy eval under 2ms. 403 ops/sec. Sub-millisecond denial. 14 constraint dimensions.">
+<meta property="og:description" content="Verifier hot path p50 318ns (Mac M3) / 347ns (AWS c7i.2xlarge) / 420ns (bare-metal EPYC 7313P). L4 gateway-loopback p50 305µs / 1.07ms / 822µs.">
 <meta property="og:url" content="https://agent-passport.org/benchmarks.html">
 <meta property="og:site_name" content="Agent Passport System">
 <meta property="og:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Benchmarks — Agent Passport System">
-<meta name="twitter:description" content="Policy eval under 2ms. 403 ops/sec. Sub-millisecond denial. 14 constraint dimensions.">
+<meta name="twitter:description" content="Verifier hot path p50 318ns (Mac M3) / 347ns (AWS c7i.2xlarge) / 420ns (bare-metal EPYC 7313P).">
 <meta name="viewport" content="width=1440">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -100,7 +100,7 @@
       <tr><td>Policy evaluation p99</td><td>&lt;10ms</td><td>Worst case with cold cache</td></tr>
       <tr><td>Denial latency</td><td>&lt;1ms</td><td>Fail-fast on first constraint violation</td></tr>
       <tr><td>Receipt generation</td><td>&lt;1ms</td><td>Ed25519 signed, hash-chained</td></tr>
-      <tr><td>Sustained throughput</td><td>403 ops/sec</td><td>Single-threaded gateway</td></tr>
+      <tr><td>Sustained throughput</td><td>3.42M ops/sec</td><td>Verifier hot path (Mac M3, single-thread, derived from 292ns p50)</td></tr>
       <tr><td>Cascade revocation</td><td>&lt;5ms</td><td>Chains up to 100 deep</td></tr>
       <tr><td>Nano transaction</td><td>&lt;1s</td><td>Feeless, delegation-scoped</td></tr>
     </table>
@@ -130,9 +130,9 @@
     <p>The gateway is both judge and executor. The agent requests an action. The gateway evaluates all constraints, executes the action if permitted, and generates the receipt. Agents never touch tools directly. This is why enforcement can't be bypassed.</p>
     <table>
       <tr><th>Component</th><th>Count</th><th>Notes</th></tr>
-      <tr><td>Protocol modules</td><td>127</td><td>84 core + 43 v2 constitutional</td></tr>
+      <tr><td>Protocol modules</td><td>107</td><td>84 core + 23 v2 constitutional</td></tr>
       <tr><td>MCP tools</td><td>150</td><td>Full protocol surface via MCP</td></tr>
-      <tr><td>Tests</td><td>2,884</td><td>Including adversarial + invariant suites</td></tr>
+      <tr><td>Tests</td><td>2,966</td><td>Including adversarial + invariant suites</td></tr>
       <tr><td>Gateway routes</td><td>33</td><td>REST API for enforcement + admin</td></tr>
       <tr><td>Module connectivity</td><td>79%</td><td>Connected through gateway enforcement hub</td></tr>
       <tr><td>Research papers</td><td>8</td><td>Zenodo, independently cited</td></tr>
@@ -235,7 +235,7 @@
 </footer>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-05-02","name":"Agent Passport System Benchmarks","description":"Performance benchmarks for the Agent Passport System gateway. Policy evaluation p50 under 2ms. 403 ops/sec sustained throughput. Sub-millisecond denial. 14 constraint dimensions.","url":"https://agent-passport.org/benchmarks.html","isPartOf":{"@type":"WebSite","name":"Agent Passport System","url":"https://agent-passport.org/"}}
+{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-05-21","name":"Agent Passport System Benchmarks","description":"Performance benchmarks for the Agent Passport System verifier. Hot path p50 318ns (Mac M3) / 347ns (AWS c7i.2xlarge) / 420ns (bare-metal EPYC 7313P). L4 gateway-loopback p50 305µs / 1.07ms / 822µs across the same three environments.","url":"https://agent-passport.org/benchmarks.html","isPartOf":{"@type":"WebSite","name":"Agent Passport System","url":"https://agent-passport.org/"}}
 </script>
 </body>
 </html>

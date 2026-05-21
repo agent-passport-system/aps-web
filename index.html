@@ -1419,8 +1419,8 @@ body[data-paper="Newsprint"] { --paper:#E5E2D7; --paper-2:#DBD8CC; --paper-3:#CC
       <p class="dek">Open-source infrastructure
 to&nbsp;enforce, verify, and audit AI agent actions.</p>
       <div class="hero-stats">
-        <div class="hero-stat"><div class="n">&lt; 2<small>ms</small></div><div class="l">policy eval</div></div>
-        <div class="hero-stat"><div class="n">2,884</div><div class="l">conformance tests</div></div>
+        <div class="hero-stat"><div class="n">318<small>ns</small></div><div class="l">verifier hot path (Mac M3 p50)</div></div>
+        <div class="hero-stat"><div class="n">2,966</div><div class="l">conformance tests</div></div>
       </div>
       <div class="hero-foot">
         <a class="btn btn-dark" href="#quickstart">For developers ↗</a>
@@ -1651,7 +1651,7 @@ to&nbsp;enforce, verify, and audit AI agent actions.</p>
       <div class="cell k-net"><div class="top"><span>04</span><span class="at">authority</span></div><div class="sym">Dl</div><div class="name"><b>Delegation</b>scoped, revocable chains</div></div>
       <div class="cell k-net"><div class="top"><span>05</span><span class="at">authority</span></div><div class="sym">Rp</div><div class="name"><b>Reputation</b>earned, context-scoped</div></div>
       <div class="cell k-net"><div class="top"><span>06</span><span class="at">authority</span></div><div class="sym">Rv</div><div class="name"><b>Revocation</b>cascade · one call</div></div>
-      <div class="cell k-gov"><div class="top"><span>07</span><span class="at">enforce</span></div><div class="sym">En</div><div class="name"><b>Enforcement</b>gateway · ≤ 2 ms</div></div>
+      <div class="cell k-gov"><div class="top"><span>07</span><span class="at">enforce</span></div><div class="sym">En</div><div class="name"><b>Enforcement</b>gateway · sub-µs p50</div></div>
       <div class="cell k-gov"><div class="top"><span>08</span><span class="at">enforce</span></div><div class="sym">Gv</div><div class="name"><b>Governance</b>values-floor enforcement</div></div>
       <div class="cell k-gov"><div class="top"><span>09</span><span class="at">enforce</span></div><div class="sym">Ip</div><div class="name"><b>Instruction Provenance</b>drift denial across turns</div></div>
       <div class="cell k-rec"><div class="top"><span>10</span><span class="at">records</span></div><div class="sym">At</div><div class="name"><b>Attribution</b>merkle-proven audit</div></div>
@@ -1818,7 +1818,7 @@ to&nbsp;enforce, verify, and audit AI agent actions.</p>
             <rect width="148" height="58" fill="#EDE5D3" stroke="#B83A2E"></rect>
             <text x="8" y="14" font-size="9" fill="#B83A2E" letter-spacing="1.4">DECISION</text>
             <text x="8" y="28" font-size="9.5" fill="#1A1814">policy: allow</text>
-            <text x="8" y="40" font-size="9.5" fill="#403B33">latency: ≤ 2 ms</text>
+            <text x="8" y="40" font-size="9.5" fill="#403B33">hot path: 318ns</text>
             <text x="8" y="50" font-size="9.5" fill="#403B33">caveats: ✓ ttl ✓ budget</text>
           </g>
           <circle class="flow-dot" r="3" fill="#B83A2E"><animateMotion dur="var(--diagram-pace, 12s)" repeatCount="indefinite" path="M 820 335 L 820 225" keyTimes="0;0.45;0.49;1" keyPoints="0;0;1;1" calcMode="linear"></animateMotion><animate attributeName="opacity" dur="var(--diagram-pace, 12s)" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.45;0.46;0.49;0.50;1"></animate></circle>
@@ -1854,7 +1854,7 @@ to&nbsp;enforce, verify, and audit AI agent actions.</p>
       </svg>
 
       <div class="arch-fig-caption">
-        <b>Fig. 1</b> — The five message bodies are independently COSE-signed; the receipt at <b>t₄</b> is verifiable from the inclusion proof alone, with no need to fetch the rest of the log. The ≤ 2 ms wall-clock budget between invocation (<b>t₂</b>) and the gateway's signed decision (<b>t₃</b>) is the only path on the diagram that runs synchronously with the user's request — everything else can be done out-of-band.
+        <b>Fig. 1</b> — The five message bodies are independently COSE-signed; the receipt at <b>t₄</b> is verifiable from the inclusion proof alone, with no need to fetch the rest of the log. The wall-clock budget between invocation (<b>t₂</b>) and the gateway's signed decision (<b>t₃</b>) measures L4 gateway-loopback p50 at 305µs (Mac M3), 1.07ms (AWS c7i.2xlarge), and 822µs (bare-metal EPYC 7313P). This is the only path on the diagram that runs synchronously with the user's request — everything else can be done out-of-band.
       </div>
     </div>
   </div>
@@ -2594,11 +2594,11 @@ to&nbsp;enforce, verify, and audit AI agent actions.</p>
       </details>
       <details>
         <summary><span class="n">Q.02</span><span class="q">How is it different from other agent frameworks?</span><span class="pm">+</span></summary>
-        <div class="ans">Most frameworks handle orchestration. APS handles <b>enforcement</b> — what can this agent do, and what happens when it violates a constraint? Bring your own identity (did:key, did:web, SPIFFE, OAuth). The gateway is both judge and executor. Monotonic narrowing, cascade revocation, signed receipts, governance terms that travel with the artifact, agent-to-agent payments, Merkle-anchored attribution. Policy eval <b>under 2ms</b>. <b>2,884 conformance tests.</b> Works alongside any orchestration framework.</div>
+        <div class="ans">Most frameworks handle orchestration. APS handles <b>enforcement</b> — what can this agent do, and what happens when it violates a constraint? Bring your own identity (did:key, did:web, SPIFFE, OAuth). The gateway is both judge and executor. Monotonic narrowing, cascade revocation, signed receipts, governance terms that travel with the artifact, agent-to-agent payments, Merkle-anchored attribution. Verifier hot path p50 <b>318ns</b> (Mac M3). <b>2,966 conformance tests.</b> Works alongside any orchestration framework.</div>
       </details>
       <details>
         <summary><span class="n">Q.03</span><span class="q">Is this production-ready?</span><span class="pm">+</span></summary>
-        <div class="ans">Policy evaluation <b>under 2ms</b>. 403 ops/sec sustained throughput. 14 caveat dimensions checked per action. <b>2,884 conformance tests.</b> Eight papers on Zenodo. IETF Internet-Draft (<b>draft-pidlisnyi-aps-01</b>). SDK on npm and PyPI under <code>agent-passport-system</code>. MCP server exposes the full protocol surface. Tens of thousands of installs. Apache 2.0.</div>
+        <div class="ans">Verifier hot path p50 <b>318ns</b> (Mac M3) / 347ns (AWS c7i.2xlarge) / 420ns (bare-metal EPYC 7313P). <b>2,966 conformance tests.</b> Eight papers on Zenodo. IETF Internet-Draft (<b>draft-pidlisnyi-aps-01</b>). SDK on npm and PyPI under <code>agent-passport-system</code>. MCP server exposes the full protocol surface. Tens of thousands of installs. Apache 2.0.</div>
       </details>
       <details>
         <summary><span class="n">Q.04</span><span class="q">Who is this for?</span><span class="pm">+</span></summary>
