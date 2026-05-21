@@ -2006,6 +2006,46 @@ to&nbsp;enforce, verify, and audit AI agent actions.</p>
 
     <div class="feed">
       <div class="entry">
+        <div class="ts"><b>21 May 2026</b>&mdash;</div>
+        <div class="body">
+          <h4>JCS conformance shipped across SDK, MCP, and Python</h4>
+          <p>Audit of the SDK against draft-pidlisnyi-aps-01 &sect;4.1 surfaced that <code>computeActionRef</code> and <code>computeAttributionActionRef</code> were using the legacy null-stripping canonicalization path instead of strict RFC 8785 JCS. Cross-verified the divergence against erdtman <code>canonicalize@3.0.0</code> (the RFC 8785 author's reference) and <code>rfc8785@0.1.4</code> (the x402 substrate package). Fixed and shipped across three packages: <code>agent-passport-system@2.6.0-alpha.4</code> on npm, <code>agent-passport-system-mcp@3.2.1</code>, and Python <code>agent-passport-system@2.4.0a3</code> on PyPI. 2966 + 28 + 518 tests pass. Zero fixtures changed in practice. Known gap scheduled for v3.0 coordinated rotation: <code>hashAxisLeaf</code> and <code>envelopeBytes</code> remain on legacy because flipping them changes Merkle leaf bytes and signing envelopes across the partner fixture corpus. <a href="https://github.com/aeoess/agent-passport-system/blob/main/CHANGELOG.md">changelog &rarr;</a></p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>21 May 2026</b>&mdash;</div>
+        <div class="body">
+          <h4>APS + x402 + bilateral receipt reference composition published</h4>
+          <p>Public composition demonstrating the post-settlement accountability layer for agent commerce: scoped delegation chain with monotonic narrowing, x402 settlement as the payment rail, and a bilateral receipt chain linking the action to both the delegation and the settlement, content-hashed via strict RFC 8785 JCS. The 6-step demo runs end-to-end and 11 independent verifier checks pass. Apache-2.0, in the agent-governance-spec joint org. <a href="https://github.com/agent-governance-spec/aps-x402-composition">repo &rarr;</a></p>
+        </div>
+        <div class="tag"><span>ship</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>21 May 2026</b>&mdash;</div>
+        <div class="body">
+          <h4>AgentCore Samples #1546: APS + x402 composition proposed as a payments sample</h4>
+          <p>Posted on awslabs/agentcore-samples alongside #1545 (Heurist Pay for Data) as a reference composition for post-settlement accountability. The framing: <code>payment_hash</code> proves the payment cleared but does not prove which agent took which action under which delegated authority, or that the receipt was not constructed after the fact. The composition addresses that gap. Offer to align the wrapper to AgentCore Samples conventions and submit as a PR. <a href="https://github.com/awslabs/agentcore-samples/issues/1546">issue &rarr;</a></p>
+        </div>
+        <div class="tag"><span>engage</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>21 May 2026</b>&mdash;</div>
+        <div class="body">
+          <h4>A2A #1734: where does ecosystem effort land next</h4>
+          <p>Posted to A2A Discussion #1734 (Composable Trust Evidence Format) an observation that byte-match fixture matching has plateaued. New accounts forking two or three month old code and stamping the same property doesn't move the field. Five candidate problems named for next-priority work: semantic divergence under byte-match identity, live-state admissibility at commit, cross-jurisdictional receipt portability, legacy receipt format migration (with APS's own SDK as the worked example), and real-world deployment patterns. Offer to participate in a Consilium-style convergence pass if implementers want to redirect effort. <a href="https://github.com/a2aproject/A2A/discussions/1734#discussioncomment-17007501">discussion &rarr;</a></p>
+        </div>
+        <div class="tag"><span>engage</span></div>
+      </div>
+      <div class="entry">
+        <div class="ts"><b>21 May 2026</b>&mdash;</div>
+        <div class="body">
+          <h4>Phala #11: authorization layer between ERC-8004 identity and TEE-attested execution</h4>
+          <p>Posted to Phala-Network/erc-8004-tee-agent identifying a real boundary in the TEE agent stack: the TDX-attested local agent server runs unauthenticated by default. ERC-8004 gives the agent on-chain identity, TDX attestation proves the code is running in the expected environment, but nothing currently authorizes which on-chain principal can use the TEE for which action. Concrete reference at <code>deployment/local_agent_server.py:458</code> + <code>agent_card.py:322</code>. <a href="https://github.com/Phala-Network/erc-8004-tee-agent/issues/11">issue &rarr;</a></p>
+        </div>
+        <div class="tag"><span>engage</span></div>
+      </div>
+      <div class="entry">
         <div class="ts"><b>20 May 2026</b>—</div>
         <div class="body">
           <h4>Prototype 1 latency project closed</h4>
@@ -2534,7 +2574,7 @@ to&nbsp;enforce, verify, and audit AI agent actions.</p>
         <div class="tag"><span>start</span></div>
       </div>
     </div>
-    <div class="feed-hint"><span>↕ Scroll the worklog</span><span><b>60</b> entries · newest first</span></div>
+    <div class="feed-hint"><span>↕ Scroll the worklog</span><span><b>70</b> entries · newest first</span></div>
   </div>
 </section>
 
