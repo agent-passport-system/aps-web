@@ -418,9 +418,18 @@ function getVariablePatterns(varName, oldValue, newValue) {
         { regex: new RegExp(`"version":\\s*"${o}"`, 'g'), replace: `"version": "${n}"` },
       ];
 
-    case 'TEST_COUNT':
-      return [
-        // "214 tests" or "214 Tests" — case insensitive
+    case 'TEST_COUNT': {
+      // Handle both bare ("2884") and comma-formatted ("2,884") number forms.
+      // Without the comma form, the propagation-zone "2,884 tests" dek inside
+      // index.html and blog.html stays invisible to the cache-diff pass even
+      // though it is exactly the kind of value the propagator should update.
+      // The verify-pass regex at the bottom of this file already handles both;
+      // this block aligns the rewrite path with the verify path.
+      const oComma = Number(oldValue).toLocaleString('en-US');
+      const nComma = Number(newValue).toLocaleString('en-US');
+      const oCommaEsc = oComma.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const patterns = [
+        // "214 tests" or "214 Tests"
         { regex: new RegExp(`${o} tests`, 'gi'), replace: `${n} tests` },
         // "214 test" (singular, less common)
         { regex: new RegExp(`${o} test(?!s|_| file)`, 'g'), replace: `${n} test` },
@@ -429,6 +438,21 @@ function getVariablePatterns(varName, oldValue, newValue) {
         // bare number in table cells: <span class="y">214</span>
         { regex: new RegExp(`"y">${o}<`, 'g'), replace: `"y">${n}<` },
       ];
+      // Only add comma-formatted patterns when the value actually has a comma
+      // (i.e., >= 1000). Otherwise oComma == o and the patterns would be no-ops
+      // that risk doubling up substitutions on edge cases.
+      if (oComma !== String(oldValue)) {
+        patterns.push(
+          // "2,884 tests" — comma-formatted, propagation-zone form
+          { regex: new RegExp(`${oCommaEsc} tests`, 'gi'), replace: `${nComma} tests` },
+          // comma-formatted in stat elements: >2,884<
+          { regex: new RegExp(`"stat-val">${oCommaEsc}<`, 'g'), replace: `"stat-val">${nComma}<` },
+          // comma-formatted in table cells: <span class="y">2,884</span>
+          { regex: new RegExp(`"y">${oCommaEsc}<`, 'g'), replace: `"y">${nComma}<` },
+        );
+      }
+      return patterns;
+    }
 
     case 'TEST_SUITES':
       return [
