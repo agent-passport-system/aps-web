@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Comparison | Agent Passport System</title>
+<meta name="description" content="Agent Passport System vs LangChain, AutoGen, CrewAI. Identity, scoped delegation, cascade revocation, signed receipts, cross-vendor audit. Where overlaps end and APS extends.">
+<link rel="canonical" href="https://agent-passport.org/compare.html">
+<link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
+<link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation">
+<link rel="alternate" type="application/json" href="https://agent-passport.org/.well-known/mcp.json" title="MCP server discovery">
+<meta property="og:title" content="Comparison — Agent Passport System | Identity, delegation, audit for AI agents">
+<meta property="og:description" content="Agent Passport System vs framework substrates. Identity, scoped delegation, cascade revocation, signed receipts, cross-vendor audit.">
+<meta property="og:url" content="https://agent-passport.org/compare.html">
+<meta property="og:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Comparison — Agent Passport System">
+<meta name="twitter:description" content="How APS compares to framework substrates on identity, delegation, revocation, and audit.">
+<meta name="twitter:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
+<meta name="viewport" content="width=1440">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/aps-design.css">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S7QVCJGMKR');
+</script>
+</head>
+<body>
+<div class="pub-bar">
+  <div class="wrap pub-bar-inner">
+    <span>AGENT PASSPORT SYSTEM</span>
+    <div class="marquee">
+      <div class="marquee-inner">
+        <span><b>draft-pidlisnyi-aps-01</b> · IETF agent passport Internet-Draft</span>
+        <span><b>2.6.0-alpha.4</b> on npm · agent-passport-system shipped</span>
+        <span><b>npm · PyPI</b> · agent-passport-system shipped</span>
+        <span><b>Vocabulary repo</b> · 57 merged PRs from 28 unique external contributors</span>
+        <span><b>Verifier</b> · any runtime</span>
+        <span><b>Verifier hot path</b> · p50 318ns Mac M3 · 347ns AWS c7i · 420ns bare-metal EPYC</span>
+        <span><b>draft-pidlisnyi-aps-01</b> · IETF agent passport Internet-Draft</span>
+        <span><b>2.6.0-alpha.4</b> on npm · agent-passport-system shipped</span>
+        <span><b>npm · PyPI</b> · agent-passport-system shipped</span>
+        <span><b>Vocabulary repo</b> · 57 merged PRs from 28 unique external contributors</span>
+        <span><b>Verifier</b> · any runtime</span>
+        <span><b>Verifier hot path</b> · p50 318ns Mac M3 · 347ns AWS c7i · 420ns bare-metal EPYC</span>
+      </div>
+    </div>
+    <span>VOL. 01 · ISSUE 07 · 2026</span>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="mast-row">
+      <div class="wordmark">
+        <span class="logo"></span>
+        <span>Agent Passport System</span>
+        <span class="it">— the open protocol</span>
+      </div>
+      <nav class="mast-nav">
+        <a href="/passport.html">Spec</a>
+        <a href="https://github.com/aeoess">Quickstart</a>
+        <a href="/research.html">Papers</a>
+        <a href="/working-group.html">Community</a>
+        <a href="/blog.html">Blog</a>
+      </nav>
+      <div class="mast-meta">
+        <b>Apache 2.0 · CC0</b><br>
+        github.com/aeoess
+      </div>
+    </div>
+    <div class="mast-strap">
+      <span>Downloads</span><span class="dot"></span><b>21,529+ installs</b><span class="dot"></span><span>npm · PyPI · MCP</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero"><div class="wrap">
+    <div class="eyebrow">Compare</div>
+    <h1>Most frameworks orchestrate. APS <span class="serif">enforces</span>.</h1>
+    <p class="dek">Agent frameworks help you build agents. APS handles what happens when those agents act in production: who they are, what they're allowed to do, and what the audit trail looks like when they violate a constraint.</p>
+  </div></section>
+
+  <div class="prose"><div class="wrap"><div class="col">
+    <section id="architecture">
+      <h4 class="no-rule">Cross-Impl Interop</h4>
+      <h2 class="no-rule">Same fixture, byte-match.</h2>
+      <p>Six independent implementations. One reference fixture set. SHA-256 byte-match across all of them.</p>
+      <iframe src="arch-interop.html" title="Cross-Impl Interop" loading="lazy" style="width:100%;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);aspect-ratio:16/9;min-height:480px;display:block"></iframe>
+    </section>
+
+    <h4>The mesh, animated</h4>
+    <h2 class="no-rule">Where the protocol lives.</h2>
+    <p>Frameworks orchestrate; the protocol binds. Agents, humans, services connected by signed delegations and receipts that any auditor can verify without APS in the loop.</p>
+    <iframe src="arch-mesh.html" title="Trust Mesh, visualization" loading="lazy" style="display:block;width:100%;height:560px;border:1px solid var(--line);border-radius:var(--radius)"></iframe>
+
+    <h2>Capability comparison</h2>
+    <table>
+      <thead>
+        <tr><th>Capability</th><th>APS</th><th>LangChain</th><th>AutoGen</th><th>CrewAI</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Cryptographic identity</td><td><b>Ed25519, BYO DID</b></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td></tr>
+        <tr><td>Scoped delegation</td><td><b>Narrow-only chains</b></td><td>Manual</td><td>Manual</td><td>Manual</td></tr>
+        <tr><td>Cascade revocation</td><td><b>Tree-wide, instant</b></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td></tr>
+        <tr><td>Signed action receipts</td><td><b>RFC 8785 envelopes</b></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td></tr>
+        <tr><td>Commerce pre-flight</td><td><b>4-gate spending control</b></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td></tr>
+        <tr><td>Cross-vendor audit</td><td><b>Verify without aeoess</b></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td></tr>
+        <tr><td>Framework lock-in</td><td><b>None, works alongside any</b></td><td>Tight</td><td>Tight</td><td>Tight</td></tr>
+        <tr><td>Open governance</td><td><b>Apache-2.0 + IETF draft</b></td><td>MIT</td><td>MIT</td><td>MIT</td></tr>
+        <tr><td>Production gateway</td><td><b>Hosted + self-host</b></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td></tr>
+        <tr><td>Independently cited</td><td><b>UBC PDR, Microsoft</b></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td></tr>
+      </tbody>
+    </table>
+    <p><em>Comparison reflects published OSS surface as of May 2026. Frameworks ship orchestration; APS ships enforcement. They compose.</em></p>
+  </div></div></div>
+</main>
+
+<footer class="colophon">
+  <div class="wrap">
+    <div class="colo-grid">
+      <div>
+        <h3 class="head">An <span class="it">open</span> protocol.<br>An open <span class="it">house.</span></h3>
+        <p>APS is maintained as a public good. The spec is CC0. The code is Apache 2.0. The conformance suite is yours to fork.</p>
+        <p>Show up. File issues. Send patches. Bring your edge case, somebody, somewhere, is running into it too.</p>
+        <a class="btn btn-light" style="color:var(--paper);border-color:var(--paper)" href="/working-group.html">Join the working group ↗</a>
+      </div>
+      <div>
+        <h5>Protocol</h5>
+        <ul>
+          <li><a href="/passport.html">Documentation</a></li>
+          <li><a href="/benchmarks.html">Benchmarks</a></li>
+          <li><a href="/threat-model.html">Threat Model</a></li>
+          <li><a href="/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Developers</h5>
+        <ul>
+          <li><a href="https://github.com/aeoess">GitHub</a></li>
+          <li><a href="https://www.npmjs.com/package/agent-passport-system">npm</a></li>
+          <li><a href="https://pypi.org/project/agent-passport-system/">PyPI</a></li>
+          <li><a href="/wallet.html">Agent Wallet</a></li>
+          <li><a href="/AGENTS.md">AGENTS.md</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Community</h5>
+        <ul>
+          <li><a href="/blog.html">Dev Log</a></li>
+          <li><a href="/roadmap.html">Roadmap</a></li>
+          <li><a href="/working-group.html">Working Group</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Research</h5>
+        <ul>
+          <li><a href="/research.html">Agent Social Contract</a></li>
+          <li><a href="/research.html">Monotonic Narrowing</a></li>
+          <li><a href="/research.html">Faceted Authority Attenuation</a></li>
+          <li><a href="/research.html">Behavioral Derivation Rights</a></li>
+          <li><a href="/research.html">Physics-Enforced Delegation</a></li>
+          <li><a href="/research.html">Governance in the Medium</a></li>
+          <li><a href="/research.html">Cognitive Attestation</a></li>
+          <li><a href="/research.html">Evidence-Safety Gap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="colo-foot">
+      <div>License<b>Spec CC0 · Code Apache 2.0</b></div>
+      <div>Editor<b>Tymofii Pidlisnyi</b></div>
+      <div>Standard<b>APS · IETF Internet-Draft</b></div>
+      <div>Imprint<b>Vol. 01 · 2026 · agent-passport.org</b></div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
