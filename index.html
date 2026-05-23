@@ -1777,7 +1777,7 @@ body.typewriter figure.data-table table { font-size: 12px; }
         <text class="return-label" x="320" y="194" text-anchor="middle">verifiable by the principal</text>
       </svg>
       <div class="benchmark-strip">
-        <span class="lbl">End-to-end</span><span class="metric">0.3 ms p50</span><span class="sep">·</span><span class="metric">3.2 M ops/sec</span><span class="sep">·</span><span class="hw">x86-64 · ARM64 · Apple Silicon · NVIDIA L4</span>
+        <span class="lbl">End-to-end</span><span class="metric">0.3–1.1 ms p50</span><span class="sep">·</span><span class="metric">16–36 M ops/sec</span><span class="sep">·</span><span class="hw">x86-64 · ARM64 · Apple Silicon · bare-metal Linux</span>
       </div>
       <figcaption><span class="fig-num">Fig. 1</span>Authority chain &amp; evidence return path<span class="commit">Reproducible at commit 6e258f4</span></figcaption>
     </figure>
@@ -1802,7 +1802,7 @@ body.typewriter figure.data-table table { font-size: 12px; }
     <p class="caption">
       TypeScript SDK on npm, Python bindings on PyPI, MCP server at
       <span class="nostyle">mcp.aeoess.com</span>, gateway reference implementation
-      in the same repo. <span class="nostyle">866 tests.</span>
+      in the same repo. <span class="nostyle">2,966 tests.</span>
     </p>
   </section>
 
@@ -1938,44 +1938,117 @@ body.typewriter figure.data-table table { font-size: 12px; }
       <details open>
         <summary>
           <span class="q">Q.1</span>
-          <span class="qtext">What can I do with APS today?</span>
+          <span class="qtext">How is APS different from OAuth or OIDC?</span>
           <span class="toggle">+</span>
         </summary>
         <div class="answer">
-          SDK on npm, Python bindings on PyPI, MCP server live at
-          mcp.aeoess.com, reference gateway, full specification.
-          Tested internally, not yet externally audited. Status in the README.
+          OAuth authorizes a session for an application. APS authorizes an agent's
+          actions and binds them back to a principal. Authority narrows monotonically
+          at each delegation. Every permitted action produces a signed receipt. Every
+          denied action leaves cryptographic evidence. OAuth answers "is this app
+          allowed in." APS answers "what is this agent allowed to do, on whose behalf,
+          with what proof."
         </div>
       </details>
       <details>
         <summary>
           <span class="q">Q.2</span>
-          <span class="qtext">What's the relationship between APS and the AEOESS Gateway?</span>
+          <span class="qtext">How does APS compose with MCP and A2A?</span>
           <span class="toggle">+</span>
         </summary>
         <div class="answer">
-          APS is the open protocol. AEOESS Gateway is the commercial
-          enforcement product. The protocol is fully usable without it.
+          APS runs underneath, not as a replacement. MCP exposes tools; APS records
+          who used them under what authority. A2A coordinates agents; APS attributes
+          the resulting work. An MCP server can check a passport before serving a
+          call. An A2A handoff can pass a delegated passport with narrowed scope.
         </div>
       </details>
       <details>
         <summary>
           <span class="q">Q.3</span>
-          <span class="qtext">Why Apache 2.0?</span>
+          <span class="qtext">What does an APS passport actually contain?</span>
           <span class="toggle">+</span>
         </summary>
         <div class="answer">
-          Identity protocols need shared trust. Vendor lock breaks the trust model.
+          A signed identity for the agent, the principal it acts for, the scope and
+          conditions of its authority (which resources, what budget, until when), the
+          chain of any prior delegations narrowing it further, and an Ed25519
+          signature from the issuer. Verification is offline — a service can check a
+          passport's authority chain without contacting an issuer.
         </div>
       </details>
       <details>
         <summary>
           <span class="q">Q.4</span>
-          <span class="qtext">Who maintains it?</span>
+          <span class="qtext">How does revocation work?</span>
           <span class="toggle">+</span>
         </summary>
         <div class="answer">
-          Tymofii Pidlisnyi. AEOESS is the company building around the protocol.
+          Three layers. Every passport carries expiry fields, so unused delegations
+          time out automatically. A principal can issue a signed revocation that
+          cascades through every delegation derived from the revoked passport.
+          Gateways consult a revocation registry as part of the hot-path verification
+          before allowing an action. Keys can be rotated; old delegations stop
+          verifying the moment the revocation is signed.
+        </div>
+      </details>
+      <details>
+        <summary>
+          <span class="q">Q.5</span>
+          <span class="qtext">What does APS not protect against?</span>
+          <span class="toggle">+</span>
+        </summary>
+        <div class="answer">
+          APS proves an action was authorized by a chain ending at a principal. It
+          cannot detect a principal who issues a malicious delegation deliberately, a
+          gateway colluding with an agent against its principal, or a service that
+          doesn't check passports. It defends against forged authority, scope creep,
+          undeclared agents, after-the-fact denial of authorization, and silent
+          attribution loss.
+        </div>
+      </details>
+      <details>
+        <summary>
+          <span class="q">Q.6</span>
+          <span class="qtext">What's the latency overhead in production?</span>
+          <span class="toggle">+</span>
+        </summary>
+        <div class="answer">
+          End-to-end gateway check, including TCP, signature verification, scope
+          evaluation, and receipt persistence: 822µs p50 on bare-metal Linux (EPYC
+          7313P), 305µs on Apple M3, 1.07ms on AWS c7i.2xlarge. The pure verifier hot
+          path runs in 420ns on bare-metal — the gateway loop is dominated by I/O, not
+          verification. Reproducible at commit 6e258f4 under
+          benchmarks/prototype-1/results/.
+        </div>
+      </details>
+      <details>
+        <summary>
+          <span class="q">Q.7</span>
+          <span class="qtext">Is APS production-ready today?</span>
+          <span class="toggle">+</span>
+        </summary>
+        <div class="answer">
+          The protocol specification is submitted as an IETF Internet-Draft. The
+          TypeScript SDK ships on npm, Python bindings on PyPI, MCP server live at
+          mcp.aeoess.com. The reference gateway runs as dogfood infrastructure.
+          2,966 SDK tests pass, plus 191 separate tests on the Rust verifier
+          reference. Not yet externally audited. Status tracked in the README and
+          roadmap.
+        </div>
+      </details>
+      <details>
+        <summary>
+          <span class="q">Q.8</span>
+          <span class="qtext">What's the relationship between APS and the AEOESS Gateway?</span>
+          <span class="toggle">+</span>
+        </summary>
+        <div class="answer">
+          APS is the open protocol: the spec, the SDKs, the MCP server, and the
+          conformance suite, all Apache 2.0. AEOESS Gateway is the commercial
+          enforcement product. The protocol is fully usable without the gateway. Any
+          compliant implementation can issue passports, narrow delegations, and verify
+          receipts.
         </div>
       </details>
     </div>
