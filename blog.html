@@ -929,6 +929,14 @@
 
 <main class="blog-feed">
 
+<article class="post" id="landing-numbers-match-disk">
+  <time class="post-date" datetime="2026-05-22">May 22, 2026</time>
+  <h2>Landing copy now matches the benchmarks on disk.</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The architecture diagram on agent-passport.org sat under a benchmark strip that read "End-to-end 0.3 ms p50 · 3.2 M ops/sec · x86-64 · ARM64 · Apple Silicon · NVIDIA L4." Two problems. The throughput figure was not in any measured JSON; 3.2M was a placeholder from the design phase that shipped by mistake. The "NVIDIA L4" label was a wording slip from spec §12, where L4 names Latency Level 4, the full gateway loop benchmark across TCP, signature verification, scope evaluation, and receipt persistence. The strip now reads "End-to-end 0.3&ndash;1.1 ms p50 · 16&ndash;36 M ops/sec · x86-64 · ARM64 · Apple Silicon · AWS · bare-metal Linux." Every number traces to a JSON file under <code>benchmarks/prototype-1/results/</code> on commit <code>6e258f4</code>.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The range form covers ground the original single point could not. The 0.3 ms low end is the 305µs Mac M3 L4 measurement. The 1.1 ms high end is the 1.07ms AWS c7i.2xlarge L4 measurement. The 16M low is Mac M3 L0 at sixteen concurrent threads. The 36M high is the bare-metal Linux EPYC 7313P L0 at sixteen concurrent threads, the canonical §13.1 measurement. Three measured environments named, all five hardware labels accurate, no aspirational numbers. The throughput framing carries the environment qualifier the CLAIMS discipline asks for. A reader can reproduce by cloning the SDK at <code>6e258f4</code> and running <code>cargo bench</code> in the benchmarks directory.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The test count on the install caption sat at 866 since Day 31 in March. <code>project-state.json</code> reports 2,966 passing SDK tests under the canonical <code>counts.tests</code> field. That number propagated everywhere except the new landing, which had been cut from a stale snapshot. Fixed. The FAQ moved from four generic questions ("What can I do with APS today," "Why Apache 2.0," "Who maintains it") to eight substantive ones: OAuth/OIDC differentiation, MCP and A2A composition, passport contents, revocation mechanics, threat model, latency overhead with real numbers, production-readiness, and the protocol-vs-gateway split. The threat model question states what the protocol does not protect against. Serious readers want that answered before they care about the affirmative claims.</p>
+</article>
+
 <article class="post" id="cosai-tool-registry-integrity">
   <time class="post-date" datetime="2026-05-19">May 19, 2026</time>
   <h2>Tool-registry integrity: closing the gap so the claim is true</h2>
