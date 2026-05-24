@@ -44,16 +44,6 @@
     - url: "https://github.com/aeoess/aps-conformance-suite/pull/6"
       label: "PR #6"
 
-# ═══ DAY 95 — 2026-05-22 ═══
-
-- id: d95-landing-numbers-trace-to-disk
-  title: "Landing copy numbers traced to disk; FAQ rewritten with substantive questions"
-  description: "The architecture diagram benchmark strip on agent-passport.org sat under aspirational numbers from the design phase. Every number now traces to JSON files under benchmarks/prototype-1/results/ at commit 6e258f4. End-to-end strip reads 0.3–1.1 ms p50, 16–36 M ops/sec across three named environments (Mac M3, AWS c7i.2xlarge, bare-metal Linux). Install caption test count corrected from 866 (March snapshot) to 2,966 (canonical project-state.json counts.tests field). FAQ rewritten from four generic questions to eight substantive ones covering OAuth/OIDC differentiation, MCP and A2A composition, threat model, latency overhead, production-readiness, and the protocol-vs-gateway split."
-  status: done
-  workstream: comms
-  day_start: 95
-  day_end: 95
-
 # ═══ DAY 94 — 2026-05-21 ═══
 
 - id: d94-phase2-hkdf-receipt-stream-key
