@@ -3,6 +3,117 @@
 # Last updated: 2026-05-17 (Day 90). Backfill Days 85-90: vocab PRs 91/92/67/96/95 merged, conformance negative-path vectors, gitagent-protocol#73 RFC merged, draft-pidlisnyi-aps-01 to IETF, canonical domain split to agent-passport.org, AIVSS v0.1 follow-up, contribution surfaces PR 29., + Days 82-83 backfill
 # Day 1 = 2026-02-17 (project start)
 
+# ═══ DAY 96 — 2026-05-23 ═══
+
+- id: d96-spendguard-third-implementer-budget-reservation
+  title: "SpendGuard ships as third implementer of budget_reservation; PR #99 brings lifecycle upstream"
+  description: "spendguard-sdk 0.4.0 published to PyPI at 19:04 UTC with release_reservation() matching the proposed verb names in crosswalk/budget_reservation.yaml. Third production implementer joins Cycles and goodmeta, satisfying the file's promotion-path threshold of three implementers. release and refund both reach two implementers each. PR #99 opened at aeoess/agent-governance-vocabulary brings the reservation lifecycle state machine from Agent Spend Protocol Draft-01 §3.3 upstream before canonical promotion: six states, (reservation_id, idempotency_key) dedup contract with three required outcome branches, ttl_grace window with recommended_max 5 minutes matching ASP Draft-01 §3.2 phrasing. Review requested one structural amendment before merge: explicit normative-force framing on the lifecycle block."
+  status: in_progress
+  workstream: vocab
+  day_start: 96
+  day_end: 96
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/99"
+      label: "PR #99"
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/issues/98"
+      label: "Issue #98 convergence"
+    - url: "https://pypi.org/project/spendguard-sdk/0.4.0/"
+      label: "spendguard-sdk 0.4.0"
+
+- id: d96-a2a-1734-substrate-window-intake
+  title: "A2A #1734 substrate-window intake post: five Candidates of cross-implementation trust-evidence-format substrate"
+  description: "Intake post on the A2A #1734 substrate-window thread acknowledging four of five Candidates as substrate-landed (Candidates 2/3/4/5) with Candidate 1 (discrimination-tuple injectivity formalism) still pending. Originating-contribution + submitted-substrate attribution discipline applied to the synthesis-matrix attribution schema, with Open Ambiguity as a third column for rows where lineage diverges across sources. Doctrine note on disk at synthesis-attribution-schema.md."
+  status: in_progress
+  workstream: standards
+  day_start: 96
+  day_end: 96
+  links:
+    - url: "https://github.com/a2aproject/A2A/discussions/1734"
+      label: "A2A #1734"
+
+- id: d96-conformance-suite-no-category-ownership
+  title: "No-category-ownership-by-default precedent codified on aps-conformance-suite"
+  description: "Two external fixture PRs (#5, #6) on aeoess/aps-conformance-suite received REQUEST CHANGES with a single structural ask: contributor deployments are credited as named targets inside generic fixture categories, not granted top-level fixture-directory namespaces. The suite names canonical properties; implementers are targets, not owners. This precedent applies regardless of technical merit and protects the conformance vocabulary from category capture as more implementers submit fixtures."
+  status: in_progress
+  workstream: protocol
+  day_start: 96
+  day_end: 96
+  links:
+    - url: "https://github.com/aeoess/aps-conformance-suite/pull/5"
+      label: "PR #5"
+    - url: "https://github.com/aeoess/aps-conformance-suite/pull/6"
+      label: "PR #6"
+
+# ═══ DAY 95 — 2026-05-22 ═══
+
+- id: d95-landing-numbers-trace-to-disk
+  title: "Landing copy numbers traced to disk; FAQ rewritten with substantive questions"
+  description: "The architecture diagram benchmark strip on agent-passport.org sat under aspirational numbers from the design phase. Every number now traces to JSON files under benchmarks/prototype-1/results/ at commit 6e258f4. End-to-end strip reads 0.3–1.1 ms p50, 16–36 M ops/sec across three named environments (Mac M3, AWS c7i.2xlarge, bare-metal Linux). Install caption test count corrected from 866 (March snapshot) to 2,966 (canonical project-state.json counts.tests field). FAQ rewritten from four generic questions to eight substantive ones covering OAuth/OIDC differentiation, MCP and A2A composition, threat model, latency overhead, production-readiness, and the protocol-vs-gateway split."
+  status: done
+  workstream: comms
+  day_start: 95
+  day_end: 95
+
+# ═══ DAY 94 — 2026-05-21 ═══
+
+- id: d94-phase2-hkdf-receipt-stream-key
+  title: "Phase 2 HKDF receipt_stream_key derivation: 191 → 206 passing tests"
+  description: "Phase 2 work on the Rust verifier opens on branch phase2/hkdf-receipt-stream-key. Receipt stream key derivation moves from a placeholder to HKDF-SHA-256 with explicit info string discipline, matching the §11 receipt-key derivation spec. Test count 191 → 206 with the HKDF vector additions across the wire-format, durability, and recovery layers. Stream A complete (191 tests, 12 test suites); Phase 2 stream key derivation is the first Phase 2 module to land."
+  status: in_progress
+  workstream: protocol
+  day_start: 94
+  day_end: 94
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/tree/phase2/hkdf-receipt-stream-key"
+      label: "phase2 branch"
+
+# ═══ DAY 92 — 2026-05-19 ═══
+
+- id: d92-cosai-tool-registry-integrity
+  title: "CoSAI tool-registry integrity: APS adds the missing four components"
+  description: "OASIS Coalition for Secure AI has a control proposal in review (controlToolRegistryandDiscoveryIntegrity) covering integrity of tool registries, manifests, and discovery endpoints. APS already had signed registry entries and implementation-hash integrity. The cosai-tool-registry-integrity branch adds the other four required pieces: signed tool manifests with a distinct metadata hash, publisher identity verification against an external trust root or APS-native identity, namespace governance so a tool under a claimed namespace must be published by that namespace's owner, and re-approval bound to a resolved attestor identity (metadata change moves a manifest to pending, only a verifiable attestor can clear it). Each piece has tests including adversarial cases plus cross-language conformance vectors. APS offered as reference implementation for the CoSAI control proposal."
+  status: in_progress
+  workstream: standards
+  day_start: 92
+  day_end: 92
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/tree/cosai-tool-registry-integrity"
+      label: "cosai-tool-registry-integrity branch"
+
+# ═══ DAY 90 — 2026-05-17 (continued) ═══
+
+- id: d90-ietf-draft-01-revision
+  title: "draft-pidlisnyi-aps-01 revision posted to IETF Datatracker"
+  description: "The -01 revision adds two sections to the protocol core. Signed Receipts specifies the receipt a permitted or denied action produces and what a third party can check without trusting the runtime that produced it. Key Rotation specifies how an identity rotates its signing key without invalidating delegation chains already issued under the old one. The draft also carries a visible scope marker for the attribution axes, so the boundary between what the protocol specifies and what it does not is explicit in the text itself. Seventeen pages, idnits clean on the Datatracker run."
+  status: done
+  workstream: standards
+  day_start: 90
+  day_end: 90
+  links:
+    - url: "https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/"
+      label: "IETF Datatracker"
+
+- id: d90-canonical-domain-split-completes
+  title: "agent-passport.org canonical domain split completes"
+  description: "Protocol surface and company surface now separate. agent-passport.org carries the canonical protocol website, research, blog, roadmap, IETF Internet-Draft references, and the open contribution doctrine that PR #29 shipped the same day. aeoess.com continues to serve the infrastructure subdomains (mcp.aeoess.com, gateway.aeoess.com, api.aeoess.com) and a secondary website mirror."
+  status: done
+  workstream: ops
+  day_start: 90
+  day_end: 90
+
+# ═══ DAY 89 — 2026-05-16 (continued) ═══
+
+- id: d89-hermes-scopeblind-roundtrip
+  title: "Hermes composition round-trip green against ScopeBlind v0.1.0-alpha.1"
+  description: "Composition round-trip verified against ScopeBlind's published signer v0.1.0-alpha.1, both paths, all integrity checks passing. Coordination posted to NousResearch/hermes-agent #11692. The fixture validates APS delegation-receipt wrapping over a third-party signer without modifying either side's wire format, the same composition-as-substrate pattern documented in the conformance suite's composition class."
+  status: done
+  workstream: standards
+  day_start: 89
+  day_end: 89
+  links:
+    - url: "https://github.com/NousResearch/hermes-agent/issues/11692"
+      label: "hermes-agent #11692"
+
 # ═══ DAY 93 — 2026-05-20 ═══
 
 - id: d93-prototype-1-latency-closed
