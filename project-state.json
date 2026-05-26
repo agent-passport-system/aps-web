@@ -14,7 +14,7 @@
   },
   "counts": {
     "$comment": "tests is the PASSING count (node test runner 'pass' line), not the registered total. modules_total = modules_core + modules_v2. Canonical: modules_v2 = publicly exported logical units via a barrel (src/v2/index.ts or src/index.ts), ratified 2026-05-17 = 23. modules_total = modules_core + modules_v2, DERIVED from the canonical count, never used to justify it. Raw file count, subsystem directory count, and historical project-state values are implementation signals, NOT canonical module counts.",
-    "tests": 2989,
+    "tests": 3008,
     "papers": 8,
     "modules_core": 84,
     "modules_v2": 23,
