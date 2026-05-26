@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=1440">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agent Passport System — Roadmap</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -760,17 +760,17 @@ window.__TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
 </script>
 <style>
 :root{
-  --paper:#EDE5D3;
-  --paper-2:#E6DDC8;
-  --paper-3:#D9CFB6;
-  --ink:#1A1814;
-  --ink-2:#403B33;
-  --ink-3:#6B6557;
-  --muted:#8E8775;
-  --rule:#1A1814;
-  --rule-soft:#0000001a;
-  --stamp:#B83A2E;
-  --stamp-2:#2A4A6E;
+  --paper:#fbfaf7;
+  --paper-2:#ebe9e5;
+  --paper-3:#d8d6d2;
+  --ink:#1a1a1a;
+  --ink-2:#3a3a3a;
+  --ink-3:#6b6b6b;
+  --muted:#9a9a9a;
+  --rule:#d8d6d2;
+  --rule-soft:#ebe9e5;
+  --stamp:#b8312a;
+  --stamp-2:#6a3a1f;
   --gold:#8B7438;
   --maxw:1280px;
   --tweak-display-font:var(--tweak-body-font, "Newsreader");
@@ -809,7 +809,7 @@ a{color:inherit}
 .pub-bar-inner{display:flex;gap:32px;justify-content:space-between;align-items:center}
 .pub-bar .marquee{flex:1;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
 .pub-bar .marquee-inner{display:flex;gap:48px;animation:slide 32s linear infinite;white-space:nowrap}
-.pub-bar .marquee-inner span{flex:0 0 auto;color:#D9CFB6}
+.pub-bar .marquee-inner span{flex:0 0 auto;color:var(--paper-3)}
 .pub-bar .marquee-inner span b{color:var(--paper);font-weight:500}
 @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
@@ -1588,8 +1588,8 @@ body[data-paper="Newsprint"] { --paper:#E5E2D7; --paper-2:#DBD8CC; --paper-3:#CC
 .rmap-card[data-status="done"]{background:#F2EBDC}
 .rmap-card[data-status="in_progress"]{background:#F7E9C8}
 .rmap-card[data-status="active"]{background:#D8E6E4;border-color:#1F6E6E}
-.rmap-card[data-status="planned"]{background:#E6DDC8}
-.rmap-card[data-status="dropped"]{background:#E6DDC8;opacity:0.55;text-decoration:line-through;text-decoration-color:#7E2A22}
+.rmap-card[data-status="planned"]{background:var(--paper-2)}
+.rmap-card[data-status="dropped"]{background:var(--paper-2);opacity:0.55;text-decoration:line-through;text-decoration-color:#7E2A22}
 .rmap-card.selected{box-shadow:3px 3px 0 var(--stamp);transform:translate(-1px,-1px);z-index:10}
 .rmap-card.dim{opacity:0.18}
 .rmap-card.dim[data-status="dropped"]{opacity:0.1}
