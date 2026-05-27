@@ -1198,6 +1198,30 @@ footer, footer.dark {
 /* hide the heavy black newspaper marquee on content pages — landing doesn't use it */
 .pub-bar { display: none; }
 
+/* widen content-page footer to match landing footer dimensions */
+.colophon .wrap {
+  max-width: 1280px;
+  padding: 0 64px;
+}
+.colo-grid {
+  display: grid;
+  grid-template-columns: 1.7fr 0.8fr 0.9fr 0.8fr 1.8fr;
+  gap: 44px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+  text-align: left;
+}
+@media (max-width: 980px) {
+  .colophon .wrap { padding: 0 32px; }
+  .colo-grid { grid-template-columns: 1fr 1fr 1fr; gap: 40px 32px; }
+}
+@media (max-width: 640px) {
+  .colophon .wrap { padding: 0 20px; }
+  .colo-grid { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+  .colo-foot { grid-template-columns: 1fr 1fr; }
+}
+
 /* ---------- Page-island patterns ---------- */
 .architecture, .arch-embed { max-width: var(--col); margin: 0 auto; }
 
