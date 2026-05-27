@@ -1104,7 +1104,99 @@ footer, footer.dark {
   content: " \2197";
   color: var(--dark-muted);
 }
-.colophon { color: var(--dark-faint); font-size: 12px; }
+.colophon {
+  color: var(--dark-ink-soft);
+  font-size: 15px;
+}
+.colophon .head,
+.colophon h3 {
+  font-family: var(--serif);
+  font-size: 30px;
+  line-height: 1.18;
+  font-weight: 400;
+  color: var(--dark-ink);
+  margin: 0 0 24px;
+  letter-spacing: -0.005em;
+}
+.colophon .head .it,
+.colophon h3 .it {
+  font-style: italic;
+  color: var(--dark-ink);
+  opacity: 0.85;
+}
+.colophon h5 {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dark-muted);
+  font-weight: 500;
+  margin: 0 0 22px;
+}
+.colophon p {
+  color: var(--dark-ink-soft);
+  font-size: 15.5px;
+  line-height: 1.6;
+  max-width: 320px;
+  margin: 0 0 16px;
+}
+.colophon ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.colophon ul a {
+  color: var(--dark-ink);
+  text-decoration: none;
+  font-size: 15px;
+  line-height: 1.4;
+  transition: color .12s ease;
+}
+.colophon ul a:hover { color: #fff; }
+.colophon .btn.btn-light {
+  display: inline-block;
+  margin-top: 18px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dark-ink) !important;
+  border: 1px solid var(--dark-muted) !important;
+  padding: 14px 22px;
+  text-decoration: none;
+  background: transparent;
+}
+.colophon .btn.btn-light:hover {
+  border-color: var(--dark-ink) !important;
+  background: rgba(255,255,255,0.03);
+}
+.colo-foot {
+  color: var(--dark-muted);
+  border-top: 1px solid var(--dark-rule);
+  padding-top: 28px;
+  margin-top: 40px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  display: grid;
+  grid-template-columns: 1.3fr 0.8fr 1.2fr 1.7fr;
+  gap: 28px;
+}
+.colo-foot div b {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--dark-ink);
+}
+
+/* hide the heavy black newspaper marquee on content pages — landing doesn't use it */
+.pub-bar { display: none; }
 
 /* ---------- Page-island patterns ---------- */
 .architecture, .arch-embed { max-width: var(--col); margin: 0 auto; }
