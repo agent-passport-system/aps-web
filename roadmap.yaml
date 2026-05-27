@@ -1,6 +1,6 @@
 # APS Roadmap — source of truth for aeoess.com/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-05-17 (Day 90). Backfill Days 85-90: vocab PRs 91/92/67/96/95 merged, conformance negative-path vectors, gitagent-protocol#73 RFC merged, draft-pidlisnyi-aps-01 to IETF, canonical domain split to agent-passport.org, AIVSS v0.1 follow-up, contribution surfaces PR 29., + Days 82-83 backfill
+# Last updated: 2026-05-26 (Day 99). Substrate cycle 2 shipped to npm alpha.6: memory_provenance + cross_issuer_attestation + behavioral_drift_window. Tests 3,008 to 3,064. Previous backfill Days 85-90 + 82-83 (2026-05-17).
 # Day 1 = 2026-02-17 (project start)
 
 # ═══ DAY 96 — 2026-05-23 ═══
@@ -3462,3 +3462,58 @@
   links:
     - url: "https://github.com/a2aproject/A2A/issues/1786"
       label: "A2A#1786"
+
+# ═══ DAY 99 — 2026-05-26 ═══
+
+- id: d99-substrate-cycle-2-shipped
+  title: "Substrate cycle 2 ships: three new attestation envelope signal types in npm alpha.6"
+  description: "Three new v2 substrate modules added to the SDK as reference TypeScript implementations of three new signal_type values, each scoped to v0.1 and each with a signed Ed25519 envelope, validation rules, structured failure reasons, and a dedicated test file. memory_provenance (646 LoC, 20 tests, OWASP ASI06 substrate), cross_issuer_attestation (673 LoC, 10 tests, federation primitive), behavioral_drift_window (970 LoC, 26 tests, window-snapshot complement to the existing streaming drift family). Test count moved from 3,008 to 3,064. All three branches merged via three --no-ff merge commits preserving branch history. SDK 2.6.0-alpha.6 published to npm with dist-tag alpha. Five repos pushed clean (SDK, MCP, Python SDK, aps-web, org profile). The postpublish auto-propagate fix from earlier today held under first real validation."
+  status: done
+  workstream: protocol
+  day_start: 99
+  day_end: 99
+  links:
+    - url: "https://www.npmjs.com/package/agent-passport-system/v/2.6.0-alpha.6"
+      label: "npm 2.6.0-alpha.6"
+    - url: "https://github.com/a2aproject/A2A/discussions/1734"
+      label: "A2A #1734"
+
+- id: d99-memory-provenance-signal-type
+  title: "memory_provenance signal_type lands as OWASP ASI06 substrate"
+  description: "New signal_type with a signed envelope tracing a memory entry back to a trusted source under a declared reduction_map_ref. Fields: memory_ref, source.{issuer_id, issued_at, source_ref, reduction_map_ref}, ingester_id, ingested_at, signature over JCS-canonical bytes. The SDK validates Ed25519 signature and envelope shape only; verification of original source content against source_ref and validation of the reduction map against a registered transformation stay with the consumer. 20 tests, six structured failure reasons. Commit 8616b3f on feat/v2-memory-provenance, merged to main via --no-ff merge commit."
+  status: done
+  workstream: protocol
+  day_start: 99
+  day_end: 99
+  deps:
+    - d99-substrate-cycle-2-shipped
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/tree/main/src/v2/memory_provenance"
+      label: "src/v2/memory_provenance"
+
+- id: d99-cross-issuer-attestation-signal-type
+  title: "cross_issuer_attestation signal_type lands as federation primitive"
+  description: "New signal_type with a composer-signed bundle of references to N constituent attestation envelopes, where each constituent can be from a different issuer and a different signal_type. The composer signature attaches the composer to that specific bundle; tampering with any constituent reference invalidates the composer signature. Validation enforces unique constituent hashes, max 280-character composition_purpose, ID and timestamp format. Downstream verifies each constituent independently. Cross-protocol composition between APS and AIIF is a separate artifact deferred to a position paper. 10 tests with explicit duplicate-hash and reorder coverage. Commit c2ee817 on feat/v2-cross-issuer-attestation, merged via --no-ff."
+  status: done
+  workstream: protocol
+  day_start: 99
+  day_end: 99
+  deps:
+    - d99-substrate-cycle-2-shipped
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/tree/main/src/v2/cross_issuer_attestation"
+      label: "src/v2/cross_issuer_attestation"
+
+- id: d99-behavioral-drift-window-signal-type
+  title: "behavioral_drift_window signal_type lands as longitudinal envelope complement"
+  description: "New signal_type with a window-snapshot envelope bundling N constituent attestation hashes across a declared time window, plus caller-supplied metric placeholders: decision_count, class_distribution, optional confidence_mean and confidence_stddev, optional baseline_ref paired with divergence_score. The SDK validates internal shape consistency only (decision_count matches array length, class_distribution sums match, baseline pairing complete, confidence range bounded). The SDK does not compute drift. Drift analytics stay in @aeoess/gateway per the public-private boundary that landed in April. Complementary to the existing streaming drift family in SDK v1.41.0+ (divergence_signal, baseline_revision, observation_window, trust_velocity, decision_lineage, ScopedReputation ring buffer, DecisionLineageReceipt) co-issued with the PDR project per Nanook PDR v2.19 §6.6. 26 tests, twelve documented edge cases. Commit 6b09ccc on feat/v2-behavioral-drift-window, merged via --no-ff."
+  status: done
+  workstream: protocol
+  day_start: 99
+  day_end: 99
+  deps:
+    - d99-substrate-cycle-2-shipped
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/tree/main/src/v2/behavioral_drift_window"
+      label: "src/v2/behavioral_drift_window"
+
