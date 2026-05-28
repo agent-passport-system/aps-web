@@ -20,6 +20,10 @@ scripts/.propagate-cache.json
 # Pre-landing-redesign backup files (local-only, never publish)
 .*.pre-landing-redesign-bak
 
+# Propagate backups + pre-swap snapshots (local-only, never publish)
+*.bak-*
+.pre-*-snapshot/
+
 # Nested repo — canonical home: github.com/aeoess/cognitive-attestation-poc
 papers/paper-4/poc/
 
