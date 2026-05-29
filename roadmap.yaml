@@ -3517,3 +3517,50 @@
     - url: "https://github.com/aeoess/agent-passport-system/tree/main/src/v2/behavioral_drift_window"
       label: "src/v2/behavioral_drift_window"
 
+
+
+# ═══ DAY 101 — 2026-05-28 ═══
+
+- id: d101-agt-1609-resume-time-enforcement-modes
+  title: "Microsoft AGT #1609: resume-time stale-auth answered with the receipt model and per-principle enforcement modes"
+  description: "On microsoft/agent-governance-toolkit#1609 the LangGraph adapter's resume-time case got grounded in the signed PolicyReceipt: a resumed action keeps its actionRef but produces a different compoundDigest when the evaluation outcome changes, so stale authority is legible without replaying the verifier. A contributor advanced the design by placing delegation_chain_root in LangGraph checkpoint metadata rather than the user's TypedDict state schema. The block-vs-audit question resolves to per-principle EnforcementMode (inline blocks, audit records, warn warns) with PolicyVerdict permit/deny/narrow, where narrow clamps a resumed action to still-valid authority instead of halting the graph. Receipt-model reply posted; enforcement-mode follow-up drafted and pending review."
+  status: active
+  workstream: standards
+  day_start: 101
+  day_end: 101
+  links:
+    - url: "https://github.com/microsoft/agent-governance-toolkit/issues/1609"
+      label: "AGT #1609"
+
+- id: d101-w3c-34-auditability-gap-hash-walk
+  title: "W3C AI Agent Protocol #34: auditability gap mapped to content-addressed APS artifacts"
+  description: "On w3c-cg/ai-agent-protocol#34 the three auditor questions (who authorized, what decided, what committed) got mapped to APS artifacts that cross-reference by content hash: intent carries a content hash of its unsigned form, a compound digest binds the intent hash and the policy-receipt hash, and a receipt can name the previous receipt by hash, so an auditor walks authority to decision to commitment to receipt over canonical forms without a shared stack. Direction for the white-paper subsection is vocabulary-first with APS and AgDR as implementation bindings under protocol-neutral text. Mapping reply posted; vocabulary-first subsection and binding-example PR drafted and pending review."
+  status: active
+  workstream: standards
+  day_start: 101
+  day_end: 101
+  links:
+    - url: "https://github.com/w3c-cg/ai-agent-protocol/issues/34"
+      label: "W3C CG #34"
+
+- id: d101-a2a-1850-identity-trust-framework-roadmap
+  title: "A2A #1850: Identity Trust Framework roadmap separates native section 4.1 action_ref from the external correlation key"
+  description: "Identity Trust Framework roadmap (v1.0 to v2.0) posted on a2aproject/A2A#1850. Keeps the native draft-pidlisnyi-aps-01 section 4.1 action_ref as the primitive APS receipts sign while emitting or carrying the shared external action-ref-v1 correlation key, so APS receipts retain their own preimage and still interoperate on the shared key."
+  status: done
+  workstream: standards
+  day_start: 101
+  day_end: 101
+  links:
+    - url: "https://github.com/a2aproject/A2A/issues/1850"
+      label: "A2A #1850"
+
+- id: d101-a2a-1628-trust-signals-consolidation
+  title: "A2A #1628: trust.signals[] consolidated into a single signal-type specification"
+  description: "Consolidated trust.signals[] extension posted on a2aproject/A2A#1628 into one signal-type specification rather than per-vendor scattered fields, giving downstream verifiers a single shape to route on."
+  status: done
+  workstream: standards
+  day_start: 101
+  day_end: 101
+  links:
+    - url: "https://github.com/a2aproject/A2A/issues/1628"
+      label: "A2A #1628"
