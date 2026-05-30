@@ -314,14 +314,27 @@
   <p class="lead reveal">The protocol is the adoption. The gateway is the moat. Enterprises do not buy a standard. They buy enforcement, verification, audit export, and integration. The AEOESS gateway turns receipts into the audit-ready evidence the EU AI Act and enterprise buyers increasingly require.</p>
 </section>
 
-<!-- 09 PROOF AND INVITATION -->
+<!-- 09 WHERE IT PLUGS IN -->
+<section class="section" id="ecosystem">
+  <div class="eyebrow reveal"><span class="n">09</span> Where it plugs in</div>
+  <p class="statement reveal">Agents already run on rails. APS makes the action on them accountable.</p>
+  <p class="lead reveal">An agent pays through a payment protocol, calls another agent over an agent protocol, and runs inside a framework. None of those record who authorized the action or prove it stayed in scope. APS sits underneath them. The same passport, delegation, and receipt travel across whatever rail the agent uses. Authority flows down, evidence flows back.</p>
+  <div class="status stagger reveal">
+    <div class="item"><span>Payment rails</span>Spend authority tied to a signed delegation, with a receipt for each charge. Bindings for x402, Google's AP2, ACP, and Stripe issuing.</div>
+    <div class="item"><span>Agent protocols</span>Identity and scoped authority travel with the call. An MCP server exposes the protocol surface as tools, and an adapter carries it across A2A.</div>
+    <div class="item"><span>Agent standards</span>gitagent-protocol, the git-native standard for defining agents, merged APS's optional cryptographic identity layer.</div>
+    <div class="item"><span>Frameworks</span>The passport rides into the agent runtime. Adapters for LangChain, CrewAI, and AutoGen.</div>
+  </div>
+  <p class="lead reveal">Some of these are bindings the project ships, others are contributions merged upstream. Connective tissue, not a claim that these ecosystems depend on APS.</p>
+</section>
+
+<!-- 10 WHERE IT IS, HONESTLY -->
 <section class="section" id="proof">
-  <div class="eyebrow reveal"><span class="n">09</span> Where it is, honestly</div>
+  <div class="eyebrow reveal"><span class="n">10</span> Where it is, honestly</div>
   <p class="statement wide reveal">The problem arrives tomorrow. The work is already real.</p>
   <p class="lead reveal">Open to read, test, and challenge today.</p>
   <div class="status stagger reveal">
     <div class="item"><span>Specification</span>An IETF Internet-Draft, authored for the protocol</div>
-    <div class="item"><span>License</span>Spec CC0, code Apache 2.0</div>
     <div class="item"><span>Implementations</span>TypeScript and Python SDKs, on npm and PyPI</div>
     <div class="item"><span>Parity</span>Byte-parity between the two SDKs, checked against shared vectors</div>
     <div class="item"><span>Runtime</span>An MCP server and a public conformance suite</div>
@@ -335,9 +348,9 @@
   </div>
 </section>
 
-<!-- 10 INVITATION -->
+<!-- 11 INVITATION -->
 <section class="section alt" id="contribute">
-  <div class="eyebrow reveal"><span class="n">10</span> The invitation</div>
+  <div class="eyebrow reveal"><span class="n">11</span> The invitation</div>
   <p class="statement reveal">Build the right system before agents inherit the wrong one.</p>
   <div class="ctas stagger reveal">
     <div class="cta"><div class="who">Contributors</div><div class="do">Read the spec. Challenge the primitives. Build an adapter.</div></div>
@@ -356,7 +369,7 @@
     <div class="f-brand">
       <div class="f-word"><b>Agent Passport System</b></div>
       <p class="f-blurb">Open-source infrastructure to enforce,<br>verify, and audit AI agent actions.</p>
-      <p class="f-blurb">The conformance suite is yours to fork, under Apache 2.0.</p>
+      <p class="f-blurb">The conformance suite is yours to fork.</p>
       <a class="btn" href="working-group.html">Join the Working Group &#8599;</a>
     </div>
     <div class="f-cols">
