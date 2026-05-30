@@ -94,3 +94,7 @@ specs/ERIK-NEWTON*
 /tmp-*.md
 /scratch-*.md
 *.private.md
+
+# stray local backup of a broken multifile attempt
+.index.html.broken-multifile-bak
+*.broken-multifile-bak
