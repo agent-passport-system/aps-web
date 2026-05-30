@@ -1595,3 +1595,13 @@ footer .f-strip a{color:var(--ink-dim);text-decoration:none;border-bottom:1px so
 footer .f-strip a:hover{color:var(--cyan-bright)}
 @media(max-width:760px){ footer .f-top{grid-template-columns:1fr;gap:34px} footer .f-cols{grid-template-columns:1fr 1fr;gap:24px} .topbar .topnav{gap:14px} }
 /* =================== end APS DARK THEME OVERRIDE =================== */
+
+/* ---- dark theme fixes: width, type scale, code surfaces (2026-05-30b) ---- */
+:root{ --col:1160px; --base:16px; }
+.aps-prose, .prose{ max-width:min(900px,100%); font-size:18px; }
+pre, .code, .code-block, .output-json, .install, .install-cmd, .aps-prose pre{ background:rgba(110,197,217,0.06); border:1px solid var(--hair); color:var(--ink-soft); }
+code, .aps-prose code{ background:rgba(110,197,217,0.09); border:1px solid var(--hair); color:var(--cyan); }
+pre code, .aps-prose pre code{ background:transparent; border:none; color:var(--ink-soft); }
+::selection{ background:rgba(110,197,217,0.28); }
+.aps-card, .card, .agent-box{ background:#0C1428; border-color:var(--hair); }
+/* ---- end dark theme fixes ---- */
