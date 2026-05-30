@@ -1,2393 +1,419 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Agent Passport System — agent-passport.org</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Crimson+Pro:ital,wght@0,400;0,500;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent Passport System: Governance infrastructure for the agent economy</title>
+<meta name="description" content="APS gives every AI agent a verifiable identity, ties it to the person or company it represents, and signs every action it is allowed to take. Apache 2.0.">
+<link rel="canonical" href="https://agent-passport.org/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://agent-passport.org/">
+<meta property="og:title" content="Agent Passport System">
+<meta property="og:description" content="Governance infrastructure for the agent economy. An open protocol for verifiable agent identity, scoped delegation, and signed receipts. Open source, built in public.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
 <style>
-:root {
-    --ink: #1a1a1a;
-    --ink-soft: #3a3a3a;
-    --muted: #6b6b6b;
-    --faint: #9a9a9a;
-    --rule: #d8d6d2;
-    --rule-soft: #ebe9e5;
-    --paper: #fbfaf7;
-    --bg: #ffffff;
-    --accent: #6a3a1f; /* muted oxblood / archival ink */
-    --hot: #b8312a;     /* archival red — used sparingly for marks */
-    --serif: "Newsreader", "Iowan Old Style", "Apple Garamond", Georgia, "Times New Roman", serif;
-    --mono: "Courier Prime", "Courier New", "JetBrains Mono", "SF Mono", ui-monospace, Menlo, monospace;
-    --col: 1060px;
-    --base: 18px;
-    /* Dark footer palette */
-    --dark-bg: #1a1814;
-    --dark-ink: #ddd3bd;
-    --dark-ink-soft: #b9b09a;
-    --dark-muted: #8a8270;
-    --dark-faint: #5f594c;
-    --dark-rule: #2e2a23;
+  :root{
+    --bg:#0A0F1E; --bg-alt:#0C1428; --ink:#EAF0F7; --ink-dim:#9FB1C5;
+    --ink-faint:#5E7187; --cyan:#6EC5D9; --cyan-bright:#9BDDEC;
+    --line:rgba(110,197,217,0.22); --hair:rgba(255,255,255,0.07);
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --display:'Space Grotesk','Inter',-apple-system,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,"SF Mono",Menlo,Monaco,monospace;
+    --maxw:1160px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
+  ::selection{background:rgba(110,197,217,0.28)}
+  a{color:inherit}
+
+  .progress{position:fixed;top:0;left:0;height:2px;background:var(--cyan);width:0;z-index:60;transition:width .12s linear}
+
+  .topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:13px clamp(20px,5vw,56px);background:rgba(10,15,30,0.74);backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+  .brand{font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+  .brand b{color:var(--cyan);font-weight:600}
+  .topnav{display:flex;gap:24px;margin-left:auto}
+  .topnav a{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);text-decoration:none}
+  .topnav a:hover{color:var(--cyan-bright)}
+  .btn{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;padding:9px 16px;border:1px solid var(--line);border-radius:3px;color:var(--cyan);white-space:nowrap;transition:all .15s}
+  .btn:hover{border-color:var(--cyan);background:rgba(110,197,217,0.08)}
+  .btn-solid{background:var(--cyan);color:#06121C;border-color:var(--cyan);font-weight:600}
+  .btn-solid:hover{background:var(--cyan-bright);border-color:var(--cyan-bright)}
+
+  .section{max-width:var(--maxw);margin:0 auto;padding:11vh clamp(22px,5vw,56px);min-height:100vh;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid var(--hair)}
+  .section.alt{background:var(--bg-alt)}
+  .full{max-width:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;width:100%}
+
+  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:26px;display:flex;gap:14px;align-items:center}
+  .eyebrow .n{color:var(--ink-faint)}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--cyan);opacity:.7}
+
+  h1{font-family:var(--display);font-weight:300;font-size:clamp(2.3rem,5.4vw,4.1rem);line-height:1.05;letter-spacing:-.02em}
+  .statement{font-family:var(--display);font-weight:300;font-size:clamp(1.6rem,3.5vw,2.85rem);line-height:1.16;letter-spacing:-.012em;max-width:22ch}
+  .statement.wide{max-width:28ch}
+  .lead{color:var(--ink-dim);font-size:clamp(1.02rem,1.6vw,1.2rem);line-height:1.68;max-width:60ch;margin-top:24px}
+  .lead + .lead{margin-top:16px}
+  .key{color:var(--ink)}
+  .cy{color:var(--cyan)}
+  .pull{border-left:2px solid var(--cyan);padding:6px 0 6px 22px;margin-top:38px;font-weight:300;font-size:clamp(1.15rem,2.2vw,1.6rem);line-height:1.32;letter-spacing:-.01em;max-width:26ch}
+  .bigterm{font-family:var(--display);font-weight:400;font-size:clamp(2.2rem,5.2vw,3.9rem);line-height:1.04;letter-spacing:-.02em;color:var(--cyan);margin:14px 0 8px}
+
+  /* hero */
+  .hero{min-height:96vh;justify-content:center}
+  .flag{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:22px}
+  .flag .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 3px rgba(110,197,217,.16)}
+  .hero .tag{font-family:var(--mono);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:20px}
+  .hero h1{max-width:14ch}
+  .defn{color:var(--ink);font-weight:300;font-size:clamp(1.1rem,2vw,1.45rem);line-height:1.5;max-width:46ch;margin-top:26px}
+  .subline{color:var(--ink-dim);font-size:clamp(1rem,1.6vw,1.18rem);line-height:1.55;max-width:42ch;margin-top:16px}
+  .herobtns{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
+  .proofstrip{margin-top:60px;padding-top:22px;border-top:1px solid var(--hair);display:flex;flex-wrap:wrap;gap:10px 26px;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint)}
+  .proofstrip b{color:var(--ink-dim);font-weight:400}
+
+  .rows{margin-top:40px;display:grid;gap:0;max-width:760px}
+  .row{display:grid;grid-template-columns:34px 1fr;gap:18px;padding:20px 0;border-top:1px solid var(--hair)}
+  .row:last-child{border-bottom:1px solid var(--hair)}
+  .row .ix{font-family:var(--mono);color:var(--cyan);font-size:.95rem;padding-top:3px}
+  .row .t{font-size:clamp(1.05rem,1.7vw,1.22rem);font-weight:400;color:var(--ink)}
+  .row .d{color:var(--ink-dim);font-size:.98rem;line-height:1.55;margin-top:5px}
+
+  /* chain: authority narrows down it, evidence returns */
+  .chain{display:flex;flex-wrap:wrap;align-items:stretch;margin-top:44px}
+  .node{border:1px solid var(--line);border-radius:3px;padding:15px 16px;min-width:132px;flex:1 1 0;display:flex;flex-direction:column;gap:7px;background:rgba(110,197,217,0.03)}
+  .node .lab{font-family:var(--mono);font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:var(--cyan)}
+  .node .v{font-size:.92rem;color:var(--ink);line-height:1.4}
+  .node .meter{margin-top:auto;height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+  .node .meter>span{display:block;height:100%;background:var(--cyan);border-radius:2px;width:var(--w,100%)}
+  html.js .chain .meter>span{width:0;transition:width .9s cubic-bezier(.2,.7,.2,1)}
+  html.js .chain.in-view .meter>span{width:var(--w,100%)}
+  .arrow{display:flex;align-items:center;justify-content:center;color:var(--cyan);font-size:1.25rem;padding:0 9px;flex:0 0 auto}
+  .evidence{margin-top:20px;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint)}
+  .evidence .bk{color:var(--cyan);font-size:1rem}
+  .evidence .ln{flex:0 0 80px;height:1px;background:linear-gradient(270deg,var(--cyan),transparent)}
+  .chaincap{color:var(--ink-dim);font-size:1rem;line-height:1.6;margin-top:22px;max-width:54ch}
+
+  /* receipt vs log */
+  .proofline{font-family:var(--mono);font-size:.82rem;color:var(--ink-faint);margin-top:36px}
+  .proofline code{color:var(--ink-dim)}
+  .receipt{margin-top:14px;max-width:440px;border:1px solid var(--line);border-radius:6px;background:rgba(110,197,217,0.03);overflow:hidden}
+  .r-top{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--hair);font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
+  .stamp{color:#06121C;background:var(--cyan);font-weight:600;padding:3px 10px;border-radius:3px;letter-spacing:.14em}
+  html.js .receipt .stamp{opacity:0;transform:scale(.82) rotate(-7deg);transition:opacity .45s ease .25s,transform .45s ease .25s}
+  html.js .receipt.in-view .stamp{opacity:1;transform:none}
+  .receipt dl{margin:0;padding:6px 16px 12px}
+  .receipt dl>div{display:grid;grid-template-columns:92px 1fr;gap:10px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);font-family:var(--mono);font-size:.8rem}
+  .receipt dl>div:last-child{border-bottom:none}
+  .receipt dt{color:var(--ink-faint)}
+  .receipt dd{color:var(--ink);margin:0;word-break:break-all}
+  .receipt dd.ok{color:var(--cyan)}
+  .inv{margin-top:42px;display:grid;gap:0;max-width:720px}
+  .inv .row .ix{font-size:.85rem}
+
+  .status{margin-top:40px;display:grid;grid-template-columns:repeat(2,1fr);gap:0;max-width:880px;border-top:1px solid var(--hair)}
+  .status .item{padding:18px 20px 18px 0;border-bottom:1px solid var(--hair);font-size:1rem;color:var(--ink);line-height:1.45}
+  .status .item:nth-child(even){padding-left:24px;border-left:1px solid var(--hair)}
+  .status .item span{display:block;color:var(--ink-faint);font-family:var(--mono);font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;margin-bottom:6px}
+
+  .ctas{margin-top:44px;display:grid;gap:0;max-width:720px}
+  .cta{display:grid;grid-template-columns:130px 1fr;gap:20px;padding:20px 0;border-top:1px solid var(--hair)}
+  .cta:last-child{border-bottom:1px solid var(--hair)}
+  .cta .who{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);padding-top:3px}
+  .cta .do{color:var(--ink-dim);font-size:1.02rem;line-height:1.5}
+  .closer{font-family:var(--display);font-weight:300;font-size:clamp(1.5rem,3.4vw,2.6rem);line-height:1.15;letter-spacing:-.015em;max-width:22ch;margin-top:52px}
+  .closer .cy{color:var(--cyan)}
+  .finalbtns{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
+
+  footer{max-width:var(--maxw);margin:0 auto;padding:62px clamp(22px,5vw,56px) 70px;border-top:1px solid var(--hair)}
+  .f-top{display:grid;grid-template-columns:1fr 2.35fr;gap:44px}
+  .f-word{font-family:var(--mono);font-size:.95rem;letter-spacing:.04em;color:var(--ink)}
+  .f-word b{color:var(--cyan);font-weight:600}
+  .f-blurb{color:var(--ink-dim);font-size:.92rem;line-height:1.55;margin-top:14px;max-width:42ch}
+  .f-brand .btn{display:inline-block;margin-top:20px}
+  .f-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,1.55fr);gap:24px}
+  .f-h{font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:12px}
+  .f-col a{display:block;color:var(--ink-dim);text-decoration:none;font-size:.9rem;padding:5px 0;transition:color .15s}
+  .f-col a:hover{color:var(--cyan-bright)}
+  .f-strip{margin-top:46px;padding-top:24px;border-top:1px solid var(--hair);display:flex;flex-wrap:wrap;gap:18px 40px}
+  .f-strip>div{font-size:.85rem;color:var(--ink-dim)}
+  .f-strip span{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:5px}
+  .f-strip a{color:var(--ink-dim);text-decoration:none;border-bottom:1px solid var(--hair)}
+  .f-strip a:hover{color:var(--cyan-bright)}
+  @media(max-width:760px){ .f-top{grid-template-columns:1fr;gap:34px} .f-cols{grid-template-columns:1fr 1fr;gap:24px} }
+
+  /* reveal system: visible by default, only animate when JS is on */
+  html.js .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+  html.js .reveal.in-view{opacity:1;transform:none}
+  html.js .stagger>*{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
+  html.js .stagger.in-view>*{opacity:1;transform:none}
+  html.js .stagger.in-view>*:nth-child(1){transition-delay:.04s}
+  html.js .stagger.in-view>*:nth-child(2){transition-delay:.12s}
+  html.js .stagger.in-view>*:nth-child(3){transition-delay:.20s}
+  html.js .stagger.in-view>*:nth-child(4){transition-delay:.28s}
+  html.js .stagger.in-view>*:nth-child(5){transition-delay:.36s}
+  html.js .stagger.in-view>*:nth-child(6){transition-delay:.44s}
+  html.js .stagger.in-view>*:nth-child(7){transition-delay:.52s}
+
+  @media (max-width:820px){ .topnav{display:none} }
+  @media (max-width:760px){
+    .section{min-height:auto;padding:9vh clamp(20px,6vw,28px)}
+    .hero{min-height:92vh}
+    .row{grid-template-columns:28px 1fr;gap:14px}
+    .status{grid-template-columns:1fr}
+    .status .item:nth-child(even){padding-left:0;border-left:none}
+    .cta{grid-template-columns:1fr;gap:6px}
+    .chain{flex-direction:column}
+    .arrow{transform:rotate(90deg);padding:8px 0}
+    .pull,.statement,.statement.wide,.closer{max-width:none}
+  }
+
+  @media print{
+    .topbar,.progress,.herobtns,.finalbtns{display:none}
+    html.js .reveal,html.js .reveal.in-view{opacity:1!important;transform:none!important}
+    html.js .stagger>*{opacity:1!important;transform:none!important}
+    html.js .chain .meter>span{width:var(--w,100%)!important}
+    html.js .receipt .stamp{opacity:1!important;transform:none!important}
+    .section{min-height:auto;page-break-after:always;break-after:page;padding:6vh 6vw;border-bottom:none}
+    footer{border:none}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+  @media (prefers-reduced-motion: reduce){
+    html.js .reveal,html.js .reveal.in-view{opacity:1!important;transform:none!important;transition:none!important}
+    html.js .stagger>*{opacity:1!important;transform:none!important;transition:none!important}
+    html.js .chain .meter>span{width:var(--w,100%)!important;transition:none!important}
+    html.js .receipt .stamp{opacity:1!important;transform:none!important;transition:none!important}
   }
-
-  * { box-sizing: border-box; }
-
-  html, body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--serif);
-    font-size: var(--base);
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    margin: 0;
-    padding: 0;
-  }
-
-  ::selection { background: #f1e9d6; }
-
-  a {
-    color: var(--ink);
-    text-decoration: underline;
-    text-decoration-color: var(--rule);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
-    transition: text-decoration-color .12s ease, color .12s ease;
-  }
-  a:hover { text-decoration-color: var(--ink); color: var(--accent); }
-
-  /* ---------- Page shell ---------- */
-
-  .page {
-    max-width: var(--col);
-    margin: 0 auto;
-    padding: 0 28px;
-    transition: max-width .2s ease;
-  }
-
-  /* ---------- Nav ---------- */
-
-  nav.top {
-    border-bottom: 1px solid var(--rule-soft);
-    padding: 18px 0 16px;
-    margin-bottom: 64px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 24px;
-    font-family: var(--mono);
-    font-size: 12.5px;
-    letter-spacing: 0.02em;
-  }
-  nav.top .brand {
-    color: var(--ink);
-    text-decoration: none;
-    font-weight: 500;
-  }
-  nav.top .brand .dot {
-    display: inline-block;
-    width: 7px; height: 7px;
-    background: var(--accent);
-    margin-right: 8px;
-    transform: translateY(-1px);
-    border-radius: 50%;
-  }
-  nav.top .links {
-    margin-left: auto;
-    display: flex;
-    gap: 18px;
-    flex-wrap: wrap;
-  }
-  nav.top .links a {
-    color: var(--ink-soft);
-    text-decoration: none;
-  }
-  nav.top .links a:hover { color: var(--accent); }
-  nav.top .links .ext::after {
-    content: " ↗";
-    color: var(--faint);
-    font-size: 0.9em;
-  }
-
-  /* ---------- Section primitives ---------- */
-
-  section {
-    padding: 56px 0;
-    border-bottom: 1px solid var(--rule-soft);
-    text-align: center;
-  }
-  section:last-of-type { border-bottom: none; }
-
-  .eyebrow {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--faint);
-    margin-bottom: 28px;
-  }
-  .eyebrow .num {
-    color: var(--ink-soft);
-    margin-right: 10px;
-    font-weight: 500;
-  }
-
-  h1, h2, h3 {
-    font-family: var(--serif);
-    font-weight: 400;
-    color: var(--ink);
-    margin: 0;
-    letter-spacing: -0.01em;
-  }
-  h1 {
-    font-size: 34px;
-    line-height: 1.18;
-    max-width: min(900px, 100%);
-    margin: 0 auto 28px;
-    font-weight: 400;
-    text-wrap: balance;
-  }
-  h2 {
-    font-size: 24px;
-    line-height: 1.25;
-    margin-bottom: 24px;
-    font-weight: 400;
-  }
-  h2 em {
-    font-style: italic;
-    color: var(--accent);
-  }
-  h3 {
-    font-size: 17px;
-    font-weight: 500;
-    margin-bottom: 10px;
-  }
-
-  p {
-    margin: 0 auto 18px;
-    max-width: min(720px, 100%);
-    color: var(--ink-soft);
-    text-wrap: pretty;
-  }
-  p.lead {
-    font-size: 19px;
-    color: var(--ink);
-    max-width: min(680px, 100%);
-  }
-  p.closer {
-    color: var(--muted);
-    font-style: italic;
-    max-width: min(820px, 100%);
-  }
-  section.hero p.closer {
-    color: var(--hot);
-    font-style: italic;
-  }
-
-  .rule-ornament {
-    margin: 40px auto 0;
-    width: 24px;
-    height: 1px;
-    background: var(--rule);
-  }
-
-  /* ---------- CTAs ---------- */
-
-  .cta-row {
-    display: inline-flex;
-    gap: 10px;
-    margin-top: 32px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .cta {
-    font-family: var(--mono);
-    font-size: 12.5px;
-    letter-spacing: 0.04em;
-    padding: 10px 16px;
-    border: 1px solid var(--ink);
-    color: var(--ink);
-    text-decoration: none;
-    background: var(--bg);
-    transition: background .15s ease, color .15s ease;
-  }
-  .cta:hover { background: var(--ink); color: var(--bg); }
-  .cta.ghost {
-    border-color: var(--rule);
-    color: var(--ink-soft);
-  }
-  .cta.ghost:hover {
-    border-color: var(--ink);
-    background: var(--bg);
-    color: var(--ink);
-  }
-  .cta .arr { margin-left: 6px; }
-
-  /* ---------- Hero ---------- */
-
-  section.hero {
-    padding-top: 24px;
-    padding-bottom: 80px;
-    border-bottom: 1px solid var(--rule-soft);
-  }
-  .hero .meta {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--faint);
-    margin-bottom: 36px;
-    display: flex;
-    justify-content: center;
-    gap: 18px;
-    flex-wrap: wrap;
-  }
-  .hero .meta span { color: var(--ink-soft); }
-  .hero .meta .sep { color: var(--rule); }
-
-  /* ---------- Architecture diagram (SVG) ---------- */
-
-  figure.diagram {
-    margin: 12px auto 28px;
-    padding: 28px 8px 20px;
-    border-top: 1px solid var(--rule-soft);
-    border-bottom: 1px solid var(--rule-soft);
-    width: min(900px, calc(100vw - 56px));
-    max-width: 900px;
-    margin-left: 50%;
-    transform: translateX(-50%);
-  }
-  figure.diagram svg {
-    width: 100%;
-    height: auto;
-    display: block;
-    overflow: visible;
-  }
-  figure.diagram .node-circle {
-    fill: var(--bg);
-    stroke: var(--ink);
-    stroke-width: 1.25;
-  }
-  figure.diagram .node-num {
-    font-family: var(--mono);
-    font-size: 10px;
-    fill: var(--faint);
-    letter-spacing: 0.08em;
-  }
-  figure.diagram .node-label {
-    font-family: var(--serif);
-    font-size: 14px;
-    font-weight: 500;
-    fill: var(--ink);
-  }
-  figure.diagram .node-caption {
-    font-family: var(--mono);
-    font-size: 10px;
-    fill: var(--muted);
-    letter-spacing: 0.04em;
-  }
-  figure.diagram .flow-line {
-    stroke: var(--ink-soft);
-    stroke-width: 1;
-    fill: none;
-  }
-  figure.diagram .flow-arrow {
-    fill: var(--ink-soft);
-  }
-  figure.diagram .return-line {
-    stroke: var(--accent);
-    stroke-width: 1;
-    stroke-dasharray: 3 3;
-    fill: none;
-    opacity: 0.7;
-  }
-  figure.diagram .return-arrow {
-    fill: var(--accent);
-    opacity: 0.7;
-  }
-  figure.diagram .return-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    fill: var(--accent);
-    letter-spacing: 0.08em;
-    font-style: italic;
-  }
-  figure.diagram .axis-label {
-    font-family: var(--mono);
-    font-size: 9.5px;
-    fill: var(--faint);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-  figure.diagram figcaption {
-    font-family: var(--mono);
-    font-size: 10.5px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--faint);
-    margin-top: 12px;
-    text-align: center;
-  }
-  figure.diagram figcaption .fig-num {
-    color: var(--ink-soft);
-    margin-right: 8px;
-  }
-  figure.diagram figcaption .commit {
-    display: block;
-    margin-top: 6px;
-    color: var(--faint);
-    text-transform: none;
-    letter-spacing: 0.04em;
-    font-style: italic;
-    font-size: 10px;
-  }
-  figure.diagram .benchmark-strip {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    text-align: center;
-    margin-top: 8px;
-    padding: 10px 8px 0;
-    border-top: 1px dashed var(--rule);
-    line-height: 1.5;
-  }
-  figure.diagram .benchmark-strip .lbl {
-    color: var(--faint);
-    margin-right: 10px;
-  }
-  figure.diagram .benchmark-strip .metric {
-    color: var(--hot);
-    font-weight: 500;
-  }
-  figure.diagram .benchmark-strip .sep {
-    color: var(--rule);
-    margin: 0 8px;
-  }
-  figure.diagram .benchmark-strip .hw {
-    color: var(--muted);
-    letter-spacing: 0.08em;
-  }
-  @media (max-width: 640px) {
-    figure.diagram .benchmark-strip {
-      font-size: 9.5px;
-      letter-spacing: 0.1em;
-    }
-    figure.diagram .benchmark-strip .sep { margin: 0 5px; }
-  }
-
-  section.architecture {
-    padding-bottom: 72px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  section.architecture > p {
-    margin-top: 72px;
-    margin-bottom: 0;
-    max-width: min(780px, 100%);
-  }
-
-  /* ---------- Code block (install) ---------- */
-
-  .code {
-    font-family: var(--mono);
-    font-size: 13px;
-    line-height: 1.7;
-    text-align: left;
-    background: var(--paper);
-    border: 1px solid var(--rule-soft);
-    padding: 22px 24px;
-    max-width: min(720px, 100%);
-    margin: 8px auto 18px;
-    color: var(--ink);
-    overflow-x: auto;
-  }
-  .code .c-cmt { color: var(--muted); font-style: italic; }
-  .code .c-kw  { color: var(--accent); }
-  .code .c-str { color: #3a5a3a; }
-  .code .c-fn  { color: var(--ink); }
-  .code .c-mut { color: var(--muted); }
-  .code .blank { display: block; height: 6px; }
-
-  .caption {
-    font-size: 14px;
-    color: var(--muted);
-    max-width: min(640px, 100%);
-    margin: 0 auto;
-    font-style: italic;
-  }
-  .caption .nostyle { font-style: normal; }
-
-  /* ---------- Works with: four columns ---------- */
-
-  .works h2 + .subhead {
-    font-size: 16px;
-    color: var(--muted);
-    max-width: min(620px, 100%);
-    margin: 0 auto 44px;
-  }
-  .works-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 36px 24px;
-    text-align: left;
-    margin-top: 8px;
-    align-items: stretch;
-  }
-  .works-grid .col {
-    display: flex;
-    flex-direction: column;
-  }
-  .works-grid .col h4 {
-    font-family: var(--mono);
-    font-size: 10.5px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--faint);
-    font-weight: 500;
-    margin: 0 0 12px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--rule-soft);
-  }
-  .works-grid ul {
-    list-style: none;
-    margin: 0; padding: 0;
-    font-size: 14px;
-    line-height: 1.65;
-    color: var(--ink-soft);
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-  .works-grid li { padding: 1px 0; }
-  .works-grid li.tail {
-    color: var(--muted);
-    font-style: italic;
-    padding-top: 14px;
-    margin-top: auto;
-  }
-
-  /* ---------- Pullquote / deeper problem ---------- */
-
-  .pullquote p {
-    font-size: 22px;
-    line-height: 1.4;
-    color: var(--ink);
-    max-width: min(960px, 100%);
-    font-style: italic;
-  }
-  .pullquote p mark {
-    background: transparent;
-    color: var(--hot);
-    font-style: italic;
-    font-weight: 500;
-  }
-  .pullquote p::before {
-    content: "“";
-    font-family: var(--serif);
-    font-size: 44px;
-    line-height: 0;
-    vertical-align: -10px;
-    color: var(--rule);
-    margin-right: 4px;
-  }
-  .pullquote p::after {
-    content: "”";
-    font-family: var(--serif);
-    font-size: 44px;
-    line-height: 0;
-    vertical-align: -18px;
-    color: var(--rule);
-    margin-left: 2px;
-  }
-
-  /* ---------- Composition lines ---------- */
-
-  .compose-lines {
-    margin: 16px auto 0;
-    max-width: min(640px, 100%);
-    text-align: center;
-    font-size: 17px;
-    color: var(--ink-soft);
-  }
-  .compose-lines .line {
-    padding: 14px 0;
-    border-bottom: 1px solid var(--rule-soft);
-  }
-  .compose-lines .line:last-child { border-bottom: none; }
-  .compose-lines .k {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.05em;
-    color: var(--accent);
-    margin-right: 6px;
-  }
-
-  /* ---------- Standards grid ---------- */
-
-  .standards-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    margin-top: 24px;
-    border-top: 1px solid var(--rule-soft);
-    border-left: 1px solid var(--rule-soft);
-  }
-  .standards-grid .cell {
-    padding: 22px 12px;
-    border-right: 1px solid var(--rule-soft);
-    border-bottom: 1px solid var(--rule-soft);
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.04em;
-    color: var(--ink-soft);
-    text-align: center;
-    background: var(--bg);
-  }
-  .standards-grid .cell .org {
-    display: block;
-    color: var(--faint);
-    font-size: 10px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-
-  /* ---------- On the record ---------- */
-
-  .record {
-    text-align: left;
-    max-width: min(680px, 100%);
-    margin: 8px auto 0;
-    font-size: 15px;
-    color: var(--ink-soft);
-  }
-  .record .row {
-    display: grid;
-    grid-template-columns: 110px 1fr;
-    gap: 18px;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--rule-soft);
-    align-items: baseline;
-  }
-  .record .row:last-child { border-bottom: none; }
-  .record .label {
-    font-family: var(--mono);
-    font-size: 10.5px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--faint);
-  }
-  .record .val { color: var(--ink); }
-  .record .val .sep { color: var(--rule); margin: 0 6px; }
-  .record .val .item {
-    display: inline-block;
-    white-space: nowrap;
-  }
-  .record .val .mono { font-family: var(--mono); font-size: 13px; color: var(--ink-soft); }
-
-  /* ---------- FAQ ---------- */
-
-  .faq {
-    text-align: left;
-    max-width: min(720px, 100%);
-    margin: 0 auto;
-  }
-  .faq details {
-    border-bottom: 1px solid var(--rule-soft);
-    padding: 18px 0;
-  }
-  .faq details:first-of-type { border-top: 1px solid var(--rule-soft); }
-  .faq summary {
-    list-style: none;
-    cursor: pointer;
-    display: flex;
-    gap: 16px;
-    align-items: baseline;
-    color: var(--ink);
-    font-size: 17px;
-  }
-  .faq summary::-webkit-details-marker { display: none; }
-  .faq summary .q {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    color: var(--faint);
-    flex-shrink: 0;
-    padding-top: 2px;
-  }
-  .faq summary .qtext { flex: 1; }
-  .faq summary .toggle {
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--faint);
-    transition: transform .2s ease;
-  }
-  .faq details[open] summary .toggle { transform: rotate(45deg); color: var(--accent); }
-  .faq .answer {
-    margin: 12px 0 4px 38px;
-    font-size: 15.5px;
-    color: var(--ink-soft);
-    max-width: min(620px, 100%);
-  }
-
-  /* ---------- Final CTA ---------- */
-
-  section.final {
-    padding-top: 72px;
-    padding-bottom: 88px;
-  }
-  section.final h2 {
-    font-size: 28px;
-    font-style: italic;
-    margin-bottom: 14px;
-  }
-  section.final .subhead {
-    color: var(--muted);
-    max-width: min(560px, 100%);
-    margin: 0 auto;
-  }
-
-  /* ---------- Footer (dark) ---------- */
-
-  footer.dark {
-    background: var(--dark-bg);
-    color: var(--dark-ink-soft);
-    padding: 96px 0 40px;
-    margin-top: 80px;
-    font-family: var(--serif);
-    border: none;
-    text-align: left;
-  }
-  .footer-inner {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 64px;
-  }
-  .footer-top {
-    display: grid;
-    grid-template-columns: 1.7fr 0.8fr 0.9fr 0.8fr 1.8fr;
-    gap: 44px;
-    padding-bottom: 80px;
-  }
-  .footer-mast h3 {
-    font-family: var(--serif);
-    font-size: 30px;
-    line-height: 1.18;
-    font-weight: 400;
-    color: var(--dark-ink);
-    margin: 0 0 24px;
-    letter-spacing: -0.005em;
-  }
-  .footer-mast h3 em {
-    font-style: italic;
-    color: var(--dark-ink);
-    opacity: 0.78;
-  }
-  .footer-mast p {
-    color: var(--dark-ink-soft);
-    font-size: 15.5px;
-    line-height: 1.6;
-    max-width: 320px;
-    margin: 0 0 16px;
-  }
-  .footer-mast .working-cta {
-    display: inline-block;
-    margin-top: 18px;
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--dark-ink);
-    border: 1px solid var(--dark-muted);
-    padding: 14px 22px;
-    text-decoration: none;
-    transition: border-color .15s ease, background .15s ease;
-  }
-  .footer-mast .working-cta:hover {
-    border-color: var(--dark-ink);
-    background: rgba(255,255,255,0.03);
-  }
-  .footer-mast .working-cta .arr { margin-left: 8px; color: var(--dark-ink-soft); }
-
-  .footer-col h5 {
-    font-family: var(--mono);
-    font-size: 10.5px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--dark-muted);
-    font-weight: 500;
-    margin: 0 0 22px;
-  }
-  .footer-col ul {
-    list-style: none;
-    margin: 0; padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 11px;
-  }
-  .footer-col ul a {
-    color: var(--dark-ink);
-    text-decoration: none;
-    font-size: 15px;
-    line-height: 1.4;
-    transition: color .12s ease;
-    white-space: nowrap;
-  }
-  .footer-col ul a:hover { color: #fff; }
-  .footer-col ul a.mono {
-    font-family: var(--mono);
-    font-size: 13.5px;
-    letter-spacing: 0.02em;
-  }
-
-  .footer-strip {
-    border-top: 1px solid var(--dark-rule);
-    padding-top: 28px;
-    display: grid;
-    grid-template-columns: 1.3fr 0.8fr 1.2fr 1.7fr;
-    gap: 28px;
-  }
-  .footer-strip .item .lbl {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--dark-muted);
-    margin-bottom: 8px;
-  }
-  .footer-strip .item .val {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--dark-ink);
-    white-space: nowrap;
-  }
-  .footer-strip .item .val .dot { color: var(--dark-muted); margin: 0 6px; }
-
-  @media (max-width: 1080px) {
-    .footer-inner { padding: 0 40px; }
-    .footer-top { grid-template-columns: 1fr 1fr 1fr; gap: 40px 32px; }
-    .footer-mast { grid-column: 1 / -1; }
-  }
-  @media (max-width: 720px) {
-    footer.dark { padding: 64px 0 32px; }
-    .footer-inner { padding: 0 28px; }
-    .footer-top { grid-template-columns: 1fr 1fr; gap: 32px 24px; padding-bottom: 48px; }
-    .footer-mast h3 { font-size: 26px; }
-    .footer-strip { grid-template-columns: 1fr 1fr; gap: 20px; }
-  }
-
-  /* ---------- Responsive ---------- */
-
-  @media (max-width: 720px) {
-    body { font-size: 17px; }
-    h1 { font-size: 28px; }
-    h2 { font-size: 22px; }
-    .works-grid { grid-template-columns: repeat(2, 1fr); }
-    .standards-grid { grid-template-columns: repeat(2, 1fr); }
-    .footer-grid { grid-template-columns: repeat(2, 1fr); }
-    .record .row { grid-template-columns: 1fr; gap: 4px; }
-    nav.top .links { gap: 12px; }
-    .diagram { font-size: 10.5px; }
-  }
-
-  @media (max-width: 480px) {
-    section { padding: 44px 0; }
-    h1 { font-size: 25px; }
-    nav.top { gap: 14px; }
-    nav.top .links { width: 100%; margin-left: 0; }
-  }
-
-  /* Mobile typewriter guards: keep larger desktop sizes from wrapping wildly on phones */
-  @media (max-width: 720px) {
-    body.typewriter h1 { font-size: 26px; line-height: 1.28; }
-    body.typewriter h2 { font-size: 20px; line-height: 1.32; }
-    body.typewriter h3 { font-size: 15px; }
-    body.typewriter p.lead { font-size: 16px; }
-    body.typewriter p,
-    body.typewriter p.closer,
-    body.typewriter .caption,
-    body.typewriter .faq summary,
-    body.typewriter .faq .answer,
-    body.typewriter .record,
-    body.typewriter .works-grid ul,
-    body.typewriter .footer-mast p,
-    body.typewriter .footer-col ul a { font-size: 14.5px; }
-    body.typewriter .footer-mast h3 { font-size: 23px; }
-  }
-  @media (max-width: 480px) {
-    body.typewriter h1 { font-size: 23px; line-height: 1.3; }
-    body.typewriter h2 { font-size: 18px; }
-  }
-
-  /* ============ TWEAKS PANEL ============ */
-  .tweaks {
-    position: fixed;
-    right: 24px;
-    bottom: 24px;
-    width: 296px;
-    background: var(--bg);
-    border: 1px solid var(--ink);
-    box-shadow: 0 24px 60px -20px rgba(20,18,12,0.25), 0 2px 8px rgba(20,18,12,0.08);
-    z-index: 1000;
-    font-family: var(--serif);
-    display: none;
-    max-height: calc(100vh - 48px);
-    overflow-y: auto;
-  }
-  .tweaks.open { display: block; }
-  .tweaks-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 18px;
-    border-bottom: 1px solid var(--rule);
-    background: var(--paper);
-  }
-  .tweaks-head .ttl {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ink);
-  }
-  .tweaks-head .ttl .dot {
-    display: inline-block;
-    width: 6px; height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    margin-right: 8px;
-    transform: translateY(-1px);
-  }
-  .tweaks-head .x {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-family: var(--mono);
-    font-size: 16px;
-    color: var(--muted);
-    padding: 0 4px;
-    line-height: 1;
-  }
-  .tweaks-head .x:hover { color: var(--ink); }
-
-  .tweaks-body { padding: 18px 18px 22px; }
-  .tw-section + .tw-section { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--rule-soft); }
-  .tw-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--faint);
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 10px;
-  }
-  .tw-label .val { color: var(--ink-soft); letter-spacing: 0.04em; text-transform: none; }
-
-  .tw-radio {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-  }
-  .tw-radio.tw-radio-3 {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-  .tw-radio button {
-    background: var(--bg);
-    border: 1px solid var(--rule);
-    padding: 9px 8px;
-    font-family: var(--serif);
-    font-size: 13px;
-    color: var(--ink-soft);
-    cursor: pointer;
-    text-align: center;
-    transition: all .12s ease;
-  }
-  .tw-radio button:hover { border-color: var(--ink-soft); color: var(--ink); }
-  .tw-radio button.active {
-    background: var(--ink);
-    color: var(--bg);
-    border-color: var(--ink);
-  }
-  .tw-radio button.mono-pick { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.04em; }
-
-  .tw-slider {
-    width: 100%;
-    appearance: none;
-    -webkit-appearance: none;
-    height: 2px;
-    background: var(--rule);
-    outline: none;
-    margin: 4px 0 2px;
-  }
-  .tw-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 14px; height: 14px;
-    border-radius: 50%;
-    background: var(--bg);
-    border: 1.5px solid var(--ink);
-    cursor: pointer;
-  }
-  .tw-slider::-moz-range-thumb {
-    width: 14px; height: 14px;
-    border-radius: 50%;
-    background: var(--bg);
-    border: 1.5px solid var(--ink);
-    cursor: pointer;
-  }
-
-  .tw-swatches {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-  }
-  .tw-swatches button {
-    aspect-ratio: 1;
-    border: 1px solid var(--rule);
-    background: var(--bg);
-    cursor: pointer;
-    padding: 4px;
-    position: relative;
-  }
-  .tw-swatches button .chip {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-  .tw-swatches button.active { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
-
-  .tw-hint {
-    font-size: 11px;
-    color: var(--faint);
-    margin-top: 10px;
-    font-style: italic;
-    line-height: 1.4;
-  }
-
-  @media (max-width: 480px) {
-    .tweaks { right: 12px; bottom: 12px; left: 12px; width: auto; }
-  }
-
-  /* ============ TYPEWRITER MODE ============ */
-  body.typewriter {
-    letter-spacing: -0.005em;
-  }
-  body.typewriter h1 {
-    font-size: 32px;
-    line-height: 1.22;
-    max-width: min(1100px, 100%);
-    letter-spacing: -0.01em;
-  }
-  body.typewriter h2 {
-    font-size: 23px;
-    line-height: 1.3;
-    letter-spacing: -0.005em;
-  }
-  body.typewriter h3 {
-    font-size: 17px;
-  }
-  body.typewriter h2 em,
-  body.typewriter h1 em,
-  body.typewriter section.final h2 {
-    font-style: italic;
-  }
-  body.typewriter .pullquote p,
-  body.typewriter .compose-lines {
-    font-size: 18px;
-  }
-  body.typewriter p.lead {
-    font-size: 17px;
-    max-width: min(780px, 100%);
-  }
-  body.typewriter p,
-  body.typewriter p.closer,
-  body.typewriter .caption,
-  body.typewriter .faq summary,
-  body.typewriter .faq .answer,
-  body.typewriter .record,
-  body.typewriter .works-grid ul,
-  body.typewriter .footer-mast p,
-  body.typewriter .footer-col ul a {
-    font-size: 16px;
-    line-height: 1.55;
-  }
-  body.typewriter .footer-mast h3 {
-    font-size: 27px;
-    line-height: 1.3;
-    letter-spacing: -0.01em;
-  }
-  body.typewriter .pullquote p::before,
-  body.typewriter .pullquote p::after {
-    content: '"';
-    font-size: 28px;
-    vertical-align: -4px;
-    margin: 0 2px;
-  }
-  body.typewriter .cta {
-    text-transform: uppercase;
-  }
-  body.typewriter figure.diagram .node-label {
-    font-size: 12px;
-  }
-
-
-/* ========================================================================
-   SUB-PAGE COMPONENTS
-   Added for: docs, benchmarks, threat-model, faq, roadmap, devlog,
-   working-group, research
-   ======================================================================== */
-
-/* ---- active nav link ---- */
-nav.top .links a.active {
-  color: var(--accent);
-  position: relative;
-}
-nav.top .links a.active::before {
-  content: "";
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  background: var(--accent);
-  border-radius: 50%;
-  margin-right: 6px;
-  transform: translateY(-2px);
-}
-
-/* ---- generic page-head (used by all sub-pages) ---- */
-section.page-head {
-  padding-top: 24px;
-  padding-bottom: 64px;
-  border-bottom: 1px solid var(--rule-soft);
-  text-align: center;
-}
-section.page-head .meta {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--faint);
-  margin-bottom: 28px;
-  display: flex;
-  justify-content: center;
-  gap: 18px;
-  flex-wrap: wrap;
-}
-section.page-head .meta span { color: var(--ink-soft); }
-section.page-head .meta .sep { color: var(--rule); }
-
-/* ---- TOC (docs) ---- */
-nav.toc {
-  margin: 36px auto 0;
-  max-width: min(720px, 100%);
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0;
-  border-top: 1px solid var(--rule-soft);
-  border-left: 1px solid var(--rule-soft);
-  text-align: left;
-}
-nav.toc a {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  padding: 14px 18px;
-  border-right: 1px solid var(--rule-soft);
-  border-bottom: 1px solid var(--rule-soft);
-  font-family: var(--serif);
-  font-size: 15px;
-  color: var(--ink);
-  text-decoration: none;
-  background: var(--bg);
-  transition: background .12s ease, color .12s ease;
-}
-nav.toc a:hover {
-  background: var(--paper);
-  color: var(--accent);
-}
-nav.toc a .num {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  color: var(--faint);
-  min-width: 24px;
-}
-
-/* ---- definition list ---- */
-dl.def-list {
-  text-align: left;
-  max-width: min(760px, 100%);
-  margin: 0 auto;
-}
-dl.def-list dt {
-  font-family: var(--serif);
-  font-size: 17px;
-  font-weight: 500;
-  color: var(--ink);
-  margin-top: 24px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--rule-soft);
-}
-dl.def-list dt:first-child { margin-top: 0; }
-dl.def-list dd {
-  margin: 12px 0 0;
-  color: var(--ink-soft);
-  font-size: 15.5px;
-  line-height: 1.6;
-}
-
-/* ---- hero stats (benchmarks) ---- */
-.hero-stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  margin: 48px auto 0;
-  max-width: min(960px, 100%);
-  border-top: 1px solid var(--rule);
-  border-left: 1px solid var(--rule);
-  text-align: left;
-}
-.hero-stats .stat {
-  padding: 24px 20px;
-  border-right: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
-  background: var(--bg);
-}
-.hero-stats .stat-val {
-  font-family: var(--serif);
-  font-size: 38px;
-  line-height: 1;
-  color: var(--hot);
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  margin-bottom: 8px;
-}
-.hero-stats .stat-val .unit {
-  font-size: 18px;
-  font-family: var(--mono);
-  color: var(--ink-soft);
-  margin-left: 6px;
-  letter-spacing: 0.02em;
-  font-weight: 400;
-}
-.hero-stats .stat-lbl {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  line-height: 1.5;
-}
-.hero-stats .stat-sub {
-  color: var(--faint);
-  letter-spacing: 0.08em;
-}
-
-/* ---- data tables (benchmarks, threat model) ---- */
-figure.data-table {
-  margin: 8px auto 0;
-  max-width: min(880px, 100%);
-  width: 100%;
-  text-align: left;
-}
-figure.data-table table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: var(--serif);
-  font-size: 14.5px;
-}
-figure.data-table thead th {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--faint);
-  font-weight: 500;
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--ink);
-  text-align: left;
-}
-figure.data-table th.num, figure.data-table td.num {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-  font-family: var(--mono);
-}
-figure.data-table tbody td {
-  padding: 12px;
-  border-bottom: 1px solid var(--rule-soft);
-  vertical-align: top;
-  color: var(--ink-soft);
-}
-figure.data-table tbody td.metric {
-  color: var(--hot);
-  font-weight: 500;
-}
-figure.data-table tbody td .mono { font-family: var(--mono); font-size: 13px; }
-figure.data-table figcaption {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--faint);
-  margin-top: 14px;
-  text-align: center;
-}
-figure.data-table figcaption .fig-num {
-  color: var(--ink-soft);
-  margin-right: 8px;
-}
-figure.data-table figcaption .commit {
-  display: block;
-  margin-top: 4px;
-  color: var(--faint);
-  text-transform: none;
-  letter-spacing: 0.04em;
-  font-style: italic;
-  font-size: 10px;
-}
-
-/* ---- threat-table specifics ---- */
-.threat-table table { font-size: 14px; }
-.threat-table td .desc {
-  color: var(--muted);
-  font-size: 13.5px;
-  margin-top: 4px;
-  line-height: 1.5;
-}
-.threat-table td.mit {
-  color: var(--ink-soft);
-  font-size: 13.5px;
-  line-height: 1.55;
-}
-.sev {
-  display: inline-block;
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 3px 8px;
-  border: 1px solid var(--rule);
-  color: var(--ink-soft);
-  white-space: nowrap;
-}
-.sev-low      { color: var(--muted); border-color: var(--rule); }
-.sev-medium   { color: var(--ink); border-color: var(--ink-soft); }
-.sev-high     { color: var(--hot); border-color: var(--hot); }
-.sev-critical { color: var(--bg); background: var(--hot); border-color: var(--hot); }
-
-/* ---- caveats (used by threat-model & benchmarks) ---- */
-.caveats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0;
-  max-width: min(820px, 100%);
-  margin: 8px auto 0;
-  text-align: left;
-  border-top: 1px solid var(--rule-soft);
-  border-left: 1px solid var(--rule-soft);
-}
-.caveats .caveat {
-  padding: 22px 20px;
-  border-right: 1px solid var(--rule-soft);
-  border-bottom: 1px solid var(--rule-soft);
-}
-.caveats .caveat-lbl {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--faint);
-  margin-bottom: 10px;
-}
-.caveats .caveat-body {
-  font-size: 14.5px;
-  line-height: 1.6;
-  color: var(--ink-soft);
-}
-
-/* ---- ref-grid (docs SDK section) ---- */
-.ref-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0;
-  max-width: min(720px, 100%);
-  margin: 0 auto;
-  border-top: 1px solid var(--rule-soft);
-  border-left: 1px solid var(--rule-soft);
-  text-align: left;
-}
-.ref-card {
-  padding: 22px 20px;
-  border-right: 1px solid var(--rule-soft);
-  border-bottom: 1px solid var(--rule-soft);
-  text-decoration: none;
-  color: var(--ink);
-  background: var(--bg);
-  transition: background .12s ease;
-}
-.ref-card:hover { background: var(--paper); }
-.ref-card .ref-lbl {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--faint);
-  margin-bottom: 8px;
-}
-.ref-card .ref-name {
-  font-family: var(--serif);
-  font-size: 18px;
-  color: var(--ink);
-  margin-bottom: 8px;
-}
-.ref-card .ref-meta {
-  font-size: 12px;
-  color: var(--ink-soft);
-  letter-spacing: 0.04em;
-}
-.ref-card .ref-meta.mono { font-family: var(--mono); }
-
-/* ---- timeline / milestones (roadmap) ---- */
-.timeline {
-  text-align: left;
-  max-width: min(820px, 100%);
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-.milestone {
-  padding: 28px 0;
-  border-bottom: 1px solid var(--rule-soft);
-}
-.milestone:first-child {
-  padding-top: 0;
-}
-.milestone:last-child { border-bottom: none; padding-bottom: 0; }
-.milestone header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 16px;
-  margin-bottom: 12px;
-}
-.milestone .ms-meta {
-  display: flex;
-  gap: 12px;
-  align-items: baseline;
-}
-.milestone .ms-ver {
-  font-family: var(--mono);
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--ink);
-  letter-spacing: 0.02em;
-}
-.milestone .ms-state {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  padding: 2px 8px;
-  border: 1px solid var(--rule);
-  color: var(--muted);
-}
-.milestone-shipped .ms-state { color: var(--bg); background: var(--ink); border-color: var(--ink); }
-.milestone-next .ms-state    { color: var(--hot); border-color: var(--hot); }
-.milestone .ms-when {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--faint);
-}
-.milestone h3 {
-  font-family: var(--serif);
-  font-size: 22px;
-  font-weight: 400;
-  color: var(--ink);
-  margin: 0 0 14px;
-  letter-spacing: -0.005em;
-}
-.milestone ul {
-  list-style: none;
-  margin: 0; padding: 0;
-  font-size: 15px;
-  color: var(--ink-soft);
-  line-height: 1.55;
-}
-.milestone li {
-  padding: 5px 0 5px 18px;
-  position: relative;
-}
-.milestone li::before {
-  content: "—";
-  position: absolute;
-  left: 0;
-  color: var(--faint);
-}
-
-/* ---- dev log entries ---- */
-.log {
-  padding: 56px 0;
-  border-bottom: 1px solid var(--rule-soft);
-  text-align: left;
-}
-.log-entry {
-  max-width: min(720px, 100%);
-  margin: 0 auto;
-  padding: 28px 0;
-  border-bottom: 1px solid var(--rule-soft);
-}
-.log-entry:first-child { padding-top: 0; }
-.log-entry:last-child { border-bottom: none; padding-bottom: 0; }
-.log-meta {
-  display: flex;
-  gap: 14px;
-  align-items: baseline;
-  margin-bottom: 10px;
-}
-.log-date {
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  color: var(--ink);
-}
-.log-tag {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  padding: 2px 8px;
-  border: 1px solid var(--rule);
-  color: var(--muted);
-}
-.log-tag-release     { color: var(--ink); border-color: var(--ink-soft); }
-.log-tag-spec        { color: var(--accent); border-color: var(--accent); }
-.log-tag-research    { color: var(--accent); border-color: var(--accent); }
-.log-tag-integration { color: var(--muted); }
-.log-tag-fix         { color: var(--hot); border-color: var(--hot); }
-.log-tag-governance  { color: var(--ink); }
-.log-entry h3 {
-  font-family: var(--serif);
-  font-size: 19px;
-  font-weight: 500;
-  color: var(--ink);
-  margin: 0 0 10px;
-  letter-spacing: -0.005em;
-  line-height: 1.3;
-}
-.log-entry p {
-  margin: 0;
-  font-size: 15.5px;
-  line-height: 1.6;
-  color: var(--ink-soft);
-  max-width: none;
-}
-
-/* ---- working group: people & join ---- */
-.people-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0;
-  max-width: min(820px, 100%);
-  margin: 0 auto;
-  text-align: left;
-  border-top: 1px solid var(--rule-soft);
-  border-left: 1px solid var(--rule-soft);
-}
-.people-grid .person {
-  padding: 22px 20px;
-  border-right: 1px solid var(--rule-soft);
-  border-bottom: 1px solid var(--rule-soft);
-}
-.person .p-name {
-  font-family: var(--serif);
-  font-size: 17px;
-  color: var(--ink);
-  margin-bottom: 4px;
-  font-weight: 500;
-}
-.person .p-role {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 10px;
-}
-.person .p-note {
-  font-size: 14px;
-  color: var(--ink-soft);
-  line-height: 1.55;
-}
-
-.join-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  max-width: min(900px, 100%);
-  margin: 0 auto;
-  text-align: left;
-}
-.join-card {
-  padding: 24px 22px;
-  border: 1px solid var(--rule);
-  text-decoration: none;
-  color: var(--ink);
-  background: var(--bg);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  transition: border-color .15s ease, background .15s ease;
-}
-.join-card:hover { border-color: var(--ink); background: var(--paper); }
-.join-card .join-num {
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  color: var(--accent);
-}
-.join-card .join-title {
-  font-family: var(--serif);
-  font-size: 19px;
-  color: var(--ink);
-  font-weight: 500;
-}
-.join-card .join-body {
-  font-size: 14px;
-  color: var(--ink-soft);
-  line-height: 1.55;
-  flex: 1;
-}
-.join-card .join-link {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  color: var(--ink-soft);
-  margin-top: 6px;
-}
-.join-card .join-link .arr { color: var(--faint); }
-
-/* ---- research papers ---- */
-.papers {
-  padding: 64px 0;
-  border-bottom: 1px solid var(--rule-soft);
-  max-width: min(880px, 100%);
-  margin: 0 auto;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-}
-.paper {
-  display: grid;
-  grid-template-columns: 70px 1fr;
-  gap: 28px;
-  padding: 36px 0;
-  border-bottom: 1px solid var(--rule-soft);
-  align-items: start;
-}
-.paper:first-child { padding-top: 0; }
-.paper:last-child { border-bottom: none; padding-bottom: 0; }
-.paper-num {
-  font-family: var(--mono);
-  font-size: 28px;
-  color: var(--faint);
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: 0.02em;
-  padding-top: 4px;
-}
-.paper-venue {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--faint);
-  margin-bottom: 10px;
-}
-.paper h3 {
-  font-family: var(--serif);
-  font-size: 22px;
-  font-weight: 400;
-  color: var(--ink);
-  margin: 0 0 14px;
-  line-height: 1.25;
-  letter-spacing: -0.005em;
-}
-.paper-abs {
-  font-size: 15.5px;
-  line-height: 1.6;
-  color: var(--ink-soft);
-  margin: 0 0 16px;
-  max-width: none;
-}
-.paper-actions {
-  display: flex;
-  gap: 18px;
-  align-items: baseline;
-  flex-wrap: wrap;
-}
-.paper-link {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink);
-  text-decoration: none;
-  padding: 6px 12px;
-  border: 1px solid var(--ink);
-  transition: background .12s ease, color .12s ease;
-}
-.paper-link:hover { background: var(--ink); color: var(--bg); }
-.paper-link .arr { color: var(--ink-soft); }
-.paper-link:hover .arr { color: var(--bg); }
-.paper-doi {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  color: var(--faint);
-}
-
-/* ---- responsive ---- */
-@media (max-width: 720px) {
-  section.page-head { padding-bottom: 44px; }
-  nav.toc { grid-template-columns: 1fr; }
-  .hero-stats { grid-template-columns: repeat(2, 1fr); }
-  .ref-grid { grid-template-columns: 1fr; }
-  .caveats { grid-template-columns: 1fr; }
-  .people-grid { grid-template-columns: 1fr; }
-  .join-grid { grid-template-columns: 1fr; }
-  .paper { grid-template-columns: 1fr; gap: 8px; }
-  .paper-num { font-size: 20px; }
-  .milestone header { flex-direction: column; gap: 6px; align-items: flex-start; }
-  figure.data-table { font-size: 12px; }
-  figure.data-table thead th, figure.data-table tbody td { padding: 8px 6px; }
-}
-
-/* ---- typewriter overrides for sub-pages ---- */
-body.typewriter section.page-head h1 { font-size: 24px; }
-body.typewriter dl.def-list dt { font-size: 14px; }
-body.typewriter dl.def-list dd { font-size: 13px; }
-body.typewriter .hero-stats .stat-val { font-size: 30px; letter-spacing: 0; }
-body.typewriter .milestone h3 { font-size: 17px; }
-body.typewriter .log-entry h3 { font-size: 15px; }
-body.typewriter .paper h3 { font-size: 17px; }
-body.typewriter figure.data-table table { font-size: 12px; }
-
-/* ---- long FAQ ---- */
-.faq.long details {
-  border-bottom: 1px solid var(--rule-soft);
-  padding: 18px 0;
-}
-.faq.long details:first-of-type { border-top: 1px solid var(--rule-soft); }
-
 </style>
 </head>
-<body class="typewriter">
+<body>
+<div class="progress" id="prog"></div>
 
-<div class="page">
-
-  <!-- ============ NAV ============ -->
-  <nav class="top">
-    <a class="brand" href="index.html"><span class="dot"></span>agent-passport.org</a>
-    <div class="links">
-      <a href="protocol.html">Docs</a>
-      <a href="benchmarks.html">Benchmarks</a>
-      <a href="research.html">Research</a>
-      <a href="roadmap.html">Roadmap</a>
-      <a href="blog.html">Dev Log</a>
-      <a class="ext" href="https://github.com/aeoess/agent-passport-system">GitHub</a>
-    </div>
+<div class="topbar">
+  <a class="brand" href="#top"><b>APS</b> · Agent Passport System</a>
+  <nav class="topnav">
+    <a href="protocol.html">Docs</a>
+    <a href="benchmarks.html">Benchmarks</a>
+    <a href="research.html">Research</a>
+    <a href="roadmap.html">Roadmap</a>
+    <a href="blog.html">Dev Log</a>
+    <a href="https://github.com/aeoess/agent-passport-system">GitHub &#8599;</a>
   </nav>
+</div>
 
-  <!-- ============ HERO ============ -->
-  <section class="hero">
-    <div class="meta">
-      <span>Working Document</span>
-      <span class="sep">·</span>
-      <span>Revision 2026.05</span>
-      <span class="sep">·</span>
-      <span>Apache 2.0</span>
+<!-- 01 HERO -->
+<section class="section hero" id="top">
+  <div class="flag"><span class="dot"></span> Open source &middot; Built in public</div>
+  <div class="tag">Governance infrastructure for the agent economy</div>
+  <h1>Agent Passport System</h1>
+  <p class="defn">APS gives every AI agent a verifiable identity, ties it to the person or company it represents, and signs every action it is allowed to take.</p>
+  <p class="subline">Proof that travels with the action, not a log you check after something breaks.</p>
+  <div class="herobtns">
+    <a class="btn btn-solid" href="https://github.com/aeoess/agent-passport-system">View the protocol</a>
+    <a class="btn" href="protocol.html">Read the spec</a>
+  </div>
+  <div class="proofstrip">
+    <b>Spec CC0 &middot; Code Apache 2.0</b><b>IETF Internet-Draft</b><b>SDKs on npm and PyPI</b><b>Merged into Microsoft's Agent Governance Toolkit</b>
+  </div>
+</section>
+
+<!-- 02 THE GAP -->
+<section class="section alt" id="why">
+  <div class="eyebrow reveal"><span class="n">02</span> Why this matters</div>
+  <p class="statement wide reveal">AI agents are starting to act for people and companies. They move money, touch data, call tools, and trigger workflows.</p>
+  <p class="lead reveal">When a person acts on behalf of a company, trust is built in. They have a title, a mandate, and an approval chain. You know what they can sign for, and who answers if it goes wrong. When software acts on behalf of a company, none of that is attached. The action happens. The proof does not.</p>
+  <p class="pull reveal">The next trust boundary is not the user login. It is the action an agent takes on your behalf.</p>
+</section>
+
+<!-- 03 ACCESS IS NOT AUTHORITY -->
+<section class="section">
+  <div class="eyebrow reveal"><span class="n">03</span> The missing piece</div>
+  <p class="statement reveal">Access is not authority. A login authorizes a session. <span class="cy">APS authorizes an action.</span></p>
+  <p class="lead reveal">A token proves a system was allowed through the door. It does not prove the agent had the right to make a specific decision, at that time, under that policy, for that principal.</p>
+  <p class="lead reveal">A log shows that something occurred. Neither answers the question that matters later. <span class="key">Was the agent allowed to do that?</span></p>
+</section>
+
+<!-- 04 WHAT APS IS -->
+<section class="section alt" id="protocol">
+  <div class="eyebrow reveal"><span class="n">04</span> What APS is</div>
+  <p class="statement wide reveal">A verifiable identity, and a signed receipt for every action an agent is allowed to take.</p>
+  <div class="rows stagger reveal">
+    <div class="row"><div class="ix">I</div><div><div class="t">Identity</div><div class="d">Which agent acted, and which principal it represents.</div></div></div>
+    <div class="row"><div class="ix">S</div><div><div class="t">Scoped authority</div><div class="d">The limits, budget, and conditions it operates under, enforced at runtime.</div></div></div>
+    <div class="row"><div class="ix">E</div><div><div class="t">Evidence</div><div class="d">A signed receipt for every permitted action, and evidence for every denial.</div></div></div>
+  </div>
+  <p class="lead reveal">APS does not replace identity providers, wallets, or orchestration. It sits beside the protocols you already run, as the governance layer.</p>
+</section>
+
+<!-- 05 HOW IT WORKS -->
+<section class="section full">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="n">05</span> How it works</div>
+    <p class="statement wide reveal">Authority flows down. Evidence flows back.</p>
+    <div class="chain reveal">
+      <div class="node" style="--w:100%"><div class="lab">Principal</div><div class="v">The person or company behind the agent</div><div class="meter"><span></span></div></div>
+      <div class="arrow">&rarr;</div>
+      <div class="node" style="--w:100%"><div class="lab">Passport</div><div class="v">Verifiable identity, tied to the principal</div><div class="meter"><span></span></div></div>
+      <div class="arrow">&rarr;</div>
+      <div class="node" style="--w:64%"><div class="lab">Delegation</div><div class="v">Scoped authority, with limits and conditions</div><div class="meter"><span></span></div></div>
+      <div class="arrow">&rarr;</div>
+      <div class="node" style="--w:42%"><div class="lab">Gateway</div><div class="v">Checks scope, policy, and freshness</div><div class="meter"><span></span></div></div>
+      <div class="arrow">&rarr;</div>
+      <div class="node" style="--w:26%"><div class="lab">Action</div><div class="v">The operation runs, or is denied</div><div class="meter"><span></span></div></div>
+      <div class="arrow">&rarr;</div>
+      <div class="node" style="--w:26%"><div class="lab">Receipt</div><div class="v">Signed record, or evidence of denial</div><div class="meter"><span></span></div></div>
     </div>
+    <div class="evidence reveal"><span class="bk">&larr;</span><span class="ln"></span><span>Evidence flows back to the principal</span></div>
+    <p class="chaincap reveal">Each step down the chain narrows what the agent can do. Each action returns a signed artifact the principal can verify later.</p>
+  </div>
+</section>
 
-    <h1>Governance infrastructure for the agent economy.</h1>
+<!-- 06 WHY IT HOLDS -->
+<section class="section alt">
+  <div class="eyebrow reveal"><span class="n">06</span> Why it holds</div>
+  <p class="statement reveal">A log is a diary. A receipt is evidence.</p>
+  <p class="lead reveal">A log says something happened. A receipt states who authorized it, what scope applied, what policy evaluated it, what action occurred, and what evidence remains.</p>
+  <p class="proofline reveal">The log only said: <code>vendor.payment.approve &nbsp;200 OK</code></p>
+  <div class="receipt reveal">
+    <div class="r-top"><span>Receipt</span><span class="stamp">Permitted</span></div>
+    <dl>
+      <div><dt>action</dt><dd>vendor.payment.approve</dd></div>
+      <div><dt>principal</dt><dd>Acme Corp</dd></div>
+      <div><dt>agent</dt><dd>procurement-agent-01</dd></div>
+      <div><dt>scope</dt><dd>vendor payments under $10,000</dd></div>
+      <div><dt>policy</dt><dd>finance-approval-v3</dd></div>
+      <div><dt>decision</dt><dd class="ok">permitted</dd></div>
+      <div><dt>signature</dt><dd>ed25519:3a7f...d41c</dd></div>
+    </dl>
+  </div>
+  <div class="inv rows stagger reveal">
+    <div class="row"><div class="ix">01</div><div><div class="t">Authority only narrows.</div><div class="d">Delegation can reduce authority, never silently widen it.</div></div></div>
+    <div class="row"><div class="ix">02</div><div><div class="t">The gateway enforces, not only observes.</div><div class="d">It checks scope, policy, and freshness before the action runs.</div></div></div>
+    <div class="row"><div class="ix">03</div><div><div class="t">A receipt states what it proves and what it does not.</div><div class="d">Honesty about the boundary of the evidence is part of the evidence.</div></div></div>
+  </div>
+</section>
 
-    <p class="lead">
-      Agent Passport System (APS) is an Apache 2.0 open protocol that gives every
-      agent a verifiable identity, ties it to the person or company it represents,
-      and enforces the scope, budget and conditions of its authority.
-    </p>
+<!-- 07 THE LONG BET -->
+<section class="section">
+  <div class="eyebrow reveal"><span class="n">07</span> The long bet</div>
+  <p class="lead reveal" style="margin-top:0">Identity is where this starts. The harder problem is this.</p>
+  <p class="bigterm reveal">Beneficiary attribution</p>
+  <p class="lead reveal">When an agent creates work, moves value, or produces an outcome, the person or company behind it remains the principal who participated through it. Earned and traceable, not pooled or redistributed.</p>
+  <p class="lead key reveal">APS makes that participation provable.</p>
+</section>
 
-    <p class="closer">
-      Every permitted action gets a signed receipt. Every denied action leaves evidence.
-    </p>
+<!-- 08 WHY OPEN -->
+<section class="section alt">
+  <div class="eyebrow reveal"><span class="n">08</span> Why open, and how it sustains</div>
+  <p class="statement reveal">Trust cannot be proprietary.</p>
+  <p class="lead reveal">Agents cross tools, clouds, wallets, payment rails, and jurisdictions. If the layer that records and verifies authority is owned by one company, the agent economy inherits that company's incentives and risk.</p>
+  <p class="pull reveal">Open at the edge. <span class="cy">Strict at the core.</span></p>
+  <p class="lead reveal">The protocol is the adoption. The gateway is the moat. Enterprises do not buy a standard. They buy enforcement, verification, audit export, and integration. The AEOESS gateway turns receipts into the audit-ready evidence the EU AI Act and enterprise buyers increasingly require.</p>
+</section>
 
-    <div class="cta-row">
-      <a class="cta" href="https://github.com/aeoess/agent-passport-system#quickstart">Quickstart <span class="arr">→</span></a>
-      <a class="cta ghost" href="https://github.com/aeoess/agent-passport-mcp">Try via MCP <span class="arr">→</span></a>
+<!-- 09 PROOF AND INVITATION -->
+<section class="section" id="proof">
+  <div class="eyebrow reveal"><span class="n">09</span> Where it is, honestly</div>
+  <p class="statement wide reveal">The problem arrives tomorrow. The work is already real.</p>
+  <p class="lead reveal">Open to read, test, and challenge today.</p>
+  <div class="status stagger reveal">
+    <div class="item"><span>Specification</span>An IETF Internet-Draft, authored for the protocol</div>
+    <div class="item"><span>License</span>Spec CC0, code Apache 2.0</div>
+    <div class="item"><span>Implementations</span>TypeScript and Python SDKs, on npm and PyPI</div>
+    <div class="item"><span>Parity</span>Byte-parity between the two SDKs, checked against shared vectors</div>
+    <div class="item"><span>Runtime</span>An MCP server and a public conformance suite</div>
+    <div class="item"><span>Research</span>Eight papers with Zenodo DOIs</div>
+    <div class="item"><span>Ecosystem</span>Merged contributions into Microsoft's Agent Governance Toolkit</div>
+    <div class="item"><span>Standards process</span>A written acknowledgment in the NIST CAISI process</div>
+    <div class="item"><span>Interop</span>Cross-engine receipt verification with an independent implementation</div>
+    <div class="item"><span>Citation</span>Referenced in PDR in Production, University of British Columbia</div>
+    <div class="item"><span>Contribution</span>More than fifty merged contributions from over two dozen external developers</div>
+    <div class="item"><span>Honest framing</span>Contributions and early usage, not production dependency</div>
+  </div>
+</section>
+
+<!-- 10 INVITATION -->
+<section class="section alt" id="contribute">
+  <div class="eyebrow reveal"><span class="n">10</span> The invitation</div>
+  <p class="statement reveal">Build the right system before agents inherit the wrong one.</p>
+  <div class="ctas stagger reveal">
+    <div class="cta"><div class="who">Contributors</div><div class="do">Read the spec. Challenge the primitives. Build an adapter.</div></div>
+    <div class="cta"><div class="who">Partners</div><div class="do">Pilot the gateway. Test the receipts. Bring real workflows.</div></div>
+    <div class="cta"><div class="who">Backers</div><div class="do">Back the trust layer before the market needs a cleanup crew.</div></div>
+  </div>
+  <p class="closer reveal">The agent economy does not need more autonomy without accountability. <span class="cy">It needs passports.</span></p>
+  <div class="finalbtns">
+    <a class="btn btn-solid" href="https://github.com/aeoess/agent-passport-system">View on GitHub</a>
+    <a class="btn" href="https://agent-passport.org">agent-passport.org</a>
+  </div>
+</section>
+
+<footer>
+  <div class="f-top">
+    <div class="f-brand">
+      <div class="f-word"><b>Agent Passport System</b></div>
+      <p class="f-blurb">Open-source infrastructure to enforce,<br>verify, and audit AI agent actions.</p>
+      <p class="f-blurb">Spec is CC0. Code is Apache 2.0.<br>The conformance suite is yours to fork.</p>
+      <a class="btn" href="working-group.html">Join the Working Group &#8599;</a>
     </div>
-  </section>
-
-  <!-- ============ ARCHITECTURE ============ -->
-  <section class="architecture">
-    <div class="eyebrow"><span class="num">§ 1</span>How it works</div>
-    <h2>Authority flows down, evidence flows back.</h2>
-
-    <figure class="diagram">
-      <svg viewBox="0 0 640 210" role="img" aria-label="Authority flows down through five stages; signed evidence returns to the principal.">
-        <text class="axis-label" x="8" y="14">Authority ▸ narrows</text>
-        <text class="axis-label" x="632" y="14" text-anchor="end">Evidence ▸ returns</text>
-
-        <line x1="40" y1="40" x2="600" y2="40" stroke="var(--rule)" stroke-width="0.75" stroke-dasharray="2 4" />
-
-        <defs>
-          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path d="M 0 1 L 9 5 L 0 9 z" class="flow-arrow" />
-          </marker>
-          <marker id="arr-return" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path d="M 0 1 L 9 5 L 0 9 z" class="return-arrow" />
-          </marker>
-        </defs>
-
-        <line class="flow-line" x1="92"  y1="95" x2="128" y2="95" marker-end="url(#arr)" />
-        <line class="flow-line" x1="220" y1="95" x2="256" y2="95" marker-end="url(#arr)" />
-        <line class="flow-line" x1="348" y1="95" x2="384" y2="95" marker-end="url(#arr)" />
-        <line class="flow-line" x1="476" y1="95" x2="512" y2="95" marker-end="url(#arr)" />
-
-        <g transform="translate(64,95)">
-          <circle class="node-circle" r="28" />
-          <text class="node-num" text-anchor="middle" y="4">01</text>
-          <text class="node-label" text-anchor="middle" y="54">Principal</text>
-          <text class="node-caption" text-anchor="middle" y="72">human · company</text>
-        </g>
-
-        <g transform="translate(192,95)">
-          <circle class="node-circle" r="28" />
-          <text class="node-num" text-anchor="middle" y="4">02</text>
-          <text class="node-label" text-anchor="middle" y="54">Agent</text>
-          <text class="node-caption" text-anchor="middle" y="72">carries passport</text>
-        </g>
-
-        <g transform="translate(320,95)">
-          <circle class="node-circle" r="28" />
-          <text class="node-num" text-anchor="middle" y="4">03</text>
-          <text class="node-label" text-anchor="middle" y="54">Gateway</text>
-          <text class="node-caption" text-anchor="middle" y="72">enforces scope</text>
-        </g>
-
-        <g transform="translate(448,95)">
-          <circle class="node-circle" r="28" />
-          <text class="node-num" text-anchor="middle" y="4">04</text>
-          <text class="node-label" text-anchor="middle" y="54">Service</text>
-          <text class="node-caption" text-anchor="middle" y="72">executes action</text>
-        </g>
-
-        <g transform="translate(576,95)">
-          <circle class="node-circle" r="28" fill="#fbfaf7" />
-          <text class="node-num" text-anchor="middle" y="4">05</text>
-          <text class="node-label" text-anchor="middle" y="54">Receipt</text>
-          <text class="node-caption" text-anchor="middle" y="72">signed evidence</text>
-        </g>
-
-        <path class="return-line"
-              d="M 576 128 Q 576 200 320 200 Q 64 200 64 128"
-              marker-end="url(#arr-return)" />
-        <text class="return-label" x="320" y="194" text-anchor="middle">verifiable by the principal</text>
-      </svg>
-      <div class="benchmark-strip">
-        <span class="lbl">End-to-end</span><span class="metric">0.3–1.1 ms p50</span><span class="sep">·</span><span class="metric">16–36 M ops/sec</span><span class="sep">·</span><span class="hw">x86-64 · ARM64 · Apple Silicon · AWS · bare-metal Linux</span>
+    <div class="f-cols">
+      <div class="f-col">
+        <div class="f-h">Protocol</div>
+        <a href="protocol.html">Documentation</a>
+        <a href="benchmarks.html">Benchmarks</a>
+        <a href="threat-model.html">Threat Model</a>
+        <a href="faq.html">FAQ</a>
       </div>
-      <figcaption><span class="fig-num">Fig. 1</span>Authority chain &amp; evidence return path<span class="commit">Reproducible at commit 6e258f4</span></figcaption>
-    </figure>
-
-    <p>
-      Authority flows down. Each step narrows scope. Every action produces a
-      signed artifact the principal can verify later, without trusting any
-      party in the chain.
-    </p>
-  </section>
-
-  <!-- ============ INSTALL ============ -->
-  <section class="install">
-    <div class="eyebrow"><span class="num">§ 2</span>Install</div>
-    <h2>Three lines to a working passport.</h2>
-
-<pre class="code"><span class="c-cmt">$ npm install agent-passport-system</span>
-<span class="blank"></span>
-<span class="c-kw">import</span> { <span class="c-fn">createPassport</span> } <span class="c-kw">from</span> <span class="c-str">'agent-passport-system'</span>
-<span class="c-kw">const</span> passport = <span class="c-kw">await</span> <span class="c-fn">createPassport</span>({ principal, scope })</pre>
-
-    <p class="caption">
-      TypeScript SDK on npm, Python bindings on PyPI, MCP server at
-      <span class="nostyle">mcp.aeoess.com</span>, gateway reference implementation
-      in the same repo. <span class="nostyle">3,073 tests.</span>
-    </p>
-  </section>
-
-  <!-- ============ WORKS WITH ============ -->
-  <section class="works">
-    <div class="eyebrow"><span class="num">§ 3</span>Works with</div>
-    <h2>Identity-agnostic. <em>Payment-agnostic.</em></h2>
-    <p class="subhead">
-      The protocol binds claims, it doesn't issue them. Bring your own identity
-      system and your own settlement rail.
-    </p>
-
-    <div class="works-grid">
-      <div class="col">
-        <h4>Identity</h4>
-        <ul>
-          <li>did:web</li>
-          <li>did:key</li>
-          <li>did:plc</li>
-          <li>did:ion</li>
-          <li>OIDC</li>
-          <li>OAuth 2.0</li>
-          <li>Cosmos secp256k1</li>
-          <li>Ed25519 native</li>
-          <li class="tail">Any signature scheme over a stable principal.</li>
-        </ul>
+      <div class="f-col">
+        <div class="f-h">Developers</div>
+        <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
+        <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
+        <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
+        <a href="wallet.html">Agent Wallet</a>
+        <a href="AGENTS.md">AGENTS.md</a>
+        <a href="llms.txt">llms.txt</a>
       </div>
-      <div class="col">
-        <h4>Payment Rails</h4>
-        <ul>
-          <li>x402 (HTTP 402)</li>
-          <li>Stripe &amp; traditional rails</li>
-          <li>Cosmos SDK and IBC</li>
-          <li>ERC-20 and EVM chains</li>
-          <li>Lightning</li>
-          <li class="tail">Any rail that can read a signed receipt.</li>
-        </ul>
+      <div class="f-col">
+        <div class="f-h">Community</div>
+        <a href="blog.html">Dev Log</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="working-group.html">Working Group</a>
       </div>
-      <div class="col">
-        <h4>Agent Interfaces</h4>
-        <ul>
-          <li>MCP (Model Context Protocol)</li>
-          <li>A2A (Agent-to-Agent)</li>
-          <li>Direct HTTP</li>
-          <li>Webhook callbacks</li>
-        </ul>
-      </div>
-      <div class="col">
-        <h4>Languages</h4>
-        <ul>
-          <li>TypeScript / JavaScript<br /><span style="color:var(--faint);font-size:12px;">npm</span></li>
-          <li>Python<br /><span style="color:var(--faint);font-size:12px;">PyPI</span></li>
-          <li>Direct over HTTP</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ DEEPER PROBLEM ============ -->
-  <section class="pullquote">
-    <div class="eyebrow"><span class="num">§ 4</span>The deeper problem</div>
-    <p>
-      Identity is where this starts. The harder problem is
-      <mark>keeping the human beneficiary visible and accountable</mark>
-      as agents transact in an emerging agent economy.
-    </p>
-    <div class="rule-ornament"></div>
-  </section>
-
-  <!-- ============ COMPOSITION ============ -->
-  <section class="composition">
-    <div class="eyebrow"><span class="num">§ 5</span>How APS composes</div>
-    <h2>It sits beside the protocols you already run.</h2>
-
-    <div class="compose-lines">
-      <div class="line"><span class="k">OAuth</span> authorizes a session. APS authorizes an <em>agent</em>.</div>
-      <div class="line"><span class="k">MCP</span> exposes tools. APS records <em>who used them</em>, under what authority.</div>
-      <div class="line"><span class="k">A2A</span> coordinates agents. APS <em>attributes</em> the work.</div>
-    </div>
-  </section>
-
-  <!-- ============ STANDARDS ALIGNMENT ============ -->
-  <section class="standards">
-    <div class="eyebrow"><span class="num">§ 6</span>Architecture aligned with</div>
-    <h2>Standards and frameworks the design reflects.</h2>
-    <p class="caption" style="margin-bottom: 8px;">
-      Architectural alignment. Not certification or compliance advice.
-    </p>
-
-    <div class="standards-grid">
-      <div class="cell"><span class="org">U.S. NIST</span>AI RMF 1.0</div>
-      <div class="cell"><span class="org">European Union</span>EU AI Act</div>
-      <div class="cell"><span class="org">ISO / IEC</span>42001</div>
-      <div class="cell"><span class="org">Google / Industry</span>CoSAI</div>
-      <div class="cell"><span class="org">IETF</span>Internet-Draft</div>
-      <div class="cell"><span class="org">Framework</span>AAIF</div>
-      <div class="cell"><span class="org">Open Protocol</span>A2A</div>
-      <div class="cell"><span class="org">Ethereum</span>ERC-8004</div>
-    </div>
-  </section>
-
-  <!-- ============ ON THE RECORD ============ -->
-  <section class="onrecord">
-    <div class="eyebrow"><span class="num">§ 7</span>Verifiable footprint</div>
-    <h2>On the record.</h2>
-
-    <div class="record">
-      <div class="row">
-        <div class="label">Specification</div>
-        <div class="val"><span class="mono">IETF Internet-Draft</span> <span class="sep">/</span> <span class="mono">draft-pidlisnyi-aps</span></div>
-      </div>
-      <div class="row">
-        <div class="label">Research</div>
-        <div class="val">8 papers on Zenodo and SSRN <span class="sep">·</span> <span class="mono">ORCID 0009-0002-4700-3594</span></div>
-      </div>
-      <div class="row">
-        <div class="label">Ecosystem</div>
-        <div class="val"><span class="item">Integrated with Microsoft AGT (3 merged PRs)</span> <span class="sep">·</span> <span class="item">gitagent RFC #73 (merged)</span> <span class="sep">·</span> <span class="item">listed in awesome-x402</span></div>
-      </div>
-      <div class="row">
-        <div class="label">License</div>
-        <div class="val">Apache 2.0 <span class="sep">·</span> Maintainer: Tymofii Pidlisnyi</div>
+      <div class="f-col">
+        <div class="f-h">Research</div>
+        <a href="research.html#r1">Agent Social Contract</a>
+        <a href="research.html#r2">Monotonic Narrowing</a>
+        <a href="research.html#r3">Faceted Authority Attenuation</a>
+        <a href="research.html#r4">Behavioral Derivation Rights</a>
+        <a href="research.html#r5">Physics-Enforced Delegation</a>
+        <a href="research.html#r6">Governance in the Medium</a>
+        <a href="research.html#r7">Cognitive Attestation</a>
+        <a href="research.html#r8">Evidence-Safety Gap</a>
       </div>
     </div>
-  </section>
-
-  <!-- ============ FAQ ============ -->
-  <section class="faq-section">
-    <div class="eyebrow"><span class="num">§ 8</span>Frequently asked</div>
-    <h2>Questions and short answers.</h2>
-
-    <div class="faq">
-      <details open>
-        <summary>
-          <span class="q">Q.1</span>
-          <span class="qtext">How is APS different from OAuth or OIDC?</span>
-          <span class="toggle">+</span>
-        </summary>
-        <div class="answer">
-          OAuth authorizes a session for an application. APS authorizes an agent's
-          actions and binds them back to a principal. Authority narrows monotonically
-          at each delegation. Every permitted action produces a signed receipt. Every
-          denied action leaves cryptographic evidence. OAuth answers "is this app
-          allowed in." APS answers "what is this agent allowed to do, on whose behalf,
-          with what proof."
-        </div>
-      </details>
-      <details>
-        <summary>
-          <span class="q">Q.2</span>
-          <span class="qtext">How does APS compose with MCP and A2A?</span>
-          <span class="toggle">+</span>
-        </summary>
-        <div class="answer">
-          APS runs underneath, not as a replacement. MCP exposes tools; APS records
-          who used them under what authority. A2A coordinates agents; APS attributes
-          the resulting work. An MCP server can check a passport before serving a
-          call. An A2A handoff can pass a delegated passport with narrowed scope.
-        </div>
-      </details>
-      <details>
-        <summary>
-          <span class="q">Q.3</span>
-          <span class="qtext">What does an APS passport actually contain?</span>
-          <span class="toggle">+</span>
-        </summary>
-        <div class="answer">
-          A signed identity for the agent, the principal it acts for, the scope and
-          conditions of its authority (which resources, what budget, until when), the
-          chain of any prior delegations narrowing it further, and an Ed25519
-          signature from the issuer. Verification is offline — a service can check a
-          passport's authority chain without contacting an issuer.
-        </div>
-      </details>
-      <details>
-        <summary>
-          <span class="q">Q.4</span>
-          <span class="qtext">How does revocation work?</span>
-          <span class="toggle">+</span>
-        </summary>
-        <div class="answer">
-          Three layers. Every passport carries expiry fields, so unused delegations
-          time out automatically. A principal can issue a signed revocation that
-          cascades through every delegation derived from the revoked passport.
-          Gateways consult a revocation registry as part of the hot-path verification
-          before allowing an action. Keys can be rotated; old delegations stop
-          verifying the moment the revocation is signed.
-        </div>
-      </details>
-      <details>
-        <summary>
-          <span class="q">Q.5</span>
-          <span class="qtext">What does APS not protect against?</span>
-          <span class="toggle">+</span>
-        </summary>
-        <div class="answer">
-          APS proves an action was authorized by a chain ending at a principal. It
-          cannot detect a principal who issues a malicious delegation deliberately, a
-          gateway colluding with an agent against its principal, or a service that
-          doesn't check passports. It defends against forged authority, scope creep,
-          undeclared agents, after-the-fact denial of authorization, and silent
-          attribution loss.
-        </div>
-      </details>
-      <details>
-        <summary>
-          <span class="q">Q.6</span>
-          <span class="qtext">What's the latency overhead in production?</span>
-          <span class="toggle">+</span>
-        </summary>
-        <div class="answer">
-          End-to-end gateway check, including TCP, signature verification, scope
-          evaluation, and receipt persistence: 822µs p50 on bare-metal Linux (EPYC
-          7313P), 305µs on Apple M3, 1.07ms on AWS c7i.2xlarge. The pure verifier hot
-          path runs in 420ns on bare-metal — the gateway loop is dominated by I/O, not
-          verification. Reproducible at commit 6e258f4 under
-          benchmarks/prototype-1/results/.
-        </div>
-      </details>
-      <details>
-        <summary>
-          <span class="q">Q.7</span>
-          <span class="qtext">Is APS production-ready today?</span>
-          <span class="toggle">+</span>
-        </summary>
-        <div class="answer">
-          The protocol specification is submitted as an IETF Internet-Draft. The
-          TypeScript SDK ships on npm, Python bindings on PyPI, MCP server live at
-          mcp.aeoess.com. The reference gateway runs as dogfood infrastructure.
-          2,966 SDK tests pass, plus 191 separate tests on the Rust verifier
-          reference. Not yet externally audited. Status tracked in the README and
-          roadmap.
-        </div>
-      </details>
-      <details>
-        <summary>
-          <span class="q">Q.8</span>
-          <span class="qtext">What's the relationship between APS and the AEOESS Gateway?</span>
-          <span class="toggle">+</span>
-        </summary>
-        <div class="answer">
-          APS is the open protocol: the spec, the SDKs, the MCP server, and the
-          conformance suite, all Apache 2.0. AEOESS Gateway is the commercial
-          enforcement product. The protocol is fully usable without the gateway. Any
-          compliant implementation can issue passports, narrow delegations, and verify
-          receipts.
-        </div>
-      </details>
-    </div>
-  </section>
-
-  <!-- ============ FINAL CTA ============ -->
-  <section class="final">
-    <div class="eyebrow">Begin</div>
-    <h2>Start with a <em>passport</em>.</h2>
-    <p class="subhead">
-      The protocol is open. The SDK is on npm. The MCP server is live.
-    </p>
-    <div class="cta-row">
-      <a class="cta" href="https://github.com/aeoess/agent-passport-system#quickstart">Quickstart <span class="arr">→</span></a>
-      <a class="cta ghost" href="https://github.com/aeoess/agent-passport-mcp">Connect via MCP <span class="arr">→</span></a>
-    </div>
-  </section>
-
-</div><!-- /.page -->
-
-<!-- ============ FOOTER (dark, full-bleed) ============ -->
-<footer class="dark">
-  <div class="footer-inner">
-    <div class="footer-top">
-
-      <div class="footer-mast">
-        <h3>Agent Passport <em>System</em>.</h3>
-        <p>Open-source infrastructure to enforce, verify, and audit AI agent actions.</p>
-        <p>Spec is CC0. Code is Apache 2.0. The conformance suite is yours to fork.</p>
-        <a class="working-cta" href="working-group.html">Join the Working Group <span class="arr">↗</span></a>
-      </div>
-
-      <div class="footer-col">
-        <h5>Protocol</h5>
-        <ul>
-          <li><a href="protocol.html">Documentation</a></li>
-          <li><a href="benchmarks.html">Benchmarks</a></li>
-          <li><a href="threat-model.html">Threat Model</a></li>
-          <li><a href="faq.html">FAQ</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h5>Developers</h5>
-        <ul>
-          <li><a href="https://github.com/aeoess/agent-passport-system">GitHub</a></li>
-          <li><a class="mono" href="https://www.npmjs.com/package/agent-passport-system">npm</a></li>
-          <li><a href="https://pypi.org/project/agent-passport-system/">PyPI</a></li>
-          <li><a href="wallet.html">Agent Wallet</a></li>
-          <li><a class="mono" href="AGENTS.md">AGENTS.md</a></li>
-          <li><a class="mono" href="llms.txt">llms.txt</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h5>Community</h5>
-        <ul>
-          <li><a href="blog.html">Dev Log</a></li>
-          <li><a href="roadmap.html">Roadmap</a></li>
-          <li><a href="working-group.html">Working Group</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h5>Research</h5>
-        <ul>
-          <li><a href="research.html#r1">Agent Social Contract</a></li>
-          <li><a href="research.html#r2">Monotonic Narrowing</a></li>
-          <li><a href="research.html#r3">Faceted Authority Attenuation</a></li>
-          <li><a href="research.html#r4">Behavioral Derivation Rights</a></li>
-          <li><a href="research.html#r5">Physics-Enforced Delegation</a></li>
-          <li><a href="research.html#r6">Governance in the Medium</a></li>
-          <li><a href="research.html#r7">Cognitive Attestation</a></li>
-          <li><a href="research.html#r8">Evidence-Safety Gap</a></li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div class="footer-strip">
-      <div class="item">
-        <div class="lbl">License</div>
-        <div class="val">Spec CC0 <span class="dot">·</span> Code Apache 2.0</div>
-      </div>
-      <div class="item">
-        <div class="lbl">Editor</div>
-        <div class="val">Tymofii Pidlisnyi</div>
-      </div>
-      <div class="item">
-        <div class="lbl">Standard</div>
-        <div class="val">APS <span class="dot">·</span> IETF Internet-Draft</div>
-      </div>
-      <div class="item">
-        <div class="lbl">Imprint</div>
-        <div class="val">Vol. 01 <span class="dot">·</span> 2026 <span class="dot">·</span> agent-passport.org</div>
-      </div>
-    </div>
-
+  </div>
+  <div class="f-strip">
+    <div><span>License</span>Spec CC0 &middot; Code Apache 2.0</div>
+    <div><span>Editor</span>Tymofii Pidlisnyi</div>
+    <div><span>Standard</span>APS &middot; IETF Internet-Draft</div>
+    <div><span>Imprint</span>Vol. 01 &middot; 2026 &middot; agent-passport.org</div>
+    <div><span>Also at</span><a href="https://aeoess.com">aeoess.com</a></div>
   </div>
 </footer>
 
-<!-- Tweaks panel injected by tweaks.js -->
 <script>
-// Tweaks panel — design system controls (injects markup + behavior)
-(function(){
-  const PANEL_HTML = `<aside class="tweaks" id="tweaks" aria-label="Tweaks panel" role="dialog">
-  <div class="tweaks-head">
-    <div class="ttl"><span class="dot"></span>Tweaks</div>
-    <button class="x" id="tw-close" aria-label="Close tweaks">×</button>
-  </div>
-  <div class="tweaks-body">
-
-    <div class="tw-section">
-      <div class="tw-label"><span>Serif</span><span class="val" id="tw-serif-val">Source Serif</span></div>
-      <div class="tw-radio" id="tw-serif">
-        <button data-val="source" data-stack='"Source Serif 4", Georgia, serif'>Source Serif</button>
-        <button data-val="garamond" data-stack='"EB Garamond", Georgia, serif'>EB Garamond</button>
-        <button data-val="crimson" data-stack='"Crimson Pro", Georgia, serif'>Crimson Pro</button>
-        <button data-val="newsreader" data-stack='"Newsreader", Georgia, serif'>Newsreader</button>
-      </div>
-    </div>
-
-    <div class="tw-section">
-      <div class="tw-label"><span>Monospace</span><span class="val" id="tw-mono-val">JetBrains</span></div>
-      <div class="tw-radio tw-radio-3" id="tw-mono">
-        <button class="mono-pick" data-val="jetbrains" data-stack='"JetBrains Mono", ui-monospace, monospace'>JetBrains</button>
-        <button class="mono-pick" data-val="plex" data-stack='"IBM Plex Mono", ui-monospace, monospace'>IBM Plex</button>
-        <button class="mono-pick" data-val="courier" data-stack='"Courier Prime", "Courier New", monospace'>Courier</button>
-      </div>
-    </div>
-
-    <div class="tw-section">
-      <div class="tw-label"><span>Column width</span><span class="val"><span id="tw-col-val">720</span> px</span></div>
-      <input type="range" class="tw-slider" id="tw-col" min="640" max="1440" step="20" value="720" />
-    </div>
-
-    <div class="tw-section">
-      <div class="tw-label"><span>Body size</span><span class="val"><span id="tw-size-val">18</span> px</span></div>
-      <input type="range" class="tw-slider" id="tw-size" min="15" max="21" step="1" value="18" />
-    </div>
-
-    <div class="tw-section">
-      <div class="tw-label"><span>Accent</span><span class="val" id="tw-acc-val">Oxblood</span></div>
-      <div class="tw-swatches" id="tw-acc">
-        <button data-val="oxblood" data-color="#6a3a1f" title="Oxblood"><span class="chip" style="background:#6a3a1f"></span></button>
-        <button data-val="ink" data-color="#1a1a1a" title="Ink"><span class="chip" style="background:#1a1a1a"></span></button>
-        <button data-val="forest" data-color="#2f5d3a" title="Forest"><span class="chip" style="background:#2f5d3a"></span></button>
-        <button data-val="navy" data-color="#1f3a6a" title="Navy"><span class="chip" style="background:#1f3a6a"></span></button>
-      </div>
-    </div>
-
-    <div class="tw-section">
-      <div class="tw-label"><span>Paper</span><span class="val" id="tw-paper-val">Bright</span></div>
-      <div class="tw-radio" id="tw-paper">
-        <button data-val="bright" data-bg="#ffffff" data-paper="#fbfaf7">Bright</button>
-        <button data-val="cream" data-bg="#faf7ee" data-paper="#f3eedf">Cream</button>
-      </div>
-    </div>
-
-    <div class="tw-section">
-      <div class="tw-label"><span>Typewriter mode</span><span class="val" id="tw-twr-val">Off</span></div>
-      <div class="tw-radio" id="tw-typewriter">
-        <button data-val="off">Off</button>
-        <button data-val="on">On — all mono</button>
-      </div>
-      <div class="tw-hint" style="margin-top: 6px;">Sets every line in the active mono face. Old-terminal / manuscript feel.</div>
-    </div>
-
-    <div class="tw-hint">Settings apply live and persist on save.</div>
-  </div>
-</aside>`;
-  const wrap = document.createElement('div');
-  wrap.innerHTML = PANEL_HTML;
-  document.body.appendChild(wrap.firstElementChild);
-
-// ---- Defaults (writable region for host persistence) ----
-  const DEFAULTS = /*EDITMODE-BEGIN*/{
-    "serif": "newsreader",
-    "mono": "courier",
-    "col": 1060,
-    "size": 18,
-    "accent": "oxblood",
-    "paper": "bright",
-    "typewriter": "on"
-  }/*EDITMODE-END*/;
-
-  const STACKS = {
-    serif: {
-      source:     '"Source Serif 4", "Iowan Old Style", Georgia, serif',
-      garamond:   '"EB Garamond", Georgia, serif',
-      crimson:    '"Crimson Pro", Georgia, serif',
-      newsreader: '"Newsreader", Georgia, serif'
-    },
-    mono: {
-      jetbrains: '"JetBrains Mono", ui-monospace, Menlo, monospace',
-      plex:      '"IBM Plex Mono", ui-monospace, Menlo, monospace',
-      courier:   '"Courier Prime", "Courier New", ui-monospace, monospace'
-    }
-  };
-  const LABELS = {
-    serif: { source: "Source Serif", garamond: "EB Garamond", crimson: "Crimson", newsreader: "Newsreader" },
-    mono:  { jetbrains: "JetBrains", plex: "IBM Plex", courier: "Courier Prime" },
-    accent:{ oxblood: "Oxblood", ink: "Ink", forest: "Forest", navy: "Navy" },
-    paper: { bright: "Bright", cream: "Cream" },
-    typewriter: { off: "Off", on: "On" }
-  };
-  const ACCENTS = { oxblood: "#6a3a1f", ink: "#1a1a1a", forest: "#2f5d3a", navy: "#1f3a6a" };
-  const PAPERS  = {
-    bright: { bg: "#ffffff", paper: "#fbfaf7" },
-    cream:  { bg: "#faf7ee", paper: "#f3eedf" }
-  };
-
-  const state = Object.assign({}, DEFAULTS);
-  const root = document.documentElement;
-
-  function apply() {
-    const mono = STACKS.mono[state.mono];
-    const serif = state.typewriter === 'on' ? mono : STACKS.serif[state.serif];
-    root.style.setProperty('--serif', serif);
-    root.style.setProperty('--mono',  mono);
-    root.style.setProperty('--col',   state.col + 'px');
-    root.style.setProperty('--base',  state.size + 'px');
-    root.style.setProperty('--accent', ACCENTS[state.accent]);
-    const p = PAPERS[state.paper];
-    root.style.setProperty('--bg', p.bg);
-    root.style.setProperty('--paper', p.paper);
-    document.body.classList.toggle('typewriter', state.typewriter === 'on');
-
-    // Sync UI
-    document.getElementById('tw-serif-val').textContent = LABELS.serif[state.serif];
-    document.getElementById('tw-mono-val').textContent  = LABELS.mono[state.mono];
-    document.getElementById('tw-col-val').textContent   = state.col;
-    document.getElementById('tw-size-val').textContent  = state.size;
-    document.getElementById('tw-acc-val').textContent   = LABELS.accent[state.accent];
-    document.getElementById('tw-paper-val').textContent = LABELS.paper[state.paper];
-    document.getElementById('tw-twr-val').textContent   = LABELS.typewriter[state.typewriter];
-    document.getElementById('tw-col').value             = state.col;
-    document.getElementById('tw-size').value            = state.size;
-    syncActive('tw-serif',      state.serif);
-    syncActive('tw-mono',       state.mono);
-    syncActive('tw-acc',        state.accent);
-    syncActive('tw-paper',      state.paper);
-    syncActive('tw-typewriter', state.typewriter);
+  var prog=document.getElementById('prog');
+  function up(){var h=document.documentElement;var s=h.scrollTop||document.body.scrollTop;var max=(h.scrollHeight-h.clientHeight)||1;prog.style.width=(s/max*100)+'%';}
+  document.addEventListener('scroll',up,{passive:true});window.addEventListener('resize',up);up();
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in-view');io.unobserve(e.target);}});},{threshold:0.18,rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in-view');});
   }
-
-  function syncActive(groupId, val) {
-    document.querySelectorAll('#' + groupId + ' button').forEach(b => {
-      b.classList.toggle('active', b.dataset.val === val);
-    });
-  }
-
-  function update(key, val) {
-    state[key] = val;
-    apply();
-    persist({ [key]: val });
-  }
-
-  function persist(edits) {
-    try {
-      window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
-    } catch (e) {}
-  }
-
-  // ---- Wire controls ----
-  function wireRadio(groupId, key, transform) {
-    document.querySelectorAll('#' + groupId + ' button').forEach(b => {
-      b.addEventListener('click', () => update(key, b.dataset.val));
-    });
-  }
-  wireRadio('tw-serif', 'serif');
-  wireRadio('tw-mono',  'mono');
-  wireRadio('tw-acc',   'accent');
-  wireRadio('tw-paper', 'paper');
-  wireRadio('tw-typewriter', 'typewriter');
-
-  document.getElementById('tw-col').addEventListener('input', e => {
-    state.col = parseInt(e.target.value, 10);
-    apply();
-  });
-  document.getElementById('tw-col').addEventListener('change', e => {
-    persist({ col: state.col });
-  });
-  document.getElementById('tw-size').addEventListener('input', e => {
-    state.size = parseInt(e.target.value, 10);
-    apply();
-  });
-  document.getElementById('tw-size').addEventListener('change', e => {
-    persist({ size: state.size });
-  });
-
-  // ---- Host protocol ----
-  const panel = document.getElementById('tweaks');
-  const closeBtn = document.getElementById('tw-close');
-
-  function open()  { panel.classList.add('open'); }
-  function close() {
-    panel.classList.remove('open');
-    try { window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*'); } catch(e){}
-  }
-  closeBtn.addEventListener('click', close);
-
-  window.addEventListener('message', (ev) => {
-    const t = ev.data && ev.data.type;
-    if (t === '__activate_edit_mode')   open();
-    if (t === '__deactivate_edit_mode') close();
-  });
-
-  // Apply defaults, then announce availability.
-  apply();
-  try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch(e){}
-})();
-
 </script>
 </body>
 </html>
