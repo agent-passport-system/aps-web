@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 /* ============================================================
    aps-design.css
    Content-page stylesheet aligned with the landing system.
@@ -1540,3 +1541,57 @@ body.typewriter .hero h1, body.typewriter .page-hero h1 { font-size: 38px; }
   nav.top { gap: 14px; }
   nav.top .links, .nav-links { width: 100%; margin-left: 0; }
 }
+
+
+/* ===================== APS DARK THEME OVERRIDE (2026-05-30) =====================
+   Aligns every shared-CSS page to the dark navy/cyan landing. Recolors through the
+   existing tokens, switches type to the landing stack, and defines the canonical
+   top nav and footer. Scoped so page-body components are untouched. Reversible:
+   delete from this banner to end of file and remove the @import at the top. */
+:root{
+  --bg:#0A0F1E; --paper:#0C1428;
+  --ink:#EAF0F7; --ink-soft:#C7D4E2; --muted:#9FB1C5; --faint:#5E7187;
+  --rule:rgba(255,255,255,0.10); --rule-soft:rgba(255,255,255,0.06);
+  --accent:#6EC5D9; --hot:#9BDDEC;
+  --serif:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,"SF Mono",Menlo,Monaco,monospace;
+  --mono-code:'JetBrains Mono',ui-monospace,"SF Mono",Menlo,monospace;
+  --dark-bg:#0A0F1E; --dark-ink:#EAF0F7; --dark-ink-soft:#C7D4E2; --dark-muted:#9FB1C5; --dark-faint:#5E7187; --dark-rule:rgba(255,255,255,0.10);
+  --bg-alt:#0C1428; --ink-dim:#9FB1C5; --ink-faint:#5E7187;
+  --cyan:#6EC5D9; --cyan-bright:#9BDDEC;
+  --line:rgba(110,197,217,0.22); --hair:rgba(255,255,255,0.07);
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --display:'Space Grotesk','Inter',-apple-system,sans-serif;
+}
+html,body{background:var(--bg);color:var(--ink);font-family:var(--sans)}
+::selection{background:rgba(110,197,217,0.28)}
+h1,h2,h3,h4,h5,h6{font-family:var(--display);color:var(--ink)}
+
+/* canonical top nav */
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:13px clamp(20px,5vw,56px);background:rgba(10,15,30,0.74);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+.topbar .brand{font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);white-space:nowrap;text-decoration:none}
+.topbar .brand b{color:var(--cyan);font-weight:600}
+.topbar .topnav{display:flex;gap:24px;margin-left:auto;flex-wrap:wrap}
+.topbar .topnav a{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);text-decoration:none}
+.topbar .topnav a:hover{color:var(--cyan-bright)}
+
+/* canonical footer */
+footer{max-width:1160px;margin:0 auto;padding:62px clamp(22px,5vw,56px) 70px;border-top:1px solid var(--hair);background:transparent}
+footer .f-top{display:grid;grid-template-columns:1fr 2.35fr;gap:44px}
+footer .f-word{font-family:var(--mono);font-size:.95rem;letter-spacing:.04em;color:var(--ink)}
+footer .f-word b{color:var(--cyan);font-weight:600}
+footer .f-blurb{color:var(--ink-dim);font-size:.92rem;line-height:1.55;margin-top:14px;max-width:42ch}
+footer .f-brand .btn{display:inline-block;margin-top:20px}
+footer .btn{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;padding:9px 16px;border:1px solid var(--line);border-radius:3px;color:var(--cyan);white-space:nowrap;transition:all .15s;background:transparent}
+footer .btn:hover{border-color:var(--cyan);background:rgba(110,197,217,0.08)}
+footer .f-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,1.55fr);gap:24px}
+footer .f-h{font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:12px}
+footer .f-col a{display:block;color:var(--ink-dim);text-decoration:none;font-size:.9rem;padding:5px 0;transition:color .15s}
+footer .f-col a:hover{color:var(--cyan-bright)}
+footer .f-strip{margin-top:46px;padding-top:24px;border-top:1px solid var(--hair);display:flex;flex-wrap:wrap;gap:18px 40px}
+footer .f-strip>div{font-size:.85rem;color:var(--ink-dim)}
+footer .f-strip span{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:5px}
+footer .f-strip a{color:var(--ink-dim);text-decoration:none;border-bottom:1px solid var(--hair)}
+footer .f-strip a:hover{color:var(--cyan-bright)}
+@media(max-width:760px){ footer .f-top{grid-template-columns:1fr;gap:34px} footer .f-cols{grid-template-columns:1fr 1fr;gap:24px} .topbar .topnav{gap:14px} }
+/* =================== end APS DARK THEME OVERRIDE =================== */
