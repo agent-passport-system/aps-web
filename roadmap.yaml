@@ -3564,3 +3564,77 @@
   links:
     - url: "https://github.com/a2aproject/A2A/issues/1628"
       label: "A2A #1628"
+
+
+
+# ═══ DAY 102 — 2026-05-30 ═══
+
+- id: d102-site-where-it-plugs-in
+  title: "agent-passport.org: 'Where it plugs in' section and honest integration grid shipped"
+  description: "New landing section between the open-source case and the integration grid. The grid lists real connections without inflation: payment-rail bindings (x402, AP2, ACP, Stripe issuing), the agent-protocol surface (MCP tools, A2A adapter), the gitagent-protocol merged cryptographic-identity layer, and framework adapters (LangChain, CrewAI, AutoGen). Closing line frames the bindings as connective tissue, not a dependency claim. Remaining pages moved onto the dark theme with one canonical nav and footer."
+  status: done
+  workstream: site
+  day_start: 102
+  day_end: 102
+  links:
+    - url: "https://agent-passport.org"
+      label: "agent-passport.org"
+
+- id: d102-cycles-authority-state-at-admission
+  title: "Cycles permit receipt carries authority_state_at_admission, signed inline"
+  description: "The Cycles payment-rail permit receipt now records delegation revocation and expiry state at admission time, signed into the receipt body rather than deferred to a separate lookup. An offline verifier sees the authority state the gateway saw at admission. The Cycles adapter contributor ran a verb-shape pass over crosswalk/budget_reservation.yaml confirming reserve, permit, release, and refund shapes match the Cycles surface."
+  status: done
+  workstream: protocol
+  day_start: 102
+  day_end: 102
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/issues/25"
+      label: "aps #25"
+
+- id: d102-aivss-bound-parity-confirmed
+  title: "AIVSS enforcement-effectiveness v0.2: bound-parity language confirmed clean"
+  description: "Reviewer confirmed the section 1.3 reconciliation onto bound parity reads without contradiction: two substrates whose security windows land inside the same bound establish that the dimension measures methodology, not backend. Closes one v0.2 prerequisite; third-substrate reproduction and the empirical block-rate threshold remain."
+  status: active
+  workstream: standards
+  day_start: 102
+  day_end: 102
+  links:
+    - url: "https://github.com/aeoess/aivss-enforcement-effectiveness/issues/4"
+      label: "aivss #4"
+
+# ═══ DAY 103 — 2026-05-31 ═══
+
+- id: d103-w3c-34-accountability-subsection
+  title: "W3C #34: accountability-record subsection proposed (commitment, decision, receipt)"
+  description: "Posted the subsection shape on w3c-cg/ai-agent-protocol#34: three records along an action (commitment, decision, receipt), each referencing the next by content hash with none embedding the other, serialized as plain W3C verifiable credentials linked by digest. Contemporaneous reasoning binds in the decision record; the belief layer is referenced not inlined. Records carry admissibility evidence, not truth. Offered to draft the normative subsection text against the shape."
+  status: active
+  workstream: standards
+  day_start: 103
+  day_end: 103
+  links:
+    - url: "https://github.com/w3c-cg/ai-agent-protocol/issues/34"
+      label: "W3C CG #34"
+
+- id: d103-a2a-1463-oid4vp-composition
+  title: "A2A #1463: OID4VP composes under scoped delegation for the action-within-policy question"
+  description: "Composition note on a2aproject/A2A#1463 (OID4VP for in-task authorization): OID4VP proves who and qualified-to-act; scoped delegation with monotonic narrowing plus gateway enforcement answers whether the requested action was within policy. The credential and the delegation envelope reference each other by content hash. Contributor confirmed the same attenuation model."
+  status: done
+  workstream: standards
+  day_start: 103
+  day_end: 103
+  links:
+    - url: "https://github.com/a2aproject/A2A/issues/1463"
+      label: "A2A #1463"
+
+- id: d103-cycles-join-integrity-review
+  title: "Cycles join-integrity check reviewed; envelope-signature verification tracked to v0.2"
+  description: "Reviewed the contributed cycles_evidence_id_sha256 join-integrity check (PR #42): it recomputes the Cycles evidence envelope content hash and confirms it matches both the envelope id and the receipt's signed reference, reproducing the server identifier byte for byte. Request-changes posted for one doc-clarity item (a passing check proves binding, not envelope authenticity) plus two negative tests. Envelope Ed25519 verification (did:cycles / JWKS) opened as v0.2 tracking issue #43."
+  status: active
+  workstream: protocol
+  day_start: 103
+  day_end: 103
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/pull/42"
+      label: "aps #42"
+    - url: "https://github.com/aeoess/agent-passport-system/issues/43"
+      label: "aps #43"
