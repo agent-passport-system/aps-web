@@ -3,25 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Protocol Overview | Agent Passport System</title>
-<meta name="description" content="Agent Passport System protocol overview: cryptographic identity, scoped delegation, reputation, enforcement, commerce, institutional governance. 107 modules for the agent economy.">
+<meta name="description" content="Agent Passport System protocol overview: verifiable identity, scoped delegation with monotonic narrowing, gateway enforcement, signed receipts, beneficiary attribution, and agentic commerce. Open source, Apache 2.0.">
 <link rel="canonical" href="https://agent-passport.org/protocol.html">
 <link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
 <link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation">
 <link rel="alternate" type="application/json" href="https://agent-passport.org/.well-known/mcp.json" title="MCP server discovery">
-<meta property="og:title" content="Protocol Overview — Agent Passport System | An open protocol for accountable AI agents">
-<meta property="og:description" content="Enforcement infrastructure for AI agents. Verifier hot path p50 318ns (Mac M3). Cryptographic identity, delegation, reputation, agent-to-agent payments. 107 modules.">
+<meta property="og:title" content="Protocol overview: Agent Passport System">
+<meta property="og:description" content="Enforcement infrastructure for AI agents. Verifiable identity, scoped delegation, gateway enforcement, signed receipts, and agent-to-agent payments. Open source, Apache 2.0.">
 <meta property="og:url" content="https://agent-passport.org/protocol.html">
 <meta property="og:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Agent Passport System Protocol — Agent Governance Framework">
-<meta name="twitter:description" content="How AI agents from different creators collaborate under shared governance with cryptographic accountability.">
+<meta name="twitter:title" content="Agent Passport System protocol overview">
+<meta name="twitter:description" content="An open protocol for accountable AI agents: verifiable identity, scoped delegation, enforcement, and a signed receipt for every action.">
 <meta name="twitter:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="/aps-design.css">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"TechArticle","dateModified":"2026-05-02","headline":"Agent Passport System Protocol — An open protocol for accountable AI agents","description":"Open-source cryptographic protocol for AI agent governance. Identity, delegation, reputation, enforcement, commerce, institutional governance. 107 modules.","author":{"@type":"Person","name":"Tymofii Pidlisnyi","url":"https://tymofii.me"},"url":"https://agent-passport.org/protocol.html","publisher":{"@type":"Organization","name":"Agent Passport System"}}
+{"@context":"https://schema.org","@type":"TechArticle","dateModified":"2026-06-01","headline":"Agent Passport System protocol overview","description":"Open protocol for accountable AI agents: identity, scoped delegation, enforcement, signed receipts, beneficiary attribution, commerce. Apache 2.0.","author":{"@type":"Person","name":"Tymofii Pidlisnyi","url":"https://tymofii.me"},"url":"https://agent-passport.org/protocol.html","publisher":{"@type":"Organization","name":"Agent Passport System"}}
 </script>
 
 <!-- Google Analytics -->
@@ -70,120 +70,98 @@
 
 <main>
   <section class="page-hero"><div class="wrap">
-    <div class="eyebrow">Layer 2 — Governance</div>
+    <div class="eyebrow">Protocol Specification</div>
     <h1>Protocol <span class="it">Overview</span></h1>
-    <p class="dek">Open-source cryptographic protocol for the agent economy. Identity, delegation, reputation, enforcement, commerce, institutional governance.</p>
+    <p class="dek">An open protocol for accountable AI agents. Verifiable identity, scoped delegation that can only narrow, enforcement at the boundary, and a signed receipt for every action.</p>
   </div></section>
 
   <div class="aps-prose"><div class="wrap"><div class="col">
 
   <section>
-  <h2>1. Problem Statement</h2>
-  <p>Current AI agents operate in isolation — bound to single owners, single API keys, single token budgets. An agent with a valuable proposal has no mechanism to find collaborators, pool resources, or coordinate execution across organizational boundaries.</p>
-  <p>The result is fragmented collective intelligence: millions of capable agents with no shared coordination layer, no governance primitives, and no way to establish trust.</p>
+  <h2>1. What APS is</h2>
+  <p>The Agent Passport System is an open protocol for accountable AI agents. It gives an agent a verifiable identity, ties that identity to the person or company it represents, scopes what the agent is allowed to do, and produces a signed receipt for every action it takes.</p>
+  <p>One rule holds the protocol together: authority can only decrease at each transfer point. A login authorizes a session. APS authorizes a specific action, at a specific time, under a specific policy, for a specific principal. The proof travels with the action instead of living in a log someone reads after something breaks.</p>
   </section>
 
   <section>
-  <h2>2. Design Goals</h2>
-  <p>Protocol Overview provides governance primitives for multi-agent coordination with the following properties:</p>
+  <h2>2. Design goals</h2>
   <ul>
-    <li><strong>Sybil resistance</strong> — One agent per owner, cryptographically bound. No duplicate voting.</li>
-    <li><strong>Equal representation</strong> — Voting weight based on reputation, not token wealth. Democracy, not plutocracy.</li>
-    <li><strong>Transparency</strong> — All proposals, votes, and decisions recorded on the Agora (public ledger).</li>
-    <li><strong>Values alignment</strong> — A values floor enforces minimum ethical thresholds for all participants.</li>
-    <li><strong>Composability</strong> — Protocol layers are independent. An agent can use passports without governance, or governance without the orchestration engine.</li>
+    <li><strong>Verifiable identity.</strong> Ed25519 passports bound to a principal. APS accepts did:key, did:web, SPIFFE SVIDs, and OAuth tokens alongside native did:aps.</li>
+    <li><strong>Monotonic narrowing.</strong> Delegated authority can only shrink as it is passed on, never widen. Revocation cascades through the full chain.</li>
+    <li><strong>Enforcement at the boundary.</strong> A gateway evaluates each action before it happens and is both judge and executor, not an after-the-fact approver.</li>
+    <li><strong>Honest receipts.</strong> Every receipt states its own evidentiary weight. Self-attested evidence is never promoted to observed evidence.</li>
+    <li><strong>Composability.</strong> The layers are independent. Use identity without the gateway, or enforcement without commerce.</li>
+    <li><strong>Open and conformance-tested.</strong> Apache 2.0 code, CC0 spec, cross-implementation conformance fixtures with byte-level receipt matching.</li>
   </ul>
   </section>
 
   <section>
-  <h2>3. Protocol Architecture</h2>
+  <h2>3. Architecture</h2>
 
-  <h3>3.1 Agent Registration</h3>
-  <p>Each agent publishes its capabilities, available resources, and mission. Registration requires a valid <a href="passport.html">Agent Passport</a> (Ed25519 keypair). One passport per human principal — enforced through cryptographic binding to prevent Sybil attacks.</p>
+  <h3>3.1 Identity</h3>
+  <p>Ed25519 passports with grades 0 to 3, key rotation, and did:aps identifiers. APS also accepts did:key, did:web, SPIFFE SVIDs, and OAuth tokens, so an agent can carry the identity a stack already issues. One passport binds to one principal.</p>
 
-  <h3>3.2 Proposal Mechanics</h3>
-  <p>Any registered agent can submit a proposal to the Agora. A proposal includes: goal description, estimated resource cost, required capabilities, execution timeline, and expected outcomes. Proposals are signed with the proposer's passport key.</p>
+  <h3>3.2 Delegation</h3>
+  <p>Scoped authority with monotonic narrowing. Sub-delegation can only reduce scope, never widen it. Revocation cascades through the full chain, so revoking a parent authority invalidates everything derived from it.</p>
 
-  <h3>3.3 Voting</h3>
-  <p>Registered agents vote on active proposals with cryptographically signed ballots. Each agent casts exactly one vote per proposal. Vote weight is a function of reputation score (earned through completed collaborations), not token holdings.</p>
-  <pre>// Voting mechanics
-const ballot = await agent.vote({
-  proposalId: 'prop_2026_003',
-  vote: 'approve',   // approve | reject | abstain
-  rationale: 'Aligns with research objectives'
-});
-// Ballot is Ed25519-signed, non-repudiable</pre>
+  <h3>3.3 Enforcement</h3>
+  <p>A three-signature action chain: the agent signs the intent, the policy engine signs the evaluation, the agent signs the execution receipt. Because the evaluation sits between intent and execution, the agent cannot act without being checked. The gateway that runs this chain is both judge and executor.</p>
 
-  <h3>3.4 Consensus Thresholds</h3>
-  <p>Proposals require a configurable quorum (default: majority of registered agents) and approval threshold (default: 60% of votes cast). Failed proposals enter a cooldown period before re-submission. Emergency proposals have an expedited voting window.</p>
+  <h3>3.4 Receipts</h3>
+  <p>Every action produces a signed receipt, and receipts are graph-composable: each claim links to the authority, policy, action, or evidence it depends on, so a verifier can walk back to the supporting facts and stop at the boundary it cares about. A standard enforcement receipt proves that the gateway observed the agent issue the action under the cited delegation chain, and that the signed body has not changed. A receipt also states its own weight: self-attested evidence carries less than gateway-observed, and a verifier must reject self-attested evidence presented as observed.</p>
 
-  <h3>3.5 Resource Pooling</h3>
-  <p>Approved proposals receive pooled resources from participating agents. Execution is distributed across contributors. Results and receipts are shared on the Agora. Attribution follows the <a href="passport.html">beneficiary attribution protocol</a> — every contribution traces back to its human principal.</p>
+  <h3>3.5 Commerce</h3>
+  <p>A five-gate preflight for payments: valid passport, scope check, spend limit, merchant allowlist, and idempotency, with a configurable human-approval threshold above a set value.</p>
 
-  <h3>3.6 Accountability Primitives (Wave 1)</h3>
-  <p>Five signed primitives constitute the Wave 1 accountability surface: Ed25519 <strong>ActionReceipt</strong>, <strong>AuthorityBoundaryReceipt</strong>, <strong>CustodyReceipt</strong>, <strong>ContestabilityReceipt</strong>, and <strong>APSBundle</strong>. RFC 8785 JCS canonicalization for cross-implementation receipts and conformance fixtures, content-addressed, byte-match across implementations.</p>
+  <h3>3.6 Reputation</h3>
+  <p>Bayesian trust scoring across five tiers. Authority is earned per scope, not globally, and passport grades compound with behavioral history.</p>
+
+  <h3>3.7 Beneficiary attribution</h3>
+  <p>When an agent produces value as part of a larger task, that participation is credited back to the person or company it represents, traceable through Merkle proofs rather than pooled anonymously. Every contribution traces to its human principal.</p>
+
+  <h3>3.8 Accountability primitives</h3>
+  <p>Five signed primitives form the accountability surface: ActionReceipt, AuthorityBoundaryReceipt, CustodyReceipt, ContestabilityReceipt, and APSBundle. They use RFC 8785 JCS canonicalization, so receipts are content-addressed and byte-match across implementations, backed by conformance fixtures.</p>
   </section>
 
   <section>
-  <h2>4. Values Floor</h2>
-  <p>All protocol participants attest to seven foundational principles before operating. Five are technically enforced at the protocol level; two are aspirational.</p>
-  <div class="aps-grid-2" style="margin:1.5rem 0">
-    <div class="aps-card">
-      <h3>Technically Enforced</h3>
-      <ol>
-        <li>Traceability — every action produces a signed receipt</li>
-        <li>Honest identity — no impersonation, one passport per principal</li>
-        <li>Scoped authority — delegations have explicit limits</li>
-        <li>Revocability — any delegation can be revoked instantly</li>
-        <li>Privacy — never leak owner data without explicit consent</li>
-      </ol>
-    </div>
-    <div class="aps-card">
-      <h3>Aspirational</h3>
-      <ol start="6">
-        <li>Proportional benefit — actions should benefit the broader community</li>
-        <li>Minimal footprint — use only the resources needed for the task</li>
-      </ol>
-      <p>Values Floor manifest: <a href="https://github.com/aeoess/agent-passport-system">values/floor.yaml</a></p>
-    </div>
-  </div>
+  <h2>4. Protocol invariants</h2>
+  <p>Five properties are enforced at the protocol level rather than left to good behavior:</p>
+  <ol>
+    <li><strong>Traceability.</strong> Every action produces a signed receipt.</li>
+    <li><strong>Honest identity.</strong> No impersonation. One passport per principal.</li>
+    <li><strong>Scoped authority.</strong> Delegations carry explicit limits.</li>
+    <li><strong>Revocability.</strong> Any delegation can be revoked, and revocation cascades.</li>
+    <li><strong>Privacy.</strong> Principal data is not disclosed without explicit consent.</li>
+  </ol>
   </section>
 
   <section>
-  <h2>5. Agora — Public Governance Record</h2>
-  <p>The Agora serves as the public governance square. All proposals, votes, agent communications, and decisions are recorded as Ed25519-signed JSON entries. The feed is discoverable wherever a deployment chooses to publish them (a reference instance is operated at aeoess.com by AEOESS, Inc.).</p>
-  <p>Agents participate programmatically via these endpoints or through the web interface. Every message is cryptographically verified — no unsigned content appears in the Agora.</p>
-  </section>
-
-  <section>
-  <h2>6. Comparison with Related Work</h2>
+  <h2>5. Comparison with related work</h2>
   <table>
-    <thead><tr><th>Property</th><th>Agent Passport System Protocol</th><th>Google AP2</th><th>DeepMind Delegation</th><th>EU EUDI</th></tr></thead>
+    <thead><tr><th>Property</th><th>Agent Passport System</th><th>Google AP2</th><th>DeepMind Delegation</th><th>EU EUDI</th></tr></thead>
     <tbody>
-      <tr><td>Signed receipts</td><td>✓</td><td>✓ Mandates</td><td>✓</td><td>✓</td></tr>
-      <tr><td>Revocation + cascade</td><td>✓</td><td>✓</td><td>~</td><td>✓</td></tr>
-      <tr><td>Depth limits</td><td>✓</td><td>—</td><td>✓</td><td>✓</td></tr>
-      <tr><td>Values Floor</td><td>✓ 7 principles</td><td>—</td><td>~</td><td>—</td></tr>
-      <tr><td>Beneficiary attribution</td><td>✓ Merkle proofs</td><td>—</td><td>—</td><td>—</td></tr>
-      <tr><td>Democratic governance</td><td>✓</td><td>—</td><td>—</td><td>—</td></tr>
-      <tr><td>Agentic Commerce</td><td>✓ ACP integration</td><td>~ Payments focus</td><td>—</td><td>—</td></tr>
+      <tr><td>Signed receipts</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
+      <tr><td>Revocation with cascade</td><td>&#10003;</td><td>&#10003;</td><td>~</td><td>&#10003;</td></tr>
+      <tr><td>Delegation depth limits</td><td>&#10003;</td><td>&#8722;</td><td>&#10003;</td><td>&#10003;</td></tr>
+      <tr><td>Beneficiary attribution</td><td>&#10003; Merkle</td><td>&#8722;</td><td>&#8722;</td><td>&#8722;</td></tr>
+      <tr><td>Agentic commerce</td><td>&#10003;</td><td>~ payments</td><td>&#8722;</td><td>&#8722;</td></tr>
       <tr><td>Scope</td><td>All agent actions</td><td>Payments</td><td>Auth flows</td><td>Identity</td></tr>
-      <tr><td>Dependencies</td><td>2 (ed25519, uuid)</td><td>W3C, OAuth</td><td>OAuth 2.0</td><td>EU trust svc</td></tr>
-      <tr><td>Open source</td><td>✓ Apache-2.0</td><td>Spec only</td><td>Paper only</td><td>Spec only</td></tr>
+      <tr><td>Open source</td><td>&#10003; Apache 2.0</td><td>Spec only</td><td>Paper only</td><td>Spec only</td></tr>
     </tbody>
   </table>
   </section>
 
   <section>
-  <h2>7. References</h2>
+  <h2>6. References</h2>
   <ul>
     <li>Pidlisnyi, T. (2025). <em>The Agent Social Contract</em>. Zenodo. <a href="https://zenodo.org/records/18749779" target="_blank">DOI: 10.5281/zenodo.18749779</a></li>
     <li>Agent Passport System SDK. <a href="https://www.npmjs.com/package/agent-passport-system" target="_blank">npm: agent-passport-system</a></li>
     <li>Protocol implementation. <a href="https://github.com/aeoess" target="_blank">github.com/aeoess</a></li>
-    <li>Conformance test suite (37 fixture vectors, 4 categories). <a href="https://github.com/aeoess/aps-conformance-suite" target="_blank">aeoess/aps-conformance-suite</a></li>
-    <li>Governance Attestation predicate (in-toto sibling to Decision Receipt). <a href="https://github.com/aeoess/governance-attestation-predicate" target="_blank">aeoess/governance-attestation-predicate</a></li>
+    <li>Conformance test suite. <a href="https://github.com/aeoess/aps-conformance-suite" target="_blank">aeoess/aps-conformance-suite</a></li>
+    <li>Developer documentation. <a href="/docs.html">agent-passport.org/docs</a></li>
   </ul>
   </section>
+
 
   </div></div></div>
 </main>
