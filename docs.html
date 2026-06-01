@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Docs &middot; Agent Passport System</title>
+<meta name="description" content="Developer docs for the Agent Passport System: install, quickstart, core concepts, receipts, the gateway, and how APS evidence maps to compliance controls. Apache 2.0.">
+<link rel="canonical" href="https://agent-passport.org/docs.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://agent-passport.org/docs.html">
+<meta property="og:title" content="Agent Passport System: Developer Docs">
+<meta property="og:description" content="Install, quickstart, core concepts, and the honest boundaries of what APS receipts prove. Open source, Apache 2.0.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0F1E; --bg-alt:#0C1428; --ink:#EAF0F7; --ink-dim:#9FB1C5;
+    --ink-faint:#5E7187; --cyan:#6EC5D9; --cyan-bright:#9BDDEC;
+    --line:rgba(110,197,217,0.22); --hair:rgba(255,255,255,0.07);
+    --code-bg:#070B16; --warn:#E6B566;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --display:'Space Grotesk','Inter',-apple-system,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,"SF Mono",Menlo,Monaco,monospace;
+    --maxw:1160px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.6}
+  a{color:var(--cyan);text-decoration:none}
+  a:hover{color:var(--cyan-bright)}
+  ::selection{background:rgba(110,197,217,0.28)}
+  .topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:13px clamp(20px,5vw,56px);background:rgba(10,15,30,0.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+  .brand{font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+  .brand b{color:var(--cyan);font-weight:600}
+  .topnav{display:flex;gap:24px;margin-left:auto;flex-wrap:wrap}
+  .topnav a{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
+  .topnav a.active{color:var(--cyan)}
+  .topnav a:hover{color:var(--cyan-bright)}
+  .doc{max-width:820px;margin:0 auto;padding:clamp(36px,7vw,72px) clamp(22px,5vw,56px) 96px}
+  .kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:18px}
+  h1{font-family:var(--display);font-weight:300;font-size:clamp(2rem,4.6vw,3rem);line-height:1.08;letter-spacing:-.02em;margin-bottom:18px}
+  h2{font-family:var(--display);font-weight:400;font-size:1.5rem;letter-spacing:-.01em;margin:54px 0 14px;padding-top:18px;border-top:1px solid var(--hair)}
+  h3{font-family:var(--sans);font-weight:600;font-size:1.05rem;margin:28px 0 8px;color:var(--ink)}
+  p{color:var(--ink-dim);margin:12px 0;max-width:68ch}
+  ul,ol{color:var(--ink-dim);margin:12px 0 12px 22px;max-width:66ch}
+  li{margin:6px 0}
+  strong{color:var(--ink);font-weight:600}
+  code{font-family:var(--mono);font-size:.86em;background:rgba(110,197,217,0.10);color:var(--cyan-bright);padding:1px 6px;border-radius:3px}
+  pre{background:var(--code-bg);border:1px solid var(--hair);border-radius:6px;padding:18px 20px;overflow-x:auto;margin:16px 0}
+  pre code{background:none;color:var(--ink);padding:0;font-size:.84rem;line-height:1.7}
+  .lead{font-size:1.12rem;color:var(--ink-dim);max-width:64ch;margin:0 0 8px}
+  .label{display:inline-block;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:2px 7px;border-radius:3px;border:1px solid var(--line);color:var(--cyan);vertical-align:middle;margin-left:8px}
+  .note{border-left:2px solid var(--cyan);background:rgba(110,197,217,0.06);padding:14px 18px;margin:18px 0;border-radius:0 6px 6px 0}
+  .note p{margin:4px 0;color:var(--ink-dim)}
+  .warn{border-left-color:var(--warn);background:rgba(230,181,102,0.07)}
+  .warn .h{color:var(--warn);font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase}
+  .toc{font-family:var(--mono);font-size:.74rem;display:flex;flex-wrap:wrap;gap:8px 18px;margin:24px 0 8px;padding-bottom:22px;border-bottom:1px solid var(--hair)}
+  .toc a{color:var(--ink-faint)}
+  .toc a:hover{color:var(--cyan)}
+  footer{max-width:var(--maxw);margin:0 auto;padding:54px clamp(22px,5vw,56px) 70px;border-top:1px solid var(--hair);color:var(--ink-faint);font-size:.82rem}
+  footer a{color:var(--ink-dim)}
+  .f-strip{display:flex;flex-wrap:wrap;gap:10px 26px;font-family:var(--mono);font-size:.66rem;letter-spacing:.06em}
+  .f-strip span{color:var(--ink-faint);margin-right:8px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="brand" href="index.html"><b>APS</b> &middot; Agent Passport System</a>
+  <nav class="topnav">
+    <a href="docs.html" class="active">Docs</a>
+    <a href="protocol.html">Spec</a>
+    <a href="benchmarks.html">Benchmarks</a>
+    <a href="research.html">Research</a>
+    <a href="roadmap.html">Roadmap</a>
+    <a href="blog.html">Dev Log</a>
+    <a href="https://github.com/aeoess/agent-passport-system">GitHub &#8599;</a>
+  </nav>
+</div>
+
+<main class="doc">
+  <div class="kicker">Developer Documentation</div>
+  <h1>Build with the Agent Passport System</h1>
+  <p class="lead">APS gives an AI agent a verifiable identity, ties it to the person or company it represents, scopes what it is allowed to do, and signs every action so the proof travels with the action instead of living in a log you check after something breaks.</p>
+  <p>This page gets you from install to a working governed action, then explains the core primitives and, plainly, what the receipts do and do not prove. Everything here is open source under Apache 2.0. The signed-bytes spec is CC0.</p>
+
+  <div class="toc">
+    <a href="#install">Install</a>
+    <a href="#quickstart">Quickstart</a>
+    <a href="#concepts">Core concepts</a>
+    <a href="#receipts">Receipts</a>
+    <a href="#gateway">The gateway</a>
+    <a href="#evidence">Compliance evidence</a>
+    <a href="#status">Status labels</a>
+    <a href="#next">Next steps</a>
+  </div>
+
+  <h2 id="install">Install</h2>
+  <p>The TypeScript SDK is the reference implementation. The current 2.6 line carries the full feature set and is published on the <code>alpha</code> channel while one receipt-identity field is finalized, so install it with the <code>@alpha</code> tag:</p>
+  <pre><code>npm install agent-passport-system@alpha</code></pre>
+  <p>There is a Python implementation on PyPI for verifier and signing work, and a Model Context Protocol server that exposes APS as tools to any MCP-capable agent:</p>
+  <pre><code># Python implementation
+pip install agent-passport-system
+
+# MCP server (governance as tools)
+npm install -g agent-passport-system-mcp &amp;&amp; npx agent-passport-system-mcp setup</code></pre>
+  <div class="note"><p><strong>On the alpha tag.</strong> A plain <code>npm install agent-passport-system</code> resolves to the older stable line. Use <code>@alpha</code> to get the current 2.6 feature set. A stable <code>2.6</code> cut follows once the receipt-identity field is content-derived; until then the API is exercised by the full conformance suite and is safe to build on with a pinned version.</p></div>
+
+  <h2 id="quickstart">Quickstart</h2>
+  <p>The curated entry point is <code>agent-passport-system/core</code>, which exposes the roughly 25 functions that cover most integrations: identity, delegation, enforcement, commerce, reputation, and key management. The full root import stays available for everything else.</p>
+  <pre><code>import {
+  createPassport, createDelegation,
+  evaluateIntent, commercePreflight, generateKeyPair
+} from 'agent-passport-system/core'</code></pre>
+  <p>The shape of a governed action is always the same four moves:</p>
+  <ol>
+    <li><strong>Identity.</strong> Generate an Ed25519 keypair and create a passport for the agent. The passport ties the agent to the principal it represents and carries a grade from 0 to 3.</li>
+    <li><strong>Delegation.</strong> The principal issues a scoped delegation to the agent. Scope can only narrow as it is passed on, never widen.</li>
+    <li><strong>Enforcement.</strong> Before the agent acts, <code>evaluateIntent</code> checks the action against the delegation and policy. The agent signs the intent, the policy engine signs the evaluation, and the agent signs the execution receipt. The agent cannot skip the check.</li>
+    <li><strong>Receipt.</strong> The action produces a signed receipt that states the authority it ran under and what it proves.</li>
+  </ol>
+  <p>For commerce, <code>commercePreflight</code> runs a five-gate check (valid passport, scope, spend limit, merchant allowlist, idempotency) with a human-approval threshold for high-value transactions. Full runnable examples live in the <a href="https://github.com/aeoess/agent-passport-system">repository README and the test suite</a>, which is the source of truth for exact call signatures on the version you installed.</p>
+
+  <h2 id="concepts">Core concepts</h2>
+  <p>The protocol rests on a single rule: <strong>authority can only decrease at each transfer point</strong>. A login authorizes a session. APS authorizes a specific action, at a specific time, under a specific policy, for a specific principal.</p>
+
+  <h3>Identity <span class="label">Canonical</span></h3>
+  <p>Ed25519 passports with grades 0 to 3, key rotation, and <code>did:aps</code> identifiers. APS also accepts <code>did:key</code>, <code>did:web</code>, SPIFFE SVIDs, and OAuth tokens, so an agent can carry the identity your stack already issues.</p>
+
+  <h3>Delegation <span class="label">Canonical</span></h3>
+  <p>Scoped authority with monotonic narrowing. Sub-delegation can only reduce scope, never add to it. Cascade revocation propagates through the full chain, so revoking a parent authority invalidates everything derived from it.</p>
+
+  <h3>Enforcement <span class="label">Canonical</span></h3>
+  <p>A three-signature action chain: the agent signs the intent, the policy engine signs the evaluation, the agent signs the execution receipt. Because the evaluation sits between intent and execution, the agent cannot act without being checked.</p>
+
+  <h3>Commerce <span class="label">Production-Extension</span></h3>
+  <p>A five-gate preflight for payments: valid passport, scope check, spend limit, merchant allowlist, and idempotency, with configurable human-approval thresholds above a value you set.</p>
+
+  <h3>Reputation <span class="label">Production-Extension</span></h3>
+  <p>Bayesian trust scoring across five tiers. Authority is earned per scope, not globally, and passport grades compound with behavioral history.</p>
+
+  <h2 id="receipts">Receipts: what they prove, and what they do not</h2>
+  <p>Every action produces a signed receipt, and receipts are graph-composable: each claim links to the authority, policy, action, observation, or evidence it depends on, so a verifier can walk from any receipt back to its supporting facts and stop at the boundary it cares about.</p>
+  <p>What a standard enforcement receipt proves: the gateway observed the agent issue this action under the cited delegation chain, and the signed body has not changed since signing. That is a real, checkable claim.</p>
+  <div class="warn note"><div class="h">Read this before you build on receipts</div><p>A receipt states its own evidentiary weight, and you must honor it. A <code>self_attested</code> receipt, where the agent signed without independent attestation, carries less weight than a <code>gateway_observed</code> or <code>runtime_attested</code> one. The <code>capture_mode</code> and <code>self_attested</code> fields are part of the claim, not metadata. A verifier must reject self-attested evidence presented as observed evidence. A receipt proves authority and integrity of the recorded action. It does not prove the action was wise, that logging coverage was complete, or that the world matched the claim.</p></div>
+
+  <h2 id="gateway">The gateway</h2>
+  <p>The SDK gives you the primitives. The gateway is the enforcement boundary that runs them as a service: it is both judge and executor, evaluating each action against the delegation and policy before it happens and emitting the signed receipt. Gateway evaluation runs in single-digit milliseconds.</p>
+  <p>The protocol and SDK are open source. The hosted gateway is a separate product for teams that want enforcement, audit evidence, and tenant isolation without running the infrastructure themselves. If that is your situation, <a href="mailto:signal@aeoess.com">get in touch</a>.</p>
+
+  <h2 id="evidence">Compliance evidence</h2>
+  <p>In regulated settings, including healthcare, auditors increasingly require evidence of who authorized an automated action, that the authority was scoped, that it was revocable, and that the record has not been tampered with. APS receipts supply exactly that class of evidence: a signed, tamper-evident record of the authority in effect for each action and the human or policy approvals that gated it.</p>
+  <p>What that evidence can support, in plain terms: a record of processing and access decisions, proof that a human-in-the-loop approval gated a given action, the scope and authority a decision ran under, and a tamper-evident monitoring trail. These map to the kinds of obligations frameworks such as the EU AI Act, GDPR, SOC 2, ISO 42001, and the NIST AI RMF increasingly require.</p>
+  <div class="warn note"><div class="h">An honest boundary</div><p>APS supplies evidence for controls. It does not, by itself, make any organization compliant with any regulation, does not constitute a legal determination, and covers only the interactions the gateway sees. Absence of a receipt does not prove absence of an event. Treat APS as the evidence layer in a compliance program, not as the program.</p></div>
+
+  <h2 id="status">Status labels</h2>
+  <p>Every primitive carries one of three labels so you know how much weight it can bear today:</p>
+  <ul>
+    <li><strong>Canonical.</strong> Stable, signed-bytes frozen, covered by conformance fixtures. Breaking these would break cross-implementation verification. Build on them.</li>
+    <li><strong>Production-Extension.</strong> Shipped and tested, optional, additive to the canonical core. Safe in production; the surface may still grow.</li>
+    <li><strong>Experimental.</strong> Published for review and tested, but the shape may change. Pin a version before depending on it.</li>
+  </ul>
+
+  <h2 id="next">Next steps</h2>
+  <ul>
+    <li>Read the <a href="protocol.html">protocol specification</a> for the normative detail and the signed-byte formats.</li>
+    <li>Browse the <a href="https://github.com/aeoess/agent-passport-system">SDK and runnable examples</a> on GitHub.</li>
+    <li>See the <a href="threat-model.html">threat model</a> for what APS defends against and what it does not.</li>
+    <li>Check the <a href="benchmarks.html">benchmarks</a> and the <a href="research.html">research</a> behind the design.</li>
+    <li>Questions: <a href="mailto:signal@aeoess.com">signal@aeoess.com</a>.</li>
+  </ul>
+</main>
+
+<footer>
+  <div class="f-strip">
+    <div><span>License</span>Spec CC0 &middot; Code Apache 2.0</div>
+    <div><span>Editor</span>Tymofii Pidlisnyi</div>
+    <div><span>Standard</span>APS &middot; IETF Internet-Draft</div>
+    <div><span>Packages</span><a href="https://www.npmjs.com/package/agent-passport-system">npm</a> &middot; <a href="https://pypi.org/project/agent-passport-system/">PyPI</a></div>
+    <div><span>Also at</span><a href="https://aeoess.com">aeoess.com</a></div>
+  </div>
+</footer>
+
+</body>
+</html>
