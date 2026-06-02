@@ -8,11 +8,11 @@
 <link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
 <link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation">
 <link rel="alternate" type="application/json" href="https://agent-passport.org/.well-known/mcp.json" title="MCP server discovery">
-<meta property="og:title" content="Threat Model — Agent Passport System">
+<meta property="og:title" content="Threat Model: Agent Passport System">
 <meta property="og:description" content="Security analysis: assets, threat actors, attack surface, mitigations, assumptions, and non-goals for the Agent Passport System protocol.">
 <meta property="og:url" content="https://agent-passport.org/threat-model.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Agent Passport Threat Model — 38 Attack Scenarios">
+<meta name="twitter:title" content="Agent Passport Threat Model: 38 Attack Scenarios">
 <meta name="twitter:description" content="Security analysis of an AI agent identity protocol. Threat actors, attack surface, mitigations with test references.">
 <meta name="twitter:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -57,7 +57,7 @@
   "signature": "f3ad228ec2e00d5bac6becee8ca34612d64038861961ccd4b34ffbfc94e2df17e3555bee08d99157515bb16e1e0fc227c5baef1f806a32284ca95772c485fc0f"
 }
 </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"Threat Model — Agent Passport System | Agent Passport System Security Analysis","description":"Threat model for the Agent Passport System: assets, threat actors, attack surface by layer, mitigations with test references, assumptions, and non-goals. 38 adversarial scenarios tested.","url":"https://agent-passport.org/threat-model.html","dateModified":"2026-05-02","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"Agent Passport System Threat Model","articleSection":"Security Analysis"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"Threat Model: Agent Passport System | Agent Passport System Security Analysis","description":"Threat model for the Agent Passport System: assets, threat actors, attack surface by layer, mitigations with test references, assumptions, and non-goals. 38 adversarial scenarios tested.","url":"https://agent-passport.org/threat-model.html","dateModified":"2026-05-02","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"Agent Passport System Threat Model","articleSection":"Security Analysis"}</script>
 </head>
 <body>
 
@@ -85,7 +85,7 @@
 
     <h2>1. System Model</h2>
     <p>The Agent Passport System operates as a <strong>client-side protocol library</strong>. It runs inside agent runtimes (Node.js, browser, Python via canonical serialization). There is no central server, no blockchain, no consensus network. Each agent holds its own Ed25519 private key and produces signed artifacts (passports, delegations, receipts, messages) that any other party can verify using only the public key and the signed data.</p>
-    <p>The protocol boundary is the <strong>signed artifact</strong>. The system guarantees: if a signature verifies, the claimed agent produced the data, the data has not been tampered with, and the delegation chain is valid at verification time. Everything outside this boundary — key storage, network transport, runtime integrity — is outside scope.</p>
+    <p>The protocol boundary is the <strong>signed artifact</strong>. The system guarantees: if a signature verifies, the claimed agent produced the data, the data has not been tampered with, and the delegation chain is valid at verification time. Everything outside this boundary (key storage, network transport, runtime integrity) is outside scope.</p>
 
     <h2>2. Assets</h2>
     <p>What the protocol protects, ordered by criticality.</p>
@@ -102,7 +102,7 @@
     </table>
 
     <h2>3. Threat Actors</h2>
-    <p>The protocol assumes agents may be adversarial. Agents are software — they can be compromised, misconfigured, or intentionally malicious. The threat model does not assume good faith from any agent.</p>
+    <p>The protocol assumes agents may be adversarial. Agents are software. They can be compromised, misconfigured, or intentionally malicious. The threat model does not assume good faith from any agent.</p>
     <table>
     <thead><tr><th>Actor</th><th>Capability</th><th>Goal</th></tr></thead>
     <tbody>
@@ -119,11 +119,11 @@
     <h2>4. Trust Assumptions</h2>
     <p>Security properties hold only when these assumptions hold. If an assumption is violated, the corresponding properties degrade as described.</p>
     <ul>
-    <li><strong>Ed25519 is cryptographically sound.</strong> We use Node.js native <code>node:crypto</code> Ed25519 — the same implementation used by OpenSSH. If Ed25519 is broken, all signature-based guarantees fail. This is a foundational assumption shared with SSH, Signal, and TLS 1.3.</li>
+    <li><strong>Ed25519 is cryptographically sound.</strong> We use Node.js native <code>node:crypto</code> Ed25519, the same implementation used by OpenSSH. If Ed25519 is broken, all signature-based guarantees fail. This is a foundational assumption shared with SSH, Signal, and TLS 1.3.</li>
     <li><strong>Private keys are held securely by the agent runtime.</strong> The protocol does not manage key storage. If a private key is extracted, the attacker can produce valid signatures indistinguishable from the legitimate agent. Key management is the responsibility of the deployment environment (HSM, secure enclave, encrypted storage). See <a href="#nongoals">Non-Goals §7.1</a>.</li>
-    <li><strong>The human principal is reachable for high-value approvals.</strong> The commerce layer generates signed approval requests for purchases above configurable thresholds. The protocol assumes a human can countersign within the approval window (default: 30 minutes). If the human is unreachable, the purchase blocks — this is the intended behavior.</li>
+    <li><strong>The human principal is reachable for high-value approvals.</strong> The commerce layer generates signed approval requests for purchases above configurable thresholds. The protocol assumes a human can countersign within the approval window (default: 30 minutes). If the human is unreachable, the purchase blocks. This is the intended behavior.</li>
     <li><strong>Clocks are roughly synchronized.</strong> Delegation expiry and receipt timestamps depend on system clocks. The protocol uses ISO 8601 timestamps and checks expiry at verification time. Clock skew beyond the delegation's validity window can cause false rejections (fail-safe) or delayed revocation detection (fail-open, bounded by the skew).</li>
-    <li><strong>Network transport is not our layer.</strong> The protocol does not provide confidentiality or transport-layer security. Signed artifacts can be transmitted over any channel — HTTPS, WebSocket, file system, email — and verified independently. Use TLS for confidentiality. Use the Agora for signed, verifiable communication.</li>
+    <li><strong>Network transport is not our layer.</strong> The protocol does not provide confidentiality or transport-layer security. Signed artifacts can be transmitted over any channel (HTTPS, WebSocket, file system, email) and verified independently. Use TLS for confidentiality. Use the Agora for signed, verifiable communication.</li>
     <li><strong>Agent creation is human-gated.</strong> Agents are created by humans who hold the root delegation authority. The protocol does not provide permissionless agent creation or sybil resistance at the identity layer. One human can create many agents, but all trace back to that human through the delegation chain. See <a href="#nongoals">Non-Goals §7.3</a>.</li>
     </ul>
 
@@ -191,7 +191,7 @@
     </tr>
     <tr>
       <td><strong>Double-revocation amplification</strong><br>Repeatedly revoking already-revoked delegations to cause overhead</td>
-      <td>Revocation checks current status before propagating. Already-revoked delegations are no-ops — no re-traversal of descendants.</td>
+      <td>Revocation checks current status before propagating. Already-revoked delegations are no-ops, with no re-traversal of descendants.</td>
       <td><span class="tm-tag mitigated">Mitigated</span></td>
       <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/cascade.test.ts">cascade.test.ts</a><br>[ADVERSARIAL] does not double-revoke already revoked descendants</span></td>
     </tr>
@@ -234,7 +234,7 @@
     </tr>
     <tr>
       <td><strong>Tampered Merkle proof</strong><br>Attacker modifies a Merkle proof node or receipt hash</td>
-      <td>Merkle verification recomputes path from leaf to root. Any tampered node → root mismatch → rejected. Proofs are O(log n) — 100 receipts need only ~7 hashes.</td>
+      <td>Merkle verification recomputes path from leaf to root. Any tampered node → root mismatch → rejected. Proofs are O(log n): 100 receipts need only about 7 hashes.</td>
       <td><span class="tm-tag blocked">Blocked</span></td>
       <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/adversarial.ts">adversarial.ts</a><br>Tampered proof should fail</span></td>
     </tr>
@@ -338,7 +338,7 @@
     </tr>
     <tr>
       <td><strong>Cross-agent spend leakage</strong><br>Agent A's purchases counted against Agent B's budget</td>
-      <td>Spend tracking is scoped per agent ID and delegation ID. Preflight checks are isolated — one agent's spend state cannot affect another's.</td>
+      <td>Spend tracking is scoped per agent ID and delegation ID. Preflight checks are isolated. One agent's spend state cannot affect another's.</td>
       <td><span class="tm-tag blocked">Blocked</span></td>
       <td><span class="test-ref"><a href="https://github.com/aeoess/agent-passport-system/blob/main/tests/commerce.test.ts">commerce.test.ts</a><br>tracks spend across multiple preflight checks</span></td>
     </tr>
@@ -388,7 +388,7 @@
     </tbody>
     </table>
 
-    <h3>5.7 Communication — Agora (Layer 4)</h3>
+    <h3>5.7 Communication: Agora (Layer 4)</h3>
     <table>
     <thead><tr><th>Attack</th><th>Mitigation</th><th>Status</th><th>Test</th></tr></thead>
     <tbody>
@@ -426,30 +426,30 @@
     <table>
     <thead><tr><th>Layer</th><th>Attacks Tested</th><th>Blocked</th><th>Detected</th><th>Mitigated</th></tr></thead>
     <tbody>
-    <tr><td>1 — Identity &amp; Delegation</td><td>6</td><td>6</td><td>0</td><td>0</td></tr>
-    <tr><td>2 — Values Floor &amp; Compliance</td><td>4</td><td>2</td><td>2</td><td>0</td></tr>
-    <tr><td>3 — Attribution</td><td>6</td><td>3</td><td>1</td><td>2</td></tr>
-    <tr><td>4 — Agora (Communication)</td><td>2</td><td>2</td><td>0</td><td>0</td></tr>
-    <tr><td>5 — Policy Engine</td><td>9</td><td>9</td><td>0</td><td>0</td></tr>
-    <tr><td>6 — Revocation</td><td>4</td><td>1</td><td>2</td><td>1</td></tr>
-    <tr><td>8 — Commerce</td><td>7</td><td>7</td><td>0</td><td>0</td></tr>
+    <tr><td>1 · Identity &amp; Delegation</td><td>6</td><td>6</td><td>0</td><td>0</td></tr>
+    <tr><td>2 · Values Floor &amp; Compliance</td><td>4</td><td>2</td><td>2</td><td>0</td></tr>
+    <tr><td>3 · Attribution</td><td>6</td><td>3</td><td>1</td><td>2</td></tr>
+    <tr><td>4 · Agora (Communication)</td><td>2</td><td>2</td><td>0</td><td>0</td></tr>
+    <tr><td>5 · Policy Engine</td><td>9</td><td>9</td><td>0</td><td>0</td></tr>
+    <tr><td>6 · Revocation</td><td>4</td><td>1</td><td>2</td><td>1</td></tr>
+    <tr><td>8 · Commerce</td><td>7</td><td>7</td><td>0</td><td>0</td></tr>
     <tr><td><strong>Total</strong></td><td><strong>38</strong></td><td><strong>30</strong></td><td><strong>5</strong></td><td><strong>3</strong></td></tr>
     </tbody>
     </table>
     <p><strong>Blocked</strong> = attack prevented at the protocol level (creation or verification throws/rejects). <strong>Detected</strong> = attack identified at audit/compliance time with evidence. <strong>Mitigated</strong> = attack surface reduced but not fully eliminated (e.g., logarithmic scaling reduces gaming incentive but doesn't make it zero).</p>
 
     <h2 id="nongoals">7. Non-Goals &amp; Known Limitations</h2>
-    <p>What the protocol explicitly does not solve. Stating non-goals is not an admission of weakness — it's a scoping decision. Protocols that claim to solve everything solve nothing well.</p>
+    <p>What the protocol explicitly does not solve. Stating non-goals is not an admission of weakness. It is a scoping decision. Protocols that claim to solve everything solve nothing well.</p>
 
     <h3>7.1 Key Management</h3>
-    <p>The protocol assumes private keys exist and are held securely. It does not provide key storage, rotation, recovery, or HSM integration. If a private key is compromised, the attacker can produce valid signatures indistinguishable from the legitimate agent. The correct response is revocation (which the protocol does provide — cascade revocation invalidates the compromised agent and all its sub-delegations).</p>
+    <p>The protocol assumes private keys exist and are held securely. It does not provide key storage, rotation, recovery, or HSM integration. If a private key is compromised, the attacker can produce valid signatures indistinguishable from the legitimate agent. The correct response is revocation (which the protocol does provide: cascade revocation invalidates the compromised agent and all its sub-delegations).</p>
     <p><strong>Deployment guidance:</strong> Use OS-level secure storage, encrypted key files, or hardware security modules. Rotate keys by creating a new passport and re-delegating. The protocol supports this via <code>updatePassport</code>.</p>
 
     <h3>7.2 Network Security</h3>
     <p>The protocol does not provide transport-layer encryption, message confidentiality, or DDoS protection. Signed artifacts can be transmitted over any channel and verified independently. Confidentiality is the transport layer's responsibility (TLS, WireGuard, etc.).</p>
 
     <h3>7.3 Sybil Resistance</h3>
-    <p>The protocol does not prevent a single human from creating multiple agents. Agent creation is not permissionless — it requires a human to hold root delegation authority and explicitly create each agent. However, there is no identity verification (KYC) or proof-of-personhood at the protocol level. All agents trace back to a human through the delegation chain, but the protocol cannot verify that different delegation roots map to different humans.</p>
+    <p>The protocol does not prevent a single human from creating multiple agents. Agent creation is not permissionless. It requires a human to hold root delegation authority and explicitly create each agent. However, there is no identity verification (KYC) or proof-of-personhood at the protocol level. All agents trace back to a human through the delegation chain, but the protocol cannot verify that different delegation roots map to different humans.</p>
     <p><strong>Implication for governance:</strong> The Agora and governance features (voting, proposals) are explicitly research-stage and not hardened against sybil attacks. "One agent one vote" is a simplifying assumption for experimentation, not a production-grade governance mechanism. Sybil-resistant governance would require external identity binding (out of scope for this protocol).</p>
 
     <h3>7.4 Runtime Integrity</h3>
@@ -463,7 +463,7 @@
     <p><strong>Mitigation:</strong> Short delegation TTLs, frequent re-validation, and revocation event subscriptions reduce the window. This is an explicit tradeoff between verification latency and operational overhead.</p>
 
     <h3>7.7 Privacy</h3>
-    <p>All protocol artifacts (passports, delegations, receipts, Agora messages) are designed to be verifiable by any party. This means they are not private. The delegation chain from agent to human beneficiary is traceable by design — this is a feature for accountability, but it's a limitation for privacy-sensitive deployments. The protocol does not currently support zero-knowledge proofs, selective disclosure, or pseudonymous operation.</p>
+    <p>All protocol artifacts (passports, delegations, receipts, Agora messages) are designed to be verifiable by any party. This means they are not private. The delegation chain from agent to human beneficiary is traceable by design. This is a feature for accountability and a limitation for privacy-sensitive deployments. The protocol does not currently support zero-knowledge proofs, selective disclosure, or pseudonymous operation.</p>
 
     <h2>8. Future Work</h2>
     <p>Security improvements under consideration. Not committed to a timeline.</p>
