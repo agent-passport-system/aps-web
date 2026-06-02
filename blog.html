@@ -54,7 +54,7 @@
   "@type": "Blog",
   "name": "APS Dev Log",
   "description": "Day-by-day development log of the Agent Passport System — an open-source protocol for AI agent identity, trust, governance, and commerce.",
-  "url": "https://aeoess.com/blog.html",
+  "url": "https://agent-passport.org/blog.html",
   "author": {
     "@type": "Person",
     "name": "Tymofii Pidlisnyi",
@@ -63,10 +63,10 @@
   "publisher": {
     "@type": "Organization",
     "name": "APS",
-    "url": "https://aeoess.com",
+    "url": "https://agent-passport.org",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://aeoess.com/assets/images/aeoess_logo.png"
+      "url": "https://agent-passport.org/assets/images/aeoess_logo.png"
     }
   },
   "inLanguage": "en",
@@ -98,7 +98,7 @@
       "headline": "Day 75: A signal type, a vocabulary gap, and four layers against drift.",
       "datePublished": "2026-05-01",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://aeoess.com/blog.html#day-75-signal-type-vocabulary-gap-drift-layers",
+      "url": "https://agent-passport.org/blog.html#day-75-signal-type-vocabulary-gap-drift-layers",
       "description": "Vocab PR #72 proposes completion_ratio as a canonical signal type with three production issuers (AgentID 180d rolling, APS 90d configurable, RNWY 24h derived via peer_review) and a completion_ratio_method constraint with strict and quality-weighted modes. Issue #73 proposes self_enforced as a fifth canonical refusal_authority value to capture Nobulex's actor-enforcer collapse via Cedar-inspired covenant DSL. The vocabulary validator gained two improvements following issue #57: nested descriptor_dimensions walk under signal_types blocks, and a legacy whitelist for three pre-resolution descriptor uses. Drift prevention infrastructure installed across eight public repos: pre-commit hook, CI scan workflow, standardized .gitignore block, propagate.mjs final scan."
     },
     {
@@ -106,7 +106,7 @@
       "headline": "Day 74: Verbal confessions, not brain scans.",
       "datePublished": "2026-04-30",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://aeoess.com/blog.html#day-74-verbal-confessions-not-brain-scans",
+      "url": "https://agent-passport.org/blog.html#day-74-verbal-confessions-not-brain-scans",
       "description": "Wave 1 accountability shipped on SDK v2.5.0-alpha: five signed receipt primitives (action, authority-boundary, custody, contestability, bundle) with deterministic byte-match fixtures and 57 new tests. The design principle is that signed AI agent receipts are admissible evidence in the way verbal confessions are admissible: contemporaneous, attributable, contestable, and honestly scoped about what they prove and do not prove. They are not brain scans. Every receipt carries an explicit scope_of_claim field. Hiding evidentiary limits makes evidence easier to impeach in court, not stronger. APS receipts are the camera and the license plate, not the polygraph."
     },
     {
@@ -114,7 +114,7 @@
       "headline": "Day 69: Five external merges, two co-authored opens",
       "datePublished": "2026-04-25",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://aeoess.com/blog.html#day-69-five-external-merges",
+      "url": "https://agent-passport.org/blog.html#day-69-five-external-merges",
       "description": "Three PRs from outside the org merged into aeoess repos in one day. madeinplutofabio's PIC Standard crosswalk landed as the 23rd entry in the vocabulary. piiiico's AgentLair crosswalk made AgentLair the third production issuer of behavioral_trust. lawcontinue's seven-vector CTEF inference-session fixture set merged with twenty-two minutes between revisions. Two more PRs opened co-authored with their original spec authors (QueBallSharken on invariant-survival.md, nanookclaw on the entity_continuity PDR validator with 32 passing tests). One almost-merge from MolTrust waiting on a single ack."
     },
     {
@@ -122,7 +122,7 @@
       "headline": "Enforcement trust anchor v1.1: we found the floor.",
       "datePublished": "2026-04-23",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://aeoess.com/blog.html#day-66-enforcement-trust-anchor-v1-1",
+      "url": "https://agent-passport.org/blog.html#day-66-enforcement-trust-anchor-v1-1",
       "description": "A compromised gateway can emit a cryptographically valid PolicyReceipt attesting to an enforcement decision that never occurred. Trust-anchor v1.1 reorganizes around the sink-awareness boundary and names a four-piece APS-aware closure stack (sink-authored challenge, consumable authority tokens, sink-signed effect receipt, typed epistemic receipts). Dumb Web2 sinks remain an architectural limit. The architectural claim: the gateway must stop being the component that both describes the action and originates the usable authority for it."
     },
     {
@@ -130,7 +130,7 @@
       "headline": "World ID is the root. APS is the chain.",
       "datePublished": "2026-04-22",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://aeoess.com/blog.html#world-id-is-the-root-aps-is-the-chain",
+      "url": "https://agent-passport.org/blog.html#world-id-is-the-root-aps-is-the-chain",
       "description": "World AgentKit proves a unique human is behind an agent. APS proves what that human authorized the agent to do, within what limits, and traces every action back to the delegation. World ID anchors the delegation root; APS narrows scope, enforces budget, and emits a signed CommerceActionReceipt at the merchant 4-gate preflight. Three trust layers in agentic commerce: payments, proof-of-human, scoped delegation. AgentKit is the root. APS is the chain."
     },
     {
@@ -138,7 +138,7 @@
       "headline": "Day 66: Mutual auth ships, the composition pattern runs on its own, and a critic finds the real gap",
       "datePublished": "2026-04-23",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://aeoess.com/blog.html#day-66",
+      "url": "https://agent-passport.org/blog.html#day-66",
       "description": "SDK v2.2.0 ships mutual authentication as a protocol primitive (29 new tests, 2410 total). AgentID+APS+AgentGraph composed/v1 envelope picked up a fourth signal (JEP) within hours of merge. Microsoft AGT merged cognitive-attestation-governed as a community extension. EchoOfDawn accepted co-maintainer on aeoess/autogen-governance-adapter. Late in the day, a technical reader surfaced the single-gateway self-attestation gap; seven rounds of adversarial review produced ENFORCEMENT-TRUST-ANCHOR.md v1.1 (sink-awareness boundary, five-bucket taxonomy) and CAPABILITY-TOKEN-SPEC-DRAFT.md v0.1."
     },
     {
@@ -146,7 +146,7 @@
       "headline": "Day 65: Five issuers converge on one convention",
       "datePublished": "2026-04-21",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://aeoess.com/blog.html#day-65",
+      "url": "https://agent-passport.org/blog.html#day-65",
       "description": "Harold aligned AgentID's production signer to raw digest bytes after merging Step 1 of Interop Week 1, converging five production issuers on one signing convention. context_dimensions PR #34 merged with pshkv's resolution_source sharpening incorporated, four day-one entries in the canonical vocabulary. VeloGerber accepted APS's boundary on §3.3 naming; honest follow-up on independent reimplementation vs SDK-consumption as conformance evidence."
     },
     {
@@ -154,7 +154,7 @@
       "headline": "Day 59: One receipt, four projections",
       "datePublished": "2026-04-16",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://aeoess.com/blog.html#day-59",
+      "url": "https://agent-passport.org/blog.html#day-59",
       "description": "Build A shipped — a unified four-axis attribution primitive that replaces four separate receipt types with one signed Merkle envelope. D (data), P (protocol), G (governance), C (compute). Each axis projection verifies independently; two projections of the same receipt cross-verify by shared action_ref and merkle_root. SDK v1.44.0, MCP v2.25.0, Python v0.13.0 all published. Build D2 also shipped: gateway trust profiles now return JWS-signed responses cross-verifiable against the public JWKS. And the coordination layer got simpler."
     },
     {
@@ -162,7 +162,7 @@
       "headline": "Day 58: One chain added, one bug caught at the boundary",
       "datePublished": "2026-04-15",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://aeoess.com/blog.html#day-58",
+      "url": "https://agent-passport.org/blog.html#day-58",
       "description": "Solana joins the wallet_ref chain enum in SDK v1.43.0. The more interesting part is the gateway bug that surfaced — case-sensitivity normalization silently corrupting Solana addresses because APS was lowercasing the entire normalized wallet payload. Chain-aware normalization shipped as the fix. Four vocab PRs merged the same day, peer_review promoted to canonical."
     },
     {
@@ -170,7 +170,7 @@
       "headline": "Day 57: Three Boundaries and a Paper",
       "datePublished": "2026-04-14",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://aeoess.com/blog.html#day-57",
+      "url": "https://agent-passport.org/blog.html#day-57",
       "description": "Three v2 constitutional primitives shipped (AttributionConsent, ProvisionalStatement + PromotionEvent, HumanEscalationFlag) closing representation, commitment, and escalation boundaries that were being crossed silently. Paper published on Zenodo: Governance in the Medium — argues the unit of agent governance is the population-with-medium, not the agent."
     },
     {
@@ -178,63 +178,63 @@
       "headline": "Day 52: Three Walls",
       "datePublished": "2026-04-09",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://aeoess.com/blog.html#day-52",
+      "url": "https://agent-passport.org/blog.html#day-52",
       "description": "Three walls new users hit on APS: the MCP server flooding 132 tools, the SDK loading 925 exports from a single import, and the homepage leading with '103 modules.' All three fixed additively — new MCP essential profile (20 tools), new SDK /core subpath (curated essentials), reframed pitch surfaces. Nothing removed, full surface still available."
     },{
       "@type": "BlogPosting",
       "headline": "Day 51: The Quantum Paper",
       "datePublished": "2026-04-08",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://aeoess.com/blog.html#day-51"
+      "url": "https://agent-passport.org/blog.html#day-51"
     },
     {
       "@type": "BlogPosting",
       "headline": "Day 50: The Audit That Ate the Day",
       "datePublished": "2026-04-07",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://aeoess.com/blog.html#day-50"
+      "url": "https://agent-passport.org/blog.html#day-50"
     },
     {
       "@type": "BlogPosting",
       "headline": "Day 49: Twelve Primitives, One Day",
       "datePublished": "2026-04-06",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://aeoess.com/blog.html#day-49"
+      "url": "https://agent-passport.org/blog.html#day-49"
     },
     {
       "@type": "BlogPosting",
       "headline": "Day 48: Six Sessions, One Shipping Day — Key Rotation to Governance Export",
       "datePublished": "2026-04-05",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://aeoess.com/blog.html#day-48"
+      "url": "https://agent-passport.org/blog.html#day-48"
     },
     {
       "@type": "BlogPosting",
       "headline": "Day 47: Protocol Infrastructure Expanding — MS PR Approved, SINT Interop, Behavioral Spec",
       "datePublished": "2026-04-04",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://aeoess.com/blog.html#day-47"
+      "url": "https://agent-passport.org/blog.html#day-47"
     },
     {
       "@type": "BlogPosting",
       "headline": "Day 46: Bring Your Own Identity — The Interop Stack",
       "datePublished": "2026-04-03",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://aeoess.com/blog.html#day-46"
+      "url": "https://agent-passport.org/blog.html#day-46"
     },
     {
       "@type": "BlogPosting",
       "headline": "Day 45: SDK v1.31.0 — Governance Hardening + Gateway Bridge",
       "datePublished": "2026-04-02",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://aeoess.com/blog.html#day-45"
+      "url": "https://agent-passport.org/blog.html#day-45"
     },
     {
       "@type": "BlogPosting",
       "headline": "Day 44: First Code Integration + 5 Security Fixes",
       "datePublished": "2026-04-01",
       "description": "Shipped infrastructure-signed execution attestation. Three-checkpoint authorization chain complete. Drift classification with pluggable rules. v2 test vectors for cross-protocol edge cases. Four GitHub replies across OWASP, qntm WG, A2A. 1987 tests, 503 suites, 96 modules.",
-      "url": "https://aeoess.com/blog.html#day-44",
+      "url": "https://agent-passport.org/blog.html#day-44",
       "keywords": ["execution attestation", "checkpoint 3", "drift classification", "test vectors", "cross-protocol", "OWASP"]
     },
     {
@@ -242,7 +242,7 @@
       "headline": "Day 43: Multi-Attestation Verification",
       "datePublished": "2026-03-31",
       "description": "Gateway Ed25519 identity + JWKS. APS verified as 5th issuer in multi-attestation spec. Policy hash chaining. Routing divergence detection. 9 new SDK functions from ecosystem conversations. 1987 tests, 38 gateway routes.",
-      "url": "https://aeoess.com/blog.html#day-43",
+      "url": "https://agent-passport.org/blog.html#day-43",
       "keywords": ["multi-attestation", "JWKS", "policy hash chaining", "routing divergence", "insumer", "cross-protocol"]
     },
     {
@@ -250,7 +250,7 @@
       "headline": "Day 42: Agent Attestation Architecture",
       "datePublished": "2026-03-30",
       "description": "3-round multi-model architectural review (Claude + GPT + Gemini + Portal). Four-tier attestation model. Passport grades 0-3. Sybil 4-gate pipeline. Presentation trust profile API. Behavioral sequence tracking. 1987 tests, 96 modules, 125 MCP tools, 36 gateway routes.",
-      "url": "https://aeoess.com/blog.html#day-42",
+      "url": "https://agent-passport.org/blog.html#day-42",
       "keywords": ["attestation", "sybil defense", "passport grade", "trust profile", "behavioral sequence"]
     },
     {
@@ -258,7 +258,7 @@
       "headline": "Day 41: Agent Wallets — Feeless Crypto for AI Agents",
       "datePublished": "2026-03-29",
       "description": "Built Nano payment rail adapter and agent wallet system. 1,430 new lines. Gateway went from 18 to 36 API routes. HD key derivation, 3-gate delegation pipeline, freeze/revoke cascade. Wallet page live at aeoess.com/wallet.html.",
-      "url": "https://aeoess.com/blog.html#day-41",
+      "url": "https://agent-passport.org/blog.html#day-41",
       "keywords": ["nano", "agent wallet", "payment rail", "feeless", "delegation pipeline", "HD key derivation"]
     },
     {
@@ -266,7 +266,7 @@
       "headline": "Day 40: Gateway Wiring — 79% Module Interconnection",
       "datePublished": "2026-03-29",
       "description": "Connected 13 remaining modules into gateway enforcement pipeline. Fidelity probe measurement protocol. Data cluster wiring. Gateway identity layer. 12 GitHub replies across ecosystem. SDK v1.29.1, 1987 tests, 96 modules.",
-      "url": "https://aeoess.com/blog.html#day-40",
+      "url": "https://agent-passport.org/blog.html#day-40",
       "keywords": ["gateway wiring", "fidelity probe", "module interconnection", "1987 tests", "96 modules", "ecosystem engagement"]
     },
     {
@@ -274,7 +274,7 @@
       "headline": "Day 39: Governance for the Agent Economy — The Rebrand",
       "datePublished": "2026-03-28",
       "description": "Complete website redesign. Academic typography (Crimson Pro serif). Enterprise positioning. 10-question FAQ. iOS frosted glass. Warm dark gray dark mode. 38-entry ship log. Unified design system across all 15 pages. H1: Governance for the Agent Economy.",
-      "url": "https://aeoess.com/blog.html#day-39",
+      "url": "https://agent-passport.org/blog.html#day-39",
       "keywords": ["rebrand", "academic design", "enterprise positioning", "Governance for the Agent Economy", "frosted glass", "dark mode", "FAQ"]
     },
     {
@@ -282,7 +282,7 @@
       "headline": "Day 38: Institutional Governance Layer in One Session",
       "datePublished": "2026-03-26",
       "description": "Built the full institutional governance layer in one session. Charter with 19 types, multi-class approval, Petri net (10 invariants), hybrid logical clocks, foreign counterparty envelopes, escrow-aware revocation, gateway identity, reserve attestations, federation receipt/reputation portability. 12 new MCP tools (125 total). 77 new tests. SDK v1.27.0 (1987 tests), MCP v2.19.0.",
-      "url": "https://aeoess.com/blog.html#day-38",
+      "url": "https://agent-passport.org/blog.html#day-38",
       "keywords": ["charter", "institutional governance", "multi-class approval", "Petri net", "hybrid logical clock", "federation", "reserve attestation", "1987 tests", "125 tools"]
     },
     {
@@ -290,7 +290,7 @@
       "headline": "Day 37: Governance Distribution Stack — Every Article on The Agent Times Is Now Cryptographically Governed",
       "datePublished": "2026-03-25",
       "description": "Shipped the full governance distribution stack: governance blocks (per-page signed terms), aps.txt (site-wide like robots.txt), HTTP headers, chained blocks for derivatives, and a 360 consumer loop with access receipts. The Agent Times is the first publication embedding Ed25519-signed content governance in every article. Framework adapters (CrewAI, ADK, LangChain, A2A), 21-invariant conformance suite, and hosted enforcement gateway. SDK v1.25.0 (1480 tests), MCP v2.15.1 (108 tools), Python v0.7.0.",
-      "url": "https://aeoess.com/blog.html#day-37",
+      "url": "https://agent-passport.org/blog.html#day-37",
       "keywords": ["governance blocks", "aps.txt", "content governance", "The Agent Times", "access receipts", "360 loop", "framework adapters", "conformance suite", "1480 tests", "108 tools"]
     },
     {
@@ -298,7 +298,7 @@
       "headline": "Day 36: Clean Slate — 68 Dead Imports, OATR Founding Member, Zero Open Findings",
       "datePublished": "2026-03-23",
       "description": "Full codebase audit: 68 unused imports removed across 34 files, tracked garbage cleaned (tarballs, one-time scripts). OATR issuer registration merged — 4 founding WG members all registered. Propagation script hardened with zone markers to protect historical blog entries. All Portal findings confirmed resolved. xsa520 published decision equivalence spec. 1178 tests, 0 failures.",
-      "url": "https://aeoess.com/blog.html#day-36",
+      "url": "https://agent-passport.org/blog.html#day-36",
       "keywords": ["codebase audit", "OATR", "trust registry", "unused imports", "propagation", "decision equivalence", "1178 tests"]
     },
     {
@@ -306,7 +306,7 @@
       "headline": "Day 35: First APS Envelope Through an Encrypted Relay",
       "datePublished": "2026-03-22",
       "description": "Built qntm relay bridge (369 lines, zero new deps). HKDF known-answer vectors: 3/3 match. XChaCha20-Poly1305 roundtrip proven. Live relay test: HTTP 201. Agora reframed as Signed Communication Protocol with per-instance isolation. MCP stats endpoint. 3 integration findings fixed. 1178 tests.",
-      "url": "https://aeoess.com/blog.html#day-35",
+      "url": "https://agent-passport.org/blog.html#day-35",
       "keywords": ["qntm", "E2E encryption", "relay", "XChaCha20-Poly1305", "HKDF", "interop", "vessenes", "1178 tests"]
     },
     {
@@ -314,7 +314,7 @@
       "headline": "Day 34: 30 Constitutional Modules. Every Gap Closed.",
       "datePublished": "2026-03-22",
       "description": "Constitutional Framework v2 complete. 32 v2 modules implementing 9 attack defenses, 6 structural failure primitives, emergence detection, separation of powers, circuit breakers. Cross-model adversarial review (Claude + GPT + Gemini attacking simultaneously) identified 16 gaps. All 16 closed with tested code. SDK v1.21.2 + MCP v2.12.0 + Python 0.5.1 published. 1178 tests.",
-      "url": "https://aeoess.com/blog.html#day-34",
+      "url": "https://agent-passport.org/blog.html#day-34",
       "keywords": ["constitutional framework", "v2", "adversarial review", "separation of powers", "circuit breakers", "emergence detection", "1178 tests"]
     },
     {
@@ -322,7 +322,7 @@
       "headline": "Day 30: Three Modules in One Day. Two Claudes Built Them.",
       "datePublished": "2026-03-17",
       "description": "Module 19 (E2E Encrypted Messaging) and Module 20 (Obligations Model) shipped in one session. Consensus spec from 3-model hostile review. Two-Claude build: one wrote tests, the other wrote implementation. Plus createExecutionEnvelope() turns the RFC into running code. Protocol: 20 modules, 609 tests.",
-      "url": "https://aeoess.com/blog.html#day-30",
+      "url": "https://agent-passport.org/blog.html#day-30",
       "keywords": ["encrypted messaging", "obligations", "two-claude", "duties", "penalties", "E2E", "libsodium"]
     },
     {
@@ -330,7 +330,7 @@
       "headline": "Day 31: Three Modules on One Machine, Five Engines on One Thread",
       "datePublished": "2026-03-19",
       "description": "Sprint Mini: Oracle Witness Diversity (M28), Encrypted Messaging Audit Bridge (M29), Policy Conflict Detection (M30). All built on Mac Mini via Desktop Commander. Meanwhile, 5 engines are now cross-verifying decision artifacts on kanoniv/agent-auth#2. First legitimate cross-engine disagreement captured.",
-      "url": "https://aeoess.com/blog.html#day-31",
+      "url": "https://agent-passport.org/blog.html#day-31",
       "keywords": ["oracle witness", "Shannon entropy", "messaging audit", "policy conflict", "DFS", "cross-engine", "interop", "decision semantics", "Network-AI", "AIP", "Kanoniv"]
     },
     {
@@ -338,7 +338,7 @@
       "headline": "Day 33: Constitutional Governance Is Running Code",
       "datePublished": "2026-03-21",
       "description": "V2 Constitutional Framework complete: 30 modules (9 attack defenses, 14 structural safeguards, 7 core governance). Module 37: Decision Semantics. Full codebase audit: 20,490 lines source, 18,397 lines tests. SDK v1.21.2 on npm. 1178 tests.",
-      "url": "https://aeoess.com/blog.html#day-33",
+      "url": "https://agent-passport.org/blog.html#day-33",
       "keywords": ["V2", "constitutional governance", "delegation versioning", "anomaly detection", "decision semantics", "codebase audit", "npm publish"]
     },
     {
@@ -346,7 +346,7 @@
       "headline": "Day 32: Data Attribution Starts Here",
       "datePublished": "2026-03-20",
       "description": "Module 36A: Data Source Registration & Access Receipts. Foundation for data attribution layer. Three attestation modes, machine-readable DataTerms, gateway-signed access receipts, hard vs advisory compliance. 10-round multi-model hostile review before code. 1178 tests, 42 modules.",
-      "url": "https://aeoess.com/blog.html#day-32",
+      "url": "https://agent-passport.org/blog.html#day-32",
       "keywords": ["data attribution", "data rights", "source receipt", "access receipt", "DataTerms", "cryptographic accountability", "gateway-signed", "Merkle proof"]
     },
     {
@@ -354,7 +354,7 @@
       "headline": "Day 29: Three Groups Asked for the Same Thing. So We Wrote the Spec.",
       "datePublished": "2026-03-17",
       "description": "CrewAI, Guardian/AutoGen, and DIF Trusted AI Agents independently converged on a shared signed execution envelope. We formalized it as an RFC. The APS SDK already generates every field. Cross-links posted to all three threads.",
-      "url": "https://aeoess.com/blog.html#day-29",
+      "url": "https://agent-passport.org/blog.html#day-29",
       "keywords": ["RFC", "execution envelope", "interop", "CrewAI", "Guardian", "DIF", "governance", "cross-engine"]
     },
     {
@@ -362,7 +362,7 @@
       "headline": "Day 28: CEO of Y Combinator Endorsed It. Microsoft Merged It. A Federal Agency Is Reviewing It.",
       "datePublished": "2026-03-16",
       "description": "Garry Tan endorsed APS. Microsoft merged PR #274. NIST NCCoE reviewing public comment. IETF DAAP author exploring collaboration. Drafts for 5 ecosystem discussions. Applied to Adaption Research Grant.",
-      "url": "https://aeoess.com/blog.html#day-28",
+      "url": "https://agent-passport.org/blog.html#day-28",
       "keywords": ["Garry Tan", "Y Combinator", "Microsoft", "NIST", "IETF", "DAAP", "ecosystem", "research grant", "Adaption"]
     },
     {
@@ -370,7 +370,7 @@
       "headline": "Day 27: Full Stats Sweep + Gateway Strategic Decision",
       "datePublished": "2026-03-15",
       "description": "Audited every page, README, GitHub description, and LLM file for stale references. Fixed 11 endpoints. Made the gateway decision: reference implementation now, product later. Protocol adoption first.",
-      "url": "https://aeoess.com/blog.html#day-27",
+      "url": "https://agent-passport.org/blog.html#day-27",
       "keywords": [
         "ProxyGateway",
         "reference implementation",
@@ -384,7 +384,7 @@
       "headline": "Day 26: Mingle v2 — Semantic Matching, Ghost Mode, Consent Flow",
       "datePublished": "2026-03-15",
       "description": "Shipped Mingle v2 in one day: semantic matching (all-MiniLM-L6-v2), persistent Ed25519 identity, ghost mode browsing, consent-first publishing. 0 matches to 15. Published to npm, ClawHub, all platforms.",
-      "url": "https://aeoess.com/blog.html#day-26",
+      "url": "https://agent-passport.org/blog.html#day-26",
       "keywords": [
         "Mingle",
         "semantic matching",
@@ -401,7 +401,7 @@
       "headline": "Day 25: Substack Launch — Cross-Protocol Bridge + Tesla Social",
       "datePublished": "2026-03-14",
       "description": "Published two Substack articles: the first cross-protocol agent identity bridge (APS x AIP) and Tesla Social MVP. Social media launch across X and LinkedIn.",
-      "url": "https://aeoess.com/blog.html#day-25",
+      "url": "https://agent-passport.org/blog.html#day-25",
       "keywords": [
         "cross-protocol",
         "AIP bridge",
@@ -416,7 +416,7 @@
       "headline": "Day 24: Security Hardening — Gateway Bugs, Setup Commands, Cross-Protocol Resolve",
       "datePublished": "2026-03-13",
       "description": "Fixed 3 gateway bugs (memory leak, crash on unregistered agent, ownership bypass). SECURITY.md, prompt injection sanitization, npx setup command, cross-protocol resolve endpoint.",
-      "url": "https://aeoess.com/blog.html#day-24",
+      "url": "https://agent-passport.org/blog.html#day-24",
       "keywords": [
         "security",
         "gateway",
@@ -431,7 +431,7 @@
       "headline": "Day 23: Mingle Ships — Your AI Finds People for You",
       "datePublished": "2026-03-12",
       "description": "Mingle MCP v1.0.0 shipped. Standalone agent-to-agent networking plugin. 6 tools, landing page, live network stats. Published to ClawHub and npm.",
-      "url": "https://aeoess.com/blog.html#day-23",
+      "url": "https://agent-passport.org/blog.html#day-23",
       "keywords": [
         "Mingle",
         "agent networking",
@@ -446,7 +446,7 @@
       "headline": "Day 22: The Intent Network — Your Agent Finds People for You",
       "datePublished": "2026-03-11",
       "description": "Shipped agent-mediated matching: IntentCards, relevance scoring, intro protocol, hosted API at api.aeoess.com. No app, no signup, your AI is the interface.",
-      "url": "https://aeoess.com/blog.html#day-22",
+      "url": "https://agent-passport.org/blog.html#day-22",
       "keywords": [
         "intent network",
         "agent matching",
@@ -460,7 +460,7 @@
       "headline": "Day 21: Reputation-Gated Authority — Agents Earn Trust, Not Just Receive It",
       "datePublished": "2026-03-10",
       "description": "Bayesian reputation model, signed promotion reviews, cryptographic scarring, tier checking. SDK 1.11.0, MCP 2.5.0, 1178 tests, 83 tools.",
-      "url": "https://aeoess.com/blog.html#day-21",
+      "url": "https://agent-passport.org/blog.html#day-21",
       "keywords": [
         "reputation",
         "Bayesian trust",
@@ -475,7 +475,7 @@
       "headline": "Day 20: Second Paper Published — Monotonic Narrowing for Agent Authority",
       "datePublished": "2026-03-09",
       "description": "Published formal invariants paper on Zenodo. 8 delegation chain invariants, property-based adversarial testing, competitive landscape analysis.",
-      "url": "https://aeoess.com/blog.html#day-20",
+      "url": "https://agent-passport.org/blog.html#day-20",
       "keywords": [
         "monotonic narrowing",
         "Zenodo",
@@ -489,7 +489,7 @@
       "headline": "Day 18: Autoresearch — AI Finds Bugs AI Wrote",
       "datePublished": "2026-03-07",
       "description": "Adapted Karpathy's autoresearch for adversarial protocol hardening. 200 randomized property tests, 10 paper scenarios, F-008 Epistemic Security.",
-      "url": "https://aeoess.com/blog.html#day-18",
+      "url": "https://agent-passport.org/blog.html#day-18",
       "keywords": [
         "autoresearch",
         "adversarial testing",
@@ -503,7 +503,7 @@
       "headline": "Day 17: Principal Identity, Python SDK, and Three New Protocol Extensions",
       "datePublished": "2026-03-06",
       "description": "Principal Identity with selective disclosure, Python SDK v0.4.0, DID/VC/A2A/EU AI Act modules, remote MCP endpoint.",
-      "url": "https://aeoess.com/blog.html#day-17",
+      "url": "https://agent-passport.org/blog.html#day-17",
       "keywords": [
         "principal identity",
         "Python SDK",
@@ -518,7 +518,7 @@
       "headline": "Day 16: Community Health and OWASP AI Security Mapping",
       "datePublished": "2026-03-05",
       "description": "CONTRIBUTING.md, CODE_OF_CONDUCT.md, AIVSS page mapping 10 OWASP risks against the protocol.",
-      "url": "https://aeoess.com/blog.html#day-16",
+      "url": "https://agent-passport.org/blog.html#day-16",
       "keywords": [
         "OWASP",
         "AIVSS",
@@ -532,7 +532,7 @@
       "headline": "Day 15: SDK v1.21.2, MCP v2.12.0, and Two Agents Get Their Next Mission",
       "datePublished": "2026-03-04",
       "description": "Five npm publishes. Task Routing Protocol, Agent Context enforcement, 7 audit fixes, 4 MCP comms tools. 1178 tests, 83 MCP tools. Autonomous peer audit assigned.",
-      "url": "https://aeoess.com/blog.html#day-15",
+      "url": "https://agent-passport.org/blog.html#day-15",
       "keywords": [
         "SDK v1.21.2",
         "MCP v2.12.0",
@@ -547,7 +547,7 @@
       "headline": "Day 14: The First Real Audit — What Happens When Agents Review Your Code",
       "datePublished": "2026-03-03",
       "description": "PortalX2 ran a forensic audit of the SDK. 10 findings including a high-severity canonicalization bug. All accepted fixes shipped in v1.21.2.",
-      "url": "https://aeoess.com/blog.html#day-14",
+      "url": "https://agent-passport.org/blog.html#day-14",
       "keywords": [
         "code audit",
         "peer review",
@@ -561,7 +561,7 @@
       "headline": "Day 13: Graduated Enforcement, Threat Model, and Agent District",
       "datePublished": "2026-03-02",
       "description": "Values Floor graduated enforcement (inline/audit/warn modes), 38-scenario threat model published, Ed25519 typo fix across 3 repos, pixel-art Agent District visualization.",
-      "url": "https://aeoess.com/blog.html#day-13",
+      "url": "https://agent-passport.org/blog.html#day-13",
       "keywords": [
         "graduated enforcement",
         "threat model",
@@ -575,7 +575,7 @@
       "headline": "Day 12: Layer 8 — Agentic Commerce, Integration Wiring, and MCP v2.1.0",
       "datePublished": "2026-03-01",
       "description": "Shipped agentic commerce (OpenAI+Stripe ACP), cross-layer integration bridges, MCP server expanded to 30 tools. SDK v1.7.0, 214 tests.",
-      "url": "https://aeoess.com/blog.html#day-12",
+      "url": "https://agent-passport.org/blog.html#day-12",
       "keywords": [
         "agentic commerce",
         "ACP",
@@ -589,7 +589,7 @@
       "headline": "Day 11: Documentation Sprint",
       "datePublished": "2026-02-28",
       "description": "Website content overhaul, SDK README rewrite, llms.txt alignment, Schema.org and Open Graph metadata updates.",
-      "url": "https://aeoess.com/blog.html#day-11",
+      "url": "https://agent-passport.org/blog.html#day-11",
       "keywords": [
         "documentation",
         "llms.txt",
@@ -602,7 +602,7 @@
       "headline": "Day 10: Layer 7 — Coordination Primitives",
       "datePublished": "2026-02-27",
       "description": "Full task lifecycle: briefs, evidence, review gates, handoffs, deliverables. Cryptographically signed coordination for multi-agent workflows.",
-      "url": "https://aeoess.com/blog.html#day-10",
+      "url": "https://agent-passport.org/blog.html#day-10",
       "keywords": [
         "coordination primitives",
         "task lifecycle",
@@ -615,7 +615,7 @@
       "headline": "Day 8: Layer 5 — Intent Architecture",
       "datePublished": "2026-02-25",
       "description": "Intent Architecture with roles, deliberation, 3-signature policy chain, FloorValidatorV1, and precedent memory for multi-agent decision-making.",
-      "url": "https://aeoess.com/blog.html#day-8",
+      "url": "https://agent-passport.org/blog.html#day-8",
       "keywords": [
         "intent architecture",
         "policy engine",
@@ -629,7 +629,7 @@
       "headline": "Days 4–5: The Community Shows Up",
       "datePublished": "2026-02-21",
       "description": "Community engagement on MoltBook (34 upvotes), GitHub collaboration issues with AIP, Visa, Forter. Competitive analysis of agent identity protocols.",
-      "url": "https://aeoess.com/blog.html#community",
+      "url": "https://agent-passport.org/blog.html#community",
       "keywords": [
         "community engagement",
         "agent identity",
@@ -642,7 +642,7 @@
       "headline": "Day 2: Media Coverage",
       "datePublished": "2026-02-19",
       "description": "First media coverage one day after launch. Multi-agent trust infrastructure resonating with teams building real agent systems.",
-      "url": "https://aeoess.com/blog.html#media-coverage",
+      "url": "https://agent-passport.org/blog.html#media-coverage",
       "keywords": [
         "media coverage",
         "agent trust",
@@ -655,7 +655,7 @@
       "headline": "We Ran 3 Experiments With Real AI Agents",
       "datePublished": "2026-02-26",
       "description": "Three controlled experiments with real AI agents. Key finding: swapping an agent's role changes its behavior. The role creates the discipline, not the model.",
-      "url": "https://aeoess.com/blog.html#experiments",
+      "url": "https://agent-passport.org/blog.html#experiments",
       "keywords": [
         "AI agent experiments",
         "role constraints",
@@ -668,7 +668,7 @@
       "headline": "Agora is the Missing Layer: Signed Speech for Agents",
       "datePublished": "2026-02-24",
       "description": "Agent Agora shipped: protocol-native Ed25519 signed communication for AI agents. Every message verifiable in browser.",
-      "url": "https://aeoess.com/blog.html#agora",
+      "url": "https://agent-passport.org/blog.html#agora",
       "keywords": [
         "agent agora",
         "signed communication",
@@ -681,7 +681,7 @@
       "headline": "MCP Server Ships — 11 Tools, 12+ Distribution Channels",
       "datePublished": "2026-02-23",
       "description": "agent-passport-system-mcp v1.0.0 published. MCP server with 11 tools for Claude Desktop, Cursor, Windsurf. Distributed across 12+ channels.",
-      "url": "https://aeoess.com/blog.html#mcp-ships",
+      "url": "https://agent-passport.org/blog.html#mcp-ships",
       "keywords": [
         "MCP server",
         "Claude Desktop",
@@ -695,7 +695,7 @@
       "headline": "Paper: The Agent Social Contract",
       "datePublished": "2026-02-20",
       "description": "Research paper published on Zenodo. Cryptographic identity, ethical governance, and beneficiary economics for autonomous AI agents.",
-      "url": "https://aeoess.com/blog.html#paper",
+      "url": "https://agent-passport.org/blog.html#paper",
       "keywords": [
         "research paper",
         "Zenodo",
@@ -709,7 +709,7 @@
       "headline": "Agent Passport v1.1: From Identity to Accountability",
       "datePublished": "2026-02-20",
       "description": "Action receipts, delegation revocation with cascade, depth limits. From identity verification to full accountability.",
-      "url": "https://aeoess.com/blog.html#v1-1",
+      "url": "https://agent-passport.org/blog.html#v1-1",
       "keywords": [
         "action receipts",
         "delegation revocation",
@@ -722,7 +722,7 @@
       "headline": "Agent Passport System: Cryptographic Identity for AI Agents",
       "datePublished": "2026-02-18",
       "description": "First npm publish. Ed25519 cryptographic identity for AI agents with passports, capabilities, reputation, and delegation.",
-      "url": "https://aeoess.com/blog.html#launch",
+      "url": "https://agent-passport.org/blog.html#launch",
       "keywords": [
         "npm launch",
         "Ed25519",
@@ -735,7 +735,7 @@
       "headline": "The Speed of Wrong vs The Speed of Right",
       "datePublished": "2026-02-17",
       "description": "Notes on building cryptographic agent infrastructure at speed. Why shipping wrong is worse than shipping slow.",
-      "url": "https://aeoess.com/blog.html#speed",
+      "url": "https://agent-passport.org/blog.html#speed",
       "keywords": [
         "build in public",
         "cryptographic systems",
