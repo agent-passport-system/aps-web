@@ -108,7 +108,7 @@ npm install -g agent-passport-system-mcp &amp;&amp; npx agent-passport-system-mc
   <div class="note"><p><strong>On the alpha tag.</strong> A plain <code>npm install agent-passport-system</code> resolves to the older stable line. Use <code>@alpha</code> to get the current 2.6 feature set. A stable <code>2.6</code> cut follows once the receipt-identity field is content-derived; until then the API is exercised by the full conformance suite and is safe to build on with a pinned version.</p></div>
 
   <h2 id="quickstart">Quickstart</h2>
-  <p>The curated entry point is <code>agent-passport-system/core</code>, which exposes the roughly 25 functions that cover most integrations: identity, delegation, enforcement, commerce, reputation, and key management. The full root import stays available for everything else.</p>
+  <p>The curated entry point is <code>agent-passport-system/core</code>, which exposes the 24 functions that cover most integrations: identity, delegation, enforcement, commerce, reputation, and key management. The full root import stays available for everything else.</p>
   <pre><code>import {
   createPassport, createDelegation,
   evaluateIntent, commercePreflight, generateKeyPair

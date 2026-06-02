@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Benchmarks | Agent Passport System</title>
-<meta name="description" content="Agent Passport System performance benchmarks. Verifier hot path p50 318ns (Mac M3) / 347ns (AWS c7i.2xlarge) / 420ns (bare-metal EPYC 7313P). L4 gateway-loopback p50 305µs (Mac M3) / 1.07ms (AWS) / 822µs (bare-metal).">
+<meta name="description" content="Agent Passport System performance benchmarks. Verifier hot path p50 292ns (Mac M3) / 347ns (AWS c7i.2xlarge) / 420ns (bare-metal EPYC 7313P). L4 gateway-loopback p50 305µs (Mac M3) / 1.07ms (AWS) / 822µs (bare-metal).">
 <link rel="canonical" href="https://agent-passport.org/benchmarks.html">
 <link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
 <link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation">
 <link rel="alternate" type="application/json" href="https://agent-passport.org/.well-known/mcp.json" title="MCP server discovery">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Benchmarks — Agent Passport System">
-<meta property="og:description" content="Verifier hot path p50 318ns (Mac M3) / 347ns (AWS c7i.2xlarge) / 420ns (bare-metal EPYC 7313P). L4 gateway-loopback p50 305µs / 1.07ms / 822µs.">
+<meta property="og:title" content="Benchmarks: Agent Passport System">
+<meta property="og:description" content="Verifier hot path p50 292ns (Mac M3) / 347ns (AWS c7i.2xlarge) / 420ns (bare-metal EPYC 7313P). L4 gateway-loopback p50 305µs / 1.07ms / 822µs.">
 <meta property="og:url" content="https://agent-passport.org/benchmarks.html">
 <meta property="og:site_name" content="Agent Passport System">
 <meta property="og:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Benchmarks — Agent Passport System">
-<meta name="twitter:description" content="Verifier hot path p50 318ns (Mac M3) / 347ns (AWS c7i.2xlarge) / 420ns (bare-metal EPYC 7313P).">
+<meta name="twitter:title" content="Benchmarks: Agent Passport System">
+<meta name="twitter:description" content="Verifier hot path p50 292ns (Mac M3) / 347ns (AWS c7i.2xlarge) / 420ns (bare-metal EPYC 7313P).">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +43,7 @@
   <section class="page-hero"><div class="wrap">
     <div class="eyebrow">BENCHMARKS</div>
     <h1><span class="it">Benchmarks</span></h1>
-    <p class="dek">How fast can the gateway evaluate whether an agent should be allowed to act? These numbers come from the production gateway running on Railway.</p>
+    <p class="dek">How fast can the gateway evaluate whether an agent should be allowed to act? The numbers below come from the APS benchmark suite, across three layers: the bare verifier hot path, the same check inside the gateway, and the full policy evaluation a deployed gateway runs.</p>
   </div></section>
 
   <div class="aps-prose"><div class="wrap"><div class="col">
@@ -68,7 +68,7 @@
       <tr><td>Cascade revocation</td><td>&lt;5ms</td><td>Chains up to 100 deep</td></tr>
       <tr><td>Nano transaction</td><td>&lt;1s</td><td>Feeless, delegation-scoped</td></tr>
     </table>
-    <p><em>Measured on Railway deployment (shared CPU, 512MB RAM). Dedicated infrastructure would be faster.</em></p>
+    <p><em>Gateway path measured with the benchmark suite, 500 iterations per scenario. Dedicated infrastructure would be faster.</em></p>
 
     <h2>15 Constraint Dimensions</h2>
     <p>Every action is evaluated against all applicable dimensions. The gateway short-circuits on the first failure, which is why denial is sub-millisecond.</p>
@@ -96,10 +96,10 @@
       <tr><th>Component</th><th>Count</th><th>Notes</th></tr>
       <tr><td>Protocol modules</td><td>107</td><td>84 core + 23 v2 constitutional</td></tr>
       <tr><td>MCP tools</td><td>150</td><td>Full protocol surface via MCP</td></tr>
-      <tr><td>Tests</td><td>3,073</td><td>Including adversarial + invariant suites</td></tr>
+      <tr><td>Tests</td><td>3,615</td><td>Including adversarial + invariant suites</td></tr>
       <tr><td>Gateway routes</td><td>33</td><td>REST API for enforcement + admin</td></tr>
       <tr><td>Module connectivity</td><td>79%</td><td>Connected through gateway enforcement hub</td></tr>
-      <tr><td>Research papers</td><td>8</td><td>Zenodo, independently cited</td></tr>
+      <tr><td>Research papers</td><td>8</td><td>Published on Zenodo</td></tr>
     </table>
 
     <h2>How We Compare</h2>
@@ -131,7 +131,7 @@
       <tr><td>Stress tests</td><td>~40</td><td>Concurrent load, circuit breaker thresholds</td></tr>
     </table>
 
-    <blockquote><strong>Independently cited</strong> — PDR in Production (Nanook &amp; Gerundium, UBC) validates the APS earned reputation model against real-world data. <a href="https://doi.org/10.5281/zenodo.19323172">Zenodo</a></blockquote>
+    <blockquote><strong>Independently cited</strong> by PDR in Production (University of British Columbia), which references the APS earned-reputation model. One external citation. <a href="https://doi.org/10.5281/zenodo.19323172">Zenodo</a></blockquote>
 
     <p><strong>For AI agents:</strong> Visit <a href="https://agent-passport.org/llms.txt">llms.txt</a> for machine-readable documentation, <a href="https://agent-passport.org/llms-full.txt">llms-full.txt</a> for the full technical reference, or <a href="https://agent-passport.org/.well-known/mcp.json">.well-known/mcp.json</a> for MCP server discovery.</p>
 
@@ -149,7 +149,7 @@
     <div class="f-cols">
       <div class="f-col">
         <div class="f-h">Protocol</div>
-        <a href="/protocol.html">Documentation</a>
+        <a href="/protocol.html">Spec</a>
         <a href="/benchmarks.html">Benchmarks</a>
         <a href="/threat-model.html">Threat Model</a>
         <a href="/faq.html">FAQ</a>
@@ -192,7 +192,7 @@
 </footer>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-05-21","name":"Agent Passport System Benchmarks","description":"Performance benchmarks for the Agent Passport System verifier. Hot path p50 318ns (Mac M3) / 347ns (AWS c7i.2xlarge) / 420ns (bare-metal EPYC 7313P). L4 gateway-loopback p50 305µs / 1.07ms / 822µs across the same three environments.","url":"https://agent-passport.org/benchmarks.html","isPartOf":{"@type":"WebSite","name":"Agent Passport System","url":"https://agent-passport.org/"}}
+{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-05-21","name":"Agent Passport System Benchmarks","description":"Performance benchmarks for the Agent Passport System verifier. Hot path p50 292ns (Mac M3) / 347ns (AWS c7i.2xlarge) / 420ns (bare-metal EPYC 7313P). L4 gateway-loopback p50 305µs / 1.07ms / 822µs across the same three environments.","url":"https://agent-passport.org/benchmarks.html","isPartOf":{"@type":"WebSite","name":"Agent Passport System","url":"https://agent-passport.org/"}}
 </script>
 </body>
 </html>
