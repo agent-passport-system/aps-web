@@ -43,7 +43,7 @@
   <section class="page-hero"><div class="wrap">
     <div class="eyebrow">BENCHMARKS</div>
     <h1><span class="it">Benchmarks</span></h1>
-    <p class="dek">How fast can the gateway evaluate whether an agent should be allowed to act? The numbers below come from the APS benchmark suite, across three layers: the bare verifier hot path, the same check inside the gateway, and the full policy evaluation a deployed gateway runs.</p>
+    <p class="dek">How fast can the gateway evaluate whether an agent should be allowed to act? The numbers below come from the APS benchmark suite, measured at four layers from the raw verifier core to a full gateway round-trip, on three machines, with both median and tail latency.</p>
   </div></section>
 
   <div class="aps-prose"><div class="wrap"><div class="col">
@@ -55,20 +55,28 @@
       <div class="stat"><b>15</b><span>Constraint Dims</span></div>
     </div>
 
-    <h2>Gateway Latency</h2>
-    <p>Every agent action passes through the ProxyGateway enforcement boundary. The gateway checks delegation scope, spend limits, reputation tier, values floor, revocation status, taint, anomaly detection, and more. The design principle: deny fast, log everything.</p>
+    <h2>Runtime performance</h2>
+    <p>APS is measured at four layers, from the raw verifier core to a full gateway authorization round-trip, on three environments. Bare-metal Linux (AMD EPYC 7313P) is the canonical reference; Apple M3 and AWS c7i (Intel Xeon 8488C) are shown for range. Core layers run single-threaded over 1,000,000 iterations, the gateway round-trip over 1,000. Both p50 (median) and p99 (tail) are reported.</p>
     <table>
-      <tr><th>Metric</th><th>Value</th><th>Notes</th></tr>
-      <tr><td>Policy evaluation p50</td><td>&lt;2ms</td><td>Full 15-dimension constraint check</td></tr>
-      <tr><td>Policy evaluation p95</td><td>&lt;5ms</td><td>Including reputation lookup</td></tr>
-      <tr><td>Policy evaluation p99</td><td>&lt;10ms</td><td>Worst case with cold cache</td></tr>
-      <tr><td>Denial latency</td><td>&lt;1ms</td><td>Fail-fast on first constraint violation</td></tr>
-      <tr><td>Receipt generation</td><td>&lt;1ms</td><td>Ed25519 signed, hash-chained</td></tr>
-      <tr><td>Sustained throughput</td><td>3.42M ops/sec</td><td>Verifier hot path (Mac M3, single-thread, derived from 292ns p50)</td></tr>
-      <tr><td>Cascade revocation</td><td>&lt;5ms</td><td>Chains up to 100 deep</td></tr>
-      <tr><td>Nano transaction</td><td>&lt;1s</td><td>Feeless, delegation-scoped</td></tr>
+      <tr><th>Layer</th><th>What it measures</th><th>Mac M3</th><th>AWS c7i</th><th>EPYC (canonical)</th><th>p99 (EPYC)</th></tr>
+      <tr><td>L0 &middot; verifier core</td><td>signature and delegation-chain check, hot cache</td><td>292ns</td><td>347ns</td><td>420ns</td><td>470ns</td></tr>
+      <tr><td>L2 &middot; SDK call</td><td>the same check as your code calls it, through N-API</td><td>3.9&micro;s</td><td>5.7&micro;s</td><td>6.5&micro;s</td><td>8.1&micro;s</td></tr>
+      <tr><td>L3 &middot; durable</td><td>the call plus a persisted audit record (queued commit)</td><td>4.0&micro;s</td><td>6.7&micro;s</td><td>7.6&micro;s</td><td>13.2&micro;s</td></tr>
+      <tr><td>L4 &middot; gateway round-trip</td><td>full authorization across the enforcement boundary</td><td>305&micro;s</td><td>1.07ms</td><td>822&micro;s</td><td>6.0ms</td></tr>
     </table>
-    <p><em>Gateway path measured with the benchmark suite, 500 iterations per scenario. Dedicated infrastructure would be faster.</em></p>
+    <p><em>The fast-reject deny path matches L0 within noise. A synchronous fsync per action, instead of queued commit, is disk-bound: about 1.3ms on server SSD. Durability and round-trip tails are environment-dependent.</em></p>
+
+    <h2>Full enforcement stack</h2>
+    <p>The L4 figure above is the lean round-trip. The product gateway does more on every call: cascade revocation, escalation checks, charter governance, settlement, drift detection. Measured against that full stack:</p>
+    <table>
+      <tr><th>Operation</th><th>Latency</th><th>Notes</th></tr>
+      <tr><td>Policy evaluation p50</td><td>&lt;2ms</td><td>full constraint check across all applicable facets</td></tr>
+      <tr><td>Policy evaluation p99</td><td>&lt;10ms</td><td>cold cache, worst case</td></tr>
+      <tr><td>Denial</td><td>&lt;1ms</td><td>fail-fast on the first failing facet</td></tr>
+      <tr><td>Receipt generation</td><td>&lt;1ms</td><td>Ed25519 signed, hash-chained</td></tr>
+      <tr><td>Cascade revocation</td><td>&lt;5ms</td><td>chains up to 100 deep</td></tr>
+    </table>
+    <p><em>Full-stack figures from the gateway benchmark suite, 500 iterations per scenario.</em></p>
 
     <h2>15 Constraint Dimensions</h2>
     <p>Every action is evaluated against all applicable dimensions. The gateway short-circuits on the first failure, which is why denial is sub-millisecond.</p>
