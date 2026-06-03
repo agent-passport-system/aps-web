@@ -105,6 +105,8 @@ pip install agent-passport-system
 
 # MCP server (governance as tools)
 npm install -g agent-passport-system-mcp &amp;&amp; npx agent-passport-system-mcp setup</code></pre>
+  <p>A Go implementation is published for verifier and signing work in Go services. Go has no registry publish step; it is distributed by module path:</p>
+  <pre><code>go get github.com/aeoess/agent-passport-go@v0.2.0-alpha.1</code></pre>
   <div class="note"><p><strong>On the alpha tag.</strong> A plain <code>npm install agent-passport-system</code> resolves to the older stable line. Use <code>@alpha</code> to get the current 2.6 feature set. A stable <code>2.6</code> cut follows once the receipt-identity field is content-derived; until then the API is exercised by the full conformance suite and is safe to build on with a pinned version.</p></div>
 
   <h2 id="quickstart">Quickstart</h2>

@@ -69,14 +69,14 @@
   <section class="page-hero"><div class="wrap">
     <div class="eyebrow">Specification · v2.6.0-alpha.9</div>
     <h1>Agent Passport <span class="it">System</span></h1>
-    <p class="dek">APS is the open receipt format for AI agent actions. Independent implementations agree byte-for-byte on what an agent action receipt looks like. Ships as 84 core modules plus 42 v2 constitutional governance modules: signed passports, scoped delegation, action receipts, revocation, values floor, beneficiary attribution, Merkle proofs, intent architecture, cascade revocation, policy engine, coordination primitives, and agentic commerce (ACP). MCP server included.</p>
+    <p class="dek">APS is the open receipt format for AI agent actions. Independent implementations agree byte-for-byte on what an agent action receipt looks like. Ships as 84 core modules plus 23 v2 constitutional governance modules: signed passports, scoped delegation, action receipts, revocation, values floor, beneficiary attribution, Merkle proofs, intent architecture, cascade revocation, policy engine, coordination primitives, and agentic commerce (ACP). MCP server included.</p>
   </div></section>
 
   <div class="aps-prose"><div class="wrap"><div class="col">
 
   <section>
   <h2 class="no-rule">Quick Start</h2>
-  <p><a href="https://www.npmjs.com/package/agent-passport-system" target="_blank">npm install</a> · <a href="https://pypi.org/project/agent-passport-system/" target="_blank">pip install</a> · <a href="https://www.npmjs.com/package/agent-passport-system-mcp" target="_blank">MCP Server</a> · <a href="https://github.com/aeoess/agent-passport-system" target="_blank">GitHub</a> · <a href="llms/api.txt">API Docs</a></p>
+  <p><a href="https://www.npmjs.com/package/agent-passport-system" target="_blank">npm install</a> · <a href="https://pypi.org/project/agent-passport-system/" target="_blank">pip install</a> · <a href="https://pkg.go.dev/github.com/aeoess/agent-passport-go" target="_blank">go get</a> · <a href="https://www.npmjs.com/package/agent-passport-system-mcp" target="_blank">MCP Server</a> · <a href="https://github.com/aeoess/agent-passport-system" target="_blank">GitHub</a> · <a href="llms/api.txt">API Docs</a></p>
   <pre>npm install agent-passport-system
 
 // import the curated essentials from /core (24-function surface)
@@ -285,7 +285,7 @@ const result = checkDataFlow({
   </section>
 
   <section>
-  <h2>11. MCP Server (v3.1.1)</h2>
+  <h2>11. MCP Server (v3.2.1)</h2>
   <p>Full-stack MCP server — any MCP client (Claude Desktop, Cursor, etc.) connects agents directly. 20 essential tools (150 total) with role-scoped access control. Every operation Ed25519 signed.</p>
   <p><strong>Fastest (remote, no install):</strong> <code>npx agent-passport-system-mcp setup --remote</code></p>
   <p><strong>Local:</strong> <code>npm install -g agent-passport-system-mcp &amp;&amp; npx agent-passport-system-mcp setup</code></p>
@@ -314,8 +314,8 @@ const result = checkDataFlow({
   </section>
 
   <section>
-  <h2>12. Python SDK (v2.0.0b0)</h2>
-  <p>Full Python implementation with cross-language compatibility. Cross-language protocol coverage + Principal Identity. 328 tests. V2 constitutional modules TypeScript-only. Signatures created in Python verify in TypeScript and vice versa.</p>
+  <h2>12. Python SDK (v2.4.0a3)</h2>
+  <p>Full Python implementation with cross-language compatibility. Signatures created in Python verify in TypeScript and vice versa. The 2.4.0a3 pre-release ships the full Wave 1 accountability surface plus Cognitive Attestation and Instruction Provenance Receipts, byte-parity-verified against the TypeScript reference.</p>
   <pre>pip install agent-passport-system
 
 from agent_passport import (

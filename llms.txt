@@ -2,7 +2,7 @@
 
 > Enforcement and accountability layer for AI agents. Bring your own identity. We govern what it can do.
 
-Updated 2026-05-08 · SDK 2.6.0-alpha.3 · MCP 3.2.0 (150 tools) · Python 2.4.0a2 · License Apache-2.0 · 3,615 tests passing · 8 papers · © 2024-2026 Tymofii Pidlisnyi
+Updated 2026-06-03 · SDK 2.6.0-alpha.9 · MCP 3.2.1 (150 tools) · Python 2.4.0a3 · Go v0.2.0-alpha.1 · License Apache-2.0 · 3,615 tests passing · 8 papers · © 2024-2026 Tymofii Pidlisnyi
 
 APS is the enforcement layer that sits on top of whatever identity an agent already has. Accepts did:key, did:web, SPIFFE SVID, OAuth, and native did:aps. Identity is the input. Enforcement is the product. The gateway is both judge and executor. Authority can only decrease at each transfer point.
 
@@ -12,30 +12,31 @@ The SDK ships in two layers. Core is a curated essentials surface at `agent-pass
 
 - [SDK on npm](https://www.npmjs.com/package/agent-passport-system): `npm install agent-passport-system`
 - [Python SDK on PyPI](https://pypi.org/project/agent-passport-system/): `pip install agent-passport-system`
+- [Go SDK on pkg.go.dev](https://pkg.go.dev/github.com/aeoess/agent-passport-go): `go get github.com/aeoess/agent-passport-go@v0.2.0-alpha.1`
 - [MCP server on npm](https://www.npmjs.com/package/agent-passport-system-mcp): `npx agent-passport-system-mcp setup`
 - [Remote MCP via SSE](https://mcp.aeoess.com/sse): zero-install, any MCP client
 - [Source on GitHub](https://github.com/aeoess): all repos under @aeoess
 
 ## Documentation
 
-- [Protocol specification](https://aeoess.com/opensource.html): governance rules, voting mechanics, consensus thresholds
-- [Agent passport](https://aeoess.com/passport.html): Ed25519 identity, delegation chains, trust verification
-- [Architecture](https://aeoess.com/protocol-architecture.html): layer-by-layer breakdown
-- [Threat model](https://aeoess.com/threat-model.html): security analysis and assumptions
-- [Compare](https://aeoess.com/compare.html): how APS relates to adjacent agent-governance projects
-- [FAQ](https://aeoess.com/faq.html): common questions
-- [Full reference](https://aeoess.com/llms-full.txt): complete protocol surface in one document
+- [Protocol specification](https://agent-passport.org/opensource.html): governance rules, voting mechanics, consensus thresholds
+- [Agent passport](https://agent-passport.org/passport.html): Ed25519 identity, delegation chains, trust verification
+- [Architecture](https://agent-passport.org/protocol-architecture.html): layer-by-layer breakdown
+- [Threat model](https://agent-passport.org/threat-model.html): security analysis and assumptions
+- [Compare](https://agent-passport.org/compare.html): how APS relates to adjacent agent-governance projects
+- [FAQ](https://agent-passport.org/faq.html): common questions
+- [Full reference](https://agent-passport.org/llms-full.txt): complete protocol surface in one document
 
 ## Modules and surfaces
 
-- [Module reference](https://aeoess.com/llms-full.txt): full module reference with one-line descriptions
+- [Module reference](https://agent-passport.org/llms-full.txt): full module reference with one-line descriptions
 - [Core SDK surface](https://www.npmjs.com/package/agent-passport-system): curated essentials for the most common integration paths
 - [MCP tool surface](https://github.com/aeoess/agent-passport-mcp): 150 tools across 17 layers, canonical list per layer in src/index.ts
 - [V2 constitutional framework](https://github.com/aeoess/agent-passport-system): attack defenses, structural safeguards, attestation
 
 ## Standards and interop
 
-- [AMCS — AI-Native Media Credentialing](https://aeoess.com/amcs.html): open spec for credentialing AI-native publications
+- [AMCS — AI-Native Media Credentialing](https://agent-passport.org/amcs.html): open spec for credentialing AI-native publications
 - [AMCS full spec](https://github.com/aeoess/agent-passport-system/blob/main/docs/AMCS-SPEC.md): machine-readable specification
 - [Cross-Engine Signed Execution Envelope (RFC)](https://github.com/aeoess/agent-passport-system/blob/main/docs/RFC-SIGNED-EXECUTION-ENVELOPE.md): minimal cross-engine governance interop envelope
 - [Agent-DID composition crosswalk](https://github.com/aeoess/agent-governance-vocabulary/blob/main/crosswalk/agent-did.yaml): APS to Edison Munoz Duran's Agent-DID identity layer
@@ -46,18 +47,18 @@ The SDK ships in two layers. Core is a curated essentials surface at `agent-pass
 
 ## Ecosystem services
 
-- [Mingle](https://aeoess.com/mingle.html): opt-in agent matching, persistent Ed25519 identity, ghost mode, double opt-in
+- [Mingle](https://agent-passport.org/mingle.html): opt-in agent matching, persistent Ed25519 identity, ghost mode, double opt-in
 - [Intent Network API](https://api.aeoess.com): live IntentCard registry for capability-based matching
 
 ## Machine-readable endpoints
 
-- [Protocol registry](https://aeoess.com/protocol-registry.json): canonical protocol metadata
-- [Shared state](https://aeoess.com/comms/shared-state.json): coordination primitives
-- [Governance proposals](https://aeoess.com/agora/proposals.json): live proposals
-- [Agent directory](https://aeoess.com/agora/agents.json): registered agents
-- [.well-known/aps.txt](https://aeoess.com/.well-known/aps.txt): site-level governance declaration
-- [.well-known/mcp.json](https://aeoess.com/.well-known/mcp.json): MCP server discovery
-- [.well-known/agent-trust.json](https://aeoess.com/.well-known/agent-trust.json): trust profile
+- [Protocol registry](https://agent-passport.org/protocol-registry.json): canonical protocol metadata
+- [Shared state](https://agent-passport.org/comms/shared-state.json): coordination primitives
+- [Governance proposals](https://agent-passport.org/agora/proposals.json): live proposals
+- [Agent directory](https://agent-passport.org/agora/agents.json): registered agents
+- [.well-known/aps.txt](https://agent-passport.org/.well-known/aps.txt): site-level governance declaration
+- [.well-known/mcp.json](https://agent-passport.org/.well-known/mcp.json): MCP server discovery
+- [.well-known/agent-trust.json](https://agent-passport.org/.well-known/agent-trust.json): trust profile
 
 ## Papers
 
@@ -72,7 +73,7 @@ The SDK ships in two layers. Core is a curated essentials surface at `agent-pass
 
 ## Optional
 
-- [Dev log](https://aeoess.com/blog.html): day-by-day build record from Feb 18 to present
+- [Dev log](https://agent-passport.org/blog.html): day-by-day build record from Feb 18 to present
 - [Storage SQLite package](https://www.npmjs.com/package/@aeoess/storage-sqlite): production single-gateway persistence with WAL mode
 - [Mingle MCP package](https://www.npmjs.com/package/mingle-mcp): standalone MCP server for the matching service
 - [Author homepage](https://tymofii.me): Tymofii Pidlisnyi

@@ -1,7 +1,7 @@
 {
   "name": "AEOESS \u2014 Agent Passport System",
   "description": "Enforcement infrastructure for AI agents. Cryptographic identity, scoped delegation, earned reputation, gateway enforcement, passport grades, Merkle attribution.",
-  "version": "3.1.1",
+  "version": "3.2.1",
   "servers": [
     {
       "name": "agent-passport-mcp",
@@ -16,21 +16,23 @@
   "sdk": {
     "npm": "agent-passport-system",
     "pypi": "agent-passport-system",
-    "version": "2.6.0-alpha.1",
+    "version": "2.6.0-alpha.9",
     "stable_version": "2.2.0",
-    "modules": 127,
-    "tests": 2586,
-    "python_version": "2.4.0a1"
+    "modules": 107,
+    "tests": 3615,
+    "python_version": "2.4.0a3",
+    "go": "github.com/aeoess/agent-passport-go",
+    "go_version": "v0.2.0-alpha.1"
   },
   "documentation": {
-    "llms_txt": "https://aeoess.com/llms.txt",
-    "llms_full": "https://aeoess.com/llms-full.txt",
-    "spec": "https://aeoess.com/passport.html",
-    "api_reference": "https://aeoess.com/protocol.html"
+    "llms_txt": "https://agent-passport.org/llms.txt",
+    "llms_full": "https://agent-passport.org/llms-full.txt",
+    "spec": "https://agent-passport.org/passport.html",
+    "api_reference": "https://agent-passport.org/protocol.html"
   },
   "governance": {
-    "aps_txt": "https://aeoess.com/.well-known/aps.txt",
-    "agent_trust": "https://aeoess.com/.well-known/agent-trust.json"
+    "aps_txt": "https://agent-passport.org/.well-known/aps.txt",
+    "agent_trust": "https://agent-passport.org/.well-known/agent-trust.json"
   },
   "gateway": {
     "url": "https://gateway.aeoess.com",
@@ -41,5 +43,5 @@
     "throughput": "403 ops/sec",
     "routes": 37
   },
-  "lastUpdated": "2026-05-02"
+  "lastUpdated": "2026-06-03"
 }

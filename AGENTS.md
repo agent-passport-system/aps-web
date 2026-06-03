@@ -22,6 +22,7 @@ If you landed here by fetching `https://agent-passport.org/AGENTS.md`, you are m
 - [agent-passport-system](https://github.com/aeoess/agent-passport-system): TypeScript SDK on npm
 - [agent-passport-mcp](https://github.com/aeoess/agent-passport-mcp): MCP server on npm
 - [agent-passport-python](https://github.com/aeoess/agent-passport-python): Python SDK on PyPI
+- [agent-passport-go](https://github.com/aeoess/agent-passport-go): Go SDK via `go get` / pkg.go.dev
 - [agent-governance-vocabulary](https://github.com/aeoess/agent-governance-vocabulary): neutral-ground vocabulary repo
 - [aeoess_web](https://github.com/aeoess/aeoess_web): the public website
 

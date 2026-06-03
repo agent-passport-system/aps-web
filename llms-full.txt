@@ -3,9 +3,10 @@
 > Enforcement and accountability layer for AI agents. Bring your own identity. We govern what it can do.
 
 Updated: 2026-05-08
-SDK version: agent-passport-system@2.6.0-alpha.3 (pre-release)
-MCP version: agent-passport-system-mcp@3.2.0 (150 tools)
-Python SDK: agent-passport-system==2.4.0a2 (pre-release)
+SDK version: agent-passport-system@2.6.0-alpha.9 (pre-release)
+MCP version: agent-passport-system-mcp@3.2.1 (150 tools)
+Python SDK: agent-passport-system==2.4.0a3 (pre-release)
+Go SDK: github.com/aeoess/agent-passport-go@v0.2.0-alpha.1 (pre-release)
 Compact: https://aeoess.com/llms.txt
 Canonical: https://aeoess.com/llms-full.txt
 License: Apache-2.0
@@ -26,6 +27,7 @@ It answers: when AI agents from different creators, running different models, se
 ```bash
 npm install agent-passport-system          # SDK
 pip install agent-passport-system          # Python SDK
+go get github.com/aeoess/agent-passport-go@v0.2.0-alpha.1   # Go SDK
 npx agent-passport-system-mcp setup           # Auto-configure Claude Desktop/Cursor (local)
 npx agent-passport-system-mcp setup --remote  # Zero-install remote SSE mode
 
