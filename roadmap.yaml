@@ -1,7 +1,61 @@
 # APS Roadmap — source of truth for aeoess.com/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-05-27 (Day 100). Roadmap triage applied: 16 items marked done (Matrix v1.1 substrate-attestation primitive shipped end-to-end, CTEF v0.3.2 published with AEOESS Consilium citation, A2A#1829 four-way convergence completed, AIVSS-effectiveness v0.1.1 shipped, PR #91 budget_authority + PR #99 budget_reservation lifecycle merged, PRs #51/#52 + AAIF #14 + AGT #1354 + in-toto #549 retroactively marked done, YC application closed Day 83, A2A #1717 closed Day 73). 2 items dropped (marketplace-proposal, vocab-pings-pr-55-pr-51). In_progress + active now 16 (was 34).
+# Last updated: 2026-06-02 (Day 105). Roadmap triage applied: 16 items marked done (Matrix v1.1 substrate-attestation primitive shipped end-to-end, CTEF v0.3.2 published with AEOESS Consilium citation, A2A#1829 four-way convergence completed, AIVSS-effectiveness v0.1.1 shipped, PR #91 budget_authority + PR #99 budget_reservation lifecycle merged, PRs #51/#52 + AAIF #14 + AGT #1354 + in-toto #549 retroactively marked done, YC application closed Day 83, A2A #1717 closed Day 73). 2 items dropped (marketplace-proposal, vocab-pings-pr-55-pr-51). In_progress + active now 16 (was 34).
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 105 — 2026-06-02 ═══
+
+- id: d105-action-ref-multi-implementation
+  title: "action_ref converges across three independent implementations; W3C #34 moves the derivation into community-group text"
+  description: "The correlation key (SHA-256 of the JCS canonical form of the intent tuple, recomputable from disclosed fields alone) now has three independent implementations producing the same digest: APS, argentum-core, and raucle-detect, whose published canonicalization vector recomputes byte-identical under the APS canonicalizer. On the W3C auditability thread the normative derivation was moved out of any single implementation draft (including draft-pidlisnyi-aps) and into the community-group text itself, with the implementations listed underneath as references. Two open review items returned to the thread: the tuple must pin field types and precision (JCS canonicalizes structure, not value semantics), and mutable requested-scope was removed from the key to preserve selective disclosure on narrowed receipts."
+  status: in_progress
+  workstream: standards
+  day_start: 105
+  day_end: 105
+  links:
+    - url: "https://github.com/w3c-cg/ai-agent-protocol/issues/34"
+      label: "W3C #34"
+    - url: "https://github.com/a2aproject/A2A/issues/1463"
+      label: "A2A #1463 canonicalization vectors"
+
+# ═══ DAY 104 — 2026-06-01 ═══
+
+- id: d104-sdk-wave2-evidence-layer-alpha
+  title: "SDK Wave 2 evidence/trust/disclosure/scope layer published to the alpha prerelease tag"
+  description: "Twelve v2 modules published to npm alpha (agent-passport-system 2.6.0-alpha.9): evidence descriptor, trust-root policy, remote signer, revocation enforcement with security event token, audience binding, human oversight, hash-and-pointer selective disclosure, scope-dimension registry, and an offline verifier with conformance runner. The evidence descriptor is verifier-derived rather than issuer-asserted: it records mechanical signer facts, signer independence from the key graph, and a four-valued corroboration status, and refuses to emit a scalar assurance score (a test feeds a spurious assurance field and asserts it never reaches output). Stays on alpha, not latest (2.2.0), pending a content-derived decision identifier and a native batch-verify parity lane that runs green rather than environment-gated."
+  status: done
+  workstream: protocol
+  day_start: 103
+  day_end: 104
+  links:
+    - url: "https://www.npmjs.com/package/agent-passport-system"
+      label: "npm (alpha tag)"
+
+# ═══ DAY 103 — 2026-05-31 ═══
+
+- id: d103-w3c-34-accountability-record-subsection
+  title: "W3C #34 accountability-record subsection: three content-addressed records an auditor can walk"
+  description: "Proposed a protocol-neutral evidentiary-provenance subsection for the AI Agent Protocol white paper, built from a commitment, a decision, and a receipt, each referencing the next by content hash and none embedding the other, so every part stays independently verifiable and an auditor requests only the layer it needs. Serialization rides on plain W3C verifiable credentials linked by digest. The reasoning the agent applied binds inside the decision record; whether the underlying claim is true stays in a separate belief layer, referenced not inlined, because the records carry admissibility evidence and do not assert truth."
+  status: in_progress
+  workstream: standards
+  day_start: 101
+  day_end: 105
+  links:
+    - url: "https://github.com/w3c-cg/ai-agent-protocol/issues/34"
+      label: "W3C #34"
+
+# ═══ DAY 101 — 2026-05-28 ═══
+
+- id: d101-resume-time-enforcement-modes
+  title: "Resume-time enforcement modes for stateful graphs (MS agent-governance-toolkit #1609)"
+  description: "On the Microsoft agent-governance-toolkit thread, framed the checkpoint stale-authorization problem (authority valid at pause time can be narrowed or revoked by resume) as a property of the principle being evaluated rather than an adapter binary. Enforcement mode is inline (blocks), audit (records), warn (warns), or narrow (clamps a resumed action to whatever authority is still valid instead of killing the graph). A resumed action keeps its action_ref but produces a different compound digest when the evaluation outcome changes, and the mismatch lands on the signed policy receipt."
+  status: done
+  workstream: standards
+  day_start: 101
+  day_end: 101
+  links:
+    - url: "https://github.com/microsoft/agent-governance-toolkit/issues/1609"
+      label: "MS AGT #1609"
 
 # ═══ DAY 96 — 2026-05-23 ═══
 
