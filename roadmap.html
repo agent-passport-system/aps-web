@@ -1789,7 +1789,7 @@ footer .f-strip a:hover{color:var(--cyan-bright)}
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">312 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">314 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(14)</span></h2>
 <article class="rm-item rm-item-active" id="d106-action-ref-multi-implementation">
@@ -2081,7 +2081,31 @@ footer .f-strip a:hover{color:var(--cyan-bright)}
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(251)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(253)</span></h2>
+<article class="rm-item rm-item-done" id="d107-cpa-v0-1-public-api">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Context Provenance Attestation v0.1 exported from the public API</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 107</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">CPA v0.1 exported from the public API in agent-passport-system 2.6.0-alpha.10. A signed partitioned-Merkle commitment to a declared context basis across eight frozen structural-origin channels (system-config, developer, user-socket, retrieval-store, tool-result, external, memory, quarantine). The channel is a partitioning key, not a trust label, and sits in the leaf preimage so it cannot be relabeled without breaking the root. Domain-separated hashing (distinct leaf, node, and sign tags), RFC 6962 odd-promotion closing CVE-2012-2459, two disclosure modes (full-set completeness proven, inclusion not), mutual cpa_ref and action_ref binding, offline fail-closed verifier with structured reason codes. Proves custody of the declared basis as of producer-stated time, tamper-evidence, and replay resistance. Does not prove faithful capture, that the declared basis equals what the model conditioned on, which is the named open vector deferred to an independent capture boundary. Flight recorder, not seatbelt.</p>
+<ul class="rm-item-links"><li><a href="https://www.npmjs.com/package/agent-passport-system">npm (alpha tag)</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d107-go-sdk-v0-2-alpha">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Go SDK reaches v0.2.0-alpha.1 with issuing and signing</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 107</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">agent-passport-go reached v0.2.0-alpha.1, fifteen packages across the protocol surface. The v0.1 line was verify-only with no key code on the verify path, the right shape for infrastructure sinks and proxies. v0.2 adds issuing and signing: passport, delegation with monotonic narrowing and signed revocation, completion receipts, attribution Merkle with beneficiary tracing, values floor, coordination, commerce, and in-toto decision receipts. Pinned against shared canonical-JSON and CPA fixtures, including a cross-language CPA parity fixture shipped in the same cut. Pinned-to-fixtures parity is a smaller and more accurate claim than the continuous TypeScript-to-Python cross-build parity across twenty-seven scenarios.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-go">agent-passport-go</a></li></ul>
+</article>
 <article class="rm-item rm-item-done" id="d105-sdk-wave2-evidence-layer-alpha">
 <header class="rm-item-h">
 <h3 class="rm-item-title">SDK Wave 2 evidence/trust/disclosure/scope layer published to the alpha prerelease tag</h3>

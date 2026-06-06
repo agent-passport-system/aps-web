@@ -3667,3 +3667,27 @@
       label: "W3C CG #34"
     - url: "https://github.com/a2aproject/A2A/issues/1463"
       label: "A2A #1463"
+
+# ═══ DAY 107 — 2026-06-03 ═══
+
+- id: d107-cpa-v0-1-public-api
+  title: "Context Provenance Attestation v0.1 exported from the public API"
+  description: "CPA v0.1 exported from the public API in agent-passport-system 2.6.0-alpha.10. A signed partitioned-Merkle commitment to a declared context basis across eight frozen structural-origin channels (system-config, developer, user-socket, retrieval-store, tool-result, external, memory, quarantine). The channel is a partitioning key, not a trust label, and sits in the leaf preimage so it cannot be relabeled without breaking the root. Domain-separated hashing with distinct leaf, node, and sign tags, RFC 6962 odd-promotion closing CVE-2012-2459, two disclosure modes (full-set completeness proven, inclusion not), mutual cpa_ref and action_ref binding, offline fail-closed verifier with structured reason codes. Proves custody of the declared basis as of producer-stated time, tamper-evidence, and replay resistance. Does not prove faithful capture, that the declared basis equals what the model conditioned on, which is the named open vector deferred to an independent capture boundary. Flight recorder, not seatbelt."
+  status: done
+  workstream: protocol
+  day_start: 107
+  day_end: 107
+  links:
+    - url: "https://www.npmjs.com/package/agent-passport-system"
+      label: "npm (alpha tag)"
+
+- id: d107-go-sdk-v0-2-alpha
+  title: "Go SDK reaches v0.2.0-alpha.1 with issuing and signing"
+  description: "agent-passport-go reached v0.2.0-alpha.1, fifteen packages across the protocol surface. The v0.1 line was verify-only with no key code on the verify path, the right shape for infrastructure sinks and proxies. v0.2 adds issuing and signing: passport, delegation with monotonic narrowing and signed revocation, completion receipts, attribution Merkle with beneficiary tracing, values floor, coordination, commerce, and in-toto decision receipts. Pinned against shared canonical-JSON and CPA fixtures, including a cross-language CPA parity fixture shipped in the same cut. Pinned-to-fixtures parity is a smaller and more accurate claim than the continuous TypeScript-to-Python cross-build parity across twenty-seven scenarios."
+  status: done
+  workstream: protocol
+  day_start: 107
+  day_end: 107
+  links:
+    - url: "https://github.com/aeoess/agent-passport-go"
+      label: "agent-passport-go"
