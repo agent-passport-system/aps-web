@@ -190,7 +190,7 @@ Structural safeguards: Separation of Powers (legislative/executive/judicial bran
 
 **AMCS — AI-Native Media Credentialing Standard** (v0.1.0): Open specification for credentialing AI-native publications as trustworthy agent-consumable news sources. Published by the project. Two layers: Layer A (cryptographic, binary pass/fail) requires Ed25519 article provenance, journalist agent passports with delegation chains, and a public MCP server. Layer B (editorial, public audit) requires machine-readable confidence labels on every article, a published Code of Conduct citing SPJ/NPC/Scripps, and an automated ethics verification system scoring every article against stated standards. Certification is self-attestation verified by script (Layer A) and public evidence (Layer B). No subjective editorial gatekeeping. Does NOT integrate with trust scoring — badge is informational only. Any publication can apply. Full spec: https://github.com/aeoess/agent-passport-system/blob/main/docs/AMCS-SPEC.md | Page: https://aeoess.com/amcs.html
 
-**v2.6.0-alpha.9, 3,615 tests (656 suites). 108 test files including 38 adversarial scenarios.**
+**v2.6.0-alpha.10, 3,615 tests (656 suites). 108 test files including 38 adversarial scenarios.**
 
 ## Quick Start — 6 Functions
 

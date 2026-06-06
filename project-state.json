@@ -1,8 +1,8 @@
 {
   "$comment": "Single source of truth for site-wide propagation. Hand-edited; consumed by scripts/propagate.mjs. Bumping any value here propagates to every target file the propagator knows about.",
-  "updated": "2026-05-30",
+  "updated": "2026-06-04",
   "versions": {
-    "sdk": "2.6.0-alpha.9",
+    "sdk": "2.6.0-alpha.10",
     "sdk_dist_tag": "alpha",
     "sdk_stable": "2.2.0",
     "mcp": "3.2.1",
