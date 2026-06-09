@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>action_ref v1 Specification | Agent Passport System</title>
+<meta name="description" content="Canonical specification of the action_ref v1 cross-ecosystem correlation key (action-ref-v1-jcs-sha256): the four-field preimage, RFC 8785 JCS derivation, timestamp grammar, non-goals, and conformance vectors.">
+<link rel="canonical" href="https://agent-passport.org/action-ref.html">
+<link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
+<link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation">
+<link rel="alternate" type="application/json" href="https://agent-passport.org/.well-known/mcp.json" title="MCP server discovery">
+<meta property="og:title" content="action_ref v1: Canonical Specification">
+<meta property="og:description" content="The cross-ecosystem correlation key for agent actions: four-field preimage, RFC 8785 JCS, SHA-256, frozen under the v1 label, with runnable conformance vectors.">
+<meta property="og:url" content="https://agent-passport.org/action-ref.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="action_ref v1: Canonical Specification">
+<meta name="twitter:description" content="Correlation key for agent actions: four-field preimage, RFC 8785 JCS, SHA-256, frozen preimage, conformance vectors in two languages.">
+<meta name="twitter:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/aps-design.css">
+<style>
+  .ar-field{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.85rem;white-space:nowrap}
+  .ar-hash{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.78rem;word-break:break-all}
+  .ar-note{display:inline-block;padding:.1rem .5rem;border-radius:3px;font-size:.72rem;font-weight:600;letter-spacing:.02em;font-family:"JetBrains Mono",ui-monospace,monospace;background:rgba(120,170,235,0.14);color:#A6C4F2;white-space:nowrap}
+</style>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S7QVCJGMKR');
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"action_ref v1 Specification | Agent Passport System","description":"Canonical specification of the action_ref v1 cross-ecosystem correlation key: four-field preimage, RFC 8785 JCS derivation, timestamp grammar, non-goals, and conformance vectors.","url":"https://agent-passport.org/action-ref.html","dateModified":"2026-06-09","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"action_ref v1 Canonical Specification","articleSection":"Protocol Specification"}</script>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="brand" href="/"><b>APS</b> &middot; Agent Passport System</a>
+  <nav class="topnav">
+    <a href="/docs.html">Docs</a>
+    <a href="/protocol.html">Spec</a>
+    <a href="/benchmarks.html">Benchmarks</a>
+    <a href="/research.html">Research</a>
+    <a href="/roadmap.html">Roadmap</a>
+    <a href="/blog.html">Dev Log</a>
+    <a href="https://github.com/aeoess/agent-passport-system">GitHub &#8599;</a>
+  </nav>
+</div>
+
+<main>
+  <section class="page-hero"><div class="wrap">
+    <div class="eyebrow"><a href="/">Agent Passport System</a> / action_ref v1</div>
+    <h1>action_ref <span class="it">v1</span></h1>
+    <p class="dek">The cross-ecosystem correlation key for agent actions. One four-field preimage, one canonicalization, one hash, frozen under the v1 label, with runnable conformance vectors in two languages.</p>
+  </div></section>
+
+  <div class="aps-prose"><div class="wrap"><div class="col">
+
+    <blockquote><strong>Source of truth.</strong> The canonical version of this specification lives in the SDK repository as Markdown; this page renders it for the web and may lag the repository. Spec: <a href="https://github.com/aeoess/agent-passport-system/blob/main/docs/specs/action-ref-v1.md" target="_blank">docs/specs/action-ref-v1.md</a> (<a href="https://raw.githubusercontent.com/aeoess/agent-passport-system/main/docs/specs/action-ref-v1.md" target="_blank">raw</a>). Vectors: <a href="https://github.com/aeoess/agent-passport-system/blob/main/conformance/action-ref-v1/vectors.json" target="_blank">conformance/action-ref-v1/vectors.json</a> (<a href="https://raw.githubusercontent.com/aeoess/agent-passport-system/main/conformance/action-ref-v1/vectors.json" target="_blank">raw</a>).</blockquote>
+
+    <h2>1. Status</h2>
+    <p><span class="ar-note">v1.0 &middot; 2026-06-09 &middot; frozen preimage</span></p>
+    <p>This page specifies the cross-ecosystem <code>action_ref</code> v1 form (derivation label <code>action-ref-v1-jcs-sha256</code>), the one computed by the SDK's <code>computeExternalActionRefV1</code> and by independent implementations in the action-ref-v1 ecosystem. It is distinct from the APS-native <code>action_ref</code> of <code>draft-pidlisnyi-aps</code> &sect;4.1, whose preimage uses camelCase keys, a multi-scope array, and second-precision timestamps. The two are separate primitives with intentionally different preimages.</p>
+
+    <h2>2. Definition</h2>
+    <p><code>action_ref</code> is a <strong>correlation key, not an authorization claim</strong>. It joins the commitment, decision, and receipt records for a single action by a single producer. Two records carrying the same <code>action_ref</code> from the same producer refer to the same action; nothing more is implied.</p>
+
+    <h2>3. Preimage</h2>
+    <p>The preimage is a four-field tuple. All fields are required strings.</p>
+    <table>
+    <thead><tr><th>Field</th><th>Semantics</th></tr></thead>
+    <tbody>
+    <tr><td class="ar-field">agent_id</td><td>The <strong>terminal executing agent</strong> DID after delegation resolution. Never the delegator, never a display label. When agent A delegates to agent B and B executes, <code>agent_id</code> is B.</td></tr>
+    <tr><td class="ar-field">action_type</td><td>An opaque, <strong>producer-scoped</strong> semantic label. It enters the preimage as bytes; it is not a cross-producer semantic key.</td></tr>
+    <tr><td class="ar-field">scope</td><td>The terminal executing agent's <strong>requested-intent</strong> scope, not the authorized or narrowed scope. Narrowing lives in the decision and commitment records. A single string.</td></tr>
+    <tr><td class="ar-field">timestamp</td><td>RFC 3339 UTC with exactly three fractional digits, uppercase <code>T</code>, uppercase <code>Z</code>, zero-padded: <code>YYYY-MM-DDTHH:MM:SS.mmmZ</code>. One valid byte sequence per instant. Producers MUST emit this form; receivers MUST treat any other representation as invalid for <code>action_ref</code> computation, rejected rather than coerced. Implementations holding epoch-millisecond integers convert at the serialization layer, before hashing. The string is hashed as opaque bytes and never normalized.</td></tr>
+    </tbody>
+    </table>
+    <p>The accepted timestamp grammar, exactly as implemented:</p>
+    <pre><code>^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$</code></pre>
+
+    <h2>4. Derivation</h2>
+    <ol>
+      <li>Assemble the four-field tuple.</li>
+      <li>Canonicalize with the JSON Canonicalization Scheme (RFC 8785), strict form: keys sorted by code point, no whitespace, ES2015 string escaping.</li>
+      <li>SHA-256 over the UTF-8 bytes of the canonical string.</li>
+      <li>Render the digest as lowercase hex (64 characters).</li>
+    </ol>
+    <p>Because JCS sorts keys, the canonical serialized form is always, in this exact key order:</p>
+    <pre><code>{"action_type":"...","agent_id":"...","scope":"...","timestamp":"..."}</code></pre>
+    <p>Worked example:</p>
+    <pre><code>agent_id    = "did:aps:zExampleAgent001"
+action_type = "document.sign"
+scope       = "repo:example/docs"
+timestamp   = "2026-06-09T12:00:00.000Z"</code></pre>
+    <p class="ar-hash">action_ref = f5cc735aa740b1a5006bf4d41f6e3cacbabcab3e369043b58d924e3bb69b4988</p>
+
+    <h2>5. Non-goals</h2>
+    <ul>
+      <li><strong>Cross-producer <code>action_type</code> comparison.</strong> The label is producer-scoped.</li>
+      <li><strong>Authorization.</strong> Holding or presenting an <code>action_ref</code> authorizes nothing.</li>
+      <li><strong>Uniqueness across producers.</strong> Two producers can compute the same key; it is meaningful within one producer's record family.</li>
+    </ul>
+
+    <h2>6. What action_ref does not prove</h2>
+    <p>An <code>action_ref</code> does not prove that the action was authorized, that it occurred, or that the scope was honored. Those claims live in the records it correlates: authorization in the decision record, occurrence in the receipt, scope conformance in the commitment and decision records. The key only joins them.</p>
+
+    <h2>7. Relationship to the record family</h2>
+    <p>Commitment, decision, and receipt records each reference <code>action_ref</code> as the join key for a single action. Related provenance primitives in the SDK repository: <a href="https://github.com/aeoess/agent-passport-system/blob/main/src/v2/context-provenance/SPEC-v0.1.md" target="_blank">Context Provenance Attestation (CPA)</a>, which seals the context an agent reasoned over, and <a href="https://github.com/aeoess/agent-passport-system/tree/main/src/v2/instruction-provenance" target="_blank">instruction provenance</a>, which classifies and binds instruction sources.</p>
+
+    <h2>8. Versioning</h2>
+    <p>Any change to the preimage (field set, field semantics, timestamp grammar) or to the derivation (canonicalization, hash, encoding) is a v2 with a new derivation label. The v1 label is <code>action-ref-v1-jcs-sha256</code>. Implementations MUST NOT emit a changed form under the v1 label.</p>
+
+    <h2>9. Conformance</h2>
+    <p>The vector suite carries 13 vectors: 8 accept vectors (ecosystem anchors, Unicode, key-order independence, midnight rollover, .000 and .999 milliseconds, empty and long scopes) and 5 negative vectors (lowercase <code>t</code>, lowercase <code>z</code>, numeric offset, missing and six-digit fractional seconds), each rejected rather than coerced. Two verifiers run the suite: a stdlib-only Python recomputation with a vendored RFC 8785 serializer, and a Node verifier importing the shipping SDK implementation, so the vectors stay pinned to real code. See <a href="https://github.com/aeoess/agent-passport-system/tree/main/conformance/action-ref-v1" target="_blank">conformance/action-ref-v1/</a>.</p>
+
+    <h2>10. Pointers</h2>
+    <ul>
+      <li>IETF Internet-Draft: <code>draft-pidlisnyi-aps</code> (the APS-native action_ref is &sect;4.1; this page is the cross-ecosystem v1 form).</li>
+      <li>Reference implementation: <a href="https://github.com/aeoess/agent-passport-system/blob/main/src/core/external-action-ref.ts" target="_blank">src/core/external-action-ref.ts</a> over <a href="https://github.com/aeoess/agent-passport-system/blob/main/src/core/canonical-jcs.ts" target="_blank">src/core/canonical-jcs.ts</a>.</li>
+      <li>Protocol overview: <a href="/protocol.html">the APS specification</a>.</li>
+    </ul>
+
+    <blockquote><strong>🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt">llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt">llms-full.txt</a> for the complete technical reference. This page is designed for humans.</blockquote>
+
+  </div></div></div>
+</main>
+
+<footer>
+  <div class="f-top">
+    <div class="f-brand">
+      <div class="f-word"><b>Agent Passport System</b></div>
+      <p class="f-blurb">Open-source infrastructure to enforce,<br>verify, and audit AI agent actions.</p>
+      <p class="f-blurb">Spec is CC0. Code is Apache 2.0.<br>The conformance suite is yours to fork.</p>
+      <a class="btn" href="/working-group.html">Join the Working Group &#8599;</a>
+    </div>
+    <div class="f-cols">
+      <div class="f-col">
+        <div class="f-h">Protocol</div>
+        <a href="/protocol.html">Documentation</a>
+        <a href="/benchmarks.html">Benchmarks</a>
+        <a href="/threat-model.html">Threat Model</a>
+        <a href="/faq.html">FAQ</a>
+      </div>
+      <div class="f-col">
+        <div class="f-h">Developers</div>
+        <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
+        <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
+        <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
+        <a href="/wallet.html">Agent Wallet</a>
+        <a href="/AGENTS.md">AGENTS.md</a>
+        <a href="/llms.txt">llms.txt</a>
+      </div>
+      <div class="f-col">
+        <div class="f-h">Community</div>
+        <a href="/blog.html">Dev Log</a>
+        <a href="/roadmap.html">Roadmap</a>
+        <a href="/working-group.html">Working Group</a>
+      </div>
+      <div class="f-col">
+        <div class="f-h">Research</div>
+        <a href="/research.html#r1">Agent Social Contract</a>
+        <a href="/research.html#r2">Monotonic Narrowing</a>
+        <a href="/research.html#r3">Faceted Authority Attenuation</a>
+        <a href="/research.html#r4">Behavioral Derivation Rights</a>
+        <a href="/research.html#r5">Physics-Enforced Delegation</a>
+        <a href="/research.html#r6">Governance in the Medium</a>
+        <a href="/research.html#r7">Cognitive Attestation</a>
+        <a href="/research.html#r8">Evidence-Safety Gap</a>
+      </div>
+    </div>
+  </div>
+  <div class="f-strip">
+    <div><span>License</span>Spec CC0 &middot; Code Apache 2.0</div>
+    <div><span>Editor</span>Tymofii Pidlisnyi</div>
+    <div><span>Standard</span>APS &middot; IETF Internet-Draft</div>
+    <div><span>Imprint</span>Vol. 01 &middot; 2026 &middot; agent-passport.org</div>
+    <div><span>Also at</span><a href="https://aeoess.com">aeoess.com</a></div>
+  </div>
+</footer>
+</body>
+</html>
