@@ -1,9 +1,42 @@
-# Agent Passport System governance declaration — placeholder
-#
-# The aeoess.com governance declaration that previously lived here was
-# specific to that host's signing keypair and is not transferable. A
-# new governance declaration for agent-passport.org will be generated
-# when the new domain has its own keypair and governance posture set.
-#
-# Until then, this file is intentionally empty. See:
-#   https://github.com/agent-passport-system/aps-web
+{
+  "@context": "https://aeoess.com/governance/v1",
+  "@type": "ApsTxt",
+  "domain": "agent-passport.org",
+  "publisher_did": "did:aps:z6MkuXr5GufRUeLvTKWAhgVAYg7L3ByGa8eL7ZHyKZUYKynj",
+  "publisher_name": "AEOESS",
+  "default_terms": {
+    "inference": "permitted",
+    "training": "attribution_required",
+    "redistribution": "permitted",
+    "caching": "permitted"
+  },
+  "default_revocation_policy": {
+    "cached_copy": "delete",
+    "rag_chunk": "delete",
+    "embedding": "quarantine",
+    "fine_tune": "no_future_use",
+    "synthetic": "compensation_only"
+  },
+  "generated_at": "2026-06-10T23:45:55.493Z",
+  "revocation_endpoint": "https://agent-passport.org/.well-known/aps.txt",
+  "mcp_endpoint": "https://mcp.aeoess.com",
+  "path_overrides": [
+    {
+      "pattern": "/llms*.txt",
+      "terms": {
+        "inference": "permitted",
+        "training": "permitted",
+        "caching": "permitted"
+      }
+    },
+    {
+      "pattern": "/world.html",
+      "terms": {
+        "inference": "permitted",
+        "training": "denied",
+        "redistribution": "denied"
+      }
+    }
+  ],
+  "signature": "b2b71075e7a31a337674a5faf5fb0b5f279aadac9eeb0e717d363e8725a2b3138ee80d14973ba916f9d0a791d4d5ed100464a4d67fb64e6811fe571231bc8b0f"
+}
