@@ -5,7 +5,7 @@
 <title>Blog | APS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- PROPAGATION-ZONE-START -->
-<meta name="description" content="Day-by-day dev log of building the Agent Passport System — enforcement and accountability layer for AI agents. Bring your own identity. Verifier hot path p50 318ns (Mac M3). 3,792 tests. SDK leads with /core subpath (curated essentials), MCP leads with 20 essential tools. Full surface area: 150 MCP tools, 8 research papers, IETF Internet-Draft. Started February 18, 2026.">
+<meta name="description" content="Day-by-day dev log of building the Agent Passport System — enforcement and accountability layer for AI agents. Bring your own identity. Verifier hot path p50 318ns (Mac M3). 3,791 tests. SDK leads with /core subpath (curated essentials), MCP leads with 20 essential tools. Full surface area: 150 MCP tools, 8 research papers, IETF Internet-Draft. Started February 18, 2026.">
 <meta name="keywords" content="AI agent identity, agent passport, Ed25519, MCP server, multi-agent coordination, agentic commerce, AI governance, delegation chains, values floor, cryptographic identity, agent protocol, open source AI infrastructure, build in public">
 <meta name="author" content="Tymofii Pidlisnyi">
 <meta name="robots" content="index, follow">
@@ -30,7 +30,7 @@
 <meta property="og:type" content="blog">
 <meta property="og:site_name" content="APS">
 <meta property="og:title" content="APS Dev Log — Building AI Agent Infrastructure in 28 Days">
-<meta property="og:description" content="Day-by-day dev log: enforcement and accountability layer for AI agents. Bring your own identity. 3,792 tests. SDK /core subpath (curated essentials), MCP essential profile (150 tools). Full surface: 150 MCP tools. Open source.">
+<meta property="og:description" content="Day-by-day dev log: enforcement and accountability layer for AI agents. Bring your own identity. 3,791 tests. SDK /core subpath (curated essentials), MCP essential profile (150 tools). Full surface: 150 MCP tools. Open source.">
 <meta property="og:url" content="https://agent-passport.org/blog.html">
 <meta property="og:image" content="https://aeoess.com/assets/images/aeoess_logo.png">
 <meta property="article:author" content="https://tymofii.me">
@@ -43,7 +43,7 @@
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="APS Dev Log — Governance for the Agent Economy">
-<meta name="twitter:description" content="Enforcement and accountability layer for AI agents. Bring your own identity. 3,792 tests. SDK /core subpath, MCP essential profile. Eight papers, IETF draft. Open source, build in public.">
+<meta name="twitter:description" content="Enforcement and accountability layer for AI agents. Bring your own identity. 3,791 tests. SDK /core subpath, MCP essential profile. Eight papers, IETF draft. Open source, build in public.">
 <meta name="twitter:image" content="https://aeoess.com/assets/images/aeoess_logo.png">
 <!-- PROPAGATION-ZONE-END -->
 
@@ -885,7 +885,7 @@
     <div class="eyebrow">Dev Log</div>
     <h1>Building Agent Passport System, <span class="it">day by day.</span></h1>
 <!-- PROPAGATION-ZONE-START -->
-    <p class="dek">Day-by-day record of building the enforcement and accountability layer for AI agents. Bring your own identity: did:key, did:web, SPIFFE, OAuth, native did:aps. Started February 18, 2026. <b>3,792 tests, eight papers, IETF draft.</b> Open source. Full surface area: 150 MCP tools.</p>
+    <p class="dek">Day-by-day record of building the enforcement and accountability layer for AI agents. Bring your own identity: did:key, did:web, SPIFFE, OAuth, native did:aps. Started February 18, 2026. <b>3,791 tests, eight papers, IETF draft.</b> Open source. Full surface area: 150 MCP tools.</p>
 <!-- PROPAGATION-ZONE-END -->
     <p class="dek" style="font-size:16px;margin-top:14px">See the full picture on <a href="roadmap.html" style="font-weight:600;color:var(--stamp)">the roadmap</a> — every ship across protocol, product, research, comms, and ops with dependency arrows.</p>
   </div>
@@ -893,10 +893,18 @@
 
 <main class="blog-feed">
 
+<article class="post" id="day-114-2-6-0-goes-stable">
+  <time class="post-date" datetime="2026-06-10">June 10, 2026</time>
+  <h2>Day 114, later the same night: 2.6.0 goes stable.</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The 2.6 line is on npm <code>latest</code> as of tonight. A plain <code>npm install agent-passport-system</code> now delivers what the alpha channel carried for six weeks: the Wave 2 evidence layer with its verifier-derived descriptors, trust-root policy, revocation enforcement, audience binding, selective disclosure, and the offline verifier; Context Provenance Attestation; the action_ref v1 conformance set; and the payment-rail surface through today's envelope-authenticity check. 3,791 tests, zero failures, on the exact tree that published.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The Day 105 entry said the stable cut waits on two things: a content-derived decision identifier, and batch-verify parity running green rather than environment-gated. Both closed today. decision_id is now a domain-separated content hash over the record's identity fields, recomputable offline by any verifier from disclosed fields alone, and the field taxonomy that should have existed from the start now does: identity fields are path-independent, ordering fields state their scope, event-instance fields are disclosed and MAC-bound. With that in place the parity claim stopped being a test that could fail and became a property that cannot: a single check and a batched check return byte-identical decision records under a pinned clock, exercised in the production binding before the merge, not in a lab wiring that production never ships. The number that is published is still the one that can be defended. What changed tonight is how much it defends.</p>
+</article>
+
+
 <article class="post" id="day-114-an-outside-contributor-ships-the-check-the-last-review-asked-for">
   <time class="post-date" datetime="2026-06-10">June 10, 2026</time>
   <h2>Day 114: An outside contributor ships the check the last review asked for, and the site starts carrying its own terms.</h2>
-  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The Day 104 review of the Cycles binding check ended with a boundary stated out loud: a passing check meant bound, not authentic, and the result was asked to say so plainly. Today the contributor behind that rail shipped the next step (<a href="https://github.com/aeoess/agent-passport-system/pull/45">#45</a>): the supplied evidence envelope's own Ed25519 signature is now verified against the key the envelope names, under the spec's signature derivation, which is a different canonicalization from the content hash, the signature field emptied and the identifier left populated. Failure is a distinct fail-closed reason, and a passing verify now reports which guarantee actually held: signature over the named key, or that plus a pinned receipt issuer. The part worth pointing at is a test the contributor wrote that asserts a fully self-consistent forgery, re-signed by an attacker's own key, still passes with only the weaker tag. The gap that remains, resolving whether the named key is the legitimate signer, is tracked on the Cycles side rather than papered over here. The branch predated a clock fix on main, so the suite was run on the merge result, which is the thing that ships: 3,792 tests, zero failures.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The Day 104 review of the Cycles binding check ended with a boundary stated out loud: a passing check meant bound, not authentic, and the result was asked to say so plainly. Today the contributor behind that rail shipped the next step (<a href="https://github.com/aeoess/agent-passport-system/pull/45">#45</a>): the supplied evidence envelope's own Ed25519 signature is now verified against the key the envelope names, under the spec's signature derivation, which is a different canonicalization from the content hash, the signature field emptied and the identifier left populated. Failure is a distinct fail-closed reason, and a passing verify now reports which guarantee actually held: signature over the named key, or that plus a pinned receipt issuer. The part worth pointing at is a test the contributor wrote that asserts a fully self-consistent forgery, re-signed by an attacker's own key, still passes with only the weaker tag. The gap that remains, resolving whether the named key is the legitimate signer, is tracked on the Cycles side rather than papered over here. The branch predated a clock fix on main, so the suite was run on the merge result, which is the thing that ships: 3,791 tests, zero failures.</p>
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">On A2A, the cache question from the signing thread resolved the right way. The original three-value key-source enum treated cache as a place, which is a laundering hole: a hot resolver fetch becomes "cache" one call later and the provenance of the original resolution is gone. The fix that held is defining cache as a derivation, previously verified through an allowlisted path and pinned, with the population event, source and timestamp, auditable from the signed evidence rather than from the verifier's word. The CTEF author folded that definition into the CTEF key_source and the v0.4 transactional receipt. The enum stays at three values; the trust posture becomes reconstructable offline.</p>
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">And the protocol's own site now carries the thing it asks publishers to carry. agent-passport.org serves a signed governance declaration at <a href="https://agent-passport.org/.well-known/aps.txt">/.well-known/aps.txt</a>: a fresh Ed25519 domain keypair, the same machine-readable terms as the original declaration on the prior domain, verifiable offline from the live bytes. The honest part of this entry is why it happened today. The site migration had left a placeholder at that path, and a comment elsewhere cited the file as live before anyone re-checked it. A protocol built on the claim that statements should be checkable does not get to leave its own cited statement unverifiable, so the fix was not an explanation. It was making the cited claim true.</p>
 </article>

@@ -3748,3 +3748,15 @@
   links:
     - url: "https://agent-passport.org/.well-known/aps.txt"
       label: "Live declaration"
+
+
+- id: d114-stable-2-6-0-npm-latest
+  title: "SDK 2.6.0 promoted to npm latest — the stable cut"
+  description: "Both Day-105 gates closed same day: decision_id redefined as a domain-separated content hash over the record's identity fields (offline-recomputable, path-independent by construction, normative field taxonomy added to the spec), and batch/single parity proven byte-identical in the production binding under a pinned clock. Full Wave 2 surface, CPA v0.1, action_ref v1 conformance, and the payment-rail layer now install without a dist-tag. 3,791 tests, 0 failures on the publish tree."
+  status: done
+  workstream: protocol
+  day_start: 114
+  day_end: 114
+  links:
+    - url: "https://www.npmjs.com/package/agent-passport-system"
+      label: "npm latest"
