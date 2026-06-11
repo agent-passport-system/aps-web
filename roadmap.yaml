@@ -1,6 +1,6 @@
 # APS Roadmap — source of truth for aeoess.com/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-06-02 (Day 106). Roadmap triage applied: 16 items marked done (Matrix v1.1 substrate-attestation primitive shipped end-to-end, CTEF v0.3.2 published with AEOESS Consilium citation, A2A#1829 four-way convergence completed, AIVSS-effectiveness v0.1.1 shipped, PR #91 budget_authority + PR #99 budget_reservation lifecycle merged, PRs #51/#52 + AAIF #14 + AGT #1354 + in-toto #549 retroactively marked done, YC application closed Day 83, A2A #1717 closed Day 73). 2 items dropped (marketplace-proposal, vocab-pings-pr-55-pr-51). In_progress + active now 16 (was 34).
+# Last updated: 2026-06-11 (Day 114). Roadmap triage applied: 16 items marked done (Matrix v1.1 substrate-attestation primitive shipped end-to-end, CTEF v0.3.2 published with AEOESS Consilium citation, A2A#1829 four-way convergence completed, AIVSS-effectiveness v0.1.1 shipped, PR #91 budget_authority + PR #99 budget_reservation lifecycle merged, PRs #51/#52 + AAIF #14 + AGT #1354 + in-toto #549 retroactively marked done, YC application closed Day 83, A2A #1717 closed Day 73). 2 items dropped (marketplace-proposal, vocab-pings-pr-55-pr-51). In_progress + active now 16 (was 34).
 # Day 1 = 2026-02-17 (project start)
 
 # ═══ DAY 96 — 2026-05-23 ═══
@@ -3691,3 +3691,60 @@
   links:
     - url: "https://github.com/aeoess/agent-passport-go"
       label: "agent-passport-go"
+
+
+# ═══ DAY 113 — 2026-06-09 ═══
+
+- id: d113-action-ref-v1-canonical-spec
+  title: "action_ref v1 canonical specification frozen with conformance vectors and dual verifiers"
+  description: "Four-field preimage with the timestamp pinned to one exact RFC 3339 UTC millisecond byte form, hashed as opaque bytes. Conformance suite ships negative vectors rejecting every non-canonical timestamp form and two accept vectors that byte-match independently published ecosystem hashes. Two verifiers: stdlib-only Python (vendored minimal RFC 8785, zero project dependency) and Node importing the shipping computeExternalActionRefV1, pinning vectors to running code. Non-goals stated in-spec: a pass proves derivation agreement only."
+  status: done
+  workstream: protocol
+  day_start: 113
+  day_end: 113
+  links:
+    - url: "https://agent-passport.org/action-ref.html"
+      label: "Spec page"
+
+- id: d113-evidence-provenance-primitives
+  title: "Verification-source provenance in signed evidence + producer-attestation commitment kind with CPA slot"
+  description: "Key-resolution provenance now travels inside the signed evidence envelope rather than verifier logs, making the trust posture reconstructable offline from the evidence itself. Producer-attestation commitment kind links the Day 107 context-custody layer (CPA) into the evidence chain with the same stated boundary: custody of the declared basis, not truth of it."
+  status: done
+  workstream: protocol
+  day_start: 113
+  day_end: 113
+
+# ═══ DAY 114 — 2026-06-10 ═══
+
+- id: d114-cycles-envelope-signature-external-pr
+  title: "Outside contributor ships Cycles envelope-authenticity check (PR #45); suite at 3,792"
+  description: "The (a) half of the envelope-authenticity split agreed in issue #43, contributed by the Cycles maintainer: the supplied evidence envelope's own Ed25519 signature verified against its named key under the spec's signature derivation, distinct fail-closed reason, and a result field reporting which guarantee actually held. Includes a boundary test asserting a self-consistent attacker forgery still passes with only the weaker tag, documenting the (b) gap as executable honesty. Merge result: 3,792 tests, 0 failures."
+  status: done
+  workstream: protocol
+  day_start: 114
+  day_end: 114
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/pull/45"
+      label: "PR #45"
+
+- id: d114-ctef-key-source-cache-as-derivation
+  title: "CTEF folds cache-as-derivation key_source definition into v0.4 transactional receipt"
+  description: "The cache-as-place laundering hole raised on A2A #1829 resolved by definition rather than a fourth enum value: cache means previously verified via an allowlisted path and pinned, with the population event (source + timestamp) auditable from signed evidence. The CTEF author folded the definition into CTEF key_source and the v0.4 transactional receipt."
+  status: done
+  workstream: standards
+  day_start: 114
+  day_end: 114
+  links:
+    - url: "https://github.com/a2aproject/A2A/issues/1829"
+      label: "A2A #1829"
+
+- id: d114-aps-txt-canonical-domain
+  title: "Signed aps.txt governance declaration live on agent-passport.org"
+  description: "The canonical domain now serves its own signed machine-readable governance declaration at /.well-known/aps.txt: fresh Ed25519 domain keypair, terms mirroring the original aeoess.com declaration, verified offline against the live bytes. Closes a site-migration drift where the path served a placeholder while being cited as live."
+  status: done
+  workstream: ops
+  day_start: 114
+  day_end: 114
+  links:
+    - url: "https://agent-passport.org/.well-known/aps.txt"
+      label: "Live declaration"

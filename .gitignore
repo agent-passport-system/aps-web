@@ -98,3 +98,4 @@ specs/ERIK-NEWTON*
 # stray local backup of a broken multifile attempt
 .index.html.broken-multifile-bak
 *.broken-multifile-bak
+.gstack/

@@ -19,7 +19,7 @@
     "version": "2.6.0-alpha.10",
     "stable_version": "2.2.0",
     "modules": 107,
-    "tests": 3615,
+    "tests": 3792,
     "python_version": "2.4.0a3",
     "go": "github.com/aeoess/agent-passport-go",
     "go_version": "v0.2.0-alpha.1"
