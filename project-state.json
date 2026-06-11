@@ -5,7 +5,7 @@
     "sdk": "2.6.0",
     "sdk_dist_tag": "latest",
     "sdk_stable": "2.6.0",
-    "mcp": "3.2.1",
+    "mcp": "3.2.2",
     "mcp_dist_tag": "latest",
     "mcp_stable": "3.1.0",
     "python": "2.4.0a3",
@@ -15,7 +15,7 @@
     "go_dist_tag": "alpha"
   },
   "counts": {
-    "$comment": "tests is the PASSING count (node test runner 'pass' line), not the registered total. modules_total = modules_core + modules_v2. Canonical: modules_v2 = publicly exported logical units via a barrel (src/v2/index.ts or src/index.ts), ratified 2026-05-17 = 23. modules_total = modules_core + modules_v2, DERIVED from the canonical count, never used to justify it. Raw file count, subsystem directory count, and historical project-state values are implementation signals, NOT canonical module counts.",
+    "$comment": "tests is the node test runner 'tests' line (executed total; skipped tests counted within it, pass/fail reported separately) — the same number the README badge and package.json description carry per the SDK README's own sync rule. modules_total = modules_core + modules_v2. Canonical: modules_v2 = publicly exported logical units via a barrel (src/v2/index.ts or src/index.ts), ratified 2026-05-17 = 23. modules_total = modules_core + modules_v2, DERIVED from the canonical count, never used to justify it. Raw file count, subsystem directory count, and historical project-state values are implementation signals, NOT canonical module counts.",
     "tests": 3791,
     "papers": 8,
     "modules_core": 84,
