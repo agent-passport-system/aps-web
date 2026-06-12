@@ -1,6 +1,6 @@
 # APS Roadmap — source of truth for aeoess.com/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-06-11 (Day 114). Roadmap triage applied: 16 items marked done (Matrix v1.1 substrate-attestation primitive shipped end-to-end, CTEF v0.3.2 published with AEOESS Consilium citation, A2A#1829 four-way convergence completed, AIVSS-effectiveness v0.1.1 shipped, PR #91 budget_authority + PR #99 budget_reservation lifecycle merged, PRs #51/#52 + AAIF #14 + AGT #1354 + in-toto #549 retroactively marked done, YC application closed Day 83, A2A #1717 closed Day 73). 2 items dropped (marketplace-proposal, vocab-pings-pr-55-pr-51). In_progress + active now 16 (was 34).
+# Last updated: 2026-06-11 (Day 115). Roadmap triage applied: 16 items marked done (Matrix v1.1 substrate-attestation primitive shipped end-to-end, CTEF v0.3.2 published with AEOESS Consilium citation, A2A#1829 four-way convergence completed, AIVSS-effectiveness v0.1.1 shipped, PR #91 budget_authority + PR #99 budget_reservation lifecycle merged, PRs #51/#52 + AAIF #14 + AGT #1354 + in-toto #549 retroactively marked done, YC application closed Day 83, A2A #1717 closed Day 73). 2 items dropped (marketplace-proposal, vocab-pings-pr-55-pr-51). In_progress + active now 16 (was 34).
 # Day 1 = 2026-02-17 (project start)
 
 # ═══ DAY 96 — 2026-05-23 ═══
@@ -3760,3 +3760,47 @@
   links:
     - url: "https://www.npmjs.com/package/agent-passport-system"
       label: "npm latest"
+
+# ═══ DAY 115 — 2026-06-11 ═══
+
+- id: d115-vocab-pr100-pr109-review-standards
+  title: "Two registry crosswalk reviews land a shared standard: pinned citations, descriptive vs proposed semantics, implementer sign-off"
+  description: "payment_rail (PR #100, five-protocol settlement-verb mapping) and cap_vocabulary v0.2 (PR #109, narrow/redirect cap families) both reviewed to the same bar set this week: upstream citations pinned to commit SHAs, composition and execution-order rules marked as descriptive of cited implementations or proposed interpretation rather than universal behavior, family minting rules stated in-file, and explicit approval from the second implementer recorded on the PR. SpendGuard approved #109 with a ground-truth correction confirming the rule downgrade was right: their spec defines cross-decision merge strategies but no intra-decision order."
+  status: in_progress
+  workstream: vocabulary
+  day_start: 115
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/100"
+      label: "PR #100"
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/109"
+      label: "PR #109"
+
+- id: d115-argentum-recompute-fixtures-upstream
+  title: "action-ref-v1 recomputation fixtures contributed upstream to argentum-core (PR #12); mirrored in the conformance suite"
+  description: "Fourteen vectors built to the argentum-core conformance conventions: five positives double-derived (shipping computeExternalActionRefV1 plus an independent stdlib path, byte-equal), nine negatives across four drift families (field order, timestamp form, casing, payload) where every claimed ref is a real digest of its stated drifted bytes. The runner has a single canonical recompute path; fail-closed-before-invocation is structural. Mirrored under fixtures/cross-stack/action-ref-v1-negatives with provenance."
+  status: done
+  workstream: conformance
+  day_start: 115
+  day_end: 115
+  links:
+    - url: "https://github.com/giskard09/argentum-core/pull/12"
+      label: "argentum-core PR #12"
+
+- id: d115-aat-aps-boundary-joint-reference
+  title: "AAT/APS boundary published as a joint AgentLair x AEOESS reference; weekly AAT vector cadence begins"
+  description: "Session identity inside the issuer versus delegation chains and receipts after handoff, stated with explicit what-each-layer-does-not-claim sections and a three-claim bridge (jti, al_nid, al_trust). Live at agent-passport.org/aat-aps-boundary.html. The bootstrap AAT pair was ingested and signature-checked against the issuer JWKS; weekly live+expired pairs begin 2026-06-17, with vectors carrying verification_time so the corpus stays replayable."
+  status: done
+  workstream: ecosystem
+  day_start: 115
+  day_end: 115
+  links:
+    - url: "https://agent-passport.org/aat-aps-boundary.html"
+      label: "Boundary reference"
+
+- id: d115-public-surface-refresh
+  title: "Public-surface refresh: repo one-liners, vocab README, org profile, diagrams, 2.6.0-stable numbers everywhere"
+  description: "Six repo descriptions rewritten purpose-first; vocabulary README rebuilt problem-first with a real crosswalk row and a three-layer diagram; org profile rewritten around the receipts line with a protocol diagram; SDK README gains narrowing-chain and gateway-boundary diagrams; stats aligned to 2.6.0 stable across SDK, Python, and conformance surfaces."
+  status: done
+  workstream: surfaces
+  day_start: 115
+  day_end: 115

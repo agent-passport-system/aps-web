@@ -1789,7 +1789,7 @@ footer .f-strip a:hover{color:var(--cyan-bright)}
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">314 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">324 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(14)</span></h2>
 <article class="rm-item rm-item-active" id="d106-action-ref-multi-implementation">
@@ -1967,7 +1967,19 @@ footer .f-strip a:hover{color:var(--cyan-bright)}
 </article>
 </section>
 <section class="rm-group rm-group-in-progress">
-<h2 class="rm-group-title">In progress <span class="rm-group-count">(8)</span></h2>
+<h2 class="rm-group-title">In progress <span class="rm-group-count">(9)</span></h2>
+<article class="rm-item rm-item-in_progress" id="d115-vocab-pr100-pr109-review-standards">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Two registry crosswalk reviews land a shared standard: pinned citations, descriptive vs proposed semantics, implementer sign-off</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 115</span> 
+<span class="rm-item-ws">vocabulary</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">payment_rail (PR #100, five-protocol settlement-verb mapping) and cap_vocabulary v0.2 (PR #109, narrow/redirect cap families) both reviewed to the same bar set this week: upstream citations pinned to commit SHAs, composition and execution-order rules marked as descriptive of cited implementations or proposed interpretation rather than universal behavior, family minting rules stated in-file, and explicit approval from the second implementer recorded on the PR. SpendGuard approved #109 with a ground-truth correction confirming the rule downgrade was right: their spec defines cross-decision merge strategies but no intra-decision order.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/pull/100">PR #100</a></li><li><a href="https://github.com/aeoess/agent-governance-vocabulary/pull/109">PR #109</a></li></ul>
+</article>
 <article class="rm-item rm-item-in_progress" id="d94-phase2-hkdf-receipt-stream-key">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Phase 2 HKDF receipt_stream_key derivation: 191 → 206 passing tests</h3>
@@ -2081,7 +2093,113 @@ footer .f-strip a:hover{color:var(--cyan-bright)}
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(253)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(262)</span></h2>
+<article class="rm-item rm-item-done" id="d115-aat-aps-boundary-joint-reference">
+<header class="rm-item-h">
+<h3 class="rm-item-title">AAT/APS boundary published as a joint AgentLair x AEOESS reference; weekly AAT vector cadence begins</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 115</span> 
+<span class="rm-item-ws">Ecosystem</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Session identity inside the issuer versus delegation chains and receipts after handoff, stated with explicit what-each-layer-does-not-claim sections and a three-claim bridge (jti, al_nid, al_trust). Live at agent-passport.org/aat-aps-boundary.html. The bootstrap AAT pair was ingested and signature-checked against the issuer JWKS; weekly live+expired pairs begin 2026-06-17, with vectors carrying verification_time so the corpus stays replayable.</p>
+<ul class="rm-item-links"><li><a href="https://agent-passport.org/aat-aps-boundary.html">Boundary reference</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d115-argentum-recompute-fixtures-upstream">
+<header class="rm-item-h">
+<h3 class="rm-item-title">action-ref-v1 recomputation fixtures contributed upstream to argentum-core (PR #12); mirrored in the conformance suite</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 115</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Fourteen vectors built to the argentum-core conformance conventions: five positives double-derived (shipping computeExternalActionRefV1 plus an independent stdlib path, byte-equal), nine negatives across four drift families (field order, timestamp form, casing, payload) where every claimed ref is a real digest of its stated drifted bytes. The runner has a single canonical recompute path; fail-closed-before-invocation is structural. Mirrored under fixtures/cross-stack/action-ref-v1-negatives with provenance.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/giskard09/argentum-core/pull/12">argentum-core PR #12</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d115-public-surface-refresh">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Public-surface refresh: repo one-liners, vocab README, org profile, diagrams, 2.6.0-stable numbers everywhere</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 115</span> 
+<span class="rm-item-ws">surfaces</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Six repo descriptions rewritten purpose-first; vocabulary README rebuilt problem-first with a real crosswalk row and a three-layer diagram; org profile rewritten around the receipts line with a protocol diagram; SDK README gains narrowing-chain and gateway-boundary diagrams; stats aligned to 2.6.0 stable across SDK, Python, and conformance surfaces.</p>
+</article>
+<article class="rm-item rm-item-done" id="d114-aps-txt-canonical-domain">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Signed aps.txt governance declaration live on agent-passport.org</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 114</span> 
+<span class="rm-item-ws">Ops</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The canonical domain now serves its own signed machine-readable governance declaration at /.well-known/aps.txt: fresh Ed25519 domain keypair, terms mirroring the original aeoess.com declaration, verified offline against the live bytes. Closes a site-migration drift where the path served a placeholder while being cited as live.</p>
+<ul class="rm-item-links"><li><a href="https://agent-passport.org/.well-known/aps.txt">Live declaration</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d114-ctef-key-source-cache-as-derivation">
+<header class="rm-item-h">
+<h3 class="rm-item-title">CTEF folds cache-as-derivation key_source definition into v0.4 transactional receipt</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 114</span> 
+<span class="rm-item-ws">Standards</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The cache-as-place laundering hole raised on A2A #1829 resolved by definition rather than a fourth enum value: cache means previously verified via an allowlisted path and pinned, with the population event (source + timestamp) auditable from signed evidence. The CTEF author folded the definition into CTEF key_source and the v0.4 transactional receipt.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/a2aproject/A2A/issues/1829">A2A #1829</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d114-cycles-envelope-signature-external-pr">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Outside contributor ships Cycles envelope-authenticity check (PR #45); suite at 3,792</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 114</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The (a) half of the envelope-authenticity split agreed in issue #43, contributed by the Cycles maintainer: the supplied evidence envelope's own Ed25519 signature verified against its named key under the spec's signature derivation, distinct fail-closed reason, and a result field reporting which guarantee actually held. Includes a boundary test asserting a self-consistent attacker forgery still passes with only the weaker tag, documenting the (b) gap as executable honesty. Merge result: 3,792 tests, 0 failures.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/pull/45">PR #45</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d114-stable-2-6-0-npm-latest">
+<header class="rm-item-h">
+<h3 class="rm-item-title">SDK 2.6.0 promoted to npm latest — the stable cut</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 114</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Both Day-105 gates closed same day: decision_id redefined as a domain-separated content hash over the record's identity fields (offline-recomputable, path-independent by construction, normative field taxonomy added to the spec), and batch/single parity proven byte-identical in the production binding under a pinned clock. Full Wave 2 surface, CPA v0.1, action_ref v1 conformance, and the payment-rail layer now install without a dist-tag. 3,791 tests, 0 failures on the publish tree.</p>
+<ul class="rm-item-links"><li><a href="https://www.npmjs.com/package/agent-passport-system">npm latest</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d113-action-ref-v1-canonical-spec">
+<header class="rm-item-h">
+<h3 class="rm-item-title">action_ref v1 canonical specification frozen with conformance vectors and dual verifiers</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 113</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Four-field preimage with the timestamp pinned to one exact RFC 3339 UTC millisecond byte form, hashed as opaque bytes. Conformance suite ships negative vectors rejecting every non-canonical timestamp form and two accept vectors that byte-match independently published ecosystem hashes. Two verifiers: stdlib-only Python (vendored minimal RFC 8785, zero project dependency) and Node importing the shipping computeExternalActionRefV1, pinning vectors to running code. Non-goals stated in-spec: a pass proves derivation agreement only.</p>
+<ul class="rm-item-links"><li><a href="https://agent-passport.org/action-ref.html">Spec page</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d113-evidence-provenance-primitives">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Verification-source provenance in signed evidence + producer-attestation commitment kind with CPA slot</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 113</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Key-resolution provenance now travels inside the signed evidence envelope rather than verifier logs, making the trust posture reconstructable offline from the evidence itself. Producer-attestation commitment kind links the Day 107 context-custody layer (CPA) into the evidence chain with the same stated boundary: custody of the declared basis, not truth of it.</p>
+</article>
 <article class="rm-item rm-item-done" id="d107-cpa-v0-1-public-api">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Context Provenance Attestation v0.1 exported from the public API</h3>
@@ -2091,7 +2209,7 @@ footer .f-strip a:hover{color:var(--cyan-bright)}
 <span class="rm-item-status">done</span>
 </p>
 </header>
-<p class="rm-item-desc">CPA v0.1 exported from the public API in agent-passport-system 2.6.0-alpha.10. A signed partitioned-Merkle commitment to a declared context basis across eight frozen structural-origin channels (system-config, developer, user-socket, retrieval-store, tool-result, external, memory, quarantine). The channel is a partitioning key, not a trust label, and sits in the leaf preimage so it cannot be relabeled without breaking the root. Domain-separated hashing (distinct leaf, node, and sign tags), RFC 6962 odd-promotion closing CVE-2012-2459, two disclosure modes (full-set completeness proven, inclusion not), mutual cpa_ref and action_ref binding, offline fail-closed verifier with structured reason codes. Proves custody of the declared basis as of producer-stated time, tamper-evidence, and replay resistance. Does not prove faithful capture, that the declared basis equals what the model conditioned on, which is the named open vector deferred to an independent capture boundary. Flight recorder, not seatbelt.</p>
+<p class="rm-item-desc">CPA v0.1 exported from the public API in agent-passport-system 2.6.0-alpha.10. A signed partitioned-Merkle commitment to a declared context basis across eight frozen structural-origin channels (system-config, developer, user-socket, retrieval-store, tool-result, external, memory, quarantine). The channel is a partitioning key, not a trust label, and sits in the leaf preimage so it cannot be relabeled without breaking the root. Domain-separated hashing with distinct leaf, node, and sign tags, RFC 6962 odd-promotion closing CVE-2012-2459, two disclosure modes (full-set completeness proven, inclusion not), mutual cpa_ref and action_ref binding, offline fail-closed verifier with structured reason codes. Proves custody of the declared basis as of producer-stated time, tamper-evidence, and replay resistance. Does not prove faithful capture, that the declared basis equals what the model conditioned on, which is the named open vector deferred to an independent capture boundary. Flight recorder, not seatbelt.</p>
 <ul class="rm-item-links"><li><a href="https://www.npmjs.com/package/agent-passport-system">npm (alpha tag)</a></li></ul>
 </article>
 <article class="rm-item rm-item-done" id="d107-go-sdk-v0-2-alpha">
