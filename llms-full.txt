@@ -701,6 +701,18 @@ Published 2026-04-23. Specification documents that name a property APS v2.x does
 
 **Source documents.** Full specification at `docs/ENFORCEMENT-TRUST-ANCHOR.md` (v1.2 on feat/v1.2-bbis-grammar branch awaiting merge, supersedes v1.1 on main which supersedes v1.0). Wire format draft at `docs/CAPABILITY-TOKEN-SPEC-DRAFT.md` (v0.2 on same branch awaiting merge, supersedes v0.1 on main). v1.2 adopts BBIS classification grammar (closed / bounded / partial / detectable-only / theater) per Hensley's OWASP#817. v0.2 renames M4 EffectReceipt to FRCBE (Final Refusal-Capable Boundary Event) per Hensley's qntm#7 coinage and splits post-effect forensic into a new optional M5 ExecutionReceipt.
 
+## AAT and APS Boundary: Joint Reference (AgentLair x AEOESS)
+
+Drafted 2026-06-11. Page at https://agent-passport.org/aat-aps-boundary.html. Where AAT issuance stops and APS verification starts. AAT is session identity inside the issuer. APS is delegation chains and receipts after handoff. The boundary is the handoff: before it the issuer can observe, attest to, scope, and revoke the agent; after it, only what was signed and carried travels.
+
+**AAT: session identity inside the issuer.** One bearer, one issuer, one hour. Issued by AgentLair as an EdDSA JWT, signed against the JWKS at `https://agentlair.dev/.well-known/jwks.json`. Carries standard JWT claims (`iss`, `sub`, `aud`, `exp`, `iat`, `jti`), `al_scopes` (capabilities the issuer granted), `al_trust` (behavioral snapshot at issuance: score, level, confidence, trend), `al_nid` (the `did:key:z6Mk...` Ed25519 public key registered to the agent, the cross-protocol bridge handle), optional `urn:dashclaw:act-binding` (digest of `(action, target, goal)`), and `al_audit_url`. Verification is JWKS pin, signature check, claim inspection. AAT does not claim the bearer is the entity that requested it, does not claim the action will succeed, and does not survive expiry.
+
+**APS: delegation chains and receipts after handoff.** Multi-party delegation across organizations and across time horizons longer than any single bearer token. Defined by the Agent Passport System spec; reference implementation is the `agent-passport-system` SDK on npm; hosted verification at `gateway.aeoess.com`; canonical correlation handle at agent-passport.org/action-ref.html. Carries a delegation chain rooted at a content-addressed commitment (`delegation_chain_root`, 32 bytes), receipts as versioned JCS-canonicalized (RFC 8785) Ed25519-signed envelopes, bilateral signing (`requestingAgentSignature` and `servingAgentSignature` as separate fields, optional `gatewaySignature`, no ordering dependency between signers), the `action_ref` correlation key derived from `(agent_id, action_type, scope, timestamp)`, and participant-asserted timestamps with `enableHybridTimestamps` as the opt-in for time-as-witness with NTP uncertainty bounds. APS does not issue session-bound bearer tokens and does not produce a behavioral history of agents.
+
+**The bridge.** Three claims connect the regimes: `jti` (AAT) and the session-context anchor on the APS receipt; `al_nid` (AAT) and the signing key for APS receipts (one key, two scopes of use, offline-verifiable); `al_trust` (AAT) and the trust input on the APS verifier side (available for downgrade-on-import, not a substitute for verifying the chain). A receipt that names a `jti` and carries a correlatable `action_ref` is the join between session and delegation. Either side can be verified standalone.
+
+This is not a replacement for either spec, not a prescription that all agents need both layers, and not a transport contract. Issues and edits: pico@amdal.dev, tima@aeoess.com.
+
 ## Links
 
 - npm package: https://www.npmjs.com/package/agent-passport-system

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AAT and APS: where one stops and the other starts | Agent Passport System</title>
+<meta name="description" content="Joint reference for implementers wiring AgentLair AAT issuance to AEOESS APS verification. AAT is session identity inside the issuer. APS is delegation chains and receipts after handoff.">
+<link rel="canonical" href="https://agent-passport.org/aat-aps-boundary.html">
+<link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
+<link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation">
+<link rel="alternate" type="application/json" href="https://agent-passport.org/.well-known/mcp.json" title="MCP server discovery">
+<meta property="og:title" content="AAT and APS: where one stops and the other starts">
+<meta property="og:description" content="Joint reference for implementers wiring AgentLair AAT issuance to AEOESS APS verification. AAT is session identity inside the issuer. APS is delegation chains and receipts after handoff.">
+<meta property="og:url" content="https://agent-passport.org/aat-aps-boundary.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AAT and APS: where one stops and the other starts">
+<meta name="twitter:description" content="AAT is session identity inside the issuer. APS is delegation chains and receipts after handoff. A joint reference for wiring AgentLair issuance to AEOESS verification.">
+<meta name="twitter:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/aps-design.css">
+<style>
+  .ab-tok{font-family:"JetBrains Mono",ui-monospace,monospace;word-break:break-all}
+  .ab-cite{font-size:.9rem;color:var(--ink-dim,#9FB1C5)}
+</style>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S7QVCJGMKR');
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"AAT and APS: where one stops and the other starts","description":"Joint reference for implementers wiring AgentLair AAT issuance to AEOESS APS verification. AAT is session identity inside the issuer. APS is delegation chains and receipts after handoff.","url":"https://agent-passport.org/aat-aps-boundary.html","dateModified":"2026-06-11","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"AAT and APS: where one stops and the other starts","articleSection":"Protocol Specification"}</script>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="brand" href="/"><b>APS</b> &middot; Agent Passport System</a>
+  <nav class="topnav">
+    <a href="/docs.html">Docs</a>
+    <a href="/protocol.html">Spec</a>
+    <a href="/benchmarks.html">Benchmarks</a>
+    <a href="/research.html">Research</a>
+    <a href="/roadmap.html">Roadmap</a>
+    <a href="/blog.html">Dev Log</a>
+    <a href="https://github.com/aeoess/agent-passport-system">GitHub &#8599;</a>
+  </nav>
+</div>
+
+<main>
+  <section class="page-hero"><div class="wrap">
+    <div class="eyebrow"><a href="/">Agent Passport System</a> / AAT and APS boundary</div>
+    <h1>AAT and APS: <span class="it">where one stops and the other starts</span></h1>
+    <p class="dek">Joint reference for implementers wiring AgentLair AAT issuance to AEOESS APS verification. AAT is session identity inside the issuer. APS is delegation chains and receipts after handoff.</p>
+  </div></section>
+
+  <div class="aps-prose"><div class="wrap"><div class="col">
+
+    <h2>The boundary</h2>
+    <p>A session begins when an agent obtains a bearer token from its issuer. A handoff begins when that agent passes work, or delegated authority, to a counterparty agent it does not control. The boundary is the handoff.</p>
+    <p>Before the handoff, the issuer can observe the agent, attest to its behavior, scope its capability, and revoke it. After the handoff, those guarantees do not travel. Only what was signed and carried does. AAT and APS describe these two regimes.</p>
+
+    <h2>AAT: session identity inside the issuer</h2>
+    <p><strong>Scope.</strong> One bearer, one issuer, one hour. Issued by AgentLair as an EdDSA JWT, signed against the JWKS at <code class="ab-tok">https://agentlair.dev/.well-known/jwks.json</code>.</p>
+    <p><strong>Carries.</strong></p>
+    <ul>
+      <li><code>iss</code>, <code>sub</code>, <code>aud</code>, <code>exp</code>, <code>iat</code>, <code>jti</code>: standard JWT</li>
+      <li><code>al_scopes</code>: capabilities the bearer requested and the issuer granted</li>
+      <li><code>al_trust</code>: behavioral snapshot at issuance time (score, level, confidence, trend)</li>
+      <li><code>al_nid</code>: <code class="ab-tok">did:key:z6Mk...</code> Ed25519 public key registered to this agent. The cross-protocol bridge handle</li>
+      <li><code>urn:dashclaw:act-binding</code>: optional digest of <code>(action, target, goal)</code> the token authorizes, when act-binding is asserted at issuance</li>
+      <li><code>al_audit_url</code>: issuer-side link to behavioral history</li>
+    </ul>
+    <p><strong>Verification.</strong> JWKS pin, signature check, claim inspection. The verifier learns: this token, right now, is valid for this audience with these scopes, against this issuer's view of the agent's behavior at <code>iat</code>.</p>
+    <p><strong>What AAT does not claim.</strong> It does not claim the bearer is the same entity that requested it. It does not claim the action will succeed. It does not survive expiry. It does not describe what happened after issuance, only what the issuer believed at issuance.</p>
+
+    <h2>APS: delegation chains and receipts after handoff</h2>
+    <p><strong>Scope.</strong> Multi-party delegation across organizations and across time horizons longer than any single bearer token. Defined by the Agent Passport System spec. Reference implementation: the open-source SDK (<code>agent-passport-system</code> on npm). Hosted verification endpoint at <code class="ab-tok">gateway.aeoess.com</code>. Canonical correlation handle at <a href="/action-ref.html">agent-passport.org/action-ref.html</a>.</p>
+    <p><strong>Carries.</strong></p>
+    <ul>
+      <li>Delegation chain rooted at a content-addressed commitment (<code>delegation_chain_root</code>, 32 bytes)</li>
+      <li>Receipts as typed envelopes: versioned, JCS-canonicalized (RFC 8785), Ed25519-signed</li>
+      <li><strong>Bilateral signing.</strong> Requesting and serving agents independently sign the byte-identical canonical body. The receipt carries <code>requestingAgentSignature</code> and <code>servingAgentSignature</code> as separate fields, with optional <code>gatewaySignature</code>. No ordering dependency between signers</li>
+      <li><code>action_ref</code> correlation key, derived from <code>(agent_id, action_type, scope, timestamp)</code> preimage. Identical across bilateral signers by construction. The join key for matching APS receipts to upstream session evidence</li>
+      <li>Timestamps are participant-asserted in APS v1. <code>enableHybridTimestamps</code> is the opt-in for time-as-witness with NTP uncertainty bounds</li>
+    </ul>
+    <p><strong>Verification.</strong> Reconstruct the canonical body, check each signature against its declared key, walk the delegation chain. The verifier learns: this work was authorized by this chain, both parties to the handoff bound themselves to its terms, and the receipt is replay-safe under its <code>action_ref</code>.</p>
+    <p><strong>What APS does not claim.</strong> It does not issue session-bound bearer tokens. It does not produce a behavioral history of agents. It can reference one (e.g. via the AAT's <code>al_audit_url</code>), but the history itself lives at the issuer. It does not assert wall-clock truth without the hybrid-timestamp opt-in.</p>
+
+    <h2>The bridge</h2>
+    <p>Three claims connect the two regimes.</p>
+    <ol>
+      <li><strong><code>jti</code> (AAT) and the session-context anchor on the APS receipt.</strong> The receipt records which token authorized the originating call.</li>
+      <li><strong><code>al_nid</code> (AAT) and the signing key for APS receipts.</strong> The same <code class="ab-tok">did:key:z6Mk...</code> Ed25519 key registered to the agent at AgentLair is the key that signs APS receipts from that agent. One key, two scopes of use, offline-verifiable.</li>
+      <li><strong><code>al_trust</code> (AAT) and the trust input on the APS verifier side.</strong> Issuer-attested behavioral snapshot at <code>iat</code>, available for downgrade-on-import. Not a substitute for verifying the chain itself.</li>
+    </ol>
+    <p>A receipt that names a <code>jti</code> and carries an <code>action_ref</code> correlatable to the AAT-authorized call is the join between session and delegation. Either side can be verified standalone. Together, they describe the full path from issuance through handoff to recorded outcome.</p>
+
+    <h2>What this is not</h2>
+    <ul>
+      <li>Not a replacement for either spec. AAT is defined by the AgentLair issuance API. APS by the Agent Passport spec. This page describes the relationship.</li>
+      <li>Not a prescription that all agents need both layers. An agent talking only to its issuer needs AAT. An agent participating only in already-authorized chains needs APS. Many deployment paths cross both.</li>
+      <li>Not a transport contract. Bilateral-signed receipts can be exchanged peer-to-peer, gatewayed, or batched. The protocol does not constrain this.</li>
+    </ul>
+
+    <p class="ab-cite"><em>Citable joint reference, AgentLair x AEOESS, drafted 2026-06-11. Issues and edits: pico@amdal.dev, tima@aeoess.com.</em></p>
+
+  </div></div></div>
+</main>
+
+<footer>
+  <div class="f-top">
+    <div class="f-brand">
+      <div class="f-word"><b>Agent Passport System</b></div>
+      <p class="f-blurb">Open-source infrastructure to enforce,<br>verify, and audit AI agent actions.</p>
+      <p class="f-blurb">Spec is CC0. Code is Apache 2.0.<br>The conformance suite is yours to fork.</p>
+      <a class="btn" href="/working-group.html">Join the Working Group &#8599;</a>
+    </div>
+    <div class="f-cols">
+      <div class="f-col">
+        <div class="f-h">Protocol</div>
+        <a href="/protocol.html">Documentation</a>
+        <a href="/benchmarks.html">Benchmarks</a>
+        <a href="/threat-model.html">Threat Model</a>
+        <a href="/faq.html">FAQ</a>
+      </div>
+      <div class="f-col">
+        <div class="f-h">Developers</div>
+        <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
+        <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
+        <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
+        <a href="/wallet.html">Agent Wallet</a>
+        <a href="/AGENTS.md">AGENTS.md</a>
+        <a href="/llms.txt">llms.txt</a>
+      </div>
+      <div class="f-col">
+        <div class="f-h">Community</div>
+        <a href="/blog.html">Dev Log</a>
+        <a href="/roadmap.html">Roadmap</a>
+        <a href="/working-group.html">Working Group</a>
+      </div>
+      <div class="f-col">
+        <div class="f-h">Research</div>
+        <a href="/research.html#r1">Agent Social Contract</a>
+        <a href="/research.html#r2">Monotonic Narrowing</a>
+        <a href="/research.html#r3">Faceted Authority Attenuation</a>
+        <a href="/research.html#r4">Behavioral Derivation Rights</a>
+        <a href="/research.html#r5">Physics-Enforced Delegation</a>
+        <a href="/research.html#r6">Governance in the Medium</a>
+        <a href="/research.html#r7">Cognitive Attestation</a>
+        <a href="/research.html#r8">Evidence-Safety Gap</a>
+      </div>
+    </div>
+  </div>
+  <div class="f-strip">
+    <div><span>License</span>Spec CC0 &middot; Code Apache 2.0</div>
+    <div><span>Editor</span>Tymofii Pidlisnyi</div>
+    <div><span>Standard</span>APS &middot; IETF Internet-Draft</div>
+    <div><span>Imprint</span>Vol. 01 &middot; 2026 &middot; agent-passport.org</div>
+    <div><span>Also at</span><a href="https://aeoess.com">aeoess.com</a></div>
+  </div>
+</footer>
+</body>
+</html>
