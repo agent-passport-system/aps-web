@@ -3804,3 +3804,35 @@
   workstream: surfaces
   day_start: 115
   day_end: 115
+
+- id: d116-clickhouse-mcp-delegation-example
+  title: "Runnable delegation layer for mcp-clickhouse, on the maintainer's own pass-through sketch"
+  description: "A ClickHouse maintainer on mcp-clickhouse #155 asked for a runnable example of the delegation layer on top of their UserPassthroughMiddleware credential sketch. Shipped aeoess/aps-clickhouse-mcp-delegation: an agent holds a scoped, time-bound delegation instead of the user's full access, each tool call writes a signed authority-boundary receipt into a table next to the query log, an out-of-scope drop is denied and recorded as a signed outside receipt, and a tamper test edits a stored row by hand and verification fails on that exact row. Installs from PyPI, runs in one command against a local server. Self-contained: no dependency on any AEOESS-hosted service."
+  status: done
+  workstream: ecosystem
+  day_start: 116
+  day_end: 116
+  links:
+    - url: "https://github.com/ClickHouse/mcp-clickhouse/issues/155"
+      label: "mcp-clickhouse #155"
+    - url: "https://github.com/aeoess/aps-clickhouse-mcp-delegation"
+      label: "Example repo"
+
+- id: d116-python-2-4-0-stable
+  title: "Python SDK 2.4.0 published stable to PyPI; default pip install carries the Wave 1 accountability surface"
+  description: "pip install agent-passport-system now resolves to 2.4.0 rather than an older line. The release carries the Wave 1 accountability primitives the ClickHouse example depends on: scoped delegation, the authority-boundary receipt, and the scope-of-claim field that records what a receipt does not assert. Verified end to end from a cold clone: fresh venv, unpinned install from PyPI, example runs green. Post-release audit and full-fix pass: README de-staled from 2.3.0/alpha framing, classifier set to Production/Stable, datetime modernized while preserving signed canonical-byte format, cross-language parity confirmed intact (568 passed in full environment)."
+  status: done
+  workstream: distribution
+  day_start: 116
+  day_end: 116
+
+- id: d116-action-ref-independent-conformance-set
+  title: "Independent conformance set for the action_ref correlation key lands from a separate author-set"
+  description: "An independent Internet-Draft of the action_ref primitive (giskard09/draft-giskard-aeoess-action-ref) picked up an AgentGraph conformance set built with its own RFC 8785 path in Python and Node, reproducing Appendix A Vector 1 byte for byte (fdd7f810...3d89f5a) and covering the empty-scope-vs-absent and did:key edges. Reviewed and accepted as a distinct author-set rather than merged into the reference vectors, since the cross-lineage agreement only holds while the derivation paths stay visibly separate. Proposed the Appendix A.1 wording, including the normative boundary that an action_ref match is not evidence of execution. Independent re-derivation is the interoperability evidence that was previously missing."
+  status: done
+  workstream: standards
+  day_start: 116
+  day_end: 116
+  links:
+    - url: "https://github.com/giskard09/draft-giskard-aeoess-action-ref/pull/1"
+      label: "Conformance set PR #1"

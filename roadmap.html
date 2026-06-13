@@ -1789,7 +1789,7 @@ footer .f-strip a:hover{color:var(--cyan-bright)}
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">324 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">327 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(14)</span></h2>
 <article class="rm-item rm-item-active" id="d106-action-ref-multi-implementation">
@@ -2093,7 +2093,42 @@ footer .f-strip a:hover{color:var(--cyan-bright)}
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(262)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(265)</span></h2>
+<article class="rm-item rm-item-done" id="d116-action-ref-independent-conformance-set">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Independent conformance set for the action_ref correlation key lands from a separate author-set</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 116</span> 
+<span class="rm-item-ws">Standards</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">An independent Internet-Draft of the action_ref primitive (giskard09/draft-giskard-aeoess-action-ref) picked up an AgentGraph conformance set built with its own RFC 8785 path in Python and Node, reproducing Appendix A Vector 1 byte for byte (fdd7f810...3d89f5a) and covering the empty-scope-vs-absent and did:key edges. Reviewed and accepted as a distinct author-set rather than merged into the reference vectors, since the cross-lineage agreement only holds while the derivation paths stay visibly separate. Proposed the Appendix A.1 wording, including the normative boundary that an action_ref match is not evidence of execution. Independent re-derivation is the interoperability evidence that was previously missing.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/giskard09/draft-giskard-aeoess-action-ref/pull/1">Conformance set PR #1</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d116-clickhouse-mcp-delegation-example">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Runnable delegation layer for mcp-clickhouse, on the maintainer's own pass-through sketch</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 116</span> 
+<span class="rm-item-ws">Ecosystem</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A ClickHouse maintainer on mcp-clickhouse #155 asked for a runnable example of the delegation layer on top of their UserPassthroughMiddleware credential sketch. Shipped aeoess/aps-clickhouse-mcp-delegation: an agent holds a scoped, time-bound delegation instead of the user's full access, each tool call writes a signed authority-boundary receipt into a table next to the query log, an out-of-scope drop is denied and recorded as a signed outside receipt, and a tamper test edits a stored row by hand and verification fails on that exact row. Installs from PyPI, runs in one command against a local server. Self-contained: no dependency on any AEOESS-hosted service.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/ClickHouse/mcp-clickhouse/issues/155">mcp-clickhouse #155</a></li><li><a href="https://github.com/aeoess/aps-clickhouse-mcp-delegation">Example repo</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d116-python-2-4-0-stable">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Python SDK 2.4.0 published stable to PyPI; default pip install carries the Wave 1 accountability surface</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 116</span> 
+<span class="rm-item-ws">distribution</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">pip install agent-passport-system now resolves to 2.4.0 rather than an older line. The release carries the Wave 1 accountability primitives the ClickHouse example depends on: scoped delegation, the authority-boundary receipt, and the scope-of-claim field that records what a receipt does not assert. Verified end to end from a cold clone: fresh venv, unpinned install from PyPI, example runs green. Post-release audit and full-fix pass: README de-staled from 2.3.0/alpha framing, classifier set to Production/Stable, datetime modernized while preserving signed canonical-byte format, cross-language parity confirmed intact (568 passed in full environment).</p>
+</article>
 <article class="rm-item rm-item-done" id="d115-aat-aps-boundary-joint-reference">
 <header class="rm-item-h">
 <h3 class="rm-item-title">AAT/APS boundary published as a joint AgentLair x AEOESS reference; weekly AAT vector cadence begins</h3>
