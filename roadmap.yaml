@@ -1,6 +1,6 @@
 # APS Roadmap — source of truth for aeoess.com/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-06-11 (Day 115). Roadmap triage applied: 16 items marked done (Matrix v1.1 substrate-attestation primitive shipped end-to-end, CTEF v0.3.2 published with AEOESS Consilium citation, A2A#1829 four-way convergence completed, AIVSS-effectiveness v0.1.1 shipped, PR #91 budget_authority + PR #99 budget_reservation lifecycle merged, PRs #51/#52 + AAIF #14 + AGT #1354 + in-toto #549 retroactively marked done, YC application closed Day 83, A2A #1717 closed Day 73). 2 items dropped (marketplace-proposal, vocab-pings-pr-55-pr-51). In_progress + active now 16 (was 34).
+# Last updated: 2026-06-16 (Day 120). Days 116-120 added: ClickHouse delegation example, Python 2.4.0 stable, AgentGraph and AEOESS independent action_ref conformance sets, the crosswalk evidence standard and validator, the two-key action_ref confirmation. Earlier triage (Day 115): 16 items marked done (Matrix v1.1 substrate-attestation primitive shipped end-to-end, CTEF v0.3.2 published with AEOESS Consilium citation, A2A#1829 four-way convergence completed, AIVSS-effectiveness v0.1.1 shipped, PR #91 budget_authority + PR #99 budget_reservation lifecycle merged, PRs #51/#52 + AAIF #14 + AGT #1354 + in-toto #549 retroactively marked done, YC application closed Day 83, A2A #1717 closed Day 73). 2 items dropped (marketplace-proposal, vocab-pings-pr-55-pr-51). In_progress + active now 16 (was 34).
 # Day 1 = 2026-02-17 (project start)
 
 # ═══ DAY 96 — 2026-05-23 ═══
@@ -3836,3 +3836,38 @@
   links:
     - url: "https://github.com/giskard09/draft-giskard-aeoess-action-ref/pull/1"
       label: "Conformance set PR #1"
+
+
+# ═══ DAY 119 — 2026-06-15 ═══
+
+- id: d119-argentum-aeoess-independent-set
+  title: "AEOESS-built independent action-ref-v1 conformance set merged into argentum-core (PR #14)"
+  description: "A second, separately authored conformance set for the cross-ecosystem action_ref form landed in the joint draft's reference implementation, in its own aps/ directory alongside the recomputation fixtures from PR #12. Fifteen vectors, ten accepts and five rejects, reproducing the draft's first appendix vector byte for byte. Two derivations written to the same spec text, kept in separate trees, landing on the same bytes; the set is kept as its own author-set rather than folded into the reference vectors, since the cross-lineage agreement is the interoperability evidence and holds only while the paths stay visibly independent."
+  status: done
+  workstream: conformance
+  day_start: 119
+  day_end: 119
+  links:
+    - url: "https://github.com/giskard09/argentum-core/pull/14"
+      label: "argentum-core PR #14"
+
+# ═══ DAY 120 — 2026-06-16 ═══
+
+- id: d120-evidence-standard-doctrine-validator
+  title: "Crosswalk registry gains an evidence standard for third-party claims, enforced by the validator"
+  description: "The vocabulary contribution guide now governs how a crosswalk carries a claim about an outside system it did not author: a qualifier travels inseparably with the claim it qualifies, the claim is attributed to whoever verified it, publicly verifiable is the unmarked default while weaker bases are marked in the displayed cell value rather than a hidden sibling field, the described system keeps a standing low-friction right of reply, and a missing capability is recorded as what was searched and not found rather than asserted as a fact about the system. The validator backs the mechanical part: an expired reverify date with no fresh evidence fails the cell to a stale state, elapsed time never upgrades a cell, and negative fixtures that must fail run in their own pass and are asserted to fail so a clean production run stays meaningful."
+  status: done
+  workstream: vocabulary
+  day_start: 120
+  day_end: 120
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/blob/main/CONTRIBUTING.md"
+      label: "Evidence standard"
+
+- id: d120-action-ref-two-key-confirmed
+  title: "action_ref two-key architecture documented: native receipt-signing form and external cross-system correlation key"
+  description: "APS carries two action_ref primitives with intentionally different preimages, now stated explicitly across the SDK and the standing descriptions. The native form signs APS receipts with a multi-scope array and a second-precision timestamp; the external form is the single-string, millisecond key built for cross-ecosystem correlation, which is the one that matches the joint draft and the one other stacks test against. Neither form bends to the other, and the standing line that action_ref converged through the joint draft refers to the external key."
+  status: done
+  workstream: protocol
+  day_start: 120
+  day_end: 120

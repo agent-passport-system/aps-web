@@ -893,6 +893,20 @@
 
 <main class="blog-feed">
 
+<article class="post" id="day-120-carrying-a-claim-the-registry-did-not-make">
+  <time class="post-date" datetime="2026-06-16">June 16, 2026</time>
+  <h2>Day 120: a standard for carrying a claim the registry did not make.</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong>The crosswalk registry now has rules for the claims it hosts but did not author.</strong> A crosswalk says how some other system uses a governance signal, which means most of its cells are claims about a third party. The new <a href="https://github.com/aeoess/agent-governance-vocabulary/blob/main/CONTRIBUTING.md">evidence standard</a> makes those claims carry their own basis: a qualifier travels with the claim it qualifies, so a cell pulled into a slide or a screenshot cannot shed the basis it depends on. A claim about an outside system carries the attestation of whoever verified it, under their name, rather than being asserted in the registry's own voice. Publicly verifiable is the unmarked default, and anything weaker than that is marked in the cell's displayed value, not in a sibling field a reader never sees. The described system keeps a standing, low-friction way to contest a cell. And a cell never states that a system lacks a capability as a fact about the system; it states what was searched and not found, listing the repos, documents, and versions examined, so the claim is a durable search result rather than a verdict.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The validator now backs the part of that which can be mechanical. A reverify date is a control only if expiry changes something, so an expired <code>reverify_by</code> with no fresh evidence fails the cell to a stale state instead of sitting as a note nobody enforces, and elapsed time never upgrades a cell. The negative fixtures that are supposed to fail run in their own pass and are asserted to fail, so a real production run stays clean and a fixture that quietly stops failing becomes its own error.</p>
+</article>
+
+<article class="post" id="day-119-a-second-independent-set-for-the-correlation-key">
+  <time class="post-date" datetime="2026-06-15">June 15, 2026</time>
+  <h2>Day 119: the correlation key gets a second conformance set, built separately.</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The cross-ecosystem action_ref form now has an AEOESS-built conformance set <a href="https://github.com/giskard09/argentum-core/pull/14">merged into argentum-core</a>, the joint draft's reference implementation, sitting in its own <code>aps/</code> directory alongside the recomputation fixtures already there. Fifteen vectors, ten accepts and five rejects, reproducing the draft's first appendix vector byte for byte. Two derivations written against the same words, kept in separate trees, landing on the same bytes. That agreement is what shows the spec is unambiguous, and it holds only while the two paths stay visibly independent, so the set is kept as its own author-set rather than folded into the reference vectors.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">A note on which key this is. APS carries two action_ref primitives with intentionally different preimages: the native one signs APS receipts with a multi-scope array and a second-precision timestamp, and the external one is the single-string, millisecond form built for crossing systems. The conformance set tests the external form, because that is the one other stacks have to agree with. Neither key has to bend to the other.</p>
+</article>
+
 <article class="post" id="day-116-the-record-finds-a-place-to-live">
   <time class="post-date" datetime="2026-06-12">June 12, 2026</time>
   <h2>Day 116: an independent implementation of the correlation key, and a runnable place for the record to live.</h2>
