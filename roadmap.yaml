@@ -1,6 +1,6 @@
 # APS Roadmap — source of truth for aeoess.com/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-06-16 (Day 120). Days 116-120 added: ClickHouse delegation example, Python 2.4.0 stable, AgentGraph and AEOESS independent action_ref conformance sets, the crosswalk evidence standard and validator, the two-key action_ref confirmation. Earlier triage (Day 115): 16 items marked done (Matrix v1.1 substrate-attestation primitive shipped end-to-end, CTEF v0.3.2 published with AEOESS Consilium citation, A2A#1829 four-way convergence completed, AIVSS-effectiveness v0.1.1 shipped, PR #91 budget_authority + PR #99 budget_reservation lifecycle merged, PRs #51/#52 + AAIF #14 + AGT #1354 + in-toto #549 retroactively marked done, YC application closed Day 83, A2A #1717 closed Day 73). 2 items dropped (marketplace-proposal, vocab-pings-pr-55-pr-51). In_progress + active now 16 (was 34).
+# Last updated: 2026-06-17 (Day 121). Day 121 added: did:cycles resolver aligned to the hash-bound window-gated model (aps#46), vocab validator per-system verified_at map (PR #112), cap_vocabulary v0.2 merged (PR #109). Days 116-120 added: ClickHouse delegation example, Python 2.4.0 stable, AgentGraph and AEOESS independent action_ref conformance sets, the crosswalk evidence standard and validator, the two-key action_ref confirmation. Earlier triage (Day 115): 16 items marked done (Matrix v1.1 substrate-attestation primitive shipped end-to-end, CTEF v0.3.2 published with AEOESS Consilium citation, A2A#1829 four-way convergence completed, AIVSS-effectiveness v0.1.1 shipped, PR #91 budget_authority + PR #99 budget_reservation lifecycle merged, PRs #51/#52 + AAIF #14 + AGT #1354 + in-toto #549 retroactively marked done, YC application closed Day 83, A2A #1717 closed Day 73). 2 items dropped (marketplace-proposal, vocab-pings-pr-55-pr-51). In_progress + active now 16 (was 34).
 # Day 1 = 2026-02-17 (project start)
 
 # ═══ DAY 96 — 2026-05-23 ═══
@@ -3871,3 +3871,35 @@
   workstream: protocol
   day_start: 120
   day_end: 120
+# ═══ DAY 121 — 2026-06-17 ═══
+
+- id: d121-did-cycles-hash-bound-window-resolver
+  title: "did:cycles key resolution aligned to the hash-bound, window-gated model (aps#46 merged)"
+  description: "The did:cycles resolver moved off the did:web-style origin-rooted form onto the model settled on the Cycles thread: the identifier subject is sha256(server_id), the key set is fetched from a path derived relative to that same server_id rather than the origin (closing a cross-tenant key-confusion class), and a key is selected by the validity window covering the receipt's issued_at rather than by whichever key is current. Resolution fails closed when no key's window covers issued_at, when a window bound is missing or non-integer, when more than one key matches with no kid to disambiguate, or when the named key carries private material. This is the resolver model-alignment half only; the resolver is exported but not yet reached by any live verification path, so it lands additively. No Cycles-conformance claim ships before the stacked follow-up lands."
+  status: done
+  workstream: protocol
+  day_start: 121
+  day_end: 121
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/pull/46"
+      label: "aps#46"
+
+- id: d121-vocab-validator-per-system-verified-at
+  title: "Vocabulary validator accepts a per-system verified_at map; cap_vocabulary v0.2 merged"
+  description: "The validator now accepts a crosswalk's verified_at as a per-system map rather than a single date, measuring the staleness window from the oldest per-system date (PR #112), so a multi-protocol file records when each system was checked. cap_vocabulary v0.2 merged (PR #109) with upstream citations pinned to specific commits, descriptive-not-universal normative framing, and intra-decision ordering left unstated where the source spec states none."
+  status: done
+  workstream: vocabulary
+  day_start: 121
+  day_end: 121
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/112"
+      label: "PR #112"
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/109"
+      label: "PR #109"
+
+- id: d121-did-cycles-verify-path-follow-up
+  title: "did:cycles verify-path wiring and Cycles golden-fixture vectors (required follow-up)"
+  description: "The stacked follow-up to aps#46: wire signer_did through the resolver into envelope verification so issued_at is bound to the authentic signed payload, and add the byte-for-byte Cycles golden-fixture vectors covering open-ended expiry, rotation overlap, and path-bearing server_id. Two confirmations fold in here: that an open-ended cycles_exp_ms is the intended active-key model per the Cycles thread rather than a required bound, and that the rotation-overlap rule (kid disambiguates, residual ambiguity fails closed) matches the settled text. No Cycles-conformance claim ships before these land."
+  status: in_progress
+  workstream: protocol
+  day_start: 121

@@ -1789,7 +1789,7 @@ footer .f-strip a:hover{color:var(--cyan-bright)}
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">327 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">333 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(14)</span></h2>
 <article class="rm-item rm-item-active" id="d106-action-ref-multi-implementation">
@@ -1967,7 +1967,18 @@ footer .f-strip a:hover{color:var(--cyan-bright)}
 </article>
 </section>
 <section class="rm-group rm-group-in-progress">
-<h2 class="rm-group-title">In progress <span class="rm-group-count">(9)</span></h2>
+<h2 class="rm-group-title">In progress <span class="rm-group-count">(10)</span></h2>
+<article class="rm-item rm-item-in_progress" id="d121-did-cycles-verify-path-follow-up">
+<header class="rm-item-h">
+<h3 class="rm-item-title">did:cycles verify-path wiring and Cycles golden-fixture vectors (required follow-up)</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 121</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">The stacked follow-up to aps#46: wire signer_did through the resolver into envelope verification so issued_at is bound to the authentic signed payload, and add the byte-for-byte Cycles golden-fixture vectors covering open-ended expiry, rotation overlap, and path-bearing server_id. Two confirmations fold in here: that an open-ended cycles_exp_ms is the intended active-key model per the Cycles thread rather than a required bound, and that the rotation-overlap rule (kid disambiguates, residual ambiguity fails closed) matches the settled text. No Cycles-conformance claim ships before these land.</p>
+</article>
 <article class="rm-item rm-item-in_progress" id="d115-vocab-pr100-pr109-review-standards">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Two registry crosswalk reviews land a shared standard: pinned citations, descriptive vs proposed semantics, implementer sign-off</h3>
@@ -2093,7 +2104,66 @@ footer .f-strip a:hover{color:var(--cyan-bright)}
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(265)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(270)</span></h2>
+<article class="rm-item rm-item-done" id="d121-did-cycles-hash-bound-window-resolver">
+<header class="rm-item-h">
+<h3 class="rm-item-title">did:cycles key resolution aligned to the hash-bound, window-gated model (aps#46 merged)</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 121</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The did:cycles resolver moved off the did:web-style origin-rooted form onto the model settled on the Cycles thread: the identifier subject is sha256(server_id), the key set is fetched from a path derived relative to that same server_id rather than the origin (closing a cross-tenant key-confusion class), and a key is selected by the validity window covering the receipt's issued_at rather than by whichever key is current. Resolution fails closed when no key's window covers issued_at, when a window bound is missing or non-integer, when more than one key matches with no kid to disambiguate, or when the named key carries private material. This is the resolver model-alignment half only; the resolver is exported but not yet reached by any live verification path, so it lands additively. No Cycles-conformance claim ships before the stacked follow-up lands.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/pull/46">aps#46</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d121-vocab-validator-per-system-verified-at">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Vocabulary validator accepts a per-system verified_at map; cap_vocabulary v0.2 merged</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 121</span> 
+<span class="rm-item-ws">vocabulary</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The validator now accepts a crosswalk's verified_at as a per-system map rather than a single date, measuring the staleness window from the oldest per-system date (PR #112), so a multi-protocol file records when each system was checked. cap_vocabulary v0.2 merged (PR #109) with upstream citations pinned to specific commits, descriptive-not-universal normative framing, and intra-decision ordering left unstated where the source spec states none.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/pull/112">PR #112</a></li><li><a href="https://github.com/aeoess/agent-governance-vocabulary/pull/109">PR #109</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d120-action-ref-two-key-confirmed">
+<header class="rm-item-h">
+<h3 class="rm-item-title">action_ref two-key architecture documented: native receipt-signing form and external cross-system correlation key</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 120</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">APS carries two action_ref primitives with intentionally different preimages, now stated explicitly across the SDK and the standing descriptions. The native form signs APS receipts with a multi-scope array and a second-precision timestamp; the external form is the single-string, millisecond key built for cross-ecosystem correlation, which is the one that matches the joint draft and the one other stacks test against. Neither form bends to the other, and the standing line that action_ref converged through the joint draft refers to the external key.</p>
+</article>
+<article class="rm-item rm-item-done" id="d120-evidence-standard-doctrine-validator">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Crosswalk registry gains an evidence standard for third-party claims, enforced by the validator</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 120</span> 
+<span class="rm-item-ws">vocabulary</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The vocabulary contribution guide now governs how a crosswalk carries a claim about an outside system it did not author: a qualifier travels inseparably with the claim it qualifies, the claim is attributed to whoever verified it, publicly verifiable is the unmarked default while weaker bases are marked in the displayed cell value rather than a hidden sibling field, the described system keeps a standing low-friction right of reply, and a missing capability is recorded as what was searched and not found rather than asserted as a fact about the system. The validator backs the mechanical part: an expired reverify date with no fresh evidence fails the cell to a stale state, elapsed time never upgrades a cell, and negative fixtures that must fail run in their own pass and are asserted to fail so a clean production run stays meaningful.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/blob/main/CONTRIBUTING.md">Evidence standard</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d119-argentum-aeoess-independent-set">
+<header class="rm-item-h">
+<h3 class="rm-item-title">AEOESS-built independent action-ref-v1 conformance set merged into argentum-core (PR #14)</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 119</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A second, separately authored conformance set for the cross-ecosystem action_ref form landed in the joint draft's reference implementation, in its own aps/ directory alongside the recomputation fixtures from PR #12. Fifteen vectors, ten accepts and five rejects, reproducing the draft's first appendix vector byte for byte. Two derivations written to the same spec text, kept in separate trees, landing on the same bytes; the set is kept as its own author-set rather than folded into the reference vectors, since the cross-lineage agreement is the interoperability evidence and holds only while the paths stay visibly independent.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/giskard09/argentum-core/pull/14">argentum-core PR #14</a></li></ul>
+</article>
 <article class="rm-item rm-item-done" id="d116-action-ref-independent-conformance-set">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Independent conformance set for the action_ref correlation key lands from a separate author-set</h3>
