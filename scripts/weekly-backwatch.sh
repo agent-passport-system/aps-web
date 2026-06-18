@@ -11,7 +11,7 @@
 #     Zenodo paper view counts, npm download trends)
 
 set -e
-WEB="$HOME/aeoess_web"
+WEB="$HOME/aps-web"
 cd "$WEB"
 echo "=== Weekly backwatch — $(date +%Y-%m-%d) ==="
 echo

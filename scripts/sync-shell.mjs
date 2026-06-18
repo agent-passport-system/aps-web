@@ -10,7 +10,7 @@
 // with no footer get one inserted before </body>.
 //
 // Usage:
-//   node scripts/sync-shell.mjs                      # aeoess_web, write mode
+//   node scripts/sync-shell.mjs                      # aps-web, write mode
 //   node scripts/sync-shell.mjs --dry-run            # print the plan, write nothing
 //   node scripts/sync-shell.mjs --repo tymofii       # use ~/tymofii as target
 //   node scripts/sync-shell.mjs --repo tymofii --dry-run
@@ -37,8 +37,8 @@ import { fileURLToPath } from 'node:url'
 // ── Per-repo config ────────────────────────────────────────
 
 const REPOS = {
-  aeoess_web: {
-    root: `${process.env.HOME}/aeoess_web`,
+  aps_web: {
+    root: `${process.env.HOME}/aps-web`,
     recursive: false,
     skip: new Set(['board.html']),
     skipDirs: new Set([]),
@@ -57,14 +57,14 @@ const REPOS = {
 // ── CLI ────────────────────────────────────────────────────
 
 function parseArgs(argv) {
-  const args = { repo: 'aeoess_web', dryRun: false }
+  const args = { repo: 'aps_web', dryRun: false }
   for (let i = 2; i < argv.length; i++) {
     const a = argv[i]
     if (a === '--dry-run') args.dryRun = true
     else if (a === '--repo') args.repo = argv[++i]
     else if (a === '--help' || a === '-h') {
       console.log('Usage: node sync-shell.mjs [--repo <name>] [--dry-run]')
-      console.log('  --repo   aeoess_web (default) | tymofii')
+      console.log('  --repo   aps_web (default) | tymofii')
       console.log('  --dry-run  Print the plan, write nothing')
       process.exit(0)
     }

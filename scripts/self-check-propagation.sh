@@ -26,7 +26,7 @@ for arg in "$@"; do
 done
 
 # Repos in scope (TAT intentionally excluded — separate project)
-WEB="$HOME/aeoess_web"
+WEB="$HOME/aps-web"
 SDK="$HOME/agent-passport-system"
 MCP="$HOME/agent-passport-mcp"
 PY="$HOME/agent-passport-python"
@@ -71,7 +71,7 @@ for repo in "$SDK" "$MCP" "$PY" "$VOCAB" "$WEB"; do
     short=$(echo "$f" | sed "s|$HOME/||")
     # propagate.mjs uses template literals like ${REPOS.sdk}/AGENTS.md
     # so search for the last two components: repo-label and filename.
-    repo_label=$(basename "$repo" | sed 's/agent-passport-//;s/agent-//;s/aeoess_web/web/;s/aeoess-dot-github/org/')
+    repo_label=$(basename "$repo" | sed 's/agent-passport-//;s/agent-//;s/aps-web/web/;s/aeoess_web/web/;s/aeoess-dot-github/org/')
     # Use a cross-variant match: either literal short path OR REPOS.xxx/filename
     if grep -Fq "$short" "$PROP" 2>/dev/null \
        || grep -qE "REPOS\.(sdk|mcp|python|vocab|web|ecomap|org)[^/]*/${name}" "$PROP" 2>/dev/null; then

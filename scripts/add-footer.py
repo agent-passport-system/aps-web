@@ -2,7 +2,7 @@
 """Add new footer to all AEOESS subpages and create FAQ page."""
 import re, os
 
-WEB = os.path.expanduser('~/aeoess_web')
+WEB = os.path.expanduser('~/aps-web')
 
 NEW_FOOTER = '''<footer class="site-footer-sub">
   <div class="footer-inner">

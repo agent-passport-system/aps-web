@@ -16,7 +16,7 @@
 //   argv[3]  value — version string for sdk/mcp/python, integer for tests
 //
 // Behavior:
-//   - Read aeoess_web/project-state.json (located via __dirname).
+//   - Read aps-web/project-state.json (located via __dirname).
 //   - Map the key to the right slot:
 //       sdk    → versions.sdk
 //       mcp    → versions.mcp
@@ -29,10 +29,10 @@
 //   - Exit 0 on success; non-zero on bad input or write failure.
 //
 // Usage from a host repo's package.json:
-//   "postversion": "node ../aeoess_web/scripts/sync-project-state.mjs sdk $npm_package_version"
+//   "postversion": "node ../aps-web/scripts/sync-project-state.mjs sdk $npm_package_version"
 //
 // Python release runner (no postversion hook on pyproject.toml):
-//   node aeoess_web/scripts/sync-project-state.mjs python 2.4.0a3
+//   node aps-web/scripts/sync-project-state.mjs python 2.4.0a3
 //
 // ══════════════════════════════════════════════════════════════════
 

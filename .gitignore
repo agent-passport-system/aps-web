@@ -99,3 +99,7 @@ specs/ERIK-NEWTON*
 .index.html.broken-multifile-bak
 *.broken-multifile-bak
 .gstack/
+
+# Python bytecode cache (scripts/*.py)
+__pycache__/
+*.pyc
