@@ -3931,3 +3931,27 @@
       label: "AAE cross-encoding"
     - url: "https://github.com/a2aproject/A2A/issues/1716"
       label: "A2A #1716"
+
+# DAY 123 - 2026-06-19
+
+- id: d123-subdelegate-temporal-narrowing-fix
+  title: "subDelegate temporal narrowing fixed: a child delegation can no longer outlive its parent"
+  description: "Time was the one narrowing dimension not holding at delegation creation, while scope, spend, and depth narrowed correctly. Two creation-time defects combined: createDelegation built expiry with setHours and an || 24 default that coerced a deliberate zero-hour window into 24 hours and dropped fractional hours; and subDelegate computed the child window as a duration from one reading of the current time, which createDelegation then re-based on a later reading, so a child outlived its parent by the gap and an already-expired parent produced a fresh 24-hour child. The fix uses millisecond math, reads the current time once, rejects a parent whose expiry is non-finite or already past, and sets the child's absolute expiry to the earlier of 24 hours from now or the parent's expiry, signed directly so no relative duration enters the signed object. Invariant: a child's expiry is at most its parent's, to the millisecond, at any depth. Creation-time enforcement matching the current SDK narrowing model; no verify-time or chain-level temporal check is added. 10 new red-then-green vectors; full suite 3824 pass, 0 fail, 3 skip."
+  status: done
+  workstream: protocol
+  day_start: 123
+  day_end: 123
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/commit/d69e3eb"
+      label: "temporal narrowing fix"
+
+- id: d123-spend-unit-narrowing-guard
+  title: "Spend-unit narrowing: a child cannot change the spend unit once a delegation has one"
+  description: "Once a delegation carries a spend unit, a sub-delegation can narrow the amount but cannot change the unit the amount is measured in. A child that switched the unit could otherwise restate the same number against a different denomination and pass an amount check while stepping outside the parent's spend constraint. The guard rejects a unit change at narrowing once a spend dimension exists, with adversarial cases in the vector set. Separately, the action-ref-v1 conformance vectors gained a verification_mode field marking whether each vector is structurally enforced, backward compatible so a reader that omits it treats the vector as enforced, with the JavaScript and Python runners printing a tally; no code path or hash changed for that annotation."
+  status: done
+  workstream: protocol
+  day_start: 123
+  day_end: 123
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/commit/938bdfb"
+      label: "spend-unit narrowing guard"

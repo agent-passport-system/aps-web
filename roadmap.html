@@ -1789,7 +1789,7 @@ footer .f-strip a:hover{color:var(--cyan-bright)}
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">335 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">337 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(14)</span></h2>
 <article class="rm-item rm-item-active" id="d106-action-ref-multi-implementation">
@@ -2104,7 +2104,31 @@ footer .f-strip a:hover{color:var(--cyan-bright)}
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(272)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(274)</span></h2>
+<article class="rm-item rm-item-done" id="d123-spend-unit-narrowing-guard">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Spend-unit narrowing: a child cannot change the spend unit once a delegation has one</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 123</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Once a delegation carries a spend unit, a sub-delegation can narrow the amount but cannot change the unit the amount is measured in. A child that switched the unit could otherwise restate the same number against a different denomination and pass an amount check while stepping outside the parent's spend constraint. The guard rejects a unit change at narrowing once a spend dimension exists, with adversarial cases in the vector set. Separately, the action-ref-v1 conformance vectors gained a verification_mode field marking whether each vector is structurally enforced, backward compatible so a reader that omits it treats the vector as enforced, with the JavaScript and Python runners printing a tally; no code path or hash changed for that annotation.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/commit/938bdfb">spend-unit narrowing guard</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d123-subdelegate-temporal-narrowing-fix">
+<header class="rm-item-h">
+<h3 class="rm-item-title">subDelegate temporal narrowing fixed: a child delegation can no longer outlive its parent</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 123</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Time was the one narrowing dimension not holding at delegation creation, while scope, spend, and depth narrowed correctly. Two creation-time defects combined: createDelegation built expiry with setHours and an || 24 default that coerced a deliberate zero-hour window into 24 hours and dropped fractional hours; and subDelegate computed the child window as a duration from one reading of the current time, which createDelegation then re-based on a later reading, so a child outlived its parent by the gap and an already-expired parent produced a fresh 24-hour child. The fix uses millisecond math, reads the current time once, rejects a parent whose expiry is non-finite or already past, and sets the child's absolute expiry to the earlier of 24 hours from now or the parent's expiry, signed directly so no relative duration enters the signed object. Invariant: a child's expiry is at most its parent's, to the millisecond, at any depth. Creation-time enforcement matching the current SDK narrowing model; no verify-time or chain-level temporal check is added. 10 new red-then-green vectors; full suite 3824 pass, 0 fail, 3 skip.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/commit/d69e3eb">temporal narrowing fix</a></li></ul>
+</article>
 <article class="rm-item rm-item-done" id="d122-aae-envelope-cross-encoding-merged">
 <header class="rm-item-h">
 <h3 class="rm-item-title">APS delegation-chain vectors cross-encoded into the AAE signed-JWS envelope, verified against its reference verifier, merged to the conformance suite</h3>
