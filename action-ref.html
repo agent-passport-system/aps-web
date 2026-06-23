@@ -33,7 +33,7 @@
   gtag('js', new Date());
   gtag('config', 'G-S7QVCJGMKR');
 </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"action_ref v1 Specification | Agent Passport System","description":"Canonical specification of the action_ref v1 cross-ecosystem correlation key: four-field preimage, RFC 8785 JCS derivation, timestamp grammar, non-goals, and conformance vectors.","url":"https://agent-passport.org/action-ref.html","dateModified":"2026-06-09","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"action_ref v1 Canonical Specification","articleSection":"Protocol Specification"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"action_ref v1 Specification | Agent Passport System","description":"Canonical specification of the action_ref v1 cross-ecosystem correlation key: four-field preimage, RFC 8785 JCS derivation, timestamp grammar, non-goals, and conformance vectors.","url":"https://agent-passport.org/action-ref.html","dateModified":"2026-06-23","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"action_ref v1 Canonical Specification","articleSection":"Protocol Specification"}</script>
 </head>
 <body>
 
@@ -64,6 +64,7 @@
     <h2>1. Status</h2>
     <p><span class="ar-note">v1.0 &middot; 2026-06-09 &middot; frozen preimage</span></p>
     <p>This page specifies the cross-ecosystem <code>action_ref</code> v1 form (derivation label <code>action-ref-v1-jcs-sha256</code>), the one computed by the SDK's <code>computeExternalActionRefV1</code> and by independent implementations in the action-ref-v1 ecosystem. It is distinct from the APS-native <code>action_ref</code> of <code>draft-pidlisnyi-aps</code> &sect;4.1, whose preimage uses camelCase keys, a multi-scope array, and second-precision timestamps. The two are separate primitives with intentionally different preimages.</p>
+    <p><strong>Provenance.</strong> The <code>action_ref</code> approach, a content-addressed correlation key over the executing agent, the action, the requested scope, and the time of an action, was first specified in <code>draft-pidlisnyi-aps</code> &sect;4.1, filed 2026-05-14. This page specifies the cross-ecosystem v1 encoding of that approach. Other implementations across the ecosystem that compute the same key are an independent-convergence signal; the reference of record is this page and the linked SDK repository.</p>
 
     <h2>2. Definition</h2>
     <p><code>action_ref</code> is a <strong>correlation key, not an authorization claim</strong>. It joins the commitment, decision, and receipt records for a single action by a single producer. Two records carrying the same <code>action_ref</code> from the same producer refer to the same action; nothing more is implied.</p>
