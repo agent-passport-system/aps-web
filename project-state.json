@@ -4,7 +4,7 @@
   "versions": {
     "sdk": "2.7.0",
     "sdk_dist_tag": "latest",
-    "sdk_stable": "2.6.0",
+    "sdk_stable": "2.7.0",
     "mcp": "3.2.2",
     "mcp_dist_tag": "latest",
     "mcp_stable": "3.1.0",

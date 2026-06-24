@@ -17,7 +17,7 @@
     "npm": "agent-passport-system",
     "pypi": "agent-passport-system",
     "version": "2.7.0",
-    "stable_version": "2.6.0",
+    "stable_version": "2.7.0",
     "modules": 107,
     "tests": 3842,
     "python_version": "2.4.0a3",
