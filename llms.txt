@@ -43,7 +43,7 @@ The SDK ships in two layers. Core is a curated essentials surface at `agent-pass
 - [VeritasActa cross-verify](https://github.com/VeritasActa/verify/pull/7): APS DecisionLineageReceipt drops into VeritasActa Knowledge Unit bundles
 - [A2A composition contract](https://github.com/a2aproject/A2A/issues/1742): co-drafted key rotation and per-request signature verification
 - [Agent governance vocabulary](https://github.com/aeoess/agent-governance-vocabulary): shared term definitions across the agent-governance ecosystem
-- [IETF Internet-Draft](https://github.com/aeoess/agent-passport-system): draft-pidlisnyi-aps-00 protocol formalization
+- [IETF Internet-Draft](https://github.com/aeoess/agent-passport-system): draft-pidlisnyi-aps-01 protocol formalization
 
 ## Ecosystem services
 
