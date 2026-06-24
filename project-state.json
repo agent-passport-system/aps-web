@@ -1,8 +1,8 @@
 {
   "$comment": "Single source of truth for site-wide propagation. Hand-edited; consumed by scripts/propagate.mjs. Bumping any value here propagates to every target file the propagator knows about.",
-  "updated": "2026-06-11",
+  "updated": "2026-06-24",
   "versions": {
-    "sdk": "2.6.0",
+    "sdk": "2.7.0",
     "sdk_dist_tag": "latest",
     "sdk_stable": "2.6.0",
     "mcp": "3.2.2",
@@ -15,8 +15,8 @@
     "go_dist_tag": "alpha"
   },
   "counts": {
-    "$comment": "tests is the PASSING count (node test runner 'pass' line), not the registered total ('tests' line, higher when tests are skipped or todo-marked), per the propagation sync rule. As of 2026-06-19 the suite reports pass 3814, tests 3817, 3 skipped. modules_total = modules_core + modules_v2. Canonical: modules_v2 = publicly exported logical units via a barrel (src/v2/index.ts or src/index.ts), ratified 2026-05-17 = 23. modules_total = modules_core + modules_v2, DERIVED from the canonical count, never used to justify it. Raw file count, subsystem directory count, and historical project-state values are implementation signals, NOT canonical module counts.",
-    "tests": 3814,
+    "$comment": "tests is the PASSING count (node test runner 'pass' line), not the registered total ('tests' line, higher when tests are skipped or todo-marked), per the propagation sync rule. As of 2026-06-23 the suite reports pass 3842, tests 3845, 3 skipped. modules_total = modules_core + modules_v2. Canonical: modules_v2 = publicly exported logical units via a barrel (src/v2/index.ts or src/index.ts), ratified 2026-05-17 = 23. modules_total = modules_core + modules_v2, DERIVED from the canonical count, never used to justify it. Raw file count, subsystem directory count, and historical project-state values are implementation signals, NOT canonical module counts.",
+    "tests": 3842,
     "papers": 8,
     "modules_core": 84,
     "modules_v2": 23,
