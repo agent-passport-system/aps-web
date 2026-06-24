@@ -3955,3 +3955,18 @@
   links:
     - url: "https://github.com/aeoess/agent-passport-system/commit/938bdfb"
       label: "spend-unit narrowing guard"
+
+# DAY 126 - 2026-06-24
+
+- id: d126-signal-type-lifecycle-governance
+  title: "Signal types in the governance vocabulary now carry a lifecycle: canonical requires two or more independent implementations"
+  description: "A signal type used to become canonical on addition, so a single issuer's term could sit at the same status as a reviewed one with nothing recording its support. The vocabulary now has a status lifecycle: canonical requires two or more independent implementations; a term with one implementation is proposed, carrying a review_by date and a promotion trigger; a term with no implementation is reserved, also dated, removed by default at its review date; a term with no status is treated as proposed, never as canonical, so silence cannot confer status. Two definition rules accompany it: a definition states what the signal is without naming or depending on any one implementer, and a term cannot cite its own issuer as the ground for its status. The full fifteen-term registry was re-sorted under the single rule. The validator enforces status, the review_by sunset, and definition purity, and rejects a canonical claim with fewer than two independent issuers."
+  status: done
+  workstream: vocab
+  day_start: 126
+  day_end: 126
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/commit/cd97065"
+      label: "lifecycle rule in CONTRIBUTING"
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/commit/9cdbac2"
+      label: "validator + 15-term re-sort"
