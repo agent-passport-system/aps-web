@@ -1789,7 +1789,7 @@ footer .f-strip a:hover{color:var(--cyan-bright)}
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">337 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">339 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(14)</span></h2>
 <article class="rm-item rm-item-active" id="d106-action-ref-multi-implementation">
@@ -2104,7 +2104,31 @@ footer .f-strip a:hover{color:var(--cyan-bright)}
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(274)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(276)</span></h2>
+<article class="rm-item rm-item-done" id="d127-regulated-action-profile-v0">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Regulated Action Profile v0 ships in SDK 2.8.0: finality requires two trust domains outside the operator</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 127</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The Regulated Action Profile v0 adds a deterministic, stateless verifier and a typed receipt for actions of class rank three or higher. The verifier counts independent trust domains rather than signatures: it returns reconciled, or the regulator_grade_for_class level above it, only when a pre-committed intent reconciles against two anchors outside the operator's trust domain, the identity provider that authorized the actor and the resource's system of record, with the domain count at least two, the resource confirmation validated under an independently registered key, and the intent anchored in time before the effect. judgment_correctness is always not_claimed; the receipt type has no field for model reasoning. 33 conformance vectors pin every disposition, including a hostile operator forging one side of the reconciliation, and an independent pure-standard-library Python verifier with its own Ed25519 and JCS reproduces the decisions. The public SDK carries the primitive: types, the verifier, the vectors, and a verify-regulated CLI subcommand. The reference build runs its boundary attestation at a weak level, so an honest single-machine run reports intent_precommitted; reconciled is gated on a deployment whose attestation node is a separate principal. Receiver receipts, intent pre-commitment, and co-signing are prior work; the composition of an external IdP authority as the second domain with a verifier-computed domain-count finality gate, in an operator-as-adversary setting, is the new part. Full suite 3919 pass, 0 fail, 3 skip.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/tree/main/src/v2/regulated-action">regulated-action verifier</a></li><li><a href="https://github.com/aeoess/agent-passport-system/tree/main/conformance/regulated-action/v0">conformance vectors</a></li><li><a href="https://www.npmjs.com/package/agent-passport-system">agent-passport-system 2.8.0</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d126-signal-type-lifecycle-governance">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Signal types in the governance vocabulary now carry a lifecycle: canonical requires two or more independent implementations</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 126</span> 
+<span class="rm-item-ws">vocab</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A signal type used to become canonical on addition, so a single issuer's term could sit at the same status as a reviewed one with nothing recording its support. The vocabulary now has a status lifecycle: canonical requires two or more independent implementations; a term with one implementation is proposed, carrying a review_by date and a promotion trigger; a term with no implementation is reserved, also dated, removed by default at its review date; a term with no status is treated as proposed, never as canonical, so silence cannot confer status. Two definition rules accompany it: a definition states what the signal is without naming or depending on any one implementer, and a term cannot cite its own issuer as the ground for its status. The full fifteen-term registry was re-sorted under the single rule. The validator enforces status, the review_by sunset, and definition purity, and rejects a canonical claim with fewer than two independent issuers.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/commit/cd97065">lifecycle rule in CONTRIBUTING</a></li><li><a href="https://github.com/aeoess/agent-governance-vocabulary/commit/9cdbac2">validator + 15-term re-sort</a></li></ul>
+</article>
 <article class="rm-item rm-item-done" id="d123-spend-unit-narrowing-guard">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Spend-unit narrowing: a child cannot change the spend unit once a delegation has one</h3>

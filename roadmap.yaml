@@ -3970,3 +3970,20 @@
       label: "lifecycle rule in CONTRIBUTING"
     - url: "https://github.com/aeoess/agent-governance-vocabulary/commit/9cdbac2"
       label: "validator + 15-term re-sort"
+
+# DAY 127 - 2026-06-25
+
+- id: d127-regulated-action-profile-v0
+  title: "Regulated Action Profile v0 ships in SDK 2.8.0: finality requires two trust domains outside the operator"
+  description: "The Regulated Action Profile v0 adds a deterministic, stateless verifier and a typed receipt for actions of class rank three or higher. The verifier counts independent trust domains rather than signatures: it returns reconciled, or the regulator_grade_for_class level above it, only when a pre-committed intent reconciles against two anchors outside the operator's trust domain, the identity provider that authorized the actor and the resource's system of record, with the domain count at least two, the resource confirmation validated under an independently registered key, and the intent anchored in time before the effect. judgment_correctness is always not_claimed; the receipt type has no field for model reasoning. 33 conformance vectors pin every disposition, including a hostile operator forging one side of the reconciliation, and an independent pure-standard-library Python verifier with its own Ed25519 and JCS reproduces the decisions. The public SDK carries the primitive: types, the verifier, the vectors, and a verify-regulated CLI subcommand. The reference build runs its boundary attestation at a weak level, so an honest single-machine run reports intent_precommitted; reconciled is gated on a deployment whose attestation node is a separate principal. Receiver receipts, intent pre-commitment, and co-signing are prior work; the composition of an external IdP authority as the second domain with a verifier-computed domain-count finality gate, in an operator-as-adversary setting, is the new part. Full suite 3919 pass, 0 fail, 3 skip."
+  status: done
+  workstream: protocol
+  day_start: 127
+  day_end: 127
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/tree/main/src/v2/regulated-action"
+      label: "regulated-action verifier"
+    - url: "https://github.com/aeoess/agent-passport-system/tree/main/conformance/regulated-action/v0"
+      label: "conformance vectors"
+    - url: "https://www.npmjs.com/package/agent-passport-system"
+      label: "agent-passport-system 2.8.0"
