@@ -129,7 +129,7 @@ This repo is one of three. Together they form the complete Agent Passport System
 7. **Integration Wiring** — Cross-layer bridges: commerce→intent, commerce→attribution, coordination→agora. Pure composition, no layer modifications.
 8. **Agentic Commerce** — 4-gate checkout pipeline (passport → delegation → merchant → spend), human approval, spend tracking and limits
 
-**19 extended modules:** Principal Identity, Reputation-Gated Authority (Bayesian trust, 5 tiers), Task Routing, Cross-Chain Data Flow Authorization (confused deputy prevention), W3C DID & Verifiable Credentials, Google A2A Bridge, EU AI Act Compliance, ProxyGateway Enforcement, Intent Network, Floor Validator (Graduated), E2E Encrypted Messaging, Obligations Model, Governance Provenance, Identity Continuity & Key Rotation, Receipt Ledger, Feasibility Linting, Precedent Control, Delegation Re-anchoring, Bounded Escalation (4th attenuation invariant).
+**19 extended modules:** Principal Identity, Reputation-Gated Authority (Bayesian trust, 5 tiers), Task Routing, Cross-Chain Data Flow Authorization (confused deputy prevention), W3C DID & Verifiable Credentials, Google A2A Bridge, EU AI Act Mapping, ProxyGateway Enforcement, Intent Network, Floor Validator (Graduated), E2E Encrypted Messaging, Obligations Model, Governance Provenance, Identity Continuity & Key Rotation, Receipt Ledger, Feasibility Linting, Precedent Control, Delegation Re-anchoring, Bounded Escalation (4th attenuation invariant).
 
 ---
 

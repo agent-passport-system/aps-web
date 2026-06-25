@@ -85,7 +85,7 @@
 
     <h2>1. System Model</h2>
     <p>The Agent Passport System operates as a <strong>client-side protocol library</strong>. It runs inside agent runtimes (Node.js, browser, Python via canonical serialization). There is no central server, no blockchain, no consensus network. Each agent holds its own Ed25519 private key and produces signed artifacts (passports, delegations, receipts, messages) that any other party can verify using only the public key and the signed data.</p>
-    <p>The protocol boundary is the <strong>signed artifact</strong>. The system guarantees: if a signature verifies, the claimed agent produced the data, the data has not been tampered with, and the delegation chain is valid at verification time. Everything outside this boundary (key storage, network transport, runtime integrity) is outside scope.</p>
+    <p>The protocol boundary is the <strong>signed artifact</strong>. What a verifying signature establishes, and only that: if a signature verifies, the claimed agent produced the data, the data has not been tampered with, and the delegation chain is valid at verification time. Everything outside this boundary (key storage, network transport, runtime integrity) is outside scope.</p>
 
     <h2>2. Assets</h2>
     <p>What the protocol protects, ordered by criticality.</p>
@@ -422,7 +422,7 @@
     <p><em>This attack was discovered during a real cross-agent coordination task where PortalX2 (Python) signed data that couldn't be verified by the Node.js SDK. The canonical serialization spec and Python reference implementation shipped the same day.</em></p>
 
     <h2>6. Coverage Summary</h2>
-    <p>Aggregate view of adversarial test coverage across the protocol.</p>
+    <p>Aggregate view of adversarial test coverage across the protocol. These are a developer-authored internal evaluation, not an independent red-team or neutral third-party adversarial harness.</p>
     <table>
     <thead><tr><th>Layer</th><th>Attacks Tested</th><th>Blocked</th><th>Detected</th><th>Mitigated</th></tr></thead>
     <tbody>

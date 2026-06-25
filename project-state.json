@@ -8,9 +8,9 @@
     "mcp": "3.2.2",
     "mcp_dist_tag": "latest",
     "mcp_stable": "3.1.0",
-    "python": "2.4.0a3",
-    "python_dist_tag": "pre",
-    "python_stable": "2.3.0",
+    "python": "2.4.0",
+    "python_dist_tag": "latest",
+    "python_stable": "2.4.0",
     "go": "v0.2.0-alpha.1",
     "go_dist_tag": "alpha"
   },

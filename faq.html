@@ -43,7 +43,7 @@
 {"@type":"Question","name":"How does reputation work?","acceptedAnswer":{"@type":"Answer","text":"earned reputation scoring with mean and uncertainty. Five tiers from Untrusted to Autonomous. Agents earn promotions through signed peer reviews. Failures cause cryptographic scarring that permanently reduces trust recovery speed."}},
 {"@type":"Question","name":"What MCP tools are available?","acceptedAnswer":{"@type":"Answer","text":"150 MCP tools across identity, delegation, values, policy, coordination, commerce, signed communication, and reputation management. Compatible with Claude Desktop, Cursor, Windsurf, and any MCP client."}},
 {"@type":"Question","name":"How does delegation work?","acceptedAnswer":{"@type":"Answer","text":"You create scoped delegations with specific permissions and spend limits. Sub-delegation always narrows scope. Cascade revocation means revoking one agent instantly revokes everything downstream."}},
-{"@type":"Question","name":"What standards does Agent Passport System support?","acceptedAnswer":{"@type":"Answer","text":"W3C Decentralized Identifiers (DID:APS method), W3C Verifiable Credentials, Google A2A protocol bridge, and EU AI Act article-by-article compliance mapping."}}
+{"@type":"Question","name":"What standards does Agent Passport System support?","acceptedAnswer":{"@type":"Answer","text":"W3C Decentralized Identifiers (DID:APS method), W3C Verifiable Credentials, Google A2A protocol bridge, and an article-level EU AI Act mapping for signed evidence records and agent accountability workflows; EU AI Act obligations phase in over 2027 and 2028."}}
 ]}
 </script>
 </head>
@@ -109,7 +109,7 @@
 
     <details>
       <summary><span class="n">08</span><span class="q">Who else has adopted this?</span><span class="pm">+</span></summary>
-      <div class="ans">Microsoft Agent Toolkit (PR in review). MolTrust co-edits the spec. Edison Munoz Duran contributed the Agent-DID crosswalk. UBC PDR in Production cites the Bayesian model. Federal agency review underway.</div>
+      <div class="ans">Three contribution PRs merged into the Microsoft Agent Governance Toolkit by a Microsoft maintainer (#274, #598, #1328). MolTrust co-edits the spec. Edison Munoz Duran contributed the Agent-DID crosswalk. UBC PDR in Production cites the Bayesian model. Federal agency review underway.</div>
     </details>
 
     <details>
@@ -150,7 +150,7 @@
 
     <details>
       <summary><span class="n">16</span><span class="q">Which parts of the protocol are required vs optional?</span><span class="pm">+</span></summary>
-      <div class="ans"><b>Core protocol (required):</b> Agent identity (Ed25519), delegation chains, cascade revocation, Values Floor, policy engine, ProxyGateway enforcement. These are the foundational layers every deployment uses.<br><br><b>Extended modules (pick what you need):</b> Coordination, commerce, DID/VC, EU AI Act compliance, E2E encrypted messaging, task routing, reputation-gated authority, governance provenance, and all 23 v2 constitutional modules.<br><br><em>Ecosystem services such as agent matching and professional networking can be built on top of these primitives, but are not part of the open protocol and not required for any core functionality.</em></div>
+      <div class="ans"><b>Core protocol (required):</b> Agent identity (Ed25519), delegation chains, cascade revocation, Values Floor, policy engine, ProxyGateway enforcement. These are the foundational layers every deployment uses.<br><br><b>Extended modules (pick what you need):</b> Coordination, commerce, DID/VC, EU AI Act mapping, E2E encrypted messaging, task routing, reputation-gated authority, governance provenance, and all 23 v2 constitutional modules.<br><br><em>Ecosystem services such as agent matching and professional networking can be built on top of these primitives, but are not part of the open protocol and not required for any core functionality.</em></div>
     </details>
 
     <details>
@@ -165,7 +165,7 @@
 
     <details>
       <summary><span class="n">19</span><span class="q">What are the WG ratified specs?</span><span class="pm">+</span></summary>
-      <div class="ans">The Agent Governance Working Group (across APS, AgentID, qntm, OATR, ArkForge) has ratified four specs: <b>QSP-1 v1.0</b> (encrypted agent transport), <b>DID Resolution v1.0</b> (where is this agent's identity document?), <b>Entity Verification v1.0</b> (is this agent who they claim to be?), and <b>Execution Attestation v0.1</b> (did this agent actually do what it claims?). Together they define the communication infrastructure layer. Everything above — reputation, commerce, governance — composes on top.</div>
+      <div class="ans">The Agent Governance Working Group (across APS, AgentID, qntm, OATR, ArkForge) maintains specifications for: <b>QSP-1 v1.0</b> (encrypted agent transport), <b>DID Resolution v1.0</b> (where is this agent's identity document?), <b>Entity Verification v1.0</b> (is this agent who they claim to be?), and <b>Execution Attestation v0.1</b> (did this agent actually do what it claims?). Together they define the communication infrastructure layer. Everything above (reputation, commerce, governance) composes on top.</div>
     </details>
 
   </div>
