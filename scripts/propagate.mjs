@@ -55,6 +55,7 @@ const REPOS = {
   python: resolve(`${HOME}/agent-passport-python`),                     // v3 audit: Python SDK
   vocab: resolve(`${HOME}/agent-governance-vocabulary`),                // v3 audit: vocabulary repo
   ecomap: resolve(`${HOME}/agent-ecosystem-map`),                       // v3 audit: ecosystem map
+  remoteMcp: resolve(`${HOME}/agent-passport-remote-mcp`),              // Day-128 audit: remote-mcp README "## Links" drift
 };
 
 // ── Word-form lookup ──
@@ -333,6 +334,8 @@ function getTargetFiles() {
     { path: `${REPOS.web}/README.md`, repo: 'web' },
     // Org profile README (if repo exists)
     ...(existsSync(`${REPOS.org}/profile/README.md`) ? [{ path: `${REPOS.org}/profile/README.md`, repo: 'org' }] : []),
+    // Remote MCP repo README (Day-128 audit: "## Links" block SDK/MCP version + test/tool counts drifted)
+    ...(existsSync(`${REPOS.remoteMcp}/README.md`) ? [{ path: `${REPOS.remoteMcp}/README.md`, repo: 'remoteMcp' }] : []),
     // Python SDK (v3 audit: was missing)
     ...(existsSync(`${REPOS.python}/README.md`) ? [
       { path: `${REPOS.python}/README.md`, repo: 'python' },
@@ -409,6 +412,10 @@ function getVariablePatterns(varName, oldValue, newValue) {
         { regex: new RegExp(`"version":\\s*"${o}"`, 'g'), replace: `"version": "${n}"` },
         // softwareVersion":"1.7.0"
         { regex: new RegExp(`softwareVersion":"${o}"`, 'g'), replace: `softwareVersion":"${n}"` },
+        // remote-mcp "## Links": agent-passport-system](npm) (vX, N tests). The bare vX above
+        // already covers it once remote-mcp is a target; this anchored form documents the Day-128
+        // target and stays idempotent. Anchored on a trailing "](" so it cannot match the -mcp line.
+        { regex: new RegExp(`(agent-passport-system\\]\\([^)]+\\) \\(v)${o}`, 'g'), replace: `$1${n}` },
       ];
 
     case 'MCP_VERSION':
@@ -416,6 +423,8 @@ function getVariablePatterns(varName, oldValue, newValue) {
         // v2.1.0 in MCP-specific contexts
         { regex: new RegExp(`v${o}`, 'g'), replace: `v${n}` },
         { regex: new RegExp(`"version":\\s*"${o}"`, 'g'), replace: `"version": "${n}"` },
+        // remote-mcp "## Links": agent-passport-system-mcp](npm) (vX, N tools). (Day-128)
+        { regex: new RegExp(`(agent-passport-system-mcp\\]\\([^)]+\\) \\(v)${o}`, 'g'), replace: `$1${n}` },
       ];
 
     case 'TEST_COUNT': {
@@ -437,6 +446,9 @@ function getVariablePatterns(varName, oldValue, newValue) {
         { regex: new RegExp(`"stat-val">${o}<`, 'g'), replace: `"stat-val">${n}<` },
         // bare number in table cells: <span class="y">214</span>
         { regex: new RegExp(`"y">${o}<`, 'g'), replace: `"y">${n}<` },
+        // shields.io tests badge (raw digits, no comma): tests-3932%20passing
+        // (Day-128 audit: SDK README badge drifted; canonical badge form is raw digits)
+        { regex: new RegExp(`tests-${o}%20passing`, 'g'), replace: `tests-${n}%20passing` },
       ];
       // Only add comma-formatted patterns when the value actually has a comma
       // (i.e., >= 1000). Otherwise oComma == o and the patterns would be no-ops
@@ -449,6 +461,8 @@ function getVariablePatterns(varName, oldValue, newValue) {
           { regex: new RegExp(`"stat-val">${oCommaEsc}<`, 'g'), replace: `"stat-val">${nComma}<` },
           // comma-formatted in table cells: <span class="y">2,884</span>
           { regex: new RegExp(`"y">${oCommaEsc}<`, 'g'), replace: `"y">${nComma}<` },
+          // shields.io tests badge written with a comma -> normalize to raw digits
+          { regex: new RegExp(`tests-${oCommaEsc}%20passing`, 'g'), replace: `tests-${n}%20passing` },
         );
       }
       return patterns;
@@ -595,6 +609,8 @@ function getVerifyPatterns(varName) {
       // Lookbehind prevents matching "764" inside "2,764".
       return [
         { regex: /(?<![\d,])(\d{1,3}(?:,\d{3})+|\d+)\s+tests\b/gi },
+        // shields.io tests badge: tests-3932%20passing (Day-128 audit: SDK README badge gap)
+        { regex: /tests-(\d[\d,]*)%20passing/g },
       ];
     case 'MCP_TOOL_COUNT':
       // Spec-locked: (?<![\d-])(\d{2,4})(?!-)\s+tools\b
