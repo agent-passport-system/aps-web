@@ -1,22 +1,22 @@
 {
   "$comment": "Single source of truth for site-wide propagation. Hand-edited; consumed by scripts/propagate.mjs. Bumping any value here propagates to every target file the propagator knows about.",
-  "updated": "2026-06-27",
+  "updated": "2026-06-30",
   "versions": {
-    "sdk": "2.9.0",
+    "sdk": "3.0.0",
     "sdk_dist_tag": "latest",
     "sdk_stable": "2.7.0",
     "mcp": "3.2.4",
     "mcp_dist_tag": "latest",
     "mcp_stable": "3.1.0",
-    "python": "2.5.0",
+    "python": "2.6.0",
     "python_dist_tag": "latest",
     "python_stable": "2.4.0",
     "go": "v0.2.0-alpha.3",
     "go_dist_tag": "alpha"
   },
   "counts": {
-    "$comment": "tests is the PASSING count (node test runner 'pass' line), not the registered total ('tests' line, higher when tests are skipped or todo-marked), per the propagation sync rule. As of 2026-06-27 the suite reports pass 3932, tests 3935, 3 skipped. modules_total = modules_core + modules_v2. Canonical: modules_v2 = publicly exported logical units via a barrel (src/v2/index.ts or src/index.ts), ratified 2026-05-17 = 23. modules_total = modules_core + modules_v2, DERIVED from the canonical count, never used to justify it. Raw file count, subsystem directory count, and historical project-state values are implementation signals, NOT canonical module counts.",
-    "tests": 3932,
+    "$comment": "tests is the PASSING count (node test runner 'pass' line), not the registered total ('tests' line, higher when tests are skipped or todo-marked), per the propagation sync rule. As of 2026-06-30 the suite reports pass 3959, tests 3962, 3 skipped. modules_total = modules_core + modules_v2. Canonical: modules_v2 = publicly exported logical units via a barrel (src/v2/index.ts or src/index.ts), ratified 2026-05-17 = 23. modules_total = modules_core + modules_v2, DERIVED from the canonical count, never used to justify it. Raw file count, subsystem directory count, and historical project-state values are implementation signals, NOT canonical module counts.",
+    "tests": 3959,
     "papers": 8,
     "modules_core": 84,
     "modules_v2": 23,

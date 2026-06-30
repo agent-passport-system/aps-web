@@ -97,7 +97,7 @@
   </div>
 
   <h2 id="install">Install</h2>
-  <p>The TypeScript SDK is the reference implementation. The 2.6 line is the stable release and carries the full feature set:</p>
+  <p>The TypeScript SDK is the reference implementation. The 3.0 line is the stable release and carries the full feature set:</p>
   <pre><code>npm install agent-passport-system</code></pre>
   <p>There is a Python implementation on PyPI for verifier and signing work, and a Model Context Protocol server that exposes APS as tools to any MCP-capable agent:</p>
   <pre><code># Python implementation
@@ -107,7 +107,7 @@ pip install agent-passport-system
 npm install -g agent-passport-system-mcp &amp;&amp; npx agent-passport-system-mcp setup</code></pre>
   <p>A Go implementation is published for verifier and signing work in Go services. Go has no registry publish step; it is distributed by module path:</p>
   <pre><code>go get github.com/aeoess/agent-passport-go@v0.2.0-alpha.3</code></pre>
-  <div class="note"><p><strong>On versions.</strong> A plain <code>npm install agent-passport-system</code> installs <code>2.9.0</code>, the current stable release on the npm <code>latest</code> tag. Pin a version for production builds.</p></div>
+  <div class="note"><p><strong>On versions.</strong> A plain <code>npm install agent-passport-system</code> installs <code>3.0.0</code>, the current stable release on the npm <code>latest</code> tag. Pin a version for production builds.</p></div>
 
   <h2 id="quickstart">Quickstart</h2>
   <p>The curated entry point is <code>agent-passport-system/core</code>, which exposes the 24 functions that cover most integrations: identity, delegation, enforcement, commerce, reputation, and key management. The full root import stays available for everything else.</p>
