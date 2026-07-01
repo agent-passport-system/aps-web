@@ -70,7 +70,7 @@
       <li><code>al_scopes</code>: capabilities the bearer requested and the issuer granted</li>
       <li><code>al_trust</code>: behavioral snapshot at issuance time (score, level, confidence, trend)</li>
       <li><code>al_nid</code>: <code class="ab-tok">did:key:z6Mk...</code> Ed25519 public key registered to this agent. The cross-protocol bridge handle</li>
-      <li><code>urn:dashclaw:act-binding</code>: optional digest of <code>(action, target, goal)</code> the token authorizes, when act-binding is asserted at issuance</li>
+      <li><code>urn:dashclaw:act-binding</code> (optional): digest of <code>(action, target, goal)</code> bound at mint time, emitted only when the issuance request carries an <code>act_binding</code> block. Off by default, not carried by any current conformance vector. Bridge semantics to APS receipts deliberately out of scope here.</li>
       <li><code>al_audit_url</code>: issuer-side link to behavioral history</li>
     </ul>
     <p><strong>Verification.</strong> JWKS pin, signature check, claim inspection. The verifier learns: this token, right now, is valid for this audience with these scopes, against this issuer's view of the agent's behavior at <code>iat</code>.</p>
