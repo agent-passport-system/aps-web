@@ -3987,3 +3987,89 @@
       label: "conformance vectors"
     - url: "https://www.npmjs.com/package/agent-passport-system"
       label: "agent-passport-system 2.8.0"
+
+# DAY 128 - 2026-06-26
+
+- id: d128-cross-surface-hardening-release
+  title: "Coordinated security release across four surfaces: parent-signature verification, fail-closed chain validation, currency-guarded spend"
+  description: "An adversarial hardening pass across the TypeScript, Python, and Go SDKs plus the MCP found and closed a related family of authorization gaps. subDelegate now verifies the parent delegation's signature before minting a child in all three SDKs, closing a chain-forgery seed. Go's ValidateChain fails closed on a missing not_after. Spend narrowing rejects a currency-unit change once a delegation carries one. MCP capability tokens enforce expires_at at mint and use, and RFC 9421 verification enforces the expires parameter. Released together as TS 2.9.0, Python 2.5.0, Go v0.2.0-alpha.3, MCP 3.2.4, each fix landing with the adversarial vector that finds it."
+  status: done
+  workstream: protocol
+  day_start: 128
+  day_end: 128
+  links:
+    - url: "https://www.npmjs.com/package/agent-passport-system"
+      label: "agent-passport-system 2.9.0"
+    - url: "https://pypi.org/project/agent-passport-system/"
+      label: "Python 2.5.0"
+
+# DAY 129 - 2026-06-27
+
+- id: d129-verification-mode-and-vocab-neutrality
+  title: "Conformance vectors gain verification_mode tags; the vocabulary README leads with the registry, with a five-system crosswalk as the example"
+  description: "Six cross-encoded conformance vectors were tagged with the verification_mode field agreed with MolTrust (runtime versus structural), committed to the conformance suite. The governance-vocabulary README was rewritten to open with a neutral definition of the registry itself and to use behavioral_trust as the worked example, the signal with the most independent issuing systems in the registry (five), shown as a crosswalk table rather than any single project as the hero. A staleness pass corrected the public architecture page's test and crosswalk counts."
+  status: done
+  workstream: vocab
+  day_start: 129
+  day_end: 129
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/commit/2600a56"
+      label: "README rewrite"
+
+# DAY 130 - 2026-06-28
+
+- id: d130-1password-demo-agi-house
+  title: "APS x 1Password live demo at AGI House: delegated spend with the secret never entering the agent's context"
+  description: "Built and staged at the Agent Identity Build Day hackathon: an agent requests spends, the gateway decides from signed delegation math, and the credential stays in 1Password. Allow inside budget executes with the real key; over-budget and prompt-injection attempts are denied before the resolver is ever called; every decision lands as a signed receipt attributable to a key. The agent's context carries only an op:// reference. Demo repo public."
+  status: done
+  workstream: ecosystem
+  day_start: 130
+  day_end: 130
+  links:
+    - url: "https://github.com/aeoess/aps-1password-demo"
+      label: "demo repo"
+    - url: "https://github.com/OWASP/www-project-artificial-intelligence-vulnerability-scoring-system/issues/32"
+      label: "AIVSS enforcement_factor proposal"
+
+# DAY 131 - 2026-06-28
+
+- id: d131-vocab-113-lifecycle-holds
+  title: "Vocabulary PR #113 merges with the lifecycle rule holding: a promotion without two independent implementations stays withdrawn"
+  description: "The replay_class promotion from decision_replay to full_replay was withdrawn by its author after review under the registry's own lifecycle rule: canonical status requires two independent implementations, and fixture-only declarations do not count as production-emitted artifacts. A gate-logic loosening introduced in the same PR (conjunctive promotion conditions weakened to a disjunction) was caught in review and corrected by the author before merge. The registry's governance did the work the Day 126 rule was written to do."
+  status: done
+  workstream: vocab
+  day_start: 131
+  day_end: 131
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/113"
+      label: "PR #113"
+
+# DAY 132 - 2026-06-30
+
+- id: d132-sdk-3-honest-verified
+  title: "SDK 3.0.0: traceBeneficiary.verified becomes real Ed25519 verification, resolved carries the old lookup semantics"
+  description: "A breaking major: verified now means the receipt signature and every delegation hop pass cryptographic verification; lookup success moved to a new resolved field with an honest name. Python 2.6.0 ships the same pair with byte-identical RFC 8785 canonical payloads proven in both directions. A second primitive shipped alongside: CompositionCheckV0, a stateless verifier for composition-check receipts on the RAP-v0 produce/verify split, result as a four-value enum with no safe boolean anywhere in the type, attestor independence classified from the caller's trust context."
+  status: done
+  workstream: protocol
+  day_start: 132
+  day_end: 132
+  links:
+    - url: "https://www.npmjs.com/package/agent-passport-system"
+      label: "agent-passport-system 3.0.0"
+    - url: "https://pypi.org/project/agent-passport-system/"
+      label: "Python 2.6.0"
+
+# DAY 133 - 2026-07-01
+
+- id: d133-gateway-authority-hardening-deployed
+  title: "Hosted gateway money-path hardening deploys after five adversarial review rounds; Go SDK gets the honest verified split"
+  description: "Receipts are signature-verified at ingestion before storage. Root authority is an origin property: never inferred from current edges, designated only through an audited admin action, demoted in the same transaction when a root accepts an inbound delegation, restored only by explicit audited re-designation. The grant path re-verifies grantor status, root standing, and inbound liveness inside a write-locked transaction, closing a cross-process window where a revocation could be outrun. Schema migration is transactional and marker-gated. Go's TraceBeneficiary adopted the TS 3.0.0 resolved/verified split with real Ed25519 and a cross-implementation oracle test. Week-three AgentLair AAT vectors verified and landed in the conformance suite."
+  status: done
+  workstream: protocol
+  day_start: 133
+  day_end: 133
+  links:
+    - url: "https://github.com/aeoess/agent-passport-go/commit/3b8c128"
+      label: "Go resolved/verified split"
+    - url: "https://github.com/aeoess/aps-conformance-suite/tree/main/fixtures/cross-stack/aat-amdal"
+      label: "AAT week-3 fixtures"
