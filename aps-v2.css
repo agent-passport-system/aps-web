@@ -635,3 +635,11 @@ article.prose .aps-card p{font-size:13px; color:var(--sub); margin:0 0 8px; line
 article.prose .aps-card code{font-size:10.5px; color:var(--dim); background:none; border:0; padding:0}
 article.prose .eyebrow{margin:44px 0 14px}
 @media(max-width:700px){main.page{padding-top:120px} article.prose table{display:block; overflow-x:auto} article.prose .aps-grid-2,article.prose .aps-grid-3{grid-template-columns:1fr}}
+
+/* benchmarks additions */
+article.prose .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:6px 0 26px}
+article.prose .stat{background:var(--panel); border:1px solid var(--line); padding:16px 18px; border-radius:2px}
+article.prose .stat b{display:block; font-family:var(--disp); font-weight:600; font-size:26px; color:var(--lime); letter-spacing:-.02em}
+article.prose .stat span{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--sub)}
+article.prose blockquote{border-left:2px solid var(--lime); background:var(--panel); padding:14px 18px; margin:22px 0; border-radius:0 2px 2px 0; font-size:14px; color:var(--sub)}
+@media(max-width:700px){article.prose .stats{grid-template-columns:1fr 1fr}}
