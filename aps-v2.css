@@ -791,3 +791,5 @@ html[data-theme="light"] article.prose a.btn:not(.ghost){color:#C8F032}
 /* batch: light closer tones + quiet badge */
 html[data-theme="light"]{--clo-a:#4C5438;--clo-b:#5F7D0C;--clo-c:#5C6647;--clo-d:#6E7D1F}
 .nav .badge{border-color:var(--line); color:var(--dim); font-size:9.5px; padding:4px 8px}
+/* stacking: content regions above fixed bg-glow (blog hero had no main wrapper) */
+.page-hero, article.prose, .blog-feed, .post{position:relative; z-index:1}
