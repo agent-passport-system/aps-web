@@ -754,6 +754,16 @@ html[data-theme="light"] .sq{background:#C8F032; outline:1px solid #16181D}
 html[data-theme="light"] .btn:not(.ghost){background:#16181D; color:#C8F032; border-color:#16181D}
 html[data-theme="light"] .badge i{background:#C8F032}
 html[data-theme="light"] .eyebrow{color:#5F7D0C}
+
+/* screenshot fixes: heading accent in light, light nav scrim, hero color, prose btn */
+html[data-theme="light"] h1 .split, html[data-theme="light"] h2 .split,
+html[data-theme="light"] h3 .split{color:#5F7D0C}
+html[data-theme="light"] .nav{background:linear-gradient(180deg, rgba(244,241,234,.95), rgba(244,241,234,0))}
+.page-hero h1{color:var(--fg)}
+.page-hero .dek{color:var(--sub)}
+article.prose a.btn{color:var(--bg); border-bottom:0}
+article.prose a.btn.ghost{color:var(--fg)}
+html[data-theme="light"] article.prose a.btn:not(.ghost){color:#C8F032}
 </style>
 <script src="/theme.js" defer></script>
 </head>
