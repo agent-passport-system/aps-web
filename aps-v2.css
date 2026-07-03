@@ -643,3 +643,7 @@ article.prose .stat b{display:block; font-family:var(--disp); font-weight:600; f
 article.prose .stat span{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--sub)}
 article.prose blockquote{border-left:2px solid var(--lime); background:var(--panel); padding:14px 18px; margin:22px 0; border-radius:0 2px 2px 0; font-size:14px; color:var(--sub)}
 @media(max-width:700px){article.prose .stats{grid-template-columns:1fr 1fr}}
+
+/* lane-2 guards */
+.page-hero h1, article.prose h2{text-wrap:balance}
+article.prose pre{touch-action:pan-y}
