@@ -13,9 +13,9 @@
 <meta property="og:url" content="https://agent-passport.org/benchmarks.html">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230A0B08'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23C8F032'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="/aps-v2.css?v=147">
+<link rel="stylesheet" href="/aps-v2.css?v=148">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-07-02","name":"Agent Passport System Benchmarks","description":"Performance benchmarks for the Agent Passport System verifier. Hot path p50 292ns (Mac M3) / 347ns (AWS c7i.2xlarge) / 420ns (bare-metal EPYC 7313P). L4 gateway-loopback p50 305µs / 1.07ms / 822µs across the same three environments.","url":"https://agent-passport.org/benchmarks.html","isPartOf":{"@type":"WebSite","name":"Agent Passport System","url":"https://agent-passport.org/"}}
+{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-07-04","name":"Agent Passport System Benchmarks","description":"Performance benchmarks for the Agent Passport System verifier. Hot path p50 292ns (Mac M3) / 347ns (AWS c7i.2xlarge) / 420ns (bare-metal EPYC 7313P). L4 gateway-loopback p50 305µs / 1.07ms / 822µs across the same three environments.","url":"https://agent-passport.org/benchmarks.html","isPartOf":{"@type":"WebSite","name":"Agent Passport System","url":"https://agent-passport.org/"}}
 </script>
 <script src="/theme.js" defer></script>
 <script src="/nav.js" defer></script>
@@ -82,6 +82,7 @@
       <tr><td>L4 &middot; gateway round-trip</td><td>full authorization across the enforcement boundary</td><td>305&micro;s</td><td>1.07ms</td><td>822&micro;s</td><td>6.0ms</td></tr>
     </table>
     <p><em>The fast-reject deny path matches L0 within noise. A synchronous fsync per action, instead of queued commit, is disk-bound: about 1.3ms on server SSD. Durability and round-trip tails are environment-dependent.</em></p>
+    <p><em>Reproduce it: per-environment results and env_capture.json live in <code>benchmarks/prototype-1/results/</code> in the SDK repo. The TS SDK via napi-rs adds approximately 13-16x latency over pure Rust on all three platforms tested. Receipt minting happens inside the measured L4 round-trip.</em></p>
 
     <h2>Full enforcement stack</h2>
     <p>The L4 figure above is the lean round-trip. The product gateway does more on every call: cascade revocation, escalation checks, charter governance, settlement, drift detection. Measured against that full stack:</p>
@@ -90,29 +91,27 @@
       <tr><td>Policy evaluation p50</td><td>&lt;2ms</td><td>full constraint check across all applicable facets</td></tr>
       <tr><td>Policy evaluation p99</td><td>&lt;10ms</td><td>cold cache, worst case</td></tr>
       <tr><td>Denial</td><td>&lt;1ms</td><td>fail-fast on the first failing facet</td></tr>
-      <tr><td>Receipt generation</td><td>&lt;1ms</td><td>Ed25519 signed, hash-chained</td></tr>
-      <tr><td>Cascade revocation</td><td>&lt;5ms</td><td>chains up to 100 deep</td></tr>
     </table>
     <p><em>Full-stack figures from the gateway benchmark suite, 500 iterations per scenario.</em></p>
 
-    <h2>15 Constraint Dimensions</h2>
+    <h2>Constraint dimensions</h2>
     <p>Every action is evaluated against all applicable dimensions. The gateway short-circuits on the first failure, which is why denial is sub-millisecond.</p>
     <div class="aps-grid-3">
-      <div class="aps-card"><h4>Scope</h4><p>Delegation scope covers requested action</p></div>
-      <div class="aps-card"><h4>Spend</h4><p>Cumulative budget not exceeded</p></div>
-      <div class="aps-card"><h4>Tier</h4><p>Reputation tier permits action class</p></div>
-      <div class="aps-card"><h4>Values</h4><p>Values floor attestation valid</p></div>
-      <div class="aps-card"><h4>Revocation</h4><p>No ancestor in chain revoked</p></div>
-      <div class="aps-card"><h4>Taint</h4><p>Cross-chain taint below threshold</p></div>
-      <div class="aps-card"><h4>Anomaly</h4><p>No first-max-authority or monolith pattern</p></div>
-      <div class="aps-card"><h4>Circuit</h4><p>Circuit breaker not tripped</p></div>
-      <div class="aps-card"><h4>Approval</h4><p>Human approval threshold met</p></div>
-      <div class="aps-card"><h4>Temporal</h4><p>Delegation not expired, HLC ordered</p></div>
-      <div class="aps-card"><h4>Jurisdiction</h4><p>Data transfer jurisdiction OK</p></div>
-      <div class="aps-card"><h4>Purpose</h4><p>Data purpose matches source terms</p></div>
-      <div class="aps-card"><h4>Combination</h4><p>No forbidden data joins</p></div>
-      <div class="aps-card"><h4>Retention</h4><p>Data retention TTL not exceeded</p></div>
-      <div class="aps-card"><h4>Terms</h4><p>Agent accepted current data terms</p></div>
+      <div class="aps-card"><h4>Time</h4><p>Approval TTL and delegation expiry</p></div>
+      <div class="aps-card"><h4>Spend</h4><p>Per-action and cumulative limits, delegation budget</p></div>
+      <div class="aps-card"><h4>Scope</h4><p>Tool name, parameter patterns, target restrictions</p></div>
+      <div class="aps-card"><h4>Reputation</h4><p>Tier threshold, minimum evidence count</p></div>
+      <div class="aps-card"><h4>Values</h4><p>Values floor F-001 through F-008, graduated enforcement</p></div>
+      <div class="aps-card"><h4>Revocation</h4><p>Delegation revoked, cascade revocation</p></div>
+      <div class="aps-card"><h4>Reversibility</h4><p>Tentative, compensable, or irreversible classification</p></div>
+      <div class="aps-card"><h4>Governance</h4><p>Governance artifact version, stale attestation</p></div>
+      <div class="aps-card"><h4>Identity</h4><p>Passport verification, signature validity</p></div>
+      <div class="aps-card"><h4>Replay</h4><p>Request ID reuse detection</p></div>
+      <div class="aps-card"><h4>Cross-chain</h4><p>Taint tracking, confused-deputy prevention</p></div>
+      <div class="aps-card"><h4>Audience</h4><p>Proof bound to a named recipient</p></div>
+      <div class="aps-card"><h4>Escalation</h4><p>Bounded escalation grant validity</p></div>
+      <div class="aps-card"><h4>Fidelity</h4><p>Substrate behavioral fidelity</p></div>
+      <div class="aps-card"><h4>Data</h4><p>Data source access terms, contribution tracking</p></div>
     </div>
 
     <h2>Architecture</h2>
@@ -122,32 +121,15 @@
       <tr><td>Protocol modules</td><td>107</td><td>84 core + 23 v2 constitutional</td></tr>
       <tr><td>MCP tools</td><td>150</td><td>Full protocol surface via MCP</td></tr>
       <tr><td>Tests</td><td>3,959</td><td>Including adversarial + invariant suites</td></tr>
-      <tr><td>Gateway routes</td><td>33</td><td>REST API for enforcement + admin</td></tr>
-      <tr><td>Module connectivity</td><td>79%</td><td>Connected through gateway enforcement hub</td></tr>
       <tr><td>Research papers</td><td>8</td><td>Published on Zenodo</td></tr>
     </table>
 
-    <h2>How We Compare</h2>
-    <p>Most agent frameworks handle orchestration. APS handles enforcement. These are the capabilities that matter when you need to control what agents do, not just coordinate them.</p>
-    <table>
-      <tr><th>Capability</th><th>APS</th><th>CrewAI</th><th>LangChain</th><th>A2A</th><th>ADK</th></tr>
-      <tr><td>Cryptographic identity</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
-      <tr><td>Delegation with narrowing</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
-      <tr><td>Gateway enforcement</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
-      <tr><td>earned reputation</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
-      <tr><td>Feeless payments (Nano)</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
-      <tr><td>Cascade revocation</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
-      <tr><td>Merkle attribution</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
-      <tr><td>Values floor enforcement</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
-      <tr><td>Institutional governance</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
-      <tr><td>Agent orchestration</td><td>No*</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
-      <tr><td>LLM integration</td><td>No*</td><td>Yes</td><td>Yes</td><td>No</td><td>Yes</td></tr>
-    </table>
-    <p><em>* APS is the governance layer underneath. It works with any orchestration framework. You use CrewAI or LangChain for orchestration. You use APS for enforcement.</em></p>
+    <h2>How it compares</h2>
+    <p>APS is the governance layer under orchestration frameworks, not a replacement for them. The dedicated comparison lives on <a href="/compare.html">the compare page</a>.</p>
 
     <h2>Test Coverage</h2>
     <p>3,959 tests across 107 modules. The test suite includes unit tests, integration tests, adversarial scenarios (replay attacks, confused deputies, scope escalation), invariant checks (monotonic narrowing, cascade completeness), and stress tests (concurrent gateway load).</p>
-    <p>The suite spans 174 test files. Among them are the cross-implementation conformance fixtures: canonical-JSON vectors that any verifier, in any language, can run to confirm byte-parity against the spec. Those are the tests that make receipts portable.</p>
+    <p>Among the suite are the cross-implementation conformance fixtures: canonical-JSON vectors that any verifier, in any language, can run to confirm byte-parity against the spec. Those are the tests that make receipts portable.</p>
 
     <blockquote><strong>Independently cited</strong> by PDR in Production (University of British Columbia), which references the APS earned-reputation model. One external citation. <a href="https://doi.org/10.5281/zenodo.19323172">Zenodo</a></blockquote>
 

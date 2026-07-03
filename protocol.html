@@ -14,7 +14,7 @@
 <meta name="twitter:card" content="summary">
 <link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230A0B08'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23C8F032'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="/aps-v2.css?v=147">
+<link rel="stylesheet" href="/aps-v2.css?v=148">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"TechArticle","dateModified":"2026-07-02","headline":"Agent Passport System protocol overview","description":"Open protocol for accountable AI agents: identity, scoped delegation, enforcement, signed receipts, beneficiary attribution, commerce. Apache 2.0.","author":{"@type":"Person","name":"Tymofii Pidlisnyi","url":"https://tymofii.me"},"url":"https://agent-passport.org/protocol.html","publisher":{"@type":"Organization","name":"Agent Passport System"}}
 </script>
@@ -117,6 +117,8 @@
   <h3>3.8 Accountability primitives</h3>
   <p>Five signed primitives form the accountability surface: ActionReceipt, AuthorityBoundaryReceipt, CustodyReceipt, ContestabilityReceipt, and APSBundle. They use RFC 8785 JCS canonicalization, so receipts are content-addressed and byte-match across implementations, backed by conformance fixtures.</p>
   <p>Cross-engine receipt interop has been demonstrated with VeritasActa through a three-repo reference integration.</p>
+  <p>The trust-evidence conformance release CTEF v0.3.2 records ten independent implementations reproducing its reference vectors; six of its normative additions trace to the public interop thread APS convened.</p>
+  <p>For regulated actions, the Regulated Action Profile specifies finality only when independent trust domains outside the operator agree.</p>
   </section>
 
   <section>

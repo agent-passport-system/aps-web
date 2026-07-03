@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://agent-passport.org/docs.html">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230A0B08'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23C8F032'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="/aps-v2.css?v=147">
+<link rel="stylesheet" href="/aps-v2.css?v=148">
 <script src="/theme.js" defer></script>
 <script src="/nav.js" defer></script>
 </head>
@@ -88,7 +88,7 @@ npm install -g agent-passport-system-mcp &amp;&amp; npx agent-passport-system-mc
   <div class="note"><p><strong>On versions.</strong> A plain <code>npm install agent-passport-system</code> installs <code>3.0.0</code>, the current stable release on the npm <code>latest</code> tag. Pin a version for production builds.</p></div>
 
   <h2 id="quickstart">Quickstart</h2>
-  <p>The curated entry point is <code>agent-passport-system/core</code>, which exposes the 24 functions that cover most integrations: identity, delegation, enforcement, commerce, reputation, and key management. The full root import stays available for everything else.</p>
+  <p>The curated entry point is <code>agent-passport-system/core</code>, which exposes the curated set that covers most integrations: identity, delegation, enforcement, commerce, reputation, and key management. The full root import stays available for everything else.</p>
   <pre><code>import {
   createPassport, createDelegation,
   evaluateIntent, commercePreflight, generateKeyPair
