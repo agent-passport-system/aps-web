@@ -773,3 +773,8 @@ html[data-theme="light"] .sq{background:#C8F032; outline:1px solid #16181D}
 html[data-theme="light"] .btn:not(.ghost){background:#16181D; color:#C8F032; border-color:#16181D}
 html[data-theme="light"] .badge i{background:#C8F032}
 html[data-theme="light"] .eyebrow{color:#5F7D0C}
+/* blog day picker */
+.bp-bar{position:sticky; top:0; z-index:6; display:flex; gap:6px; overflow-x:auto; padding:10px 5vw; background:var(--bg); border-bottom:1px solid var(--line); scrollbar-width:thin}
+.bp-chip{flex:0 0 auto; font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; background:none; border:1px solid var(--line2); color:var(--sub); padding:5px 10px; border-radius:2px; cursor:pointer}
+.bp-chip:hover{color:var(--fg); border-color:var(--fg)}
+.bp-chip.on{color:var(--lime); border-color:var(--lime)}
