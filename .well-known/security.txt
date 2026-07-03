@@ -1,0 +1,4 @@
+Contact: mailto:signal@aeoess.com
+Expires: 2027-07-03T00:00:00.000Z
+Canonical: https://agent-passport.org/.well-known/security.txt
+Preferred-Languages: en

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel>
+  <title>Agent Passport System Dev Log</title>
+  <link>https://agent-passport.org/blog.html</link>
+  <description>Day-by-day record of building the enforcement and accountability layer for AI agents.</description>
+  <language>en</language>
+  <item>
+    <title>Day 137: the site&#x27;s redesign landed end to end, and the day&#x27;s real work was re-verifying our own claims.</title>
+    <link>https://agent-passport.org/blog.html#day-137-redesign-landed-claims-reverified</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-137-redesign-landed-claims-reverified</guid>
+    <pubDate>2026-07-03T12:00:00Z</pubDate>
+    <description>The v2 design transfer finished today. Twenty pages share one system now: the homepage deck with its mobile drawer, thirteen content pages, six bulk-converted long-tail pages, light and dark themes keyed to the deck&#x27;s palette, a persistent header everywhere. The blog kept its dated bodies byte-identical through the con</description>
+  </item>
+  <item>
+    <title>Day 133: the hosted gateway&#x27;s money path now checks authority where it counts, inside the write lock.</title>
+    <link>https://agent-passport.org/blog.html#day-133-authority-checked-inside-the-lock</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-133-authority-checked-inside-the-lock</guid>
+    <pubDate>2026-07-01T12:00:00Z</pubDate>
+    <description>The gateway&#x27;s delegation and receipt paths went through five rounds of adversarial review across three independent models, each round attacking the previous round&#x27;s fixes, and the surviving stack deployed today. A receipt is now signature-verified at ingestion before it is stored, so the store holds evidence rather tha</description>
+  </item>
+  <item>
+    <title>Day 132: verified now means a verifier ran, and the SDK takes a major version to say so.</title>
+    <link>https://agent-passport.org/blog.html#day-132-verified-means-a-verifier-ran</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-132-verified-means-a-verifier-ran</guid>
+    <pubDate>2026-06-30T12:00:00Z</pubDate>
+    <description>TypeScript SDK 3.0.0 changes what traceBeneficiary().verified means, and the change is breaking on purpose. The field used to report lookup success: the chain resolved to a known beneficiary, so it said true. It now reports cryptography: the receipt signature checks out under Ed25519 and every hop in the delegation cha</description>
+  </item>
+  <item>
+    <title>Day 130: a live demo where the agent spends real authority and never sees the secret.</title>
+    <link>https://agent-passport.org/blog.html#day-130-a-secret-the-agent-never-sees</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-130-a-secret-the-agent-never-sees</guid>
+    <pubDate>2026-06-28T12:00:00Z</pubDate>
+    <description>At AGI House&#x27;s Agent Identity Build Day we wired APS to 1Password and ran the loop on stage: an agent asks to spend, the gateway decides from delegation math, and the credential stays in the vault. Four beats, all live. A 42 dollar purchase inside the delegated budget is allowed and executes with the real key. A 300 do</description>
+  </item>
+  <item>
+    <title>Day 128: a delegation chain is only as signed as its parent link, and four surfaces shipped the fixes together.</title>
+    <link>https://agent-passport.org/blog.html#day-128-a-chain-is-only-as-signed-as-its-parent</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-128-a-chain-is-only-as-signed-as-its-parent</guid>
+    <pubDate>2026-06-26T12:00:00Z</pubDate>
+    <description>An adversarial hardening pass across every APS surface found and closed a related family of gaps, and the fixes released together as TypeScript 2.9.0, Python 2.5.0, Go v0.2.0-alpha.3, and MCP 3.2.4. The sharpest one: subDelegate did not verify the parent delegation&#x27;s signature before minting a child, so a forged parent</description>
+  </item>
+  <item>
+    <title>Day 127: a regulated action reaches finality only when two trust domains outside the operator agree.</title>
+    <link>https://agent-passport.org/blog.html#day-127-regulated-action-profile</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-127-regulated-action-profile</guid>
+    <pubDate>2026-06-25T12:00:00Z</pubDate>
+    <description>The Regulated Action Profile v0 ships in SDK 2.8.0, and its rule is to count trust domains, not signatures. An action above a class threshold, rank three or higher, is not final because someone signed it, including the operator that ran it. The verifier returns reconciled only when a pre-committed intent reconciles aga</description>
+  </item>
+  <item>
+    <title>Day 126: a signal type now has to earn &quot;canonical,&quot; and the validator enforces it.</title>
+    <link>https://agent-passport.org/blog.html#day-126-signal-type-lifecycle</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-126-signal-type-lifecycle</guid>
+    <pubDate>2026-06-24T12:00:00Z</pubDate>
+    <description>A term in the governance vocabulary used to become canonical the moment someone added it, which let a single issuer&#x27;s signal sit at the same status as a reviewed one with nothing recording how much support it actually had. The fix is a lifecycle. Canonical now requires two or more independent implementations. A term wi</description>
+  </item>
+  <item>
+    <title>Day 123: a sub-delegation can no longer outlive its parent, and a spend unit cannot change once a delegation has one.</title>
+    <link>https://agent-passport.org/blog.html#day-123-a-child-cannot-outlive-its-parent</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-123-a-child-cannot-outlive-its-parent</guid>
+    <pubDate>2026-06-19T12:00:00Z</pubDate>
+    <description>Time was the one narrowing dimension that did not hold at delegation creation: a child could be created with a longer life than its parent, while scope, spend, and depth all narrowed correctly. Two creation-time defects combined to allow it. createDelegation built the expiry with setHours and an || 24 default, which tu</description>
+  </item>
+  <item>
+    <title>Day 122: an anchored trail recomputes to the same correlation key, and the delegation vectors cross-encode into a second envelope.</title>
+    <link>https://agent-passport.org/blog.html#day-122-an-anchored-trail-and-cross-encoded-vectors</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-122-an-anchored-trail-and-cross-encoded-vectors</guid>
+    <pubDate>2026-06-18T12:00:00Z</pubDate>
+    <description>An independently anchored action trail recomputed to the same external correlation key, with no shared code on either side. A separate implementation anchored an action trail on Arbitrum and published its action_ref together with the four-field preimage behind it. We recomputed the external action-ref-v1 key two ways: </description>
+  </item>
+  <item>
+    <title>Day 121: a key resolver bound to the server, and to the moment of signing.</title>
+    <link>https://agent-passport.org/blog.html#day-121-a-key-resolver-bound-to-the-server</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-121-a-key-resolver-bound-to-the-server</guid>
+    <pubDate>2026-06-17T12:00:00Z</pubDate>
+    <description>did:cycles resolution moved off a did:web-style, origin-rooted form and onto the hash-bound, window-gated model the Cycles thread settled on. A did:cycles identifier is now the hash of the server it belongs to: the subject is sha256(server_id), and the key set is fetched from a path derived relative to that same server</description>
+  </item>
+  <item>
+    <title>Day 120: a standard for carrying a claim the registry did not make.</title>
+    <link>https://agent-passport.org/blog.html#day-120-carrying-a-claim-the-registry-did-not-make</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-120-carrying-a-claim-the-registry-did-not-make</guid>
+    <pubDate>2026-06-16T12:00:00Z</pubDate>
+    <description>The crosswalk registry now has rules for the claims it hosts but did not author. A crosswalk says how some other system uses a governance signal, which means most of its cells are claims about a third party. The new evidence standard makes those claims carry their own basis: a qualifier travels with the claim it qualif</description>
+  </item>
+  <item>
+    <title>Day 119: the correlation key gets a second conformance set, built separately.</title>
+    <link>https://agent-passport.org/blog.html#day-119-a-second-independent-set-for-the-correlation-key</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-119-a-second-independent-set-for-the-correlation-key</guid>
+    <pubDate>2026-06-15T12:00:00Z</pubDate>
+    <description>The cross-ecosystem action_ref form now has an AEOESS-built conformance set merged into argentum-core, the joint draft&#x27;s reference implementation, sitting in its own aps/ directory alongside the recomputation fixtures already there. Fifteen vectors, ten accepts and five rejects, reproducing the draft&#x27;s first appendix v</description>
+  </item>
+  <item>
+    <title>Day 116: an independent implementation of the correlation key, and a runnable place for the record to live.</title>
+    <link>https://agent-passport.org/blog.html#day-116-the-record-finds-a-place-to-live</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-116-the-record-finds-a-place-to-live</guid>
+    <pubDate>2026-06-12T12:00:00Z</pubDate>
+    <description>Overnight the action_ref correlation key got something better than another citation: an independent re-derivation. A separate Internet-Draft of the primitive picked up a conformance set from the AgentGraph implementation, built with its own RFC 8785 path in Python and Node, that reproduces Appendix A Vector 1 byte for </description>
+  </item>
+  <item>
+    <title>Day 115: two registry reviews, one fixture suite shipped upstream.</title>
+    <link>https://agent-passport.org/blog.html#day-115-reviews-and-fixtures</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-115-reviews-and-fixtures</guid>
+    <pubDate>2026-06-11T12:00:00Z</pubDate>
+    <description>The crosswalk registry now has a review standard: payment_rail (PR #100) and cap_vocabulary v0.2 (PR #109) both carry pinned upstream citations, rules marked descriptive or proposed rather than universal, in-file minting requirements, and recorded sign-off from the second implementer. SpendGuard approved #109 with a co</description>
+  </item>
+  <item>
+    <title>Day 115: the AAT and APS boundary, on one page.</title>
+    <link>https://agent-passport.org/blog.html#day-115-aat-aps-boundary-reference</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-115-aat-aps-boundary-reference</guid>
+    <pubDate>2026-06-11T12:00:00Z</pubDate>
+    <description>Where session identity ends and delegation begins: a joint AgentLair x AEOESS reference. Read it.</description>
+  </item>
+  <item>
+    <title>Day 114, later the same night: 2.6.0 goes stable.</title>
+    <link>https://agent-passport.org/blog.html#day-114-2-6-0-goes-stable</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-114-2-6-0-goes-stable</guid>
+    <pubDate>2026-06-10T12:00:00Z</pubDate>
+    <description>The 2.6 line is on npm latest as of tonight. A plain npm install agent-passport-system now delivers what the alpha channel carried for six weeks: the Wave 2 evidence layer with its verifier-derived descriptors, trust-root policy, revocation enforcement, audience binding, selective disclosure, and the offline verifier; </description>
+  </item>
+  <item>
+    <title>Day 114: An outside contributor ships the check the last review asked for, and the site starts carrying its own terms.</title>
+    <link>https://agent-passport.org/blog.html#day-114-an-outside-contributor-ships-the-check-the-last-review-asked-for</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-114-an-outside-contributor-ships-the-check-the-last-review-asked-for</guid>
+    <pubDate>2026-06-10T12:00:00Z</pubDate>
+    <description>The Day 104 review of the Cycles binding check ended with a boundary stated out loud: a passing check meant bound, not authentic, and the result was asked to say so plainly. Today the contributor behind that rail shipped the next step (#45): the supplied evidence envelope&#x27;s own Ed25519 signature is now verified against</description>
+  </item>
+  <item>
+    <title>Day 113: The correlation key gets one exact form, and evidence starts carrying where it came from.</title>
+    <link>https://agent-passport.org/blog.html#day-113-the-correlation-key-gets-one-exact-form</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-113-the-correlation-key-gets-one-exact-form</guid>
+    <pubDate>2026-06-09T12:00:00Z</pubDate>
+    <description>The cross-ecosystem correlation key from Day 106 is now a frozen specification with conformance vectors (spec page). Four fields in the preimage, and the field that caused every interoperability argument, the timestamp, is pinned to one exact representation: RFC 3339 UTC with exactly three fractional digits, uppercase </description>
+  </item>
+  <item>
+    <title>Day 107: Custody for the context an action was built on, and the protocol in a third language.</title>
+    <link>https://agent-passport.org/blog.html#day-107-context-provenance-attestation-and-a-third-language</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-107-context-provenance-attestation-and-a-third-language</guid>
+    <pubDate>2026-06-03T12:00:00Z</pubDate>
+    <description>Context Provenance Attestation v0.1 is exported from the public API as of agent-passport-system@2.6.0-alpha.10. A CPA is a signed, partitioned Merkle commitment to a declared context basis. The producer groups the context an action was built on into eight frozen structural-origin channels (system-config, developer, use</description>
+  </item>
+  <item>
+    <title>Day 106: A correlation key is only worth defining once, by no one in particular.</title>
+    <link>https://agent-passport.org/blog.html#day-106-a-correlation-key-defined-by-no-one-in-particular</link>
+    <guid isPermaLink="true">https://agent-passport.org/blog.html#day-106-a-correlation-key-defined-by-no-one-in-particular</guid>
+    <pubDate>2026-06-02T12:00:00Z</pubDate>
+    <description>The join key that lets two parties prove their receipts refer to the same action showed up in two more independent implementations this week. It is a small thing by construction: the SHA-256 of the JCS canonical form (RFC 8785) of the intent tuple, recomputable from the disclosed fields alone. raucle-detect published c</description>
+  </item>
+</channel></rss>
