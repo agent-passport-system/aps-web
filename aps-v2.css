@@ -749,3 +749,8 @@ html[data-theme="light"] .tl-live .tl-t{color:#16181D}
 .drawer-panel a.dl:active{color:var(--lime)}
 .drawer-panel .gh-big{margin-top:20px; display:inline-flex; justify-content:center; padding:14px; background:var(--lime); color:var(--bg); font-family:var(--mono); font-weight:600; border-radius:2px; font-size:14px}
 @media (max-width:900px){.nav-links{display:none}.burger{display:flex}}
+/* roadmap tooltip + label hygiene */
+#tl-tip{position:fixed; display:none; z-index:99; pointer-events:none; max-width:400px; background:var(--panel); color:var(--fg); border:1px solid var(--line2); border-left:2px solid var(--lime); padding:8px 11px; font-family:var(--body); font-size:12px; line-height:1.5; border-radius:2px; box-shadow:0 8px 28px rgba(0,0,0,.45)}
+.tl-t-out{display:none}
+.tl-open .tl-bar{height:20px; line-height:18px}
+.tl-bar:hover{outline:1px solid var(--fg); z-index:3}
