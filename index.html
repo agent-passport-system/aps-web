@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agent Passport System — Governance infrastructure for the agent economy</title>
-<meta name="description" content="APS gives every AI agent a verifiable identity, ties it to the person or company it represents, and signs a receipt for every action taken under that authority. An Apache 2.0 open protocol.">
+<meta name="description" content="APS gives every AI agent a verifiable identity, ties it to the person or company it represents, and signs proof for every action taken under that authority. An Apache 2.0 open protocol.">
 <meta property="og:title" content="Agent Passport System">
 <meta property="og:description" content="Governance infrastructure for the agent economy. Open protocol, built in public.">
 <meta property="og:type" content="website">
@@ -764,6 +764,9 @@ html[data-theme="light"] .nav{background:linear-gradient(180deg, rgba(244,241,23
 article.prose a.btn{color:var(--bg); border-bottom:0}
 article.prose a.btn.ghost{color:var(--fg)}
 html[data-theme="light"] article.prose a.btn:not(.ghost){color:#C8F032}
+
+html[data-theme="light"]{--clo-a:#4C5438;--clo-b:#5F7D0C;--clo-c:#5C6647;--clo-d:#6E7D1F}
+.nav .badge{border-color:var(--line); color:var(--dim); font-size:9.5px; padding:4px 8px}
 </style>
 <script src="/theme.js" defer></script>
 </head>
@@ -822,12 +825,12 @@ html[data-theme="light"] article.prose a.btn:not(.ghost){color:#C8F032}
     <div class="eyebrow r"><span class="sq" style="border-radius:50%; width:8px; height:8px"></span><span style="letter-spacing:.22em">Open source · Built in public</span></div>
     <div class="r mono" style="font-size:clamp(12px,1.3vw,14px); letter-spacing:.24em; text-transform:uppercase; color:var(--lime); margin-bottom:22px">Governance infrastructure for the agent economy</div>
     <h1 class="h-hero r" style="margin-bottom:30px">Agent Passport System</h1>
-    <p class="r" style="font-size:clamp(18px,2.1vw,24px); line-height:1.45; max-width:46ch; margin-bottom:14px">APS gives every AI agent a verifiable identity, ties it to the person or company it represents, and signs a receipt for every action taken under that authority.</p>
+    <p class="r" style="font-size:clamp(18px,2.1vw,24px); line-height:1.45; max-width:46ch; margin-bottom:14px">APS gives every AI agent a verifiable identity, ties it to the person or company it represents, and signs proof for every action taken under that authority.</p>
     <p class="r mono subtle" style="font-size:clamp(13px,1.5vw,15.5px); line-height:1.55; max-width:52ch; margin-bottom:38px">Proof that travels with the action, not a log you check after something breaks.</p>
     <div class="cta-row r">
       <a class="btn" href="https://agent-passport.org/protocol.html">View the protocol →</a>
       <a class="btn ghost" href="https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/">Read the spec</a>
-      <a class="btn ghost" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
+      
     </div>
     <button class="scroll-hint" data-go="1"><span>Scroll</span><i>↓</i></button>
   </section>
@@ -837,7 +840,7 @@ html[data-theme="light"] article.prose a.btn:not(.ghost){color:#C8F032}
     <div class="eyebrow r"><span class="sq"></span><span>02 · Why this matters</span></div>
     <div class="cols2-tilt">
       <div>
-        <h2 class="h-lg r" style="margin-bottom:26px">Enterprise-liable agent actions.</h2>
+        <h2 class="h-lg r" style="margin-bottom:26px">Agent actions create enterprise liability.</h2>
         <p class="r" style="font-size:clamp(16px,1.7vw,19px); line-height:1.62; margin-bottom:18px">When a person acts on behalf of a company, trust is built in: a title, a mandate, an approval chain. You know what they can sign for, and who answers if it goes wrong. When software acts on behalf of a company, none of that is attached. <span class="lime">The action happens. The proof does not.</span></p>
         <p class="r subtle" style="font-size:clamp(16px,1.7vw,19px); line-height:1.62; margin-bottom:26px">The next trust boundary is not the user login. It is the action an agent takes on your behalf.</p>
         <p class="r" style="font-family:var(--disp); font-size:clamp(20px,2.4vw,30px); font-weight:600; line-height:1.2">“The agent did it” <span class="subtle">is not an answer.</span></p>
@@ -1003,7 +1006,7 @@ html[data-theme="light"] article.prose a.btn:not(.ghost){color:#C8F032}
   <!-- 09 THE LONG BET -->
   <section class="slide" aria-label="The long bet">
     <div class="eyebrow r"><span class="sq"></span><span>08 · The long bet</span></div>
-    <h2 class="r" style="font-family:var(--disp); font-weight:600; font-size:clamp(40px,6vw,92px); line-height:1; letter-spacing:-.035em; margin-bottom:18px">Who benefits?</h2>
+    <h2 class="r" style="font-family:var(--disp); font-weight:600; font-size:clamp(40px,6vw,92px); line-height:1; letter-spacing:-.035em; margin-bottom:18px">Attribution follows the agent.</h2>
     <p class="r subtle" style="font-size:clamp(16px,1.9vw,21px); line-height:1.5; max-width:56ch; margin-bottom:26px">Identity is where this starts. <span style="color:var(--fg)">Beneficiary attribution is the bigger prize.</span></p>
     <p class="r" style="font-size:clamp(17px,2.1vw,23px); line-height:1.5; max-width:62ch; margin-bottom:16px">When an agent creates work, moves value, or produces an outcome, the person or company behind it remains the principal who participated through it.</p>
     <p class="r subtle" style="font-size:clamp(15px,1.7vw,18px); line-height:1.55; max-width:56ch; margin-bottom:48px">Earned, traceable, provable.<span style="display:block; color:var(--lime); margin-top:5px">Attribution follows the delegation chain back to the named principal.</span></p>
@@ -1017,8 +1020,21 @@ html[data-theme="light"] article.prose a.btn:not(.ghost){color:#C8F032}
   </section>
 
   <!-- 10 WHY OPEN -->
+  <section class="slide" aria-label="Where it plugs in">
+    <div class="eyebrow r"><span class="sq"></span><span>09 · Where it plugs in</span></div>
+    <h2 class="h-lg r" style="line-height:1.06; margin-bottom:44px">Agents already run on rails.<span class="split">APS makes the action on them accountable.</span></h2>
+    <div class="rail-cards">
+      <div class="rail r"><h3>Payment rails</h3><p>Spend authority tied to a signed delegation, with a receipt for each charge.</p><div class="meta">x402 · AP2 · ACP · Stripe issuing</div></div>
+      <div class="rail r"><h3>Agent protocols</h3><p>Identity and scoped authority travel with the call. An MCP server exposes the surface as tools; an adapter carries it across A2A.</p><div class="meta">MCP · A2A</div></div>
+      <div class="rail r"><h3>Agent definitions</h3><p>gitagent-protocol, a git-native format for defining agents, merged our RFC adding an optional cryptographic identity layer.</p><div class="meta">git-native</div></div>
+      <div class="rail r"><h3>Frameworks</h3><p>The passport rides into the agent runtime alongside the orchestration you already use.</p><div class="meta">LangChain · CrewAI · ADK</div></div>
+    </div>
+    <p class="r mono subtle" style="margin-top:28px; font-size:13px; line-height:1.6; max-width:84ch">Some of these are bindings the project ships, others are contributions merged upstream. None of these ecosystems depend on APS.</p>
+  </section>
+
+  <!-- 11 ECOSYSTEM -->
   <section class="slide" aria-label="Why open">
-    <div class="eyebrow r"><span class="sq"></span><span>09 · Why open</span></div>
+    <div class="eyebrow r"><span class="sq"></span><span>10 · Why open</span></div>
     <h2 class="h-lg r" style="font-size:clamp(36px,5vw,76px); margin-bottom:18px">Trust cannot be <span class="lime">proprietary.</span></h2>
     <p class="r" style="font-size:clamp(16px,1.8vw,20px); line-height:1.55; max-width:64ch; margin-bottom:14px">Agents cross tools, clouds, wallets, payment rails, and jurisdictions. If the layer that records and verifies authority is owned by one company, the agent economy inherits that company's incentives and risk.</p>
     <p class="r subtle" style="font-size:clamp(15px,1.6vw,18px); line-height:1.55; max-width:60ch; margin-bottom:44px">So the spec, the SDKs, the receipt format, and the conformance suite are open. Apache 2.0. Fork it, test it, challenge it.</p>
@@ -1033,19 +1049,6 @@ html[data-theme="light"] article.prose a.btn:not(.ghost){color:#C8F032}
       <a class="lime" href="https://github.com/aeoess/aps-conformance-suite" style="transition:color .2s">Conformance suite, yours to fork ↗</a>
     </div>
     <p class="r mono" style="margin-top:14px; font-size:11.5px; line-height:1.7; color:var(--sub); max-width:92ch">Cited independently in University of British Columbia research · Cross-engine receipt interop demonstrated with VeritasActa · Byte-parity between the TypeScript and Python implementations</p>
-  </section>
-
-  <!-- 11 ECOSYSTEM -->
-  <section class="slide" aria-label="Where it plugs in">
-    <div class="eyebrow r"><span class="sq"></span><span>10 · Where it plugs in</span></div>
-    <h2 class="h-lg r" style="line-height:1.06; margin-bottom:44px">Agents already run on rails.<span class="split">APS makes the action on them accountable.</span></h2>
-    <div class="rail-cards">
-      <div class="rail r"><h3>Payment rails</h3><p>Spend authority tied to a signed delegation, with a receipt for each charge.</p><div class="meta">x402 · AP2 · ACP · Stripe issuing</div></div>
-      <div class="rail r"><h3>Agent protocols</h3><p>Identity and scoped authority travel with the call. An MCP server exposes the surface as tools; an adapter carries it across A2A.</p><div class="meta">MCP · A2A</div></div>
-      <div class="rail r"><h3>Agent definitions</h3><p>gitagent-protocol, a git-native format for defining agents, merged our RFC adding an optional cryptographic identity layer.</p><div class="meta">git-native</div></div>
-      <div class="rail r"><h3>Frameworks</h3><p>The passport rides into the agent runtime alongside the orchestration you already use.</p><div class="meta">LangChain · CrewAI · ADK</div></div>
-    </div>
-    <p class="r mono subtle" style="margin-top:28px; font-size:13px; line-height:1.6; max-width:84ch">Some of these are bindings the project ships, others are contributions merged upstream. None of these ecosystems depend on APS.</p>
   </section>
 
   <!-- 12 WHERE TO START -->
@@ -1074,8 +1077,8 @@ html[data-theme="light"] article.prose a.btn:not(.ghost){color:#C8F032}
     <div style="flex:1; display:flex; flex-direction:column; justify-content:center">
       <div class="eyebrow r" style="margin-bottom:38px"><span class="sq"></span><span>12 · The invitation</span></div>
       <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:30px">
-        <p class="r" style="font-family:var(--disp); font-weight:500; font-size:clamp(24px,3.4vw,48px); line-height:1.08; letter-spacing:-.025em; color:#5f6353">The web needed <span style="color:#878B78">TLS</span> for trust in transit.</p>
-        <p class="r" style="font-family:var(--disp); font-weight:500; font-size:clamp(24px,3.4vw,48px); line-height:1.08; letter-spacing:-.025em; color:#7c806d">Card payments needed <span style="color:#a7ab97">PCI</span> for accountable handling.</p>
+        <p class="r" style="font-family:var(--disp); font-weight:500; font-size:clamp(24px,3.4vw,48px); line-height:1.08; letter-spacing:-.025em; color:var(--clo-a,#5f6353)">The web needed <span style="color:var(--clo-b,#878B78)">TLS</span> for trust in transit.</p>
+        <p class="r" style="font-family:var(--disp); font-weight:500; font-size:clamp(24px,3.4vw,48px); line-height:1.08; letter-spacing:-.025em; color:var(--clo-c,#7c806d)">Card payments needed <span style="color:var(--clo-d,#a7ab97)">PCI</span> for accountable handling.</p>
         <p class="r" style="font-family:var(--disp); font-weight:600; font-size:clamp(24px,3.4vw,48px); line-height:1.08; letter-spacing:-.025em">Agent actions need their own <span class="lime">accountability layer.</span></p>
       </div>
       <p class="r subtle" style="font-family:var(--disp); font-size:clamp(16px,1.8vw,20px); line-height:1.4; max-width:48ch; margin-bottom:12px">Autonomy is scaling faster than accountability. The agent economy needs passports.</p>
@@ -1145,7 +1148,7 @@ html[data-theme="light"] article.prose a.btn:not(.ghost){color:#C8F032}
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
-  var labels = ['Overview','Why it matters','The missing piece','What APS is','How it works','Receipts','Neutrality','The long bet','Why open','Ecosystem','Get started','Close'];
+  var labels = ['Overview','Why it matters','The missing piece','What APS is','How it works','Receipts','Neutrality','The long bet','Ecosystem','Why open','Get started','Close'];
   var counter = document.getElementById('counter');
   var label = document.getElementById('label');
   var hud = document.getElementById('hud');
