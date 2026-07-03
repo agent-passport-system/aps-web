@@ -733,3 +733,19 @@ html[data-theme="light"] .code-card pre{background:transparent}
 html[data-theme="light"] .tl-done{background:rgba(111,163,59,.5)}
 html[data-theme="light"] .tl-open{background:rgba(0,0,0,.025)}
 html[data-theme="light"] .tl-live .tl-t{color:#16181D}
+
+/* shared header drawer (from homepage) */
+.burger{display:none; flex-direction:column; justify-content:center; gap:5px; width:44px; height:44px; background:transparent; border:1px solid var(--line2); border-radius:2px; cursor:pointer; padding:0 11px}
+.burger i{display:block; height:2px; background:var(--fg)}
+.drawer{position:fixed; inset:0; z-index:80; pointer-events:none}
+.drawer-scrim{position:absolute; inset:0; background:rgba(0,0,0,.55); opacity:0; transition:opacity .3s}
+.drawer-panel{position:absolute; top:0; right:0; bottom:0; width:min(320px,84vw); background:var(--panel2); border-left:1px solid var(--line); transform:translateX(102%); transition:transform .35s cubic-bezier(.2,.7,.2,1); display:flex; flex-direction:column; padding:22px 22px 28px; overflow-y:auto}
+.drawer.open{pointer-events:auto}
+.drawer.open .drawer-scrim{opacity:1}
+.drawer.open .drawer-panel{transform:none}
+.drawer-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:18px}
+.drawer-close{background:none; border:none; color:var(--sub); font-size:20px; cursor:pointer; padding:8px; line-height:1}
+.drawer-panel a.dl{font-family:var(--mono); font-size:15px; letter-spacing:.04em; color:var(--fg); padding:14px 10px; border-bottom:1px solid var(--line)}
+.drawer-panel a.dl:active{color:var(--lime)}
+.drawer-panel .gh-big{margin-top:20px; display:inline-flex; justify-content:center; padding:14px; background:var(--lime); color:var(--bg); font-family:var(--mono); font-weight:600; border-radius:2px; font-size:14px}
+@media (max-width:900px){.nav-links{display:none}.burger{display:flex}}
