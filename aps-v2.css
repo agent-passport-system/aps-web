@@ -648,7 +648,7 @@ article.prose blockquote{border-left:2px solid var(--lime); background:var(--pan
 .page-hero h1, article.prose h2{text-wrap:balance}
 article.prose pre{touch-action:pan-y}
 /* footer fix: paint above fixed bg-glow + align to page column */
-footer{position:relative; z-index:1; max-width:920px; margin:0 auto; padding:40px 5vw 28px}
+footer{position:relative; z-index:1; width:100%; box-sizing:border-box; margin:0; padding:40px 5vw 28px}
 /* roadmap */
 .rm-filters{display:flex; gap:8px; margin-top:22px; flex-wrap:wrap}
 .rm-filters button{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; background:none; border:1px solid var(--line2); color:var(--sub); padding:7px 14px; border-radius:2px; cursor:pointer}
