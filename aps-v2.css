@@ -695,3 +695,16 @@ footer{position:relative; z-index:1; width:100%; box-sizing:border-box; margin:0
 .tl-d-days{font-family:var(--mono); font-size:10.5px; color:var(--dim)}
 .tl-close{position:absolute; top:8px; right:12px; background:none; border:0; color:var(--sub); font-size:20px; cursor:pointer}
 @media (max-width:700px){.tl-lab{padding-left:16px}}
+
+/* light mode (deck bright-slide palette) */
+html[data-theme="light"]{
+  --bg:#F4F1EA; --panel:#FFFFFF; --panel2:#ECE9E0;
+  --line:#E2DFD5; --line2:#C9C6BA; --codeline:#E5E2D6;
+  --fg:#16181D; --sub:#4C4F57; --dim:#7C7F86; --faint:#A0A3A9;
+  --lime:#5F7D0C;
+}
+html[data-theme="light"] .bg-glow{opacity:.3}
+html[data-theme="light"] pre, html[data-theme="light"] .code-card{background:#101208; color:#DDE3C8; border-color:#2A2D20}
+html[data-theme="light"] .code-card pre{background:transparent}
+.theme-toggle{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; background:none; border:1px solid var(--line2); color:var(--sub); padding:6px 10px; border-radius:2px; cursor:pointer; white-space:nowrap}
+.theme-toggle:hover{color:var(--fg); border-color:var(--fg)}
