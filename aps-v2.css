@@ -670,3 +670,28 @@ footer{position:relative; z-index:1; width:100%; box-sizing:border-box; margin:0
 .rm-card details p{font-size:13px; color:var(--sub); line-height:1.6; margin:8px 0 4px}
 .rm-links{display:flex; gap:14px; flex-wrap:wrap; margin-top:8px}
 .rm-links a{font-family:var(--mono); font-size:11px; color:var(--lime); border-bottom:1px solid rgba(200,240,50,.3)}
+/* horizontal roadmap timeline */
+.tl-wrap{position:relative; z-index:1; margin-top:6px}
+.tl-scroll{overflow-x:auto; overflow-y:hidden; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:rgba(255,255,255,.012)}
+.tl-board{position:relative; padding-bottom:16px}
+.tl-ruler{position:relative; height:40px}
+.tl-tick{position:absolute; top:8px; font-family:var(--mono); font-size:10px; color:var(--sub); border-left:1px solid var(--line2); padding-left:5px; line-height:1.3}
+.tl-tick-date{display:block; color:var(--dim); font-size:9px}
+.tl-lane{position:relative; border-top:1px solid var(--line)}
+.tl-lab{position:sticky; left:0; display:inline-block; z-index:3; font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--sub); background:var(--bg); padding:6px 10px 4px 5vw; max-width:118px; box-sizing:border-box}
+.tl-bar{position:absolute; height:16px; border-radius:2px; cursor:pointer; box-sizing:border-box; border:1px solid var(--line2); background:var(--panel)}
+.tl-bar:hover{border-color:var(--fg); z-index:2}
+.tl-done{background:rgba(200,240,50,.14); border-color:rgba(200,240,50,.35)}
+.tl-live{background:rgba(200,240,50,.32); border-color:var(--lime)}
+.tl-queued{background:transparent; border-style:dashed}
+.tl-cut{opacity:.4}
+.tl-clip{border-right-style:dotted}
+.tl-today{position:absolute; top:0; bottom:0; width:0; border-left:1px dashed var(--lime); z-index:2; pointer-events:none}
+.tl-today-lab{position:absolute; top:2px; left:6px; font-family:var(--mono); font-size:9.5px; color:var(--lime); white-space:nowrap}
+.tl-detail{max-width:920px; margin:18px auto 0; padding:16px 5vw; background:var(--panel); border:1px solid var(--line); border-radius:2px; position:relative}
+.tl-detail h3{font-size:15px; line-height:1.5; margin:8px 0}
+.tl-detail p{font-size:13px; color:var(--sub); line-height:1.65}
+.tl-d-top{display:flex; gap:10px; align-items:center}
+.tl-d-days{font-family:var(--mono); font-size:10.5px; color:var(--dim)}
+.tl-close{position:absolute; top:8px; right:12px; background:none; border:0; color:var(--sub); font-size:20px; cursor:pointer}
+@media (max-width:700px){.tl-lab{padding-left:16px}}

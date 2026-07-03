@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Roadmap | Agent Passport System</title>
-<meta name="description" content="The Agent Passport System roadmap: a day-by-day record of what shipped, what is in flight, and what was cut, rendered live from roadmap.yaml.">
+<meta name="description" content="The Agent Passport System roadmap: a horizontal multi-lane timeline of what shipped, what is in flight, and what was cut, rendered live from roadmap.yaml.">
 <link rel="canonical" href="https://agent-passport.org/roadmap.html">
 <meta property="og:title" content="Roadmap | Agent Passport System">
-<meta property="og:description" content="Day-by-day record of what shipped, what is in flight, and what was cut. Rendered live from roadmap.yaml.">
+<meta property="og:description" content="Horizontal multi-lane timeline of the build, rendered live from roadmap.yaml.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://agent-passport.org/roadmap.html">
 <meta name="twitter:card" content="summary">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230A0B08'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23C8F032'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="/aps-v2.css?v=137">
+<link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
+<link rel="stylesheet" href="/aps-v2.css?v=138">
 </head>
 <body>
 <div class="bg-glow"></div>
@@ -30,12 +30,13 @@
     <a href="https://agent-passport.org/blog.html">Dev Log</a>
     <a class="gh" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
   </nav>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button>
 </header>
-<main class="page">
-  <section class="page-hero">
+<main class="page" style="max-width:none; padding-left:0; padding-right:0">
+  <section class="page-hero" style="max-width:920px; margin:0 auto; padding-left:5vw; padding-right:5vw">
     <div class="eyebrow"><span class="sq"></span><span>Roadmap</span></div>
     <h1>Built in public, day by day</h1>
-    <p class="dek">Rendered live from roadmap.yaml, the source of truth. Every item keeps its status honestly: shipped, in flight, queued, or cut.</p>
+    <p class="dek">A horizontal timeline over roadmap.yaml, the source of truth. Lanes are workstreams; every item keeps its status honestly: shipped, in flight, queued, or cut.</p>
     <div class="rm-filters" id="rm-filter">
       <button class="on" data-f="all">All</button>
       <button data-f="live">In flight</button>
@@ -44,7 +45,19 @@
       <button data-f="cut">Cut</button>
     </div>
   </section>
-  <div id="rm-root" class="rm-root"><p class="subtle">Loading the roadmap…</p></div>
+  <div id="tl-wrap" class="tl-wrap">
+    <div id="tl-scroll" class="tl-scroll"><p class="subtle" style="padding:24px 5vw">Loading the roadmap…</p></div>
+    <div id="tl-detail" class="tl-detail" hidden>
+      <button id="tl-close" class="tl-close" aria-label="Close">×</button>
+      <div class="tl-d-top"><span id="tl-d-status" class="rm-status"></span><span id="tl-d-ws" class="rm-ws"></span><span id="tl-d-days" class="tl-d-days"></span></div>
+      <h3 id="tl-d-title"></h3>
+      <p id="tl-d-desc"></p>
+      <div id="tl-d-links" class="rm-links"></div>
+    </div>
+  </div>
+  <section style="max-width:920px; margin:0 auto; padding:8px 5vw 30px">
+    <details class="rm-updated" id="tl-updated" hidden><summary></summary><p></p></details>
+  </section>
 </main>
 <footer class="r">
       <div class="foot-grid">
@@ -97,82 +110,126 @@
       </div>
     </footer>
 <script>
-
 (function () {
   var SRC = 'https://raw.githubusercontent.com/agent-passport-system/aps-web/main/roadmap.yaml';
   var K = {done:'done', active:'live', in_progress:'live', open:'live',
            planned:'queued', backlog:'queued', killed:'cut', dropped:'cut'};
+  var LANES = ['protocol','comms','research','standards','ops','ecosystem','product','vocab','other'];
+  var PPD = 13, GUT = 118, ROW = 24, LANE_PAD = 14, EPOCH = new Date(2026, 1, 16); // Day 1 = 2026-02-17
+  function dayDate(n) { var d = new Date(EPOCH); d.setDate(d.getDate() + n);
+    return (d.getMonth() + 1) + '/' + d.getDate(); }
+  function today() { return Math.max(1, Math.round((Date.now() - EPOCH.getTime()) / 86400000)); }
   function parse(txt) {
-    var days = [], day = null, e = null, inLinks = false;
-    var lines = txt.split('\n'), updated = '';
-    for (var i = 0; i < lines.length; i++) {
-      var raw = lines[i], m;
-      if (!updated && (m = raw.match(/^# Last updated: (.*)$/))) { updated = m[1]; continue; }
-      if ((m = raw.match(/^# \u2550+\s*(DAYS?\b[^\u2550]*?)\s*\u2550/))) {
-        var lbl = m[1].replace(/^DAYS/, 'Days').replace(/^DAY/, 'Day');
-        day = { label: lbl, items: [] }; days.push(day); e = null; continue;
-      }
-      if (/^- id:/.test(raw)) { e = { links: [] }; inLinks = false; if (day) day.items.push(e); continue; }
-      if (!e) continue;
+    var items = [], e = null, inLinks = false, updated = '', m;
+    txt.split('\n').forEach(function (raw) {
+      if (!updated && (m = raw.match(/^# Last updated: (.*)$/))) { updated = m[1]; return; }
+      if (/^- id:/.test(raw)) { e = { links: [] }; inLinks = false; items.push(e); return; }
+      if (!e) return;
       function q(s) { return s.replace(/\\"/g, '"'); }
       if ((m = raw.match(/^\s{2}title:\s*"(.*)"\s*$/))) e.title = q(m[1]);
       else if ((m = raw.match(/^\s{2}description:\s*"(.*)"\s*$/))) e.desc = q(m[1]);
       else if ((m = raw.match(/^\s{2}status:\s*(\w+)/))) e.status = m[1];
-      else if ((m = raw.match(/^\s{2}workstream:\s*(\S+)/))) e.ws = m[1];
+      else if ((m = raw.match(/^\s{2}workstream:\s*(\S+)/))) e.ws = m[1] === 'vocabulary' ? 'vocab' : m[1];
+      else if ((m = raw.match(/^\s{2}day_start:\s*(\d+)/))) e.d0 = +m[1];
+      else if ((m = raw.match(/^\s{2}day_end:\s*(\d+)/))) e.d1 = +m[1];
       else if (/^\s{2}links:/.test(raw)) inLinks = true;
       else if (inLinks && (m = raw.match(/^\s+-\s+url:\s*"(.*)"/))) e.links.push({ url: m[1] });
       else if (inLinks && (m = raw.match(/^\s+label:\s*"(.*)"/))) { var L = e.links[e.links.length - 1]; if (L) L.label = q(m[1]); }
-    }
-    return { days: days, updated: updated };
+    });
+    return { items: items.filter(function (x) { return x.d0; }), updated: updated };
+  }
+  function pack(list) { // greedy sub-row assignment within a lane
+    var rows = [];
+    list.sort(function (a, b) { return a.d0 - b.d0 || a.d1 - b.d1; });
+    list.forEach(function (it) {
+      for (var r = 0; ; r++) {
+        if (!rows[r]) rows[r] = -1;
+        if (it.x0 > rows[r]) { it.row = r; rows[r] = it.x1 + 3; break; }
+      }
+    });
+    return rows.length;
   }
   function el(t, c, txt) { var n = document.createElement(t); if (c) n.className = c; if (txt) n.textContent = txt; return n; }
   function render(data) {
-    var root = document.getElementById('rm-root'); root.textContent = '';
-    if (data.updated) {
-      var d = el('details', 'rm-updated'); var s = el('summary', '', 'Last updated: ' + data.updated.split('.')[0] + '.');
-      d.appendChild(s); d.appendChild(el('p', '', data.updated)); root.appendChild(d);
+    var TODAY = today(), MAXD = Math.min(Math.max(TODAY + 14, 1), 170);
+    var W = GUT + (MAXD + 2) * PPD;
+    var sc = document.getElementById('tl-scroll'); sc.textContent = '';
+    var board = el('div', 'tl-board'); board.style.width = W + 'px';
+    // ruler
+    var ruler = el('div', 'tl-ruler');
+    for (var d = 1; d <= MAXD; d += 7) {
+      var tick = el('div', 'tl-tick', 'D' + d);
+      tick.appendChild(el('span', 'tl-tick-date', dayDate(d)));
+      tick.style.left = (GUT + d * PPD) + 'px'; ruler.appendChild(tick);
     }
-    data.days.forEach(function (day) {
-      var sec = el('section', 'rm-day');
-      sec.appendChild(el('h2', 'rm-dh', day.label));
-      day.items.forEach(function (it) {
-        var kind = K[it.status] || 'queued';
-        var card = el('div', 'rm-card rm-' + kind);
-        card.dataset.kind = kind;
-        var top = el('div', 'rm-top');
-        top.appendChild(el('span', 'rm-status', (it.status || '').replace('_', ' ')));
-        if (it.ws) top.appendChild(el('span', 'rm-ws', it.ws));
-        card.appendChild(top);
-        card.appendChild(el('h3', 'rm-title', it.title || '(untitled)'));
-        if (it.desc) { var dd = el('details'); dd.appendChild(el('summary', '', 'Detail')); dd.appendChild(el('p', '', it.desc)); card.appendChild(dd); }
-        if (it.links.length) {
-          var lr = el('div', 'rm-links');
-          it.links.forEach(function (L) { var a = el('a', '', L.label || L.url); a.href = L.url; a.rel = 'noopener'; lr.appendChild(a); });
-          card.appendChild(lr);
-        }
-        sec.appendChild(card);
-      });
-      root.appendChild(sec);
+    board.appendChild(ruler);
+    // items -> lanes
+    data.items.forEach(function (it) {
+      it.kind = K[it.status] || 'queued';
+      it.d1e = Math.min(it.d1 || it.d0, MAXD); it.clamped = (it.d1 || it.d0) > MAXD;
+      it.x0 = GUT + it.d0 * PPD; it.x1 = GUT + it.d1e * PPD + Math.max((it.d1e - it.d0 + 1) * 0, 8);
+      it.x1 = Math.max(it.x0 + 8, GUT + (it.d1e + 1) * PPD);
     });
+    LANES.forEach(function (name) {
+      var list = data.items.filter(function (x) { return (LANES.indexOf(x.ws) >= 0 ? x.ws : 'other') === name; });
+      if (!list.length) return;
+      var n = pack(list);
+      var lane = el('div', 'tl-lane'); lane.style.height = (n * ROW + LANE_PAD) + 'px';
+      var lab = el('div', 'tl-lab', name); lane.appendChild(lab);
+      list.forEach(function (it) {
+        var b = el('div', 'tl-bar tl-' + it.kind + (it.clamped ? ' tl-clip' : ''));
+        b.style.left = it.x0 + 'px'; b.style.width = (it.x1 - it.x0) + 'px';
+        b.style.top = (8 + it.row * ROW) + 'px';
+        b.title = it.title; b.dataset.kind = it.kind;
+        b.addEventListener('click', function () { detail(it); });
+        lane.appendChild(b);
+      });
+      board.appendChild(lane);
+    });
+    // today line
+    if (TODAY <= MAXD) {
+      var tl = el('div', 'tl-today'); tl.style.left = (GUT + TODAY * PPD) + 'px';
+      tl.appendChild(el('span', 'tl-today-lab', 'today · D' + TODAY));
+      board.appendChild(tl);
+    }
+    sc.appendChild(board);
+    sc.scrollLeft = Math.max(0, GUT + TODAY * PPD - sc.clientWidth * 0.7);
+    if (data.updated) {
+      var u = document.getElementById('tl-updated'); u.hidden = false;
+      u.querySelector('summary').textContent = 'Last updated: ' + data.updated.split('.')[0] + '.';
+      u.querySelector('p').textContent = data.updated;
+    }
   }
+  function detail(it) {
+    var d = document.getElementById('tl-detail'); d.hidden = false;
+    document.getElementById('tl-d-status').textContent = (it.status || '').replace('_', ' ');
+    document.getElementById('tl-d-ws').textContent = it.ws || '';
+    document.getElementById('tl-d-days').textContent = 'Day ' + it.d0 + (it.d1 && it.d1 !== it.d0 ? ' to ' + it.d1 : '') + ' · ' + dayDate(it.d0);
+    document.getElementById('tl-d-title').textContent = it.title || '';
+    document.getElementById('tl-d-desc').textContent = it.desc || '';
+    var lr = document.getElementById('tl-d-links'); lr.textContent = '';
+    it.links.forEach(function (L) { var a = el('a', '', L.label || L.url); a.href = L.url; a.rel = 'noopener'; a.target = '_blank'; lr.appendChild(a); });
+    d.className = 'tl-detail tl-detail-' + it.kind;
+  }
+  document.getElementById('tl-close').addEventListener('click', function () {
+    document.getElementById('tl-detail').hidden = true;
+  });
   document.getElementById('rm-filter').addEventListener('click', function (ev) {
     var b = ev.target.closest('button[data-f]'); if (!b) return;
     this.querySelectorAll('button').forEach(function (x) { x.className = x === b ? 'on' : ''; });
     var f = b.dataset.f;
-    document.querySelectorAll('.rm-card').forEach(function (c) {
+    document.querySelectorAll('.tl-bar').forEach(function (c) {
       c.style.display = (f === 'all' || c.dataset.kind === f) ? '' : 'none';
     });
-    document.querySelectorAll('.rm-day').forEach(function (s) {
-      var any = Array.prototype.some.call(s.querySelectorAll('.rm-card'), function (c) { return c.style.display !== 'none'; });
-      s.style.display = any ? '' : 'none';
-    });
   });
-  fetch(SRC).then(function (r) { if (!r.ok) throw 0; return r.text(); }).then(function (t) { render(parse(t)); })
+  fetch(SRC).then(function (r) { if (!r.ok) throw 0; return r.text(); })
+    .then(function (t) { render(parse(t)); })
     .catch(function () {
-      var root = document.getElementById('rm-root');
-      root.textContent = 'Could not load the roadmap data. ';
-      var a = document.createElement('a'); a.href = 'https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml';
-      a.textContent = 'View roadmap.yaml on GitHub.'; root.appendChild(a);
+      var sc = document.getElementById('tl-scroll');
+      sc.textContent = 'Could not load the roadmap data. ';
+      var a = document.createElement('a');
+      a.href = 'https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml';
+      a.textContent = 'View roadmap.yaml on GitHub.'; sc.appendChild(a);
     });
 })();
 
