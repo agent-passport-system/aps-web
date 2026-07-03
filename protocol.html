@@ -1,29 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Protocol Overview | Agent Passport System</title>
 <meta name="description" content="Agent Passport System protocol overview: verifiable identity, scoped delegation with monotonic narrowing, gateway enforcement, signed receipts, beneficiary attribution, and agentic commerce. Open source, Apache 2.0.">
 <link rel="canonical" href="https://agent-passport.org/protocol.html">
-<link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
-<link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation">
-<link rel="alternate" type="application/json" href="https://agent-passport.org/.well-known/mcp.json" title="MCP server discovery">
 <meta property="og:title" content="Protocol overview: Agent Passport System">
-<meta property="og:description" content="Enforcement infrastructure for AI agents. Verifiable identity, scoped delegation, gateway enforcement, signed receipts, and agent-to-agent payments. Open source, Apache 2.0.">
+<meta property="og:description" content="An open protocol for accountable AI agents: verifiable identity, scoped delegation, gateway enforcement, and a signed receipt for every action. Apache 2.0.">
+<meta property="og:type" content="article">
 <meta property="og:url" content="https://agent-passport.org/protocol.html">
-<meta property="og:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Agent Passport System protocol overview">
-<meta name="twitter:description" content="An open protocol for accountable AI agents: verifiable identity, scoped delegation, enforcement, and a signed receipt for every action.">
-<meta name="twitter:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="/aps-design.css">
+<meta name="twitter:card" content="summary">
+<link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230A0B08'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23C8F032'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/aps-v2.css">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"TechArticle","dateModified":"2026-06-01","headline":"Agent Passport System protocol overview","description":"Open protocol for accountable AI agents: identity, scoped delegation, enforcement, signed receipts, beneficiary attribution, commerce. Apache 2.0.","author":{"@type":"Person","name":"Tymofii Pidlisnyi","url":"https://tymofii.me"},"url":"https://agent-passport.org/protocol.html","publisher":{"@type":"Organization","name":"Agent Passport System"}}
+{"@context":"https://schema.org","@type":"TechArticle","dateModified":"2026-07-02","headline":"Agent Passport System protocol overview","description":"Open protocol for accountable AI agents: identity, scoped delegation, enforcement, signed receipts, beneficiary attribution, commerce. Apache 2.0.","author":{"@type":"Person","name":"Tymofii Pidlisnyi","url":"https://tymofii.me"},"url":"https://agent-passport.org/protocol.html","publisher":{"@type":"Organization","name":"Agent Passport System"}}
 </script>
-
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
 <script>
@@ -32,52 +25,32 @@
   gtag('js', new Date());
   gtag('config', 'G-S7QVCJGMKR');
 </script>
-<script type="application/aps-governance+json">
-{
-  "@context": "https://aeoess.com/governance/v1",
-  "@type": "GovernanceBlock",
-  "source_did": "did:aps:z6MkfBQNZXXcgtkmj4AvFfH14WtSmd4gUrUEfyi2oMbrmTGW",
-  "content_hash": "sha256:bc1d776a301429d2de008930a7fa4be4c5da69b7e6b929bde42df428111bc140",
-  "published_at": "2026-03-29T01:25:50.911Z",
-  "governance_generated_at": "2026-03-29T01:25:50.911Z",
-  "terms": {
-    "inference": "permitted",
-    "training": "attribution_required",
-    "redistribution": "permitted",
-    "caching": "permitted"
-  },
-  "revocation_policy": {
-    "mechanism": "aps_txt",
-    "endpoint": "https://agent-passport.org/.well-known/aps.txt"
-  },
-  "signature": "7ca0da4d9cf3c6cd70aecf89f1c253f57d6e1ecae9f1890008d47a592bf3ff7800eafc0bc8209958401bb60384b0833a3b145800a9d87b3aaa349c147407d40a"
-}
-</script>
 </head>
 <body>
-<div class="topbar">
-  <a class="brand" href="/"><b>APS</b> &middot; Agent Passport System</a>
-  <nav class="topnav">
-    <a href="/docs.html">Docs</a>
-    <a href="/protocol.html">Spec</a>
-    <a href="/benchmarks.html">Benchmarks</a>
-    <a href="/research.html">Research</a>
-    <a href="/roadmap.html">Roadmap</a>
-    <a href="/blog.html">Dev Log</a>
-    <a href="https://github.com/aeoess/agent-passport-system">GitHub &#8599;</a>
+<div class="bg-glow"></div>
+<header class="nav">
+  <div class="brand">
+    <a href="/"><span class="sq"></span>APS <span style="color:var(--sub)">· Agent Passport System</span></a>
+    <span class="badge"><i></i>Apache 2.0</span>
+  </div>
+  <nav class="nav-links">
+    <a href="https://agent-passport.org/docs.html">Docs</a>
+    <a href="https://agent-passport.org/protocol.html">Spec</a>
+    <a href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a href="https://agent-passport.org/research.html">Research</a>
+    <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+    <a href="https://agent-passport.org/blog.html">Dev Log</a>
+    <a class="gh" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
   </nav>
-</div>
-
-<main>
-  <section class="page-hero"><div class="wrap">
-    <div class="eyebrow">Protocol Specification</div>
-    <h1>Protocol <span class="it">Overview</span></h1>
+</header>
+<main class="page">
+  <section class="page-hero">
+    <div class="eyebrow"><span class="sq"></span><span>Protocol specification</span></div>
+    <h1>Protocol overview</h1>
     <p class="dek">An open protocol for accountable AI agents. Verifiable identity, scoped delegation that can only narrow, enforcement at the boundary, and a signed receipt for every action.</p>
-  </div></section>
-
-  <div class="aps-prose"><div class="wrap"><div class="col">
-
-  <section>
+  </section>
+  <article class="prose">
+<section>
   <h2>1. What APS is</h2>
   <p>The Agent Passport System is an open protocol for accountable AI agents. It gives an agent a verifiable identity, ties that identity to the person or company it represents, scopes what the agent is allowed to do, and produces a signed receipt for every action it takes.</p>
   <p>One rule holds the protocol together: authority can only decrease at each transfer point. A login authorizes a session. APS authorizes a specific action, at a specific time, under a specific policy, for a specific principal. The proof travels with the action instead of living in a log someone reads after something breaks.</p>
@@ -91,7 +64,7 @@
     <li><strong>Enforcement at the boundary.</strong> A gateway evaluates each action before it happens and is both judge and executor, not an after-the-fact approver.</li>
     <li><strong>Honest receipts.</strong> Every receipt states its own evidentiary weight. Self-attested evidence is never promoted to observed evidence.</li>
     <li><strong>Composability.</strong> The layers are independent. Use identity without the gateway, or enforcement without commerce.</li>
-    <li><strong>Open and conformance-tested.</strong> Apache 2.0 code, CC0 spec, cross-implementation conformance fixtures with byte-level receipt matching.</li>
+    <li><strong>Open and conformance-tested.</strong> Apache 2.0 code, an IETF Internet-Draft spec, and cross-implementation conformance fixtures with byte-level receipt matching.</li>
   </ul>
   </section>
 
@@ -162,62 +135,56 @@
     <li>Developer documentation. <a href="/docs.html">agent-passport.org/docs</a></li>
   </ul>
   </section>
-
-
-  </div></div></div>
+  </article>
 </main>
-
-<footer>
-  <div class="f-top">
-    <div class="f-brand">
-      <div class="f-word"><b>Agent Passport System</b></div>
-      <p class="f-blurb">Open-source infrastructure to enforce,<br>verify, and audit AI agent actions.</p>
-      <p class="f-blurb">Spec is CC0. Code is Apache 2.0.<br>The conformance suite is yours to fork.</p>
-      <a class="btn" href="/working-group.html">Join the Working Group &#8599;</a>
-    </div>
-    <div class="f-cols">
-      <div class="f-col">
-        <div class="f-h">Protocol</div>
-        <a href="/protocol.html">Spec</a>
-        <a href="/benchmarks.html">Benchmarks</a>
-        <a href="/threat-model.html">Threat Model</a>
-        <a href="/faq.html">FAQ</a>
+<footer class="r">
+      <div class="foot-grid">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px">
+            <span class="sq"></span>
+            <span class="mono" style="font-size:14px; font-weight:500">Agent Passport System</span>
+          </div>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:8px">Open-source infrastructure to enforce, verify, and audit AI agent actions.</p>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:18px">The conformance suite is yours to fork.</p>
+          <a class="mono" href="mailto:signal@aeoess.com" style="display:inline-block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg); border:1px solid var(--line2); padding:9px 16px; border-radius:2px">Contact ↗</a>
+        </div>
+        <div>
+          <div class="head">Protocol</div>
+          <div class="links">
+            <a href="https://agent-passport.org/docs.html">Documentation</a>
+            <a href="https://agent-passport.org/protocol.html">Protocol</a>
+            <a href="https://agent-passport.org/threat-model.html">Threat model</a>
+            <a href="https://agent-passport.org/faq.html">FAQ</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Developers</div>
+          <div class="links">
+            <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
+            <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
+            <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
+            <a href="https://agent-passport.org/wallet.html">Agent Wallet</a>
+            <a href="https://agent-passport.org/AGENTS.md">AGENTS.md</a>
+            <a href="https://agent-passport.org/llms.txt">llms.txt</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Community</div>
+          <div class="links">
+            <a href="https://agent-passport.org/blog.html">Dev Log</a>
+            <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+            <a href="https://agent-passport.org/working-group.html">Working group</a>
+            <a href="https://agent-passport.org/research.html">Research</a>
+          </div>
+        </div>
       </div>
-      <div class="f-col">
-        <div class="f-h">Developers</div>
-        <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
-        <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
-        <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
-        <a href="/wallet.html">Agent Wallet</a>
-        <a href="/AGENTS.md">AGENTS.md</a>
-        <a href="/llms.txt">llms.txt</a>
+      <div class="foot-base" style="justify-content:flex-start; gap:16px 56px">
+        <span><em class="fbk">License</em>Code Apache 2.0</span>
+        <span><em class="fbk">Editor</em>Tymofii Pidlisnyi</span>
+        <span><em class="fbk">Spec</em>draft-pidlisnyi-aps (IETF Internet-Draft)</span>
+        <span><em class="fbk">Imprint</em>Vol. 01 · 2026 · agent-passport.org</span>
+        <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
       </div>
-      <div class="f-col">
-        <div class="f-h">Community</div>
-        <a href="/blog.html">Dev Log</a>
-        <a href="/roadmap.html">Roadmap</a>
-        <a href="/working-group.html">Working Group</a>
-      </div>
-      <div class="f-col">
-        <div class="f-h">Research</div>
-        <a href="/research.html#r1">Agent Social Contract</a>
-        <a href="/research.html#r2">Monotonic Narrowing</a>
-        <a href="/research.html#r3">Faceted Authority Attenuation</a>
-        <a href="/research.html#r4">Behavioral Derivation Rights</a>
-        <a href="/research.html#r5">Physics-Enforced Delegation</a>
-        <a href="/research.html#r6">Governance in the Medium</a>
-        <a href="/research.html#r7">Cognitive Attestation</a>
-        <a href="/research.html#r8">Evidence-Safety Gap</a>
-      </div>
-    </div>
-  </div>
-  <div class="f-strip">
-    <div><span>License</span>Spec CC0 &middot; Code Apache 2.0</div>
-    <div><span>Editor</span>Tymofii Pidlisnyi</div>
-    <div><span>Standard</span>APS &middot; IETF Internet-Draft</div>
-    <div><span>Imprint</span>Vol. 01 &middot; 2026 &middot; agent-passport.org</div>
-    <div><span>Also at</span><a href="https://aeoess.com">aeoess.com</a></div>
-  </div>
-</footer>
+    </footer>
 </body>
 </html>
