@@ -1,82 +1,57 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Working Group | Agent Passport System</title>
 <meta name="description" content="The Agent Governance Working Group: ratified specs, active participants, open contributions. Building interoperability standards for the agent economy.">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="/aps-design.css">
 <link rel="canonical" href="https://agent-passport.org/working-group.html">
-<link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
-<link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation">
-<link rel="alternate" type="application/json" href="https://agent-passport.org/.well-known/mcp.json" title="MCP server discovery">
-<meta property="og:title" content="Working Group — Agent Passport System">
-<meta property="og:description" content="Agent Governance Working Group: ratified specs, participants, open contributions.">
+<meta property="og:title" content="Working Group | Agent Passport System">
+<meta property="og:description" content="The Agent Governance Working Group: ratified specs, active participants, open contributions. Building interoperability standards for the agent economy.">
+<meta property="og:type" content="article">
 <meta property="og:url" content="https://agent-passport.org/working-group.html">
-<meta property="og:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Agent Governance Working Group — Agent Passport System">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-S7QVCJGMKR');</script>
-<script type="application/aps-governance+json">
-{
-  "@context": "https://aeoess.com/governance/v1",
-  "@type": "GovernanceBlock",
-  "source_did": "did:aps:z6MkfBQNZXXcgtkmj4AvFfH14WtSmd4gUrUEfyi2oMbrmTGW",
-  "content_hash": "sha256:09b2062f1249032965869ddecc4a93c9cf774f87985bd2f0c7d05c6299e269b4",
-  "published_at": "2026-03-29T01:25:50.913Z",
-  "governance_generated_at": "2026-03-29T01:25:50.913Z",
-  "terms": {
-    "inference": "permitted",
-    "training": "attribution_required",
-    "redistribution": "permitted",
-    "caching": "permitted"
-  },
-  "revocation_policy": {
-    "mechanism": "aps_txt",
-    "endpoint": "https://agent-passport.org/.well-known/aps.txt"
-  },
-  "signature": "ce471b956036b2ffbd26f7ad857c9729b60bbb7402e3be5c967f74fb2bb4453b37ad02ebf0e7fbe8c62a426c7039143178e95db6a62ddaec63d911e87482f106"
-}
-</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Working Group — Agent Passport System | Agent Governance Standards","description":"The Agent Governance Working Group: ratified specs, active participants, open contributions. Building interoperability standards for the agent economy.","url":"https://agent-passport.org/working-group.html","dateModified":"2026-05-02","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","about":{"@type":"Thing","name":"Agent Governance Working Group"}}</script>
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230A0B08'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23C8F032'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/aps-v2.css">
 <style>
-.wg-spec-status{display:inline-block;font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;border:1px solid var(--ink);margin-bottom:10px}
+.wg-spec-status{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;border:1px solid var(--fg);margin-bottom:10px}
 .wg-spec-status.ratified{color:#2E6E53;border-color:#2E6E53}
-.wg-spec-status.draft{color:var(--stamp-2);border-color:var(--stamp-2)}
-.wg-spec-version{font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;font-size:11.5px;color:var(--ink-3);margin-top:8px}
-.wg-p-name{font-family:var(--tweak-body-font,"Newsreader"),serif;font-size:18px;font-weight:600;letter-spacing:-0.01em}
-.wg-p-project{font-family:"Inter",sans-serif;font-size:13.5px;color:var(--ink-3);margin-top:2px}
-.wg-p-role{font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;font-size:10.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-top:4px}
-.wg-tl{display:flex;gap:18px;padding:11px 0;border-bottom:1px solid var(--rule-soft);align-items:baseline}
+.wg-spec-status.draft{color:var(--warn);border-color:var(--warn)}
+.wg-spec-version{font-family:var(--mono);font-size:11.5px;color:var(--sub);margin-top:8px}
+.wg-p-name{font-family:var(--disp);font-size:18px;font-weight:600;letter-spacing:-0.01em}
+.wg-p-project{font-family:"Inter",sans-serif;font-size:13.5px;color:var(--sub);margin-top:2px}
+.wg-p-role{font-family:var(--mono);font-size:10.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.wg-tl{display:flex;gap:18px;padding:11px 0;border-bottom:1px solid var(--line);align-items:baseline}
 .wg-tl:last-child{border-bottom:0}
-.wg-tl .d{font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;font-size:12px;color:var(--stamp);min-width:54px;flex-shrink:0}
+.wg-tl .d{font-family:var(--mono);font-size:12px;color:var(--lime);min-width:54px;flex-shrink:0}
 </style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Working Group · Agent Passport System | Agent Governance Standards","description":"The Agent Governance Working Group: ratified specs, active participants, open contributions. Building interoperability standards for the agent economy.","url":"https://agent-passport.org/working-group.html","dateModified":"2026-07-02","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","about":{"@type":"Thing","name":"Agent Governance Working Group"}}</script>
 </head>
 <body>
-<div class="topbar">
-  <a class="brand" href="/"><b>APS</b> &middot; Agent Passport System</a>
-  <nav class="topnav">
-    <a href="/docs.html">Docs</a>
-    <a href="/protocol.html">Spec</a>
-    <a href="/benchmarks.html">Benchmarks</a>
-    <a href="/research.html">Research</a>
-    <a href="/roadmap.html">Roadmap</a>
-    <a href="/blog.html">Dev Log</a>
-    <a href="https://github.com/aeoess/agent-passport-system">GitHub &#8599;</a>
+<div class="bg-glow"></div>
+<header class="nav">
+  <div class="brand">
+    <a href="/"><span class="sq"></span>APS <span style="color:var(--sub)">· Agent Passport System</span></a>
+    <span class="badge"><i></i>Apache 2.0</span>
+  </div>
+  <nav class="nav-links">
+    <a href="https://agent-passport.org/docs.html">Docs</a>
+    <a href="https://agent-passport.org/protocol.html">Spec</a>
+    <a href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a href="https://agent-passport.org/research.html">Research</a>
+    <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+    <a href="https://agent-passport.org/blog.html">Dev Log</a>
+    <a class="gh" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
   </nav>
-</div>
-
-<main>
-  <section class="page-hero"><div class="wrap">
-    <div class="eyebrow">Working Group</div>
-    <h1>Working <span class="it">Group</span></h1>
+</header>
+<main class="page">
+  <section class="page-hero">
+    <div class="eyebrow"><span class="sq"></span><span>Working group</span></div>
+    <h1>Working Group</h1>
     <p class="dek">The Agent Governance Working Group builds interoperability standards for the agent economy. Multiple projects. Shared primitives. No single vendor controls the specs. If you're building agent infrastructure, the door is open.</p>
-  </div></section>
+  </section>
+  <article class="prose">
 
-  <div class="aps-prose"><div class="wrap"><div class="col">
 
     <h2 class="no-rule">Ratified Specifications</h2>
     <div class="aps-grid-2">
@@ -84,25 +59,25 @@
         <span class="wg-spec-status ratified">Ratified</span>
         <h3>QSP-1: Encrypted Agent Transport</h3>
         <p>Defines how agents communicate securely across trust boundaries. Ed25519 to X25519 key conversion, XChaCha20-Poly1305 encryption, forward secrecy. Compatible with qntm relay protocol.</p>
-        <div class="wg-spec-version">v1.0 — March 2026</div>
+        <div class="wg-spec-version">v1.0 · March 2026</div>
       </div>
       <div class="aps-card">
         <span class="wg-spec-status ratified">Ratified</span>
         <h3>DID Resolution</h3>
         <p>Where is this agent's identity document? Resolves did:aps, did:key, and did:web methods to DID Documents. The base layer for identity interop across agent frameworks.</p>
-        <div class="wg-spec-version">v1.0 — March 2026</div>
+        <div class="wg-spec-version">v1.0 · March 2026</div>
       </div>
       <div class="aps-card">
         <span class="wg-spec-status ratified">Ratified</span>
         <h3>Entity Verification</h3>
         <p>Is this agent who they claim to be? Conformance checks for passport validity, delegation chain integrity, and principal linkage. 21-invariant test suite included.</p>
-        <div class="wg-spec-version">v1.0 — March 2026</div>
+        <div class="wg-spec-version">v1.0 · March 2026</div>
       </div>
       <div class="aps-card">
         <span class="wg-spec-status draft">Draft</span>
         <h3>Execution Attestation</h3>
         <p>Did this agent actually do what it claims? Signed execution proofs with gateway countersignatures. Prevents agents from fabricating action history.</p>
-        <div class="wg-spec-version">v0.1 — March 2026</div>
+        <div class="wg-spec-version">v0.1 · March 2026</div>
       </div>
     </div>
 
@@ -110,27 +85,27 @@
     <div class="aps-grid-3">
       <div class="aps-card">
         <div class="wg-p-name">Agent Passport System</div>
-        <div class="wg-p-project">Agent Passport System — agent-passport.org</div>
+        <div class="wg-p-project">Agent Passport System · agent-passport.org</div>
         <div class="wg-p-role">Protocol author</div>
       </div>
       <div class="aps-card">
         <div class="wg-p-name">Guardian</div>
-        <div class="wg-p-project">xsa520 — Decision equivalence</div>
+        <div class="wg-p-project">xsa520 · Decision equivalence</div>
         <div class="wg-p-role">Spec contributor</div>
       </div>
       <div class="aps-card">
         <div class="wg-p-name">qntm</div>
-        <div class="wg-p-project">corpollc — Encrypted relay</div>
+        <div class="wg-p-project">corpollc · Encrypted relay</div>
         <div class="wg-p-role">Transport layer</div>
       </div>
       <div class="aps-card">
         <div class="wg-p-name">Kanoniv</div>
-        <div class="wg-p-project">dreynow — Agent framework</div>
+        <div class="wg-p-project">dreynow · Agent framework</div>
         <div class="wg-p-role">Integration partner</div>
       </div>
       <div class="aps-card">
         <div class="wg-p-name">AgentID</div>
-        <div class="wg-p-project">The-Nexus-Guard — AIP author</div>
+        <div class="wg-p-project">The-Nexus-Guard · AIP author</div>
         <div class="wg-p-role">Identity standards</div>
       </div>
       <div class="aps-card">
@@ -140,7 +115,7 @@
       </div>
       <div class="aps-card">
         <div class="wg-p-name">Network AI</div>
-        <div class="wg-p-project">Jovancoding — CrewAI ecosystem</div>
+        <div class="wg-p-project">Jovancoding · CrewAI ecosystem</div>
         <div class="wg-p-role">Framework integration</div>
       </div>
       <div class="aps-card">
@@ -151,22 +126,22 @@
     </div>
 
     <h2>Timeline</h2>
-    <div class="wg-tl"><span class="d">Mar 28</span><span><strong>Site rebrand</strong> — "An open protocol for accountable AI agents." Academic design system. 10-question FAQ.</span></div>
-    <div class="wg-tl"><span class="d">Mar 27</span><span><strong>IETF draft submitted</strong> — draft-pidlisnyi-aps-01. Zero idnits errors. First formal standards submission.</span></div>
-    <div class="wg-tl"><span class="d">Mar 27</span><span><strong>Paper 3: Faceted Authority Attenuation</strong> — Product lattice model. Seven-dimensional authority space.</span></div>
-    <div class="wg-tl"><span class="d">Mar 24</span><span><strong>3 specs ratified</strong> — QSP-1, DID Resolution, Entity Verification. Cross-project consensus.</span></div>
-    <div class="wg-tl"><span class="d">Mar 23</span><span><strong>OATR founding member</strong> — APS registered as issuer. Domain verification live.</span></div>
-    <div class="wg-tl"><span class="d">Mar 22</span><span><strong>Constitutional v2 complete</strong> — 32 modules addressing systemic failure modes.</span></div>
-    <div class="wg-tl"><span class="d">Mar 17</span><span><strong>Spec demand convergence</strong> — Three independent groups asked for the same spec. Wrote it.</span></div>
+    <div class="wg-tl"><span class="d">Mar 28</span><span><strong>Site rebrand</strong>: "An open protocol for accountable AI agents." Academic design system. 10-question FAQ.</span></div>
+    <div class="wg-tl"><span class="d">Mar 27</span><span><strong>IETF draft submitted</strong>: draft-pidlisnyi-aps-01. Zero idnits errors. First formal standards submission.</span></div>
+    <div class="wg-tl"><span class="d">Mar 27</span><span><strong>Paper 3: Faceted Authority Attenuation</strong>: Product lattice model. Seven-dimensional authority space.</span></div>
+    <div class="wg-tl"><span class="d">Mar 24</span><span><strong>3 specs ratified</strong>: QSP-1, DID Resolution, Entity Verification. Cross-project consensus.</span></div>
+    <div class="wg-tl"><span class="d">Mar 23</span><span><strong>OATR founding member</strong>: APS registered as issuer. Domain verification live.</span></div>
+    <div class="wg-tl"><span class="d">Mar 22</span><span><strong>Constitutional v2 complete</strong>: 32 modules addressing systemic failure modes.</span></div>
+    <div class="wg-tl"><span class="d">Mar 17</span><span><strong>Spec demand convergence</strong>: Three independent groups asked for the same spec. Wrote it.</span></div>
     <div class="wg-tl"><span class="d">Mar 16</span><span><strong>Ecosystem convergence</strong>: a contribution PR (#274) merged into the Microsoft Agent Governance Toolkit by a Microsoft maintainer. Federal agency reviewing.</span></div>
-    <div class="wg-tl"><span class="d">Mar 14</span><span><strong>Guardian decision equivalence</strong> — xsa520 published spec mapping to Module 37.</span></div>
-    <div class="wg-tl"><span class="d">Mar 9</span><span><strong>Paper 2: Monotonic Narrowing</strong> — Authority attenuation formalized. Zenodo published.</span></div>
-    <div class="wg-tl"><span class="d">Feb 21</span><span><strong>Paper 1: The Agent Social Contract</strong> — First formalization. Zenodo published.</span></div>
-    <div class="wg-tl"><span class="d">Feb 18</span><span><strong>Project begins</strong> — Ed25519 identity, delegation chains, first tests.</span></div>
+    <div class="wg-tl"><span class="d">Mar 14</span><span><strong>Guardian decision equivalence</strong>: xsa520 published spec mapping to Module 37.</span></div>
+    <div class="wg-tl"><span class="d">Mar 9</span><span><strong>Paper 2: Monotonic Narrowing</strong>: Authority attenuation formalized. Zenodo published.</span></div>
+    <div class="wg-tl"><span class="d">Feb 21</span><span><strong>Paper 1: The Agent Social Contract</strong>: First formalization. Zenodo published.</span></div>
+    <div class="wg-tl"><span class="d">Feb 18</span><span><strong>Project begins</strong>: Ed25519 identity, delegation chains, first tests.</span></div>
 
     <h2>Join the Working Group</h2>
     <div class="aps-card">
-      <p>The agent economy needs shared standards. If you're building agent infrastructure — identity, trust, governance, commerce, coordination — we want to work with you. Open discussions. Concrete specs. Running code.</p>
+      <p>The agent economy needs shared standards. If you're building agent infrastructure (identity, trust, governance, commerce, coordination), we want to work with you. Open discussions. Concrete specs. Running code.</p>
       <p>
         <a href="https://github.com/aeoess/agent-passport-system/discussions">GitHub Discussions</a> ·
         <a href="https://github.com/aeoess/agent-passport-system/issues">Open Issues</a> ·
@@ -178,60 +153,57 @@
 
     <p><strong>For AI agents:</strong> Visit <a href="https://agent-passport.org/llms.txt">llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt">llms-full.txt</a> for the full technical reference. This page is designed for humans.</p>
 
-  </div></div></div>
+  
+  </article>
 </main>
-
-<footer>
-  <div class="f-top">
-    <div class="f-brand">
-      <div class="f-word"><b>Agent Passport System</b></div>
-      <p class="f-blurb">Open-source infrastructure to enforce,<br>verify, and audit AI agent actions.</p>
-      <p class="f-blurb">Spec is CC0. Code is Apache 2.0.<br>The conformance suite is yours to fork.</p>
-      <a class="btn" href="/working-group.html">Join the Working Group &#8599;</a>
-    </div>
-    <div class="f-cols">
-      <div class="f-col">
-        <div class="f-h">Protocol</div>
-        <a href="/protocol.html">Documentation</a>
-        <a href="/benchmarks.html">Benchmarks</a>
-        <a href="/threat-model.html">Threat Model</a>
-        <a href="/faq.html">FAQ</a>
+<footer class="r">
+      <div class="foot-grid">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px">
+            <span class="sq"></span>
+            <span class="mono" style="font-size:14px; font-weight:500">Agent Passport System</span>
+          </div>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:8px">Open-source infrastructure to enforce, verify, and audit AI agent actions.</p>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:18px">The conformance suite is yours to fork.</p>
+          <a class="mono" href="mailto:signal@aeoess.com" style="display:inline-block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg); border:1px solid var(--line2); padding:9px 16px; border-radius:2px">Contact ↗</a>
+        </div>
+        <div>
+          <div class="head">Protocol</div>
+          <div class="links">
+            <a href="https://agent-passport.org/docs.html">Documentation</a>
+            <a href="https://agent-passport.org/protocol.html">Protocol</a>
+            <a href="https://agent-passport.org/threat-model.html">Threat model</a>
+            <a href="https://agent-passport.org/faq.html">FAQ</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Developers</div>
+          <div class="links">
+            <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
+            <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
+            <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
+            <a href="https://agent-passport.org/wallet.html">Agent Wallet</a>
+            <a href="https://agent-passport.org/AGENTS.md">AGENTS.md</a>
+            <a href="https://agent-passport.org/llms.txt">llms.txt</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Community</div>
+          <div class="links">
+            <a href="https://agent-passport.org/blog.html">Dev Log</a>
+            <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+            <a href="https://agent-passport.org/working-group.html">Working group</a>
+            <a href="https://agent-passport.org/research.html">Research</a>
+          </div>
+        </div>
       </div>
-      <div class="f-col">
-        <div class="f-h">Developers</div>
-        <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
-        <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
-        <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
-        <a href="/wallet.html">Agent Wallet</a>
-        <a href="/AGENTS.md">AGENTS.md</a>
-        <a href="/llms.txt">llms.txt</a>
+      <div class="foot-base" style="justify-content:flex-start; gap:16px 56px">
+        <span><em class="fbk">License</em>Code Apache 2.0</span>
+        <span><em class="fbk">Editor</em>Tymofii Pidlisnyi</span>
+        <span><em class="fbk">Spec</em>draft-pidlisnyi-aps (IETF Internet-Draft)</span>
+        <span><em class="fbk">Imprint</em>Vol. 01 · 2026 · agent-passport.org</span>
+        <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
       </div>
-      <div class="f-col">
-        <div class="f-h">Community</div>
-        <a href="/blog.html">Dev Log</a>
-        <a href="/roadmap.html">Roadmap</a>
-        <a href="/working-group.html">Working Group</a>
-      </div>
-      <div class="f-col">
-        <div class="f-h">Research</div>
-        <a href="/research.html#r1">Agent Social Contract</a>
-        <a href="/research.html#r2">Monotonic Narrowing</a>
-        <a href="/research.html#r3">Faceted Authority Attenuation</a>
-        <a href="/research.html#r4">Behavioral Derivation Rights</a>
-        <a href="/research.html#r5">Physics-Enforced Delegation</a>
-        <a href="/research.html#r6">Governance in the Medium</a>
-        <a href="/research.html#r7">Cognitive Attestation</a>
-        <a href="/research.html#r8">Evidence-Safety Gap</a>
-      </div>
-    </div>
-  </div>
-  <div class="f-strip">
-    <div><span>License</span>Spec CC0 &middot; Code Apache 2.0</div>
-    <div><span>Editor</span>Tymofii Pidlisnyi</div>
-    <div><span>Standard</span>APS &middot; IETF Internet-Draft</div>
-    <div><span>Imprint</span>Vol. 01 &middot; 2026 &middot; agent-passport.org</div>
-    <div><span>Also at</span><a href="https://aeoess.com">aeoess.com</a></div>
-  </div>
-</footer>
+    </footer>
 </body>
 </html>

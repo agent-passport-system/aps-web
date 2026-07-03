@@ -1,33 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Threat Model | Agent Passport System</title>
 <meta name="description" content="Threat model for the Agent Passport System: assets, threat actors, attack surface by layer, mitigations with test references, assumptions, and non-goals. 38 adversarial scenarios tested.">
 <link rel="canonical" href="https://agent-passport.org/threat-model.html">
-<link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
-<link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation">
-<link rel="alternate" type="application/json" href="https://agent-passport.org/.well-known/mcp.json" title="MCP server discovery">
-<meta property="og:title" content="Threat Model: Agent Passport System">
-<meta property="og:description" content="Security analysis: assets, threat actors, attack surface, mitigations, assumptions, and non-goals for the Agent Passport System protocol.">
+<meta property="og:title" content="Threat Model | Agent Passport System">
+<meta property="og:description" content="Threat model for the Agent Passport System: assets, threat actors, attack surface by layer, mitigations with test references, assumptions, and non-goals. 38 adversarial scenarios tested.">
+<meta property="og:type" content="article">
 <meta property="og:url" content="https://agent-passport.org/threat-model.html">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Agent Passport Threat Model: 38 Attack Scenarios">
-<meta name="twitter:description" content="Security analysis of an AI agent identity protocol. Threat actors, attack surface, mitigations with test references.">
-<meta name="twitter:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="/aps-design.css">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230A0B08'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23C8F032'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/aps-v2.css">
 <style>
-  .tm-tag{display:inline-block;padding:.1rem .5rem;border-radius:3px;font-size:.72rem;font-weight:600;letter-spacing:.02em;font-family:"JetBrains Mono",ui-monospace,monospace;white-space:nowrap}
+.tm-tag{display:inline-block;padding:.1rem .5rem;border-radius:3px;font-size:.72rem;font-weight:600;letter-spacing:.02em;font-family:"JetBrains Mono",ui-monospace,monospace;white-space:nowrap}
   .tm-tag.blocked{background:rgba(95,205,150,0.14);color:#86E0AE}
   .tm-tag.detected{background:rgba(224,196,120,0.14);color:#E6CC82}
   .tm-tag.mitigated{background:rgba(120,170,235,0.14);color:#A6C4F2}
   .tm-tag.ngoal{background:rgba(230,120,120,0.16);color:#F0A0A0}
   .test-ref{display:block;margin-top:.3rem;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.78rem}
 </style>
-
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"Threat Model: Agent Passport System | Agent Passport System Security Analysis","description":"Threat model for the Agent Passport System: assets, threat actors, attack surface by layer, mitigations with test references, assumptions, and non-goals. 38 adversarial scenarios tested.","url":"https://agent-passport.org/threat-model.html","dateModified":"2026-07-02","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"Agent Passport System Threat Model","articleSection":"Security Analysis"}</script>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
 <script>
@@ -36,52 +30,32 @@
   gtag('js', new Date());
   gtag('config', 'G-S7QVCJGMKR');
 </script>
-<script type="application/aps-governance+json">
-{
-  "@context": "https://aeoess.com/governance/v1",
-  "@type": "GovernanceBlock",
-  "source_did": "did:aps:z6MkfBQNZXXcgtkmj4AvFfH14WtSmd4gUrUEfyi2oMbrmTGW",
-  "content_hash": "sha256:5962d9abe7688ec102d7e33126243499eec51816ab067c847c19fe4b08f77207",
-  "published_at": "2026-03-29T01:25:50.912Z",
-  "governance_generated_at": "2026-03-29T01:25:50.912Z",
-  "terms": {
-    "inference": "permitted",
-    "training": "attribution_required",
-    "redistribution": "permitted",
-    "caching": "permitted"
-  },
-  "revocation_policy": {
-    "mechanism": "aps_txt",
-    "endpoint": "https://agent-passport.org/.well-known/aps.txt"
-  },
-  "signature": "f3ad228ec2e00d5bac6becee8ca34612d64038861961ccd4b34ffbfc94e2df17e3555bee08d99157515bb16e1e0fc227c5baef1f806a32284ca95772c485fc0f"
-}
-</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"Threat Model: Agent Passport System | Agent Passport System Security Analysis","description":"Threat model for the Agent Passport System: assets, threat actors, attack surface by layer, mitigations with test references, assumptions, and non-goals. 38 adversarial scenarios tested.","url":"https://agent-passport.org/threat-model.html","dateModified":"2026-05-02","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"Agent Passport System Threat Model","articleSection":"Security Analysis"}</script>
 </head>
 <body>
-
-<div class="topbar">
-  <a class="brand" href="/"><b>APS</b> &middot; Agent Passport System</a>
-  <nav class="topnav">
-    <a href="/docs.html">Docs</a>
-    <a href="/protocol.html">Spec</a>
-    <a href="/benchmarks.html">Benchmarks</a>
-    <a href="/research.html">Research</a>
-    <a href="/roadmap.html">Roadmap</a>
-    <a href="/blog.html">Dev Log</a>
-    <a href="https://github.com/aeoess/agent-passport-system">GitHub &#8599;</a>
+<div class="bg-glow"></div>
+<header class="nav">
+  <div class="brand">
+    <a href="/"><span class="sq"></span>APS <span style="color:var(--sub)">· Agent Passport System</span></a>
+    <span class="badge"><i></i>Apache 2.0</span>
+  </div>
+  <nav class="nav-links">
+    <a href="https://agent-passport.org/docs.html">Docs</a>
+    <a href="https://agent-passport.org/protocol.html">Spec</a>
+    <a href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a href="https://agent-passport.org/research.html">Research</a>
+    <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+    <a href="https://agent-passport.org/blog.html">Dev Log</a>
+    <a class="gh" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
   </nav>
-</div>
-
-<main>
-  <section class="page-hero"><div class="wrap">
-    <div class="eyebrow"><a href="/">Agent Passport System</a> / Threat Model</div>
-    <h1>Threat <span class="it">Model</span></h1>
+</header>
+<main class="page">
+  <section class="page-hero">
+    <div class="eyebrow"><span class="sq"></span><span></span></div>
+    <h1>Threat Model</h1>
     <p class="dek">Security analysis of the Agent Passport System. What we protect, what we assume, what we test, and what we explicitly do not solve. Every mitigation references a specific test. Current as of SDK v3.0.0 (3,959 tests, 38 adversarial scenarios).</p>
-  </div></section>
+  </section>
+  <article class="prose">
 
-  <div class="aps-prose"><div class="wrap"><div class="col">
 
     <h2>1. System Model</h2>
     <p>The Agent Passport System operates as a <strong>client-side protocol library</strong>. It runs inside agent runtimes (Node.js, browser, Python via canonical serialization). There is no central server, no blockchain, no consensus network. Each agent holds its own Ed25519 private key and produces signed artifacts (passports, delegations, receipts, messages) that any other party can verify using only the public key and the signed data.</p>
@@ -496,60 +470,57 @@ npm test
 
     <blockquote><strong>🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt">llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt">llms-full.txt</a> for the complete technical reference (3,959 tests, 150 MCP tools, 107 modules). This page is designed for humans.</blockquote>
 
-  </div></div></div>
+  
+  </article>
 </main>
-
-<footer>
-  <div class="f-top">
-    <div class="f-brand">
-      <div class="f-word"><b>Agent Passport System</b></div>
-      <p class="f-blurb">Open-source infrastructure to enforce,<br>verify, and audit AI agent actions.</p>
-      <p class="f-blurb">Spec is CC0. Code is Apache 2.0.<br>The conformance suite is yours to fork.</p>
-      <a class="btn" href="/working-group.html">Join the Working Group &#8599;</a>
-    </div>
-    <div class="f-cols">
-      <div class="f-col">
-        <div class="f-h">Protocol</div>
-        <a href="/protocol.html">Documentation</a>
-        <a href="/benchmarks.html">Benchmarks</a>
-        <a href="/threat-model.html">Threat Model</a>
-        <a href="/faq.html">FAQ</a>
+<footer class="r">
+      <div class="foot-grid">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px">
+            <span class="sq"></span>
+            <span class="mono" style="font-size:14px; font-weight:500">Agent Passport System</span>
+          </div>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:8px">Open-source infrastructure to enforce, verify, and audit AI agent actions.</p>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:18px">The conformance suite is yours to fork.</p>
+          <a class="mono" href="mailto:signal@aeoess.com" style="display:inline-block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg); border:1px solid var(--line2); padding:9px 16px; border-radius:2px">Contact ↗</a>
+        </div>
+        <div>
+          <div class="head">Protocol</div>
+          <div class="links">
+            <a href="https://agent-passport.org/docs.html">Documentation</a>
+            <a href="https://agent-passport.org/protocol.html">Protocol</a>
+            <a href="https://agent-passport.org/threat-model.html">Threat model</a>
+            <a href="https://agent-passport.org/faq.html">FAQ</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Developers</div>
+          <div class="links">
+            <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
+            <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
+            <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
+            <a href="https://agent-passport.org/wallet.html">Agent Wallet</a>
+            <a href="https://agent-passport.org/AGENTS.md">AGENTS.md</a>
+            <a href="https://agent-passport.org/llms.txt">llms.txt</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Community</div>
+          <div class="links">
+            <a href="https://agent-passport.org/blog.html">Dev Log</a>
+            <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+            <a href="https://agent-passport.org/working-group.html">Working group</a>
+            <a href="https://agent-passport.org/research.html">Research</a>
+          </div>
+        </div>
       </div>
-      <div class="f-col">
-        <div class="f-h">Developers</div>
-        <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
-        <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
-        <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
-        <a href="/wallet.html">Agent Wallet</a>
-        <a href="/AGENTS.md">AGENTS.md</a>
-        <a href="/llms.txt">llms.txt</a>
+      <div class="foot-base" style="justify-content:flex-start; gap:16px 56px">
+        <span><em class="fbk">License</em>Code Apache 2.0</span>
+        <span><em class="fbk">Editor</em>Tymofii Pidlisnyi</span>
+        <span><em class="fbk">Spec</em>draft-pidlisnyi-aps (IETF Internet-Draft)</span>
+        <span><em class="fbk">Imprint</em>Vol. 01 · 2026 · agent-passport.org</span>
+        <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
       </div>
-      <div class="f-col">
-        <div class="f-h">Community</div>
-        <a href="/blog.html">Dev Log</a>
-        <a href="/roadmap.html">Roadmap</a>
-        <a href="/working-group.html">Working Group</a>
-      </div>
-      <div class="f-col">
-        <div class="f-h">Research</div>
-        <a href="/research.html#r1">Agent Social Contract</a>
-        <a href="/research.html#r2">Monotonic Narrowing</a>
-        <a href="/research.html#r3">Faceted Authority Attenuation</a>
-        <a href="/research.html#r4">Behavioral Derivation Rights</a>
-        <a href="/research.html#r5">Physics-Enforced Delegation</a>
-        <a href="/research.html#r6">Governance in the Medium</a>
-        <a href="/research.html#r7">Cognitive Attestation</a>
-        <a href="/research.html#r8">Evidence-Safety Gap</a>
-      </div>
-    </div>
-  </div>
-  <div class="f-strip">
-    <div><span>License</span>Spec CC0 &middot; Code Apache 2.0</div>
-    <div><span>Editor</span>Tymofii Pidlisnyi</div>
-    <div><span>Standard</span>APS &middot; IETF Internet-Draft</div>
-    <div><span>Imprint</span>Vol. 01 &middot; 2026 &middot; agent-passport.org</div>
-    <div><span>Also at</span><a href="https://aeoess.com">aeoess.com</a></div>
-  </div>
-</footer>
+    </footer>
 </body>
 </html>

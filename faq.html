@@ -1,42 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FAQ | Agent Passport System</title>
 <meta name="description" content="Frequently asked questions about the Agent Passport System. Enforcement infrastructure for AI agents. Verifier hot path p50 318ns (Mac M3). Wallet binding across chains. 3,959 tests.">
 <link rel="canonical" href="https://agent-passport.org/faq.html">
-<link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
-<link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation">
-<link rel="alternate" type="application/json" href="https://agent-passport.org/.well-known/mcp.json" title="MCP server discovery">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="/aps-design.css">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-S7QVCJGMKR');</script>
-<script type="application/aps-governance+json">
-{
-  "@context": "https://aeoess.com/governance/v1",
-  "@type": "GovernanceBlock",
-  "source_did": "did:aps:z6MkfBQNZXXcgtkmj4AvFfH14WtSmd4gUrUEfyi2oMbrmTGW",
-  "content_hash": "sha256:2b9e5e27d3aa7cc29eba20e01368c57fb2bf519d5e76013002db9bdbfff5d8a9",
-  "published_at": "2026-03-29T01:25:50.904Z",
-  "governance_generated_at": "2026-03-29T01:25:50.904Z",
-  "terms": {
-    "inference": "permitted",
-    "training": "attribution_required",
-    "redistribution": "permitted",
-    "caching": "permitted"
-  },
-  "revocation_policy": {
-    "mechanism": "aps_txt",
-    "endpoint": "https://agent-passport.org/.well-known/aps.txt"
-  },
-  "signature": "4373f0efec8de1a9cd8515a881f1eda6f46b7b057c2cb6df94e7515aa594fc17864020a810925c890237cab8c773886529f62777cf07be0cd5c37195c7a5400b"
-}
-</script>
+<meta property="og:title" content="FAQ | Agent Passport System">
+<meta property="og:description" content="Frequently asked questions about the Agent Passport System. Enforcement infrastructure for AI agents. Verifier hot path p50 318ns (Mac M3). Wallet binding across chains. 3,959 tests.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://agent-passport.org/faq.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230A0B08'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23C8F032'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/aps-v2.css">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","dateModified":"2026-05-02","mainEntity":[
+{"@context":"https://schema.org","@type":"FAQPage","dateModified":"2026-07-02","mainEntity":[
 {"@type":"Question","name":"What is Agent Passport System?","acceptedAnswer":{"@type":"Answer","text":"Agent Passport System gives you 150 MCP tools to make your AI agents accountable. Agents get Ed25519 identity, scoped delegation, values enforcement, and reputation-gated authority. Every action is scoped, auditable, and revocable."}},
 {"@type":"Question","name":"What is the Agent Passport System?","acceptedAnswer":{"@type":"Answer","text":"The Agent Passport System (v3.0.0) is a TypeScript SDK with 84 core modules + 23 v2 constitutional governance modules and 3,959 tests. The MCP server (v3.2.4) provides 150 tools. Install via npm install agent-passport-system."}},
 {"@type":"Question","name":"Is Agent Passport System open source?","acceptedAnswer":{"@type":"Answer","text":"Yes. Apache-2.0 licensed. SDK v3.0.0, 3,959 tests. Eight papers on Zenodo plus an IETF Internet-Draft (draft-pidlisnyi-aps-01). github.com/aeoess"}},
@@ -48,27 +26,30 @@
 </script>
 </head>
 <body>
-<div class="topbar">
-  <a class="brand" href="/"><b>APS</b> &middot; Agent Passport System</a>
-  <nav class="topnav">
-    <a href="/docs.html">Docs</a>
-    <a href="/protocol.html">Spec</a>
-    <a href="/benchmarks.html">Benchmarks</a>
-    <a href="/research.html">Research</a>
-    <a href="/roadmap.html">Roadmap</a>
-    <a href="/blog.html">Dev Log</a>
-    <a href="https://github.com/aeoess/agent-passport-system">GitHub &#8599;</a>
+<div class="bg-glow"></div>
+<header class="nav">
+  <div class="brand">
+    <a href="/"><span class="sq"></span>APS <span style="color:var(--sub)">· Agent Passport System</span></a>
+    <span class="badge"><i></i>Apache 2.0</span>
+  </div>
+  <nav class="nav-links">
+    <a href="https://agent-passport.org/docs.html">Docs</a>
+    <a href="https://agent-passport.org/protocol.html">Spec</a>
+    <a href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a href="https://agent-passport.org/research.html">Research</a>
+    <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+    <a href="https://agent-passport.org/blog.html">Dev Log</a>
+    <a class="gh" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
   </nav>
-</div>
-
-<main>
-  <section class="page-hero"><div class="wrap">
-    <div class="eyebrow">FAQ</div>
-    <h1>Frequently asked <span class="it">questions</span>.</h1>
+</header>
+<main class="page">
+  <section class="page-hero">
+    <div class="eyebrow"><span class="sq"></span><span>Faq</span></div>
+    <h1>Frequently asked questions.</h1>
     <p class="dek">Common questions about Agent Passport System and the Agent Passport System.</p>
-  </div></section>
+  </section>
+  <article class="prose">
 
-  <div class="aps-prose"><div class="wrap"><div class="col">
 
   <div class="faq">
 
@@ -135,12 +116,12 @@
 
     <details>
       <summary><span class="n">13</span><span class="q">What is Data Lifecycle Governance?</span><span class="pm">+</span></summary>
-      <div class="ans">The protocol governs what happens to data <em>after</em> access — through transformation, across system boundaries, after consent revocation, into decisions, and under dispute. Key primitives: <b>Extended Derivation Continuity</b> (multi-hop chains with break markers and lineage confidence), <b>Post-Revocation Obligations</b> (honest per-artifact-type obligations — RAG chunks get deleted, model weights require retraining, settlement records are ledger-exempt), <b>Decision Lineage Receipt</b> (traces which data sources influenced a specific decision — the right-to-explanation primitive), <b>Purpose Taxonomy</b> (hierarchical with wildcard matching), <b>Retention TTL</b> (ephemeral vs persistent access), <b>Terms Version Pinning</b> (freezes terms at access time for settlement). Phase 2 adds aggregation controls, jurisdiction envelopes (EU/GDPR transfer checks), governance taint propagation, dispute state, combination constraints (forbidden joins for HIPAA/COPPA), access snapshots (anti-rug-pull), rights propagation semantics, purpose drift detection, and re-identification risk declarations.</div>
+      <div class="ans">The protocol governs what happens to data <em>after</em> access: through transformation, across system boundaries, after consent revocation, into decisions, and under dispute. Key primitives: <b>Extended Derivation Continuity</b> (multi-hop chains with break markers and lineage confidence), <b>Post-Revocation Obligations</b> (honest per-artifact-type obligations: RAG chunks get deleted, model weights require retraining, settlement records are ledger-exempt), <b>Decision Lineage Receipt</b> (traces which data sources influenced a specific decision, the right-to-explanation primitive), <b>Purpose Taxonomy</b> (hierarchical with wildcard matching), <b>Retention TTL</b> (ephemeral vs persistent access), <b>Terms Version Pinning</b> (freezes terms at access time for settlement). Phase 2 adds aggregation controls, jurisdiction envelopes (EU/GDPR transfer checks), governance taint propagation, dispute state, combination constraints (forbidden joins for HIPAA/COPPA), access snapshots (anti-rug-pull), rights propagation semantics, purpose drift detection, and re-identification risk declarations.</div>
     </details>
 
     <details>
       <summary><span class="n">14</span><span class="q">What is the Decision Lineage Receipt?</span><span class="pm">+</span></summary>
-      <div class="ans">The bridge between decision provenance (Module 37) and data provenance (Modules 38-42). When an agent makes a decision that affects a human — loan denied, content moderated, insurance claim rejected — the human should be able to ask: "what data influenced this decision?" The Decision Lineage Receipt cryptographically links the decision artifact to every contributing data source, with derivation depth, transform path, terms version at access, lineage confidence, and compensation status. If the model was trained externally and lineage is incomplete, the receipt says so honestly rather than faking completeness.</div>
+      <div class="ans">The bridge between decision provenance (Module 37) and data provenance (Modules 38-42). When an agent makes a decision that affects a human (loan denied, content moderated, insurance claim rejected), the human should be able to ask: "what data influenced this decision?" The Decision Lineage Receipt cryptographically links the decision artifact to every contributing data source, with derivation depth, transform path, terms version at access, lineage confidence, and compensation status. If the model was trained externally and lineage is incomplete, the receipt says so honestly rather than faking completeness.</div>
     </details>
 
     <details>
@@ -160,7 +141,7 @@
 
     <details>
       <summary><span class="n">18</span><span class="q">How does GDPR work with an append-only receipt chain?</span><span class="pm">+</span></summary>
-      <div class="ans">The <code>tombstoneReceipt()</code> function redacts the sensitive payload (action details, parameters, result summary become <code>[REDACTED]</code>) while preserving the receipt ID, signature, timestamps, and chain hash links. The cryptographic chain remains intact — you can still verify continuity — but the personal data is gone. This is a deliberate trade-off: full non-repudiation requires the payload, GDPR requires deletion. Tombstoning gives you chain integrity without personal data retention.</div>
+      <div class="ans">The <code>tombstoneReceipt()</code> function redacts the sensitive payload (action details, parameters, result summary become <code>[REDACTED]</code>) while preserving the receipt ID, signature, timestamps, and chain hash links. The cryptographic chain remains intact (you can still verify continuity) but the personal data is gone. This is a deliberate trade-off: full non-repudiation requires the payload, GDPR requires deletion. Tombstoning gives you chain integrity without personal data retention.</div>
     </details>
 
     <details>
@@ -174,60 +155,57 @@
   <p><strong>🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt">llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt">llms-full.txt</a> for the complete technical reference (3,959 tests, 150 MCP tools, 107 modules). This page is designed for humans.</p>
   </div>
 
-  </div></div></div>
+  
+  </article>
 </main>
-
-<footer>
-  <div class="f-top">
-    <div class="f-brand">
-      <div class="f-word"><b>Agent Passport System</b></div>
-      <p class="f-blurb">Open-source infrastructure to enforce,<br>verify, and audit AI agent actions.</p>
-      <p class="f-blurb">Spec is CC0. Code is Apache 2.0.<br>The conformance suite is yours to fork.</p>
-      <a class="btn" href="/working-group.html">Join the Working Group &#8599;</a>
-    </div>
-    <div class="f-cols">
-      <div class="f-col">
-        <div class="f-h">Protocol</div>
-        <a href="/protocol.html">Documentation</a>
-        <a href="/benchmarks.html">Benchmarks</a>
-        <a href="/threat-model.html">Threat Model</a>
-        <a href="/faq.html">FAQ</a>
+<footer class="r">
+      <div class="foot-grid">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px">
+            <span class="sq"></span>
+            <span class="mono" style="font-size:14px; font-weight:500">Agent Passport System</span>
+          </div>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:8px">Open-source infrastructure to enforce, verify, and audit AI agent actions.</p>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:18px">The conformance suite is yours to fork.</p>
+          <a class="mono" href="mailto:signal@aeoess.com" style="display:inline-block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg); border:1px solid var(--line2); padding:9px 16px; border-radius:2px">Contact ↗</a>
+        </div>
+        <div>
+          <div class="head">Protocol</div>
+          <div class="links">
+            <a href="https://agent-passport.org/docs.html">Documentation</a>
+            <a href="https://agent-passport.org/protocol.html">Protocol</a>
+            <a href="https://agent-passport.org/threat-model.html">Threat model</a>
+            <a href="https://agent-passport.org/faq.html">FAQ</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Developers</div>
+          <div class="links">
+            <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
+            <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
+            <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
+            <a href="https://agent-passport.org/wallet.html">Agent Wallet</a>
+            <a href="https://agent-passport.org/AGENTS.md">AGENTS.md</a>
+            <a href="https://agent-passport.org/llms.txt">llms.txt</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Community</div>
+          <div class="links">
+            <a href="https://agent-passport.org/blog.html">Dev Log</a>
+            <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+            <a href="https://agent-passport.org/working-group.html">Working group</a>
+            <a href="https://agent-passport.org/research.html">Research</a>
+          </div>
+        </div>
       </div>
-      <div class="f-col">
-        <div class="f-h">Developers</div>
-        <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
-        <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
-        <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
-        <a href="/wallet.html">Agent Wallet</a>
-        <a href="/AGENTS.md">AGENTS.md</a>
-        <a href="/llms.txt">llms.txt</a>
+      <div class="foot-base" style="justify-content:flex-start; gap:16px 56px">
+        <span><em class="fbk">License</em>Code Apache 2.0</span>
+        <span><em class="fbk">Editor</em>Tymofii Pidlisnyi</span>
+        <span><em class="fbk">Spec</em>draft-pidlisnyi-aps (IETF Internet-Draft)</span>
+        <span><em class="fbk">Imprint</em>Vol. 01 · 2026 · agent-passport.org</span>
+        <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
       </div>
-      <div class="f-col">
-        <div class="f-h">Community</div>
-        <a href="/blog.html">Dev Log</a>
-        <a href="/roadmap.html">Roadmap</a>
-        <a href="/working-group.html">Working Group</a>
-      </div>
-      <div class="f-col">
-        <div class="f-h">Research</div>
-        <a href="/research.html#r1">Agent Social Contract</a>
-        <a href="/research.html#r2">Monotonic Narrowing</a>
-        <a href="/research.html#r3">Faceted Authority Attenuation</a>
-        <a href="/research.html#r4">Behavioral Derivation Rights</a>
-        <a href="/research.html#r5">Physics-Enforced Delegation</a>
-        <a href="/research.html#r6">Governance in the Medium</a>
-        <a href="/research.html#r7">Cognitive Attestation</a>
-        <a href="/research.html#r8">Evidence-Safety Gap</a>
-      </div>
-    </div>
-  </div>
-  <div class="f-strip">
-    <div><span>License</span>Spec CC0 &middot; Code Apache 2.0</div>
-    <div><span>Editor</span>Tymofii Pidlisnyi</div>
-    <div><span>Standard</span>APS &middot; IETF Internet-Draft</div>
-    <div><span>Imprint</span>Vol. 01 &middot; 2026 &middot; agent-passport.org</div>
-    <div><span>Also at</span><a href="https://aeoess.com">aeoess.com</a></div>
-  </div>
-</footer>
+    </footer>
 </body>
 </html>
