@@ -1,7 +1,217 @@
 # APS Roadmap — source of truth for aeoess.com/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-06-18 (Day 122). Day 122 added: external action_ref correlation key confirmed byte-for-byte against an independently anchored Arbitrum trail (x402 #2332), and APS delegation-chain vectors cross-encoded into the AAE signed-JWS envelope and merged to the conformance suite (A2A #1716). Day 121 added: did:cycles resolver aligned to the hash-bound window-gated model (aps#46), vocab validator per-system verified_at map (PR #112), cap_vocabulary v0.2 merged (PR #109). Days 116-120 added: ClickHouse delegation example, Python 2.4.0 stable, AgentGraph and AEOESS independent action_ref conformance sets, the crosswalk evidence standard and validator, the two-key action_ref confirmation. Earlier triage (Day 115): 16 items marked done (Matrix v1.1 substrate-attestation primitive shipped end-to-end, CTEF v0.3.2 published with an AEOESS citation, A2A#1829 four-way convergence completed, AIVSS-effectiveness v0.1.1 shipped, PR #91 budget_authority + PR #99 budget_reservation lifecycle merged, PRs #51/#52 + AAIF #14 + AGT #1354 + in-toto #549 retroactively marked done, YC application closed Day 83, A2A #1717 closed Day 73). 2 items dropped (marketplace-proposal, vocab-pings-pr-55-pr-51). In_progress + active now 16 (was 34).
+# Last updated: 2026-07-04 (Day 137). Days 123-137 backfilled: ID-JAG binding shipped and surfaced, SDK 2.9.0 and 3.0.0, Python 2.5.0, gateway authz and money-path hardening deployed, vocab #113 and SDK #47 merged, AuthZEN, W3C CG and AIVSS engagement, the site's v2 design transfer end to end, the horizontal roadmap, themes, media coverage, and the verified copy batch.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 137 — 2026-07-04 ═══
+
+- id: d137-design-transfer-complete
+  title: "Site v2 design transfer complete: every convertible page live"
+  description: "Thirteen content pages plus six bulk-converted pages shipped in the v2 design with per-edit asserts; blog dated bodies byte-identical (386,837-byte region verified); iframe fragments and the interactive architecture app correctly left untouched; deploys migrated to GitHub Actions."
+  status: done
+  workstream: ops
+  day_start: 136
+  day_end: 137
+
+- id: d137-roadmap-timeline
+  title: "Roadmap rebuilt as a horizontal multi-lane timeline over roadmap.yaml"
+  description: "Nine workstream lanes, day axis with real dates, row packing validated offline against all 345 entries, status-colored bars, accordion unfold per lane, hover tooltips, click-through detail, today marker. Same yaml as the source of truth."
+  status: done
+  workstream: ops
+  day_start: 137
+  day_end: 137
+
+- id: d137-theme-system
+  title: "Light and dark themes site-wide in the deck's bright-slide palette"
+  description: "System preference default with a pre-paint snippet on all twenty pages, persisted toggle in the nav and the mobile drawer, deck-style lime highlight blocks in light mode, code and receipt blocks kept as dark islands."
+  status: done
+  workstream: ops
+  day_start: 137
+  day_end: 137
+
+- id: d137-mobile-nav
+  title: "Persistent mobile navigation: shared header and burger drawer on every page"
+  description: "The homepage header and drawer became the single shared chrome across twenty pages; drawer styles ported to the shared sheet; nav.js wires subpages idempotently."
+  status: done
+  workstream: ops
+  day_start: 137
+  day_end: 137
+
+- id: d137-media-coverage
+  title: "Media page with verified coverage entries"
+  description: "Each entry links a self-verifying source: the first Agent Times article, Notarized Agents (arXiv:2606.04193) with the citation confirmed in the PDF, the UBC PDR-in-Production DOI, and the Armorer Labs critique listed deliberately."
+  status: done
+  workstream: comms
+  day_start: 137
+  day_end: 137
+  links:
+    - url: "https://agent-passport.org/media.html"
+      label: "Media"
+    - url: "https://arxiv.org/abs/2606.04193"
+      label: "Notarized Agents"
+
+- id: d137-copy-batch
+  title: "Copy re-evaluation batch shipped after a deep verification pass"
+  description: "Recorded performance claims kept with their evidence lineage; two unevidenced latency rows removed; the fifteen real constraint facets from the SDK type replaced the loose card list; the claims record corrected on the facet count with commit lineage; CTEF, Regulated Action Profile finality, and the 16/16 action_ref cross-validation surfaced with recorded wording."
+  status: done
+  workstream: comms
+  day_start: 137
+  day_end: 137
+
+- id: d137-opensource-retired
+  title: "opensource.html retired from the canonical site"
+  description: "Redirect stub to the working group with noindex; the one historical dev-log link keeps resolving."
+  status: done
+  workstream: ops
+  day_start: 137
+  day_end: 137
+
+- id: d137-blog-picker
+  title: "Dev log day picker"
+  description: "Sticky chip bar built at runtime from existing post anchors; zero mutation of dated bodies, byte-identity asserted at edit."
+  status: done
+  workstream: ops
+  day_start: 137
+  day_end: 137
+
+# ═══ DAY 136 — 2026-07-03 ═══
+
+- id: d136-idjag-surfaced
+  title: "ID-JAG binding surfaced publicly on protocol and docs"
+  description: "The verifier-first binding for the IETF ID-JAG draft, shipped in SDK 2.7.0, named on the identity sections of protocol and docs; the principal-vs-agent receipt model paragraph added per the recorded positioning wording."
+  status: done
+  workstream: standards
+  day_start: 136
+  day_end: 136
+
+- id: d136-homepage-redesign-shipped-live
+  title: "Homepage redesign shipped live to agent-passport.org"
+  description: "index.html replaced with the reviewed landing page (commit 840f6e7), copy through a three-model adversarial review pass plus line-by-line founder verdicts, assembled by a transform script with a hard assert on every edit, VERIFY OK locally and on the Mac. Facts corrected on the page: tests figure moved to 3,959 read live from project-state.json; footer Standard changed to Spec: draft-pidlisnyi-aps (IETF Internet-Draft); Spec CC0 removed pending a licensing decision; receipt signer_did shown as a DID URI matching SDK 3.0.0. Added a slide-10 external-validation line, a Builders-tab live-demo link to wallet.html, prefers-reduced-motion support, and a canonical plus twitter-card plus JSON-LD head block that restores build-state parsing. Rollback path preserved (prior page backed up, git revert 840f6e7); 10 of 10 content probes and build-state exit 0 on live verification."
+  status: done
+  workstream: product
+  day_start: 136
+  day_end: 136
+  links:
+    - url: "https://agent-passport.org/"
+      label: "agent-passport.org"
+
+- id: d136-design-transfer-phases-started
+  title: "Site v2 design transfer started; giskard09 removed from live surfaces"
+  description: "Design-transfer phases 1-3 opened to move the remaining pages to the v2 design; giskard09 references removed from live surfaces as part of the Day-126 neutrality reset for the Hyland stewardship move. Executed as local file work under the standing posting-gate discipline; APS priority date on action_ref (draft-pidlisnyi-aps 4.1, filed 2026-05-14) and APS-hosted canonical surfaces are the anchor."
+  status: in_progress
+  workstream: product
+  day_start: 136
+  day_end: 136
+
+- id: d136-mac-mini-retired-intent-network-railway
+  title: "Mac Mini retired; Intent Network API migrated to Railway"
+  description: "Mac Mini retired per Tima directive; the MacBook Air is the only machine. Intent Network API (Mingle backend) migrated off the Mini to Railway (project intent-network-api, volume /data, DB_PATH set, /health 200 on the Railway domain); Vercel ruled out for the stateful SQLite plus long-running Express workload. Custom domain api.aeoess.com registered on Railway with the Cloudflare CNAME plus TXT handed to Tima; a fresh DB was chosen deliberately rather than restoring the stale March snapshot. SURFACES.md updated with a machines section."
+  status: done
+  workstream: ops
+  day_start: 136
+  day_end: 136
+
+- id: d136-w3c-cg-correction-erratum
+  title: "W3C CG ai-agent-protocol #32 correction plus blog erratum queued (agent-morrow note)"
+  description: "Correction opened on w3c-cg/ai-agent-protocol #32 with a paired blog erratum and an agent-morrow note, extending the same never-measured-figures cleanup started with the CSA provenance correction."
+  status: open
+  workstream: standards
+  day_start: 136
+  day_end: 136
+  links:
+    - url: "https://github.com/w3c-cg/ai-agent-protocol/issues/32"
+      label: "w3c-cg ai-agent-protocol #32"
+
+# ═══ DAY 135 — 2026-07-02 ═══
+
+- id: d135-csa-provenance-correction
+  title: "CSA taise-agent-v01 PR #2 provenance correction posted; never-measured figures withdrawn"
+  description: "Posted a correction on the CSA taise-agent-v01 PR #2 (issuecomment-4867787236) withdrawing the 0.65 / 0.92 / 0.88 figures from the April @aeoess comments as never-measured, per the CSA-PROVENANCE-BRIEF (Option 1, no AI-authorship layer), with an apology to agent-morrow and a recommendation to mark the inherited threshold table provisional. First of five posts on return from a five-day cluster-driven GitHub silence, all Tima-approved with a GPT/Gemini review pass."
+  status: done
+  workstream: standards
+  day_start: 135
+  day_end: 135
+
+- id: d135-return-from-silence-five-posts
+  title: "Return from five-day silence: five threads answered on spec surfaces"
+  description: "Five posts after a cluster-driven absence: the CSA correction above; a vocab PR #114 hold (the LiteLLM #31295 anchor did not verify, single trust domain, fixture-only); an AutoGPT #12700 reply mapping four operator questions to SDK 2.9.0 / 3.0.0 primitives; a vocab #36 reply to nutstrut confirming the Path B wrapper checks with a two-wrapper fixture committed; and an AIP #13 convergence add on the agent_id / signing-key rotation split. Engagement kept to technical substance only, no product mentions, with a fresh canary wave logged and held on silence."
+  status: done
+  workstream: standards
+  day_start: 135
+  day_end: 135
+
+# ═══ DAY 133 — 2026-07-01 ═══
+
+- id: d133-go-tracebeneficiary-resolved-verified-split
+  title: "Go TraceBeneficiary resolved/verified split merged; boot-split and memory consolidation executed"
+  description: "The agent-passport-go TraceBeneficiary resolved/verified split merged to main (3b8c128) after an independent gate (full suite, cross-impl oracle PASS not skipped, gofmt clean): Resolved reports lookup success and Verified now requires a real Ed25519 check; temporal validity in VerifyDelegation remains the queued follow-up."
+  status: done
+  workstream: ops
+  day_start: 133
+  day_end: 133
+
+# ═══ DAY 131 — 2026-06-28 ═══
+
+- id: d131-owasp-aivss-32-enforcement-factor-pin
+  title: "OWASP AIVSS #32 reply posted: enforcement-factor calibration pin (revoke-to-enforce window)"
+  description: "Reply posted on OWASP AIVSS #32 (issuecomment-4835893053, Tima go, unsigned) after VeloGerber agreed the placement (enforcement state multiplies into action_class_ceiling, not beside it) and ran a counter-projection across his 648-cell corpus. The one substantive pin: the residual mapping is sound only if worst_lag_ms is the revoke-to-enforcement propagation window specifically, not general processing latency, and he was asked to confirm which quantity the trial series records before the magnitude hardens. His projection numbers were not restated as ours; his reproduction offer was accepted with a commitment to re-derive the residual independently from the corpus rather than run his script."
+  status: done
+  workstream: standards
+  day_start: 131
+  day_end: 131
+  links:
+    - url: "https://github.com/OWASP/www-project-artificial-intelligence-vulnerability-scoring-system/issues/32"
+      label: "OWASP AIVSS #32"
+
+# ═══ DAY 127 — 2026-06-24 ═══
+
+- id: d127-amavashev-pr-47-merged
+  title: "amavashev PR #47 merged: CyclesEvidence signer-authority verify wiring"
+  description: "PR #47 merged (squash de03f5d) as Claude's technical call under Mutual Mode after amavashev returned the three additive fixes from the Day-126 Track-B review, rebased onto main, and resolved the test-manifest collision. Re-checked at source on the PR head: authentic means signed by the named signer's window-valid key (not authorization, not freshness); signerDid surfaces only on a passing-signature path; an optional expectedEvidenceSigner pins the signer and fails closed. Full suite 3884 tests / 3881 pass / 0 fail / 3 skip on the final form (the +14 are the new authority tests). SDK primitive on the public side of the boundary; contributor credited via a co-author trailer."
+  status: done
+  workstream: protocol
+  day_start: 127
+  day_end: 127
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/pull/47"
+      label: "PR #47"
+
+- id: d127-veloGerber-aivss-32-reply-and-closeouts
+  title: "OWASP AIVSS enforcement-effectiveness §3.2 reply posted; cycles integration arc closed out; AAT week-2 ingested"
+  description: "GitHub-ops sweep: an adversarial-review-hardened reply advancing the exact-versus-bounded position to the bounded, action-class-anchored side (VeloGerber/aivss-enforcement-effectiveness#1, issuecomment-4792098022), with two review-caught pre-post errors fixed. Three close-outs, all Tima-approved: amavashev #25 and #43 confirmed closeable end-to-end and closed on our repo (completing the cycles integration arc across #27/#39/#41/#42/#43/#46/#47), and a UCP #540 close-the-loop for a real implementer's tightening. AAT weekly cadence week-2 validated (2026-06-24) end-to-end against the live agentlair.dev JWKS on an independent path and ingested to the conformance suite (cherry-pick 85d3ca4)."
+  status: done
+  workstream: standards
+  day_start: 127
+  day_end: 127
+  links:
+    - url: "https://github.com/VeloGerber/aivss-enforcement-effectiveness/issues/1"
+      label: "aivss-enforcement-effectiveness #1"
+
+# ═══ DAY 126 — 2026-06-23 ═══
+
+- id: d126-idjag-build3-shipped-2-7-0
+  title: "ID-JAG (BUILD 3) binding shipped to main; SDK 2.7.0 published to npm"
+  description: "The public-SDK ID-JAG to APS delegation binding (verifier-first, pinned to draft-ietf-oauth-identity-assertion-authz-grant-04) shipped to main (fast-forward 5b466ad) after a rebase that preserved the temporal-narrowing fix, a typecheck-clean pass, 18 binding tests, and a full suite of 3842 pass / 0 fail / 3 skip. Published as SDK 2.7.0 on npm (Tima Touch ID, 2026-06-23, latest tag), bundling the ID-JAG binding plus BUILD 1 (spend-unit narrowing), BUILD 2 (verification_mode), and the subDelegate temporal fix. Framed as a binding at the draft §9.7 seam, verifier-first; never ID-JAG depends on APS."
+  status: done
+  workstream: protocol
+  day_start: 126
+  day_end: 126
+  links:
+    - url: "https://www.npmjs.com/package/agent-passport-system"
+      label: "agent-passport-system 2.7.0 on npm"
+
+- id: d126-authzen-binding-token-516-532
+  title: "AuthZEN binding_token engagement: openid/authzen #516 and PR #532"
+  description: "On openid/authzen #516 the binding_token shape (a detached, self-contained, by-value signed assertion over the denied tuple for an independent ARS) was proposed; McGuinness opened PR #532 applying that shape. A follow-up on #516 affirmed the resolution and flagged that by-value inline versus a binding_hash folds two guarantees together (inline is self-describing; a hash only commits, so the ARS must already hold the tuple), reposted on #532 at his request. Live external standards front, engaged in good standing."
+  status: done
+  workstream: standards
+  day_start: 126
+  day_end: 126
+  links:
+    - url: "https://github.com/openid/authzen/issues/516"
+      label: "openid/authzen #516"
+    - url: "https://github.com/openid/authzen/pull/532"
+      label: "openid/authzen PR #532"
 
 # ═══ DAY 96 — 2026-05-23 ═══
 
