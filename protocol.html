@@ -72,7 +72,7 @@
   <h2>3. Architecture</h2>
 
   <h3>3.1 Identity</h3>
-  <p>Ed25519 passports with grades 0 to 3, key rotation, and did:aps identifiers. APS also accepts did:key, did:web, SPIFFE SVIDs, and OAuth tokens, so an agent can carry the identity a stack already issues. One passport binds to one principal.</p>
+  <p>Ed25519 passports with grades 0 to 3, key rotation, and did:aps identifiers. APS also accepts did:key, did:web, SPIFFE SVIDs, and OAuth tokens, including a verifier-first binding for the IETF ID-JAG draft, the grant layer under Okta’s Cross-App Access, so an agent can carry the identity a stack already issues. One passport binds to one principal.</p>
 
   <h3>3.2 Delegation</h3>
   <p>Scoped authority with monotonic narrowing. Sub-delegation can only reduce scope, never widen it. Revocation cascades through the full chain, so revoking a parent authority invalidates everything derived from it.</p>
@@ -94,6 +94,7 @@
 
   <h3>3.8 Accountability primitives</h3>
   <p>Five signed primitives form the accountability surface: ActionReceipt, AuthorityBoundaryReceipt, CustodyReceipt, ContestabilityReceipt, and APSBundle. They use RFC 8785 JCS canonicalization, so receipts are content-addressed and byte-match across implementations, backed by conformance fixtures.</p>
+  <p>Cross-engine receipt interop has been demonstrated with VeritasActa through a three-repo reference integration.</p>
   </section>
 
   <section>

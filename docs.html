@@ -84,7 +84,7 @@ npm install -g agent-passport-system-mcp &amp;&amp; npx agent-passport-system-mc
   <p>The protocol rests on a single rule: <strong>authority can only decrease at each transfer point</strong>. A login authorizes a session. APS authorizes a specific action, at a specific time, under a specific policy, for a specific principal.</p>
 
   <h3>Identity <span class="label">Canonical</span></h3>
-  <p>Ed25519 passports with grades 0 to 3, key rotation, and <code>did:aps</code> identifiers. APS also accepts <code>did:key</code>, <code>did:web</code>, SPIFFE SVIDs, and OAuth tokens, so an agent can carry the identity your stack already issues.</p>
+  <p>Ed25519 passports with grades 0 to 3, key rotation, and <code>did:aps</code> identifiers. APS also accepts <code>did:key</code>, <code>did:web</code>, SPIFFE SVIDs, and OAuth tokens, including a verifier-first binding for the IETF ID-JAG draft, the grant layer under Okta’s Cross-App Access, so an agent can carry the identity your stack already issues.</p>
 
   <h3>Delegation <span class="label">Canonical</span></h3>
   <p>Scoped authority with monotonic narrowing. Sub-delegation can only reduce scope, never add to it. Cascade revocation propagates through the full chain, so revoking a parent authority invalidates everything derived from it.</p>
@@ -101,7 +101,10 @@ npm install -g agent-passport-system-mcp &amp;&amp; npx agent-passport-system-mc
   <h2 id="receipts">Receipts: what they prove, and what they do not</h2>
   <p>Every action produces a signed receipt, and receipts are graph-composable: each claim links to the authority, policy, action, observation, or evidence it depends on, so a verifier can walk from any receipt back to its supporting facts and stop at the boundary it cares about.</p>
   <p>What a standard enforcement receipt proves: the gateway observed the agent issue this action under the cited delegation chain, and the signed body has not changed since signing. That is a real, checkable claim.</p>
+  <p>As of the 3.0 line, verified on a receipt means a verifier ran: fields such as <code>traceBeneficiary().verified</code> perform the Ed25519 check rather than restating intent.</p>
   <div class="warn note"><div class="h">Read this before you build on receipts</div><p>A receipt states its own evidentiary weight, and you must honor it. A <code>self_attested</code> receipt, where the agent signed without independent attestation, carries less weight than a <code>gateway_observed</code> or <code>runtime_attested</code> one. The <code>capture_mode</code> and <code>self_attested</code> fields are part of the claim, not metadata. A verifier must reject self-attested evidence presented as observed evidence. A receipt proves authority and integrity of the recorded action. It does not prove the action was wise, that logging coverage was complete, or that the world matched the claim.</p></div>
+
+  <p>One boundary the broader ecosystem is still working through: the MCP Enterprise-Managed Authorization extension’s open issue #13 records that a resource server cannot currently distinguish the human user from an agent acting on their behalf, confirmed by the draft’s maintainer as of id-jag-04. APS specifies and tests a model for carrying that principal-vs-agent distinction as a verifiable receipt.</p>
 
   <h2 id="gateway">The gateway</h2>
   <p>The SDK gives you the primitives. The gateway is the enforcement boundary that runs them as a service: it is both judge and executor, evaluating each action against the delegation and policy before it happens and emitting the signed receipt.</p>
