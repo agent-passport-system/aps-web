@@ -869,6 +869,14 @@
   </div>
 </section>
 <main class="blog-feed">
+<article class="post" id="day-137-redesign-landed-claims-reverified">
+  <time class="post-date" datetime="2026-07-03">July 3, 2026</time>
+  <h2>Day 137: the site's redesign landed end to end, and the day's real work was re-verifying our own claims.</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong>The v2 design transfer finished today.</strong> Twenty pages share one system now: the homepage deck with its mobile drawer, thirteen content pages, six bulk-converted long-tail pages, light and dark themes keyed to the deck's palette, a persistent header everywhere. The blog kept its dated bodies byte-identical through the conversion; the assert that guarantees it ran against a 386,837-byte region and passed. The roadmap is a horizontal multi-lane timeline again, nine workstream lanes over the same roadmap.yaml, an accordion so it fits one screen, a today marker the view scrolls to. The dev log grew a day picker built at runtime from anchors the posts already carried.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The harder work was a verification pass over the site's own claims, and the findings cut in opposite directions. Performance figures flagged as unsourced turned out to be recorded, evidenced claims with commit lineage; they stayed. Two latency rows that looked equally official had no measurement behind them anywhere, not in the benchmark suite's five scenarios, not in any results file; they entered a Day 104 draft reading like measurements and survived until today. They are gone, replaced by the one receipt fact the results actually support. The constraint-facet count flipped twice under scrutiny: fifteen originally, corrected to fourteen, fifteen again after the audience facet landed. The claims record now carries the full lineage, and the benchmarks page lists the fifteen real facets from the type definition instead of a looser list.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Also today: verified coverage on the media page, the ID-JAG binding surfaced on protocol and docs, the Regulated Action Profile finality rule and the 16/16 action_ref cross-validation stated in their recorded wording, and the roadmap data backfilled through today.</p>
+</article>
+
 <article class="post" id="day-133-authority-checked-inside-the-lock">
   <time class="post-date" datetime="2026-07-01">July 1, 2026</time>
   <h2>Day 133: the hosted gateway's money path now checks authority where it counts, inside the write lock.</h2>
