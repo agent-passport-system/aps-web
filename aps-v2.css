@@ -649,3 +649,24 @@ article.prose blockquote{border-left:2px solid var(--lime); background:var(--pan
 article.prose pre{touch-action:pan-y}
 /* footer fix: paint above fixed bg-glow + align to page column */
 footer{position:relative; z-index:1; max-width:920px; margin:0 auto; padding:40px 5vw 28px}
+/* roadmap */
+.rm-filters{display:flex; gap:8px; margin-top:22px; flex-wrap:wrap}
+.rm-filters button{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; background:none; border:1px solid var(--line2); color:var(--sub); padding:7px 14px; border-radius:2px; cursor:pointer}
+.rm-filters button.on{border-color:var(--lime); color:var(--lime)}
+.rm-root{position:relative; z-index:1}
+.rm-updated{font-size:13px; color:var(--sub); margin:18px 0 4px}
+.rm-updated summary{cursor:pointer; font-family:var(--mono); font-size:11.5px; color:var(--dim)}
+.rm-updated p{margin:10px 0 0; line-height:1.6; max-width:80ch}
+.rm-day{padding:30px 0 6px; border-bottom:1px solid var(--line)}
+.rm-dh{font-family:var(--mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--lime); margin:0 0 16px}
+.rm-card{background:var(--panel); border:1px solid var(--line); border-radius:2px; padding:14px 16px 12px; margin:0 0 10px}
+.rm-top{display:flex; gap:10px; margin-bottom:8px}
+.rm-status,.rm-ws{font-family:var(--mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; padding:2px 8px; border:1px solid var(--line2); border-radius:2px; color:var(--sub)}
+.rm-live .rm-status{color:var(--lime); border-color:var(--lime)}
+.rm-cut{opacity:.55}
+.rm-cut .rm-title{text-decoration:line-through; text-decoration-color:var(--dim)}
+.rm-title{font-family:var(--body); font-weight:600; font-size:14.5px; line-height:1.5; margin:0 0 6px; letter-spacing:0}
+.rm-card details summary{font-family:var(--mono); font-size:10.5px; color:var(--dim); cursor:pointer}
+.rm-card details p{font-size:13px; color:var(--sub); line-height:1.6; margin:8px 0 4px}
+.rm-links{display:flex; gap:14px; flex-wrap:wrap; margin-top:8px}
+.rm-links a{font-family:var(--mono); font-size:11px; color:var(--lime); border-bottom:1px solid rgba(200,240,50,.3)}
