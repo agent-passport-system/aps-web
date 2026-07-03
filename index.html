@@ -1,433 +1,1147 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agent Passport System: Governance infrastructure for the agent economy</title>
-<meta name="description" content="APS gives every AI agent a verifiable identity, ties it to the person or company it represents, and signs every action it is allowed to take. Apache 2.0.">
-<link rel="canonical" href="https://agent-passport.org/">
+<title>Agent Passport System — Governance infrastructure for the agent economy</title>
+<meta name="description" content="APS gives every AI agent a verifiable identity, ties it to the person or company it represents, and signs a receipt for every action taken under that authority. An Apache 2.0 open protocol.">
+<meta property="og:title" content="Agent Passport System">
+<meta property="og:description" content="Governance infrastructure for the agent economy. Open protocol, built in public.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://agent-passport.org/">
-<meta property="og:title" content="Agent Passport System">
-<meta property="og:description" content="Governance infrastructure for the agent economy. An open protocol for verifiable agent identity, scoped delegation, and signed receipts. Open source, built in public.">
-<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://agent-passport.org/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebSite",
+   "name": "Agent Passport System",
+   "url": "https://agent-passport.org/",
+   "description": "Governance infrastructure for the agent economy. 3,959 tests passing across the open implementations. 8 research papers."
+  },
+  {
+   "@type": "ScholarlyArticle",
+   "name": "The Agent Social Contract",
+   "url": "https://zenodo.org/records/18749779"
+  },
+  {
+   "@type": "ScholarlyArticle",
+   "name": "Monotonic Narrowing",
+   "url": "https://zenodo.org/records/18932404"
+  },
+  {
+   "@type": "ScholarlyArticle",
+   "name": "Faceted Authority Attenuation",
+   "url": "https://zenodo.org/records/19260073"
+  },
+  {
+   "@type": "ScholarlyArticle",
+   "name": "Behavioral Derivation Rights",
+   "url": "https://zenodo.org/records/19476002"
+  },
+  {
+   "@type": "ScholarlyArticle",
+   "name": "Physics-Enforced Delegation",
+   "url": "https://zenodo.org/records/19478584"
+  },
+  {
+   "@type": "ScholarlyArticle",
+   "name": "Governance in the Medium",
+   "url": "https://zenodo.org/records/19582550"
+  },
+  {
+   "@type": "ScholarlyArticle",
+   "name": "Cognitive Attestation",
+   "url": "https://zenodo.org/records/19646276"
+  },
+  {
+   "@type": "ScholarlyArticle",
+   "name": "The Evidence-Safety Gap",
+   "url": "https://zenodo.org/records/19914628"
+  }
+ ]
+}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230A0B08'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23C8F032'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
-<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<style>/* vietnamese */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("fonts/cb73e797-bc09-43d3-815b-4284f3c76d90.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("fonts/7cf5c841-da96-42b6-a5d4-862efb2ec51a.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("fonts/66769479-9634-40e2-87c2-d7e909e53627.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("fonts/cb73e797-bc09-43d3-815b-4284f3c76d90.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("fonts/7cf5c841-da96-42b6-a5d4-862efb2ec51a.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("fonts/66769479-9634-40e2-87c2-d7e909e53627.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("fonts/cb73e797-bc09-43d3-815b-4284f3c76d90.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("fonts/7cf5c841-da96-42b6-a5d4-862efb2ec51a.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("fonts/66769479-9634-40e2-87c2-d7e909e53627.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("fonts/cb73e797-bc09-43d3-815b-4284f3c76d90.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("fonts/7cf5c841-da96-42b6-a5d4-862efb2ec51a.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("fonts/66769479-9634-40e2-87c2-d7e909e53627.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/b090d63f-437b-48d7-ab51-080827f019ae.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/18637eab-120d-4fca-80b8-0fa3e30f8317.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/a13773a9-2271-4807-b469-7db44de93a6d.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/8d4cc093-cb4e-472a-a44a-d4273e9d218f.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/155ec1a6-b4c1-4b5a-8339-de6cc3675504.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/f19abd4a-5432-473a-a5fc-44daac91f203.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/b090d63f-437b-48d7-ab51-080827f019ae.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/18637eab-120d-4fca-80b8-0fa3e30f8317.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/a13773a9-2271-4807-b469-7db44de93a6d.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/8d4cc093-cb4e-472a-a44a-d4273e9d218f.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/155ec1a6-b4c1-4b5a-8339-de6cc3675504.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/f19abd4a-5432-473a-a5fc-44daac91f203.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/b090d63f-437b-48d7-ab51-080827f019ae.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/18637eab-120d-4fca-80b8-0fa3e30f8317.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/a13773a9-2271-4807-b469-7db44de93a6d.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/8d4cc093-cb4e-472a-a44a-d4273e9d218f.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/155ec1a6-b4c1-4b5a-8339-de6cc3675504.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/f19abd4a-5432-473a-a5fc-44daac91f203.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/f5728150-7f1e-4f8c-8369-30ef67df8fe5.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/bab6e1b7-1064-47b1-8c9c-d9d1b7a63a23.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/96eb00d8-e822-45ed-949a-4f8c4a8741aa.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/f5728150-7f1e-4f8c-8369-30ef67df8fe5.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/bab6e1b7-1064-47b1-8c9c-d9d1b7a63a23.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/96eb00d8-e822-45ed-949a-4f8c4a8741aa.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/f5728150-7f1e-4f8c-8369-30ef67df8fe5.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/bab6e1b7-1064-47b1-8c9c-d9d1b7a63a23.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/96eb00d8-e822-45ed-949a-4f8c4a8741aa.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/f5728150-7f1e-4f8c-8369-30ef67df8fe5.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/bab6e1b7-1064-47b1-8c9c-d9d1b7a63a23.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/96eb00d8-e822-45ed-949a-4f8c4a8741aa.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important; transition:none !important}.r{opacity:1 !important; transform:none !important}html{scroll-behavior:auto !important}}
+</style>
 <style>
   :root{
-    --bg:#0A0F1E; --bg-alt:#0C1428; --ink:#EAF0F7; --ink-dim:#9FB1C5;
-    --ink-faint:#5E7187; --cyan:#6EC5D9; --cyan-bright:#9BDDEC;
-    --line:rgba(110,197,217,0.22); --hair:rgba(255,255,255,0.07);
-    --sans:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    --display:'Space Grotesk','Inter',-apple-system,sans-serif;
-    --mono:'JetBrains Mono',ui-monospace,"SF Mono",Menlo,Monaco,monospace;
-    --maxw:1160px;
+    --bg:#0A0B08; --panel:#13150E; --panel2:#0C0E08;
+    --line:#22251A; --line2:#33372A; --codeline:#252a17;
+    --fg:#E9ECDB; --sub:#878B78; --dim:#6A6F5E; --faint:#565B4B;
+    --lime:#C8F032;
+    --disp:'Space Grotesk',sans-serif; --body:'Archivo',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
-  ::selection{background:rgba(110,197,217,0.28)}
-  a{color:inherit}
+  *{box-sizing:border-box}
+  html{scroll-snap-type:y mandatory; scroll-behavior:smooth}
+  body{margin:0; background:var(--bg); color:var(--fg); font-family:var(--body)}
+  a{text-decoration:none; color:inherit}
+  ::selection{background:var(--lime); color:var(--bg)}
+  h1,h2,h3,h4,p{margin:0}
 
-  .progress{position:fixed;top:0;left:0;height:2px;background:var(--cyan);width:0;z-index:60;transition:width .12s linear}
+  /* background layers */
+  .bg-glow{position:fixed; inset:0; z-index:0; pointer-events:none; background:radial-gradient(circle at 50% -10%, rgba(200,242,50,.07), transparent 55%), var(--bg)}
+  .bg-dots{position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.5; background-image:radial-gradient(rgba(255,255,255,.045) 1px, transparent 1px); background-size:36px 36px}
 
-  .topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:13px clamp(20px,5vw,56px);background:rgba(10,15,30,0.74);backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
-  .brand{font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
-  .brand b{color:var(--cyan);font-weight:600}
-  .topnav{display:flex;gap:24px;margin-left:auto}
-  .topnav a{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);text-decoration:none}
-  .topnav a:hover{color:var(--cyan-bright)}
-  .btn{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;padding:9px 16px;border:1px solid var(--line);border-radius:3px;color:var(--cyan);white-space:nowrap;transition:all .15s}
-  .btn:hover{border-color:var(--cyan);background:rgba(110,197,217,0.08)}
-  .btn-solid{background:var(--cyan);color:#06121C;border-color:var(--cyan);font-weight:600}
-  .btn-solid:hover{background:var(--cyan-bright);border-color:var(--cyan-bright)}
+  /* HUD */
+  .nav{position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:space-between; gap:24px; padding:18px 5vw; background:linear-gradient(180deg, rgba(10,11,8,.92), rgba(10,11,8,0))}
+  .brand{display:flex; align-items:center; gap:14px}
+  .brand a{display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:13px; letter-spacing:.04em}
+  .sq{width:11px; height:11px; background:var(--lime); display:inline-block}
+  .badge{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:#A7AB97; border:1px solid #2A2D20; padding:4px 9px; border-radius:2px}
+  .badge i{width:6px; height:6px; background:var(--lime); display:inline-block}
+  .nav-links{display:flex; align-items:center; gap:20px; font-family:var(--mono); font-size:12.5px; letter-spacing:.02em}
+  .nav-links a{color:var(--sub); transition:color .2s}
+  .nav-links a:hover{color:var(--fg)}
+  .nav-links a.gh{padding:7px 13px; background:var(--lime); color:var(--bg); font-weight:600; border-radius:2px}
+  .nav-links a.gh:hover{opacity:.88; color:var(--bg)}
+  .hud-counter{position:fixed; left:5vw; bottom:30px; z-index:50; font-family:var(--mono); font-size:13px; letter-spacing:.1em; color:var(--sub); pointer-events:none; transition:opacity .4s}
+  .hud-counter b{color:var(--fg); font-size:15px; font-weight:400}
+  .hud-counter em{color:var(--lime); letter-spacing:.2em; text-transform:uppercase; font-size:11.5px; font-style:normal}
+  .dots{position:fixed; right:30px; top:50%; transform:translateY(-50%); z-index:50; display:flex; flex-direction:column; gap:9px; align-items:center}
+  .dots button{border:none; cursor:pointer; padding:0; width:8px; height:8px; border-radius:100px; background:var(--line2); transition:height .35s, background .35s}
+  .dots button.on{height:24px; background:var(--lime)}
+  .bar-track{position:fixed; left:0; right:0; bottom:0; z-index:50; height:3px; background:rgba(255,255,255,.06)}
+  .bar{height:100%; width:7.7%; background:var(--lime); transition:width .5s cubic-bezier(.4,0,.1,1); box-shadow:0 0 12px rgba(200,242,50,.5)}
 
-  .section{max-width:var(--maxw);margin:0 auto;padding:11vh clamp(22px,5vw,56px);min-height:100vh;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid var(--hair)}
-  .section.alt{background:var(--bg-alt)}
-  .full{max-width:none}
-  .wrap{max-width:var(--maxw);margin:0 auto;width:100%}
+  /* slides */
+  .slide{min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:120px 5vw 96px; position:relative; z-index:1}
+  .eyebrow{display:flex; align-items:center; gap:11px; margin-bottom:30px}
+  .eyebrow .sq{width:10px; height:10px}
+  .eyebrow span{font-family:var(--mono); font-size:13px; letter-spacing:.26em; text-transform:uppercase; color:var(--sub)}
+  .r{transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)}
+  .mono{font-family:var(--mono)}
+  .lime{color:var(--lime)}
+  .subtle{color:var(--sub)}
 
-  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:26px;display:flex;gap:14px;align-items:center}
-  .eyebrow .n{color:var(--ink-faint)}
-  .eyebrow::before{content:"";width:26px;height:1px;background:var(--cyan);opacity:.7}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:14px 24px; font-weight:600; font-size:15px; border-radius:2px; background:var(--lime); color:var(--bg); transition:opacity .2s}
+  .btn:hover{opacity:.88}
+  .btn.ghost{background:transparent; border:1px solid var(--line2); color:var(--fg); font-weight:500; transition:border-color .2s}
+  .btn.ghost:hover{border-color:var(--lime)}
+  .cta-row{display:flex; gap:13px; flex-wrap:wrap; align-items:center}
 
-  h1{font-family:var(--display);font-weight:300;font-size:clamp(2.3rem,5.4vw,4.1rem);line-height:1.05;letter-spacing:-.02em}
-  .statement{font-family:var(--display);font-weight:300;font-size:clamp(1.6rem,3.5vw,2.85rem);line-height:1.16;letter-spacing:-.012em;max-width:22ch}
-  .statement.wide{max-width:28ch}
-  .lead{color:var(--ink-dim);font-size:clamp(1.02rem,1.6vw,1.2rem);line-height:1.68;max-width:60ch;margin-top:24px}
-  .lead + .lead{margin-top:16px}
-  .key{color:var(--ink)}
-  .cy{color:var(--cyan)}
-  .pull{border-left:2px solid var(--cyan);padding:6px 0 6px 22px;margin-top:38px;font-weight:300;font-size:clamp(1.15rem,2.2vw,1.6rem);line-height:1.32;letter-spacing:-.01em;max-width:26ch}
-  .bigterm{font-family:var(--display);font-weight:400;font-size:clamp(2.2rem,5.2vw,3.9rem);line-height:1.04;letter-spacing:-.02em;color:var(--cyan);margin:14px 0 8px}
+  .grid{display:grid; gap:1px; background:var(--line); border:1px solid var(--line)}
+  .grid>div{background:var(--bg)}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .cols2{display:grid; grid-template-columns:1fr 1fr; gap:5vw}
+  .cols2-tilt{display:grid; grid-template-columns:1.05fr 1fr; gap:5vw; align-items:center}
 
-  /* hero */
-  .hero{min-height:96vh;justify-content:center}
-  .flag{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:22px}
-  .flag .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 3px rgba(110,197,217,.16)}
-  .hero .tag{font-family:var(--mono);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:20px}
-  .hero h1{max-width:14ch}
-  .defn{color:var(--ink);font-weight:300;font-size:clamp(1.1rem,2vw,1.45rem);line-height:1.5;max-width:46ch;margin-top:26px}
-  .subline{color:var(--ink-dim);font-size:clamp(1rem,1.6vw,1.18rem);line-height:1.55;max-width:42ch;margin-top:16px}
-  .herobtns{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
-  .proofstrip{margin-top:60px;padding-top:22px;border-top:1px solid var(--hair);display:flex;flex-wrap:wrap;gap:10px 26px;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint)}
-  .proofstrip b{color:var(--ink-dim);font-weight:400}
+  .h-hero{font-family:var(--disp); font-weight:600; font-size:clamp(48px,8.4vw,128px); line-height:.98; letter-spacing:-.035em; max-width:12ch}
+  .h-xl{font-family:var(--disp); font-weight:600; font-size:clamp(38px,5.5vw,84px); line-height:1; letter-spacing:-.03em}
+  .h-lg{font-family:var(--disp); font-weight:600; font-size:clamp(34px,4.8vw,72px); line-height:1.02; letter-spacing:-.03em}
+  .h-md{font-family:var(--disp); font-weight:600; font-size:clamp(30px,4.2vw,62px); line-height:1; letter-spacing:-.03em}
+  .split{display:block; color:var(--sub)}
 
-  .rows{margin-top:40px;display:grid;gap:0;max-width:760px}
-  .row{display:grid;grid-template-columns:34px 1fr;gap:18px;padding:20px 0;border-top:1px solid var(--hair)}
-  .row:last-child{border-bottom:1px solid var(--hair)}
-  .row .ix{font-family:var(--mono);color:var(--cyan);font-size:.95rem;padding-top:3px}
-  .row .t{font-size:clamp(1.05rem,1.7vw,1.22rem);font-weight:400;color:var(--ink)}
-  .row .d{color:var(--ink-dim);font-size:.98rem;line-height:1.55;margin-top:5px}
+  .scroll-hint{position:absolute; left:50%; bottom:34px; transform:translateX(-50%); cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:6px; font-family:var(--mono); font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--sub); background:none; border:none}
+  @keyframes nudge{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(7px);opacity:1}}
+  .scroll-hint i{font-size:16px; font-style:normal; animation:nudge 1.8s ease-in-out infinite}
+  @keyframes travel{0%{left:-3%;opacity:0}8%{opacity:1}92%{opacity:1}100%{left:101%;opacity:0}}
+  @keyframes travelBack{0%{right:-3%;opacity:0}8%{opacity:1}92%{opacity:1}100%{right:101%;opacity:0}}
+  @keyframes glowpulse{0%,100%{box-shadow:0 0 0 1px var(--lime), 0 0 26px rgba(200,242,50,.18)}50%{box-shadow:0 0 0 1px var(--lime), 0 0 46px rgba(200,242,50,.42)}}
+  @keyframes arrowpulse{0%,100%{opacity:.35;transform:translateY(0)}50%{opacity:1;transform:translateY(3px)}}
 
-  /* chain: authority narrows down it, evidence returns */
-  .chain{display:flex;flex-wrap:wrap;align-items:stretch;margin-top:44px}
-  .node{border:1px solid var(--line);border-radius:3px;padding:15px 16px;min-width:132px;flex:1 1 0;display:flex;flex-direction:column;gap:7px;background:rgba(110,197,217,0.03)}
-  .node .lab{font-family:var(--mono);font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:var(--cyan)}
-  .node .v{font-size:.92rem;color:var(--ink);line-height:1.4}
-  .node .meter{margin-top:auto;height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
-  .node .meter>span{display:block;height:100%;background:var(--cyan);border-radius:2px;width:var(--w,100%)}
-  html.js .chain .meter>span{width:0;transition:width .9s cubic-bezier(.2,.7,.2,1)}
-  html.js .chain.in-view .meter>span{width:var(--w,100%)}
-  .arrow{display:flex;align-items:center;justify-content:center;color:var(--cyan);font-size:1.25rem;padding:0 9px;flex:0 0 auto}
-  .evidence{margin-top:20px;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint)}
-  .evidence .bk{color:var(--cyan);font-size:1rem}
-  .evidence .ln{flex:0 0 80px;height:1px;background:linear-gradient(270deg,var(--cyan),transparent)}
-  .chaincap{color:var(--ink-dim);font-size:1rem;line-height:1.6;margin-top:22px;max-width:54ch}
+  /* chat->action vertical */
+  .stack-diagram{display:flex; flex-direction:column; align-items:center}
+  .chip{font-family:var(--mono); font-size:13px; letter-spacing:.2em; text-transform:uppercase; padding:11px 30px; border-radius:2px}
+  .chip.line{color:var(--fg); border:1px solid var(--line2)}
+  .chip.fill{background:var(--lime); color:var(--bg); font-weight:600}
+  .v-arrow{color:var(--lime); font-size:20px; padding:7px 0; animation:arrowpulse 2.2s ease-in-out infinite; font-style:normal}
+  .touch-label{font-family:var(--mono); font-size:11px; letter-spacing:.32em; text-transform:uppercase; color:var(--sub); padding:16px 0 14px}
+  .touch-grid{width:100%}
+  .touch-grid>div{background:var(--panel); padding:22px 24px}
+  .touch-grid h4{font-size:17px; font-weight:600; margin-bottom:6px}
+  .touch-grid p{font-family:var(--mono); font-size:12px; color:var(--sub)}
 
-  /* receipt vs log */
-  .proofline{font-family:var(--mono);font-size:.82rem;color:var(--ink-faint);margin-top:36px}
-  .proofline code{color:var(--ink-dim)}
-  .receipt{margin-top:14px;max-width:440px;border:1px solid var(--line);border-radius:6px;background:rgba(110,197,217,0.03);overflow:hidden}
-  .r-top{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--hair);font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
-  .stamp{color:#06121C;background:var(--cyan);font-weight:600;padding:3px 10px;border-radius:3px;letter-spacing:.14em}
-  html.js .receipt .stamp{opacity:0;transform:scale(.82) rotate(-7deg);transition:opacity .45s ease .25s,transform .45s ease .25s}
-  html.js .receipt.in-view .stamp{opacity:1;transform:none}
-  .receipt dl{margin:0;padding:6px 16px 12px}
-  .receipt dl>div{display:grid;grid-template-columns:92px 1fr;gap:10px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);font-family:var(--mono);font-size:.8rem}
-  .receipt dl>div:last-child{border-bottom:none}
-  .receipt dt{color:var(--ink-faint)}
-  .receipt dd{color:var(--ink);margin:0;word-break:break-all}
-  .receipt dd.ok{color:var(--cyan)}
-  .inv{margin-top:42px;display:grid;gap:0;max-width:720px}
-  .inv .row .ix{font-size:.85rem}
+  /* door */
+  .door-cell{padding:32px}
+  .door-cell.right{border-left:3px solid var(--lime)}
+  .door-head{font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; margin-bottom:22px}
+  .door-list{display:flex; flex-direction:column; gap:15px}
+  .door-list>div{display:flex; align-items:center; gap:14px; font-size:18px}
+  .pip{width:20px; height:20px; flex:0 0 auto; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:11px}
+  .pip.x{border:1px solid var(--line2); color:var(--sub)}
+  .pip.v{background:var(--lime); color:var(--bg)}
 
-  .status{margin-top:40px;display:grid;grid-template-columns:repeat(2,1fr);gap:0;max-width:880px;border-top:1px solid var(--hair)}
-  .status .item{padding:18px 20px 18px 0;border-bottom:1px solid var(--hair);font-size:1rem;color:var(--ink);line-height:1.45}
-  .status .item:nth-child(even){padding-left:24px;border-left:1px solid var(--hair)}
-  .status .item span{display:block;color:var(--ink-faint);font-family:var(--mono);font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;margin-bottom:6px}
+  /* flow */
+  .flow-wrap{display:grid; grid-template-columns:1fr 300px; gap:48px; align-items:center}
+  .flow-legend{display:flex; justify-content:space-between; margin-bottom:14px; font-family:var(--mono); font-size:11.5px; letter-spacing:.14em; text-transform:uppercase}
+  .flow-track{position:relative; padding:30px 0}
+  .flow-line{position:absolute; top:50px; left:3%; right:3%; height:2px; background:#2A2D20}
+  .flow-line i{position:absolute; top:-4px; width:10px; height:10px; border-radius:50%; background:var(--lime); box-shadow:0 0 14px var(--lime); animation:travel 3.4s linear infinite}
+  .flow-line em{position:absolute; bottom:-12px; width:7px; height:7px; border-radius:50%; background:var(--fg); animation:travelBack 3.4s linear infinite; animation-delay:1.4s}
+  .flow-nodes{position:relative; display:flex; justify-content:space-between; gap:8px}
+  .flow-nodes>div{flex:1; text-align:center; min-width:0}
+  .fn-num{display:inline-flex; width:42px; height:42px; border-radius:50%; align-items:center; justify-content:center; background:var(--bg); border:1.5px solid #2A2D20; font-family:var(--mono); font-size:13px; color:var(--lime); position:relative; z-index:2}
+  .fn-t{font-size:14px; font-weight:600; margin-top:14px}
+  .fn-s{font-family:var(--mono); font-size:10.5px; color:var(--sub); margin-top:5px; letter-spacing:.02em; line-height:1.4}
+  .narrow-card{border:1px solid #2A2D20; border-radius:3px; padding:22px}
+  .narrow-card .bar-row{margin-bottom:12px}
+  .narrow-card .bl{font-family:var(--mono); font-size:11px; color:var(--sub); margin-bottom:5px}
+  .narrow-card .b{height:9px; background:var(--lime); border-radius:2px}
+  .flow-tags{display:flex; gap:34px; flex-wrap:wrap; margin-top:16px; font-family:var(--disp); font-size:clamp(16px,1.8vw,21px); font-weight:500}
 
-  .ctas{margin-top:44px;display:grid;gap:0;max-width:720px}
-  .cta{display:grid;grid-template-columns:130px 1fr;gap:20px;padding:20px 0;border-top:1px solid var(--hair)}
-  .cta:last-child{border-bottom:1px solid var(--hair)}
-  .cta .who{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);padding-top:3px}
-  .cta .do{color:var(--ink-dim);font-size:1.02rem;line-height:1.5}
-  .closer{font-family:var(--display);font-weight:300;font-size:clamp(1.5rem,3.4vw,2.6rem);line-height:1.15;letter-spacing:-.015em;max-width:22ch;margin-top:52px}
-  .closer .cy{color:var(--cyan)}
-  .finalbtns{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
+  /* code cards */
+  .code-card{background:var(--panel2); border:1px solid var(--codeline); border-radius:4px; overflow:hidden}
+  .code-card.hot{border-color:#2f3a18; border-top:3px solid var(--lime); box-shadow:0 20px 50px rgba(0,0,0,.45)}
+  .code-head{display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--codeline)}
+  .code-head span{font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--sub)}
+  .code-head .tag{display:inline-flex; align-items:center; gap:6px; font-size:10.5px; letter-spacing:.1em; color:var(--bg); background:var(--lime); padding:3px 9px; border-radius:2px; font-weight:600}
+  .code-card pre{margin:0; padding:18px; font-family:var(--mono); font-size:11.5px; line-height:1.6; white-space:pre-wrap; word-break:break-word; color:var(--dim); max-height:44vh; overflow:auto}
+  .code-card pre .k{color:#86ABD8}
+  .code-card pre .s{color:#C3D98A}
+  .code-card pre .c{color:var(--faint)}
+  .code-card pre .n{color:#E2A55C}
+  .receipt-grid{display:grid; grid-template-columns:.72fr 1.28fr; gap:20px; align-items:start}
 
-  footer{max-width:var(--maxw);margin:0 auto;padding:62px clamp(22px,5vw,56px) 70px;border-top:1px solid var(--hair)}
-  .f-top{display:grid;grid-template-columns:1fr 2.35fr;gap:44px}
-  .f-word{font-family:var(--mono);font-size:.95rem;letter-spacing:.04em;color:var(--ink)}
-  .f-word b{color:var(--cyan);font-weight:600}
-  .f-blurb{color:var(--ink-dim);font-size:.92rem;line-height:1.55;margin-top:14px;max-width:42ch}
-  .f-brand .btn{display:inline-block;margin-top:20px}
-  .f-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,1.55fr);gap:24px}
-  .f-h{font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:12px}
-  .f-col a{display:block;color:var(--ink-dim);text-decoration:none;font-size:.9rem;padding:5px 0;transition:color .15s}
-  .f-col a:hover{color:var(--cyan-bright)}
-  .f-strip{margin-top:46px;padding-top:24px;border-top:1px solid var(--hair);display:flex;flex-wrap:wrap;gap:18px 40px}
-  .f-strip>div{font-size:.85rem;color:var(--ink-dim)}
-  .f-strip span{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:5px}
-  .f-strip a{color:var(--ink-dim);text-decoration:none;border-bottom:1px solid var(--hair)}
-  .f-strip a:hover{color:var(--cyan-bright)}
-  @media(max-width:760px){ .f-top{grid-template-columns:1fr;gap:34px} .f-cols{grid-template-columns:1fr 1fr;gap:24px} }
+  /* npm */
+  .npm{display:flex; align-items:stretch; max-width:560px; background:var(--panel2); border:1px solid var(--codeline); border-radius:3px; overflow:hidden}
+  .npm code{flex:1; font-family:var(--mono); font-size:14px; color:#C3D98A; padding:14px 18px; white-space:nowrap; overflow:auto}
+  .npm code b{color:var(--dim); font-weight:400}
+  .npm button{border:none; cursor:pointer; background:#1a1e10; color:var(--lime); font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; padding:14px 18px}
+  .npm button:hover{background:#222716}
 
-  /* reveal system: visible by default, only animate when JS is on */
-  html.js .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
-  html.js .reveal.in-view{opacity:1;transform:none}
-  html.js .stagger>*{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
-  html.js .stagger.in-view>*{opacity:1;transform:none}
-  html.js .stagger.in-view>*:nth-child(1){transition-delay:.04s}
-  html.js .stagger.in-view>*:nth-child(2){transition-delay:.12s}
-  html.js .stagger.in-view>*:nth-child(3){transition-delay:.20s}
-  html.js .stagger.in-view>*:nth-child(4){transition-delay:.28s}
-  html.js .stagger.in-view>*:nth-child(5){transition-delay:.36s}
-  html.js .stagger.in-view>*:nth-child(6){transition-delay:.44s}
-  html.js .stagger.in-view>*:nth-child(7){transition-delay:.52s}
+  /* cards */
+  .cell{padding:30px}
+  .cell .big{font-family:var(--disp); font-size:34px; line-height:1; font-weight:600; color:var(--lime); margin-bottom:16px}
+  .cell h3{font-size:19px; font-weight:600; margin-bottom:9px; line-height:1.2}
+  .cell p{font-size:14.5px; line-height:1.55; color:var(--sub)}
+  .p-cell{padding:32px}
+  .p-cell .num{font-family:var(--mono); font-size:13px; color:var(--lime); margin-bottom:16px}
+  .p-cell h3{font-size:20px; font-weight:600; margin-bottom:10px; line-height:1.2}
+  .p-cell p{font-size:15.5px; line-height:1.6; color:var(--sub)}
+  .rail-cards{display:grid; grid-template-columns:repeat(4,1fr); gap:20px}
+  .rail{border:1px solid var(--line); padding:24px; background:var(--panel); display:flex; flex-direction:column}
+  .rail h3{font-size:17px; font-weight:600; margin-bottom:10px}
+  .rail p{font-size:14px; line-height:1.55; color:var(--sub); flex:1; margin-bottom:16px}
+  .rail .meta{font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--lime); padding-top:12px; border-top:1px solid var(--line)}
 
-  @media (max-width:820px){ .topnav{display:none} }
-  @media (max-width:760px){
-    .section{min-height:auto;padding:9vh clamp(20px,6vw,28px)}
-    .hero{min-height:92vh}
-    .row{grid-template-columns:28px 1fr;gap:14px}
-    .status{grid-template-columns:1fr}
-    .status .item:nth-child(even){padding-left:0;border-left:none}
-    .cta{grid-template-columns:1fr;gap:6px}
-    .chain{flex-direction:column}
-    .arrow{transform:rotate(90deg);padding:8px 0}
-    .pull,.statement,.statement.wide,.closer{max-width:none}
+  /* neutrality stack */
+  .stack{display:flex; flex-direction:column; align-items:stretch}
+  .stack .box{background:var(--panel); border:1px solid var(--line2); border-radius:3px; padding:22px 26px; text-align:center}
+  .stack .box .t{font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--sub); margin-bottom:4px}
+  .stack .core{background:var(--bg); border:none; border-radius:3px; padding:26px; text-align:center; animation:glowpulse 3s ease-in-out infinite}
+  .stack .core .t{color:var(--lime)}
+  .stack .varrow{text-align:center; color:var(--lime); font-size:20px; padding:8px 0; animation:arrowpulse 2.2s ease-in-out infinite}
+
+  /* chain */
+  .chain{display:flex; align-items:center; gap:20px; flex-wrap:wrap}
+  .chain .n{font-family:var(--disp); font-size:clamp(20px,2.4vw,32px); font-weight:600; padding:14px 26px; border:1px solid var(--line2); border-radius:3px}
+  .chain .arr{color:var(--sub); font-size:22px}
+  .chain .arr.l{color:var(--lime)}
+  .chain .fin{display:inline-flex; flex-direction:column; align-items:flex-start; line-height:1.05; font-family:var(--disp); font-size:clamp(20px,2.4vw,32px); font-weight:600; padding:14px 26px; background:var(--lime); color:var(--bg); border-radius:3px}
+  .chain .fin small{font-family:var(--mono); font-size:12px; font-weight:400; opacity:.72; margin-top:5px}
+
+  /* audience */
+  .tabs{display:flex; gap:6px; margin-bottom:44px; flex-wrap:wrap}
+  .tabs button{font-family:var(--mono); font-size:13px; letter-spacing:.04em; cursor:pointer; padding:12px 24px; border-radius:2px; border:1px solid var(--line2); background:transparent; color:var(--sub)}
+  .tabs button.on{border-color:var(--lime); background:var(--lime); color:var(--bg)}
+
+  /* footer */
+  footer{border-top:1px solid var(--line); padding:40px 0 28px; margin-top:48px}
+  .foot-grid{display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:36px; padding-bottom:32px; border-bottom:1px solid var(--line)}
+  .foot-grid .head{font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--sub); margin-bottom:14px}
+  .foot-grid .links{display:flex; flex-direction:column; gap:10px; font-size:13.5px}
+  .foot-grid .links a{color:var(--fg); transition:color .2s}
+  .foot-grid .links a:hover{color:var(--lime)}
+  .foot-base{display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:14px; padding-top:20px; font-family:var(--mono); font-size:12px; color:var(--sub)}
+  .fbk{display:block; font-style:normal; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:#5C6152; margin-bottom:6px}
+
+  @media (max-height:660px){
+    .hud-counter{display:none}
+    .scroll-hint{display:none}
   }
-
-  @media print{
-    .topbar,.progress,.herobtns,.finalbtns{display:none}
-    html.js .reveal,html.js .reveal.in-view{opacity:1!important;transform:none!important}
-    html.js .stagger>*{opacity:1!important;transform:none!important}
-    html.js .chain .meter>span{width:var(--w,100%)!important}
-    html.js .receipt .stamp{opacity:1!important;transform:none!important}
-    .section{min-height:auto;page-break-after:always;break-after:page;padding:6vh 6vw;border-bottom:none}
-    footer{border:none}
-    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  }
-  @media (prefers-reduced-motion: reduce){
-    html.js .reveal,html.js .reveal.in-view{opacity:1!important;transform:none!important;transition:none!important}
-    html.js .stagger>*{opacity:1!important;transform:none!important;transition:none!important}
-    html.js .chain .meter>span{width:var(--w,100%)!important;transition:none!important}
-    html.js .receipt .stamp{opacity:1!important;transform:none!important;transition:none!important}
+  @media (max-width:900px){
+    html{scroll-snap-type:none}
+    .nav-links a:not(.gh){display:none}
+    .dots{display:none}
+    .cols2,.cols2-tilt,.g2,.g3,.receipt-grid,.flow-wrap,.rail-cards{grid-template-columns:1fr}
+    .cols2,.cols2-tilt{gap:40px}
+    .flow-nodes{flex-wrap:wrap}
+    .flow-nodes>div{flex:1 1 30%}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .slide{padding:110px 6vw 80px}
+    .door-cell.right{border-left:none; border-top:3px solid var(--lime)}
   }
 </style>
 </head>
 <body>
-<div class="progress" id="prog"></div>
 
-<div class="topbar">
-  <a class="brand" href="#top"><b>APS</b> · Agent Passport System</a>
-  <nav class="topnav">
-    <a href="docs.html">Docs</a>
-    <a href="protocol.html">Spec</a>
-    <a href="benchmarks.html">Benchmarks</a>
-    <a href="research.html">Research</a>
-    <a href="roadmap.html">Roadmap</a>
-    <a href="blog.html">Dev Log</a>
-    <a href="https://github.com/aeoess/agent-passport-system">GitHub &#8599;</a>
+
+
+<div class="bg-glow"></div>
+<div class="bg-dots"></div>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="brand">
+    <a href="#top"><span class="sq"></span>APS <span style="color:var(--sub)">· Agent Passport System</span></a>
+    <span class="badge"><i></i>Apache 2.0</span>
+  </div>
+  <nav class="nav-links">
+    <a href="https://agent-passport.org/docs.html">Docs</a>
+    <a href="https://agent-passport.org/protocol.html">Spec</a>
+    <a href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a href="https://agent-passport.org/research.html">Research</a>
+    <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+    <a href="https://agent-passport.org/blog.html">Dev Log</a>
+    <a class="gh" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
   </nav>
-</div>
+</header>
 
-<!-- 01 HERO -->
-<section class="section hero" id="top">
-  <div class="flag"><span class="dot"></span> Open source &middot; Built in public</div>
-  <div class="tag">Governance infrastructure for the agent economy</div>
-  <h1>Agent Passport System</h1>
-  <p class="defn">APS gives every AI agent a verifiable identity, ties it to the person or company it represents, and signs every action it is allowed to take.</p>
-  <p class="subline">Proof that travels with the action, not a log you check after something breaks.</p>
-  <div class="herobtns">
-    <a class="btn btn-solid" href="https://github.com/aeoess/agent-passport-system">View the protocol</a>
-    <a class="btn" href="protocol.html">Read the spec</a>
-  </div>
-  <div class="proofstrip">
-    <b>Spec CC0 &middot; Code Apache 2.0</b><b>IETF Internet-Draft</b><b>SDKs on npm and PyPI</b><b>Three contribution PRs merged into the Microsoft Agent Governance Toolkit by a Microsoft maintainer (#274, #598, #1328)</b>
-  </div>
-</section>
+<!-- HUD -->
+<div class="hud-counter" id="hud"><b id="counter">01</b> / 13 &nbsp;·&nbsp; <em id="label">Overview</em></div>
+<div class="dots" id="dots" aria-label="Slide navigation"></div>
+<div class="bar-track"><div class="bar" id="bar"></div></div>
 
-<!-- 02 THE GAP -->
-<section class="section alt" id="why">
-  <div class="eyebrow reveal"><span class="n">02</span> Why this matters</div>
-  <p class="statement wide reveal">AI agents are starting to act for people and companies. They move money, touch data, call tools, and trigger workflows.</p>
-  <p class="lead reveal">When a person acts on behalf of a company, trust is built in. They have a title, a mandate, and an approval chain. You know what they can sign for, and who answers if it goes wrong. When software acts on behalf of a company, none of that is attached. The action happens. The proof does not.</p>
-  <p class="pull reveal">The next trust boundary is not the user login. It is the action an agent takes on your behalf.</p>
-</section>
+<main>
 
-<!-- 03 ACCESS IS NOT AUTHORITY -->
-<section class="section">
-  <div class="eyebrow reveal"><span class="n">03</span> The missing piece</div>
-  <p class="statement reveal">Access is not authority. A login authorizes a session. <span class="cy">APS authorizes an action.</span></p>
-  <p class="lead reveal">A token proves a system was allowed through the door. It does not prove the agent had the right to make a specific decision, at that time, under that policy, for that principal.</p>
-  <p class="lead reveal">A log shows that something occurred. Neither answers the question that matters later. <span class="key">Was the agent allowed to do that?</span></p>
-</section>
-
-<!-- 04 WHAT APS IS -->
-<section class="section alt" id="protocol">
-  <div class="eyebrow reveal"><span class="n">04</span> What APS is</div>
-  <p class="statement wide reveal">A verifiable identity, and a signed receipt for every action an agent is allowed to take.</p>
-  <div class="rows stagger reveal">
-    <div class="row"><div class="ix">I</div><div><div class="t">Identity</div><div class="d">Which agent acted, and which principal it represents.</div></div></div>
-    <div class="row"><div class="ix">S</div><div><div class="t">Scoped authority</div><div class="d">The limits, budget, and conditions it operates under, enforced at runtime.</div></div></div>
-    <div class="row"><div class="ix">E</div><div><div class="t">Evidence</div><div class="d">A signed receipt for every permitted action, and evidence for every denial.</div></div></div>
-  </div>
-  <p class="lead reveal">APS does not replace identity providers, wallets, or orchestration. It sits beside the protocols you already run, as the governance layer.</p>
-</section>
-
-<!-- 05 HOW IT WORKS -->
-<section class="section full">
-  <div class="wrap">
-    <div class="eyebrow reveal"><span class="n">05</span> How it works</div>
-    <p class="statement wide reveal">Authority flows down. Evidence flows back.</p>
-    <div class="chain reveal">
-      <div class="node" style="--w:100%"><div class="lab">Principal</div><div class="v">The person or company behind the agent</div><div class="meter"><span></span></div></div>
-      <div class="arrow">&rarr;</div>
-      <div class="node" style="--w:100%"><div class="lab">Passport</div><div class="v">Verifiable identity, tied to the principal</div><div class="meter"><span></span></div></div>
-      <div class="arrow">&rarr;</div>
-      <div class="node" style="--w:64%"><div class="lab">Delegation</div><div class="v">Scoped authority, with limits and conditions</div><div class="meter"><span></span></div></div>
-      <div class="arrow">&rarr;</div>
-      <div class="node" style="--w:42%"><div class="lab">Gateway</div><div class="v">Checks scope, policy, and freshness</div><div class="meter"><span></span></div></div>
-      <div class="arrow">&rarr;</div>
-      <div class="node" style="--w:26%"><div class="lab">Action</div><div class="v">The operation runs, or is denied</div><div class="meter"><span></span></div></div>
-      <div class="arrow">&rarr;</div>
-      <div class="node" style="--w:26%"><div class="lab">Receipt</div><div class="v">Signed record, or evidence of denial</div><div class="meter"><span></span></div></div>
+  <!-- 01 HERO -->
+  <section class="slide" id="top" aria-label="Overview">
+    <div class="eyebrow r"><span class="sq" style="border-radius:50%; width:8px; height:8px"></span><span style="letter-spacing:.22em">Open source · Built in public</span></div>
+    <div class="r mono" style="font-size:clamp(12px,1.3vw,14px); letter-spacing:.24em; text-transform:uppercase; color:var(--lime); margin-bottom:22px">Governance infrastructure for the agent economy</div>
+    <h1 class="h-hero r" style="margin-bottom:30px">Agent Passport System</h1>
+    <p class="r" style="font-size:clamp(18px,2.1vw,24px); line-height:1.45; max-width:46ch; margin-bottom:14px">APS gives every AI agent a verifiable identity, ties it to the person or company it represents, and signs a receipt for every action taken under that authority.</p>
+    <p class="r mono subtle" style="font-size:clamp(13px,1.5vw,15.5px); line-height:1.55; max-width:52ch; margin-bottom:38px">Proof that travels with the action, not a log you check after something breaks.</p>
+    <div class="cta-row r">
+      <a class="btn" href="https://agent-passport.org/protocol.html">View the protocol →</a>
+      <a class="btn ghost" href="https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/">Read the spec</a>
+      <a class="btn ghost" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
     </div>
-    <div class="evidence reveal"><span class="bk">&larr;</span><span class="ln"></span><span>Evidence flows back to the principal</span></div>
-    <p class="chaincap reveal">Each step down the chain narrows what the agent can do. Each action returns a signed artifact the principal can verify later.</p>
-  </div>
-</section>
+    <button class="scroll-hint" data-go="1"><span>Scroll</span><i>↓</i></button>
+  </section>
 
-<!-- 06 WHY IT HOLDS -->
-<section class="section alt">
-  <div class="eyebrow reveal"><span class="n">06</span> Why it holds</div>
-  <p class="statement reveal">A log is a diary. A receipt is evidence.</p>
-  <p class="lead reveal">A log says something happened. A receipt states who authorized it, what scope applied, what policy evaluated it, what action occurred, and what evidence remains.</p>
-  <p class="proofline reveal">The log only said: <code>vendor.payment.approve &nbsp;200 OK</code></p>
-  <div class="receipt reveal">
-    <div class="r-top"><span>Receipt</span><span class="stamp">Permitted</span></div>
-    <dl>
-      <div><dt>action</dt><dd>vendor.payment.approve</dd></div>
-      <div><dt>principal</dt><dd>Acme Corp</dd></div>
-      <div><dt>agent</dt><dd>procurement-agent-01</dd></div>
-      <div><dt>scope</dt><dd>vendor payments under $10,000</dd></div>
-      <div><dt>policy</dt><dd>finance-approval-v3</dd></div>
-      <div><dt>decision</dt><dd class="ok">permitted</dd></div>
-      <div><dt>signature</dt><dd>ed25519:3a7f...d41c</dd></div>
-    </dl>
-  </div>
-  <div class="inv rows stagger reveal">
-    <div class="row"><div class="ix">01</div><div><div class="t">Authority only narrows.</div><div class="d">Delegation can reduce authority, never silently widen it.</div></div></div>
-    <div class="row"><div class="ix">02</div><div><div class="t">The gateway enforces, not only observes.</div><div class="d">It checks scope, policy, and freshness before the action runs.</div></div></div>
-    <div class="row"><div class="ix">03</div><div><div class="t">A receipt states what it proves and what it does not.</div><div class="d">Honesty about the boundary of the evidence is part of the evidence.</div></div></div>
-  </div>
-</section>
-
-<!-- 07 THE LONG BET -->
-<section class="section">
-  <div class="eyebrow reveal"><span class="n">07</span> The long bet</div>
-  <p class="lead reveal" style="margin-top:0">Identity is where this starts. The harder problem is this.</p>
-  <p class="bigterm reveal">Beneficiary attribution</p>
-  <p class="lead reveal">When an agent creates work, moves value, or produces an outcome, the person or company behind it remains the principal who participated through it. Earned and traceable, not pooled or redistributed.</p>
-  <p class="lead key reveal">APS makes that participation auditable through signed records.</p>
-</section>
-
-<!-- 08 WHY OPEN -->
-<section class="section alt">
-  <div class="eyebrow reveal"><span class="n">08</span> Why open, and how it sustains</div>
-  <p class="statement reveal">Trust cannot be proprietary.</p>
-  <p class="lead reveal">Agents cross tools, clouds, wallets, payment rails, and jurisdictions. If the layer that records and verifies authority is owned by one company, the agent economy inherits that company's incentives and risk.</p>
-  <p class="pull reveal">Open at the edge. <span class="cy">Strict at the core.</span></p>
-  <p class="lead reveal">The protocol is the adoption. The gateway is the moat. Enterprises do not buy a standard. They buy enforcement, verification, audit export, and integration. The AEOESS gateway turns receipts into the audit-ready evidence the EU AI Act and enterprise buyers increasingly require.</p>
-</section>
-
-<!-- 09 WHERE IT PLUGS IN -->
-<section class="section" id="ecosystem">
-  <div class="eyebrow reveal"><span class="n">09</span> Where it plugs in</div>
-  <p class="statement reveal">Agents already run on rails. APS makes the action on them accountable.</p>
-  <p class="lead reveal">An agent pays through a payment protocol, calls another agent over an agent protocol, and runs inside a framework. None of those record who authorized the action or prove it stayed in scope. APS sits underneath them. The same passport, delegation, and receipt travel across whatever rail the agent uses. Authority flows down, evidence flows back.</p>
-  <div class="status stagger reveal">
-    <div class="item"><span>Payment rails</span>Spend authority tied to a signed delegation, with a receipt for each charge. Bindings for x402, Google's AP2, ACP, and Stripe issuing.</div>
-    <div class="item"><span>Agent protocols</span>Identity and scoped authority travel with the call. An MCP server exposes the protocol surface as tools, and an adapter carries it across A2A.</div>
-    <div class="item"><span>Agent standards</span>gitagent-protocol, the git-native standard for defining agents, merged APS's optional cryptographic identity layer.</div>
-    <div class="item"><span>Frameworks</span>The passport rides into the agent runtime. Adapters for LangChain, CrewAI, and AutoGen.</div>
-  </div>
-  <p class="lead reveal">Some of these are bindings the project ships, others are contributions merged upstream. Connective tissue, not a claim that these ecosystems depend on APS.</p>
-</section>
-
-<!-- 10 WHERE IT IS, HONESTLY -->
-<section class="section" id="proof">
-  <div class="eyebrow reveal"><span class="n">10</span> Where it is, honestly</div>
-  <p class="statement wide reveal">The problem arrives tomorrow. The work is already real.</p>
-  <p class="lead reveal">Open to read, test, and challenge today.</p>
-  <div class="status stagger reveal">
-    <div class="item"><span>Specification</span>An IETF Internet-Draft, authored for the protocol</div>
-    <div class="item"><span>Implementations</span>TypeScript, Python, and Go SDKs, on npm, PyPI, and pkg.go.dev</div>
-    <div class="item"><span>Parity</span>Byte-parity across the SDKs, checked against shared vectors</div>
-    <div class="item"><span>Runtime</span>An MCP server and a public conformance suite</div>
-    <div class="item"><span>Research</span>Eight papers with Zenodo DOIs</div>
-    <div class="item"><span>Ecosystem</span>Three contribution PRs merged into the Microsoft Agent Governance Toolkit by a Microsoft maintainer (#274, #598, #1328)</div>
-    <div class="item"><span>Standards process</span>A written acknowledgment in the NIST CAISI process</div>
-    <div class="item"><span>Interop</span>Cross-engine receipt verification with an independent implementation</div>
-    <div class="item"><span>Citation</span>Referenced in PDR in Production, University of British Columbia</div>
-    <div class="item"><span>Contribution</span>More than fifty merged contributions from more than two dozen external contributors</div>
-    <div class="item"><span>Honest framing</span>Contributions and early usage, not production dependency</div>
-  </div>
-</section>
-
-<!-- 11 INVITATION -->
-<section class="section alt" id="contribute">
-  <div class="eyebrow reveal"><span class="n">11</span> The invitation</div>
-  <p class="statement reveal">Build the right system before agents inherit the wrong one.</p>
-  <div class="ctas stagger reveal">
-    <div class="cta"><div class="who">Contributors</div><div class="do">Read the spec. Challenge the primitives. Build an adapter.</div></div>
-    <div class="cta"><div class="who">Partners</div><div class="do">Pilot the gateway. Test the receipts. Bring real workflows.</div></div>
-    <div class="cta"><div class="who">Backers</div><div class="do">Back the trust layer before the market needs a cleanup crew.</div></div>
-  </div>
-  <p class="closer reveal">The agent economy does not need more autonomy without accountability. <span class="cy">It needs passports.</span></p>
-  <div class="finalbtns">
-    <a class="btn btn-solid" href="https://github.com/aeoess/agent-passport-system">View on GitHub</a>
-    <a class="btn" href="https://aeoess.com">aeoess.com</a>
-  </div>
-</section>
-
-<footer>
-  <div class="f-top">
-    <div class="f-brand">
-      <div class="f-word"><b>Agent Passport System</b></div>
-      <p class="f-blurb">Open-source infrastructure to enforce,<br>verify, and audit AI agent actions.</p>
-      <p class="f-blurb">The conformance suite is yours to fork.</p>
-      <a class="btn" href="mailto:signal@aeoess.com">Contact &#8599;</a>
-    </div>
-    <div class="f-cols">
-      <div class="f-col">
-        <div class="f-h">Protocol</div>
-        <a href="protocol.html">Documentation</a>
-        <a href="benchmarks.html">Benchmarks</a>
-        <a href="threat-model.html">Threat Model</a>
-        <a href="faq.html">FAQ</a>
+  <!-- 02 WHY THIS MATTERS -->
+  <section class="slide" aria-label="Why this matters">
+    <div class="eyebrow r"><span class="sq"></span><span>02 · Why this matters</span></div>
+    <div class="cols2-tilt">
+      <div>
+        <h2 class="h-lg r" style="margin-bottom:26px">Enterprise-liable agent actions.</h2>
+        <p class="r" style="font-size:clamp(16px,1.7vw,19px); line-height:1.62; margin-bottom:18px">When a person acts on behalf of a company, trust is built in: a title, a mandate, an approval chain. You know what they can sign for, and who answers if it goes wrong. When software acts on behalf of a company, none of that is attached. <span class="lime">The action happens. The proof does not.</span></p>
+        <p class="r subtle" style="font-size:clamp(16px,1.7vw,19px); line-height:1.62; margin-bottom:26px">The next trust boundary is not the user login. It is the action an agent takes on your behalf.</p>
+        <p class="r" style="font-family:var(--disp); font-size:clamp(20px,2.4vw,30px); font-weight:600; line-height:1.2">“The agent did it” <span class="subtle">is not an answer.</span></p>
       </div>
-      <div class="f-col">
-        <div class="f-h">Developers</div>
-        <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
-        <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
-        <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
-        <a href="wallet.html">Agent Wallet</a>
-        <a href="AGENTS.md">AGENTS.md</a>
-        <a href="llms.txt">llms.txt</a>
-      </div>
-      <div class="f-col">
-        <div class="f-h">Community</div>
-        <a href="blog.html">Dev Log</a>
-        <a href="roadmap.html">Roadmap</a>
-        <a href="working-group.html">Working Group</a>
-      </div>
-      <div class="f-col">
-        <div class="f-h">Research</div>
-        <a href="research.html#r1">Agent Social Contract</a>
-        <a href="research.html#r2">Monotonic Narrowing</a>
-        <a href="research.html#r3">Faceted Authority Attenuation</a>
-        <a href="research.html#r4">Behavioral Derivation Rights</a>
-        <a href="research.html#r5">Physics-Enforced Delegation</a>
-        <a href="research.html#r6">Governance in the Medium</a>
-        <a href="research.html#r7">Cognitive Attestation</a>
-        <a href="research.html#r8">Evidence-Safety Gap</a>
+      <div class="stack-diagram r">
+        <span class="chip line">Chat</span>
+        <i class="v-arrow">↓</i>
+        <span class="chip fill">Action</span>
+        <span class="touch-label">touches</span>
+        <div class="grid g2 touch-grid">
+          <div><h4>Money</h4><p>spend / approvals</p></div>
+          <div><h4>Customer data</h4><p>access / handling</p></div>
+          <div><h4>Regulated workflows</h4><p>records / audit</p></div>
+          <div><h4>External APIs</h4><p>real-world effects</p></div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="f-strip">
-    <div><span>License</span>Spec CC0 &middot; Code Apache 2.0</div>
-    <div><span>Editor</span>Tymofii Pidlisnyi</div>
-    <div><span>Standard</span>APS &middot; IETF Internet-Draft</div>
-    <div><span>Imprint</span>Vol. 01 &middot; 2026 &middot; agent-passport.org</div>
-    <div><span>Also at</span><a href="https://aeoess.com">aeoess.com</a></div>
-  </div>
-</footer>
+  </section>
+
+  <!-- 03 ACCESS -->
+  <section class="slide" aria-label="The missing piece">
+    <div class="eyebrow r"><span class="sq"></span><span>03 · The missing piece</span></div>
+    <div class="cols2" style="align-items:end; margin-bottom:40px">
+      <h2 class="h-xl r">Access is not authority.</h2>
+      <div class="r">
+        <p style="font-size:18px; line-height:1.5; margin-bottom:12px">A login authorizes a session. APS authorizes an action.</p>
+        <p class="mono subtle" style="font-size:13px; line-height:1.6">A token proves a system was allowed through the door. It does not prove the agent had the right to make a specific decision, at that time, under that policy, for that principal.</p>
+      </div>
+    </div>
+    <div class="grid g2">
+      <div class="door-cell r">
+        <div class="door-head subtle">Allowed through the door</div>
+        <div class="door-list subtle">
+          <div><span class="pip x">✕</span>Token accepted</div>
+          <div><span class="pip x">✕</span>API called</div>
+          <div><span class="pip x">✕</span>Log written</div>
+          <div><span class="pip x">✕</span>Authority unclear</div>
+        </div>
+      </div>
+      <div class="door-cell right r">
+        <div class="door-head lime">Allowed to do the thing</div>
+        <div class="door-list" style="font-weight:500">
+          <div><span class="pip v">✓</span>Principal identified</div>
+          <div><span class="pip v">✓</span>Scope checked</div>
+          <div><span class="pip v">✓</span>Policy enforced</div>
+          <div><span class="pip v">✓</span>Receipt signed</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 WHAT APS IS -->
+  <section class="slide" aria-label="What APS is">
+    <div class="eyebrow r"><span class="sq"></span><span>04 · What APS is</span></div>
+    <h2 class="h-xl r" style="margin-bottom:24px">A passport for every agent.</h2>
+    <p class="r" style="font-size:clamp(17px,2vw,23px); line-height:1.5; max-width:58ch; margin-bottom:14px">APS proves <span class="lime">who authorized an agent</span>, <span class="lime">what it was allowed to do</span>, and <span class="lime">what actually happened</span>.</p>
+    <p class="r mono subtle" style="font-size:clamp(13px,1.5vw,16px); line-height:1.5; margin-bottom:48px">A cryptographic trail of authority, enforcement, and action.</p>
+    <div class="grid g3">
+      <div class="cell r"><div class="big">I</div><h3>Identity</h3><p>Which agent acted, and which principal it represents.</p></div>
+      <div class="cell r"><div class="big">S</div><h3>Scoped authority</h3><p>The limits, budget, and conditions it operates under, enforced at runtime.</p></div>
+      <div class="cell r"><div class="big">E</div><h3>Evidence</h3><p>A signed receipt for every permitted action, and evidence for every denial.</p></div>
+    </div>
+    <p class="r mono subtle" style="margin-top:32px; font-size:13px; line-height:1.6; max-width:78ch">APS does not replace identity providers, wallets, or orchestration. <span style="color:var(--fg)">It sits beside the protocols you already run, as the governance layer.</span></p>
+  </section>
+
+  <!-- 05 HOW IT WORKS -->
+  <section class="slide" aria-label="How it works">
+    <div class="eyebrow r"><span class="sq"></span><span>05 · How it works</span></div>
+    <h2 class="h-lg r" style="font-size:clamp(36px,5vw,76px); line-height:1.04; margin-bottom:12px">Authority flows down.<span class="split">Evidence flows back.</span></h2>
+    <p class="r subtle" style="font-size:clamp(15px,1.6vw,18px); line-height:1.6; max-width:70ch; margin-bottom:50px">A principal grants authority. Each delegation step narrows it, never widens it. The gateway checks it before the action runs, and each action returns a signed receipt the principal can verify later.</p>
+    <div class="flow-wrap">
+      <div class="r">
+        <div class="flow-legend"><span class="lime">Authority →</span><span class="subtle">← Evidence</span></div>
+        <div class="flow-track">
+          <div class="flow-line"><i></i><em></em></div>
+          <div class="flow-nodes">
+            <div><span class="fn-num">01</span><div class="fn-t">Principal</div><div class="fn-s">person or company</div></div>
+            <div><span class="fn-num">02</span><div class="fn-t">Passport</div><div class="fn-s">verifiable identity</div></div>
+            <div><span class="fn-num">03</span><div class="fn-t">Delegation</div><div class="fn-s">scoped authority</div></div>
+            <div><span class="fn-num">04</span><div class="fn-t">Gateway</div><div class="fn-s">checks before it runs</div></div>
+            <div><span class="fn-num">05</span><div class="fn-t">Action</div><div class="fn-s">runs, or is denied</div></div>
+            <div><span class="fn-num">06</span><div class="fn-t">Receipt</div><div class="fn-s">signed evidence</div></div>
+          </div>
+        </div>
+        <div class="flow-tags">
+          <span>Authority can narrow. <span class="subtle">It cannot widen itself.</span></span>
+          <span class="lime">Enforced by architecture, not trust.</span>
+        </div>
+      </div>
+      <div class="narrow-card r">
+        <div class="mono" style="font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--sub); margin-bottom:18px">Monotonic narrowing</div>
+        <div class="bar-row"><div class="bl">Principal</div><div class="b" style="width:100%"></div></div>
+        <div class="bar-row"><div class="bl">Delegation</div><div class="b" style="width:64%; opacity:.78"></div></div>
+        <div class="bar-row"><div class="bl">Action</div><div class="b" style="width:34%; opacity:.56"></div></div>
+        <p class="mono subtle" style="margin-top:18px; font-size:11.5px; line-height:1.5">Each delegation can only shrink what the agent may do.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 RECEIPTS -->
+  <section class="slide" aria-label="Receipts">
+    <div class="eyebrow r" style="margin-bottom:22px"><span class="sq"></span><span>06 · Every action gets a receipt</span></div>
+    <h2 class="h-md r" style="margin-bottom:16px">The world runs on <span class="lime">receipts.</span></h2>
+    <p class="r subtle" style="font-size:clamp(15px,1.7vw,19px); line-height:1.55; max-width:74ch; margin-bottom:10px">Bills, agreements, records: proof that travels with the transaction. APS applies the same principle to agents. <span style="color:var(--fg)">Every meaningful agent action gets a receipt: a signed, tamper-evident record that proves what the agent did, under what authority, and on whose behalf.</span></p>
+    <p class="r mono lime" style="font-size:13px; letter-spacing:.04em; margin-bottom:26px">Do not take our word for it: read one.</p>
+    <div class="receipt-grid">
+      <div class="code-card r">
+        <div class="code-head"><span>A log</span><span style="color:#5C6152; text-transform:none; letter-spacing:0">stdout</span></div>
+        <pre style="font-size:12.5px; line-height:1.7; color:#C9CCBA"><span class="k">vendor.payment.approve</span> <span class="n">200 OK</span></pre>
+        <div style="padding:0 16px 18px"><p class="mono" style="font-size:11.5px; line-height:1.6; color:var(--dim)">Something happened. Written by the party being audited, after the fact.</p></div>
+      </div>
+      <div class="code-card hot r">
+        <div class="code-head"><span class="lime" style="color:var(--lime)">A receipt</span><span class="tag">● signed · ed25519</span></div>
+        <pre>{
+  <span class="k">"claim_type"</span>: <span class="s">"aps:action:v1"</span>,
+  <span class="k">"receipt_id"</span>: <span class="s">"b3f1c2..."</span> <span class="c">// (sha256 over the canonical receipt)</span>,
+  <span class="k">"timestamp"</span>: <span class="s">"2026-06-19T17:20:31.412Z"</span>,
+  <span class="k">"signer_did"</span>: <span class="s">"did:aps:z6MkGateway...#key-1"</span> <span class="c">// (gateway signing key as a DID URI; verifier resolves key rotation)</span>,
+  <span class="k">"agent_did"</span>: <span class="s">"did:key:z6MkAgent..."</span>,
+  <span class="k">"delegation_chain_root"</span>: <span class="s">"fdd7f810..."</span> <span class="c">// (sha256 of the canonical delegation chain)</span>,
+  <span class="k">"action"</span>: {
+    <span class="k">"kind"</span>: <span class="s">"vendor.payment.approve"</span>,
+    <span class="k">"target"</span>: <span class="s">"vendor:acme-1042"</span>,
+    <span class="k">"parameters"</span>: { <span class="k">"amount"</span>: <span class="s">"200.00"</span>, <span class="k">"currency"</span>: <span class="s">"USD"</span> }
+  },
+  <span class="k">"side_effect_classes"</span>: [<span class="s">"financial"</span>],
+  <span class="k">"scope_of_claim"</span>: {
+    <span class="k">"asserts"</span>: <span class="s">"The gateway authorized this action under a delegation chain that narrows to the named principal."</span>,
+    <span class="k">"does_not_assert"</span>: [<span class="s">"that the agent understood why it acted"</span>, <span class="s">"that the counterparty fulfilled the order"</span>],
+    <span class="k">"capture_mode"</span>: <span class="s">"gateway_observed"</span>,
+    <span class="k">"completeness"</span>: <span class="s">"complete"</span>,
+    <span class="k">"self_attested"</span>: <span class="n">false</span>
+  },
+  <span class="k">"signature"</span>: <span class="s">"ed25519:9a2f..."</span>
+}</pre>
+      </div>
+    </div>
+    <p class="r subtle" style="margin-top:22px; font-size:14.5px; line-height:1.55; max-width:92ch">A log says something happened. A receipt states who authorized it, what scope applied, what policy evaluated it, what action occurred, and what it does not prove.</p>
+  </section>
+
+  <!-- 07 PRINCIPLES -->
+  <section class="slide" aria-label="Why it holds">
+    <div class="eyebrow r"><span class="sq"></span><span>07 · Why it holds</span></div>
+    <h2 class="h-xl r" style="margin-bottom:48px">Open at the edge. <span class="lime">Strict at the core.</span></h2>
+    <div class="grid g3">
+      <div class="p-cell r"><div class="num">01</div><h3>Identity tied to a principal.</h3><p>Every action resolves to the person or company it was taken for.</p></div>
+      <div class="p-cell r"><div class="num">02</div><h3>Monotonic narrowing.</h3><p>Authority can only narrow, never silently expand, as it is delegated down the chain.</p></div>
+      <div class="p-cell r"><div class="num">03</div><h3>Receipts with honest scope.</h3><p>A receipt states exactly what it proves and what it does not.</p></div>
+    </div>
+  </section>
+
+  <!-- 08 NEUTRALITY -->
+  <section class="slide" aria-label="A neutral layer">
+    <div class="cols2-tilt" style="grid-template-columns:1.1fr 1fr">
+      <div>
+        <div class="eyebrow r"><span class="sq"></span><span>08 · A neutral layer</span></div>
+        <h2 class="h-lg r" style="margin-bottom:26px">The vendor can't grade its own homework.</h2>
+        <p class="r" style="font-size:18px; line-height:1.55; max-width:42ch; margin-bottom:16px">Model companies build the agents. The people relying on them need neutral proof.</p>
+        <p class="r mono lime" style="font-size:13.5px; line-height:1.6; max-width:46ch">Independent of both the payment rails and the model vendors. Proof before the action, evidence after.</p>
+      </div>
+      <div class="stack r">
+        <div class="box"><div class="t">Enterprise APIs</div><div style="font-size:16px">payments · records · workflows</div></div>
+        <div class="varrow">↕</div>
+        <div class="core"><div class="t">APS</div><div style="font-size:17px; font-weight:600">neutral enforcement layer</div></div>
+        <div class="varrow" style="animation-delay:.4s">↕</div>
+        <div class="box"><div class="t">Model vendors</div><div style="font-size:16px">the companies building agents</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 THE LONG BET -->
+  <section class="slide" aria-label="The long bet">
+    <div class="eyebrow r"><span class="sq"></span><span>09 · The long bet</span></div>
+    <h2 class="r" style="font-family:var(--disp); font-weight:600; font-size:clamp(40px,6vw,92px); line-height:1; letter-spacing:-.035em; margin-bottom:18px">Who benefits?</h2>
+    <p class="r subtle" style="font-size:clamp(16px,1.9vw,21px); line-height:1.5; max-width:56ch; margin-bottom:26px">Identity is where this starts. <span style="color:var(--fg)">Beneficiary attribution is the bigger prize.</span></p>
+    <p class="r" style="font-size:clamp(17px,2.1vw,23px); line-height:1.5; max-width:62ch; margin-bottom:16px">When an agent creates work, moves value, or produces an outcome, the person or company behind it remains the principal who participated through it.</p>
+    <p class="r subtle" style="font-size:clamp(15px,1.7vw,18px); line-height:1.55; max-width:56ch; margin-bottom:48px">Earned, traceable, provable.<span style="display:block; color:var(--lime); margin-top:5px">Attribution follows the delegation chain back to the named principal.</span></p>
+    <div class="chain r">
+      <span class="n">Agent</span>
+      <span class="arr">→</span>
+      <span class="n">Action</span>
+      <span class="arr l">→</span>
+      <span class="fin">Principal <small>the human or company</small></span>
+    </div>
+  </section>
+
+  <!-- 10 WHY OPEN -->
+  <section class="slide" aria-label="Why open">
+    <div class="eyebrow r"><span class="sq"></span><span>10 · Why open</span></div>
+    <h2 class="h-lg r" style="font-size:clamp(36px,5vw,76px); margin-bottom:18px">Trust cannot be <span class="lime">proprietary.</span></h2>
+    <p class="r" style="font-size:clamp(16px,1.8vw,20px); line-height:1.55; max-width:64ch; margin-bottom:14px">Agents cross tools, clouds, wallets, payment rails, and jurisdictions. If the layer that records and verifies authority is owned by one company, the agent economy inherits that company's incentives and risk.</p>
+    <p class="r subtle" style="font-size:clamp(15px,1.6vw,18px); line-height:1.55; max-width:60ch; margin-bottom:44px">So the spec, the SDKs, the receipt format, and the conformance suite are open. Apache 2.0. Fork it, test it, challenge it.</p>
+    <div class="npm r" style="margin-bottom:26px">
+      <code><b>$</b> npm install agent-passport-system</code>
+      <button id="copyNpm" aria-label="Copy npm install command">copy</button>
+    </div>
+    <div class="r mono" style="display:flex; gap:12px 28px; flex-wrap:wrap; font-size:12.5px; color:var(--sub)">
+      <span><span style="color:var(--fg)">3,959</span> tests passing</span>
+      <span><span style="color:var(--fg)">8</span> research papers</span>
+      <span>IETF Internet-Draft: <span style="color:var(--fg)">draft-pidlisnyi-aps</span></span>
+      <a class="lime" href="https://github.com/aeoess/aps-conformance-suite" style="transition:color .2s">Conformance suite, yours to fork ↗</a>
+    </div>
+    <p class="r mono" style="margin-top:14px; font-size:11.5px; line-height:1.7; color:var(--sub); max-width:92ch">Cited independently in University of British Columbia research · Cross-engine receipt interop demonstrated with VeritasActa · Joint IETF draft with an external implementer: draft-giskard-aeoess-action-ref</p>
+  </section>
+
+  <!-- 11 ECOSYSTEM -->
+  <section class="slide" aria-label="Where it plugs in">
+    <div class="eyebrow r"><span class="sq"></span><span>11 · Where it plugs in</span></div>
+    <h2 class="h-lg r" style="line-height:1.06; margin-bottom:44px">Agents already run on rails.<span class="split">APS makes the action on them accountable.</span></h2>
+    <div class="rail-cards">
+      <div class="rail r"><h3>Payment rails</h3><p>Spend authority tied to a signed delegation, with a receipt for each charge.</p><div class="meta">x402 · AP2 · ACP · Stripe issuing</div></div>
+      <div class="rail r"><h3>Agent protocols</h3><p>Identity and scoped authority travel with the call. An MCP server exposes the surface as tools; an adapter carries it across A2A.</p><div class="meta">MCP · A2A</div></div>
+      <div class="rail r"><h3>Agent definitions</h3><p>gitagent-protocol, a git-native format for defining agents, merged our RFC adding an optional cryptographic identity layer.</p><div class="meta">git-native</div></div>
+      <div class="rail r"><h3>Frameworks</h3><p>The passport rides into the agent runtime alongside the orchestration you already use.</p><div class="meta">LangChain · CrewAI · ADK</div></div>
+    </div>
+    <p class="r mono subtle" style="margin-top:28px; font-size:13px; line-height:1.6; max-width:84ch">Some of these are bindings the project ships, others are contributions merged upstream. None of these ecosystems depend on APS.</p>
+  </section>
+
+  <!-- 12 WHERE TO START -->
+  <section class="slide" aria-label="Where to start">
+    <div class="eyebrow r"><span class="sq"></span><span>12 · Where to start</span></div>
+    <div class="tabs r" id="tabs">
+      <button class="on" data-aud="builders">Builders</button>
+      <button data-aud="enterprises">Enterprises</button>
+      <button data-aud="supporters">Supporters</button>
+    </div>
+    <div class="cols2" style="align-items:center; min-height:180px">
+      <h2 class="r" id="audHead" style="font-family:var(--disp); font-weight:600; font-size:clamp(32px,4.6vw,64px); line-height:1.02; letter-spacing:-.03em">Read the spec. Build an adapter.</h2>
+      <div class="r">
+        <p id="audBody" style="font-size:clamp(18px,2vw,22px); line-height:1.55; margin-bottom:30px">Review the primitives, build integrations, test receipts, contribute to the vocabulary and conformance work.</p>
+        <div class="cta-row">
+          <a class="btn" id="audCta1" href="https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/" style="font-size:14px; padding:13px 22px">Read the spec →</a>
+          <a class="btn ghost" id="audCta2" href="https://github.com/aeoess/aps-conformance-suite" style="font-size:14px; padding:13px 22px">Fork the conformance suite</a>
+          <a class="btn ghost" id="audCta3" href="wallet.html" style="font-size:14px; padding:13px 22px">Live demo →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 CLOSE + FOOTER -->
+  <section class="slide" aria-label="Close" style="padding-bottom:0">
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center">
+      <div class="eyebrow r" style="margin-bottom:38px"><span class="sq"></span><span>13 · The invitation</span></div>
+      <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:30px">
+        <p class="r" style="font-family:var(--disp); font-weight:500; font-size:clamp(24px,3.4vw,48px); line-height:1.08; letter-spacing:-.025em; color:#5f6353">The web needed <span style="color:#878B78">TLS</span> for trust in transit.</p>
+        <p class="r" style="font-family:var(--disp); font-weight:500; font-size:clamp(24px,3.4vw,48px); line-height:1.08; letter-spacing:-.025em; color:#7c806d">Card payments needed <span style="color:#a7ab97">PCI</span> for accountable handling.</p>
+        <p class="r" style="font-family:var(--disp); font-weight:600; font-size:clamp(24px,3.4vw,48px); line-height:1.08; letter-spacing:-.025em">Agent actions need their own <span class="lime">accountability layer.</span></p>
+      </div>
+      <p class="r subtle" style="font-family:var(--disp); font-size:clamp(16px,1.8vw,20px); line-height:1.4; max-width:48ch; margin-bottom:12px">Autonomy is scaling faster than accountability. The agent economy needs passports.</p>
+      <p class="r mono subtle" style="font-size:13.5px; letter-spacing:.04em; margin-bottom:34px">Building it, in the open.</p>
+      <div class="cta-row r">
+        <a class="btn" href="https://github.com/aeoess/agent-passport-system">View on GitHub →</a>
+        <a class="btn ghost" href="https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/">Read the spec</a>
+        <a class="btn ghost" href="https://github.com/aeoess/aps-conformance-suite">Fork the conformance suite</a>
+        <a class="mono subtle" href="mailto:signal@aeoess.com" style="font-size:13px; margin-left:4px">Contact AEOESS ↗</a>
+      </div>
+    </div>
+
+    <footer class="r">
+      <div class="foot-grid">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px">
+            <span class="sq"></span>
+            <span class="mono" style="font-size:14px; font-weight:500">Agent Passport System</span>
+          </div>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:8px">Open-source infrastructure to enforce, verify, and audit AI agent actions.</p>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:18px">The conformance suite is yours to fork.</p>
+          <a class="mono" href="mailto:signal@aeoess.com" style="display:inline-block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg); border:1px solid var(--line2); padding:9px 16px; border-radius:2px">Contact ↗</a>
+        </div>
+        <div>
+          <div class="head">Protocol</div>
+          <div class="links">
+            <a href="https://agent-passport.org/docs.html">Documentation</a>
+            <a href="https://agent-passport.org/protocol.html">Protocol</a>
+            <a href="https://agent-passport.org/threat-model.html">Threat model</a>
+            <a href="https://agent-passport.org/faq.html">FAQ</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Developers</div>
+          <div class="links">
+            <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
+            <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
+            <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
+            <a href="https://agent-passport.org/wallet.html">Agent Wallet</a>
+            <a href="https://agent-passport.org/AGENTS.md">AGENTS.md</a>
+            <a href="https://agent-passport.org/llms.txt">llms.txt</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Community</div>
+          <div class="links">
+            <a href="https://agent-passport.org/blog.html">Dev Log</a>
+            <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+            <a href="https://agent-passport.org/working-group.html">Working group</a>
+            <a href="https://agent-passport.org/research.html">Research</a>
+          </div>
+        </div>
+      </div>
+      <div class="foot-base" style="justify-content:flex-start; gap:16px 56px">
+        <span><em class="fbk">License</em>Code Apache 2.0</span>
+        <span><em class="fbk">Editor</em>Tymofii Pidlisnyi</span>
+        <span><em class="fbk">Spec</em>draft-pidlisnyi-aps (IETF Internet-Draft)</span>
+        <span><em class="fbk">Imprint</em>Vol. 01 · 2026 · agent-passport.org</span>
+        <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
+      </div>
+    </footer>
+  </section>
+
+</main>
 
 <script>
-  var prog=document.getElementById('prog');
-  function up(){var h=document.documentElement;var s=h.scrollTop||document.body.scrollTop;var max=(h.scrollHeight-h.clientHeight)||1;prog.style.width=(s/max*100)+'%';}
-  document.addEventListener('scroll',up,{passive:true});window.addEventListener('resize',up);up();
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in-view');io.unobserve(e.target);}});},{threshold:0.18,rootMargin:'0px 0px -8% 0px'});
-    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
-  } else {
-    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in-view');});
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var labels = ['Overview','Why it matters','The missing piece','What APS is','How it works','Receipts','Why it holds','Neutrality','The long bet','Why open','Ecosystem','Get started','Close'];
+  var counter = document.getElementById('counter');
+  var label = document.getElementById('label');
+  var hud = document.getElementById('hud');
+  var bar = document.getElementById('bar');
+  var dotsWrap = document.getElementById('dots');
+  var total = slides.length;
+  var active = -1;
+  var dots = [];
+
+  labels.forEach(function (l, i) {
+    var b = document.createElement('button');
+    b.title = l;
+    b.setAttribute('aria-label', 'Go to: ' + l);
+    b.addEventListener('click', function () { go(i); });
+    dotsWrap.appendChild(b);
+    dots.push(b);
+  });
+
+  function setReveal(slide, show) {
+    var items = slide.querySelectorAll('.r');
+    for (var i = 0; i < items.length; i++) {
+      items[i].style.transitionDelay = (show ? i * 60 : 0) + 'ms';
+      items[i].style.opacity = show ? '1' : '0';
+      items[i].style.transform = show ? 'none' : 'translateY(26px)';
+    }
   }
+
+  function apply(idx) {
+    if (idx === active) return;
+    active = idx;
+    counter.textContent = ('0' + (idx + 1)).slice(-2);
+    label.textContent = labels[idx] || '';
+    hud.style.opacity = idx === total - 1 ? '0' : '1';
+    bar.style.width = ((idx + 1) / total * 100) + '%';
+    dots.forEach(function (d, i) { d.className = i === idx ? 'on' : ''; });
+    slides.forEach(function (s, i) { setReveal(s, i === idx); });
+  }
+
+  function currentIndex() {
+    var pos = window.scrollY + window.innerHeight / 2;
+    var idx = 0;
+    for (var i = 0; i < slides.length; i++) {
+      if (slides[i].offsetTop <= pos) idx = i;
+    }
+    return idx;
+  }
+
+  function go(i) {
+    var t = Math.max(0, Math.min(total - 1, i));
+    window.scrollTo({ top: slides[t].offsetTop, behavior: (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) ? 'auto' : 'smooth' });
+    apply(t);
+  }
+
+  var raf = null;
+  window.addEventListener('scroll', function () {
+    if (raf) return;
+    raf = requestAnimationFrame(function () { raf = null; apply(currentIndex()); });
+  }, { passive: true });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+    if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].indexOf(e.key) >= 0) { e.preventDefault(); go(active + 1); }
+    else if (['ArrowUp', 'ArrowLeft', 'PageUp'].indexOf(e.key) >= 0) { e.preventDefault(); go(active - 1); }
+  });
+
+  document.querySelectorAll('[data-go]').forEach(function (el) {
+    el.addEventListener('click', function () { go(parseInt(el.getAttribute('data-go'), 10)); });
+  });
+
+  // npm copy
+  var copyBtn = document.getElementById('copyNpm');
+  if (copyBtn) copyBtn.addEventListener('click', function () {
+    var done = function () { copyBtn.textContent = 'copied'; setTimeout(function () { copyBtn.textContent = 'copy'; }, 1600); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText('npm install agent-passport-system').then(done, done);
+    } else { done(); }
+  });
+
+  // audience toggle
+  var audiences = {
+    builders: {
+      headline: 'Read the spec. Build an adapter.',
+      body: 'Review the primitives, build integrations, test receipts, contribute to the vocabulary and conformance work.',
+      cta1: 'Read the spec →', href1: 'https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/',
+      cta2: 'Fork the conformance suite', href2: 'https://github.com/aeoess/aps-conformance-suite',
+      cta3: 'Live demo →', href3: 'wallet.html'
+    },
+    enterprises: {
+      headline: 'Pilot it on a real workflow.',
+      body: 'Pilot verifiable agent actions on workflows that move data, approve actions, or need audit evidence.',
+      cta1: 'View on GitHub →', href1: 'https://github.com/aeoess/agent-passport-system',
+      cta2: 'Contact AEOESS', href2: 'mailto:signal@aeoess.com'
+    },
+    supporters: {
+      headline: 'Back the trust layer.',
+      body: 'Back open governance infrastructure before agent accountability becomes cleanup work.',
+      cta1: 'View on GitHub →', href1: 'https://github.com/aeoess/agent-passport-system',
+      cta2: 'Contact AEOESS', href2: 'mailto:signal@aeoess.com'
+    }
+  };
+  var tabs = document.getElementById('tabs');
+  if (tabs) tabs.addEventListener('click', function (e) {
+    var btn = e.target.closest('button[data-aud]');
+    if (!btn) return;
+    var a = audiences[btn.getAttribute('data-aud')];
+    tabs.querySelectorAll('button').forEach(function (b) { b.className = b === btn ? 'on' : ''; });
+    document.getElementById('audHead').textContent = a.headline;
+    document.getElementById('audBody').textContent = a.body;
+    var c1 = document.getElementById('audCta1'); c1.textContent = a.cta1; c1.href = a.href1;
+    var c2 = document.getElementById('audCta2'); c2.textContent = a.cta2; c2.href = a.href2;
+    var c3 = document.getElementById('audCta3'); if (c3) { if (a.cta3) { c3.style.display = ''; c3.textContent = a.cta3; c3.href = a.href3; } else { c3.style.display = 'none'; } }
+  });
+
+  // init
+  slides.forEach(function (s, i) { setReveal(s, false); });
+  apply(currentIndex());
+})();
 </script>
-</body>
-</html>
+
+</body></html>
