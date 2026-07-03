@@ -1,59 +1,123 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Blog | APS</title>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- PROPAGATION-ZONE-START -->
-<meta name="description" content="Day-by-day dev log of building the Agent Passport System — enforcement and accountability layer for AI agents. Bring your own identity. Verifier hot path p50 318ns (Mac M3). 3,959 tests. SDK leads with /core subpath (curated essentials), MCP leads with 20 essential tools. Full surface area: 150 MCP tools, 8 research papers, IETF Internet-Draft. Started February 18, 2026.">
-<meta name="keywords" content="AI agent identity, agent passport, Ed25519, MCP server, multi-agent coordination, agentic commerce, AI governance, delegation chains, values floor, cryptographic identity, agent protocol, open source AI infrastructure, build in public">
-<meta name="author" content="Tymofii Pidlisnyi">
-<meta name="robots" content="index, follow">
+<title>Blog | APS</title>
+<meta name="description" content="Day-by-day dev log of building the Agent Passport System · enforcement and accountability layer for AI agents. Bring your own identity. Verifier hot path p50 318ns (Mac M3). 3,959 tests. SDK leads with /core subpath (curated essentials), MCP leads with 20 essential tools. Full surface area: 150 MCP tools, 8 research papers, IETF Internet-Draft. Started February 18, 2026.">
 <link rel="canonical" href="https://agent-passport.org/blog.html">
-<link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
-<link rel="alternate" type="text/plain" href="https://aeoess.com/llms.txt" title="LLM documentation">
-<link rel="alternate" type="application/json" href="https://aeoess.com/.well-known/mcp.json" title="MCP server discovery">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="/aps-design.css">
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-S7QVCJGMKR');
-</script>
-
-<!-- Open Graph -->
-<meta property="og:type" content="blog">
-<meta property="og:site_name" content="APS">
-<meta property="og:title" content="APS Dev Log — Building AI Agent Infrastructure in 28 Days">
-<meta property="og:description" content="Day-by-day dev log: enforcement and accountability layer for AI agents. Bring your own identity. 3,959 tests. SDK /core subpath (curated essentials), MCP essential profile (150 tools). Full surface: 150 MCP tools. Open source.">
+<meta property="og:title" content="Blog | APS">
+<meta property="og:description" content="Day-by-day dev log of building the Agent Passport System · enforcement and accountability layer for AI agents. Bring your own identity. Verifier hot path p50 318ns (Mac M3). 3,959 tests. SDK leads with /core subpath (curated essentials), MCP leads with 20 essential tools. Full surface area: 150 MCP tools, 8 research papers, IETF Internet-Draft. Started February 18, 2026.">
+<meta property="og:type" content="website">
 <meta property="og:url" content="https://agent-passport.org/blog.html">
-<meta property="og:image" content="https://aeoess.com/assets/images/aeoess_logo.png">
-<meta property="article:author" content="https://tymofii.me">
-<meta property="article:section" content="Technology">
-<meta property="article:tag" content="AI Agents">
-<meta property="article:tag" content="Cryptographic Identity">
-<meta property="article:tag" content="Open Source">
-<meta property="article:tag" content="MCP Server">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230A0B08'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23C8F032'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/aps-v2.css">
+<style>
+/* ── Blog page-specific: newsprint re-skin of existing entry markup ──
+   Old inline-style color vars are aliased to newsprint tokens so the
+   .post entries restyle without editing each entry's markup. */
+.blog-feed, .page-hero{
+  --ink-2:var(--sub);
+  --dim:var(--sub);
+  --text:var(--fg);
+  --accent:var(--lime);
+  --link:var(--lime);
+  --ink-5:var(--sub);
+  --mono:var(--mono);
+  --code-bg:var(--panel);
+}
+.blog-feed{max-width:var(--maxw);margin:0 auto;padding:64px 48px 96px;position:relative;z-index:1}
 
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="APS Dev Log — Governance for the Agent Economy">
-<meta name="twitter:description" content="Enforcement and accountability layer for AI agents. Bring your own identity. 3,959 tests. SDK /core subpath, MCP essential profile. Eight papers, IETF draft. Open source, build in public.">
-<meta name="twitter:image" content="https://aeoess.com/assets/images/aeoess_logo.png">
-<!-- PROPAGATION-ZONE-END -->
+/* dev-log entry as a dated newsprint record ·
+   date sits in the left margin, the whole body stacks in one column */
+.blog-feed .post{
+  border-top:1px solid var(--line2);
+  padding:44px 0;
+  display:grid;grid-template-columns:170px minmax(0,820px);
+  column-gap:48px;
+  align-items:start;
+}
+.blog-feed .post:first-of-type{border-top:0;padding-top:0}
+.blog-feed .post > *{grid-column:2;min-width:0}
+.blog-feed .post .post-date{
+  grid-column:1;grid-row:1;
+  font-family:var(--mono);
+  font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--lime);padding-top:7px;display:block;
+}
+.blog-feed .post h2{
+  font-family:var(--disp);
+  font-size:30px;line-height:1.12;letter-spacing:-0.022em;font-weight:500;
+  color:var(--fg);margin:0 0 16px;text-wrap:balance;
+}
+.blog-feed .post p{
+  font-family:"Inter",-apple-system,system-ui,sans-serif;
+  font-size:16px;line-height:1.66;color:var(--sub)!important;
+  font-weight:400;margin:0 0 14px;
+}
+.blog-feed .post p:last-child{margin-bottom:0}
+.blog-feed .post p[style*="font-size:.95rem"]{font-size:16px!important}
+.blog-feed .post strong{color:var(--fg)!important;font-weight:600}
+.blog-feed .post a{
+  color:var(--lime);text-decoration:none;
+  border-bottom:1px solid #b83a2e55;transition:border-color .15s;
+}
+.blog-feed .post a:hover{border-bottom-color:var(--lime)}
+.blog-feed .post code{
+  font-family:var(--mono);
+  font-size:13px;background:var(--panel);
+  border:1px solid var(--line);padding:1px 6px;border-radius:3px;
+  color:var(--fg);
+}
+.blog-feed .post pre{
+  background:var(--fg);color:var(--bg);
+  font-family:var(--mono);
+  font-size:13px;line-height:1.62;padding:20px 22px;overflow-x:auto;
+  margin:0 0 18px;border:1px solid var(--fg);
+}
+.blog-feed .post pre code{background:none;border:0;padding:0;color:inherit}
+.blog-feed .post h3{
+  font-family:var(--disp);
+  font-size:21px;line-height:1.25;letter-spacing:-0.015em;font-weight:500;
+  color:var(--fg);margin:30px 0 12px;
+}
+.blog-feed .post ul,.blog-feed .post ol{
+  font-family:"Inter",-apple-system,system-ui,sans-serif;
+  font-size:16px;line-height:1.66;color:var(--sub);margin:0 0 14px;padding-left:24px;
+}
+.blog-feed .post li{margin:0 0 6px}
+.blog-feed .post ul li::marker{color:var(--lime)}
+.blog-feed .post blockquote{
+  margin:0 0 16px;padding:6px 0 6px 20px;border-left:2px solid var(--lime);
+  font-family:var(--disp);
+  font-style:italic;font-size:18px;line-height:1.5;color:var(--fg);
+}
 
-<!-- JSON-LD Structured Data: Blog + BlogPostings -->
+/* the "for AI agents" callout near the bottom */
+.blog-feed .agent-note{
+  margin:48px auto 0;max-width:none;
+  padding:18px 22px;border:1px solid var(--line2);background:var(--panel);
+  font-family:"Inter",-apple-system,system-ui,sans-serif;
+  font-size:14px;line-height:1.6;color:var(--sub);border-radius:0;
+}
+.blog-feed .agent-note strong{color:var(--fg);font-weight:600}
+.blog-feed .agent-note a{color:var(--lime);border-bottom:1px solid #b83a2e55;text-decoration:none}
+
+@media(max-width:860px){
+  .blog-feed{padding:48px 24px 72px}
+  .blog-feed .post{grid-template-columns:1fr;row-gap:10px}
+  .blog-feed .post > *{grid-column:1}
+  .blog-feed .post .post-date{grid-row:auto;padding-top:0;margin-bottom:4px}
+  .blog-feed .post h2{font-size:25px}
+}
+</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Blog",
   "name": "APS Dev Log",
-  "description": "Day-by-day development log of the Agent Passport System — an open-source protocol for AI agent identity, trust, governance, and commerce.",
+  "description": "Day-by-day development log of the Agent Passport System · an open-source protocol for AI agent identity, trust, governance, and commerce.",
   "url": "https://agent-passport.org/blog.html",
   "author": {
     "@type": "Person",
@@ -155,7 +219,7 @@
       "datePublished": "2026-04-16",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
       "url": "https://agent-passport.org/blog.html#day-59",
-      "description": "Build A shipped — a unified four-axis attribution primitive that replaces four separate receipt types with one signed Merkle envelope. D (data), P (protocol), G (governance), C (compute). Each axis projection verifies independently; two projections of the same receipt cross-verify by shared action_ref and merkle_root. SDK v1.44.0, MCP v2.25.0, Python v0.13.0 all published. Build D2 also shipped: gateway trust profiles now return JWS-signed responses cross-verifiable against the public JWKS. And the coordination layer got simpler."
+      "description": "Build A shipped · a unified four-axis attribution primitive that replaces four separate receipt types with one signed Merkle envelope. D (data), P (protocol), G (governance), C (compute). Each axis projection verifies independently; two projections of the same receipt cross-verify by shared action_ref and merkle_root. SDK v1.44.0, MCP v2.25.0, Python v0.13.0 all published. Build D2 also shipped: gateway trust profiles now return JWS-signed responses cross-verifiable against the public JWKS. And the coordination layer got simpler."
     },
     {
       "@type": "BlogPosting",
@@ -163,7 +227,7 @@
       "datePublished": "2026-04-15",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
       "url": "https://agent-passport.org/blog.html#day-58",
-      "description": "Solana joins the wallet_ref chain enum in SDK v1.43.0. The more interesting part is the gateway bug that surfaced — case-sensitivity normalization silently corrupting Solana addresses because APS was lowercasing the entire normalized wallet payload. Chain-aware normalization shipped as the fix. Four vocab PRs merged the same day, peer_review promoted to canonical."
+      "description": "Solana joins the wallet_ref chain enum in SDK v1.43.0. The more interesting part is the gateway bug that surfaced · case-sensitivity normalization silently corrupting Solana addresses because APS was lowercasing the entire normalized wallet payload. Chain-aware normalization shipped as the fix. Four vocab PRs merged the same day, peer_review promoted to canonical."
     },
     {
       "@type": "BlogPosting",
@@ -171,7 +235,7 @@
       "datePublished": "2026-04-14",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
       "url": "https://agent-passport.org/blog.html#day-57",
-      "description": "Three v2 constitutional primitives shipped (AttributionConsent, ProvisionalStatement + PromotionEvent, HumanEscalationFlag) closing representation, commitment, and escalation boundaries that were being crossed silently. Paper published on Zenodo: Governance in the Medium — argues the unit of agent governance is the population-with-medium, not the agent."
+      "description": "Three v2 constitutional primitives shipped (AttributionConsent, ProvisionalStatement + PromotionEvent, HumanEscalationFlag) closing representation, commitment, and escalation boundaries that were being crossed silently. Paper published on Zenodo: Governance in the Medium · argues the unit of agent governance is the population-with-medium, not the agent."
     },
     {
       "@type": "BlogPosting",
@@ -179,7 +243,7 @@
       "datePublished": "2026-04-09",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
       "url": "https://agent-passport.org/blog.html#day-52",
-      "description": "Three walls new users hit on APS: the MCP server flooding 132 tools, the SDK loading 925 exports from a single import, and the homepage leading with '103 modules.' All three fixed additively — new MCP essential profile (20 tools), new SDK /core subpath (curated essentials), reframed pitch surfaces. Nothing removed, full surface still available."
+      "description": "Three walls new users hit on APS: the MCP server flooding 132 tools, the SDK loading 925 exports from a single import, and the homepage leading with '103 modules.' All three fixed additively · new MCP essential profile (20 tools), new SDK /core subpath (curated essentials), reframed pitch surfaces. Nothing removed, full surface still available."
     },{
       "@type": "BlogPosting",
       "headline": "Day 51: The Quantum Paper",
@@ -203,28 +267,28 @@
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 48: Six Sessions, One Shipping Day — Key Rotation to Governance Export",
+      "headline": "Day 48: Six Sessions, One Shipping Day · Key Rotation to Governance Export",
       "datePublished": "2026-04-05",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
       "url": "https://agent-passport.org/blog.html#day-48"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 47: Protocol Infrastructure Expanding — MS PR Approved, SINT Interop, Behavioral Spec",
+      "headline": "Day 47: Protocol Infrastructure Expanding · MS PR Approved, SINT Interop, Behavioral Spec",
       "datePublished": "2026-04-04",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
       "url": "https://agent-passport.org/blog.html#day-47"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 46: Bring Your Own Identity — The Interop Stack",
+      "headline": "Day 46: Bring Your Own Identity · The Interop Stack",
       "datePublished": "2026-04-03",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
       "url": "https://agent-passport.org/blog.html#day-46"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 45: SDK v1.31.0 — Governance Hardening + Gateway Bridge",
+      "headline": "Day 45: SDK v1.31.0 · Governance Hardening + Gateway Bridge",
       "datePublished": "2026-04-02",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
       "url": "https://agent-passport.org/blog.html#day-45"
@@ -255,7 +319,7 @@
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 41: Agent Wallets — Feeless Crypto for AI Agents",
+      "headline": "Day 41: Agent Wallets · Feeless Crypto for AI Agents",
       "datePublished": "2026-03-29",
       "description": "Built Nano payment rail adapter and agent wallet system. 1,430 new lines. Gateway went from 18 to 36 API routes. HD key derivation, 3-gate delegation pipeline, freeze/revoke cascade. Wallet page live at aeoess.com/wallet.html.",
       "url": "https://agent-passport.org/blog.html#day-41",
@@ -263,7 +327,7 @@
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 40: Gateway Wiring — 79% Module Interconnection",
+      "headline": "Day 40: Gateway Wiring · 79% Module Interconnection",
       "datePublished": "2026-03-29",
       "description": "Connected 13 remaining modules into gateway enforcement pipeline. Fidelity probe measurement protocol. Data cluster wiring. Gateway identity layer. 12 GitHub replies across ecosystem. SDK v1.29.1, 1987 tests, 96 modules.",
       "url": "https://agent-passport.org/blog.html#day-40",
@@ -271,7 +335,7 @@
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 39: Governance for the Agent Economy — The Rebrand",
+      "headline": "Day 39: Governance for the Agent Economy · The Rebrand",
       "datePublished": "2026-03-28",
       "description": "Complete website redesign. Academic typography (Crimson Pro serif). Enterprise positioning. 10-question FAQ. iOS frosted glass. Warm dark gray dark mode. 38-entry ship log. Unified design system across all 15 pages. H1: Governance for the Agent Economy.",
       "url": "https://agent-passport.org/blog.html#day-39",
@@ -287,7 +351,7 @@
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 37: Governance Distribution Stack — Every Article on The Agent Times Is Now Cryptographically Governed",
+      "headline": "Day 37: Governance Distribution Stack · Every Article on The Agent Times Is Now Cryptographically Governed",
       "datePublished": "2026-03-25",
       "description": "Shipped the full governance distribution stack: governance blocks (per-page signed terms), aps.txt (site-wide like robots.txt), HTTP headers, chained blocks for derivatives, and a 360 consumer loop with access receipts. The Agent Times is the first publication embedding Ed25519-signed content governance in every article. Framework adapters (CrewAI, ADK, LangChain, A2A), 21-invariant conformance suite, and hosted enforcement gateway. SDK v1.25.0 (1480 tests), MCP v2.15.1 (108 tools), Python v0.7.0.",
       "url": "https://agent-passport.org/blog.html#day-37",
@@ -295,9 +359,9 @@
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 36: Clean Slate — 68 Dead Imports, OATR Founding Member, Zero Open Findings",
+      "headline": "Day 36: Clean Slate · 68 Dead Imports, OATR Founding Member, Zero Open Findings",
       "datePublished": "2026-03-23",
-      "description": "Full codebase audit: 68 unused imports removed across 34 files, tracked garbage cleaned (tarballs, one-time scripts). OATR issuer registration merged — 4 founding WG members all registered. Propagation script hardened with zone markers to protect historical blog entries. All Portal findings confirmed resolved. xsa520 published decision equivalence spec. 1178 tests, 0 failures.",
+      "description": "Full codebase audit: 68 unused imports removed across 34 files, tracked garbage cleaned (tarballs, one-time scripts). OATR issuer registration merged · 4 founding WG members all registered. Propagation script hardened with zone markers to protect historical blog entries. All Portal findings confirmed resolved. xsa520 published decision equivalence spec. 1178 tests, 0 failures.",
       "url": "https://agent-passport.org/blog.html#day-36",
       "keywords": ["codebase audit", "OATR", "trust registry", "unused imports", "propagation", "decision equivalence", "1178 tests"]
     },
@@ -381,7 +445,7 @@
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 26: Mingle v2 — Semantic Matching, Ghost Mode, Consent Flow",
+      "headline": "Day 26: Mingle v2 · Semantic Matching, Ghost Mode, Consent Flow",
       "datePublished": "2026-03-15",
       "description": "Shipped Mingle v2 in one day: semantic matching (all-MiniLM-L6-v2), persistent Ed25519 identity, ghost mode browsing, consent-first publishing. 0 matches to 15. Published to npm, ClawHub, all platforms.",
       "url": "https://agent-passport.org/blog.html#day-26",
@@ -398,7 +462,7 @@
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 25: Substack Launch — Cross-Protocol Bridge + Tesla Social",
+      "headline": "Day 25: Substack Launch · Cross-Protocol Bridge + Tesla Social",
       "datePublished": "2026-03-14",
       "description": "Published two Substack articles: the first cross-protocol agent identity bridge (APS x AIP) and Tesla Social MVP. Social media launch across X and LinkedIn.",
       "url": "https://agent-passport.org/blog.html#day-25",
@@ -413,7 +477,7 @@
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 24: Security Hardening — Gateway Bugs, Setup Commands, Cross-Protocol Resolve",
+      "headline": "Day 24: Security Hardening · Gateway Bugs, Setup Commands, Cross-Protocol Resolve",
       "datePublished": "2026-03-13",
       "description": "Fixed 3 gateway bugs (memory leak, crash on unregistered agent, ownership bypass). SECURITY.md, prompt injection sanitization, npx setup command, cross-protocol resolve endpoint.",
       "url": "https://agent-passport.org/blog.html#day-24",
@@ -428,7 +492,7 @@
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 23: Mingle Ships — Your AI Finds People for You",
+      "headline": "Day 23: Mingle Ships · Your AI Finds People for You",
       "datePublished": "2026-03-12",
       "description": "Mingle MCP v1.0.0 shipped. Standalone agent-to-agent networking plugin. 6 tools, landing page, live network stats. Published to ClawHub and npm.",
       "url": "https://agent-passport.org/blog.html#day-23",
@@ -443,7 +507,7 @@
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 22: The Intent Network — Your Agent Finds People for You",
+      "headline": "Day 22: The Intent Network · Your Agent Finds People for You",
       "datePublished": "2026-03-11",
       "description": "Shipped agent-mediated matching: IntentCards, relevance scoring, intro protocol, hosted API at api.aeoess.com. No app, no signup, your AI is the interface.",
       "url": "https://agent-passport.org/blog.html#day-22",
@@ -457,7 +521,7 @@
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 21: Reputation-Gated Authority — Agents Earn Trust, Not Just Receive It",
+      "headline": "Day 21: Reputation-Gated Authority · Agents Earn Trust, Not Just Receive It",
       "datePublished": "2026-03-10",
       "description": "Bayesian reputation model, signed promotion reviews, cryptographic scarring, tier checking. SDK 1.11.0, MCP 2.5.0, 1178 tests, 83 tools.",
       "url": "https://agent-passport.org/blog.html#day-21",
@@ -472,7 +536,7 @@
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 20: Second Paper Published — Monotonic Narrowing for Agent Authority",
+      "headline": "Day 20: Second Paper Published · Monotonic Narrowing for Agent Authority",
       "datePublished": "2026-03-09",
       "description": "Published formal invariants paper on Zenodo. 8 delegation chain invariants, property-based adversarial testing, competitive landscape analysis.",
       "url": "https://agent-passport.org/blog.html#day-20",
@@ -486,7 +550,7 @@
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 18: Autoresearch — AI Finds Bugs AI Wrote",
+      "headline": "Day 18: Autoresearch · AI Finds Bugs AI Wrote",
       "datePublished": "2026-03-07",
       "description": "Adapted Karpathy's autoresearch for adversarial protocol hardening. 200 randomized property tests, 10 paper scenarios, F-008 Epistemic Security.",
       "url": "https://agent-passport.org/blog.html#day-18",
@@ -544,7 +608,7 @@
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 14: The First Real Audit — What Happens When Agents Review Your Code",
+      "headline": "Day 14: The First Real Audit · What Happens When Agents Review Your Code",
       "datePublished": "2026-03-03",
       "description": "PortalX2 ran a forensic audit of the SDK. 10 findings including a high-severity canonicalization bug. All accepted fixes shipped in v1.21.2.",
       "url": "https://agent-passport.org/blog.html#day-14",
@@ -572,7 +636,7 @@
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 12: Layer 8 — Agentic Commerce, Integration Wiring, and MCP v2.1.0",
+      "headline": "Day 12: Layer 8 · Agentic Commerce, Integration Wiring, and MCP v2.1.0",
       "datePublished": "2026-03-01",
       "description": "Shipped agentic commerce (OpenAI+Stripe ACP), cross-layer integration bridges, MCP server expanded to 30 tools. SDK v1.7.0, 214 tests.",
       "url": "https://agent-passport.org/blog.html#day-12",
@@ -599,7 +663,7 @@
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 10: Layer 7 — Coordination Primitives",
+      "headline": "Day 10: Layer 7 · Coordination Primitives",
       "datePublished": "2026-02-27",
       "description": "Full task lifecycle: briefs, evidence, review gates, handoffs, deliverables. Cryptographically signed coordination for multi-agent workflows.",
       "url": "https://agent-passport.org/blog.html#day-10",
@@ -612,7 +676,7 @@
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 8: Layer 5 — Intent Architecture",
+      "headline": "Day 8: Layer 5 · Intent Architecture",
       "datePublished": "2026-02-25",
       "description": "Intent Architecture with roles, deliberation, 3-signature policy chain, FloorValidatorV1, and precedent memory for multi-agent decision-making.",
       "url": "https://agent-passport.org/blog.html#day-8",
@@ -678,7 +742,7 @@
     },
     {
       "@type": "BlogPosting",
-      "headline": "MCP Server Ships — 11 Tools, 12+ Distribution Channels",
+      "headline": "MCP Server Ships · 11 Tools, 12+ Distribution Channels",
       "datePublished": "2026-02-23",
       "description": "agent-passport-system-mcp v1.0.0 published. MCP server with 11 tools for Claude Desktop, Cursor, Windsurf. Distributed across 12+ channels.",
       "url": "https://agent-passport.org/blog.html#mcp-ships",
@@ -745,152 +809,42 @@
   ]
 }
 </script>
-
-<style>
-/* ── Blog page-specific: newsprint re-skin of existing entry markup ──
-   Old inline-style color vars are aliased to newsprint tokens so the
-   .post entries restyle without editing each entry's markup. */
-:root{
-  --dim:var(--ink-2);
-  --text:var(--ink);
-  --accent:var(--stamp);
-  --link:var(--stamp);
-  --ink-5:var(--ink-3);
-  --mono:var(--tweak-mono-font,"JetBrains Mono"),ui-monospace,monospace;
-  --code-bg:var(--paper-2);
-}
-.blog-feed{max-width:var(--maxw);margin:0 auto;padding:64px 48px 96px;position:relative;z-index:1}
-
-/* dev-log entry as a dated newsprint record —
-   date sits in the left margin, the whole body stacks in one column */
-.blog-feed .post{
-  border-top:1px solid var(--rule);
-  padding:44px 0;
-  display:grid;grid-template-columns:170px minmax(0,820px);
-  column-gap:48px;
-  align-items:start;
-}
-.blog-feed .post:first-of-type{border-top:0;padding-top:0}
-.blog-feed .post > *{grid-column:2;min-width:0}
-.blog-feed .post .post-date{
-  grid-column:1;grid-row:1;
-  font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;
-  font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;
-  color:var(--stamp);padding-top:7px;display:block;
-}
-.blog-feed .post h2{
-  font-family:var(--tweak-body-font,"Newsreader"),Georgia,serif;
-  font-size:30px;line-height:1.12;letter-spacing:-0.022em;font-weight:500;
-  color:var(--ink);margin:0 0 16px;text-wrap:balance;
-}
-.blog-feed .post p{
-  font-family:"Inter",-apple-system,system-ui,sans-serif;
-  font-size:16px;line-height:1.66;color:var(--ink-2)!important;
-  font-weight:400;margin:0 0 14px;
-}
-.blog-feed .post p:last-child{margin-bottom:0}
-.blog-feed .post p[style*="font-size:.95rem"]{font-size:16px!important}
-.blog-feed .post strong{color:var(--ink)!important;font-weight:600}
-.blog-feed .post a{
-  color:var(--stamp);text-decoration:none;
-  border-bottom:1px solid #b83a2e55;transition:border-color .15s;
-}
-.blog-feed .post a:hover{border-bottom-color:var(--stamp)}
-.blog-feed .post code{
-  font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;
-  font-size:13px;background:var(--paper-2);
-  border:1px solid var(--rule-soft);padding:1px 6px;border-radius:3px;
-  color:var(--ink);
-}
-.blog-feed .post pre{
-  background:var(--ink);color:var(--paper);
-  font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;
-  font-size:13px;line-height:1.62;padding:20px 22px;overflow-x:auto;
-  margin:0 0 18px;border:1px solid var(--ink);
-}
-.blog-feed .post pre code{background:none;border:0;padding:0;color:inherit}
-.blog-feed .post h3{
-  font-family:var(--tweak-body-font,"Newsreader"),Georgia,serif;
-  font-size:21px;line-height:1.25;letter-spacing:-0.015em;font-weight:500;
-  color:var(--ink);margin:30px 0 12px;
-}
-.blog-feed .post ul,.blog-feed .post ol{
-  font-family:"Inter",-apple-system,system-ui,sans-serif;
-  font-size:16px;line-height:1.66;color:var(--ink-2);margin:0 0 14px;padding-left:24px;
-}
-.blog-feed .post li{margin:0 0 6px}
-.blog-feed .post ul li::marker{color:var(--stamp)}
-.blog-feed .post blockquote{
-  margin:0 0 16px;padding:6px 0 6px 20px;border-left:2px solid var(--stamp);
-  font-family:var(--tweak-body-font,"Newsreader"),Georgia,serif;
-  font-style:italic;font-size:18px;line-height:1.5;color:var(--ink);
-}
-
-/* the "for AI agents" callout near the bottom */
-.blog-feed .agent-note{
-  margin:48px auto 0;max-width:none;
-  padding:18px 22px;border:1px solid var(--rule);background:var(--paper-2);
-  font-family:"Inter",-apple-system,system-ui,sans-serif;
-  font-size:14px;line-height:1.6;color:var(--ink-2);border-radius:0;
-}
-.blog-feed .agent-note strong{color:var(--ink);font-weight:600}
-.blog-feed .agent-note a{color:var(--stamp);border-bottom:1px solid #b83a2e55;text-decoration:none}
-
-@media(max-width:860px){
-  .blog-feed{padding:48px 24px 72px}
-  .blog-feed .post{grid-template-columns:1fr;row-gap:10px}
-  .blog-feed .post > *{grid-column:1}
-  .blog-feed .post .post-date{grid-row:auto;padding-top:0;margin-bottom:4px}
-  .blog-feed .post h2{font-size:25px}
-}
-</style>
-<script type="application/aps-governance+json">
-{
-  "@context": "https://aeoess.com/governance/v1",
-  "@type": "GovernanceBlock",
-  "source_did": "did:aps:z6MkfBQNZXXcgtkmj4AvFfH14WtSmd4gUrUEfyi2oMbrmTGW",
-  "content_hash": "sha256:a69a4af79bcb3f9bfcd44ad9ca129240f528a9bb33b5dd99d06e24ef141a846e",
-  "published_at": "2026-03-29T01:27:57.454Z",
-  "governance_generated_at": "2026-03-29T01:27:57.454Z",
-  "terms": {
-    "inference": "permitted",
-    "training": "attribution_required",
-    "redistribution": "permitted",
-    "caching": "permitted"
-  },
-  "revocation_policy": {
-    "mechanism": "aps_txt",
-    "endpoint": "https://aeoess.com/.well-known/aps.txt"
-  },
-  "signature": "d26b19e853f27fe130287d04405532573dd8ed8aa3b12ecf9bbf87337d8330b69f35bb396f1c873acfc13e4af61a9abfe4b6adfc68d50b65896883d61ca72b0c"
-}
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S7QVCJGMKR');
 </script>
 </head>
 <body>
-<div class="topbar">
-  <a class="brand" href="/"><b>APS</b> &middot; Agent Passport System</a>
-  <nav class="topnav">
-    <a href="/docs.html">Docs</a>
-    <a href="/protocol.html">Spec</a>
-    <a href="/benchmarks.html">Benchmarks</a>
-    <a href="/research.html">Research</a>
-    <a href="/roadmap.html">Roadmap</a>
-    <a href="/blog.html">Dev Log</a>
-    <a href="https://github.com/aeoess/agent-passport-system">GitHub &#8599;</a>
+<div class="bg-glow"></div>
+<header class="nav">
+  <div class="brand">
+    <a href="/"><span class="sq"></span>APS <span style="color:var(--sub)">· Agent Passport System</span></a>
+    <span class="badge"><i></i>Apache 2.0</span>
+  </div>
+  <nav class="nav-links">
+    <a href="https://agent-passport.org/docs.html">Docs</a>
+    <a href="https://agent-passport.org/protocol.html">Spec</a>
+    <a href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a href="https://agent-passport.org/research.html">Research</a>
+    <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+    <a href="https://agent-passport.org/blog.html">Dev Log</a>
+    <a class="gh" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
   </nav>
-</div>
-
+</header>
 <section class="page-hero">
   <div class="wrap">
-    <div class="eyebrow">Dev Log</div>
+    <div class="eyebrow"><span class="sq"></span><span>Dev log</span></div>
     <h1>Building Agent Passport System, <span class="it">day by day.</span></h1>
 <!-- PROPAGATION-ZONE-START -->
     <p class="dek">Day-by-day record of building the enforcement and accountability layer for AI agents. Bring your own identity: did:key, did:web, SPIFFE, OAuth, native did:aps. Started February 18, 2026. <b>3,959 tests, eight papers, IETF draft.</b> Open source. Full surface area: 150 MCP tools.</p>
 <!-- PROPAGATION-ZONE-END -->
-    <p class="dek" style="font-size:16px;margin-top:14px">See the full picture on <a href="roadmap.html" style="font-weight:600;color:var(--stamp)">the roadmap</a> — every ship across protocol, product, research, comms, and ops with dependency arrows.</p>
+    <p class="dek" style="font-size:16px;margin-top:14px">See the full picture on <a href="roadmap.html" style="font-weight:600;color:var(--lime)">the roadmap</a> · every ship across protocol, product, research, comms, and ops with dependency arrows.</p>
   </div>
 </section>
-
 <main class="blog-feed">
 <article class="post" id="day-133-authority-checked-inside-the-lock">
   <time class="post-date" datetime="2026-07-01">July 1, 2026</time>
@@ -2113,58 +2067,55 @@ import { /* anything from the full surface */ } from 'agent-passport-system'</pr
 
 <div class="agent-note"><strong>🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://aeoess.com/llms.txt">aeoess.com/llms.txt</a> for machine-readable documentation or <a href="https://aeoess.com/llms-full.txt">llms-full.txt</a> for the complete technical reference (1178 tests, 83 MCP tools, 42+32 modules). This page is designed for humans.</div>
 </main>
-
-<footer>
-  <div class="f-top">
-    <div class="f-brand">
-      <div class="f-word"><b>Agent Passport System</b></div>
-      <p class="f-blurb">Open-source infrastructure to enforce,<br>verify, and audit AI agent actions.</p>
-      <p class="f-blurb">Spec is CC0. Code is Apache 2.0.<br>The conformance suite is yours to fork.</p>
-      <a class="btn" href="/working-group.html">Join the Working Group &#8599;</a>
-    </div>
-    <div class="f-cols">
-      <div class="f-col">
-        <div class="f-h">Protocol</div>
-        <a href="/protocol.html">Documentation</a>
-        <a href="/benchmarks.html">Benchmarks</a>
-        <a href="/threat-model.html">Threat Model</a>
-        <a href="/faq.html">FAQ</a>
+<footer class="r">
+      <div class="foot-grid">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px">
+            <span class="sq"></span>
+            <span class="mono" style="font-size:14px; font-weight:500">Agent Passport System</span>
+          </div>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:8px">Open-source infrastructure to enforce, verify, and audit AI agent actions.</p>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:18px">The conformance suite is yours to fork.</p>
+          <a class="mono" href="mailto:signal@aeoess.com" style="display:inline-block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg); border:1px solid var(--line2); padding:9px 16px; border-radius:2px">Contact ↗</a>
+        </div>
+        <div>
+          <div class="head">Protocol</div>
+          <div class="links">
+            <a href="https://agent-passport.org/docs.html">Documentation</a>
+            <a href="https://agent-passport.org/protocol.html">Protocol</a>
+            <a href="https://agent-passport.org/threat-model.html">Threat model</a>
+            <a href="https://agent-passport.org/faq.html">FAQ</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Developers</div>
+          <div class="links">
+            <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
+            <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
+            <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
+            <a href="https://agent-passport.org/wallet.html">Agent Wallet</a>
+            <a href="https://agent-passport.org/AGENTS.md">AGENTS.md</a>
+            <a href="https://agent-passport.org/llms.txt">llms.txt</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Community</div>
+          <div class="links">
+            <a href="https://agent-passport.org/blog.html">Dev Log</a>
+            <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+            <a href="https://agent-passport.org/working-group.html">Working group</a>
+            <a href="https://agent-passport.org/media.html">Media</a>
+            <a href="https://agent-passport.org/research.html">Research</a>
+          </div>
+        </div>
       </div>
-      <div class="f-col">
-        <div class="f-h">Developers</div>
-        <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
-        <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
-        <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
-        <a href="/wallet.html">Agent Wallet</a>
-        <a href="/AGENTS.md">AGENTS.md</a>
-        <a href="/llms.txt">llms.txt</a>
+      <div class="foot-base" style="justify-content:flex-start; gap:16px 56px">
+        <span><em class="fbk">License</em>Code Apache 2.0</span>
+        <span><em class="fbk">Editor</em>Tymofii Pidlisnyi</span>
+        <span><em class="fbk">Spec</em>draft-pidlisnyi-aps (IETF Internet-Draft)</span>
+        <span><em class="fbk">Imprint</em>Vol. 01 · 2026 · agent-passport.org</span>
+        <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
       </div>
-      <div class="f-col">
-        <div class="f-h">Community</div>
-        <a href="/blog.html">Dev Log</a>
-        <a href="/roadmap.html">Roadmap</a>
-        <a href="/working-group.html">Working Group</a>
-      </div>
-      <div class="f-col">
-        <div class="f-h">Research</div>
-        <a href="/research.html#r1">Agent Social Contract</a>
-        <a href="/research.html#r2">Monotonic Narrowing</a>
-        <a href="/research.html#r3">Faceted Authority Attenuation</a>
-        <a href="/research.html#r4">Behavioral Derivation Rights</a>
-        <a href="/research.html#r5">Physics-Enforced Delegation</a>
-        <a href="/research.html#r6">Governance in the Medium</a>
-        <a href="/research.html#r7">Cognitive Attestation</a>
-        <a href="/research.html#r8">Evidence-Safety Gap</a>
-      </div>
-    </div>
-  </div>
-  <div class="f-strip">
-    <div><span>License</span>Spec CC0 &middot; Code Apache 2.0</div>
-    <div><span>Editor</span>Tymofii Pidlisnyi</div>
-    <div><span>Standard</span>APS &middot; IETF Internet-Draft</div>
-    <div><span>Imprint</span>Vol. 01 &middot; 2026 &middot; agent-passport.org</div>
-    <div><span>Also at</span><a href="https://aeoess.com">aeoess.com</a></div>
-  </div>
-</footer>
+    </footer>
 </body>
 </html>

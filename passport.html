@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agent Passport System | Agent Passport System</title>
 <meta name="description" content="Agent Passport System: enforcement infrastructure for AI agents. Ed25519 identity, scoped delegation, earned reputation, gateway enforcement, agent-to-agent payments, Merkle attribution, institutional governance. Verifier hot path p50 318ns (Mac M3). 3,959 tests. 20 essential MCP tools (150 total).">
 <link rel="canonical" href="https://agent-passport.org/passport.html">
-<link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
-<link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation">
-<link rel="alternate" type="application/json" href="https://agent-passport.org/.well-known/mcp.json" title="MCP server discovery">
-<meta property="og:title" content="Agent Passport System — Agent Passport System">
-<meta property="og:description" content="Enforcement infrastructure for AI agents. Ed25519 identity, delegation, reputation, gateway enforcement, agent-to-agent payments, Merkle attribution. 3,959 tests. 20 essential MCP tools (150 total).">
+<meta property="og:title" content="Agent Passport System | Agent Passport System">
+<meta property="og:description" content="Agent Passport System: enforcement infrastructure for AI agents. Ed25519 identity, scoped delegation, earned reputation, gateway enforcement, agent-to-agent payments, Merkle attribution, institutional governance. Verifier hot path p50 318ns (Mac M3). 3,959 tests. 20 essential MCP tools (150 total).">
+<meta property="og:type" content="article">
 <meta property="og:url" content="https://agent-passport.org/passport.html">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Agent Passport System — 107 Modules, 3,959 tests">
-<meta name="twitter:description" content="Ed25519 cryptographic identity, delegation chains, and coordination primitives for AI agents. Full code examples and MCP tool reference.">
-<meta name="twitter:image" content="https://agent-passport.org/assets/images/aeoess_logo.png">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="/aps-design.css">
-
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230A0B08'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23C8F032'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/aps-v2.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Agent Passport System | Ed25519 Cryptographic Identity for AI Agents","description":"Agent Passport System: enforcement infrastructure for AI agents. Ed25519 identity, scoped delegation, earned reputation, gateway enforcement, agent-to-agent payments, Merkle attribution, institutional governance. Verifier hot path p50 318ns (Mac M3). 3,959 tests. 20 essential MCP tools (150 total).","url":"https://agent-passport.org/passport.html","dateModified":"2026-07-02","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","applicationCategory":"DeveloperApplication","operatingSystem":"Cross-platform","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"softwareVersion":"3.0.0","downloadUrl":"https://www.npmjs.com/package/agent-passport-system"}</script>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
 <script>
@@ -28,51 +22,32 @@
   gtag('js', new Date());
   gtag('config', 'G-S7QVCJGMKR');
 </script>
-<script type="application/aps-governance+json">
-{
-  "@context": "https://aeoess.com/governance/v1",
-  "@type": "GovernanceBlock",
-  "source_did": "did:aps:z6MkfBQNZXXcgtkmj4AvFfH14WtSmd4gUrUEfyi2oMbrmTGW",
-  "content_hash": "sha256:b33b415c91a1fdb4a25a16e5625083d393944be436dc44456aefc94fb7a141c8",
-  "published_at": "2026-03-29T01:25:50.910Z",
-  "governance_generated_at": "2026-03-29T01:25:50.910Z",
-  "terms": {
-    "inference": "permitted",
-    "training": "attribution_required",
-    "redistribution": "permitted",
-    "caching": "permitted"
-  },
-  "revocation_policy": {
-    "mechanism": "aps_txt",
-    "endpoint": "https://agent-passport.org/.well-known/aps.txt"
-  },
-  "signature": "872d6e69113f0aaf6c552f2187ec60e14c64ad5e708b397eb9e454da35fda3fb7e50f59d01732591d09374b6f94da5c619e66c9c646da4f47aed7d73be9bd10b"
-}
-</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Agent Passport System | Ed25519 Cryptographic Identity for AI Agents","description":"Agent Passport System: enforcement infrastructure for AI agents. Ed25519 identity, scoped delegation, earned reputation, gateway enforcement, agent-to-agent payments, Merkle attribution, institutional governance. Verifier hot path p50 318ns (Mac M3). 3,959 tests. 20 essential MCP tools (150 total).","url":"https://agent-passport.org/passport.html","dateModified":"2026-05-21","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","applicationCategory":"DeveloperApplication","operatingSystem":"Cross-platform","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"softwareVersion":"3.0.0","downloadUrl":"https://www.npmjs.com/package/agent-passport-system"}</script>
 </head>
 <body>
-<div class="topbar">
-  <a class="brand" href="/"><b>APS</b> &middot; Agent Passport System</a>
-  <nav class="topnav">
-    <a href="/docs.html">Docs</a>
-    <a href="/protocol.html">Spec</a>
-    <a href="/benchmarks.html">Benchmarks</a>
-    <a href="/research.html">Research</a>
-    <a href="/roadmap.html">Roadmap</a>
-    <a href="/blog.html">Dev Log</a>
-    <a href="https://github.com/aeoess/agent-passport-system">GitHub &#8599;</a>
+<div class="bg-glow"></div>
+<header class="nav">
+  <div class="brand">
+    <a href="/"><span class="sq"></span>APS <span style="color:var(--sub)">· Agent Passport System</span></a>
+    <span class="badge"><i></i>Apache 2.0</span>
+  </div>
+  <nav class="nav-links">
+    <a href="https://agent-passport.org/docs.html">Docs</a>
+    <a href="https://agent-passport.org/protocol.html">Spec</a>
+    <a href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a href="https://agent-passport.org/research.html">Research</a>
+    <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+    <a href="https://agent-passport.org/blog.html">Dev Log</a>
+    <a class="gh" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
   </nav>
-</div>
-
-<main>
-  <section class="page-hero"><div class="wrap">
-    <div class="eyebrow">Specification · v3.0.0</div>
-    <h1>Agent Passport <span class="it">System</span></h1>
+</header>
+<main class="page">
+  <section class="page-hero">
+    <div class="eyebrow"><span class="sq"></span><span>Specification · v3.0.0</span></div>
+    <h1>Agent Passport System</h1>
     <p class="dek">APS is the open receipt format for AI agent actions. Independent implementations agree byte-for-byte on what an agent action receipt looks like. Ships as 84 core modules plus 23 v2 constitutional governance modules: signed passports, scoped delegation, action receipts, revocation, values floor, beneficiary attribution, Merkle proofs, intent architecture, cascade revocation, policy engine, coordination primitives, and agentic commerce (ACP). MCP server included.</p>
-  </div></section>
+  </section>
+  <article class="prose">
 
-  <div class="aps-prose"><div class="wrap"><div class="col">
 
   <section>
   <h2 class="no-rule">Quick Start</h2>
@@ -116,14 +91,14 @@ const agent = await createPassport({
   <table>
     <thead><tr><th>Layer</th><th>Version</th><th>Primitives</th><th>Question Answered</th></tr></thead>
     <tbody>
-      <tr><td><strong>1 — Identity</strong></td><td>v1.0</td><td>Ed25519 keypair, signed passport, reputation, delegation, challenge-response</td><td>Who is this agent?</td></tr>
-      <tr><td><strong>2 — Values Floor</strong></td><td>v1.0</td><td>7 principles, 5 enforced, attestation, compliance, graduated enforcement (inline/audit/warn)</td><td>Does it share our values?</td></tr>
-      <tr><td><strong>3 — Attribution</strong></td><td>v1.1</td><td>Merkle proofs, beneficiary tracing, anti-gaming weights</td><td>Who benefits from its work?</td></tr>
-      <tr><td><strong>4 — Agora</strong></td><td>v1.2</td><td>Signed communication protocol, per-instance isolation, registry, threading</td><td>How do agents communicate securely?</td></tr>
-      <tr><td><strong>5 — Intent</strong></td><td>v1.3</td><td>3-signature chain, policy engine, tradeoff rules, deliberation</td><td>What does the organization want?</td></tr>
-      <tr><td><strong>6 — Revocation</strong></td><td>v1.4</td><td>Cascade revoke, chain registry, batch revoke, validation events</td><td>Can we stop it — and all its delegates?</td></tr>
-      <tr><td><strong>7 — Coordination</strong></td><td>v1.5</td><td>Task briefs, evidence, review gates, handoffs, deliverables, metrics</td><td>How do agents work together on real tasks?</td></tr>
-      <tr><td><strong>8 — Commerce</strong></td><td>v1.6</td><td>ACP checkout, 4-gate preflight, spend tracking, human approval, signed receipts</td><td>How do agents buy things safely?</td></tr>
+      <tr><td><strong>1 · Identity</strong></td><td>v1.0</td><td>Ed25519 keypair, signed passport, reputation, delegation, challenge-response</td><td>Who is this agent?</td></tr>
+      <tr><td><strong>2 · Values Floor</strong></td><td>v1.0</td><td>7 principles, 5 enforced, attestation, compliance, graduated enforcement (inline/audit/warn)</td><td>Does it share our values?</td></tr>
+      <tr><td><strong>3 · Attribution</strong></td><td>v1.1</td><td>Merkle proofs, beneficiary tracing, anti-gaming weights</td><td>Who benefits from its work?</td></tr>
+      <tr><td><strong>4 · Agora</strong></td><td>v1.2</td><td>Signed communication protocol, per-instance isolation, registry, threading</td><td>How do agents communicate securely?</td></tr>
+      <tr><td><strong>5 · Intent</strong></td><td>v1.3</td><td>3-signature chain, policy engine, tradeoff rules, deliberation</td><td>What does the organization want?</td></tr>
+      <tr><td><strong>6 · Revocation</strong></td><td>v1.4</td><td>Cascade revoke, chain registry, batch revoke, validation events</td><td>Can we stop it — and all its delegates?</td></tr>
+      <tr><td><strong>7 · Coordination</strong></td><td>v1.5</td><td>Task briefs, evidence, review gates, handoffs, deliverables, metrics</td><td>How do agents work together on real tasks?</td></tr>
+      <tr><td><strong>8 · Commerce</strong></td><td>v1.6</td><td>ACP checkout, 4-gate preflight, spend tracking, human approval, signed receipts</td><td>How do agents buy things safely?</td></tr>
     </tbody>
   </table>
   </section>
@@ -132,11 +107,11 @@ const agent = await createPassport({
   <h2>2. Identity Layer (v1.0)</h2>
   <p>Each agent generates an Ed25519 keypair. The public key <strong>is</strong> the identity — no certificate authorities, no blockchain. The passport document is canonical JSON signed with the private key. Any tampering breaks the signature.</p>
   <ul>
-    <li><strong>Ed25519 keys</strong> — fast, secure, deterministic. 32-byte public keys.</li>
-    <li><strong>Signed passport</strong> — agent metadata (name, owner, capabilities, mission) signed as canonical JSON.</li>
-    <li><strong>Reputation score</strong> — 0.1 to 10 scale, earned through completed collaborations.</li>
-    <li><strong>Delegation</strong> — grant scoped capabilities to other agents with spend caps and expiration.</li>
-    <li><strong>Challenge-response</strong> — prove passport ownership. Verifier sends nonce, agent signs it.</li>
+    <li><strong>Ed25519 keys</strong> · fast, secure, deterministic. 32-byte public keys.</li>
+    <li><strong>Signed passport</strong> · agent metadata (name, owner, capabilities, mission) signed as canonical JSON.</li>
+    <li><strong>Reputation score</strong> · 0.1 to 10 scale, earned through completed collaborations.</li>
+    <li><strong>Delegation</strong> · grant scoped capabilities to other agents with spend caps and expiration.</li>
+    <li><strong>Challenge-response</strong> · prove passport ownership. Verifier sends nonce, agent signs it.</li>
   </ul>
   </section>
 
@@ -212,7 +187,7 @@ const brief = createTaskBrief({
   </section>
 
   <section>
-  <h2>8. Agentic Commerce — ACP (v1.6)</h2>
+  <h2>8. Agentic Commerce · ACP (v1.6)</h2>
   <p>Integration with the Agentic Commerce Protocol (OpenAI + Stripe). 4-gate preflight pipeline: passport verification, delegation scope check, spend limit enforcement, merchant allowlist. Human approval thresholds prevent agents from completing purchases above configured limits without human confirmation. Every purchase produces a signed CommerceActionReceipt with beneficiary attribution.</p>
   <pre>import { commercePreflight, createCheckout, getSpendSummary } from 'agent-passport-system';
 
@@ -452,60 +427,58 @@ const resolution = resolveObligation({ obligation, receipts: [...], gatewayId, g
   <p><strong>🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt">llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt">llms-full.txt</a> for the complete technical reference (3,959 tests. 20 essential MCP tools (150 total), 107 modules). This page is designed for humans.</p>
   </div>
 
-  </div></div></div>
+  
+  </article>
 </main>
-
-<footer>
-  <div class="f-top">
-    <div class="f-brand">
-      <div class="f-word"><b>Agent Passport System</b></div>
-      <p class="f-blurb">Open-source infrastructure to enforce,<br>verify, and audit AI agent actions.</p>
-      <p class="f-blurb">Spec is CC0. Code is Apache 2.0.<br>The conformance suite is yours to fork.</p>
-      <a class="btn" href="/working-group.html">Join the Working Group &#8599;</a>
-    </div>
-    <div class="f-cols">
-      <div class="f-col">
-        <div class="f-h">Protocol</div>
-        <a href="/protocol.html">Documentation</a>
-        <a href="/benchmarks.html">Benchmarks</a>
-        <a href="/threat-model.html">Threat Model</a>
-        <a href="/faq.html">FAQ</a>
+<footer class="r">
+      <div class="foot-grid">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px">
+            <span class="sq"></span>
+            <span class="mono" style="font-size:14px; font-weight:500">Agent Passport System</span>
+          </div>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:8px">Open-source infrastructure to enforce, verify, and audit AI agent actions.</p>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:18px">The conformance suite is yours to fork.</p>
+          <a class="mono" href="mailto:signal@aeoess.com" style="display:inline-block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg); border:1px solid var(--line2); padding:9px 16px; border-radius:2px">Contact ↗</a>
+        </div>
+        <div>
+          <div class="head">Protocol</div>
+          <div class="links">
+            <a href="https://agent-passport.org/docs.html">Documentation</a>
+            <a href="https://agent-passport.org/protocol.html">Protocol</a>
+            <a href="https://agent-passport.org/threat-model.html">Threat model</a>
+            <a href="https://agent-passport.org/faq.html">FAQ</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Developers</div>
+          <div class="links">
+            <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
+            <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
+            <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
+            <a href="https://agent-passport.org/wallet.html">Agent Wallet</a>
+            <a href="https://agent-passport.org/AGENTS.md">AGENTS.md</a>
+            <a href="https://agent-passport.org/llms.txt">llms.txt</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Community</div>
+          <div class="links">
+            <a href="https://agent-passport.org/blog.html">Dev Log</a>
+            <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+            <a href="https://agent-passport.org/working-group.html">Working group</a>
+            <a href="https://agent-passport.org/media.html">Media</a>
+            <a href="https://agent-passport.org/research.html">Research</a>
+          </div>
+        </div>
       </div>
-      <div class="f-col">
-        <div class="f-h">Developers</div>
-        <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
-        <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
-        <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
-        <a href="/wallet.html">Agent Wallet</a>
-        <a href="/AGENTS.md">AGENTS.md</a>
-        <a href="/llms.txt">llms.txt</a>
+      <div class="foot-base" style="justify-content:flex-start; gap:16px 56px">
+        <span><em class="fbk">License</em>Code Apache 2.0</span>
+        <span><em class="fbk">Editor</em>Tymofii Pidlisnyi</span>
+        <span><em class="fbk">Spec</em>draft-pidlisnyi-aps (IETF Internet-Draft)</span>
+        <span><em class="fbk">Imprint</em>Vol. 01 · 2026 · agent-passport.org</span>
+        <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
       </div>
-      <div class="f-col">
-        <div class="f-h">Community</div>
-        <a href="/blog.html">Dev Log</a>
-        <a href="/roadmap.html">Roadmap</a>
-        <a href="/working-group.html">Working Group</a>
-      </div>
-      <div class="f-col">
-        <div class="f-h">Research</div>
-        <a href="/research.html#r1">Agent Social Contract</a>
-        <a href="/research.html#r2">Monotonic Narrowing</a>
-        <a href="/research.html#r3">Faceted Authority Attenuation</a>
-        <a href="/research.html#r4">Behavioral Derivation Rights</a>
-        <a href="/research.html#r5">Physics-Enforced Delegation</a>
-        <a href="/research.html#r6">Governance in the Medium</a>
-        <a href="/research.html#r7">Cognitive Attestation</a>
-        <a href="/research.html#r8">Evidence-Safety Gap</a>
-      </div>
-    </div>
-  </div>
-  <div class="f-strip">
-    <div><span>License</span>Spec CC0 &middot; Code Apache 2.0</div>
-    <div><span>Editor</span>Tymofii Pidlisnyi</div>
-    <div><span>Standard</span>APS &middot; IETF Internet-Draft</div>
-    <div><span>Imprint</span>Vol. 01 &middot; 2026 &middot; agent-passport.org</div>
-    <div><span>Also at</span><a href="https://aeoess.com">aeoess.com</a></div>
-  </div>
-</footer>
+    </footer>
 </body>
 </html>

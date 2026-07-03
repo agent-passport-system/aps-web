@@ -1,79 +1,56 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AMCS | Agent Passport System</title>
 <meta name="description" content="Open standard for credentialing AI-native publications. 6 requirements across cryptographic infrastructure and editorial accountability. The SSL certificate for AI journalism.">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="/aps-design.css">
 <link rel="canonical" href="https://agent-passport.org/amcs.html">
-<link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
-<link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation">
-<link rel="alternate" type="application/json" href="https://agent-passport.org/.well-known/mcp.json" title="MCP server discovery">
-<meta property="og:title" content="AMCS — AI-Native Media Credentialing Standard">
-<meta property="og:description" content="Open standard for credentialing AI-native publications. Ed25519 provenance, confidence labels, public ethics verification. Any publication can apply.">
-<script type="application/aps-governance+json">
-{
-  "@context": "https://aeoess.com/governance/v1",
-  "@type": "GovernanceBlock",
-  "source_did": "did:aps:z6MkfBQNZXXcgtkmj4AvFfH14WtSmd4gUrUEfyi2oMbrmTGW",
-  "content_hash": "sha256:47facc51ed0e09fa2263485f69e779fae02dfaa81a0859eef3f4e74e8fc37889",
-  "published_at": "2026-03-29T01:25:50.900Z",
-  "governance_generated_at": "2026-03-29T01:25:50.900Z",
-  "terms": {
-    "inference": "permitted",
-    "training": "attribution_required",
-    "redistribution": "permitted",
-    "caching": "permitted"
-  },
-  "revocation_policy": {
-    "mechanism": "aps_txt",
-    "endpoint": "https://agent-passport.org/.well-known/aps.txt"
-  },
-  "signature": "7085c8607f7f7a65eeb9dd4487ff248b25cbe9baec24009136482ac3a996d869800bd773de69092fb894ba1143666e126bdd14e848c5c0f227994814a1787e08"
-}
-</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"AMCS — AI-Native Media Credentialing Standard | Agent Passport System","description":"Open standard for credentialing AI-native publications. 6 requirements across cryptographic infrastructure and editorial accountability. The SSL certificate for AI journalism.","url":"https://agent-passport.org/amcs.html","dateModified":"2026-05-02","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"AMCS — AI-Native Media Credentialing Standard","articleSection":"Specification"}</script>
+<meta property="og:title" content="AMCS | Agent Passport System">
+<meta property="og:description" content="Open standard for credentialing AI-native publications. 6 requirements across cryptographic infrastructure and editorial accountability. The SSL certificate for AI journalism.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://agent-passport.org/amcs.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230A0B08'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23C8F032'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/aps-v2.css">
 <style>
-.amcs-tag{display:inline-block;font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:3px 9px;border:1px solid var(--ink);margin-bottom:10px}
-.amcs-tag.crypto{color:var(--stamp);border-color:var(--stamp)}
-.amcs-tag.editorial{color:var(--stamp-2);border-color:var(--stamp-2)}
-.amcs-card-h{font-family:var(--tweak-body-font,"Newsreader"),serif;font-size:18px;font-weight:600;letter-spacing:-0.01em;margin:0 0 8px}
-.amcs-disclosure{border-left:2px solid var(--gold);background:var(--paper-2);padding:18px 22px;margin:0 0 26px}
+.amcs-tag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:3px 9px;border:1px solid var(--fg);margin-bottom:10px}
+.amcs-tag.crypto{color:var(--lime);border-color:var(--lime)}
+.amcs-tag.editorial{color:var(--warn);border-color:var(--warn)}
+.amcs-card-h{font-family:var(--disp);font-size:18px;font-weight:600;letter-spacing:-0.01em;margin:0 0 8px}
+.amcs-disclosure{border-left:2px solid var(--warn);background:var(--panel);padding:18px 22px;margin:0 0 26px}
 .amcs-disclosure p{margin:0}
-.amcs-foot{border:1px solid var(--ink);padding:22px;text-align:center;margin:40px 0 0}
-.amcs-foot p{font-family:var(--tweak-mono-font,"JetBrains Mono"),monospace;font-size:12px;color:var(--ink-3);margin:0}
+.amcs-foot{border:1px solid var(--fg);padding:22px;text-align:center;margin:40px 0 0}
+.amcs-foot p{font-family:var(--mono);font-size:12px;color:var(--sub);margin:0}
 .amcs-foot p + p{margin-top:6px}
 </style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"AMCS · AI-Native Media Credentialing Standard | Agent Passport System","description":"Open standard for credentialing AI-native publications. 6 requirements across cryptographic infrastructure and editorial accountability. The SSL certificate for AI journalism.","url":"https://agent-passport.org/amcs.html","dateModified":"2026-07-02","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"AMCS · AI-Native Media Credentialing Standard","articleSection":"Specification"}</script>
 </head>
 <body>
-<div class="topbar">
-  <a class="brand" href="/"><b>APS</b> &middot; Agent Passport System</a>
-  <nav class="topnav">
-    <a href="/docs.html">Docs</a>
-    <a href="/protocol.html">Spec</a>
-    <a href="/benchmarks.html">Benchmarks</a>
-    <a href="/research.html">Research</a>
-    <a href="/roadmap.html">Roadmap</a>
-    <a href="/blog.html">Dev Log</a>
-    <a href="https://github.com/aeoess/agent-passport-system">GitHub &#8599;</a>
+<div class="bg-glow"></div>
+<header class="nav">
+  <div class="brand">
+    <a href="/"><span class="sq"></span>APS <span style="color:var(--sub)">· Agent Passport System</span></a>
+    <span class="badge"><i></i>Apache 2.0</span>
+  </div>
+  <nav class="nav-links">
+    <a href="https://agent-passport.org/docs.html">Docs</a>
+    <a href="https://agent-passport.org/protocol.html">Spec</a>
+    <a href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a href="https://agent-passport.org/research.html">Research</a>
+    <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+    <a href="https://agent-passport.org/blog.html">Dev Log</a>
+    <a class="gh" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
   </nav>
-</div>
-
-<main>
-  <section class="page-hero"><div class="wrap">
-    <div class="eyebrow">Open Standard · v0.1.0 Draft</div>
-    <h1><span class="it">AMCS</span></h1>
+</header>
+<main class="page">
+  <section class="page-hero">
+    <div class="eyebrow"><span class="sq"></span><span>Open Standard · v0.1.0 Draft</span></div>
+    <h1>AMCS</h1>
     <p class="dek">AI-Native Media Credentialing Standard. The SSL certificate for AI journalism. Six requirements. Two layers. Any publication can apply. Verified by math and public evidence, not editorial judgment.</p>
-    <div class="meta">
-      <a class="pill" href="https://github.com/aeoess/agent-passport-system/blob/main/docs/AMCS-SPEC.md" target="_blank">Full Spec on GitHub</a>
-      <a class="pill" href="https://github.com/aeoess/agent-passport-system/issues" target="_blank">Submit Feedback</a>
-    </div>
-  </div></section>
+  </section>
+  <article class="prose">
 
-  <div class="aps-prose"><div class="wrap"><div class="col">
 
     <div class="amcs-disclosure">
       <p><strong>Disclosure:</strong> AMCS is published by <a href="https://agent-passport.org/">Agent Passport System</a> as an open standard. AMCS spans two layers. Editorial accountability is verified through self-attestation and a public evidence audit trail. Cryptographic infrastructure includes Ed25519 signing, agent passports, and delegation chains. The criteria are public, technically auditable, and designed to be met by any publication. We invite scrutiny.</p>
@@ -122,60 +99,58 @@
       <p>Published by <a href="https://github.com/aeoess/agent-passport-system">Agent Passport System</a> · Editorial frameworks: SPJ, NPC, Scripps</p>
     </div>
 
-  </div></div></div>
+  
+  </article>
 </main>
-
-<footer>
-  <div class="f-top">
-    <div class="f-brand">
-      <div class="f-word"><b>Agent Passport System</b></div>
-      <p class="f-blurb">Open-source infrastructure to enforce,<br>verify, and audit AI agent actions.</p>
-      <p class="f-blurb">Spec is CC0. Code is Apache 2.0.<br>The conformance suite is yours to fork.</p>
-      <a class="btn" href="/working-group.html">Join the Working Group &#8599;</a>
-    </div>
-    <div class="f-cols">
-      <div class="f-col">
-        <div class="f-h">Protocol</div>
-        <a href="/protocol.html">Documentation</a>
-        <a href="/benchmarks.html">Benchmarks</a>
-        <a href="/threat-model.html">Threat Model</a>
-        <a href="/faq.html">FAQ</a>
+<footer class="r">
+      <div class="foot-grid">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px">
+            <span class="sq"></span>
+            <span class="mono" style="font-size:14px; font-weight:500">Agent Passport System</span>
+          </div>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:8px">Open-source infrastructure to enforce, verify, and audit AI agent actions.</p>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:18px">The conformance suite is yours to fork.</p>
+          <a class="mono" href="mailto:signal@aeoess.com" style="display:inline-block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg); border:1px solid var(--line2); padding:9px 16px; border-radius:2px">Contact ↗</a>
+        </div>
+        <div>
+          <div class="head">Protocol</div>
+          <div class="links">
+            <a href="https://agent-passport.org/docs.html">Documentation</a>
+            <a href="https://agent-passport.org/protocol.html">Protocol</a>
+            <a href="https://agent-passport.org/threat-model.html">Threat model</a>
+            <a href="https://agent-passport.org/faq.html">FAQ</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Developers</div>
+          <div class="links">
+            <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
+            <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
+            <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
+            <a href="https://agent-passport.org/wallet.html">Agent Wallet</a>
+            <a href="https://agent-passport.org/AGENTS.md">AGENTS.md</a>
+            <a href="https://agent-passport.org/llms.txt">llms.txt</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Community</div>
+          <div class="links">
+            <a href="https://agent-passport.org/blog.html">Dev Log</a>
+            <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+            <a href="https://agent-passport.org/working-group.html">Working group</a>
+            <a href="https://agent-passport.org/media.html">Media</a>
+            <a href="https://agent-passport.org/research.html">Research</a>
+          </div>
+        </div>
       </div>
-      <div class="f-col">
-        <div class="f-h">Developers</div>
-        <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
-        <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
-        <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
-        <a href="/wallet.html">Agent Wallet</a>
-        <a href="/AGENTS.md">AGENTS.md</a>
-        <a href="/llms.txt">llms.txt</a>
+      <div class="foot-base" style="justify-content:flex-start; gap:16px 56px">
+        <span><em class="fbk">License</em>Code Apache 2.0</span>
+        <span><em class="fbk">Editor</em>Tymofii Pidlisnyi</span>
+        <span><em class="fbk">Spec</em>draft-pidlisnyi-aps (IETF Internet-Draft)</span>
+        <span><em class="fbk">Imprint</em>Vol. 01 · 2026 · agent-passport.org</span>
+        <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
       </div>
-      <div class="f-col">
-        <div class="f-h">Community</div>
-        <a href="/blog.html">Dev Log</a>
-        <a href="/roadmap.html">Roadmap</a>
-        <a href="/working-group.html">Working Group</a>
-      </div>
-      <div class="f-col">
-        <div class="f-h">Research</div>
-        <a href="/research.html#r1">Agent Social Contract</a>
-        <a href="/research.html#r2">Monotonic Narrowing</a>
-        <a href="/research.html#r3">Faceted Authority Attenuation</a>
-        <a href="/research.html#r4">Behavioral Derivation Rights</a>
-        <a href="/research.html#r5">Physics-Enforced Delegation</a>
-        <a href="/research.html#r6">Governance in the Medium</a>
-        <a href="/research.html#r7">Cognitive Attestation</a>
-        <a href="/research.html#r8">Evidence-Safety Gap</a>
-      </div>
-    </div>
-  </div>
-  <div class="f-strip">
-    <div><span>License</span>Spec CC0 &middot; Code Apache 2.0</div>
-    <div><span>Editor</span>Tymofii Pidlisnyi</div>
-    <div><span>Standard</span>APS &middot; IETF Internet-Draft</div>
-    <div><span>Imprint</span>Vol. 01 &middot; 2026 &middot; agent-passport.org</div>
-    <div><span>Also at</span><a href="https://aeoess.com">aeoess.com</a></div>
-  </div>
-</footer>
+    </footer>
 </body>
 </html>
