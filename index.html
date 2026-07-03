@@ -743,6 +743,17 @@ html[data-theme="light"] pre, html[data-theme="light"] .code-card{background:#10
 html[data-theme="light"] .code-card pre{background:transparent}
 .theme-toggle{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; background:none; border:1px solid var(--line2); color:var(--sub); padding:6px 10px; border-radius:2px; cursor:pointer; white-space:nowrap}
 .theme-toggle:hover{color:var(--fg); border-color:var(--fg)}
+
+/* light mode: deck highlight language */
+html[data-theme="light"] h1 .lime, html[data-theme="light"] h2 .lime,
+html[data-theme="light"] h3 .lime, html[data-theme="light"] p .lime{
+  background:#C8F032; color:#16181D; padding:.02em .2em;
+  -webkit-box-decoration-break:clone; box-decoration-break:clone;
+}
+html[data-theme="light"] .sq{background:#C8F032; outline:1px solid #16181D}
+html[data-theme="light"] .btn:not(.ghost){background:#16181D; color:#C8F032; border-color:#16181D}
+html[data-theme="light"] .badge i{background:#C8F032}
+html[data-theme="light"] .eyebrow{color:#5F7D0C}
 </style>
 <script src="/theme.js" defer></script>
 </head>

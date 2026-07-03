@@ -762,3 +762,14 @@ html[data-theme="light"] .tl-live .tl-t{color:#16181D}
 .tl-lab .tl-lab-a{margin-top:2px}
 .tl-ruler{margin-left:0}
 .tl-lane{overflow:visible}
+
+/* light mode: deck highlight language */
+html[data-theme="light"] h1 .lime, html[data-theme="light"] h2 .lime,
+html[data-theme="light"] h3 .lime, html[data-theme="light"] p .lime{
+  background:#C8F032; color:#16181D; padding:.02em .2em;
+  -webkit-box-decoration-break:clone; box-decoration-break:clone;
+}
+html[data-theme="light"] .sq{background:#C8F032; outline:1px solid #16181D}
+html[data-theme="light"] .btn:not(.ghost){background:#16181D; color:#C8F032; border-color:#16181D}
+html[data-theme="light"] .badge i{background:#C8F032}
+html[data-theme="light"] .eyebrow{color:#5F7D0C}
