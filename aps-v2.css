@@ -757,3 +757,8 @@ html[data-theme="light"] .tl-live .tl-t{color:#16181D}
 
 /* header mobile parity (ported from homepage) */
 @media (max-width:480px){.brand .badge{display:none}}
+/* roadmap: reserved sticky label column (bars pass behind it) */
+.tl-lab{position:sticky; left:0; z-index:5; width:128px; height:100%; box-sizing:border-box; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start; gap:3px; padding:8px 8px 0 16px; background:var(--bg); border-right:1px solid var(--line)}
+.tl-lab .tl-lab-a{margin-top:2px}
+.tl-ruler{margin-left:0}
+.tl-lane{overflow:visible}

@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://agent-passport.org/roadmap.html">
 <meta name="twitter:card" content="summary">
 <link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
-<link rel="stylesheet" href="/aps-v2.css?v=143">
+<link rel="stylesheet" href="/aps-v2.css?v=144">
 <script src="/theme.js" defer></script>
 <script src="/nav.js" defer></script>
 </head>
@@ -214,7 +214,7 @@
       var open = EXPANDED === name;
       var n = layout(list, MAXD);
       var lane = el('div', 'tl-lane' + (open ? ' tl-open' : ''));
-      var ROWH = open ? 26 : 10, BASE = open ? 30 : 12;
+      var ROWH = open ? 26 : 10, BASE = open ? 12 : 9;
       var vrows = open ? n : Math.min(n, 2);
       lane.style.height = (BASE + vrows * ROWH + (open ? 10 : 8)) + 'px';
       var lab = el('div', 'tl-lab');
