@@ -647,3 +647,5 @@ article.prose blockquote{border-left:2px solid var(--lime); background:var(--pan
 /* lane-2 guards */
 .page-hero h1, article.prose h2{text-wrap:balance}
 article.prose pre{touch-action:pan-y}
+/* footer fix: paint above fixed bg-glow + align to page column */
+footer{position:relative; z-index:1; max-width:920px; margin:0 auto; padding:40px 5vw 28px}
