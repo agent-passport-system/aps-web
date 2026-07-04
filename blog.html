@@ -875,6 +875,13 @@
   </div>
 </section>
 <main class="blog-feed">
+<article class="post" id="day-138-a-record-that-states-what-it-does-not-prove">
+  <time class="post-date" datetime="2026-07-04">July 4, 2026</time>
+  <h2>Day 138: a signed record that states what it does not prove.</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong>The accountability-record fixture set is public in the conformance suite.</strong> One signed record per boundary decision, twelve deterministic vectors including the negatives, and two verifiers that recompute everything from the bytes up: <code>validate.py</code> against the JSON schema plus Ed25519 signatures, <code>verify.ts</code> independently in a second language, with the two vectors it defers to the Python verifier documented rather than silently skipped. The README leads with the part most receipt formats leave out: what the record does not prove. It carries no outcome or safety claim, and <code>settlement_ref</code> is an opaque correlation hint, not a settlement proof. A record that overstates its own evidence is worse than no record, because a verifier will believe it.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The set went straight into the <a href="https://github.com/x402-foundation/x402/issues/2332">x402 post-settlement accountability thread</a>, where the open question has been what a payment proves after the payment: settlement shows the caller paid, not what the agent did with what it bought, or that the trail was not edited afterward. Within hours a thread participant cloned the <a href="https://github.com/aeoess/aps-conformance-suite/tree/main/fixtures/accountability-record">suite</a> cold, ran both verifiers in isolation, and reported all twelve vectors reproducing, both schema negatives correctly rejected, and cross-language byte-parity holding. That is the property the fixtures exist to make cheap: anyone can recompute the record with no trust in us, our runtime, or each other.</p>
+</article>
+
 <article class="post" id="day-137-redesign-landed-claims-reverified">
   <time class="post-date" datetime="2026-07-03">July 3, 2026</time>
   <h2>Day 137: the site's redesign landed end to end, and the day's real work was re-verifying our own claims.</h2>

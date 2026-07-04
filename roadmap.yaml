@@ -4283,3 +4283,18 @@
       label: "Go resolved/verified split"
     - url: "https://github.com/aeoess/aps-conformance-suite/tree/main/fixtures/cross-stack/aat-amdal"
       label: "AAT week-3 fixtures"
+
+# DAY 138 - 2026-07-04
+
+- id: d138-accountability-record-fixtures-public
+  title: "Accountability-record fixture set published; first independent cold-clone recompute lands same day"
+  description: "One signed record per boundary decision: twelve deterministic vectors including negatives, JSON schema, and two independent verifiers (Python and TypeScript) that recompute signatures and JCS canonical bytes from scratch. The README states what the record proves and what it does not: no outcome or safety claim, settlement_ref as an opaque correlation hint rather than settlement proof. Posted to the x402 post-settlement accountability thread; a thread participant cold-cloned the suite the same day and reported all twelve vectors reproducing across both verifiers with byte-parity held."
+  status: done
+  workstream: protocol
+  day_start: 138
+  day_end: 138
+  links:
+    - url: "https://github.com/aeoess/aps-conformance-suite/tree/main/fixtures/accountability-record"
+      label: "Fixture set"
+    - url: "https://github.com/x402-foundation/x402/issues/2332"
+      label: "x402 #2332 thread"
