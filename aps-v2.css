@@ -793,3 +793,8 @@ html[data-theme="light"]{--clo-a:#4C5438;--clo-b:#5F7D0C;--clo-c:#5C6647;--clo-d
 .nav .badge{border-color:var(--line); color:var(--dim); font-size:9.5px; padding:4px 8px}
 /* stacking: content regions above fixed bg-glow (blog hero had no main wrapper) */
 .page-hero, article.prose, .blog-feed, .post{position:relative; z-index:1}
+/* github star button */
+.gh-star{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11px; letter-spacing:.04em; color:var(--sub); border:1px solid var(--line2); padding:6px 10px; border-radius:2px; white-space:nowrap}
+.gh-star:hover{color:var(--fg); border-color:var(--fg)}
+.gh-star svg{color:var(--lime)}
+#ghStarCount{font-variant-numeric:tabular-nums}

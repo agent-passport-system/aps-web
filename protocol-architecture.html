@@ -150,6 +150,7 @@
   .glow { filter: drop-shadow(0 0 4px var(--accent-glow)); }
 </style>
 <meta name="theme-color" content="#0A0B08">
+<script src="/gh-stars.js" defer></script>
 </head>
 <body data-labels="medium">
 <script>if(window!==window.top)document.documentElement.classList.add('embedded');</script>
@@ -205,10 +206,22 @@
 <!-- Tweaks -->
 <button class="tweaks-open-btn" id="tweaks-toggle">⚙ Tweaks</button>
 <div class="tweaks" id="tweaks">
-  <header>
-    <h3>Tweaks</h3>
-    <button id="tweaks-close" aria-label="close">×</button>
-  </header>
+  <header class="nav">
+  <div class="brand">
+    <a href="#top"><span class="sq"></span>APS <span style="color:var(--sub)">· Agent Passport System</span></a>
+    <span class="badge"><i></i>Apache 2.0</span>
+  </div>
+  <nav class="nav-links">
+    <a href="https://agent-passport.org/docs.html">Docs</a>
+    <a href="https://agent-passport.org/protocol.html">Spec</a>
+    <a href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a href="https://agent-passport.org/research.html">Research</a>
+    <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+    <a href="https://agent-passport.org/blog.html">Dev Log</a>
+    <a class="gh" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
+  </nav>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button>
+</header>
   <div class="body">
     <div class="field">
       <label>Speed <b id="speed-val">1.0×</b></label>
