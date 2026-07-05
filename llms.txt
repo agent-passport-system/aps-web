@@ -70,6 +70,7 @@ The SDK ships in two layers. Core is a curated essentials surface at `agent-pass
 - [Governance in the Medium](https://doi.org/10.5281/zenodo.19582550): protocol-level governance distinct from policy
 - [Cognitive Attestation](https://doi.org/10.5281/zenodo.19646276): attestation of reasoning steps
 - [The Evidence-Safety Gap](https://doi.org/10.5281/zenodo.19914628): cryptographic governance proves procedural validity, not effect safety
+- [Plausibly Wrong](https://doi.org/10.5281/zenodo.21208555): a controlled isolation showing peer-voted retention can fall below random in capped shared memory
 
 ## Optional
 

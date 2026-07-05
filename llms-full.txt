@@ -190,7 +190,7 @@ Structural safeguards: Separation of Powers (legislative/executive/judicial bran
 
 **AMCS — AI-Native Media Credentialing Standard** (v0.1.0): Open specification for credentialing AI-native publications as trustworthy agent-consumable news sources. Published by the project. Two layers: Layer A (cryptographic, binary pass/fail) requires Ed25519 article provenance, journalist agent passports with delegation chains, and a public MCP server. Layer B (editorial, public audit) requires machine-readable confidence labels on every article, a published Code of Conduct citing SPJ/NPC/Scripps, and an automated ethics verification system scoring every article against stated standards. Certification is self-attestation verified by script (Layer A) and public evidence (Layer B). No subjective editorial gatekeeping. Does NOT integrate with trust scoring — badge is informational only. Any publication can apply. Full spec: https://github.com/aeoess/agent-passport-system/blob/main/docs/AMCS-SPEC.md | Page: https://aeoess.com/amcs.html
 
-**v3.0.0, 3,959 tests (872 suites). 176 test files including adversarial scenario suites.**
+**v3.1.0, 3,959 tests (872 suites). 176 test files including adversarial scenario suites.**
 
 ## Quick Start — 6 Functions
 
@@ -735,7 +735,8 @@ This is not a replacement for either spec, not a prescription that all agents ne
 - Research paper (Governance in the Medium): https://doi.org/10.5281/zenodo.19582550
 - Research paper (Cognitive Attestation): https://doi.org/10.5281/zenodo.19646276
 - Research paper (The Evidence-Safety Gap): https://doi.org/10.5281/zenodo.19914628
-- IETF Internet-Draft: draft-pidlisnyi-aps-01
+- Research paper (Plausibly Wrong): https://doi.org/10.5281/zenodo.21208555
+- IETF Internet-Draft: draft-pidlisnyi-aps-02
 - Agent Ecosystem Directory (18 projects, 115 people, 93 threads, live GitHub data): https://aeoess.github.io/agent-ecosystem-map/
 - Agent Ecosystem Directory repo: https://github.com/aeoess/agent-ecosystem-map
 - Cited by: "PDR in Production" (University of British Columbia, 2026) — Section 7.6 validates APS earned reputation model, sigma dynamics, structuralVerdict/trustVerdict. DOI: https://doi.org/10.5281/zenodo.19323172

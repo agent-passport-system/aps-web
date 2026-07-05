@@ -4298,3 +4298,18 @@
       label: "Fixture set"
     - url: "https://github.com/x402-foundation/x402/issues/2332"
       label: "x402 #2332 thread"
+
+# DAY 138 - 2026-07-05
+
+- id: d138-plausibly-wrong-published-aps02
+  title: "Ninth paper published (Plausibly Wrong); IETF draft revised to draft-pidlisnyi-aps-02"
+  description: "Plausibly Wrong: Peer-Voted Retention Can Fall Below Random in Capped Shared Memory for LLM Agents published on Zenodo (DOI 10.5281/zenodo.21208555). A controlled isolation of the retention rule in populations of short-lived LLM agents, showing peer-voted retention kept a worse shared memory than random selection in 4 of 5 replicates, with pre-registrations, kill conditions, and an artifact record. Separately, the IETF Internet-Draft was revised and posted as draft-pidlisnyi-aps-02, adding the external correlation form, the seven-dimension authority lattice, and read-fidelity receipt and word-handle sections."
+  status: done
+  workstream: research
+  day_start: 138
+  day_end: 138
+  links:
+    - url: "https://doi.org/10.5281/zenodo.21208555"
+      label: "Plausibly Wrong (Zenodo)"
+    - url: "https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/"
+      label: "draft-pidlisnyi-aps-02"
