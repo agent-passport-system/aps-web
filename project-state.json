@@ -1,8 +1,8 @@
 {
   "$comment": "Single source of truth for site-wide propagation. Hand-edited; consumed by scripts/propagate.mjs. Bumping any value here propagates to every target file the propagator knows about.",
-  "updated": "2026-07-05",
+  "updated": "2026-07-09",
   "versions": {
-    "sdk": "3.1.0",
+    "sdk": "3.2.0",
     "sdk_dist_tag": "latest",
     "sdk_stable": "2.7.0",
     "mcp": "3.2.4",
@@ -15,8 +15,8 @@
     "go_dist_tag": "alpha"
   },
   "counts": {
-    "$comment": "tests is the PASSING count (node test runner 'pass' line), not the registered total ('tests' line, higher when tests are skipped or todo-marked), per the propagation sync rule. As of 2026-06-30 the suite reports pass 3959, tests 3962, 3 skipped. modules_total = modules_core + modules_v2. Canonical: modules_v2 = publicly exported logical units via a barrel (src/v2/index.ts or src/index.ts), ratified 2026-05-17 = 23. modules_total = modules_core + modules_v2, DERIVED from the canonical count, never used to justify it. Raw file count, subsystem directory count, and historical project-state values are implementation signals, NOT canonical module counts.",
-    "tests": 3959,
+    "$comment": "tests convention CHANGED 2026-07-08 (Day 140): now the REGISTERED total (node test runner 'tests' line) to match the SDK's own published number (README badge, package.json), not the passing count. As of 2026-07-08 the suite reports tests 4026, pass 4023, 3 skipped; canonical = 4026. Prior rule used the passing count (was 3959 = pass, with tests 3962); superseded so the site does not contradict the SDK's npm page. modules_total = modules_core + modules_v2. Canonical: modules_v2 = publicly exported logical units via a barrel (src/v2/index.ts or src/index.ts), ratified 2026-05-17 = 23. modules_total = modules_core + modules_v2, DERIVED from the canonical count, never used to justify it. Raw file count, subsystem directory count, and historical project-state values are implementation signals, NOT canonical module counts.",
+    "tests": 4026,
     "papers": 9,
     "modules_core": 84,
     "modules_v2": 23,
