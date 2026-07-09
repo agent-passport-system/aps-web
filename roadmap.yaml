@@ -4313,3 +4313,33 @@
       label: "Plausibly Wrong (Zenodo)"
     - url: "https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/"
       label: "draft-pidlisnyi-aps-02"
+
+# DAY 140 - 2026-07-08
+
+- id: d140-signed-release-pipeline-fuzzing
+  title: "First self-signing release pipeline; agent-passport-system@3.2.0 published with SLSA provenance; coverage-guided fuzzing lands and finds two real bugs"
+  description: "A tag-triggered workflow runs the full gate, builds, publishes over OIDC Trusted Publishing with no stored token, and attaches a signed SLSA provenance attestation and tarball to the GitHub release. Version 3.2.0 shipped through it. The same release added coverage-guided fuzzing (seven Jazzer.js harnesses, ClusterFuzzLite, fast-check property tests), which found and fixed two real defects before tagging: a CBOR map-length hang in the invite decoder, and verifyPassport throwing on a non-array delegations field rather than rejecting cleanly. Both have regression coverage."
+  status: done
+  workstream: protocol
+  day_start: 140
+  day_end: 140
+  links:
+    - url: "https://www.npmjs.com/package/agent-passport-system"
+      label: "agent-passport-system 3.2.0 (npm)"
+    - url: "https://github.com/aeoess/agent-passport-system/releases/tag/v3.2.0"
+      label: "Signed release v3.2.0"
+
+# DAY 141 - 2026-07-08
+
+- id: d141-supply-chain-hardening-crossrepo
+  title: "OpenSSF Scorecard to 8.9; esbuild advisory cleared across SDK workspaces and the conformance suite"
+  description: "Supply-chain hardening across the public repos: dependencies pinned by hash, workflow tokens scoped to least privilege, static analysis and fuzzing on every commit, on top of the signed release. Scorecard on the SDK moved from 6.9 to 8.9, with Code-Review left at zero rather than gamed with a phantom reviewer. An esbuild advisory (GHSA-g7r4-m6w7-qqqr) patched at the SDK root was found still present in four workspace lockfiles and in the conformance suite, since root npm audit reads one lockfile and the scanner reads all of them. Fixed by bumping the transitive parent within its declared range in each place; the public conformance suite no longer ships a known advisory."
+  status: done
+  workstream: protocol
+  day_start: 141
+  day_end: 141
+  links:
+    - url: "https://scorecard.dev/viewer/?uri=github.com/aeoess/agent-passport-system"
+      label: "OpenSSF Scorecard"
+    - url: "https://github.com/aeoess/aps-conformance-suite"
+      label: "Conformance suite"

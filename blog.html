@@ -875,6 +875,20 @@
   </div>
 </section>
 <main class="blog-feed">
+<article class="post" id="day-141-supply-chain-hardening-cross-repo">
+  <time class="post-date" datetime="2026-07-08">July 8, 2026</time>
+  <h2>Day 141: hardening the supply chain across every public repo, and killing a class of bug, not an instance.</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong>The OpenSSF Scorecard on the SDK went from 6.9 to 8.9 in a day, and the honest part is which points we did not chase.</strong> Dependencies pinned by hash, workflow tokens scoped to least privilege, a signed release with provenance, static analysis and fuzzing on every commit. Two checks stay capped on purpose: Code-Review sits at zero because a solo maintainer cannot approve their own pull request, and inventing a reviewer to move the number would be gaming the exact signal the check exists to measure. The score is a byproduct of the work, not the work.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">A dependency advisory in one repo turned out to be three, because the scanner reads every lockfile and <code>npm audit</code> reads one. An esbuild advisory (GHSA-g7r4-m6w7-qqqr) was patched at the root of the SDK, and the same version sat unpatched in four workspace lockfiles and in the <a href="https://github.com/aeoess/aps-conformance-suite">conformance suite</a>. Root <code>npm audit</code> reported clean the whole time. The fix bumped the transitive parent within its own declared range in each place rather than forcing an override, and the public conformance suite, the artifact anyone can clone to check our claims, no longer ships a known advisory. The lesson is cheap to state and easy to miss: audit every lockfile, not the one at the root.</p>
+</article>
+
+<article class="post" id="day-140-first-self-signing-release">
+  <time class="post-date" datetime="2026-07-08">July 8, 2026</time>
+  <h2>Day 140: the first release that signs itself, and two bugs the fuzzers found before anyone else could.</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong><code>agent-passport-system@3.2.0</code> published to npm through a tag-triggered pipeline that proves its own provenance, with no stored token anywhere.</strong> Pushing a version tag now runs the full gate (type-check, test, audit), builds, publishes over OIDC Trusted Publishing, and attaches a signed SLSA provenance attestation and the tarball to the <a href="https://github.com/aeoess/agent-passport-system/releases/tag/v3.2.0">GitHub release</a>. The registry can show, per release, that the artifact came from this workflow in this repo and nowhere else. The alternative was a long-lived publish token sitting in the repo as a standing credential, which is exactly the kind of ambient authority the protocol argues against, so the release path does not hold one.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The same release shipped coverage-guided fuzzing, and it earned its place immediately by finding two real bugs. Seven Jazzer.js harnesses, ClusterFuzzLite, and fast-check property tests now run against the parsing and verification surface. Two genuine defects surfaced and were fixed before this version tagged: a CBOR map-length case that hung the invite decoder, and <code>verifyPassport</code> throwing on a non-array <code>delegations</code> field instead of rejecting cleanly. A verifier that crashes on malformed input is a verifier an attacker can take offline with a single bad byte. Both are closed, both have regression coverage, and the fuzzers keep running.</p>
+</article>
+
 <article class="post" id="day-138-a-record-that-states-what-it-does-not-prove">
   <time class="post-date" datetime="2026-07-04">July 4, 2026</time>
   <h2>Day 138: a signed record that states what it does not prove.</h2>
