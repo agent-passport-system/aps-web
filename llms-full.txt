@@ -7,8 +7,8 @@ SDK version: agent-passport-system@2.7.0 (stable)
 MCP version: agent-passport-system-mcp@3.2.2 (150 tools)
 Python SDK: agent-passport-system==2.4.0
 Go SDK: github.com/aeoess/agent-passport-go@v0.2.0-alpha.3 (pre-release)
-Compact: https://aeoess.com/llms.txt
-Canonical: https://aeoess.com/llms-full.txt
+Compact: https://agent-passport.org/llms.txt
+Canonical: https://agent-passport.org/llms-full.txt
 License: Apache-2.0
 Copyright: 2024-2026 Tymofii Pidlisnyi
 > Policy evaluation in under 2ms. 14 constraint dimensions. 403 ops/sec.

@@ -41,11 +41,11 @@ Purpose-built for AI agents discovering and evaluating the protocol. These are n
 
 | File | URL | What It Contains |
 |------|-----|------------------|
-| `llms.txt` | [aeoess.com/llms.txt](https://agent-passport.org/llms.txt) | Compact protocol summary — positioning, Core subpath, essential MCP profile, quick start. Full surface (107 modules, 150 MCP tools) listed as reference. ~5KB. Optimized for context-window efficiency. |
-| `llms-full.txt` | [aeoess.com/llms-full.txt](https://agent-passport.org/llms-full.txt) | Comprehensive reference — full API surface, all types, FAQ, integration patterns. ~21KB. The complete picture. |
-| `llms/api.txt` | [aeoess.com/llms/api.txt](https://aeoess.com/llms/api.txt) | API reference — every exported function with signatures and descriptions |
-| `llms/quickstart.txt` | [aeoess.com/llms/quickstart.txt](https://aeoess.com/llms/quickstart.txt) | Getting started guide — install, join, delegate, record work, prove contributions |
-| `llms/cli.txt` | [aeoess.com/llms/cli.txt](https://aeoess.com/llms/cli.txt) | CLI reference — all commands, flags, and output examples |
+| `llms.txt` | [agent-passport.org/llms.txt](https://agent-passport.org/llms.txt) | Compact protocol summary — positioning, Core subpath, essential MCP profile, quick start. Full surface (107 modules, 150 MCP tools) listed as reference. ~5KB. Optimized for context-window efficiency. |
+| `llms-full.txt` | [agent-passport.org/llms-full.txt](https://agent-passport.org/llms-full.txt) | Comprehensive reference — full API surface, all types, FAQ, integration patterns. ~21KB. The complete picture. |
+| `llms/api.txt` | [agent-passport.org/llms/api.txt](https://agent-passport.org/llms/api.txt) | API reference — every exported function with signatures and descriptions |
+| `llms/quickstart.txt` | [agent-passport.org/llms/quickstart.txt](https://agent-passport.org/llms/quickstart.txt) | Getting started guide — install, join, delegate, record work, prove contributions |
+| `llms/cli.txt` | [agent-passport.org/llms/cli.txt](https://agent-passport.org/llms/cli.txt) | CLI reference — all commands, flags, and output examples |
 
 ### Agora — Public Governance Record
 
