@@ -3,10 +3,10 @@
 > Enforcement and accountability layer for AI agents. Bring your own identity. We govern what it can do.
 
 Updated: 2026-07-10
-SDK version: agent-passport-system@2.7.0 (stable)
-MCP version: agent-passport-system-mcp@3.2.2 (150 tools)
-Python SDK: agent-passport-system==2.4.0
-Go SDK: github.com/aeoess/agent-passport-go@v0.2.0-alpha.3 (pre-release)
+SDK version: agent-passport-system@3.3.0 (latest)
+MCP version: agent-passport-system-mcp@3.3.0 (150 tools)
+Python SDK: agent-passport-system==2.8.0
+Go SDK: github.com/aeoess/agent-passport-go@v0.3.0
 Compact: https://agent-passport.org/llms.txt
 Canonical: https://agent-passport.org/llms-full.txt
 License: Apache-2.0
@@ -441,7 +441,7 @@ Layer 5 adds organizational intent to the agent stack. Key functions:
 - `resolveDeliberation(deliberation, decision, votes)` — produce signed outcome + create precedent
 - `getPrecedentsByTopic(precedents, topic)` — find prior decisions by topic
 
-## MCP Server — agent-passport-system-mcp v3.2.4
+## MCP Server — agent-passport-system-mcp v3.3.0
 
 A full-stack MCP server that any MCP client (Claude Desktop, Cursor, etc.) can connect to. Default profile is `essential` (20 tools covering identity, delegation, enforcement, commerce, reputation). Set `APS_PROFILE=full` for all 150 tools. Nine other profiles available: identity, governance, coordination, commerce, data, gateway, comms, minimal, full. Role-scoped access control throughout.
 
