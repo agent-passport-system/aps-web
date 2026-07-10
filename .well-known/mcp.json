@@ -16,10 +16,10 @@
   "sdk": {
     "npm": "agent-passport-system",
     "pypi": "agent-passport-system",
-    "version": "3.2.0",
+    "version": "3.3.0",
     "stable_version": "2.7.0",
     "modules": 107,
-    "tests": 4026,
+    "tests": 4097,
     "python_version": "2.4.0",
     "go": "github.com/aeoess/agent-passport-go",
     "go_version": "v0.2.0-alpha.3"
@@ -43,5 +43,5 @@
     "throughput": "403 ops/sec",
     "routes": 37
   },
-  "lastUpdated": "2026-06-03"
+  "lastUpdated": "2026-07-10"
 }
