@@ -69,5 +69,7 @@
     "Bayesian reputation": "earned reputation",
     "feeless Nano wallet": "wallet binding",
     "feeless Nano payments": "wallet binding"
-  }
+  },
+  "mcp": "3.3.1",
+  "python": "2.8.1"
 }
