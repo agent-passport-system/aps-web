@@ -4343,3 +4343,20 @@
       label: "OpenSSF Scorecard"
     - url: "https://github.com/aeoess/aps-conformance-suite"
       label: "Conformance suite"
+
+# DAY 143 - 2026-07-09
+
+- id: d143-owasp-deny-vector-and-claim-boundary
+  title: "OWASP deny vector merged; same-day self-correction of its claim language; aps-03 built with Related Work"
+  description: "The denied-before-dispatch example vector merged into the OWASP Agentic Skills Top 10 with a standalone offline checker, and the fixture-corpus proposal now requires declared preimage_fields for any content-derived identifier, citing the five-field versus four-field split from that PR. An adversarial three-model review of our own merged README then found an overclaim: a self-referential hash is not tamper evidence against the record's own writer. PR #50 corrects it and states the pairing-key versus seal distinction. draft-pidlisnyi-aps-03 built with a Related Work section citing three independent drafts that converge on narrowing, delegation receipts, and a four-field action identifier. Third weekly AAT cross-stack drop verified and published; boundary page updated to exercised-by-one-vector wording."
+  status: done
+  workstream: protocol
+  day_start: 143
+  day_end: 143
+  links:
+    - url: "https://github.com/OWASP/www-project-agentic-skills-top-10/pull/45"
+      label: "Deny vector (merged)"
+    - url: "https://github.com/OWASP/www-project-agentic-skills-top-10/pull/50"
+      label: "Claim-boundary correction"
+    - url: "https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/"
+      label: "draft-pidlisnyi-aps"

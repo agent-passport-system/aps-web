@@ -875,6 +875,13 @@
   </div>
 </section>
 <main class="blog-feed">
+<article class="post" id="day-143-the-claim-boundary-in-practice">
+  <time class="post-date" datetime="2026-07-09">July 9, 2026</time>
+  <h2>Day 143: merged before nine, corrected by our own review before midnight.</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong>The denied-before-dispatch example vector is merged into the OWASP Agentic Skills Top 10, and a correction to our own README went up the same day.</strong> The <a href="https://github.com/OWASP/www-project-agentic-skills-top-10/pull/45">vector</a> ships with a standalone offline checker, and the project's fixture-corpus proposal now requires every content-derived identifier to declare its preimage fields, citing the five-field versus four-field split from that pull request as the reason. Then an adversarial three-model review of our own merged text found the word proves where it did not belong: a hash stored beside the fields it commits to detects accidental corruption, and detects tampering only for a verifier holding the identifier from somewhere other than the record itself. <a href="https://github.com/OWASP/www-project-agentic-skills-top-10/pull/50">PR #50</a> replaces the overclaim and names the distinction underneath the split: a pairing key must be recomputable by a party that does not know the policy, a seal on an unsigned record must commit it, and one identifier cannot do both jobs.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Three Internet-Drafts published since March arrive independently at pieces of the same design: per-hop mandate narrowing, delegation receipts with cascade revocation and an instruction-provenance check, and a content-derived action identifier over the same four fields under RFC 8785. <a href="https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/">draft-pidlisnyi-aps-03</a> is built with a Related Work section citing all three; the chronology lives on datatracker and needs no argument from us. The third weekly AAT cross-stack drop also landed in the <a href="https://github.com/aeoess/aps-conformance-suite">conformance suite</a>, the act-binding digest recomputed from its stated preimage and rotation continuity byte-identical to last week's live token, so the boundary page moved that claim from off by default to exercised by one vector, which is all one vector earns.</p>
+</article>
+
 <article class="post" id="day-141-supply-chain-hardening-cross-repo">
   <time class="post-date" datetime="2026-07-08">July 8, 2026</time>
   <h2>Day 141: hardening the supply chain across every public repo, and killing a class of bug, not an instance.</h2>
