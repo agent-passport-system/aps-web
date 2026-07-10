@@ -4,13 +4,10 @@
   "versions": {
     "sdk": "3.3.1",
     "sdk_dist_tag": "latest",
-    "sdk_stable": "2.7.0",
-    "mcp": "3.3.0",
+    "mcp": "3.3.1",
     "mcp_dist_tag": "latest",
-    "mcp_stable": "3.1.0",
-    "python": "2.8.0",
+    "python": "2.8.1",
     "python_dist_tag": "latest",
-    "python_stable": "2.4.0",
     "go": "v0.3.1",
     "go_dist_tag": "latest"
   },
@@ -69,7 +66,5 @@
     "Bayesian reputation": "earned reputation",
     "feeless Nano wallet": "wallet binding",
     "feeless Nano payments": "wallet binding"
-  },
-  "mcp": "3.3.1",
-  "python": "2.8.1"
+  }
 }
