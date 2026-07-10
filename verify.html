@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("aps-theme");if(!t)t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evidence Bundle Inspector | Agent Passport System</title>
+<meta name="description" content="Offline browser inspector for APS evidence bundles. Drop or paste a bundle and read the per-axis claim-state report (authority, action, revocation, evidence). The verifier is the published agent-passport-system SDK, bundled to run entirely in your browser.">
+<link rel="canonical" href="https://agent-passport.org/verify.html">
+<meta property="og:title" content="Evidence Bundle Inspector | Agent Passport System">
+<meta property="og:description" content="Offline browser inspector for APS evidence bundles. The verifier is the published agent-passport-system SDK, bundled to run entirely in your browser.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://agent-passport.org/verify.html">
+<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://agent-passport.org/assets/images/og-default.png">
+<meta name="twitter:image" content="https://agent-passport.org/assets/images/og-default.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230A0B08'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23C8F032'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/aps-v2.css?v=150">
+<style>
+  .vb-zone{border:1px dashed var(--line2);border-radius:6px;padding:28px 20px;text-align:center;cursor:pointer;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.82rem;color:var(--sub);transition:border-color .15s,background .15s}
+  .vb-zone.vb-over{border-color:var(--acc,#C8F032);background:rgba(200,240,50,0.06)}
+  .vb-paste{width:100%;min-height:120px;box-sizing:border-box;margin-top:14px;padding:12px;border:1px solid var(--line2);border-radius:6px;background:var(--bg2,rgba(255,255,255,0.02));color:var(--fg);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.78rem;line-height:1.5}
+  .vb-controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;align-items:center}
+  .vb-btn{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;border:1px solid var(--line2);border-radius:3px;background:transparent;color:var(--fg);cursor:pointer}
+  .vb-btn:hover{border-color:var(--acc,#C8F032)}
+  .vb-demos{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 0}
+  .vb-demo{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.72rem;padding:6px 10px;border:1px solid var(--line2);border-radius:3px;background:transparent;color:var(--sub);cursor:pointer}
+  .vb-demo:hover{color:var(--fg);border-color:var(--acc,#C8F032)}
+  .vb-label{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+  .vb-report{margin-top:26px}
+  .vb-overall{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:14px 16px;border:1px solid var(--line2);border-radius:6px;margin-bottom:16px}
+  .vb-axes{display:grid;gap:12px}
+  .vb-axis{border:1px solid var(--line2);border-radius:6px;padding:14px 16px}
+  .vb-axis-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .vb-axis-name{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.8rem;font-weight:600;min-width:112px}
+  .vb-reason{margin-top:8px;font-size:.82rem;line-height:1.55;color:var(--sub)}
+  .vb-note{margin-top:10px;font-size:.82rem;line-height:1.55;color:var(--sub);border-left:2px solid var(--line2);padding-left:12px}
+  .vb-state{display:inline-block;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.72rem;font-weight:700;letter-spacing:.06em;padding:.15rem .55rem;border-radius:3px}
+  .vb-s-VERIFIED,.vb-s-RESOLVED{background:rgba(120,220,120,0.16);color:#9BE3A0}
+  .vb-s-EVALUATED,.vb-s-ASSERTED{background:rgba(230,200,110,0.16);color:#E6CE86}
+  .vb-s-UNKNOWN,.vb-s-MISSING{background:rgba(160,160,160,0.16);color:#B7B7B7}
+  .vb-s-STALE{background:rgba(230,170,90,0.16);color:#EBB273}
+  .vb-s-INVALID{background:rgba(235,120,120,0.18);color:#F0A0A0}
+  .vb-meta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.72rem;color:var(--sub)}
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S7QVCJGMKR');
+</script>
+<script src="/theme.js" defer></script>
+<script src="/nav.js" defer></script>
+<meta name="theme-color" content="#0A0B08">
+<script src="/gh-stars.js" defer></script>
+</head>
+<body>
+<div class="bg-glow"></div>
+<header class="nav">
+  <div class="brand">
+    <a href="#top"><span class="sq"></span>APS <span style="color:var(--sub)">· Agent Passport System</span></a>
+    <span class="badge"><i></i>Apache 2.0</span>
+  </div>
+  <nav class="nav-links">
+    <a href="https://agent-passport.org/docs.html">Docs</a>
+    <a href="https://agent-passport.org/protocol.html">Spec</a>
+    <a href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a href="https://agent-passport.org/research.html">Research</a>
+    <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+    <a href="https://agent-passport.org/blog.html">Dev Log</a>
+    <a class="gh" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
+<a class="gh-star" href="https://github.com/aeoess/agent-passport-system" target="_blank" rel="noopener" aria-label="Star on GitHub"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg><span id="ghStarCount">star</span></a>
+  </nav>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button>
+</header>
+
+<!-- MOBILE DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="drawer-scrim" id="drawerScrim"></div>
+  <aside class="drawer-panel" aria-label="Menu">
+    <div class="drawer-head">
+      <span class="badge"><i></i>Apache 2.0</span>
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
+    </div>
+    <a class="dl" href="https://agent-passport.org/docs.html">Docs</a>
+    <a class="dl" href="https://agent-passport.org/protocol.html">Spec</a>
+    <a class="dl" href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a class="dl" href="https://agent-passport.org/research.html">Research</a>
+    <a class="dl" href="https://agent-passport.org/roadmap.html">Roadmap</a>
+    <a class="dl" href="https://agent-passport.org/blog.html">Dev Log</a>
+    <a class="gh-big" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
+  </aside>
+</div>
+<main class="page">
+  <section class="page-hero">
+    <div class="eyebrow"><span class="sq"></span><span>Agent Passport System / Evidence Bundle Inspector</span></div>
+    <h1>Evidence Bundle Inspector</h1>
+  </section>
+  <article class="prose">
+    <div class="vb-zone" id="vbZone" tabindex="0" role="button" aria-label="Drop bundle JSON, or click to choose a file">Drop bundle&nbsp;.json &mdash; or paste below</div>
+    <input type="file" id="vbFile" accept=".json,application/json" hidden>
+    <textarea class="vb-paste" id="vbPaste" spellcheck="false" placeholder="Paste bundle JSON"></textarea>
+    <div class="vb-controls">
+      <button class="vb-btn" id="vbVerify">Verify</button>
+      <button class="vb-btn" id="vbClear">Clear</button>
+    </div>
+    <div style="margin-top:16px">
+      <div class="vb-label">Demo bundles</div>
+      <div class="vb-demos" id="vbDemos"></div>
+    </div>
+
+    <div class="vb-report" id="vbReport" hidden>
+      <div class="vb-overall">
+        <span class="vb-label">Overall</span>
+        <span class="vb-state" id="vbOverall"></span>
+        <span class="vb-meta" id="vbExit"></span>
+      </div>
+      <div class="vb-axes">
+        <div class="vb-axis">
+          <div class="vb-axis-head"><span class="vb-axis-name">Authority</span><span class="vb-state" id="vbAuthorityState"></span></div>
+          <div class="vb-reason" id="vbAuthorityReason"></div>
+        </div>
+        <div class="vb-axis">
+          <div class="vb-axis-head"><span class="vb-axis-name">Action</span><span class="vb-state" id="vbActionState"></span></div>
+          <div class="vb-reason" id="vbActionReason"></div>
+          <div class="vb-note">Reconciliation matches bound records; it does not prove settlement or truth.</div>
+        </div>
+        <div class="vb-axis">
+          <div class="vb-axis-head"><span class="vb-axis-name">Revocation</span><span class="vb-state" id="vbRevocationState"></span></div>
+          <div class="vb-reason" id="vbRevocationReason"></div>
+          <div class="vb-note">An observation proves what its signer observed from a named source, not that revocation propagated anywhere else.</div>
+        </div>
+        <div class="vb-axis">
+          <div class="vb-axis-head"><span class="vb-axis-name">Evidence</span><span class="vb-state" id="vbEvidenceState"></span></div>
+          <div class="vb-reason" id="vbEvidenceReason"></div>
+          <div class="vb-note">A bundle proves integrity of what was committed, never completeness.</div>
+        </div>
+      </div>
+    </div>
+  </article>
+</main>
+<footer class="r">
+      <div class="foot-grid">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px">
+            <span class="sq"></span>
+            <span class="mono" style="font-size:14px; font-weight:500">Agent Passport System</span>
+          </div>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:8px">Open-source infrastructure to enforce, verify, and audit AI agent actions.</p>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:18px">The conformance suite is yours to fork.</p>
+          <a class="mono" href="mailto:signal@aeoess.com" style="display:inline-block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg); border:1px solid var(--line2); padding:9px 16px; border-radius:2px">Contact ↗</a>
+        </div>
+        <div>
+          <div class="head">Protocol</div>
+          <div class="links">
+            <a href="https://agent-passport.org/docs.html">Documentation</a>
+            <a href="https://agent-passport.org/protocol.html">Protocol</a>
+            <a href="https://agent-passport.org/threat-model.html">Threat model</a>
+            <a href="https://agent-passport.org/faq.html">FAQ</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Developers</div>
+          <div class="links">
+            <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
+            <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
+            <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
+            <a href="https://agent-passport.org/wallet.html">Agent Wallet</a>
+            <a href="https://agent-passport.org/AGENTS.md">AGENTS.md</a>
+            <a href="https://agent-passport.org/llms.txt">llms.txt</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Community</div>
+          <div class="links">
+            <a href="https://agent-passport.org/blog.html">Dev Log</a>
+            <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+            <a href="https://agent-passport.org/working-group.html">Working group</a>
+            <a href="https://agent-passport.org/media.html">Media</a>
+            <a href="https://agent-passport.org/research.html">Research</a>
+          </div>
+        </div>
+      </div>
+      <div class="foot-base" style="justify-content:flex-start; gap:16px 56px">
+        <span><em class="fbk">License</em>Code Apache 2.0</span>
+        <span><em class="fbk">Editor</em>Tymofii Pidlisnyi</span>
+        <span><em class="fbk">Spec</em>draft-pidlisnyi-aps (IETF Internet-Draft)</span>
+        <span><em class="fbk">Imprint</em>Vol. 01 · 2026 · agent-passport.org</span>
+        <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
+      </div>
+    </footer>
+
+<!-- The verifier is the published SDK, bundled to run in-browser (assets/verify.js).
+     The bundle you drop or paste is parsed and inspected entirely locally; it is
+     never uploaded. Demo buttons fetch static same-origin example files only. -->
+<script src="/assets/verify.js"></script>
+<script>
+(function () {
+  var DEMOS = [
+    'valid.json',
+    'fake-success-unilateral.json',
+    'payload-changed.json',
+    'wrong-audience.json',
+    'action-after-stale-revocation.json'
+  ];
+  var AXES = ['authority', 'action', 'revocation', 'evidence'];
+  var CAP = function (s) { return s.charAt(0).toUpperCase() + s.slice(1); };
+
+  var zone = document.getElementById('vbZone');
+  var file = document.getElementById('vbFile');
+  var paste = document.getElementById('vbPaste');
+  var report = document.getElementById('vbReport');
+
+  function setState(el, state) {
+    el.textContent = state;
+    el.className = 'vb-state vb-s-' + state;
+  }
+
+  function render(result) {
+    setState(document.getElementById('vbOverall'), result.overall);
+    document.getElementById('vbExit').textContent = 'exit_reason: ' + result.exit_reason;
+    AXES.forEach(function (a) {
+      setState(document.getElementById('vb' + CAP(a) + 'State'), result.axes[a]);
+      var reason = (result.details && result.details[a]) ? result.details[a] : '';
+      document.getElementById('vb' + CAP(a) + 'Reason').textContent = reason;
+    });
+    report.hidden = false;
+    report.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // Unreadable / non-JSON input maps to the same report the SDK CLI produces
+  // for an unreadable bundle: all axes UNKNOWN, exit_reason bundle_unreadable.
+  var UNREADABLE = {
+    axes: { authority: 'UNKNOWN', action: 'UNKNOWN', revocation: 'UNKNOWN', evidence: 'UNKNOWN' },
+    overall: 'UNKNOWN',
+    exit_reason: 'bundle_unreadable',
+    details: {}
+  };
+
+  function inspectText(text) {
+    var parsed;
+    try { parsed = JSON.parse(text); }
+    catch (e) { render(UNREADABLE); return; }
+    render(window.APSVerify.inspectBundle(parsed));
+  }
+
+  document.getElementById('vbVerify').addEventListener('click', function () {
+    var t = paste.value.trim();
+    if (t) inspectText(t);
+  });
+  document.getElementById('vbClear').addEventListener('click', function () {
+    paste.value = '';
+    report.hidden = true;
+  });
+
+  zone.addEventListener('click', function () { file.click(); });
+  zone.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); file.click(); } });
+  file.addEventListener('change', function () {
+    if (!file.files || !file.files[0]) return;
+    var r = new FileReader();
+    r.onload = function () { paste.value = String(r.result); inspectText(paste.value); };
+    r.readAsText(file.files[0]);
+  });
+
+  ['dragenter', 'dragover'].forEach(function (ev) {
+    zone.addEventListener(ev, function (e) { e.preventDefault(); zone.classList.add('vb-over'); });
+  });
+  ['dragleave', 'drop'].forEach(function (ev) {
+    zone.addEventListener(ev, function (e) { e.preventDefault(); zone.classList.remove('vb-over'); });
+  });
+  zone.addEventListener('drop', function (e) {
+    var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (!f) return;
+    var r = new FileReader();
+    r.onload = function () { paste.value = String(r.result); inspectText(paste.value); };
+    r.readAsText(f);
+  });
+
+  var demos = document.getElementById('vbDemos');
+  DEMOS.forEach(function (name) {
+    var b = document.createElement('button');
+    b.className = 'vb-demo';
+    b.textContent = name;
+    b.addEventListener('click', function () {
+      fetch('/assets/demo-bundles/' + name)
+        .then(function (res) { return res.text(); })
+        .then(function (txt) { paste.value = txt; inspectText(txt); });
+    });
+    demos.appendChild(b);
+  });
+})();
+</script>
+</body>
+</html>
