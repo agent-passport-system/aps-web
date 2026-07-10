@@ -12,6 +12,7 @@ The SDK ships in two layers. Core is a curated essentials surface at `agent-pass
 
 - [SDK on npm](https://www.npmjs.com/package/agent-passport-system): `npm install agent-passport-system`
 - [Python SDK on PyPI](https://pypi.org/project/agent-passport-system/): `pip install agent-passport-system`
+- [Verify a bundle in the browser](https://agent-passport.org/verify.html): drop a receipt or evidence bundle, get the per-axis claim-state report; verification runs in the page, nothing is uploaded.
 - [Go SDK on pkg.go.dev](https://pkg.go.dev/github.com/aeoess/agent-passport-go): `go get github.com/aeoess/agent-passport-go@v0.2.0-alpha.3`
 - [MCP server on npm](https://www.npmjs.com/package/agent-passport-system-mcp): `npx agent-passport-system-mcp setup`
 - [Remote MCP via SSE](https://mcp.aeoess.com/sse): zero-install, any MCP client

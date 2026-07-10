@@ -39,3 +39,6 @@ Install `agent-passport-system` from npm or PyPI, issue a passport to your agent
 
 ---
 
+
+## Verify artifacts
+Browser inspector at https://agent-passport.org/verify.html: drop a receipt or evidence bundle for a per-axis claim-state report. Verification runs locally in the page; nothing is uploaded. The CLI equivalent is the SDK verify-bundle command.

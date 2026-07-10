@@ -295,6 +295,7 @@ attestation = attest_floor("my-agent", keys["publicKey"], "0.1", [], keys["priva
 
 Cross-language compatible: Python signatures verify in TypeScript and vice versa (same Ed25519 + canonical JSON).
 PyPI: https://pypi.org/project/agent-passport-system/
+- [Verify a bundle in the browser](https://agent-passport.org/verify.html): drop a receipt or evidence bundle, get the per-axis claim-state report; verification runs in the page, nothing is uploaded.
 Source: https://github.com/aeoess/agent-passport-python
 
 ## CLI — 15 Commands
