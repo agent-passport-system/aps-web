@@ -408,8 +408,19 @@ function getVariablePatterns(varName, oldValue, newValue) {
       return [
         // v1.7.0, (v1.7.0), "v1.7.0", v1.7.0—, v1.7.0)
         { regex: new RegExp(`v${o}`, 'g'), replace: `v${n}` },
-        // "version": "1.7.0" in package.json
-        { regex: new RegExp(`"version":\\s*"${o}"`, 'g'), replace: `"version": "${n}"` },
+        // JSON "version" field, FIELD-SCOPED. The SDK and MCP version
+        // numbers are currently identical (both 3.3.0), so a bare
+        // `"version": "<old>"` pattern would rewrite the MCP package's
+        // version field and the top-level MCP version in
+        // .well-known/mcp.json on an SDK-only bump (and vice versa). Anchor
+        // each version field to the package name / sibling field that
+        // identifies it as the SDK's.
+        //   sdk/package.json: "name": "agent-passport-system", "version": "<old>"
+        //     (the trailing `",` after the name keeps this from matching the
+        //      MCP package name "agent-passport-system-mcp").
+        { regex: new RegExp(`("name":\\s*"agent-passport-system",\\s*"version":\\s*")${o}(")`, 'g'), replace: `$1${n}$2` },
+        //   .well-known/mcp.json sdk block: "pypi": "agent-passport-system", "version": "<old>"
+        { regex: new RegExp(`("pypi":\\s*"agent-passport-system",\\s*"version":\\s*")${o}(")`, 'g'), replace: `$1${n}$2` },
         // softwareVersion":"1.7.0"
         { regex: new RegExp(`softwareVersion":"${o}"`, 'g'), replace: `softwareVersion":"${n}"` },
         // remote-mcp "## Links": agent-passport-system](npm) (vX, N tests). The bare vX above
@@ -422,7 +433,14 @@ function getVariablePatterns(varName, oldValue, newValue) {
       return [
         // v2.1.0 in MCP-specific contexts
         { regex: new RegExp(`v${o}`, 'g'), replace: `v${n}` },
-        { regex: new RegExp(`"version":\\s*"${o}"`, 'g'), replace: `"version": "${n}"` },
+        // JSON "version" field, FIELD-SCOPED (see the SDK_VERSION note).
+        // Anchored so an MCP-only bump can never rewrite the SDK package's
+        // version field or the sdk.version in .well-known/mcp.json.
+        //   mcp/package.json: "name": "agent-passport-system-mcp", "version": "<old>"
+        { regex: new RegExp(`("name":\\s*"agent-passport-system-mcp",\\s*"version":\\s*")${o}(")`, 'g'), replace: `$1${n}$2` },
+        //   .well-known/mcp.json top-level MCP server version, anchored on the
+        //   following "servers" key so it cannot hit the nested sdk.version.
+        { regex: new RegExp(`("version":\\s*")${o}("\\s*,\\s*"servers")`, 'g'), replace: `$1${n}$2` },
         // remote-mcp "## Links": agent-passport-system-mcp](npm) (vX, N tools). (Day-128)
         { regex: new RegExp(`(agent-passport-system-mcp\\]\\([^)]+\\) \\(v)${o}`, 'g'), replace: `$1${n}` },
       ];

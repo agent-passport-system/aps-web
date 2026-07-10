@@ -30,11 +30,16 @@ read_pkg_version() {
 SDK_EXPECTED=$(read_pkg_version "$HOME/agent-passport-system/package.json")
 MCP_EXPECTED=$(read_pkg_version "$HOME/agent-passport-mcp/package.json")
 GATEWAY_EXPECTED=$(read_pkg_version "$HOME/aeoess-gateway/package.json")
+# mcp.aeoess.com serves the agent-passport-remote-mcp package, which is
+# versioned independently of the npm-published agent-passport-mcp. The live
+# /health version must therefore be compared against the remote-mcp package,
+# not MCP_EXPECTED (that is the npm SDK-side MCP package, checked below).
+REMOTE_MCP_EXPECTED=$(read_pkg_version "$HOME/agent-passport-remote-mcp/package.json")
 
 echo "═══════════════════════════════════════"
 echo "  AEOESS Deploy Verification"
 echo "  $(date)"
-echo "  Expected: SDK $SDK_EXPECTED, MCP $MCP_EXPECTED, Gateway $GATEWAY_EXPECTED"
+echo "  Expected: SDK $SDK_EXPECTED, MCP (npm) $MCP_EXPECTED, MCP remote $REMOTE_MCP_EXPECTED, Gateway $GATEWAY_EXPECTED"
 echo "═══════════════════════════════════════"
 
 if [[ "$SERVICE" == "all" || "$SERVICE" == "mcp" ]]; then
@@ -45,9 +50,11 @@ if [[ "$SERVICE" == "all" || "$SERVICE" == "mcp" ]]; then
   HEALTH=$(curl -s -m 10 https://mcp.aeoess.com/health 2>&1)
   check "Health endpoint responds" "$HEALTH" "status.*ok"
   
-  # Version check — reads live `version` field from /health
+  # Version check reads live `version` field from /health. mcp.aeoess.com
+  # serves the agent-passport-remote-mcp package, so compare against its
+  # local package.json version (REMOTE_MCP_EXPECTED), not the npm MCP package.
   MCP_LIVE=$(echo "$HEALTH" | python3 -c "import json,sys; print(json.load(sys.stdin).get('version', ''))" 2>/dev/null || echo "")
-  check "Version is current ($MCP_EXPECTED)" "$MCP_LIVE" "^$MCP_EXPECTED\$"
+  check "Version is current ($REMOTE_MCP_EXPECTED)" "$MCP_LIVE" "^$REMOTE_MCP_EXPECTED\$"
   
   # SSE connects and gets endpoint
   SSE=$(curl -s -m 6 https://mcp.aeoess.com/sse 2>&1 || true)
