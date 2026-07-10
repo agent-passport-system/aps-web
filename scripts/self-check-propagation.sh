@@ -177,19 +177,35 @@ fi
 #
 # CATEGORY D — Paper count in llms.txt files
 #
-# Canonical = 7 papers + IETF draft. Every llms.txt that lists papers
-# must list all 7. aeoess.com/llms.txt is the highest-visibility one.
+# Canonical count is parameterized from project-state.json (counts.papers),
+# the same source-of-truth propagate.mjs uses. Every llms.txt that lists
+# papers must list at least that many. aeoess.com/llms.txt is the
+# highest-visibility one.
 #
 section "D. Paper count in llms.txt"
 
-EXPECTED_PAPERS=7
+# Parameterize from SoT so this never goes stale on a paper drop. Fall back
+# to 9 only if jq / project-state.json is unavailable.
+EXPECTED_PAPERS=$(jq -r '.counts.papers' "$WEB/project-state.json" 2>/dev/null)
+case "$EXPECTED_PAPERS" in
+  ''|null|*[!0-9]*) EXPECTED_PAPERS=9 ;;
+esac
+
+# Count Zenodo DOI occurrences, not matching LINES: papers may be listed one
+# per line (llms.txt) or comma-joined on a single line (org README). The old
+# `grep -c` line-count under-reported single-line lists, and the old
+# `zenodo\.1[89]` class could not match newer DOIs such as
+# zenodo.21208555 (Plausibly Wrong). Match any Zenodo DOI.
+count_papers() {
+  grep -oE "zenodo\.[0-9]+" "$1" 2>/dev/null | wc -l | tr -d ' '
+}
 
 for f in "$WEB/llms.txt" "$WEB/llms-full.txt" \
          "$SDK/llms.txt" "$MCP/llms.txt" "$PY/llms.txt" \
          "$VOCAB/llms.txt"; do
   [ -f "$f" ] || continue
   short=$(echo "$f" | sed "s|$HOME/||")
-  count=$(grep -c "zenodo\.1[89]" "$f" 2>/dev/null)
+  count=$(count_papers "$f")
   count=${count:-0}
   if [ "$count" -ge "$EXPECTED_PAPERS" ]; then
     record_pass "$short lists $count papers (>= $EXPECTED_PAPERS)"
@@ -200,32 +216,37 @@ done
 
 # Org profile
 if [ -f "$ORG/profile/README.md" ]; then
-  count=$(grep -c "zenodo\.1" "$ORG/profile/README.md" 2>/dev/null)
+  count=$(count_papers "$ORG/profile/README.md")
   count=${count:-0}
   [ "$count" -ge "$EXPECTED_PAPERS" ] \
-    && record_pass "aeoess-dot-github README lists $count papers" \
+    && record_pass "aeoess-dot-github README lists $count papers (>= $EXPECTED_PAPERS)" \
     || record_fail "aeoess-dot-github README lists $count papers (expected $EXPECTED_PAPERS)"
 fi
 
 #
 # CATEGORY E — v2 module count drift
 #
-# Canonical = 84 core + 41 v2 = 125 modules as of Apr 23. Common drift:
-# '40 v2', '39 v2', '32 v2' (very stale), '71 core' (very stale).
-# Scan for patterns likely to be stale v2 references.
+# Canonical (SoT project-state.json) = 84 core + 23 v2 = 107 modules.
+# The prior canonical (84 core + 41 v2 = 125 modules, ratified Apr 23) is
+# now itself stale and is included below so lingering references get caught.
+# Scan for patterns likely to be stale v2 / total references.
 #
 section "E. v2 module count drift"
 
 CURRENT_CORE=84
-CURRENT_V2=41
+CURRENT_V2=23
 
 declare -a STALE_PATTERNS=(
-  "40 v2"
   "39 v2"
+  "40 v2"
+  "41 v2"
   "71 core"
   "84 core + 3[0-9] v2"
+  "84 core + 4[0-9] v2"
   "84\\+40"
+  "84\\+41"
   "84\\+39"
+  "125 modules"
 )
 
 for pattern in "${STALE_PATTERNS[@]}"; do
@@ -280,9 +301,14 @@ fi
 #
 section "G. package.json / pyproject.toml descriptions"
 
-SDK_TEST_COUNT=$(cd "$SDK" && npm test --silent 2>/dev/null | grep -oE "Tests: +[0-9]+ passed" | head -1 | grep -oE "[0-9]+" || echo "?")
+# Canonical test count comes from project-state.json (counts.tests), the same
+# SoT propagate.mjs uses. The old parser shelled out to `npm test` and grepped
+# jest's "Tests: N passed" line; the SDK moved to the node test runner
+# (`tsx --test`, which prints "# tests N"), so that parser always returned "?"
+# and this check silently did nothing. Reading SoT is both correct and fast.
+SDK_TEST_COUNT=$(jq -r '.counts.tests' "$WEB/project-state.json" 2>/dev/null || echo "?")
 
-if [ -f "$SDK/package.json" ] && [ "$SDK_TEST_COUNT" != "?" ]; then
+if [ -f "$SDK/package.json" ] && [ "$SDK_TEST_COUNT" != "?" ] && [ "$SDK_TEST_COUNT" != "null" ]; then
   desc=$(jq -r .description "$SDK/package.json")
   # Look for any NNNN tests pattern in description
   desc_count=$(echo "$desc" | grep -oE "[0-9],?[0-9]{3} tests" | head -1 | tr -d ',' | grep -oE "[0-9]+")
@@ -364,13 +390,10 @@ fi
 #
 section "J. Daily-rhythm surfaces (today)"
 
-today_short=$(date +"%b %d" | sed 's/  / /')   # e.g. "Apr 23"
-# Updates panel check
-if grep -q "up-d\">$today_short" "$WEB/index.html" 2>/dev/null; then
-  record_pass "Updates panel has entry for $today_short"
-else
-  record_fail "Updates panel has NO entry for $today_short"
-fi
+# NOTE: the old `up-d` "Updates panel" check was removed. That surface no
+# longer exists on index.html (the dated `<div class="up-d">` entries were
+# retired), so the check failed on every run regardless of state. The roadmap
+# and blog freshness pointers below remain informational.
 
 # Roadmap entry check — look for today's date pattern
 today_iso=$(date +"%Y-%m-%d")

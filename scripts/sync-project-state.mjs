@@ -36,7 +36,7 @@
 //
 // ══════════════════════════════════════════════════════════════════
 
-import { readFileSync, writeFileSync, existsSync } from 'node:fs'
+import { readFileSync, writeFileSync, existsSync, renameSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -113,7 +113,15 @@ state.updated = todayUtc()
 
 // Stable formatting: 2-space indent, trailing newline.
 const serialized = JSON.stringify(state, null, 2) + '\n'
-writeFileSync(PROJECT_STATE_PATH, serialized, 'utf8')
+// Atomic write: write to a unique temp file in the same directory, then
+// rename over the target. rename(2) is atomic on the same filesystem, so a
+// concurrent release hook (npm postversion for sdk/mcp/python firing in
+// parallel) can never observe a torn/half-written project-state.json. The
+// pid + timestamp suffix keeps two concurrent writers from colliding on the
+// temp path; last rename wins, and each rename lands a fully-formed file.
+const tmpPath = `${PROJECT_STATE_PATH}.tmp.${process.pid}.${Date.now()}`
+writeFileSync(tmpPath, serialized, 'utf8')
+renameSync(tmpPath, PROJECT_STATE_PATH)
 
 const slot = key === 'tests' ? 'counts.tests' : `versions.${key}`
 console.log(
