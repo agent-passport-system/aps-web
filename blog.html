@@ -877,6 +877,15 @@
   </div>
 </section>
 <main class="blog-feed">
+<article class="post" id="day-144-delegated-action-evidence">
+  <time class="post-date" datetime="2026-07-10">July 10, 2026</time>
+  <h2>Day 144: delegated action evidence.</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong>This release answers one question.</strong> When an agent acts on someone's behalf, what can a third party verify afterward without taking anyone's word for it? SDK 3.3.0, Go 0.3.0, Python 2.8.0 and MCP 3.3.0 ship five pieces of the answer. Bilateral pair reconciliation checks that both sides' receipts describe the same action. Revocation observation records let a verifier sign what it saw: when a revocation appeared and when enforcement caught up. Evidence bundles commit a batch of records to a Merkle root so an auditor can verify one record without holding the full set. Action references now have a locked canonicalization with byte-identical test vectors across TypeScript, Python and Go. Jurisdiction selection records state which rulebook applied and why.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The frame stays honest. None of these records prove an outcome was safe. A receipt states what it proves and what it does not. What changed is how much of the proving can happen independently. The vectors are public, the checks recompute from held bytes plus the issuer key and a verifier needs nothing of mine to run them. That is the property the whole release serves: evidence a counterparty can attack rather than a claim they are asked to accept.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Today's patch came out of that independence. While swapping the gateway onto the SDK audience check I probed the edges and found checkAudience throws on a JSON null aud. That value is attacker-deliverable, so a bare verifier could be crashed by the very object it was verifying. 3.3.1 ships the fix. An explicit null is treated as unbound, a non-object aud returns the malformed reason and an unbound audience fails the check whenever one is required. Every path ends in a reason code and none of them throws, with regression tests behind each. Small patch, wrong failure mode gone. The gateway was never exposed because its adapter coalesced the value, but the SDK should not need a bodyguard.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Next steps are external. The point of receipts is exchanging them with implementations I do not control. The draft's next revision specifies the two new record classes and goes to the datatracker when the submission window reopens on July 18.</p>
+</article>
+
 <article class="post" id="day-143-the-claim-boundary-in-practice">
   <time class="post-date" datetime="2026-07-09">July 9, 2026</time>
   <h2>Day 143: merged before nine, corrected by our own review before midnight.</h2>

@@ -4360,3 +4360,18 @@
       label: "Claim-boundary correction"
     - url: "https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/"
       label: "draft-pidlisnyi-aps"
+
+# DAY 144 - 2026-07-10
+
+- id: d144-delegated-action-evidence
+  title: "Day 144: delegated action evidence"
+  description: "Five receipt evidence primitives across four packages: bilateral pair reconciliation, revocation observation records, Merkle evidence bundles, locked action_ref canonicalization with cross-language vectors, jurisdiction selection records. 3.3.1 makes checkAudience fail closed on untrusted aud values."
+  status: done
+  workstream: protocol
+  day_start: 144
+  day_end: 144
+  links:
+    - url: "https://agent-passport.org/blog.html#day-144-delegated-action-evidence"
+      label: "Day 144 write-up"
+    - url: "https://github.com/aeoess/agent-passport-system/releases/tag/v3.3.1"
+      label: "SDK 3.3.1"
