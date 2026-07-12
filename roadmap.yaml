@@ -4375,3 +4375,18 @@
       label: "Day 144 write-up"
     - url: "https://github.com/aeoess/agent-passport-system/releases/tag/v3.3.1"
       label: "SDK 3.3.1"
+
+# DAY 145 - 2026-07-11
+
+- id: d145-four-oh-second-audit
+  title: "Day 145: SDK 4.0.0 published after a second audit; threshold verify-before-count and receipt v1.2"
+  description: "SDK 4.0.0 on npm. A second adversarial audit of the fix set found real defects behind green suites, patched before release. The major is driven by two shape changes: threshold approval verifies each signature before counting it toward the threshold, changing the exported evaluateThreshold signature, and receipts move from the v1.1 to the v1.2 Merkle construction. Verifier null guards and a fail-closed correction on the governance path also land. On the conformance suite the Go runner now recomputes action_ref for the actionref-canonical vectors and asserts them, four vectors moving from recorded to checked, Go and TypeScript agreeing on the category. The same hardening is merged across the other packages with releases to follow; the MCP threshold change waits on the published SDK."
+  status: done
+  workstream: protocol
+  day_start: 145
+  day_end: 145
+  links:
+    - url: "https://agent-passport.org/blog.html#day-145-four-oh"
+      label: "Day 145 write-up"
+    - url: "https://github.com/aeoess/agent-passport-system/releases/tag/v4.0.0"
+      label: "SDK 4.0.0"
