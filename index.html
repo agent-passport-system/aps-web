@@ -851,8 +851,7 @@ html[data-theme="light"]{--clo-a:#4C5438;--clo-b:#5F7D0C;--clo-c:#5C6647;--clo-d
     <div class="eyebrow r"><span class="sq" style="border-radius:50%; width:8px; height:8px"></span><span style="letter-spacing:.22em">Open source · Built in public</span></div>
     <div class="r mono" style="font-size:clamp(12px,1.3vw,14px); letter-spacing:.24em; text-transform:uppercase; color:var(--lime); margin-bottom:22px">Governance infrastructure for the agent economy</div>
     <h1 class="h-hero r" style="margin-bottom:30px">Agent Passport System</h1>
-    <p class="r" style="font-size:clamp(18px,2.1vw,24px); line-height:1.45; max-width:46ch; margin-bottom:14px">APS gives every AI agent a verifiable identity, ties it to the person or company it represents, and signs proof for every action taken under that authority.</p>
-    <p class="r mono subtle" style="font-size:clamp(13px,1.5vw,15.5px); line-height:1.55; max-width:52ch; margin-bottom:38px">Proof that travels with the action, not a log you check after something breaks.</p>
+    <p class="r" style="font-size:clamp(18px,2.1vw,24px); line-height:1.45; max-width:46ch; margin-bottom:38px">APS gives every AI agent a verifiable identity, ties it to the person or company it represents, and signs proof of every action it takes.</p>
     <div class="cta-row r">
       <a class="btn" href="https://agent-passport.org/protocol.html">View the protocol →</a>
       <a class="btn ghost" href="https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/">Read the spec</a>
@@ -867,8 +866,7 @@ html[data-theme="light"]{--clo-a:#4C5438;--clo-b:#5F7D0C;--clo-c:#5C6647;--clo-d
     <div class="cols2-tilt">
       <div>
         <h2 class="h-lg r" style="margin-bottom:26px">Agent actions create enterprise liability.</h2>
-        <p class="r" style="font-size:clamp(16px,1.7vw,19px); line-height:1.62; margin-bottom:18px">When a person acts on behalf of a company, trust is built in: a title, a mandate, an approval chain. You know what they can sign for, and who answers if it goes wrong. When software acts on behalf of a company, none of that is attached. <span class="lime">The action happens. The proof does not.</span></p>
-        <p class="r subtle" style="font-size:clamp(16px,1.7vw,19px); line-height:1.62; margin-bottom:26px">The next trust boundary is not the user login. It is the action an agent takes on your behalf.</p>
+        <p class="r" style="font-size:clamp(16px,1.7vw,19px); line-height:1.62; margin-bottom:26px">When a person acts for a company, trust is built in: a title, a mandate, an approval chain, and someone who answers if it goes wrong. When software acts for a company, none of that is attached. <span class="lime">The action happens. The proof does not.</span></p>
         <p class="r" style="font-family:var(--disp); font-size:clamp(20px,2.4vw,30px); font-weight:600; line-height:1.2">“The agent did it” <span class="subtle">is not an answer.</span></p>
       </div>
       <div class="stack-diagram r">
@@ -925,9 +923,9 @@ html[data-theme="light"]{--clo-a:#4C5438;--clo-b:#5F7D0C;--clo-c:#5C6647;--clo-d
     <p class="r" style="font-size:clamp(17px,2vw,23px); line-height:1.5; max-width:58ch; margin-bottom:14px">APS proves <span class="lime">who authorized an agent</span>, <span class="lime">what it was allowed to do</span>, and <span class="lime">what actually happened</span>.</p>
     <p class="r mono subtle" style="font-size:clamp(13px,1.5vw,16px); line-height:1.5; margin-bottom:48px">A cryptographic trail of authority, enforcement, and action.</p>
     <div class="grid g3">
-      <div class="cell r"><div class="big">I</div><h3>Identity</h3><p>Which agent acted, and which principal it represents. Every action resolves to the person or company it was taken for.</p></div>
-      <div class="cell r"><div class="big">S</div><h3>Scoped authority</h3><p>The limits, budget, and conditions it operates under, enforced at runtime. Authority can only narrow, never silently expand, as it is delegated down the chain.</p></div>
-      <div class="cell r"><div class="big">E</div><h3>Evidence</h3><p>A signed receipt for every permitted action, and evidence for every denial. A receipt states exactly what it proves and what it does not.</p></div>
+      <div class="cell r"><div class="big">I</div><h3>Identity</h3><p>Which agent acted, and the person or company it acted for.</p></div>
+      <div class="cell r"><div class="big">S</div><h3>Scoped authority</h3><p>The limits, budget, and conditions it operates under, enforced at runtime. Authority can only narrow as it is delegated, never widen.</p></div>
+      <div class="cell r"><div class="big">E</div><h3>Evidence</h3><p>A signed receipt for every action, allowed or denied, stating what it proves and what it does not.</p></div>
     </div>
     <p class="r mono subtle" style="margin-top:32px; font-size:13px; line-height:1.6; max-width:78ch">APS does not replace identity providers, wallets, or orchestration. <span style="color:var(--fg)">It sits beside the protocols you already run, as the governance layer.</span></p>
   </section>
@@ -936,7 +934,7 @@ html[data-theme="light"]{--clo-a:#4C5438;--clo-b:#5F7D0C;--clo-c:#5C6647;--clo-d
   <section class="slide" aria-label="How it works">
     <div class="eyebrow r"><span class="sq"></span><span>05 · How it works</span></div>
     <h2 class="h-lg r" style="font-size:clamp(36px,5vw,76px); line-height:1.04; margin-bottom:12px">Authority flows down.<span class="split">Evidence flows back.</span></h2>
-    <p class="r subtle" style="font-size:clamp(15px,1.6vw,18px); line-height:1.6; max-width:70ch; margin-bottom:50px">A principal grants authority. Each delegation step narrows it, never widens it. The gateway checks it before the action runs, and each action returns a signed receipt the principal can verify later.</p>
+    <p class="r subtle" style="font-size:clamp(15px,1.6vw,18px); line-height:1.6; max-width:70ch; margin-bottom:50px">A principal grants authority, each step narrows it, the gateway checks it before the action runs, and every action returns a signed receipt.</p>
     <div class="flow-wrap">
       <div class="r">
         <div class="flow-legend"><span class="lime">Authority →</span><span class="subtle">← Evidence</span></div>
@@ -970,7 +968,7 @@ html[data-theme="light"]{--clo-a:#4C5438;--clo-b:#5F7D0C;--clo-c:#5C6647;--clo-d
   <section class="slide" aria-label="Receipts">
     <div class="eyebrow r" style="margin-bottom:22px"><span class="sq"></span><span>06 · Every action gets a receipt</span></div>
     <h2 class="h-md r" style="margin-bottom:16px">The world runs on <span class="lime">receipts.</span></h2>
-    <p class="r subtle" style="font-size:clamp(15px,1.7vw,19px); line-height:1.55; max-width:74ch; margin-bottom:10px">Bills, agreements, records: proof that travels with the transaction. APS applies the same principle to agents. <span style="color:var(--fg)">Every meaningful agent action gets a receipt: a signed, tamper-evident record that proves what the agent did, under what authority, and on whose behalf.</span></p>
+    <p class="r subtle" style="font-size:clamp(15px,1.7vw,19px); line-height:1.55; max-width:74ch; margin-bottom:10px">Bills, agreements, records: proof that travels with the transaction. APS applies the same idea to agents. <span style="color:var(--fg)">Every meaningful action gets a signed, tamper-evident receipt of what the agent did, under what authority, and for whom.</span></p>
     <p class="r mono lime" style="font-size:13px; letter-spacing:.04em; margin-bottom:26px">Do not take our word for it: read one.</p>
     <div class="receipt-grid">
       <div class="code-card r">
@@ -1034,8 +1032,8 @@ html[data-theme="light"]{--clo-a:#4C5438;--clo-b:#5F7D0C;--clo-c:#5C6647;--clo-d
     <div class="eyebrow r"><span class="sq"></span><span>08 · The long bet</span></div>
     <h2 class="r" style="font-family:var(--disp); font-weight:600; font-size:clamp(40px,6vw,92px); line-height:1; letter-spacing:-.035em; margin-bottom:18px">Attribution follows the agent.</h2>
     <p class="r subtle" style="font-size:clamp(16px,1.9vw,21px); line-height:1.5; max-width:56ch; margin-bottom:26px">Identity is where this starts. <span style="color:var(--fg)">Beneficiary attribution is the bigger prize.</span></p>
-    <p class="r" style="font-size:clamp(17px,2.1vw,23px); line-height:1.5; max-width:62ch; margin-bottom:16px">When an agent creates work, moves value, or produces an outcome, the person or company behind it remains the principal who participated through it.</p>
-    <p class="r subtle" style="font-size:clamp(15px,1.7vw,18px); line-height:1.55; max-width:56ch; margin-bottom:48px">Earned, traceable, provable.<span style="display:block; color:var(--lime); margin-top:5px">Attribution follows the delegation chain back to the named principal.</span></p>
+    <p class="r" style="font-size:clamp(17px,2.1vw,23px); line-height:1.5; max-width:62ch; margin-bottom:16px">When an agent creates work, moves value, or produces an outcome, the person or company behind it stays the principal who participated.</p>
+    <p class="r subtle" style="font-size:clamp(15px,1.7vw,18px); line-height:1.55; max-width:56ch; margin-bottom:48px">Earned, traceable, and provable back down the delegation chain to the named principal.</p>
     <div class="chain r">
       <span class="n">Agent</span>
       <span class="arr">→</span>
