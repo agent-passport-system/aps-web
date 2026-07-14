@@ -4390,3 +4390,31 @@
       label: "Day 145 write-up"
     - url: "https://github.com/aeoess/agent-passport-system/releases/tag/v4.0.0"
       label: "SDK 4.0.0"
+
+# DAY 146 - 2026-07-12
+
+- id: d146-two-phase-reversibility
+  title: "Day 146: two-phase reversibility model settled in the open"
+  description: "Worked the reversibility model out in a public standards thread on secure design for agentic systems before building it. The design that held is two phases: a declared reversibility ceiling before execution and an instantiated fold after, computed from the bindings the action actually carried rather than what it promised. The governing rule is fail closed, so an effect missing a reversibility binding counts as irreversible rather than assumed harmless, because reversibility depends on downstream outcomes and does not narrow monotonically the way authority does. Grounded against the action-class and externality types already in the SDK so the primitive has real anchors rather than new vocabulary."
+  status: done
+  workstream: protocol
+  day_start: 146
+  day_end: 146
+  links:
+    - url: "https://agent-passport.org/blog.html#day-146-two-phase-reversibility"
+      label: "Day 146 write-up"
+
+# DAY 147 - 2026-07-13
+
+- id: d147-lone-surrogate-and-vectors
+  title: "Day 147: lone-surrogate canonicalization fix released across three SDKs; AuthZEN binding-hash vectors; reversibility fold v0"
+  description: "Building byte-identical conformance vectors for a denial-binding hash exposed a real defect in the APS canonicalizer: it accepted a lone UTF-16 surrogate and carried it into the signed bytes, which RFC 8785 requires rejecting before hashing. The Go path was worse, with the standard decoder substituting the replacement character before the scanner ran. Fixed and released the same day across TypeScript SDK 4.1.0 on npm, Python SDK 2.9.0 on PyPI, and Go module v0.4.0. Input previously accepted is now rejected, so the minor moves rather than the patch; code that never emits an unpaired surrogate is unaffected. The vector suite carries normative, proposed, and error cases, recomputed by three implementations and checked against a fourth independent RFC 8785 library, offered in openid/authzen#556 as a pass or fail target. A first reversibility fold also landed, unexported: a per-effect classifier with a content-addressed profile registry and typed lineage states, with one unsound path removed at review that had granted compensable status on a self-declared recovery reference alone."
+  status: done
+  workstream: protocol
+  day_start: 147
+  day_end: 147
+  links:
+    - url: "https://agent-passport.org/blog.html#day-147-what-the-vectors-caught"
+      label: "Day 147 write-up"
+    - url: "https://github.com/aeoess/agent-passport-system/releases/tag/v4.1.0"
+      label: "SDK 4.1.0"
