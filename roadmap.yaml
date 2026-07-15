@@ -4418,3 +4418,20 @@
       label: "Day 147 write-up"
     - url: "https://github.com/aeoess/agent-passport-system/releases/tag/v4.1.0"
       label: "SDK 4.1.0"
+
+# DAY 148 - 2026-07-14
+
+- id: d148-narrowing-hole-and-gateway-ci
+  title: "Day 148: P1 narrowing hole closed in the deployed gateway; gateway CI added; AuthZEN vectors published"
+  description: "The gateway's narrowing check compared a child delegation's spend limit against its parent only when both carried one, so a child that omitted the limit skipped the check while the evaluation path reads absent as unlimited. A child minted under a spend-bounded ancestor could omit the field and become unbounded, with every row in the chain still validating. That is a live violation of the core invariant in deployed enforcement. Fix pivots the gate onto the ancestor being bounded; both directions tested. Root cause was structural: the gateway had no CI, so a fix sat unmerged for three days and a tree of 639 tests had not executed since April, stranded by a glob matching one directory name and not the other. CI now runs 1,510 tests, a build, a type check and a credential scan on every push. Also published aeoess/authzen-556-vectors public under Apache-2.0 (35 normative, 8 rejection, contested readings carried separately with both candidate preimages, three implementations plus an independent library), and shipped 4.1.1 to restore the SLSA build provenance that 4.1.0 lost when it was published by hand outside the release pipeline."
+  status: done
+  workstream: protocol
+  day_start: 148
+  day_end: 148
+  links:
+    - url: "https://agent-passport.org/blog.html#day-148-the-invariant-was-not-enforced"
+      label: "Day 148 write-up"
+    - url: "https://github.com/aeoess/authzen-556-vectors"
+      label: "AuthZEN binding-hash vectors"
+    - url: "https://github.com/aeoess/agent-passport-system/releases/tag/v4.1.1"
+      label: "SDK 4.1.1"
