@@ -3,6 +3,48 @@
 # Last updated: 2026-07-04 (Day 137). Days 123-137 backfilled: ID-JAG binding shipped and surfaced, SDK 2.9.0 and 3.0.0, Python 2.5.0, gateway authz and money-path hardening deployed, vocab #113 and SDK #47 merged, AuthZEN, W3C CG and AIVSS engagement, the site's v2 design transfer end to end, the horizontal roadmap, themes, media coverage, and the verified copy batch.
 # Day 1 = 2026-02-17 (project start)
 
+# ═══ DAY 149 — 2026-07-15 ═══
+
+- id: d149-lfdt-lab-proposal-approved
+  title: "LF Decentralized Trust Labs proposal approved; TAC chair offered to sponsor"
+  description: "Lab proposal filed Day 142 was approved and this year's LFDT TAC chair offered sponsorship. The lab is not created yet and an approved proposal is not a foundation project. Scope proposed: the lab holds the conformance suite, the cross-implementation vectors and an adversarial conformance track, while the specification stays in the IETF draft and the reference implementations stay where they are."
+  status: in_progress
+  workstream: standards
+  day_start: 142
+  day_end: 149
+
+- id: d149-audit-charter-text
+  title: "Charter text proposed for the IETF AUDIT BOF after the chair asked for it"
+  description: "One sentence appended to the audit data models deliverable: the models carry what is needed to correlate an interaction across domains with the authorization under which it was taken, and to evaluate relationships among delegations that a record claims. Three adversarial reviews killed two earlier versions that assumed authorization is tree-shaped. PR open and unreviewed."
+  status: in_progress
+  workstream: standards
+  day_start: 149
+  day_end: 149
+
+- id: d149-cosai-reachability
+  title: "Reversibility join objection conceded at CoSAI ws4; reachability question raised"
+  description: "A declared ceiling is a plan-time bound, and since a settled class can only sit at or below it the join tightens as the chain resolves, so it is well defined without total knowledge. Conceded. Open in its place: which set the join runs over, since joining declared steps assumes a plan bounds an agent that chooses at run time, while the grant does. APS computes neither ceiling today."
+  status: done
+  workstream: standards
+  day_start: 149
+  day_end: 149
+
+- id: d149-reading-rule
+  title: "Reading rule installed after three vocabulary-blind misreads of one spec family"
+  description: "Searched another project's drafts for APS's own words, read absence as a gap, and was wrong three times in six hours. Rule now at the top of the competitor file: grep the function not the word, open every companion draft before characterizing a family, quote the gap from their document or do not claim it, and check against disk before offering anything. The daily scan brief gained the same two rules plus a note that gh search issues silently excludes pull requests."
+  status: done
+  workstream: ops
+  day_start: 149
+  day_end: 149
+
+- id: d149-theme-default-dark
+  title: "Dark is the default on first landing; lime fills fixed in light mode"
+  description: "Supersedes the Day 137 system-preference default. All twenty-one pages now open dark until the visitor chooses otherwise, and theme.js no longer re-applies the OS theme on change. Lime-filled surfaces carry near-black text in light mode; the root cause was color:var(--bg) on every lime surface while light mode redefines --bg to cream."
+  status: done
+  workstream: ops
+  day_start: 149
+  day_end: 149
+
 # ═══ DAY 137 — 2026-07-04 ═══
 
 - id: d137-design-transfer-complete
