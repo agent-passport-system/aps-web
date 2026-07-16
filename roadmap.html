@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://agent-passport.org/assets/images/og-default.png">
 <meta name="twitter:image" content="https://agent-passport.org/assets/images/og-default.png">
 <link rel="icon" type="image/png" href="/assets/images/aeoess_logo.png">
-<link rel="stylesheet" href="/aps-v2.css?v=150">
+<link rel="stylesheet" href="/aps-v2.css?v=151">
 <script src="/theme.js" defer></script>
 <script src="/nav.js" defer></script>
 <meta name="theme-color" content="#0A0B08">
@@ -144,8 +144,9 @@
 (function () {
   var SRC = 'https://raw.githubusercontent.com/agent-passport-system/aps-web/main/roadmap.yaml';
   var K = {done:'done', active:'live', in_progress:'live', open:'live',
-           planned:'queued', backlog:'queued', killed:'cut', dropped:'cut'};
-  var KLABEL = {done:'Shipped', live:'In flight', queued:'Queued', cut:'Cut'};
+           planned:'queued', backlog:'queued', killed:'cut', dropped:'cut',
+           waiting:'held', stalled:'held', parked:'held', conditional:'held'};
+  var KLABEL = {done:'Shipped', live:'In flight', queued:'Queued', cut:'Cut', held:'On hold'};
   var LANES = ['protocol','comms','research','standards','ops','ecosystem','product','vocab','other'];
   var PPD = 13, GUT = 128, EPOCH = new Date(2026, 1, 16);
   var DATA = null, EXPANDED = null, FILTER = 'all';
@@ -275,9 +276,9 @@
   });
   function buildTabs() {
     var bar = document.getElementById('rm-filter'); bar.textContent = '';
-    var counts = { all: DATA.items.length, done: 0, live: 0, queued: 0, cut: 0 };
+    var counts = { all: DATA.items.length, done: 0, live: 0, queued: 0, cut: 0, held: 0 };
     DATA.items.forEach(function (it) { counts[it.kind]++; });
-    [['all', 'All'], ['done', 'Shipped'], ['live', 'In flight'], ['queued', 'Queued'], ['cut', 'Cut']]
+    [['all', 'All'], ['done', 'Shipped'], ['live', 'In flight'], ['held', 'On hold'], ['queued', 'Queued'], ['cut', 'Cut']]
       .forEach(function (p) {
         var b = el('button', p[0] === FILTER ? 'on' : '');
         b.dataset.f = p[0];
