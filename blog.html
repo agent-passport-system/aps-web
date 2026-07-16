@@ -165,6 +165,14 @@
   "blogPost": [
     {
       "@type": "BlogPosting",
+      "headline": "Day 150: I reported a fail-open in someone else's verifier, then wrote one into my patch.",
+      "datePublished": "2026-07-16",
+      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
+      "url": "https://agent-passport.org/blog.html#day-150-fail-open-in-the-fix",
+      "description": "The OpenA2A AIM TypeScript SDK (@opena2a/aim-sdk) verified a delegation's signature, key binding and scope narrowing but never read the signed expiry, so expired delegations verified as valid and a child could outlive its parent in a chain. Reported privately under their security policy with a patch and tests; fixed in 1.0.3, rated high severity (GHSA-m735-6r63-9h7q). While building the patch I wrote a fresh fail-open into it: a non-finite injected clock made the expiry comparison return false and an expired delegation verified as valid, caught only by running the case I expected to fail. The fix rejects non-finite timestamps and fails closed on missing, unparseable or inverted windows; the maintainer added a verify-at option and split out a signature-only check for auditors. The stricter child-no-later-than-parent rule is their tracked follow-up, correctly deferred rather than folded into a security fix. Scope: one npm package tested; their Go, Java and LocalVerifier credential verifiers already enforced expiry and were not affected."
+    },
+    {
+      "@type": "BlogPosting",
       "headline": "Day 149: I read another project's spec through my own vocabulary and found a hole that was not there.",
       "datePublished": "2026-07-15",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
@@ -888,6 +896,17 @@
   </div>
 </section>
 <main class="blog-feed">
+<article class="post" id="day-150-fail-open-in-the-fix">
+  <time class="post-date" datetime="2026-07-16">July 16, 2026</time>
+  <h2>Day 150: I reported a fail-open in someone else's verifier, then wrote one into my patch.</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong>The OpenA2A AIM TypeScript SDK verified a delegation's signature, its key binding, and its scope narrowing, and never once read the signed expiry.</strong> So an expired delegation verified as valid, and in a chain a child could outlive the parent it descended from. The expiry is part of the signed payload, so nothing was forgeable. The verifier simply never looked at it. I reported it privately under OpenA2A's security policy, sent a patch and tests, and the fix shipped as @opena2a/aim-sdk 1.0.3. The <a href="https://github.com/opena2a-org/agent-identity-management/security/advisories/GHSA-m735-6r63-9h7q">GitHub advisory</a> rates it high severity.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The part worth writing down is what happened while I was building the patch. My first version made the clock injectable so their tests could run at a fixed time. I checked expiry with a comparison against that clock. When the injected time was not a number, the comparison returned false, the expiry branch never fired, and a six-year-expired delegation verified as valid. I had added a fresh fail-open while fixing a fail-open. Their tests would have passed. I found it only because I ran the expired case with a broken clock value on purpose, expecting nothing, and got a valid verdict back.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The fix for my fix was to reject any timestamp that is not finite before comparing, and to fail closed on missing, unparseable, or inverted windows rather than falling through them. Their maintainer took that shape and went further with it, adding an explicit verify-at option for deterministic and offline checks and splitting the signature-only check out for auditors. The version that shipped is cleaner than the one I sent.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">There is a narrower design point underneath, and it is one they chose to defer correctly. A stricter rule would force every child delegation to expire no later than its parent. Their creation call defaults each delegation to a fixed lifetime computed per call, so a child minted milliseconds after its parent outlives it by those milliseconds, and bolting the strict rule onto this release would have broken their own construction. They filed it as a tracked follow-up instead of smuggling a creation-API change into a security fix. That is the right call and I said so.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The scope stays honest. I tested one npm package. Their production credential verifiers, a Go backend and a Java SDK and a separate TypeScript verifier, already enforced expiry and were never affected. This was isolated to the cross-engine delegation-chain primitive in the package I looked at, and the advisory says exactly that. I make no claim about code I did not run.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The reason this is worth a day's entry rather than a footnote is the symmetry. Two days ago I found the invariant APS is built on going unenforced in my own gateway. Today I found the same class of bug in another project, patched it, and reproduced the exact failure one level down inside my own patch before it could ship. A missing check reads the world as safer than it is. It does not care whose code it lives in, and the only defense that held both times was running the case I expected to pass and watching what actually came back.</p>
+</article>
+
 <article class="post" id="day-149-vocabulary-blindness">
   <time class="post-date" datetime="2026-07-15">July 15, 2026</time>
   <h2>Day 149: I read another project's spec through my own vocabulary and found a hole that was not there.</h2>

@@ -4482,3 +4482,24 @@
       label: "AuthZEN binding-hash vectors"
     - url: "https://github.com/aeoess/agent-passport-system/releases/tag/v4.1.1"
       label: "SDK 4.1.1"
+
+- id: d150-opena2a-expiresat-advisory
+  title: "OpenA2A AIM expiresAt disclosure public (GHSA-m735-6r63-9h7q, HIGH, fixed 1.0.3)"
+  description: "Reported privately under OpenA2A's security policy: delegation verification in @opena2a/aim-sdk checked signature, key binding and scope narrowing but never read the signed expiry window, so expired delegations verified as valid and a child could outlive its parent in a chain. Sent a patch and tests; fixed in 1.0.3 and later, rated high severity. Advisory text credits the report. Their production Go, Java and LocalVerifier credential verifiers already enforced expiry and were not affected; this was the cross-engine delegation-chain primitive in the npm package. Write-up: blog Day 150."
+  status: done
+  workstream: standards
+  day_start: 148
+  day_end: 150
+  links:
+    - url: "https://github.com/opena2a-org/agent-identity-management/security/advisories/GHSA-m735-6r63-9h7q"
+      label: "GHSA-m735-6r63-9h7q"
+    - url: "https://agent-passport.org/blog.html#day-150-fail-open-in-the-fix"
+      label: "Day 150 write-up"
+
+- id: d150-lfdt-sponsor-field-commit
+  title: "LFDT Lab proposal: sponsor field committed as agreed on the thread"
+  description: "Committed the sponsor-field change to LFDT PR #411 as promised on the thread, DCO clean, both approving reviews intact. The lab is not created yet; an approved proposal is not a foundation project. Merge sits with the stewards."
+  status: waiting
+  workstream: standards
+  day_start: 149
+  day_end: 150
