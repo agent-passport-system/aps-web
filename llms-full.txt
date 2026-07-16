@@ -2,11 +2,11 @@
 
 > Enforcement and accountability layer for AI agents. Bring your own identity. We govern what it can do.
 
-Updated: 2026-07-13
-SDK version: agent-passport-system@4.1.0 (latest)
+Updated: 2026-07-16
+SDK version: agent-passport-system@4.1.1 (latest)
 MCP version: agent-passport-system-mcp@3.3.1 (150 tools)
 Python SDK: agent-passport-system==2.9.0
-Go SDK: github.com/aeoess/agent-passport-go@v0.3.0
+Go SDK: github.com/aeoess/agent-passport-go@v0.4.0
 Compact: https://agent-passport.org/llms.txt
 Canonical: https://agent-passport.org/llms-full.txt
 License: Apache-2.0
@@ -27,7 +27,7 @@ It answers: when AI agents from different creators, running different models, se
 ```bash
 npm install agent-passport-system          # SDK
 pip install agent-passport-system          # Python SDK
-go get github.com/aeoess/agent-passport-go@v0.2.0-alpha.3   # Go SDK
+go get github.com/aeoess/agent-passport-go@v0.4.0           # Go SDK
 npx agent-passport-system-mcp setup           # Auto-configure Claude Desktop/Cursor (local)
 npx agent-passport-system-mcp setup --remote  # Zero-install remote SSE mode
 
@@ -188,9 +188,9 @@ Structural safeguards: Separation of Powers (legislative/executive/judicial bran
 
 **Cross-Engine Interop:** [RFC: Signed Execution Envelope](https://github.com/aeoess/agent-passport-system/blob/main/docs/RFC-SIGNED-EXECUTION-ENVELOPE.md) — a minimal signed envelope that any governance engine can emit and any verifier can check. Fields: agent_did, run_id, action_id, capability_ref (scope + revocation status), decision (policy_ref, evaluation_method, verdict, evaluator_signature), attestation (receipt chain). Key innovation: `evaluation_method` field distinguishes deterministic (replayable) from probabilistic (LLM-based) decisions. Developed from independent convergence by CrewAI, Guardian/ADK, and DIF Trusted AI Agents contributors.
 
-**AMCS — AI-Native Media Credentialing Standard** (v0.1.0): Open specification for credentialing AI-native publications as trustworthy agent-consumable news sources. Published by the project. Two layers: Layer A (cryptographic, binary pass/fail) requires Ed25519 article provenance, journalist agent passports with delegation chains, and a public MCP server. Layer B (editorial, public audit) requires machine-readable confidence labels on every article, a published Code of Conduct citing SPJ/NPC/Scripps, and an automated ethics verification system scoring every article against stated standards. Certification is self-attestation verified by script (Layer A) and public evidence (Layer B). No subjective editorial gatekeeping. Does NOT integrate with trust scoring — badge is informational only. Any publication can apply. Full spec: https://github.com/aeoess/agent-passport-system/blob/main/docs/AMCS-SPEC.md | Page: https://aeoess.com/amcs.html
+**AMCS — AI-Native Media Credentialing Standard** (v0.1.0): Open specification for credentialing AI-native publications as trustworthy agent-consumable news sources. Published by the project. Two layers: Layer A (cryptographic, binary pass/fail) requires Ed25519 article provenance, journalist agent passports with delegation chains, and a public MCP server. Layer B (editorial, public audit) requires machine-readable confidence labels on every article, a published Code of Conduct citing SPJ/NPC/Scripps, and an automated ethics verification system scoring every article against stated standards. Certification is self-attestation verified by script (Layer A) and public evidence (Layer B). No subjective editorial gatekeeping. Does NOT integrate with trust scoring — badge is informational only. Any publication can apply. Full spec: https://github.com/aeoess/agent-passport-system/blob/main/docs/AMCS-SPEC.md | Page: https://agent-passport.org/amcs.html
 
-**v4.1.0, 4,326 tests (872 suites). 176 test files including adversarial scenario suites.**
+**v4.1.1, 4,326 tests (872 suites). 176 test files including adversarial scenario suites.**
 
 ## Quick Start — 6 Functions
 
@@ -442,7 +442,7 @@ Layer 5 adds organizational intent to the agent stack. Key functions:
 - `resolveDeliberation(deliberation, decision, votes)` — produce signed outcome + create precedent
 - `getPrecedentsByTopic(precedents, topic)` — find prior decisions by topic
 
-## MCP Server — agent-passport-system-mcp v4.1.0
+## MCP Server — agent-passport-system-mcp v3.3.1
 
 A full-stack MCP server that any MCP client (Claude Desktop, Cursor, etc.) can connect to. Default profile is `essential` (20 tools covering identity, delegation, enforcement, commerce, reputation). Set `APS_PROFILE=full` for all 150 tools. Nine other profiles available: identity, governance, coordination, commerce, data, gateway, comms, minimal, full. Role-scoped access control throughout.
 
@@ -741,9 +741,9 @@ This is not a replacement for either spec, not a prescription that all agents ne
 - Agent Ecosystem Directory (18 projects, 115 people, 93 threads, live GitHub data): https://aeoess.github.io/agent-ecosystem-map/
 - Agent Ecosystem Directory repo: https://github.com/aeoess/agent-ecosystem-map
 - Cited by: "PDR in Production" (University of British Columbia, 2026) — Section 7.6 validates APS earned reputation model, sigma dynamics, structuralVerdict/trustVerdict. DOI: https://doi.org/10.5281/zenodo.19323172
-- Protocol page: https://aeoess.com/opensource.html
-- Dev log: https://aeoess.com/blog.html
-- Threat model: https://aeoess.com/threat-model.html
-- Comparison: https://aeoess.com/compare.html
+- Protocol page: https://agent-passport.org/protocol.html
+- Dev log: https://agent-passport.org/blog.html
+- Threat model: https://agent-passport.org/threat-model.html
+- Comparison: https://agent-passport.org/compare.html
 - Author: Tymofii Pidlisnyi (https://aeoess.com)
 - License: Apache-2.0

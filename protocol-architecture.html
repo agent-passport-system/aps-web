@@ -13,7 +13,7 @@
 <meta name="twitter:card" content="summary">
 <meta property="og:image" content="https://agent-passport.org/assets/images/og-default.png">
 <meta name="twitter:image" content="https://agent-passport.org/assets/images/og-default.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Architecture | Agent Passport System","url":"https://agent-passport.org/protocol-architecture.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Architecture | Agent Passport System","url":"https://agent-passport.org/protocol-architecture.html","dateModified":"2026-07-16"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300&display=swap" rel="stylesheet">
@@ -40,6 +40,10 @@
   /* ---------- shell (embed mode) ---------- */
   .shell { max-width: 100%; margin: 0; padding: 12px 18px 16px; }
   @media (max-width: 720px) { .shell { padding: 10px 12px 14px; } }
+  .page-intro { max-width: 960px; margin: 0 auto; padding: 30px 18px 14px; }
+  .page-intro h1 { margin: 0 0 8px; font-family: var(--serif); font-size: clamp(30px, 5vw, 54px); font-weight: 400; letter-spacing: -0.02em; }
+  .page-intro p { margin: 0; max-width: 760px; color: var(--ink-2); }
+  html.embedded .page-intro { display: none; }
 
   @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
 
@@ -161,6 +165,10 @@
   <div class="nav-right"><button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button><div class="nav-burger" onclick="this.classList.toggle('open');document.querySelector('.nav-drawer').classList.toggle('open')"><span></span><span></span><span></span></div></div>
 </nav>
 
+<header class="page-intro">
+  <h1>Agent Passport System protocol architecture</h1>
+  <p>Passports, delegation, gateway enforcement, receipts, payments, and cross-implementation verification in one interactive view.</p>
+</header>
 
 <div class="shell">
 
