@@ -3180,7 +3180,7 @@
 - id: harold-fixture-batch-goodwill
   title: "Harold fixture batch for agentid-aps-interop (goodwill)"
   description: "Seed Harold's agentid-aps-interop repo with the first APS fixture batch as a goodwill gesture. Unprompted delivery with a short note crediting inspiration back to him. Open since Day 54. Harold is the canonical external collaborator (32/32 tests passing, PolicyChain primitive adopted into APS SDK with name-attribution) and deserves the unasked-for contribution pattern that compounds trust."
-  status: active
+  status: dropped
   workstream: comms
   day_start: 54
   day_end: 72
