@@ -1,7 +1,6 @@
 (function () {
   var KEY = 'aps-theme';
   function stored() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
-  function sysTheme() { return matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; }
   function current() { return document.documentElement.getAttribute('data-theme') || 'dark'; }
   function apply(t, persist) {
     document.documentElement.setAttribute('data-theme', t);
@@ -26,11 +25,6 @@
     var dh = document.querySelector('.drawer-head');
     if (dh) dh.insertBefore(makeBtn(), dh.querySelector('.drawer-close'));
     apply(current(), false);
-    if (!stored() && window.matchMedia) {
-      matchMedia('(prefers-color-scheme: light)').addEventListener('change', function () {
-        if (!stored()) apply(sysTheme(), false);
-      });
-    }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

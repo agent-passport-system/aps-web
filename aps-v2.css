@@ -798,3 +798,15 @@ html[data-theme="light"]{--clo-a:#4C5438;--clo-b:#5F7D0C;--clo-c:#5C6647;--clo-d
 .gh-star:hover{color:var(--fg); border-color:var(--fg)}
 .gh-star svg{color:var(--lime)}
 #ghStarCount{font-variant-numeric:tabular-nums}
+
+/* light: lime fills need near-black text. --bg is cream in light, so color:var(--bg) inverted them. */
+html[data-theme="light"] ::selection,
+html[data-theme="light"] .nav-links a.gh,
+html[data-theme="light"] .nav-links a.gh:hover,
+html[data-theme="light"] .drawer-panel .gh-big,
+html[data-theme="light"] .chip.fill,
+html[data-theme="light"] .pip.v,
+html[data-theme="light"] .chain .fin,
+html[data-theme="light"] .tabs button.on,
+html[data-theme="light"] .code-head .tag{color:#16181D}
+html[data-theme="light"] .chain .fin small{opacity:.66}

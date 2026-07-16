@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script>(function(){try{var t=localStorage.getItem("aps-theme");if(!t)t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<script>(function(){try{var t=localStorage.getItem("aps-theme");if(!t)t="dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agent Passport System — Governance infrastructure for the agent economy</title>
@@ -788,6 +788,18 @@ html[data-theme="light"] article.prose a.btn:not(.ghost){color:#0A0B08}
 
 html[data-theme="light"]{--clo-a:#4C5438;--clo-b:#5F7D0C;--clo-c:#5C6647;--clo-d:#6E7D1F}
 .nav .badge{border-color:var(--line); color:var(--dim); font-size:9.5px; padding:4px 8px}
+
+/* light: lime fills need near-black text. --bg is cream in light, so color:var(--bg) inverted them. */
+html[data-theme="light"] ::selection,
+html[data-theme="light"] .nav-links a.gh,
+html[data-theme="light"] .nav-links a.gh:hover,
+html[data-theme="light"] .drawer-panel .gh-big,
+html[data-theme="light"] .chip.fill,
+html[data-theme="light"] .pip.v,
+html[data-theme="light"] .chain .fin,
+html[data-theme="light"] .tabs button.on,
+html[data-theme="light"] .code-head .tag{color:#16181D}
+html[data-theme="light"] .chain .fin small{opacity:.66}
 </style>
 <script src="/theme.js" defer></script>
 <script src="/gh-stars.js" defer></script>
