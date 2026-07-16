@@ -6,7 +6,7 @@
 # ═══ DAY 149 — 2026-07-15 ═══
 
 - id: d149-lfdt-lab-proposal-approved
-  title: "LF Decentralized Trust Labs proposal approved; TAC chair offered to sponsor"
+  title: "LF Decentralized Trust Lab proposal received two approving reviews; awaiting steward action"
   description: "Lab proposal filed Day 142 was approved and this year's LFDT TAC chair offered sponsorship. The lab is not created yet and an approved proposal is not a foundation project. Scope proposed: the lab holds the conformance suite, the cross-implementation vectors and an adversarial conformance track, while the specification stays in the IETF draft and the reference implementations stay where they are."
   status: waiting
   workstream: standards
@@ -2928,12 +2928,12 @@
     - customer-ready-gateway
 
 - id: wg-foundation-path-post-aaif
-  title: "WG + foundation path beyond AAIF"
-  description: "Contingent on AAIF TC triage outcome on project-proposals#14. If AAIF accepts: execute stewardship handoff over Q2 (governance reference, WG continuity, trademark assignment). If AAIF declines or stalls: LF AI & Data as secondary target, or CNCF sandbox as tertiary. Not about replacing the current Working Group — about giving the protocol layer a neutral home so enterprise procurement conversations stop tripping on sole-founder governance."
-  status: backlog
+  title: "Foundation path: LF Decentralized Trust Lab proposal in review"
+  description: "The AAIF path closed in May 2026. The current path is an LF Decentralized Trust Lab proposal focused on neutral conformance work. The proposal has two approving reviews and names the TAC chair as sponsor, but it has not yet been merged or accepted as a Lab. The goal remains the same: give the protocol layer a neutral home and make enterprise governance conversations easier."
+  status: waiting
   workstream: ops
   day_start: 68
-  day_end: 120
+  day_end: 150
   dependencies:
     - aaif-tc-review-wait
 
