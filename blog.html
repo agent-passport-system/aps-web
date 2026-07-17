@@ -165,6 +165,14 @@
   "blogPost": [
     {
       "@type": "BlogPosting",
+      "headline": "Day 150, late: three hostile passes and a ship-ready draft.",
+      "datePublished": "2026-07-16",
+      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
+      "url": "https://agent-passport.org/blog.html#day-150-three-passes-ship-ready",
+      "description": "The -03 revision became a rebuild: an action reference that commits to the target and a digest of the exact payload with a replay nonce under an explicit profile string, replacing a v1 form that could collide inside one second; receipt classes without a closed wire format removed, leaving an intent record and a decision record before dispatch and a result record after it on one envelope; did:key identity with the legacy form read-only; principal binding as its own signed record with verifier-reported claim levels; a Privacy Considerations section; and an Implementation Status appendix that states exact coverage and deviations. Three independent hostile review rounds each caught a real defect, a scripted battery closed the rest, and all eleven reference pins verified current. Submission when the tool reopens Saturday evening CEST."
+    },
+    {
+      "@type": "BlogPosting",
       "headline": "Day 150: I reported a fail-open in someone else's verifier, then wrote one into my patch.",
       "datePublished": "2026-07-16",
       "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
@@ -896,6 +904,14 @@
   </div>
 </section>
 <main class="blog-feed">
+<article class="post" id="day-150-three-passes-ship-ready">
+  <time class="post-date" datetime="2026-07-16">July 16, 2026</time>
+  <h2>Day 150, late: three hostile passes and a ship-ready draft.</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong>The -03 revision of the APS Internet-Draft stopped being an edit today and became a rebuild.</strong> The action reference was the trigger: the v1 form could collide for one agent repeating an action type inside a single second, because it never committed to the target or the payload. The v2 form closes that. It commits to the target and to a digest of the exact payload. It carries the required scopes in canonical order. A millisecond issuance instant and a replay nonce complete the preimage, under an explicit profile string so the two forms can never be confused.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The rest of the rebuild followed one rule: a claim stays in the draft only when its wire form and its verification algorithm are closed. Receipt classes that had semantics without a closed format came out. Three records remain on one envelope. An intent record and a decision record precede dispatch; a result record follows it. Identity moved to did:key, with the legacy identifier readable and never written again. Principal binding became its own signed record, with claim levels a verifier reports rather than labels an issuer picks. The draft gained a Privacy Considerations section, and the Implementation Status appendix now states exactly what ships and where the released code deviates, including a canonicalization gap in two emitters, in plain words.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Process was the story underneath. Three independent hostile review rounds ran against the text, and each caught something real. One found an expiry contradiction between two rendered dates. Another found a mathematical overclaim in the authority model. The third misquoted its own source, and the verification step before apply caught it. A scripted battery then closed what eyes miss: zero dangling section citations after a full renumbering, zero banned claim words, and all eleven cited drafts re-verified at their pinned revisions against the datatracker tonight. The submission window opens Saturday evening European time. The file is rendered and idnits-clean, and it stays frozen until then. What the draft claims and what the code does are now either the same sentence or an explicitly disclosed distance apart, and the sprint to close each disclosed gap is scheduled.</p>
+</article>
+
 <article class="post" id="day-150-fail-open-in-the-fix">
   <time class="post-date" datetime="2026-07-16">July 16, 2026</time>
   <h2>Day 150: I reported a fail-open in someone else's verifier, then wrote one into my patch.</h2>
@@ -918,6 +934,7 @@
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Elsewhere the day was kinder. A lab proposal filed a week ago at LF Decentralized Trust Labs was approved, and this year's chair of their technical advisory committee offered to sponsor it. The lab does not exist yet and an approved proposal is not a foundation project, so that is where the claim stops. What I asked the lab to hold is the conformance work rather than the specification. The specification belongs in the IETF draft. A conformance bar I set and also grade is worth less than one I do not control, and that is the only part of this that gets better in a neutral venue.</p>
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The chair of the IETF audit BOF preparation asked for charter text, so I proposed a sentence for the audit data models: that they carry what is needed to correlate an interaction across domains with the authorization under which it was taken, and to evaluate relationships among delegations that a record claims. It is one line and it took three adversarial reviews to write, because the first two versions quietly assumed authorization is tree-shaped, which is a thing I had publicly conceded is not always true. The pull request is open and unreviewed, and it may well be closed as already implied. That is a fair outcome and cheaper than the alternative.</p>
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">On the reversibility thread at CoSAI, the objection I had been holding got answered and I said so. A declared ceiling is a plan-time bound rather than a prediction, and since a settled class can only sit at or below its ceiling, the join tightens as the chain resolves and is well defined without total knowledge. I was wrong to call it undefined. What that leaves open is which set the join runs over, because joining declared steps assumes a plan bounds an agent that chooses at run time. The grant bounds it. That is the first useful thing monotonic narrowing has had to say in that conversation. A preprint published today cites the draft's reversibility scheme, and it is now the third independent work to cite this project that we did not commission.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><em>Addendum, July 16:</em> the reading rule earned its keep pointed the other way. Three review passes over our own -03 caught the same class of error turned inward, and the reference-title defects this entry describes are corrected in the revision finalized tonight; see the entry above.</p>
 </article>
 
 <article class="post" id="day-148-the-invariant-was-not-enforced">

@@ -4503,3 +4503,23 @@
   workstream: standards
   day_start: 149
   day_end: 150
+
+- id: d150-ietf-aps-03-ship-ready
+  title: "IETF draft-pidlisnyi-aps-03 finalized: v2 rebuild, three hostile passes, all gates green"
+  description: "The revision became a rebuild: aps-action-ref-v2 commits to target, exact payload digest, canonical scopes, millisecond issuance and a replay nonce under a profile discriminator, replacing a v1 form that could collide within one second; receipt classes without closed wire formats removed, three records on one ReceiptV1 envelope; did:key identity with legacy did:aps read-only; PrincipalBindingV1 with verifier-reported claim levels; Privacy Considerations added; Implementation Status states exact coverage and deviations. Three independent hostile review rounds plus a scripted battery; idnits 0 errors; all 11 reference pins verified current on the datatracker. Blog: Day 150, late. Submission when the tool reopens after 2026-07-18 23:59 CEST."
+  status: done
+  workstream: standards
+  day_start: 143
+  day_end: 150
+  links:
+    - url: "https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/"
+      label: "datatracker"
+    - url: "https://agent-passport.org/blog.html#day-150-three-passes-ship-ready"
+      label: "Day 150 write-up"
+
+- id: d151-v2-ship-matrix-sprint
+  title: "Ship the disclosed gaps: v2 code sprint to match -03"
+  description: "Every -03 claim either runs today or is disclosed in the Implementation Status appendix. The sprint closes the disclosed set: canonicalization migration for the two named emitters through the parked breaking-change review, the shared ReceiptV1 envelope across the three SDKs, a published DecisionRefV1 computation, all seven facets signed in delegation records, and issuance-path narrowing hardening with stricter adapter verification."
+  status: active
+  workstream: protocol
+  day_start: 151
