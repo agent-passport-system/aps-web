@@ -3,6 +3,16 @@
 # Last updated: 2026-07-16 (Day 150). Truth-pass reconciliation: 25 entries closed as done against merge and delivery records, 6 dropped, 8 moved to on-hold statuses, EU AI Act compliance entry re-anchored to the Digital Omnibus timeline.
 # Day 1 = 2026-02-17 (project start)
 
+# ═══ DAY 152 — 2026-07-18 ═══
+
+- id: d152-moltrust-partnership-erratum
+  title: "Erratum: the day 46-47 MolTrust entry overstated a production partnership"
+  description: "Correction of record for the day 46-47 moltrust-partnership entry. What happened in April: partner API key received, 11 APS agents bridged did:aps to did:moltrust, reciprocal gateway verification exercised. That was a bilateral technical pilot. 'First bilateral production partnership' overstated it; no commercial partnership was formalized. The original entry stays as written per the no-rewrite rule; this entry is the correction. Raised in review with Lars Kroehl."
+  status: done
+  workstream: product
+  day_start: 152
+  day_end: 152
+
 # ═══ DAY 149 — 2026-07-15 ═══
 
 - id: d149-lfdt-lab-proposal-approved
