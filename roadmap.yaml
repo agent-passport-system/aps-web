@@ -1,9 +1,42 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-07-16 (Day 150). Truth-pass reconciliation: 25 entries closed as done against merge and delivery records, 6 dropped, 8 moved to on-hold statuses, EU AI Act compliance entry re-anchored to the Digital Omnibus timeline.
+# Last updated: 2026-07-19 (Day 153). Days 151-152 backfilled: vocab CI pack + chancery merge, aps-03 submitted, trusted-oracle containment, Liu composition vectors PR.
 # Day 1 = 2026-02-17 (project start)
 
 # ═══ DAY 152 — 2026-07-18 ═══
+
+- id: d152-aps03-submitted
+  title: "draft-pidlisnyi-aps-03 submitted and live on the IETF datatracker"
+  description: "Uploaded minutes after the submission window reopened; accepted on the datatracker July 18. The archive text verifies byte-identical to the canonical working copy. Two identity drafts found by the same-day scan entered Related Work before upload. Verification rule recorded during the submission: a revision claim checks against the datatracker API or the archive file, never the rendered page, which served a stale copy from cache."
+  status: done
+  workstream: standards
+  day_start: 152
+  day_end: 152
+  links:
+    - url: "https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/"
+      label: "datatracker"
+
+- id: d152-trusted-oracle-containment
+  title: "Trusted-oracle symlink bypass found by hostile review and closed the same morning"
+  description: "An adversarial review leg showed the day-old trusted-oracle CI convention certifying a fixture tree made entirely of symbolic links into the clean base tree: zero real bytes, all checks green. Reproduced on the exact CI layout before crediting. The prior concession that an empty fixture directory exiting clean was acceptable was withdrawn on the record. Containment shipped to the live validator: symlink rejection in every walker plus a real-path check against the data root; symlink trees now fail closed. Named a security correction in the review sent back to the contributor."
+  status: done
+  workstream: infra
+  day_start: 152
+  day_end: 152
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/129"
+      label: "PR #129"
+
+- id: d152-liu-composition-vectors
+  title: "OAuth composition vectors published for review as a pull request"
+  description: "The interop harness connecting APS signed records to an OAuth agent-authorization draft family, together with the v2 core behind -03, published as a PR built from an explicit 53-file manifest. The standalone verifier gained five evidence tie-back checks after its own description claimed more than it did, with tamper detection proved in both directions. Merge to main is deliberately deferred to a reviewed rebase. This publishes the surface for review; it is no adoption or production claim."
+  status: done
+  workstream: protocol
+  day_start: 152
+  day_end: 152
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/pull/78"
+      label: "PR #78"
 
 - id: d152-moltrust-partnership-erratum
   title: "Erratum: the day 46-47 MolTrust entry overstated a production partnership"
@@ -12,6 +45,40 @@
   workstream: product
   day_start: 152
   day_end: 152
+
+# ═══ DAY 151 — 2026-07-17 ═══
+
+- id: d151-vocab-ci-pack
+  title: "The vocabulary registry inherited the SDK's CI, and the first failure fired within minutes"
+  description: "Corpus validation on every PR and push, DCO with author matching, CodeQL, Scorecard, grouped dependency updates, branch protection requiring all of it. Fuzzing, byte-match, and release attestation deliberately stayed behind: a YAML registry has no artifacts to attest. Two catches: pre-existing fixture directories grandfathered by name with the rationale in the script rather than backfilling scope onto other contributors' vectors, and a CodeQL split-bump failure that fired live on a bot PR minutes after landing, fixed by bumping both refs together and grouping action updates. First live exercise: five dependency PRs ran the full set, three merged same day."
+  status: done
+  workstream: infra
+  day_start: 151
+  day_end: 151
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary"
+      label: "registry"
+
+- id: d151-chancery-merge-and-lineage-bar
+  title: "Chancery crosswalk merged after five delivered asks; decision_lineage bar tightened registry-wide"
+  description: "Full-protocol review of an external court-records crosswalk with an independent adversarial leg. The pass caught a production claim in a header, a writ treated as a decision, and an advocacy clause with no place in a mapping file. Five asks posted; all five delivered on a re-reviewed head; merged same day with authorship retained. The structural grading bar for decision_lineage was then raised for every row rather than only the newest contributor, with existing rows flagged in issue #124 and their proposers tagged for recalibration with concurrence."
+  status: done
+  workstream: ecosystem
+  day_start: 151
+  day_end: 151
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/117"
+      label: "PR #117"
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/issues/124"
+      label: "issue #124"
+
+- id: d151-ietf03-final-copy-pass
+  title: "-03 final copy pass adjudicated: external edit list verified against disk, two misquotes rejected, battery green"
+  description: "Two identity drafts (Grenoble and Huawei) entered Related Work with titles verified against archive copies. An external copy leg produced thirty edit candidates; each was checked against the actual file before applying, and two died as misquotes of their own source. Final build passed the full battery: zero dangling citations, zero banned claim words, dash scan clean, idnits exit 0. Saturday submission runbook locked."
+  status: done
+  workstream: standards
+  day_start: 151
+  day_end: 151
 
 # ═══ DAY 149 — 2026-07-15 ═══
 
