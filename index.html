@@ -745,9 +745,14 @@
     .foot-base{gap:12px 32px}
     .door-cell.right{border-left:none; border-top:3px solid var(--lime)}
   }
+  .hero-sub{font-size:clamp(12px,1.3vw,14px); letter-spacing:.24em}
+  .m-br{display:none}
   @media (max-width:480px){
     .brand .badge{display:none}
     .receipt-grid{gap:14px}
+    .hero-k{font-size:10px !important; letter-spacing:.10em !important}
+    .hero-sub{font-size:8px; letter-spacing:.14em}
+    .m-br{display:inline}
   }
 
 h1,h2{text-wrap:balance}
@@ -866,9 +871,9 @@ html[data-theme="light"] .chain .fin small{opacity:.66}
   <!-- 01 HERO -->
   <section class="slide" id="top" aria-label="Overview">
     <div class="eyebrow r"><span class="sq" style="border-radius:50%; width:8px; height:8px"></span><span style="letter-spacing:.22em">Open source · Built in public</span></div>
-    <div class="r mono hero-k" style="font-size:clamp(12px,1.3vw,14px); letter-spacing:.24em; text-transform:uppercase; margin-bottom:22px"><span class="lime">Governance infrastructure for the agent economy</span></div>
+    <div class="r mono hero-k" style="font-size:clamp(12px,1.3vw,14px); letter-spacing:.24em; text-transform:uppercase; margin-bottom:22px"><span class="lime">Governance infrastructure for<br class="m-br"> the agent economy</span></div>
     <h1 class="h-hero r" style="margin-bottom:14px">Agent Passport System</h1>
-    <p class="r mono hero-k" style="font-size:clamp(12px,1.3vw,14px); letter-spacing:.24em; text-transform:uppercase; color:var(--sub); margin-bottom:28px">Enforcement · Evidence · Attribution</p>
+    <p class="r mono hero-sub" style="text-transform:uppercase; color:var(--sub); margin-bottom:28px">Enforcement · Evidence · Attribution</p>
     <p class="r" style="font-size:clamp(18px,2.1vw,24px); line-height:1.45; max-width:46ch; margin-bottom:38px">Verifiable identity, scoped authority, and signed proof for every AI agent action.</p>
     <div class="cta-row r">
       <a class="btn" href="https://agent-passport.org/protocol.html">View the protocol →</a>

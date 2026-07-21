@@ -4600,3 +4600,42 @@
   status: active
   workstream: protocol
   day_start: 151
+
+- id: d153-conformance-suite-tagged
+  title: "Conformance suite tagged v0.1.0: a pinnable reference for interop"
+  description: "The conformance corpus took its first release tag so an outside implementer can pin the exact bytes they verified against and cite them, and so interop exchanges target a fixed tag rather than a moving branch. The tag freezes the vector families as they stand, from canonical byte-contract fixtures through signed decision records and adversarial forgery cases. The README states what the tag is and is not: a seed corpus exercised across implementations, not an independent conformance program. Count discipline held under review: one family carries nine files where a reader expected eight, and the ninth was named as a production-derived divergence record, not a runnable vector, rather than left to imply a larger set."
+  status: done
+  workstream: protocol
+  day_start: 153
+  day_end: 153
+  links:
+    - url: "https://github.com/aeoess/aps-conformance-suite"
+      label: "conformance suite"
+    - url: "https://agent-passport.org/blog.html#day-153-conformance-corpus-tagged"
+      label: "Day 153 write-up"
+
+- id: d154-bilateral-vector-exchange
+  title: "Bilateral conformance-vector exchange with a second implementation family (SCITT capsule draft)"
+  description: "On the IETF AUDIT BoF preparation thread, an independent SCITT-based agent action capsule implementation recomputed the APS content-derived action reference across four vectors including the astral-plane Unicode ordering case, cleared twelve signed decision records against its own stage model, and matched four canonicalization fixtures byte for byte. Our half was a from-scratch verifier against their frozen vector tag: CBOR decoder written from RFC 8949, COSE signature path from RFC 9052, inclusion proof from RFC 9162, imports limited to the runtime and its own modules, their verifier source and generator never opened. Six vectors, six matches, every negative failing at its declared stage, two full runs byte-identical. One vector's root reconstruction under an out-of-scope ledger profile was marked unsupported rather than faked. Cross-implementation verification, not adoption, stated by both sides in-thread. Offer to published results in about six hours."
+  status: done
+  workstream: standards
+  day_start: 154
+  day_end: 154
+  links:
+    - url: "https://github.com/aeoess/aps-conformance-suite"
+      label: "conformance suite (pinned run)"
+    - url: "https://agent-passport.org/blog.html#day-154-bilateral-vector-exchange"
+      label: "Day 154 write-up"
+
+- id: d154-sdk-420-mcp-profile
+  title: "SDK 4.2.0: v2 surface plus the aps-mcp-1 pre-dispatch authorization profile for MCP tool calls"
+  description: "Released through the provenance pipeline (npm trusted publishing, build-provenance attestation, SBOM). Lands the v2 surface behind draft-pidlisnyi-aps-03 and a new pre-dispatch authorization profile for MCP tools/call: a signed authorization object in the call metadata, checked in order for transport authentication, signature, target, arguments hash and recomputed action reference, then claimed once against replay before a host-supplied authority decision, with a receipt attached to the result. The middleware makes no allow or deny call of its own and stores nothing. Also lands the A2A Agent Card identity extension. Timed to an MCP specification revision; wraps the tool-call seam rather than replacing transport authorization. 4,352 registered tests, 0 failures."
+  status: done
+  workstream: protocol
+  day_start: 154
+  day_end: 154
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system"
+      label: "SDK"
+    - url: "https://agent-passport.org/blog.html#day-154-bilateral-vector-exchange"
+      label: "Day 154 write-up"
