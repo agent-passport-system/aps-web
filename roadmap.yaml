@@ -1,7 +1,22 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-07-19 (Day 153). Days 151-152 backfilled: vocab CI pack + chancery merge, aps-03 submitted, trusted-oracle containment, Liu composition vectors PR.
+# Last updated: 2026-07-21 (Day 155). Day 155: vocabulary co-stewardship proposed to DIF issue 41; well-formed-versus-verified drawn on A2A delegation issue 2028.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 155 - 2026-07-21 ═══
+
+- id: d155-vocab-costewardship-dif-a2a-delegation
+  title: "Vocabulary co-stewardship proposed to DIF; well-formed-versus-verified drawn on A2A delegation"
+  description: "Opened an issue at the DIF Trusted AI Agents working group proposing that the agent governance vocabulary move to shared stewardship, editorial and implementation staying with AEOESS while naming and admission gain independent oversight as a peer to the other efforts there. The issue hands over no code and records no agreement; it is a question to the group. Separately, a comment on the A2A actor-chain delegation proposal drew the line between a well-formed delegation chain and a verified one: a subset check over caller-written scopes is a check on the shape of the reported chain, not proof of authority, because a fabricated chain narrows as cleanly as a real one. The chain stays unverified attribution until each hop is bound to something the granting party signed. Monotonic narrowing is a check on the reported chain, not a credential."
+  status: done
+  workstream: standards
+  day_start: 155
+  day_end: 155
+  links:
+    - url: "https://github.com/decentralized-identity/trusted-ai-agents/issues/41"
+      label: "DIF Trusted AI Agents issue 41"
+    - url: "https://github.com/a2aproject/A2A/issues/2028"
+      label: "A2A issue 2028"
 
 # ═══ DAY 152 — 2026-07-18 ═══
 
