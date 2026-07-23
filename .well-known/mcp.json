@@ -16,7 +16,7 @@
   "sdk": {
     "npm": "agent-passport-system",
     "pypi": "agent-passport-system",
-    "version": "4.1.1",
+    "version": "4.2.0",
     "modules": 107,
     "tests": 4326,
     "python_version": "2.9.0",
@@ -42,5 +42,5 @@
     "throughput": "403 ops/sec",
     "routes": 37
   },
-  "lastUpdated": "2026-07-16"
+  "lastUpdated": "2026-07-22"
 }

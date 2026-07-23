@@ -2,7 +2,7 @@
 
 > Enforcement and accountability layer for AI agents. Bring your own identity. We govern what it can do.
 
-Updated 2026-07-16 · SDK 4.1.1 · MCP 3.3.1 (150 tools) · Python 2.9.0 · Go v0.4.0 · License Apache-2.0 · 4,326 tests passing · 9 papers · © 2026 Tymofii Pidlisnyi
+Updated 2026-07-22 · SDK 4.2.0 · MCP 3.3.1 (150 tools) · Python 2.9.0 · Go v0.4.0 · License Apache-2.0 · 4,326 tests passing · 9 papers · © 2026 Tymofii Pidlisnyi
 
 APS is the enforcement layer that sits on top of whatever identity an agent already has. Accepts did:key, did:web, SPIFFE SVID, OAuth, and native did:aps. Identity is the input. Enforcement is the product. The gateway is both judge and executor. Authority can only decrease at each transfer point.
 
@@ -44,7 +44,7 @@ The SDK ships in two layers. Core is a curated essentials surface at `agent-pass
 - [VeritasActa cross-verify](https://github.com/VeritasActa/verify/pull/7): APS DecisionLineageReceipt drops into VeritasActa Knowledge Unit bundles
 - [A2A composition contract](https://github.com/a2aproject/A2A/issues/1742): co-drafted key rotation and per-request signature verification
 - [Agent governance vocabulary](https://github.com/aeoess/agent-governance-vocabulary): shared term definitions across the agent-governance ecosystem
-- [IETF Internet-Draft](https://github.com/aeoess/agent-passport-system): draft-pidlisnyi-aps-01 protocol formalization
+- [IETF Internet-Draft](https://github.com/aeoess/agent-passport-system): draft-pidlisnyi-aps-03 protocol formalization
 
 ## Ecosystem services
 
