@@ -1,7 +1,22 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-07-21 (Day 155). Day 155: vocabulary co-stewardship proposed to DIF issue 41; well-formed-versus-verified drawn on A2A delegation issue 2028.
+# Last updated: 2026-07-23 (Day 157). Day 157: LF Decentralized Trust accepted the conformance lab proposal; an outside maintainer took a code review and pinned three encoding decisions.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 157 - 2026-07-23 ═══
+
+- id: d157-lfdt-lab-accepted-bernstein-review
+  title: "LF Decentralized Trust accepted the conformance lab proposal; an outside maintainer took a review and pinned three encoding decisions"
+  description: "On a call with David Boswell and Hart Montgomery, LF Decentralized Trust accepted the lab proposal covering the conformance suite, not the protocol and not the SDK. The name and remaining paperwork are being settled; the repository does not exist yet and no Linux Foundation project status is claimed. The reason for a neutral home is narrow: a corpus written, run and announced by its author is self-attestation, and the same corpus exercised by implementations the author did not recruit is evidence. Separately, a review left on a stalled P1 issue at an orchestration project drew two observations from that project's own code: monetary values accumulated as floating point under a byte-reproducibility requirement, and delegation receipts carrying issuer, subject, audience and act with hash linkage but no scope, so narrowing is unprovable from the chain. The maintainer verified both, then pinned three decisions: fixed-scale integers at nano-USD with a single rounding point, rejection of non-NFC input at the boundary rather than normalization, and effective scope plus parent reference per hop so a verifier recomputes child-within-parent structurally. Canonicalization vectors claimed as a contribution slice; the narrowing verifier core left explicitly unclaimed."
+  status: done
+  workstream: standards
+  day_start: 157
+  day_end: 157
+  links:
+    - url: "https://github.com/sipyourdrink-ltd/bernstein/issues/2554"
+      label: "bernstein issue 2554"
+    - url: "https://github.com/cosai-oasis/ws4-secure-design-agentic-systems/issues/99"
+      label: "CoSAI WS4 issue 99"
 
 # ═══ DAY 155 - 2026-07-21 ═══
 
