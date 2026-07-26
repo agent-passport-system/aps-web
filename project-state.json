@@ -1,19 +1,21 @@
 {
   "$comment": "Single source of truth for site-wide propagation. Hand-edited; consumed by scripts/propagate.mjs. Bumping any value here propagates to every target file the propagator knows about.",
-  "updated": "2026-07-20",
+  "updated": "2026-07-26",
   "versions": {
-    "sdk": "4.2.0",
+    "sdk": "4.3.0",
     "sdk_dist_tag": "latest",
-    "mcp": "3.3.1",
+    "mcp": "3.4.0",
     "mcp_dist_tag": "latest",
-    "python": "2.9.0",
+    "python": "2.10.0",
     "python_dist_tag": "latest",
-    "go": "v0.4.0",
-    "go_dist_tag": "latest"
+    "go": "v0.5.0",
+    "go_dist_tag": "latest",
+    "sdk_stable": "4.3.0",
+    "mcp_stable": "3.4.0"
   },
   "counts": {
     "$comment": "tests convention CHANGED 2026-07-08 (Day 140): now the REGISTERED total (node test runner 'tests' line) to match the SDK's own published number (README badge, package.json), not the passing count. As of 2026-07-08 the suite reports tests 4026, pass 4023, 3 skipped; canonical = 4026. Prior rule used the passing count (was 3959 = pass, with tests 3962); superseded so the site does not contradict the SDK's npm page. modules_total = modules_core + modules_v2. Canonical: modules_v2 = publicly exported logical units via a barrel (src/v2/index.ts or src/index.ts), ratified 2026-05-17 = 23. modules_total = modules_core + modules_v2, DERIVED from the canonical count, never used to justify it. Raw file count, subsystem directory count, and historical project-state values are implementation signals, NOT canonical module counts.",
-    "tests": 4326,
+    "tests": 4360,
     "papers": 9,
     "modules_core": 84,
     "modules_v2": 23,
