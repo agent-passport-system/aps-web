@@ -444,7 +444,7 @@ Layer 5 adds organizational intent to the agent stack. Key functions:
 
 ## MCP Server — agent-passport-system-mcp v3.4.0
 
-A full-stack MCP server that any MCP client (Claude Desktop, Cursor, etc.) can connect to. Default profile is `essential` (20 tools covering identity, delegation, enforcement, commerce, reputation). Set `APS_PROFILE=full` for all 150 tools. Nine other profiles available: identity, governance, coordination, commerce, data, gateway, comms, minimal, full. Role-scoped access control throughout.
+A full-stack MCP server that any MCP client (Claude Desktop, Cursor, etc.) can connect to. Default profile is `full` (all 150 tools). Set `APS_PROFILE=essential` for a 25-tool slim profile covering identity, delegation, enforcement, commerce, reputation. Nine other profiles available: identity, governance, coordination, commerce, data, gateway, comms, minimal, full. Role-scoped access control throughout.
 
 Connect (remote, no install):
 ```json
@@ -471,7 +471,7 @@ Connect (local, via npx):
 }
 ```
 
-Tools (150 total, 20 essential by default):
+Tools (150 total; 25 in the optional essential profile):
 Essential profile covers identity, delegation, enforcement, commerce, reputation. Set `APS_PROFILE=full` for the full 150-tool surface, or use a focused profile: identity, governance, coordination, commerce, data, gateway, comms, minimal. Canonical tool list per layer: https://github.com/aeoess/agent-passport-mcp/blob/main/src/index.ts
 
 Role auto-detected from task assignments. Role-specific prompts served via MCP prompts API. File-backed persistence at ~/.agent-passport-tasks.json. Every operation Ed25519 signed.

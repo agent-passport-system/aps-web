@@ -18,10 +18,10 @@
     "pypi": "agent-passport-system",
     "version": "4.3.0",
     "modules": 107,
-    "tests": 4326,
-    "python_version": "2.9.0",
+    "tests": 4361,
+    "python_version": "2.10.0",
     "go": "github.com/aeoess/agent-passport-go",
-    "go_version": "v0.4.0"
+    "go_version": "v0.5.0"
   },
   "documentation": {
     "llms_txt": "https://agent-passport.org/llms.txt",
