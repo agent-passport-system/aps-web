@@ -1,7 +1,39 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-07-23 (Day 157). Day 157: LF Decentralized Trust accepted the conformance lab proposal; an outside maintainer took a code review and pinned three encoding decisions.
+# Last updated: 2026-07-25 (Day 159). Day 159: anchored canonicalization vectors merged upstream and the narrowing verifier core claimed; duplicate scope rejection fails closed in four implementations across a four-registry release.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 159 - 2026-07-25 ═══
+
+- id: d159-bernstein-vectors-merged-narrowing-core-claimed
+  title: "Anchored canonicalization vectors merged upstream; narrowing verifier core claimed; RFC 8785 key-order divergence filed as a finding"
+  description: "PR 2994 merged at bernstein, the strongest external review surface this project has. The maintainer verified against a fresh checkout before merging and the consuming test moved from 56 passing to 80, one file touched, schema id unchanged. His stated reason for taking these over fixtures he would have written himself was the dual anchoring: a vector anchored to two independent sources catches an implementation drifting in a way a self-derived fixture cannot, because a fixture generated from the code under test agrees with that code by construction. The narrowing verifier core, left explicitly unclaimed on Day 157 so it would not sit blocked, was reserved for us a second time and is now claimed; the design sketch is owed and is convention-setting, so it takes a full Consilium leg before it is posted. Two forks raised there stay deliberately open: inline scope versus content-addressed reference, and what a hop carrying no recorded scope means. Separately, the RFC 8785 key-order divergence was filed as its own issue rather than reconciled into a vector, at the maintainer's written request that disagreements arrive as findings. The divergence is narrow and was computed against a reference implementation before posting rather than reasoned out: it occurs only when a supplementary-plane property name is compared against a name beginning in U+E000 to U+FFFF, because the high surrogate sorts below that range while the code point sorts above it. Standing rule adopted: every sorting claim is computed against a reference implementation before it is posted."
+  status: done
+  workstream: standards
+  day_start: 159
+  day_end: 159
+  links:
+    - url: "https://github.com/sipyourdrink-ltd/bernstein/pull/2994"
+      label: "bernstein PR 2994 (merged)"
+    - url: "https://github.com/sipyourdrink-ltd/bernstein/issues/3105"
+      label: "RFC 8785 key-order finding"
+    - url: "https://agent-passport.org/blog.html#day-159-vectors-merged-and-a-rule-about-claims"
+      label: "Day 159 write-up"
+
+- id: d159-duplicate-scope-fail-closed-four-registry-release
+  title: "Duplicate scope rejection fails closed in four implementations; four-registry release wave"
+  description: "A delegation listing the same scope twice is not a well-formed request and should not reach an authority decision. The duplicate scope rejection now fails closed across the TypeScript SDK, the Python port, the Go port and the conformance suite, with two new vectors that every implementation runs, so the rule is enforced by code rather than stated in prose. The Go change is a deliberate API break: the scope canonicalizer now returns an error alongside its result, which is why it ships as a minor version rather than a patch. Keeping the old signature would have preserved a public canonicalizer that silently accepts input the specification forbids, and every downstream check would have inherited that ambiguity. Released the same day across four registries: SDK 4.3.0 on npm, Python 2.10.0 on PyPI, Go v0.5.0, MCP server 3.4.0. Suite at release: 4,360 tests registered, 4,357 passing, 3 skipped."
+  status: done
+  workstream: protocol
+  day_start: 159
+  day_end: 159
+  links:
+    - url: "https://www.npmjs.com/package/agent-passport-system"
+      label: "SDK 4.3.0"
+    - url: "https://pypi.org/project/agent-passport-system/"
+      label: "Python 2.10.0"
+    - url: "https://github.com/aeoess/aps-conformance-suite"
+      label: "conformance suite"
 
 # ═══ DAY 157 - 2026-07-23 ═══
 
