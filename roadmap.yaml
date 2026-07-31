@@ -1,7 +1,65 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-07-25 (Day 159). Day 159: anchored canonicalization vectors merged upstream and the narrowing verifier core claimed; duplicate scope rejection fails closed in four implementations across a four-registry release.
+# Last updated: 2026-07-30 (Day 164). Days 158, 161, 163, 164 added: receipt core merged in three languages; lab renamed Agent Authority Conformance; token corpus rebuilt to ten drops with a structural detector; RACK worked example anchored and a bilateral negative-vector check closed.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 164 - 2026-07-30 ═══
+
+- id: d164-rackp-worked-example-argentum-crosscheck
+  title: "Worked example anchored for the RACK protocol; bilateral negative-vector check with an independent implementation closes"
+  description: "One delegation, one approval and one receipt anchored as three CLAIM_ANCHOR payloads for the rackp.agent-ops.v1 profile draft, with all sixteen of that project's known-answer vectors reproduced byte for byte before generation and every signature verified twice, once independently against payloads fetched at a pinned commit. The accompanying prose states what an anchor establishes and what it does not: digest match and anchor signature, with timestamp and sequence as signed assertions absent a store and a chain. The same day, a bilateral exchange with an independent implementation of the duplicate-scope rejection closed with both sides' validators run against the other's tree, a call-counter proof that rejection precedes any digest computation, and byte-equal digests on the shared accepted vector."
+  status: done
+  workstream: standards
+  day_start: 164
+  day_end: 164
+  links:
+    - url: "https://agent-passport.org/blog.html#day-164-two-verifiers-check-each-other-and-a-worked-example-gets-anchored"
+      label: "Day 164 write-up"
+    - url: "https://gist.github.com/aeoess/366c66c7637fdcc7c9841bd2b3ac5d8c"
+      label: "worked example"
+
+# ═══ DAY 163 - 2026-07-29 ═══
+
+- id: d163-aat-corpus-rebuilt-ten-drops
+  title: "Cross-stack token corpus rebuilt from the email of record: ten drops, twenty-seven vectors, a one-character corruption found and detected structurally"
+  description: "The weekly agent-auth-token corpus mirrored from a partner held five of eight drops with one corrupt, so it was rebuilt from the correspondence of record: three never-landed drops reconstructed byte-identically, the corruption isolated to one dropped character in a key identifier, and a structural detector added that decodes the identifier's multicodec prefix and needs no key material or network, proven against synthetic mutations. The rebuilt family carries ten drops and twenty-seven vectors with every signature verifying and rotation asserted across five consecutive seams. The prompting failure is recorded with it: a search tool's silence was converted into a verified-absence claim, and it was false."
+  status: done
+  workstream: protocol
+  day_start: 163
+  day_end: 163
+  links:
+    - url: "https://agent-passport.org/blog.html#day-163-five-wrong-claims-and-a-corpus-rebuilt-from-the-record"
+      label: "Day 163 write-up"
+    - url: "https://github.com/aeoess/aps-conformance-suite"
+      label: "conformance suite"
+
+# ═══ DAY 161 - 2026-07-27 ═══
+
+- id: d161-lab-renamed-agent-authority-conformance
+  title: "Lab proposal corrected before merge: renamed Agent Authority Conformance, scope pinned to the suite"
+  description: "The proposal file described the protocol as what moves to neutral ground and used the word conformance zero times, against both our own comment on the thread and the call decision on disk. Fixed in the window before merge: renamed Agent Authority Conformance, scope restated as the conformance suite and not the protocol and not the SDK. Two facts stated to the steward rather than left to be discovered: the lab repository carries the proposal's name, and an existing repository transfers only with every commit signed off, which ours cannot satisfy without misattributing an outside contributor's work. Shipped file verified byte-identical against the live branch."
+  status: done
+  workstream: standards
+  day_start: 161
+  day_end: 161
+  links:
+    - url: "https://agent-passport.org/blog.html#day-161-the-lab-gets-the-right-name-and-sixteen-dead-issues-close"
+      label: "Day 161 write-up"
+
+# ═══ DAY 158 - 2026-07-24 ═══
+
+- id: d158-receipt-core-three-languages
+  title: "Receipt semantic core lands in TypeScript, Python and Go; upstream vectors delivered with one pair withheld"
+  description: "The normalize-before-hash and validity-binding core merged across all three implementations, with a mid-ship split to keep unreviewed work out of a reviewed pull request: clean port commit carrying exactly the audited tree, fixes cherry-picked on top. The anchoring known-answer digest was reproduced with the standard library and zero repository code. The canonicalization vectors owed upstream were delivered the same day minus one divergent pair, withheld so a key-ordering divergence from RFC 8785 would not be frozen as an expected output, and disclosed to the maintainer as his call since the fix changes signed bytes."
+  status: done
+  workstream: protocol
+  day_start: 158
+  day_end: 158
+  links:
+    - url: "https://agent-passport.org/blog.html#day-158-six-gated-artifacts-and-a-vector-withheld-on-purpose"
+      label: "Day 158 write-up"
+    - url: "https://github.com/aeoess/agent-passport-system/pull/84"
+      label: "TS merge"
 
 # ═══ DAY 159 - 2026-07-25 ═══
 
