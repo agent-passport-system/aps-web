@@ -2,7 +2,7 @@
 
 > Enforcement and accountability layer for AI agents. Bring your own identity. We govern what it can do.
 
-Updated 2026-07-26 · SDK 4.3.0 · MCP 3.4.0 (150 tools) · Python 2.10.0 · Go v0.5.0 · License Apache-2.0 · 4,360 of 4,361 tests passing · 9 papers · © 2026 Tymofii Pidlisnyi
+Updated 2026-08-01 · SDK 4.3.0 · MCP 4.0.0 (150 tools) · Python 2.10.0 · Go v0.5.0 · License Apache-2.0 · 4,361 of 4,361 tests passing · 9 papers · © 2026 Tymofii Pidlisnyi
 
 APS is the enforcement layer that sits on top of whatever identity an agent already has. Accepts did:key, did:web, SPIFFE SVID, OAuth, and native did:aps. Identity is the input. Enforcement is the product. The gateway is both judge and executor. Authority can only decrease at each transfer point.
 
@@ -17,6 +17,8 @@ The SDK ships in two layers. Core is a curated essentials surface at `agent-pass
 - [MCP server on npm](https://www.npmjs.com/package/agent-passport-system-mcp): `npx agent-passport-system-mcp setup`
 - [Remote MCP via SSE](https://mcp.aeoess.com/sse): zero-install, any MCP client
 - [Source on GitHub](https://github.com/aeoess): all repos under @aeoess
+
+MCP server (agent-passport-system-mcp 4.0.0): 150 tools over stdio; supports MCP 2026-07-28 and 2025-era clients through era negotiation. The hosted bridge at mcp.aeoess.com serves the 2025-era flow over SSE.
 
 ## Documentation
 
