@@ -1,7 +1,22 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-07-30 (Day 164). Days 158, 161, 163, 164 added: receipt core merged in three languages; lab renamed Agent Authority Conformance; token corpus rebuilt to ten drops with a structural detector; RACK worked example anchored and a bilateral negative-vector check closed.
+# Last updated: 2026-07-31 (Day 165). Day 165 added: MCP 4.0.0 dual-era ship and the bridge outage found and fixed behind it.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 165 - 2026-07-31 ═══
+
+- id: d165-mcp-2026-07-28-ship-and-bridge-outage-fix
+  title: "MCP 4.0.0 ships dual-era 2026-07-28 support; the deploy exposes and fixes a pre-existing bridge outage"
+  description: "The MCP server moved to the v2 package family and now serves MCP 2026-07-28 and 2025-era clients on one stdio entry, with 32 under-declared fields across 23 tools corrected at the validation boundary and both eras exercised on the wire, passport semantics verified with the published SDK in each. Deploying the child to the hosted bridge exposed that sessions were already dead: a committed stale build snapshot imported a symbol no published SDK exports, while the health endpoint stayed green because it reports the express process rather than the child it spawns. The fix removes the artifacts, points the spawn at the installed package path, and a live public session answers initialize, lists 150 tools, and returns a real call. The ship ran as three separately approved gates: npm 4.0.0, GitHub release, MCP Registry metadata, bridge 2.24.0."
+  status: done
+  workstream: protocol
+  day_start: 165
+  day_end: 165
+  links:
+    - url: "https://agent-passport.org/blog.html#day-165-the-server-learned-a-second-era-and-the-release-found-an-outage"
+      label: "Day 165 write-up"
+    - url: "https://github.com/aeoess/agent-passport-mcp/releases/tag/v4.0.0"
+      label: "release 4.0.0"
 
 # ═══ DAY 164 - 2026-07-30 ═══
 
