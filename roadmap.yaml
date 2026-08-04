@@ -1,7 +1,48 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-07-31 (Day 165). Day 165 added: MCP 4.0.0 dual-era ship and the bridge outage found and fixed behind it.
+# Last updated: 2026-08-03 (Day 168). Days 166 to 168 added: the status sweep, the action_ref citation-gravity record and the decision-log ordering fix, and the exporter approval with the revocation gap and composition boundary.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 168 - 2026-08-03 ═══
+
+- id: d168-exporter-approved-revocation-gap-opened-composition-boundary-confirmed
+  title: "An exporter into an external trust-record format is opened and approved; a gap in our own revocation design is published; a composition boundary is confirmed and then enforced by another project's tests"
+  description: "Fourteen public artifacts. An adapter mapping APS policy decisions into an external trust-record format at its lowest conformance level was opened and approved the same day, with the reviewing maintainer naming the load-bearing property unprompted: an unverified decision cannot become a record that looks appraised, because verification raises before mapping rather than after, and the schema fields an APS decision cannot supply are declared and pinned by a test so the gap cannot drift. This is our records running against their suite, which is the reciprocal of independent implementation rather than that condition met. An issue was opened against our own revocation design stating that a signed revocation gives non-repudiation and not non-equivocation, since a compromised delegator key can sign a second conflicting record with nothing surfacing that both exist; it drew a concrete mechanism within the hour that binds position into the identifier so competing entries at the same sequence are detectable. A contributor spec review merged with all five corrections landed, including one the contributor found himself. An author confirmation on where the composition boundary falls was requested and given: APS defines what a record establishes and how it verifies, a relying mechanism must verify under those rules rather than inherit the result, and acceptance and sufficiency remain the relying mechanism's own. The party who asked recorded it publicly and wrote tests asserting those sentences and that no endorsement is claimed. Fifteen corrections to our own claims were caught during the day, fourteen running toward overstatement and one toward understatement."
+  status: done
+  workstream: ecosystem
+  day_start: 168
+  day_end: 168
+  links:
+    - url: "https://agent-passport.org/blog.html#day-168-fifteen-corrections-and-a-boundary-enforced-by-someone-elses-tests"
+      label: "Day 168 write-up"
+    - url: "https://github.com/aeoess/agent-passport-system/issues/88"
+      label: "revocation non-equivocation issue"
+
+# ═══ DAY 167 - 2026-08-02 ═══
+
+- id: d167-term-attribution-evidence-and-decision-log-ordering-fix
+  title: "The citation-gravity case for action_ref is documented; the decision log stops reporting the wrong day"
+  description: "APS shipped action_ref publicly on 5 April 2026 in npm agent-passport-system v1.33.0 and made it normative in the Internet-Draft on 14 May. A third-party specification for the same construction published on 23 May became the document implementers cite, tag versions against, and build conformance harnesses around, while crediting us by name where we contributed corrections to it. Recorded as ordinary citation gravity rather than appropriation, with the response being to point at an existing dated provenance record rather than argue priority. A related converging thread was left alone deliberately, since entering after the work shipped would be priority-claiming and no defect was found to enter on. Separately, the state builder had been selecting the newest decision entry by file position rather than by date, so a long block appended at the tail left the newest entry invisible to the artifact that boots every session; it now selects by date in both places and carries a canary that fires when the newest entry is not first, tested against a deliberately broken copy."
+  status: done
+  workstream: protocol
+  day_start: 167
+  day_end: 167
+  links:
+    - url: "https://agent-passport.org/blog.html#day-167-a-term-shipped-first-and-a-file-reporting-the-wrong-day"
+      label: "Day 167 write-up"
+
+# ═══ DAY 166 - 2026-08-01 ═══
+
+- id: d166-status-sweep-nine-repositories
+  title: "Twenty-three stale status values rewritten across seven public repositories"
+  description: "A mechanical sweep ran over nine public repositories on branches and every diff was verified against the handoff before merge rather than accepted on a reported success. Six repositories fast-forwarded and one required a duplicate-commit reconciliation after an unrelated commit landed on the sweep branch. The catches worth recording were the ones outside the search: a Node version floor written with a space in the middle in two separate files, and a test count contradicting the README of its own repository. One check could not be run mechanically at all, whether a version bump on a parity line matched that project's own changelog convention, which required reading thirty-seven prior entries to establish."
+  status: done
+  workstream: infrastructure
+  day_start: 166
+  day_end: 166
+  links:
+    - url: "https://agent-passport.org/blog.html#day-166-a-sweep-that-found-what-it-was-not-looking-for"
+      label: "Day 166 write-up"
 
 # ═══ DAY 165 - 2026-07-31 ═══
 
