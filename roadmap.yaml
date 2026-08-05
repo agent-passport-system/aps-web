@@ -1,7 +1,20 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-08-03 (Day 168). Days 166 to 168 added: the status sweep, the action_ref citation-gravity record and the decision-log ordering fix, and the exporter approval with the revocation gap and composition boundary.
+# Last updated: 2026-08-04 (Day 169). Day 169 added: the offered rerun executed and the public scope correction, four credit-direction corrections, and the sign-off problem found while preparing the conformance contribution.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 169 - 2026-08-04 ═══
+
+- id: d169-offered-rerun-executed-and-a-history-that-cannot-be-signed
+  title: "A public offer is honoured and returns a correction to our own record; four claims about our own influence are withdrawn; preparing a contribution surfaces a sign-off problem with no clean fix"
+  description: "A test rig written against a proposed fix in an upstream agent runtime was rerun against the fix that actually merged, honouring an offer made publicly twice and still outstanding. It compiled unmodified and passed every case across two full runs and twenty repetitions per test. The result of keeping the promise was not a finding about their code but a correction to our own public description of the rig: it drives the extension manager directly and never enters the reply loop, so it covers cache invalidation and what a later fetch observes, not behaviour during a running reply, and it does not cover a notification arriving while a tool-list request is in flight. The maintainer covered that race himself with a deterministic two-semaphore test. Separately four claims were corrected during the day, all running toward credit rather than capability: a conformance count in a third party's draft attributed to a source the draft does not cite, three requirements in a maintainer's scope attributed to our comments when timestamps show two came from the maintainer a day earlier and one from the issue author forty-four minutes before us, thanks reported as collective when two contributors had been thanked by name in pull requests we had not opened, and a sentence claiming the rig exercised a guarantee it does not touch. Each failed the same check, which is who said a thing first. Preparing the conformance suite for contribution surfaced a problem with no clean fix: 76 commits, 3 carrying a developer certificate of origin sign-off, and one unsigned commit of real work from an outside contributor whose email no longer resolves to an account, so the standard history rewrite would put his attribution at risk to satisfy a process that exists to record who contributed what. The question was asked rather than guessed, and the contributor was written to directly. The lab proposal merged on 31 July; the repository import and the paperwork are still ahead."
+  status: done
+  workstream: ecosystem
+  day_start: 169
+  day_end: 169
+  links:
+    - url: "https://agent-passport.org/blog.html#day-169-four-corrections-that-ran-toward-credit"
+      label: "Day 169 write-up"
 
 # ═══ DAY 168 - 2026-08-03 ═══
 
