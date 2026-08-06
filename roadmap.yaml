@@ -84,38 +84,6 @@
   day_start: 170
   day_end: 170
 
-- id: d170-contribution-record-rebuilt-three-query-shapes
-  title: "Three query shapes had never been run, and they held the strongest evidence"
-  description: "The external contribution record was rebuilt from scratch. Merged pull requests authored by others that we had commented on, formal reviews, and Discussions all turned out to be invisible to the queries used until now, and Discussions live on an entirely separate API that no issue search reaches. Those three surfaced twenty merged pull requests carrying our contribution into other people's projects, fifty-nine reviews, and participation in a 452-comment RFC. The strongest single artifact, a proposal of ours with 233 comments, had never been recorded anywhere."
-  status: done
-  workstream: ops
-  day_start: 170
-  day_end: 170
-
-- id: d170-adoption-inventory-fails-its-own-verification
-  title: "Three of four spot-checked entries in our own adoption inventory do not reproduce"
-  description: "Four entries in the adoption file were checked against the live threads they cite. Three failed: one points at a thread that is somebody else's project proposal, one cites a comment that does not exist in the thread named, and one attributes a quote that appears in neither issue given. Only one held, and only after rewording. A verification warning now sits at the top of the file and a full pass is an open commitment. This matters more than ordinary drift because that file is required reading before any adoption claim."
-  status: done
-  workstream: ops
-  day_start: 170
-  day_end: 170
-
-- id: d170-citation-count-is-entirely-self-citation
-  title: "The citation count our own papers report turns out to be entirely self-citation"
-  description: "The registry reports thirty-one citations across the nine papers. Resolving every citation event individually returns zero distinct external citing identifiers: all of it is our own papers referencing each other, plus version linking. The number can never be published. A second query shape, over abstract and metadata rather than registered relations, was then run for the first time and found what the first could not see: four independent works that name the protocol in their published abstracts. Both halves are now recorded, because the count is unusable and the works are real."
-  status: done
-  workstream: research
-  day_start: 170
-  day_end: 170
-
-- id: d170-roadmap-audited-and-repaired
-  title: "A full roadmap audit finds an entire day block with no workstream, twelve dead links and 147 em dashes"
-  description: "Every item was audited ahead of presenting. One day block was missing its workstream field on all six entries, so they rendered in the wrong lane, and one of those carried no status at all. Two label fragmentations were splitting lanes and one key fragmentation had silently broken three dependency links. Twelve of 363 links were dead, including five commit hashes that resolve in no organisation and one repository that no longer exists. Seven statuses were closed on verified evidence and three items cut with the reason and the reversal cost recorded."
-  status: done
-  workstream: ops
-  day_start: 170
-  day_end: 170
-
 - id: d169-lfdt-org-provisioned
   title: "The conformance lab gets a home: organisation provisioned and maintainer access granted"
   description: "The lab moved from an accepted proposal to real infrastructure. The organisation was created with governance declared as code, membership granted at maintainer level on the scaffolding repositories, and the transfer route for the suite established. Organisation policy blocks direct repository creation by members, so the transfer runs through a staff account rather than around the policy."
@@ -188,9 +156,9 @@
   day_start: 166
   day_end: 166
 
-- id: d165-two-invited-posts-and-a-sent-record-reversed
-  title: "Two invited posts ship, and a record marked SENT is reversed on evidence"
-  description: "Two posts written on invitation went out. In the same pass an internal record marked as sent was checked and found not to have been, and the record was reversed rather than left to stand. A separate purge incident produced a standing lesson about destructive cleanup, recorded in full."
+- id: d165-invited-posts-bernstein-2554-goose-10866
+  title: "Two posts ship where the other project asked for them, one of them invited by the maintainer who closed our previous request"
+  description: "An alignment reply on bernstein #2554, posted after checking the claim it responded to and dropping a count that did not hold against the pull request body. And goose #10866, proposing a configurable fail-closed mode for blocking pre-tool-use hooks, written because the maintainer who closed our earlier #8742 invited exactly that follow-up in the close. Both are cases where the second ask was welcome only because the first one was declined cleanly."
   status: done
   workstream: comms
   day_start: 165
@@ -201,14 +169,6 @@
   description: "The document that arrived assigned the protocol name, the main repository and the domains, which is the shape of a full project contribution rather than the narrow conformance lab that had been agreed. It was held, the mismatch was written back the same week, and nothing was signed. Resolved six days later against the governing documents."
   status: done
   workstream: standards
-  day_start: 164
-  day_end: 164
-
-- id: d164-public-record-backfill-and-an-ordering-convention-fixed
-  title: "A public record backfill ships, and the roadmap ordering convention is corrected mid-flight"
-  description: "Missing public record entries were backfilled, and while doing it the ordering convention for this file was found to be inconsistent and was corrected in the same pass rather than noted for later."
-  status: done
-  workstream: ops
   day_start: 164
   day_end: 164
 
@@ -252,41 +212,6 @@
   day_start: 2
   day_end: 2
 
-- id: d170-attribution-record-rebuilt-and-roadmap-audited
-  title: "The external-contribution record is rebuilt from queries that had never been run, and two of our own files fail their own verification"
-  description: "A full attribution sweep found that three query shapes had never been used: merged pull requests authored by others that we commented on, formal reviews, and GitHub Discussions, which live on a separate API and appear in no issue search. Those surfaced twenty merged pull requests carrying our contribution into other projects, fifty-nine reviews, and participation in a 452-comment RFC. Two negative findings matter more. Three of four spot-checked entries in our own adoption inventory do not reproduce against the live threads they cite, and the citation count our papers report is entirely self-citation, so it can never be published. A separate audit of this roadmap found the whole Day 72 block missing its workstream field, twelve dead links, and 147 em dashes."
-  status: done
-  workstream: ops
-  day_start: 170
-  day_end: 170
-  links:
-    - url: "https://agent-passport.org/roadmap.html"
-      label: "This roadmap, audited"
-
-- id: d162-adoption-signals-full-refresh
-  title: "Adoption inventory refreshed for the first time in 74 days after a live search returned merges the file did not contain"
-  description: "Assembling the contribution record off disk surfaced that the inventory still read last-verified 2026-05-15 with 74 days of dated appends stacked on top, and that a live search returned merges absent from it. Every new hit was fetched individually for merged state, merger login, timestamp and diff size rather than trusted from a search count. Ten previously uninventoried outbound merges were recorded, including the awesome-mcp-servers listing merged by the list owner and three argentum-core conformance sets. The raw count of 105 was rejected as unusable because 76 belong to a separate commercial product and three are self-owned."
-  status: done
-  workstream: ops
-  day_start: 162
-  day_end: 162
-
-- id: d160-mega-batch-phase-c-independent-verification
-  title: "Five repositories pushed only after re-running the verification instead of accepting the report"
-  description: "An independent pass was run against the review packet rather than accepting its assertions, following the lesson that a clean-looking report is not evidence. Seven branch states and rollback anchors re-confirmed, zero upstream drift, 4357 of 4360 tests passing with a clean type check, and every commit message dash-clean. The mutation oracle was re-run independently and disagreed with the packet: flipping one character mid-token gave 23 passing and 6 failing where the packet reported a single failure from a different offset. Two packet imprecisions were found, neither a defect in the change itself."
-  status: done
-  workstream: ops
-  day_start: 160
-  day_end: 160
-
-- id: d156-github-read-protocol-after-a-watch-file-miss
-  title: "A read protocol is written after a request was executed as inventory rather than triage"
-  description: "A request to read GitHub in full was executed as inventory, and the watch file was loaded without being applied. The failure is recorded first. A runner-agnostic read protocol was written with a fixed read order that puts the watch roster ahead of the thread list, two authority-map lines in the project instructions were corrected, and 32 stray prompt and handoff files were moved out of the private root into their existing directories. A concurrent session in another surface produced a stale diagnosis at the same time, which is recorded as an observed concurrency hazard rather than smoothed over."
-  status: done
-  workstream: ops
-  day_start: 156
-  day_end: 156
-
 - id: d169-offered-rerun-executed-and-a-history-that-cannot-be-signed
   title: "A public offer is honoured and returns a correction to our own record; four claims about our own influence are withdrawn; preparing a contribution surfaces a sign-off problem with no clean fix"
   description: "A test rig written against a proposed fix in an upstream agent runtime was rerun against the fix that actually merged, honouring an offer made publicly twice and still outstanding. It compiled unmodified and passed every case across two full runs and twenty repetitions per test. The result of keeping the promise was not a finding about their code but a correction to our own public description of the rig: it drives the extension manager directly and never enters the reply loop, so it covers cache invalidation and what a later fetch observes, not behaviour during a running reply, and it does not cover a notification arriving while a tool-list request is in flight. The maintainer covered that race himself with a deterministic two-semaphore test. Separately four claims were corrected during the day, all running toward credit rather than capability: a conformance count in a third party's draft attributed to a source the draft does not cite, three requirements in a maintainer's scope attributed to our comments when timestamps show two came from the maintainer a day earlier and one from the issue author forty-four minutes before us, thanks reported as collective when two contributors had been thanked by name in pull requests we had not opened, and a sentence claiming the rig exercised a guarantee it does not touch. Each failed the same check, which is who said a thing first. Preparing the conformance suite for contribution surfaced a problem with no clean fix: 76 commits, 3 carrying a developer certificate of origin sign-off, and one unsigned commit of real work from an outside contributor whose email no longer resolves to an account, so the standard history rewrite would put his attribution at risk to satisfy a process that exists to record who contributed what. The question was asked rather than guessed, and the contributor was written to directly. The lab proposal merged on 31 July; the repository import and the paperwork are still ahead."
@@ -314,19 +239,6 @@
       label: "revocation non-equivocation issue"
 
 # ═══ DAY 167 - 2026-08-02 ═══
-
-- id: d167-term-attribution-evidence-and-decision-log-ordering-fix
-  title: "The citation-gravity case for action_ref is documented; the decision log stops reporting the wrong day"
-  description: "APS shipped action_ref publicly on 5 April 2026 in npm agent-passport-system v1.33.0 and made it normative in the Internet-Draft on 14 May. A third-party specification for the same construction published on 23 May became the document implementers cite, tag versions against, and build conformance harnesses around, while crediting us by name where we contributed corrections to it. Recorded as ordinary citation gravity rather than appropriation, with the response being to point at an existing dated provenance record rather than argue priority. A related converging thread was left alone deliberately, since entering after the work shipped would be priority-claiming and no defect was found to enter on. Separately, the state builder had been selecting the newest decision entry by file position rather than by date, so a long block appended at the tail left the newest entry invisible to the artifact that boots every session; it now selects by date in both places and carries a canary that fires when the newest entry is not first, tested against a deliberately broken copy."
-  status: done
-  workstream: protocol
-  day_start: 167
-  day_end: 167
-  links:
-    - url: "https://agent-passport.org/blog.html#day-167-a-term-shipped-first-and-a-file-reporting-the-wrong-day"
-      label: "Day 167 write-up"
-
-# ═══ DAY 166 - 2026-08-01 ═══
 
 - id: d166-status-sweep-nine-repositories
   title: "Twenty-three stale status values rewritten across seven public repositories"
@@ -574,14 +486,6 @@
   description: "A declared ceiling is a plan-time bound, and since a settled class can only sit at or below it the join tightens as the chain resolves, so it is well defined without total knowledge. Conceded. Open in its place: which set the join runs over, since joining declared steps assumes a plan bounds an agent that chooses at run time, while the grant does. APS computes neither ceiling today."
   status: done
   workstream: standards
-  day_start: 149
-  day_end: 149
-
-- id: d149-reading-rule
-  title: "Reading rule installed after three vocabulary-blind misreads of one spec family"
-  description: "Searched another project's drafts for APS's own words, read absence as a gap, and was wrong three times in six hours. Rule now at the top of the competitor file: grep the function not the word, open every companion draft before characterizing a family, quote the gap from their document or do not claim it, and check against disk before offering anything. The daily scan brief gained the same two rules plus a note that gh search issues silently excludes pull requests."
-  status: done
-  workstream: ops
   day_start: 149
   day_end: 149
 
@@ -969,15 +873,6 @@
   links:
     - url: "/media.html"
       label: "Press kit"
-
-- id: d84-roadmap-drift-cleanup-two-commits
-  title: "Roadmap drift cleanup: eight items flipped across two commits"
-  description: "Pre-press-launch audit caught drift between closed-work tracking and roadmap status fields. Commit 6b739db flipped five items to done (coinbase-crewai cross-pollination, vocab system_attributes wave, A2A#1786 byte-match ack, A2A#1786 CAI extension proposal, openclaw#49971 integration surface) plus one to dropped (MoltyCel harness#1 resolver adapter per Day 77 CTO call). Commit a436374 flipped two more done (SSRN five-paper approval, vocab #58 epoch enum) plus one to dropped (in-toto SVR PR #549 closed unmerged April 28, no aeoess activity in 30 days). Counts moved from 194/19/0 to 201/11/2 across done/in_progress/dropped. Closes the 'filed at audit-time, never updated at ship-time' drift pattern."
-  status: done
-  workstream: ops
-  day_start: 84
-  day_end: 84
-# ═══ DAY 81, 2026-05-08 ═══
 
 - id: d81-aivss-pr1-merged
   title: "First external PR on aivss-enforcement-effectiveness merged"
@@ -3950,28 +3845,6 @@
     - url: "https://github.com/aeoess/autogen-governance-adapter/pull/1"
       label: "PR #1 (merged)"
 
-- id: d68-housekeeping-batch-audit-v2-3
-  title: "Housekeeping batch from AUDIT-2026-04-24 + audit spec v2.3"
-  description: "Seven fixes applied from the Apr 24 audit report. Code side: engines.node >= 18.0.0 declared on six Node packages (agent-passport-mcp, aeoess-gateway, agent-passport-remote-mcp, mingle-mcp, intent-network-api, solana-agent-identity) to prevent silent Node-version drift on Railway and npm installers; LICENSE + NOTICE copied to agent-passport-remote-mcp root (files shipped through the npm dep tree already, but the repo itself should carry them for GitHub, SBOM, and glama audits); two SDK example files referencing v1-era APIs that changed in v2.0.0-beta.0 (examples/crewai-governance.ts invoking removed createCrewAIGovernance, examples/enforcement-demo.ts invoking createAgentContext that moved to the gateway surface) archived under _archive/examples-pre-v2/ with an explanatory README, so contributors following the docs no longer hit broken TypeScript imports; SDK dist/ refreshed against current src/. Spec side: audit prompt bumped from v2.1 to v2.3 with three corrections. v2.2 fixed A11 (remote-MCP build output moved from repo root to build/, check path updated), A13 (agent-governance-toolkit is a monorepo with no root package.json, step iterates packages/agent-*/ sub-trees), and added an explicit Python pip install -e exception to the read-only constraints block since pytest collection fails on ModuleNotFoundError without editable install. v2.3 replaced the C8 dist-staleness check which used find -newer against the dist/ directory's own mtime rather than the mtime of files inside it, producing a consistent false positive (audit reported 240 src files newer than dist/ even immediately after npm run build because directory mtime does not update on internal file rewrites). New check compares newest src/ file mtime against newest dist/ file mtime in Python. Next full audit now expected clean PASS. Completion report at specs/AUDIT-2026-04-24-FIXES.md."
-  status: done
-  workstream: ops
-  day_start: 68
-  day_end: 68
-- id: d68-a2a-1786-cai-extension-proposal
-  title: "A2A #1786: Cryptographic Agent Identity extension proposal opened"
-  description: "Proposal-phase issue opened at a2aproject/A2A per the documented extension-and-binding-governance.md Proposal Phase, requesting maintainer sponsorship to create the corresponding experimental-ext-* repository. Aligned to CTEF v0.3.1 substrate (frozen at agentgraph-co/agentgraph@69ad94d, normative endpoint at agentgraph.co/.well-known/cte-test-vectors.json). Declares claim_type discriminator over the closed set {identity, transport, authority, continuity} with envelope reserved, structural-before-semantic error codes (INVALID_CLAIM_SCOPE, INVALID_COMPOSITION), and uses A2A's existing AgentExtension mechanism (Section 4.4.4) with params carrying per-claim payload, no proto schema changes proposed. Reference URI experimental-ext prefixed: a2a-protocol.org/extensions/cryptographic-agent-identity/v0.3.1. Three correction loops before opening: 9KB extension manifesto rejected for size + wrong process (PR vs issue first), 100-line topic doc rejected for wrong surface (docs/topics/ is core protocol concepts not extension specs) and skipping proposal phase, third draft caught a 404 references link to the rotation-attestation directory before posting (test-vectors.json direct link replaced the 404 path). kenneives posted co-normative AgentGraph endorsement at the top of the thread within 4 minutes of opening including a four-way byte-match harness table. lawcontinue posted substantive question on validity_window for long-running inference sessions; reply confirmed APS already implements sequence_bound continuity, accepted contribution offer for distributed-inference test fixture against APS bilateral-delegation regression."
-  status: done
-  workstream: standards
-  day_start: 68
-  day_end: 68
-  links:
-    - url: "https://github.com/a2aproject/A2A/issues/1786"
-      label: "Proposal issue #1786"
-    - url: "https://github.com/a2aproject/A2A/issues/1672"
-      label: "#1672 design discussion"
-    - url: "https://agentgraph.co/.well-known/cte-test-vectors.json"
-      label: "CTEF v0.3.1 normative endpoint"
-
 - id: d68-five-way-claim-type-convergence
   title: "Five-way claim_type convergence (AgentGraph + AgentID + APS + Nobulex + HiveTrust)"
   description: "Wire-format substrate convergence across five live implementations on the discriminator key name. Naming collision was identified mid-thread on #1672: AgentID had been shipping claim_type on the live /verify endpoint; AgentGraph + APS rotation-attestation spec used claim_category. Same concept, same closed set values, different key name. kenne offered three resolution options and renamed AgentGraph claim_category → claim_type at commit agentgraph-co/agentgraph@69ad94d so all live implementations agree. AgentID's harold confirmed claim_type live with 32/32 endpoint tests pass and JCS canonicalizer byte-matching all 10 APS bilateral-delegation vectors. Nobulex (arian-gogani's @nobulex/crypto TS canonicalizer) byte-matching APS + AgentGraph fixtures. HiveTrust (srotzin) confirmed concur with the four-layer split + 'history-stability under rotation' framing on #1672, and posted the disjoint-namespace projection rule resolving the wire-collision concern: ctef.envelope.claim_type vs hivetrust.internal.claim_type sit at different envelope levels with explicit projection_rule mapping HiveTrust claim records onto ctef.envelope.claim_type='authority' when carried in a CTEF-composed envelope. Risk-tier bucketing under HiveTrust's claim_category stays HiveTrust-local until a future WG reservation. HiveTrust byte-match fixture committed pending claim_type.envelope composition-rule spec draft. Settlement-evidence-as-reputation-anchor (x402 receipt on Base 8453 → evidence_basis.evidence_type.payment_execution) lands on a v0.3.1-reserved field, with crewAI #4560 cited as cross-reference."
@@ -4866,11 +4739,11 @@
 
 # DAY 138 - 2026-07-05
 
-- id: d150-three-hostile-passes-and-a-fail-open-i-wrote-myself
-  title: "Three hostile passes turn the draft revision into a rebuild, and a fail-open reported in someone else's verifier turns up in our own patch"
-  description: "The revision stopped being an edit and became a rebuild: an action reference that commits to the target, and a digest of the exact payload carrying a replay nonce. Three hostile review passes were run against it rather than one. The day is recorded for the second finding rather than the first. A fail-open was reported in another project's verifier, and the same defect was then found in the patch written here, which is the more useful half of the story and the reason the entry exists. A deferred-cleanup pass ran alongside it: every item on the cooling list was resolved by verification instead of by waiting, kept open with the evidence or closed with the reason on record, and a map-driven reversible disk cleanup moved 113 files and deleted four, cutting the private root from 177 files to 111."
+- id: d150-draft-revision-becomes-a-rebuild
+  title: "The draft revision becomes a rebuild: action reference commits to the target, payload digest carries a replay nonce"
+  description: "What was scoped as an edit to the Internet-Draft turned into a rebuild of two primitives. The action reference now commits to the target rather than sitting beside it, and the payload digest carries a replay nonce so the same bytes replayed are distinguishable from the original. Three independent hostile passes were run against the revision before it was called ship-ready. One of them found a fail-open in a third-party verifier, and the same defect then turned up in the patch written here, which is recorded because catching it in our own work is the harder half."
   status: done
-  workstream: ops
+  workstream: protocol
   day_start: 150
   day_end: 150
   links:
