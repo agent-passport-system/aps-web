@@ -193,14 +193,6 @@
   day_start: 163
   day_end: 163
 
-- id: d163-aat-corpus-rebuilt-and-a-false-absence-claim-found
-  title: "The token corpus is rebuilt from the email of record, and a verified-absence claim of mine turns out to be false"
-  description: "The corpus was rebuilt from the correspondence of record rather than from the working copy. Doing it showed that an earlier claim of ours, that something did not exist, was false: it existed and had been missed. Recorded because a wrong absence claim is harder to catch than a wrong presence claim and this one had already been acted on."
-  status: done
-  workstream: protocol
-  day_start: 163
-  day_end: 163
-
 - id: d163-lfdt-sponsorship-answered-and-two-verifier-defects-found
   title: "Sponsorship mechanics are answered concretely, and two verifier defects surface, one of them ours"
   description: "The sponsorship question was answered with committed mechanics rather than intent. In the same pass two defects were found in verifier behaviour, one in another implementation and one in ours, and both were written up rather than only the other party's."
