@@ -651,8 +651,8 @@
       label: "agent-passport.org"
 
 - id: d136-design-transfer-phases-started
-  title: "Site v2 design transfer started; giskard09 removed from live surfaces"
-  description: "Design-transfer phases 1-3 opened to move the remaining pages to the v2 design; giskard09 references removed from live surfaces as part of the Day-126 neutrality reset for the Hyland stewardship move. Executed as local file work under the standing posting-gate discipline; APS priority date on action_ref (draft-pidlisnyi-aps 4.1, filed 2026-05-14) and APS-hosted canonical surfaces are the anchor."
+  title: "Site v2 design transfer started"
+  description: "Design-transfer phases 1 to 3 opened to move the remaining pages onto the v2 design. A vendor-neutrality pass ran alongside it, following the Day-126 reset, so that no third-party project appears on our surfaces in a way that implies a relationship neither side has agreed to. Counterparties are not named here on purpose. Executed as local file work under the standing posting gate. The anchor stays what it was: the priority date on action_ref in draft-pidlisnyi-aps section 4.1 and the APS-hosted canonical surfaces."
   status: done
   workstream: product
   day_start: 136
