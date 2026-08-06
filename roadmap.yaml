@@ -16,9 +16,9 @@
     - url: "https://www.npmjs.com/package/mingle-mcp"
       label: "mingle-mcp on npm"
 
-- id: d154-mingle-v4-fit-and-match-through-four-leg-consilium
+- id: d154-mingle-v4-fit-and-match-four-review-legs
   title: "A matching layer is designed, attacked from four independent legs, and shipped the same day"
-  description: "Beyond the v3 release the same day carried the design and build of the Fit and Match layer: a v3.5 specification for fit exchange, a hostile review leg against it, then Fit and Match builds, a four-leg Consilium, a partial v4, stage three, and the final four-way merge to production with a launch audit after deploy. Recorded as its own item because the release and the matching layer are separate pieces of work that happened to land on the same date."
+  description: "Beyond the v3 release the same day carried the design and build of the Fit and Match layer: a v3.5 specification for fit exchange, a hostile review leg against it, then Fit and Match builds, four independent review legs, a partial v4, stage three, and the final four-way merge to production with a launch audit after deploy. Recorded as its own item because the release and the matching layer are separate pieces of work that happened to land on the same date."
   status: done
   workstream: product
   day_start: 154
