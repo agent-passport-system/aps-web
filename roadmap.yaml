@@ -5,6 +5,26 @@
 
 # ═══ DAY 169 - 2026-08-04 ═══
 
+- id: d61-mnemopay-rebuilt-around-our-framing
+  title: "A company rebuilds its receipt design around a framing we argued in a thread, and says so unprompted"
+  description: "In early April a distinction was drawn on a public payments thread between an agent remembering what happened and an agent being able to prove it, with a sketch of a receipt carrying intent, scope evaluation and outcome under one signature. Two weeks later the maintainer wrote back that the gap was where they had been drawing the line wrong, that the framing drove their last three releases, and that they had been treating the receipt as a log artifact when it needed to be the primary settlement object. What shipped carries the full lifecycle in the receipt, chained to a Merkle root with per-leaf reconstruction, and a million-operation stress test. No code of ours is in it. This is the clearest case of a framing travelling without an implementation attached to it."
+  status: done
+  workstream: ecosystem
+  day_start: 61
+  day_end: 61
+  links:
+    - url: "https://github.com/x402-foundation/x402/pull/1904"
+      label: "x402 #1904"
+
+- id: in-toto-sibling-predicate-blocked-by-upstream
+  title: "A sibling attestation predicate is drafted and never opened, because the pull request it depended on closed unmerged"
+  description: "Draft scaffolding was written for a session-level governance attestation predicate, designed to sit beside a decision-receipt predicate proposed upstream and reference it by hash. The trigger was that upstream pull request landing. It closed without merging, so the sibling was never opened. Recorded as dropped rather than left pending, because the condition it waited on has resolved in the negative. Reversal cost is low: the scaffolding survives and the design still holds if a predicate of that shape is proposed again."
+  status: dropped
+  workstream: standards
+  day_start: 118
+  day_end: 170
+  kill_note: "Dropped 2026-08-05. Upstream in-toto/attestation PR #549 closed unmerged, so the trigger condition failed. Draft scaffolding retained."
+
 - id: d170-pico-round-two-receipt-vectors-both-directions
   title: "The receipt exchange starts running in both directions, and each side finds a defect in the other"
   description: "Round two of the weekly conformance exchange. Six receipt vectors were ingested from the counterpart issuer and verified 6 of 6 against a runner built to their profile, and our own reciprocal set of six was published with burned seed labels so the keys can be regenerated rather than trusted. The counterpart then changed their v2 envelope shape after running our corpus, because it showed their construction could not separate a wrong signer from tampered content, and disclosed a specification-level defect in their own canonicalizer that the run surfaced. The same round found a factual error in our published description of their profile, corrected as a dated erratum rather than edited away."
