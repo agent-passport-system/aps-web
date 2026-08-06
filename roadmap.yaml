@@ -3370,22 +3370,6 @@
   dependencies:
     - customer-ready-gateway
 
-- id: wg-foundation-path-post-aaif
-  title: "Foundation path: LF Decentralized Trust Lab proposal in review"
-  description: "The AAIF path closed in May 2026. The current path is an LF Decentralized Trust Lab proposal focused on neutral conformance work. The proposal has two approving reviews and names the TAC chair as sponsor, but it has not yet been merged or accepted as a Lab. The goal remains the same: give the protocol layer a neutral home and make enterprise governance conversations easier."
-  status: done
-  workstream: ops
-  day_start: 68
-  day_end: 164
-  dependencies:
-    - aaif-tc-review-wait
-
-# ═══ end of deep audit additions ═══
-
-# ═══ DEEP AUDIT PASS 2, RECENT SHIPS MISSING FROM ROADMAP (added Day 64) ═══
-# Cross-referenced internal commitment tracking.
-# These shipped Days 60-64 but weren't individually captured.
-
 - id: d62-adk-aps-integration-repo
   title: "adk-aps-integration repo (Google ADK × APS joint)"
   description: "New repo at github.com/aeoess/adk-aps-integration spun up Day 62 in response to google/adk-python#5164. Joint ownership with @tomjwxf (ScopeBlind). LICENSE carries both names (Copyright 2026 Tymofii Pidlisnyi, Thomas Farley). Structure: main branch (README pointer) + integration-skeleton branch with aps_delegation.py, receipt_signing.py, verify.sh, examples/basic-tool-call. CI matrix across Python 3.10/3.11/3.12 against both @next and @latest APS SDK plus @veritasacta/verify@0.3.0. Receipt format shipped as audit-bundle shape (matches verifier's actual contract, not per-call receipts). Six jobs green after CI fix (commit 7f7bae68). tomjwxf collaborator invite pending acceptance."
