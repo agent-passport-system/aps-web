@@ -5,6 +5,22 @@
 
 # ═══ DAY 169 - 2026-08-04 ═══
 
+- id: d7-distribution-twelve-channels
+  title: "The package is placed in twelve distribution channels in a day"
+  description: "Distribution rather than construction: the protocol and the MCP server were listed across twelve or more channels in a single day, including awesome-mcp-servers, clawhub, npm, Smithery and mcp.so. The reasoning was that a package nobody can find is indistinguishable from a package that does not exist, and that the catalogues are where anyone browsing for agent-identity tooling actually looks."
+  status: done
+  workstream: distribution
+  day_start: 7
+  day_end: 7
+
+- id: d2-first-media-coverage
+  title: "First media coverage arrives one day after launch, unplanned"
+  description: "One day after the protocol and the npm package went public, the work drew its first outside coverage. The timing was not arranged. Recorded because it is the first evidence that the problem was already on other people's minds rather than only on ours."
+  status: done
+  workstream: comms
+  day_start: 2
+  day_end: 2
+
 - id: d170-attribution-record-rebuilt-and-roadmap-audited
   title: "The external-contribution record is rebuilt from queries that had never been run, and two of our own files fail their own verification"
   description: "A full attribution sweep found that three query shapes had never been used: merged pull requests authored by others that we commented on, formal reviews, and GitHub Discussions, which live on a separate API and appear in no issue search. Those surfaced twenty merged pull requests carrying our contribution into other projects, fifty-nine reviews, and participation in a 452-comment RFC. Two negative findings matter more. Three of four spot-checked entries in our own adoption inventory do not reproduce against the live threads they cite, and the citation count our papers report is entirely self-citation, so it can never be published. A separate audit of this roadmap found the whole Day 72 block missing its workstream field, twelve dead links, and 147 em dashes."
@@ -4624,6 +4640,25 @@
       label: "x402 #2332 thread"
 
 # DAY 138 - 2026-07-05
+
+- id: d150-three-hostile-passes-and-a-fail-open-i-wrote-myself
+  title: "Three hostile passes turn the draft revision into a rebuild, and a fail-open reported in someone else's verifier turns up in our own patch"
+  description: "The revision stopped being an edit and became a rebuild: an action reference that commits to the target, and a digest of the exact payload carrying a replay nonce. Three hostile review passes were run against it rather than one. The day is recorded for the second finding rather than the first. A fail-open was reported in another project's verifier, and the same defect was then found in the patch written here, which is the more useful half of the story and the reason the entry exists. A deferred-cleanup pass ran alongside it: every item on the cooling list was resolved by verification instead of by waiting, kept open with the evidence or closed with the reason on record, and a map-driven reversible disk cleanup moved 113 files and deleted four, cutting the private root from 177 files to 111."
+  status: done
+  workstream: ops
+  day_start: 150
+  day_end: 150
+  links:
+    - url: "https://agent-passport.org/blog.html#day-150-three-passes-ship-ready"
+      label: "Day 150 write-up"
+
+- id: d139-pxpipe-eval-kill-fired-correctly
+  title: "A registered evaluation returns no publishable result, and the kill criterion firing correctly is the finding"
+  description: "A pre-registered encoding evaluation ran to completion at zero spend with the registration chain intact: the preregistration hash held as a byte prefix and both amendments were appended rather than edited. The kill criterion fired correctly on the first two runs, because page density exceeded the reading limit of the model under test, so no correct-read floor existed and the encodings could not be compared. A third run reached the floor and was stopped early when several agents thrashed rather than progressed; 137 of 144 trials were recovered from the workflow journal and the seven interrupted trials are marked missing rather than reconstructed. A sentinel control passed four of four, which rules out source leakage. No public claim is buildable from any of it, and the handoff says so."
+  status: done
+  workstream: research
+  day_start: 139
+  day_end: 139
 
 - id: d138-plausibly-wrong-published-aps02
   title: "Ninth paper published (Plausibly Wrong); IETF draft revised to draft-pidlisnyi-aps-02"
