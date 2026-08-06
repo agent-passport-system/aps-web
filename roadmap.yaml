@@ -5,6 +5,190 @@
 
 # ═══ DAY 169 - 2026-08-04 ═══
 
+- id: d170-pico-round-two-receipt-vectors-both-directions
+  title: "The receipt exchange starts running in both directions, and each side finds a defect in the other"
+  description: "Round two of the weekly conformance exchange. Six receipt vectors were ingested from the counterpart issuer and verified 6 of 6 against a runner built to their profile, and our own reciprocal set of six was published with burned seed labels so the keys can be regenerated rather than trusted. The counterpart then changed their v2 envelope shape after running our corpus, because it showed their construction could not separate a wrong signer from tampered content, and disclosed a specification-level defect in their own canonicalizer that the run surfaced. The same round found a factual error in our published description of their profile, corrected as a dated erratum rather than edited away."
+  status: done
+  workstream: protocol
+  day_start: 170
+  day_end: 170
+
+- id: d170-lfdt-agreement-resolved-no-agreement-for-a-lab
+  title: "The contribution agreement question is answered: a lab sits outside the process the agreement belongs to"
+  description: "A contribution agreement had been sent that assigned the protocol name, the main repository and the domains, while the lab documentation described something with no transfer at all. The call settled it against the governing documents rather than by negotiation: the agreement is the instrument for transferring an existing project's marks, it attaches to technical projects, and the lifecycle places labs outside that path entirely. No agreement is required for the lab, and the repository transfer proceeds."
+  status: done
+  workstream: standards
+  day_start: 170
+  day_end: 170
+
+- id: d170-contribution-record-rebuilt-three-query-shapes
+  title: "Three query shapes had never been run, and they held the strongest evidence"
+  description: "The external contribution record was rebuilt from scratch. Merged pull requests authored by others that we had commented on, formal reviews, and Discussions all turned out to be invisible to the queries used until now, and Discussions live on an entirely separate API that no issue search reaches. Those three surfaced twenty merged pull requests carrying our contribution into other people's projects, fifty-nine reviews, and participation in a 452-comment RFC. The strongest single artifact, a proposal of ours with 233 comments, had never been recorded anywhere."
+  status: done
+  workstream: ops
+  day_start: 170
+  day_end: 170
+
+- id: d170-adoption-inventory-fails-its-own-verification
+  title: "Three of four spot-checked entries in our own adoption inventory do not reproduce"
+  description: "Four entries in the adoption file were checked against the live threads they cite. Three failed: one points at a thread that is somebody else's project proposal, one cites a comment that does not exist in the thread named, and one attributes a quote that appears in neither issue given. Only one held, and only after rewording. A verification warning now sits at the top of the file and a full pass is an open commitment. This matters more than ordinary drift because that file is required reading before any adoption claim."
+  status: done
+  workstream: ops
+  day_start: 170
+  day_end: 170
+
+- id: d170-citation-count-is-entirely-self-citation
+  title: "The citation count our own papers report turns out to be entirely self-citation"
+  description: "The registry reports thirty-one citations across the nine papers. Resolving every citation event individually returns zero distinct external citing identifiers: all of it is our own papers referencing each other, plus version linking. The number can never be published. A second query shape, over abstract and metadata rather than registered relations, was then run for the first time and found what the first could not see: four independent works that name the protocol in their published abstracts. Both halves are now recorded, because the count is unusable and the works are real."
+  status: done
+  workstream: research
+  day_start: 170
+  day_end: 170
+
+- id: d170-roadmap-audited-and-repaired
+  title: "A full roadmap audit finds an entire day block with no workstream, twelve dead links and 147 em dashes"
+  description: "Every item was audited ahead of presenting. One day block was missing its workstream field on all six entries, so they rendered in the wrong lane, and one of those carried no status at all. Two label fragmentations were splitting lanes and one key fragmentation had silently broken three dependency links. Twelve of 363 links were dead, including five commit hashes that resolve in no organisation and one repository that no longer exists. Seven statuses were closed on verified evidence and three items cut with the reason and the reversal cost recorded."
+  status: done
+  workstream: ops
+  day_start: 170
+  day_end: 170
+
+- id: d169-lfdt-org-provisioned
+  title: "The conformance lab gets a home: organisation provisioned and maintainer access granted"
+  description: "The lab moved from an accepted proposal to real infrastructure. The organisation was created with governance declared as code, membership granted at maintainer level on the scaffolding repositories, and the transfer route for the suite established. Organisation policy blocks direct repository creation by members, so the transfer runs through a staff account rather than around the policy."
+  status: done
+  workstream: standards
+  day_start: 169
+  day_end: 169
+
+- id: d168-composition-boundary-enforced-by-someone-elses-tests
+  title: "A composition boundary is published, then enforced by another project’s test suite"
+  description: "An exporter into an external trust-record format was opened and approved, a gap in our own revocation design was published rather than quietly noted, and a composition boundary was confirmed and then enforced by another project's tests. The boundary holding in someone else's suite is the part worth recording: a limit that only we check is a claim, and a limit another party's tests enforce is a property."
+  status: done
+  workstream: protocol
+  day_start: 168
+  day_end: 168
+
+- id: d167-term-attribution-and-a-log-that-reported-the-wrong-day
+  title: "A term we shipped first is traced, and the decision log is found reporting the wrong day"
+  description: "Work on binding protocol-originated terms to their origin in search and retrieval, so a query for a primitive surfaces where it came from. The same pass found the decision log had been quietly reporting the wrong day because the newest entry was not at the top of the file and the state builder selects by position rather than by date. Ordering convention fixed and a canary added so the same drift is detected rather than discovered."
+  status: done
+  workstream: ops
+  day_start: 167
+  day_end: 167
+
+- id: d166-mcp-4-shipped-and-a-production-outage-found
+  title: "The MCP server ships a major version through three gates, and the release finds a production outage the health check was hiding"
+  description: "Version 4.0.0 published through tag, registry and release gates in order. The release sweep surfaced a production bridge outage that the existing health check had not been reporting, which is the more useful half of the day: a check that passes while the service is down is worse than no check."
+  status: done
+  workstream: protocol
+  day_start: 166
+  day_end: 166
+
+- id: d166-entry-flow-deployed
+  title: "An entry flow ships so a human and an agent arriving at the same address are given different doors"
+  description: "Four routes deployed end to end, splitting the arrival path by who is arriving rather than serving one page to both. Shipped, then revised the same day when the first version bundled assets that did not need bundling, and the bundling was reversed rather than defended."
+  status: done
+  workstream: product
+  day_start: 166
+  day_end: 166
+
+- id: d166-fabricated-metrics-removed-from-a-shipped-asset
+  title: "A sweep of our own published assets finds fabricated metrics and commercial fiction, and removes them"
+  description: "An asset sweep found numbers on a published surface that were not traceable to any source, alongside commercial framing that described things that did not exist. Both removed and the removal recorded rather than quietly corrected. Recorded because finding invented figures in our own shipped material is the failure mode this discipline exists to catch."
+  status: done
+  workstream: comms
+  day_start: 166
+  day_end: 166
+
+- id: d166-cosai-comment-posted-then-publicly-corrected
+  title: "A comment to a standards working group is posted, reverified, and then publicly corrected"
+  description: "A second comment was posted to a credentials RFC thread only after full reverification of the cites it carried. A subsequent correction was posted publicly when part of it did not hold, and an addendum proposed by another party was rejected rather than absorbed. The correction is the entry."
+  status: done
+  workstream: standards
+  day_start: 166
+  day_end: 166
+
+- id: d166-go-conformance-runner-fixed
+  title: "The Go conformance runner is fixed so the third implementation is actually being checked"
+  description: "A defect in the Go runner meant one of the three implementations was not being exercised by the conformance suite in the way the other two were. Fixed and confirmed green, which restores the byte-parity claim to something the suite actually tests rather than something asserted."
+  status: done
+  workstream: protocol
+  day_start: 166
+  day_end: 166
+
+- id: d166-four-gated-posts-after-two-clean-external-legs
+  title: "Four external posts ship only after two independent review legs come back clean"
+  description: "Four gated posts were held until two external review legs had run and agreed, then shipped together on approval. A feature request to an agent runtime went out through the same process. The sequencing is the record: the review ran before the post, not after."
+  status: done
+  workstream: comms
+  day_start: 166
+  day_end: 166
+
+- id: d166-measurement-infrastructure-and-a-daily-boot-check
+  title: "Measurement infrastructure goes in so claims about our own surfaces stop being guesses"
+  description: "A tracing surface and a daily boot check were added, so questions about what is live and what is reaching people are answered from instrumentation rather than from memory. Small, and the reason it is recorded is that several corrections this month came from not having it."
+  status: done
+  workstream: infra
+  day_start: 166
+  day_end: 166
+
+- id: d165-two-invited-posts-and-a-sent-record-reversed
+  title: "Two invited posts ship, and a record marked SENT is reversed on evidence"
+  description: "Two posts written on invitation went out. In the same pass an internal record marked as sent was checked and found not to have been, and the record was reversed rather than left to stand. A separate purge incident produced a standing lesson about destructive cleanup, recorded in full."
+  status: done
+  workstream: comms
+  day_start: 165
+  day_end: 165
+
+- id: d164-lf-sends-a-project-formation-assignment-and-it-is-held
+  title: "A project-formation assignment arrives for what was agreed as a lab, and is held rather than signed"
+  description: "The document that arrived assigned the protocol name, the main repository and the domains, which is the shape of a full project contribution rather than the narrow conformance lab that had been agreed. It was held, the mismatch was written back the same week, and nothing was signed. Resolved six days later against the governing documents."
+  status: done
+  workstream: standards
+  day_start: 164
+  day_end: 164
+
+- id: d164-public-record-backfill-and-an-ordering-convention-fixed
+  title: "A public record backfill ships, and the roadmap ordering convention is corrected mid-flight"
+  description: "Missing public record entries were backfilled, and while doing it the ordering convention for this file was found to be inconsistent and was corrected in the same pass rather than noted for later."
+  status: done
+  workstream: ops
+  day_start: 164
+  day_end: 164
+
+- id: d164-introduction-request-declined
+  title: "An introduction request is declined, and the reversal is recorded with its cost"
+  description: "A request to make an introduction was declined by the principal. Recorded as a reversal with the reason, per the rule that a drop is a decision and gets logged like one rather than disappearing."
+  status: done
+  workstream: comms
+  day_start: 164
+  day_end: 164
+
+- id: d163-our-own-coverage-claim-refuted-and-corrected
+  title: "A coverage claim of ours is refuted, corrected, and the correction becomes the first contact"
+  description: "A claim we had made about coverage did not hold when checked against the other project's actual state. It was corrected, and the correction itself was posted as the opening contact with that project rather than sending a pitch. Opening a relationship by withdrawing your own claim is a better first message than any introduction."
+  status: done
+  workstream: ecosystem
+  day_start: 163
+  day_end: 163
+
+- id: d163-aat-corpus-rebuilt-and-a-false-absence-claim-found
+  title: "The token corpus is rebuilt from the email of record, and a verified-absence claim of mine turns out to be false"
+  description: "The corpus was rebuilt from the correspondence of record rather than from the working copy. Doing it showed that an earlier claim of ours, that something did not exist, was false: it existed and had been missed. Recorded because a wrong absence claim is harder to catch than a wrong presence claim and this one had already been acted on."
+  status: done
+  workstream: protocol
+  day_start: 163
+  day_end: 163
+
+- id: d163-lfdt-sponsorship-answered-and-two-verifier-defects-found
+  title: "Sponsorship mechanics are answered concretely, and two verifier defects surface, one of them ours"
+  description: "The sponsorship question was answered with committed mechanics rather than intent. In the same pass two defects were found in verifier behaviour, one in another implementation and one in ours, and both were written up rather than only the other party's."
+  status: done
+  workstream: standards
+  day_start: 163
+  day_end: 163
+
 - id: d7-distribution-twelve-channels
   title: "The package is placed in twelve distribution channels in a day"
   description: "Distribution rather than construction: the protocol and the MCP server were listed across twelve or more channels in a single day, including awesome-mcp-servers, clawhub, npm, Smithery and mcp.so. The reasoning was that a package nobody can find is indistinguishable from a package that does not exist, and that the catalogues are where anyone browsing for agent-identity tooling actually looks."
