@@ -748,6 +748,7 @@
   workstream: standards
   day_start: 136
   day_end: 136
+  kill_note: "Dropped 2026-08-06 in the Day 171 audit. The correction and the erratum both shipped; the item tracked a cleanup arc that has no remaining work. Reversal cost: none, a fresh correction gets its own entry."
   links:
     - url: "https://github.com/w3c-cg/ai-agent-protocol/issues/32"
       label: "w3c-cg ai-agent-protocol #32"
@@ -1327,6 +1328,7 @@
   workstream: protocol
   day_start: 75
   day_end: 75
+  kill_note: "Dropped 2026-08-06 in the Day 171 audit. The refusal_authority question was resolved inside the registry rather than by adding a fifth value. Reversal cost: low, the audit trail on the issue survives if the distinction is needed later."
   links:
     - url: "https://github.com/aeoess/agent-governance-vocabulary/issues/73"
       label: "Issue #73"
@@ -1491,6 +1493,7 @@
   workstream: outward
   day_start: 73
   day_end: 73
+  kill_note: "Dropped 2026-08-06. Superseded by the sibling-predicate route, which was itself dropped when the upstream in-toto pull request it depended on closed unmerged. Reversal cost: low, the draft scaffolding is retained."
   links:
     - url: "https://github.com/in-toto/attestation/pull/549"
       label: "in-toto PR #549"
@@ -1740,6 +1743,7 @@
   workstream: outward
   day_start: 69
   day_end: 69
+  kill_note: "Dropped 2026-08-06 in the Day 171 audit. The optional resolver adapter is the contributor's to carry, not ours; the two review asks were delivered and the decision belongs upstream. Reversal cost: none."
   links:
     - url: "https://github.com/aeoess/a2a-compliance-harness/pull/1"
       label: "PR #1 (DRAFT, awaiting mark-ready)"
@@ -2271,6 +2275,7 @@
   workstream: product
   day_start: 55
   day_end: 55
+  kill_note: "Dropped 2026-08-06. The gateway-as-marketplace thesis stayed a thesis: no public articulation shipped and the commercial design belongs on the private side of the boundary. Reversal cost: low, the argument is intact and undated."
   dependencies:
     - attribution-primitive-spec
 
@@ -3299,6 +3304,7 @@
   workstream: research
   day_start: 78
   day_end: 90
+  kill_note: "Dropped 2026-08-06. The submission window passed without a LaTeX pipeline, and the empirical spine it would have drawn on is published as papers in its own right. Reversal cost: medium, a future venue means rebuilding the conversion pipeline."
   dependencies:
     - paper-4-bdr
   links:
@@ -3440,6 +3446,7 @@
   workstream: product
   day_start: 90
   day_end: 110
+  kill_note: "Dropped 2026-08-06. A jurisdictional subset of the EU AI Act reporting surface, which is itself still future-dated. Building the narrower one first inverted the order. Reversal cost: low, it reduces to tags on the wider surface when that ships."
   dependencies:
     - compliance-reports-eu-ai-act
 
@@ -3624,6 +3631,7 @@
   workstream: outward
   day_start: 64
   day_end: 72
+  kill_note: "Dropped 2026-08-06 in the Day 171 audit. The three-week fixture arc did not continue past week one on either side. Reversal cost: low, the format is locked and week one is on record."
   dependencies:
     - d62-scopeblind-fixture-prs
   links:
@@ -3724,6 +3732,7 @@
   workstream: outward
   day_start: 54
   day_end: 72
+  kill_note: "Dropped 2026-08-06. The relationship it was meant to open already opened: that collaborator now carries three merged pull requests of ours and a shared interop repository. An unprompted goodwill batch is what you send before that, not after. Reversal cost: none."
   dependencies:
     - harold-canonical-repo
 
@@ -3734,6 +3743,7 @@
   workstream: outward
   day_start: 54
   day_end: 90
+  kill_note: "Dropped 2026-08-06. Two co-authorship invites posted 2026-04-21 that neither contributor took up. Left open they read as pending obligations on people who declined by silence, which is not a fair thing to keep on a public page. Reversal cost: none, either can be re-offered."
   dependencies:
     - vocab-contributing-lands
 
