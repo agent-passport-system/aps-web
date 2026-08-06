@@ -5,6 +5,28 @@
 
 # ═══ DAY 169 - 2026-08-04 ═══
 
+- id: d166-goose-10885-pretooluseresult-event
+  title: "A second goose proposal asks for a result event with a stable call id, so a denied tool call can be joined to what happened next"
+  description: "goose #10885 proposes emitting a PreToolUseResult event carrying a stable tool_call_id. Without one, a hook that denies a tool call and the downstream record of the outcome cannot be joined by any consumer, which is the difference between a decision that is logged and a decision that is auditable. Filed the day after #10866 and still open."
+  status: done
+  workstream: standards
+  day_start: 166
+  day_end: 166
+  links:
+    - url: "https://github.com/aaif-goose/goose/issues/10885"
+      label: "goose #10885"
+
+- id: d165-goose-8742-closed-as-implemented
+  title: "A governance-hook proposal from April is closed as implemented on a 52,000-star agent runtime"
+  description: "goose #8742, opened in April, argued that cross-org agent deployments need an external interception point before a tool runs. The maintainer closed it stating the plugin hooks system now provides exactly that: an external command hook receives the tool name, arguments, session ID and working directory, and can deny execution. No causal claim is made here and none is available, because the same maintainer noted in May that the hooks work was already merged. The proposal was closed as satisfied, not as the cause. What the close did produce is the follow-up on whether a blocking hook should fail closed."
+  status: done
+  workstream: standards
+  day_start: 165
+  day_end: 165
+  links:
+    - url: "https://github.com/aaif-goose/goose/issues/8742"
+      label: "goose #8742"
+
 - id: d154-mingle-v3-shipped-and-distributed
   title: "Mingle v3 ships end to end in a day: build, deploy, email, landing page and distribution"
   description: "The connection network moved from v2 to v3 in a single arc: reshape, approval, build, deploy, email notifications live, landing page live and corrected, then distribution. Published as mingle-mcp 3.0.0 on npm with the skill inside the tarball at fifteen files, and listed on the MCP registry as io.github.aeoess/mingle 3.0.0, confirmed by an external query rather than by our own console. The registry description took two attempts at 101 characters before landing at 98, which is the small lesson of the day: measure the limit, do not count against it."
