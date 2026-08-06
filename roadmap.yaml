@@ -152,6 +152,14 @@
     - url: "https://www.npmjs.com/package/mingle-mcp"
       label: "mingle-mcp on npm"
 
+- id: d154-capsule-verifier-run-against-scitt-vectors
+  title: "A from-scratch COSE and Merkle verifier is run against the SCITT vectors at tag vectors-ietf126"
+  description: "A verifier written against the specification text rather than against an existing library: its own CBOR codec, RFC 9052 COSE_Sign1 handling and RFC 9162 inclusion proofs, using platform crypto primitives only. Run against the scitt-cose test vectors at tag vectors-ietf126, commit 529515ba, across seven verification stages, each mapped to the specification clause it derives from. Both positive vectors match, including an independent full-tree rebuild that agrees on the inclusion root, and a byte-flip self-attack suite confirms each failure lands at the stage it should. Two limits are recorded rather than papered over: the published suite holds six vectors, and one vector uses a verifiable data structure whose proof profile was outside the committed scope, so its root reconstruction is marked unsupported and the receipt signature is checked over the recorded root instead."
+  status: done
+  workstream: protocol
+  day_start: 154
+  day_end: 154
+
 - id: d154-mingle-v4-fit-and-match-four-review-legs
   title: "A matching layer is designed, attacked from four independent legs, and shipped the same day"
   description: "Beyond the v3 release the same day carried the design and build of the Fit and Match layer: a v3.5 specification for fit exchange, a hostile review leg against it, then Fit and Match builds, four independent review legs, a partial v4, stage three, and the final four-way merge to production with a launch audit after deploy. Recorded as its own item because the release and the matching layer are separate pieces of work that happened to land on the same date."
@@ -349,8 +357,8 @@
   day_end: 2
 
 - id: d169-offered-rerun-executed-and-a-history-that-cannot-be-signed
-  title: "A public offer is honoured and returns a correction to our own record; four claims about our own influence are withdrawn; preparing a contribution surfaces a sign-off problem with no clean fix"
-  description: "A test rig written against a proposed fix in an upstream agent runtime was rerun against the fix that actually merged, honouring an offer made publicly twice and still outstanding. It compiled unmodified and passed every case across two full runs and twenty repetitions per test. The result of keeping the promise was not a finding about their code but a correction to our own public description of the rig: it drives the extension manager directly and never enters the reply loop, so it covers cache invalidation and what a later fetch observes, not behaviour during a running reply, and it does not cover a notification arriving while a tool-list request is in flight. The maintainer covered that race himself with a deterministic two-semaphore test. Separately four claims were corrected during the day, all running toward credit rather than capability: a conformance count in a third party's draft attributed to a source the draft does not cite, three requirements in a maintainer's scope attributed to our comments when timestamps show two came from the maintainer a day earlier and one from the issue author forty-four minutes before us, thanks reported as collective when two contributors had been thanked by name in pull requests we had not opened, and a sentence claiming the rig exercised a guarantee it does not touch. Each failed the same check, which is who said a thing first. Preparing the conformance suite for contribution surfaced a problem with no clean fix: 76 commits, 3 carrying a developer certificate of origin sign-off, and one unsigned commit of real work from an outside contributor whose email no longer resolves to an account, so the standard history rewrite would put his attribution at risk to satisfy a process that exists to record who contributed what. The question was asked rather than guessed, and the contributor was written to directly. The lab proposal merged on 31 July; the repository import and the paperwork are still ahead."
+  title: "The offered rerun runs as aaif-goose/goose#10433, four credit claims are withdrawn, and a 76-commit history turns out to carry 3 sign-offs"
+  description: "A test rig written against a proposed fix in an upstream agent runtime was rerun against the fix that actually merged, honouring an offer made publicly twice and still outstanding. It compiled unmodified and passed every case across two full runs and twenty repetitions per test. The result of keeping the promise was not a finding about their code but a correction to our own public description of the rig: it drives the extension manager directly and never enters the reply loop, so it covers cache invalidation and what a later fetch observes, not behaviour during a running reply, and it does not cover a notification arriving while a tool-list request is in flight. The maintainer covered that race himself with a deterministic two-semaphore test. Separately four claims were corrected during the day, all running toward credit rather than capability: a conformance count in a third party's draft attributed to a source the draft does not cite, three requirements in a maintainer's scope attributed to our comments when timestamps show two came from the maintainer a day earlier and one from the issue author forty-four minutes before us, thanks reported as collective when two contributors had been thanked by name in pull requests we had not opened, and a sentence claiming the rig exercised a guarantee it does not touch. Each failed the same check, which is who said a thing first. Preparing the conformance suite for contribution surfaced a problem with no clean fix: 76 commits, 3 carrying a developer certificate of origin sign-off, and one unsigned commit of real work from an outside contributor whose email no longer resolves to an account, so the standard history rewrite would put his attribution at risk to satisfy a process that exists to record who contributed what. The question was asked rather than guessed, and the contributor was written to directly. The lab proposal merged on 31 July; the repository import and the paperwork are still ahead. Posted as aaif-goose/goose#10433 at 2026-08-04T20:33:31Z. The history being prepared for contribution carries 76 commits with 3 developer-certificate sign-offs, and the one commit from an outside contributor, 381885a, has an author email that resolves to no GitHub account."
   status: done
   workstream: outward
   day_start: 169
@@ -363,7 +371,7 @@
 
 - id: d168-exporter-approved-revocation-gap-opened-composition-boundary-confirmed
   title: "An exporter into an external trust-record format is opened and approved; a gap in our own revocation design is published; a composition boundary is confirmed and then enforced by another project's tests"
-  description: "Fourteen public artifacts. An adapter mapping APS policy decisions into an external trust-record format at its lowest conformance level was opened and approved the same day, with the reviewing maintainer naming the load-bearing property unprompted: an unverified decision cannot become a record that looks appraised, because verification raises before mapping rather than after, and the schema fields an APS decision cannot supply are declared and pinned by a test so the gap cannot drift. This is our records running against their suite, which is the reciprocal of independent implementation rather than that condition met. An issue was opened against our own revocation design stating that a signed revocation gives non-repudiation and not non-equivocation, since a compromised delegator key can sign a second conflicting record with nothing surfacing that both exist; it drew a concrete mechanism within the hour that binds position into the identifier so competing entries at the same sequence are detectable. A contributor spec review merged with all five corrections landed, including one the contributor found himself. An author confirmation on where the composition boundary falls was requested and given: APS defines what a record establishes and how it verifies, a relying mechanism must verify under those rules rather than inherit the result, and acceptance and sufficiency remain the relying mechanism's own. The party who asked recorded it publicly and wrote tests asserting those sentences and that no endorsement is claimed. Fifteen corrections to our own claims were caught during the day, fourteen running toward overstatement and one toward understatement."
+  description: "Fourteen public artifacts. An adapter mapping APS policy decisions into an external trust-record format at its lowest conformance level was opened and approved the same day, with the reviewing maintainer naming the load-bearing property unprompted: an unverified decision cannot become a record that looks appraised, because verification raises before mapping rather than after, and the schema fields an APS decision cannot supply are declared and pinned by a test so the gap cannot drift. This is our records running against their suite, which is the reciprocal of independent implementation rather than that condition met. An issue was opened against our own revocation design stating that a signed revocation gives non-repudiation and not non-equivocation, since a compromised delegator key can sign a second conflicting record with nothing surfacing that both exist; it drew a concrete mechanism within the hour that binds position into the identifier so competing entries at the same sequence are detectable. A contributor spec review merged with all five corrections landed, including one the contributor found himself. An author confirmation on where the composition boundary falls was requested and given: APS defines what a record establishes and how it verifies, a relying mechanism must verify under those rules rather than inherit the result, and acceptance and sufficiency remain the relying mechanism's own. The party who asked recorded it publicly and wrote tests asserting those sentences and that no endorsement is claimed. Fifteen corrections to our own claims were caught during the day, fourteen running toward overstatement and one toward understatement. The exporter shipped as agentrust-io/integrations#86. The composition boundary landed as atvp#10, squash-merged as 83c3cb3 against pinned head d647cfa2. The revocation correction was posted on #46, where the claim had been made; the parameter appears zero times in 0.5.1."
   status: done
   workstream: outward
   day_start: 168
@@ -464,7 +472,7 @@
 
 - id: d159-bernstein-vectors-merged-narrowing-core-claimed
   title: "Anchored canonicalization vectors merged upstream; narrowing verifier core claimed; RFC 8785 key-order divergence filed as a finding"
-  description: "PR 2994 merged at bernstein, the strongest external review surface this project has. The maintainer verified against a fresh checkout before merging and the consuming test moved from 56 passing to 80, one file touched, schema id unchanged. His stated reason for taking these over fixtures he would have written himself was the dual anchoring: a vector anchored to two independent sources catches an implementation drifting in a way a self-derived fixture cannot, because a fixture generated from the code under test agrees with that code by construction. The narrowing verifier core, left explicitly unclaimed on Day 157 so it would not sit blocked, was reserved for us a second time and is now claimed; the design sketch is owed and is convention-setting, so it goes through a full independent adversarial review pass before it is posted. Two forks raised there stay deliberately open: inline scope versus content-addressed reference, and what a hop carrying no recorded scope means. Separately, the RFC 8785 key-order divergence was filed as its own issue rather than reconciled into a vector, at the maintainer's written request that disagreements arrive as findings. The divergence is narrow and was computed against a reference implementation before posting rather than reasoned out: it occurs only when a supplementary-plane property name is compared against a name beginning in U+E000 to U+FFFF, because the high surrogate sorts below that range while the code point sorts above it. Standing rule adopted: every sorting claim is computed against a reference implementation before it is posted."
+  description: "PR 2994 merged at bernstein, the strongest external review surface this project has. The maintainer verified against a fresh checkout before merging and the consuming test moved from 56 passing to 80, one file touched, schema id unchanged. His stated reason for taking these over fixtures he would have written himself was the dual anchoring: a vector anchored to two independent sources catches an implementation drifting in a way a self-derived fixture cannot, because a fixture generated from the code under test agrees with that code by construction. The narrowing verifier core, left explicitly unclaimed on Day 157 so it would not sit blocked, was reserved for us a second time and is now claimed; the design sketch is owed and is convention-setting, so it goes through a full independent adversarial review pass before it is posted. Two forks raised there stay deliberately open: inline scope versus content-addressed reference, and what a hop carrying no recorded scope means. Separately, the RFC 8785 key-order divergence was filed as its own issue rather than reconciled into a vector, at the maintainer's written request that disagreements arrive as findings. The divergence is narrow and was computed against a reference implementation before posting rather than reasoned out: it occurs only when a supplementary-plane property name is compared against a name beginning in U+E000 to U+FFFF, because the high surrogate sorts below that range while the code point sorts above it. Standing rule adopted: every sorting claim is computed against a reference implementation before it is posted. PR #2994 merged 2026-07-25T12:30:24Z, merge commit 3f8d75a6. The key-order finding was filed separately as issue #3105 and computed against rfc8785 0.1.4 before posting: the divergence occurs only when a supplementary-plane name is compared against a name starting in U+E000 to U+FFFF, because the high surrogate sorts below that range while the code point sorts above it. ASCII agrees, and supplementary against anything below U+D800 agrees. The rule that came out of it is that every sorting claim is computed against a reference implementation before it is posted."
   status: done
   workstream: standards
   day_start: 159
@@ -2486,6 +2494,14 @@
   dependencies:
     - d4-community-shows-up
 
+- id: d018-four-run-experiment-on-role-separation
+  title: "A four-run experiment holds the task constant and varies only role separation: error corrections go 0, 2, 5, 5"
+  description: "Four conditions, one task held constant: analyse five agent identity protocols across ten dimensions. Only the division of work changed. Error corrections rose from 0 in the solo baseline to 2 with a coordinating pair and 5 in both separated conditions. Evidence gaps went from none flagged to 44 percent flagged, then 4 percent once the process was tuned. Citation coverage went from roughly 80 percent to 100 percent and stayed there. Overhead fell from 2.5 to 1 down to 0.67 to 1. The informative run is the role swap: the same agent scored 5 out of 10 as researcher and 10 out of 10 as analyst, which points at the role constraint rather than the agent. Two limits belong with the result: the scoring is internal, produced by the same system that ran the conditions, and there is one run per condition, so this is a result and not an effect."
+  status: done
+  workstream: research
+  day_start: 18
+  day_end: 18
+
 - id: substack-launch
   title: "Substack Launch"
   description: "Two Substack articles: Cross-Protocol Bridge + Tesla Social. Social posts across X and LinkedIn."
@@ -2885,6 +2901,14 @@
   links:
     - url: "https://github.com/aeoess/agent-governance-vocabulary/blob/main/CONTRIBUTING.md"
       label: "CONTRIBUTING.md"
+
+- id: d057-contribution-map-across-fifty-nine-threads
+  title: "A contribution map is built across 59 threads and 1,471 comments"
+  description: "A map of who is actually doing the work across the agent-governance threads we track. 59 threads pulled, 29 of them carrying human activity once automated posts are filtered out, 1,471 comments and 73 participants across 10 repositories. Contributions are scored by weighted signal tier rather than comment count, so an embedded code block or a commit reference outranks a short release announcement, and single-word reactions are penalised. The map exists to find the people worth answering, so it records contribution and carries no judgement of any participant."
+  status: done
+  workstream: outward
+  day_start: 57
+  day_end: 57
 
 - id: principal-accountability-reversal
   title: "Principal-Accountability Reversal"
@@ -4725,7 +4749,7 @@
 
 - id: d123-spend-unit-narrowing-guard
   title: "Spend-unit narrowing: a child cannot change the spend unit once a delegation has one"
-  description: "Once a delegation carries a spend unit, a sub-delegation can narrow the amount but cannot change the unit the amount is measured in. A child that switched the unit could otherwise restate the same number against a different denomination and pass an amount check while stepping outside the parent's spend constraint. The guard rejects a unit change at narrowing once a spend dimension exists, with adversarial cases in the vector set. Separately, the action-ref-v1 conformance vectors gained a verification_mode field marking whether each vector is structurally enforced, backward compatible so a reader that omits it treats the vector as enforced, with the JavaScript and Python runners printing a tally; no code path or hash changed for that annotation."
+  description: "Once a delegation carries a spend unit, a sub-delegation can narrow the amount but cannot change the unit the amount is measured in. A child that switched the unit could otherwise restate the same number against a different denomination and pass an amount check while stepping outside the parent's spend constraint. The guard rejects a unit change at narrowing once a spend dimension exists, with adversarial cases in the vector set. Separately, the action-ref-v1 conformance vectors gained a verification_mode field marking whether each vector is structurally enforced, backward compatible so a reader that omits it treats the vector as enforced, with the JavaScript and Python runners printing a tally; no code path or hash changed for that annotation. The first implementation was a bug rather than a boundary preference: a parentUnit default of currency rejected legitimate narrowing, where an unconstrained parent has a child introduce a metered budget, and six passing tests passed only because none exercised that path. The fix gates the guard on the parent actually carrying a spend limit or an explicit unit. Independent verification on a separate instance: 3817 passing, 0 failing, 3 skipped, typecheck clean."
   status: done
   workstream: protocol
   day_start: 123
@@ -4965,6 +4989,30 @@
 
 # DAY 145 - 2026-07-11
 
+- id: d144-no-new-constraint-facet-because-fifteen-is-published
+  title: "No new ConstraintFacet was added, because 15 is a number already on the public record"
+  description: "The pair reconciliation work produced four new mismatch classes and none of them became a ConstraintFacet. The 15-facet count is a published claim, so the new classes live inside the pair verdict instead of quietly raising a number other people may have written down. The one case that maps to an existing facet is emitted through that facet rather than a new one. The cost is a smaller number in a place where a larger one was available."
+  status: done
+  workstream: protocol
+  day_start: 144
+  day_end: 144
+
+- id: d144-go-reproduces-typescript-action-ref-vectors
+  title: "The Go implementation reproduces the TypeScript action_ref vectors, 4 of 4 byte-identical"
+  description: "The Go implementation ran the canonicalization vectors generated by the TypeScript one and reproduced 4 of 4 byte-identical action_ref hex values, with TestActionRefCanonicalVectors passing and the package exiting 0, at loader commit 501e5da. The wording was fixed at the same time as the result: specified in section 4.1, validated by cross-language vectors. Not described as proved, because cross-language agreement on a vector set is evidence about those vectors and not a proof about the algorithm."
+  status: done
+  workstream: protocol
+  day_start: 144
+  day_end: 144
+
+- id: d144-vwe-sprint-lands-as-pr-65
+  title: "The sprint reaches main as PR #65: four branches merged, suite at 4097 tests with 4091 passing"
+  description: "Four branches merged through an integration branch and reached main as PR #65 at commit 1edad8c. What landed: scopeRequired canonicalization with NFC and code-point sort; an optional action_ref slot inside the signed body, mirroring the audience slot; a pair reconciliation module carrying five mismatch reasons and a verdict of reconciled, mismatch or unilateral; a RevocationObservation type; and bundle primitives with a claim-boundary report and a verify-bundle command. Post-merge state measured on a fresh worktree: typecheck exit 0, 4097 tests across 922 suites with 4091 passing, 0 failing and 6 skipped, coverage at line 93.18, branch 83.57, function 89.59, build exit 0."
+  status: done
+  workstream: protocol
+  day_start: 144
+  day_end: 144
+
 - id: d145-four-oh-second-audit
   title: "Day 145: SDK 4.0.0 published after a second audit; threshold verify-before-count and receipt v1.2"
   description: "SDK 4.0.0 on npm. A second adversarial audit of the fix set found real defects behind green suites, patched before release. The major is driven by two shape changes: threshold approval verifies each signature before counting it toward the threshold, changing the exported evaluateThreshold signature, and receipts move from the v1.1 to the v1.2 Merkle construction. Verifier null guards and a fail-closed correction on the governance path also land. On the conformance suite the Go runner now recomputes action_ref for the actionref-canonical vectors and asserts them, four vectors moving from recorded to checked, Go and TypeScript agreeing on the category. The same hardening is merged across the other packages with releases to follow; the MCP threshold change waits on the published SDK."
@@ -5066,8 +5114,8 @@
   day_end: 185
 
 - id: d153-conformance-suite-tagged
-  title: "Conformance suite tagged v0.1.0: a pinnable reference for interop"
-  description: "The conformance corpus took its first release tag so an outside implementer can pin the exact bytes they verified against and cite them, and so interop exchanges target a fixed tag rather than a moving branch. The tag freezes the vector families as they stand, from canonical byte-contract fixtures through signed decision records and adversarial forgery cases. The README states what the tag is and is not: a seed corpus exercised across implementations, not an independent conformance program. Count discipline held under review: one family carries nine files where a reader expected eight, and the ninth was named as a production-derived divergence record, not a runnable vector, rather than left to imply a larger set."
+  title: "Conformance suite tagged v0.1.0 at 4b9dbb0: a pinnable reference for interop"
+  description: "The conformance corpus took its first release tag so an outside implementer can pin the exact bytes they verified against and cite them, and so interop exchanges target a fixed tag rather than a moving branch. The tag freezes the vector families as they stand, from canonical byte-contract fixtures through signed decision records and adversarial forgery cases. The README states what the tag is and is not: a seed corpus exercised across implementations, not an independent conformance program. Count discipline held under review: one family carries nine files where a reader expected eight, and the ninth was named as a production-derived divergence record, not a runnable vector, rather than left to imply a larger set. The tag is v0.1.0 at commit 4b9dbb0."
   status: done
   workstream: protocol
   day_start: 153
