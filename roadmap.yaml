@@ -5,6 +5,21 @@
 
 # ═══ DAY 169 - 2026-08-04 ═══
 
+- id: d109-open-pr-sweep-three-vocab-merges-and-one-held
+  title: "An open-PR sweep merges three registry entries, holds a fourth on a validator failure, and opens a marketplace collaboration"
+  description: "A delegated review of every outstanding pull request, run without a Consilium pass. Three vocabulary merges landed validator-clean at zero errors: #104 proposing cognitive_attestation as a signal_type alongside #93 carrying its rationale, merged together so the cross-reference resolves, with the determinability framework credited to its author and a two-implementation threshold gating any move to canonical; and #105 splitting two different budget_reservation state machines into separately attributed named profiles with a cross-profile map, marked descriptive and pending convergence rather than declared equivalent. #100 was held rather than merged: the substance was good but verified_at was a per-protocol map where the validator wants a single date, so the fix was requested on the thread and the contributor kept the merge. It landed five weeks later. Separately, agent-ecosystem-map #2 merged a marketplace directory listing, with a note proposing APS as the evidence layer under that project's own reputation chain rather than as a competing score."
+  status: done
+  workstream: vocab
+  day_start: 109
+  day_end: 109
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/104"
+      label: "vocab #104 cognitive_attestation"
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/105"
+      label: "vocab #105 budget_reservation profiles"
+    - url: "https://github.com/aeoess/agent-ecosystem-map/pull/2"
+      label: "agent-ecosystem-map #2"
+
 - id: d152-awesome-mcp-servers-listing-merged
   title: "The MCP server is accepted into the largest MCP directory"
   description: "agent-passport-mcp merged into awesome-mcp-servers, listed under agent identity and delegation. The list is the default place people look when they are shopping for MCP tooling, so the entry is a distribution decision rather than a code one. The list owner merged it."
