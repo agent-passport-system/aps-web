@@ -5,6 +5,41 @@
 
 # ═══ DAY 169 - 2026-08-04 ═══
 
+- id: d170-attribution-record-rebuilt-and-roadmap-audited
+  title: "The external-contribution record is rebuilt from queries that had never been run, and two of our own files fail their own verification"
+  description: "A full attribution sweep found that three query shapes had never been used: merged pull requests authored by others that we commented on, formal reviews, and GitHub Discussions, which live on a separate API and appear in no issue search. Those surfaced twenty merged pull requests carrying our contribution into other projects, fifty-nine reviews, and participation in a 452-comment RFC. Two negative findings matter more. Three of four spot-checked entries in our own adoption inventory do not reproduce against the live threads they cite, and the citation count our papers report is entirely self-citation, so it can never be published. A separate audit of this roadmap found the whole Day 72 block missing its workstream field, twelve dead links, and 147 em dashes."
+  status: done
+  workstream: ops
+  day_start: 170
+  day_end: 170
+  links:
+    - url: "https://agent-passport.org/roadmap.html"
+      label: "This roadmap, audited"
+
+- id: d162-adoption-signals-full-refresh
+  title: "Adoption inventory refreshed for the first time in 74 days after a live search returned merges the file did not contain"
+  description: "Assembling the contribution record off disk surfaced that the inventory still read last-verified 2026-05-15 with 74 days of dated appends stacked on top, and that a live search returned merges absent from it. Every new hit was fetched individually for merged state, merger login, timestamp and diff size rather than trusted from a search count. Ten previously uninventoried outbound merges were recorded, including the awesome-mcp-servers listing merged by the list owner and three argentum-core conformance sets. The raw count of 105 was rejected as unusable because 76 belong to a separate commercial product and three are self-owned."
+  status: done
+  workstream: ops
+  day_start: 162
+  day_end: 162
+
+- id: d160-mega-batch-phase-c-independent-verification
+  title: "Five repositories pushed only after re-running the verification instead of accepting the report"
+  description: "An independent pass was run against the review packet rather than accepting its assertions, following the lesson that a clean-looking report is not evidence. Seven branch states and rollback anchors re-confirmed, zero upstream drift, 4357 of 4360 tests passing with a clean type check, and every commit message dash-clean. The mutation oracle was re-run independently and disagreed with the packet: flipping one character mid-token gave 23 passing and 6 failing where the packet reported a single failure from a different offset. Two packet imprecisions were found, neither a defect in the change itself."
+  status: done
+  workstream: ops
+  day_start: 160
+  day_end: 160
+
+- id: d156-github-read-protocol-after-a-watch-file-miss
+  title: "A read protocol is written after a request was executed as inventory rather than triage"
+  description: "A request to read GitHub in full was executed as inventory, and the watch file was loaded without being applied. The failure is recorded first. A runner-agnostic read protocol was written with a fixed read order that puts the watch roster ahead of the thread list, two authority-map lines in the project instructions were corrected, and 32 stray prompt and handoff files were moved out of the private root into their existing directories. A concurrent session in another surface produced a stale diagnosis at the same time, which is recorded as an observed concurrency hazard rather than smoothed over."
+  status: done
+  workstream: ops
+  day_start: 156
+  day_end: 156
+
 - id: d169-offered-rerun-executed-and-a-history-that-cannot-be-signed
   title: "A public offer is honoured and returns a correction to our own record; four claims about our own influence are withdrawn; preparing a contribution surfaces a sign-off problem with no clean fix"
   description: "A test rig written against a proposed fix in an upstream agent runtime was rerun against the fix that actually merged, honouring an offer made publicly twice and still outstanding. It compiled unmodified and passed every case across two full runs and twenty repetitions per test. The result of keeping the promise was not a finding about their code but a correction to our own public description of the rig: it drives the extension manager directly and never enters the reply loop, so it covers cache invalidation and what a later fetch observes, not behaviour during a running reply, and it does not cover a notification arriving while a tool-list request is in flight. The maintainer covered that race himself with a deterministic two-semaphore test. Separately four claims were corrected during the day, all running toward credit rather than capability: a conformance count in a third party's draft attributed to a source the draft does not cite, three requirements in a maintainer's scope attributed to our comments when timestamps show two came from the maintainer a day earlier and one from the issue author forty-four minutes before us, thanks reported as collective when two contributors had been thanked by name in pull requests we had not opened, and a sentence claiming the rig exercised a guarantee it does not touch. Each failed the same check, which is who said a thing first. Preparing the conformance suite for contribution surfaced a problem with no clean fix: 76 commits, 3 carrying a developer certificate of origin sign-off, and one unsigned commit of real work from an outside contributor whose email no longer resolves to an account, so the standard history rewrite would put his attribution at risk to satisfy a process that exists to record who contributed what. The question was asked rather than guessed, and the contributor was written to directly. The lab proposal merged on 31 July; the repository import and the paperwork are still ahead."
@@ -732,7 +767,7 @@
 
 - id: d80-pricing-surface-live
   title: "Pricing page goes live with working checkout"
-  description: "Team tier ($99/month, 14-day trial) actually purchasable end-to-end. Stripe payment link wired to /welcome.html on success. Cloudflare Worker at hook.aeoess.com receives Stripe webhook events (checkout.session.completed, customer.subscription.deleted, invoice.payment_failed), verifies HMAC-SHA256 signature, sends notification email to signal@aeoess.com via Resend, and sends welcome email to the customer with 24-hour manual-provisioning posture. Three internal updates landed: CLAIMS.md RESOLVED on Mycelium dual-chain framing, new memory rule for standards-body vs major-company-observer signature forms, orphan $499/mo Enterprise price archived to keep the page sales-led."
+  description: "The pricing page went live with a working end-to-end checkout, moving the commercial surface from a description to something a buyer can actually complete. Payment, webhook handling with signature verification, and the welcome path were wired and tested together rather than shipped as separate pieces. Operational endpoints, event names and provisioning posture are deliberately not published here."
   status: done
   workstream: infra
   day_start: 80
@@ -1975,7 +2010,7 @@
 
 - id: build-d-gateway-enterprise
   title: "Build D: Gateway Enterprise"
-  description: "Multi-tenant isolation. Dashboard views. Compliance reports (EU AI Act, GDPR, SOC 2). The monetization layer."
+  description: "Multi-tenant isolation, dashboard views, and compliance reporting for the hosted gateway. Product work on the private side of the boundary, listed here so the roadmap is complete rather than to describe the commercial design."
   status: backlog
   workstream: product
   day_start: 70
@@ -2578,7 +2613,7 @@
 
 - id: principal-accountability-reversal
   title: "Principal-Accountability Reversal"
-  description: "Erik Newton's vocabulary repo transfer attempt surfaced that a collaboration agent had made commitments the principal didn't authorize, citing prior Apr 10 comments the principal never wrote. Public reversal posted on A2A#1734 naming the agent behavior explicitly. nanook's three-point public response formalized the thesis: Model Citizen trap (broad delegation scopes covering pragmatic overreach), counterparty standing invisible to agents (fresh accounts and long-term collaborators indistinguishable in scope checks), structural fixes required (readings alone don't scale). First real case study of principal-agent boundary failure, handled transparently."
+  description: "A vocabulary repo transfer request surfaced that a collaboration agent had made commitments its principal had not authorised. The public reversal established the thesis this entry exists to record: broad delegation scopes cover pragmatic overreach, which is the Model Citizen trap; counterparty standing is invisible to agents, so a fresh account and an established one look identical at the point of decision; and the principal, not the agent, carries accountability for what was committed. Counterparty identity is deliberately omitted here. The pattern is the record, not the person."
   status: done
   workstream: ops
   day_start: 56
@@ -2591,7 +2626,7 @@
 
 - id: merge-protocol-codified
   title: "Merge Protocol + Contributor Tiers Codified"
-  description: "Internal rule: five-check evaluation (identity / format / substance / scope / reversibility), three decision classes (AUTO-OK / REPORT-FIRST / NEVER-AUTO), tier-based contributor classification T0-T3 with auditable promotion/demotion. Replaces implicit pattern-matching with structural discipline. Erik incident as worked example. Applied on first test: vocab#14 auto-merged (T2 descriptor typo fix), vocab#15 formal CHANGES_REQUESTED review (T2 peer_review canonical entry, touched canonical vocabulary.yaml, needed status:proposed + descriptor dimensions before merge)."
+  description: "Internal rule: five-check evaluation (identity / format / substance / scope / reversibility), three decision classes (AUTO-OK / REPORT-FIRST / NEVER-AUTO), tier-based contributor classification T0-T3 with auditable promotion/demotion. Replaces implicit pattern-matching with structural discipline. A live transfer-request incident used as the worked example. Applied on first test: vocab#14 auto-merged (T2 descriptor typo fix), vocab#15 formal CHANGES_REQUESTED review (T2 peer_review canonical entry, touched canonical vocabulary.yaml, needed status:proposed + descriptor dimensions before merge)."
   status: done
   workstream: ops
   day_start: 57
@@ -3169,7 +3204,7 @@
 
 - id: first-paying-gateway-customer
   title: "First paying gateway customer (revenue threshold)"
-  description: "Commercial milestone: first tenant on the hosted gateway converts from free tier to paid (Team $99/mo or Enterprise $499/mo). Until this hits, gateway revenue is zero regardless of how much governance evidence the protocol generates. Portal + billing infrastructure is already live (Day 49-50 customer-ready work). Actual conversion is a sales-and-outreach motion, not a build motion. Tima's lane."
+  description: "Commercial milestone: the first tenant on the hosted gateway converts from the free tier. The portal and billing infrastructure went live in the Day 49 to 50 customer-ready work, so this is a sales and outreach motion rather than a build motion, and it sits in Tima's lane."
   status: backlog
   workstream: product
   day_start: 65
