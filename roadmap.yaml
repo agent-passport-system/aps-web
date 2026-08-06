@@ -5047,12 +5047,12 @@
     - url: "https://agent-passport.org/blog.html#day-150-three-passes-ship-ready"
       label: "Day 150 write-up"
 
-- id: d151-v2-ship-matrix-sprint
-  title: "Ship the disclosed gaps: v2 code sprint to match -03"
-  description: "Every -03 claim either runs today or is disclosed in the Implementation Status appendix. The sprint closes the disclosed set: canonicalization migration for the two named emitters through the parked breaking-change review, the shared ReceiptV1 envelope across the three SDKs, a published DecisionRefV1 computation, all seven facets signed in delegation records, and issuance-path narrowing hardening with stricter adapter verification."
+- id: d152-ship-the-disclosed-gaps-sprint
+  title: "Ship the disclosed gaps: closing the Implementation Status set from -03"
+  description: "Revision 03 states, for every claim it makes, whether the code runs today or the gap is disclosed in its Implementation Status appendix. This sprint closes the disclosed set: the canonicalization migration for the two named emitters through the parked breaking-change review, a shared ReceiptV1 envelope across the three SDKs, a published DecisionRefV1 computation, all seven facets signed in delegation records, and issuance-path narrowing hardening with stricter adapter verification. Started the day the revision was submitted, because the appendix is what defines the set."
   status: active
   workstream: protocol
-  day_start: 151
+  day_start: 152
   day_end: 185
 
 - id: d153-conformance-suite-tagged
