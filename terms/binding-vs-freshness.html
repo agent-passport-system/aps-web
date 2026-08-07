@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("aps-theme");if(!t)t="dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Binding vs freshness | Agent Passport System</title>
+<meta name="description" content="Binding says which exact values a decision committed to. Freshness asks whether the state that matters still holds when the approval is used. Canonical APS term page.">
+<link rel="canonical" href="https://agent-passport.org/terms/binding-vs-freshness">
+<meta property="og:title" content="Binding vs freshness | Agent Passport System">
+<meta property="og:description" content="Binding says which exact values a decision committed to. Freshness asks whether the state that matters still holds when the approval is used. Canonical APS term page.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://agent-passport.org/terms/binding-vs-freshness">
+<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://agent-passport.org/assets/images/og-default.png">
+<meta name="twitter:image" content="https://agent-passport.org/assets/images/og-default.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="stylesheet" href="/aps-v2.css?v=150">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTerm","name":"Binding vs freshness","description":"Binding identifies the exact values a decision committed to; freshness concerns whether relevant state still holds when the approval is used.","url":"https://agent-passport.org/terms/binding-vs-freshness","inDefinedTermSet":"https://agent-passport.org/terms/","dateCreated":"2026-08-07"}</script>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S7QVCJGMKR');
+</script>
+<script src="/theme.js" defer></script>
+<script src="/nav.js" defer></script>
+<meta name="theme-color" content="#0A0B08">
+<script src="/gh-stars.js" defer></script>
+</head>
+<body>
+<div class="bg-glow"></div>
+<header class="nav">
+  <div class="brand">
+    <a href="#top"><span class="sq"></span>APS <span style="color:var(--sub)">· Agent Passport System</span></a>
+    <span class="badge"><i></i>Apache 2.0</span>
+  </div>
+  <nav class="nav-links">
+    <a href="https://agent-passport.org/docs.html">Docs</a>
+    <a href="https://agent-passport.org/protocol.html">Spec</a>
+    <a href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a href="https://agent-passport.org/research.html">Research</a>
+    <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+    <a href="https://agent-passport.org/blog.html">Dev Log</a>
+    <a href="https://agent-passport.org/verify.html">Verify</a>
+    <a class="gh" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
+<a class="gh-star" href="https://github.com/aeoess/agent-passport-system" target="_blank" rel="noopener" aria-label="Star on GitHub"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg><span id="ghStarCount">star</span></a>
+  </nav>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button>
+</header>
+
+<!-- MOBILE DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="drawer-scrim" id="drawerScrim"></div>
+  <aside class="drawer-panel" aria-label="Menu">
+    <div class="drawer-head">
+      <span class="badge"><i></i>Apache 2.0</span>
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
+    </div>
+    <a class="dl" href="https://agent-passport.org/docs.html">Docs</a>
+    <a class="dl" href="https://agent-passport.org/protocol.html">Spec</a>
+    <a class="dl" href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a class="dl" href="https://agent-passport.org/research.html">Research</a>
+    <a class="dl" href="https://agent-passport.org/roadmap.html">Roadmap</a>
+    <a class="dl" href="https://agent-passport.org/blog.html">Dev Log</a>
+    <a class="dl" href="https://agent-passport.org/verify.html">Verify</a>
+    <a class="gh-big" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
+  </aside>
+</div>
+<main class="page">
+<article class="term-page" style="max-width:720px;margin:0 auto;padding:48px 20px 64px">
+<h1>Binding vs freshness</h1>
+<p><strong>Binding</strong> says which exact values a decision committed to.
+<strong>Freshness</strong> asks whether the state that matters still holds
+when the approval is used.</p>
+<p>In APS, <code>action_ref</code> binds the action: actor, operation,
+target, exact payload, authority scopes, issue time, nonce.
+<code>decision_ref</code> binds the decision to the action, the evaluated
+authority state, the policy input, the decision context, and the decision
+output.</p>
+<p>Binding does not make the underlying claims true or keep them true.
+Section 5.4:</p>
+<blockquote><p>"Matching decision_ref values establish that the same
+component digests were named. They do not establish that the policy was
+correct, the inputs were complete, or the underlying claims were
+true."</p></blockquote>
+<p>The world can change after approval while every digest still
+verifies.</p>
+<p>At consumption, the boundary MUST re-validate what can have changed since
+issuance, explicitly including revocation status and temporal validity; an
+already consumed, expired, or stale approval MUST NOT admit dispatch. Spend
+follows a different mechanism: reserved at approval, settled at completion.
+When verification policy depends on referenced evidence, the verifier
+resolves it and checks the exact bytes; failed resolution classifies as
+invalid, indeterminate, or unsupported, and must not be collapsed into
+valid.</p>
+<p>A matching binding proves continuity of the commitments, not freshness of
+the world they describe.</p>
+<p>The distinction is old. This page fixes the APS vocabulary for it and the
+line drawn by draft-pidlisnyi-aps.</p>
+<p style="margin-top:32px;font-size:.85rem;color:var(--sub)">
+Spec: draft-pidlisnyi-aps-03 (published 2026-07-18), sections 3.5, 4.1, 4.3,
+5.3.2, 5.4, 5.5, 5.6<br>
+Canonical: https://agent-passport.org/terms/binding-vs-freshness<br>
+First published: 2026-08-07</p>
+</article>
+</main>
+<footer class="r">
+      <div class="foot-grid">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px">
+            <span class="sq"></span>
+            <span class="mono" style="font-size:14px; font-weight:500">Agent Passport System</span>
+          </div>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:8px">Open-source infrastructure to enforce, verify, and audit AI agent actions.</p>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:18px">The conformance suite is yours to fork.</p>
+          <a class="mono" href="mailto:signal@aeoess.com" style="display:inline-block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg); border:1px solid var(--line2); padding:9px 16px; border-radius:2px">Contact ↗</a>
+        </div>
+        <div>
+          <div class="head">Protocol</div>
+          <div class="links">
+            <a href="https://agent-passport.org/docs.html">Documentation</a>
+            <a href="https://agent-passport.org/protocol.html">Protocol</a>
+            <a href="https://agent-passport.org/threat-model.html">Threat model</a>
+            <a href="https://agent-passport.org/faq.html">FAQ</a>
+            <a href="https://agent-passport.org/verify.html">Verify a bundle</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Developers</div>
+          <div class="links">
+            <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
+            <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
+            <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
+            <a href="https://agent-passport.org/wallet.html">Agent Wallet</a>
+            <a href="https://agent-passport.org/AGENTS.md">AGENTS.md</a>
+            <a href="https://agent-passport.org/llms.txt">llms.txt</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Community</div>
+          <div class="links">
+            <a href="https://agent-passport.org/blog.html">Dev Log</a>
+            <a href="https://agent-passport.org/verify.html">Verify</a>
+            <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+            <a href="https://agent-passport.org/working-group.html">Working group</a>
+            <a href="https://agent-passport.org/media.html">Media</a>
+            <a href="https://agent-passport.org/research.html">Research</a>
+          </div>
+        </div>
+      </div>
+      <div class="foot-base" style="justify-content:flex-start; gap:16px 56px">
+        <span><em class="fbk">License</em>Code Apache 2.0</span>
+        <span><em class="fbk">Editor</em>Tymofii Pidlisnyi</span>
+        <span><em class="fbk">Spec</em>draft-pidlisnyi-aps (IETF Internet-Draft)</span>
+        <span><em class="fbk">Imprint</em>Vol. 01 · 2026 · agent-passport.org</span>
+        <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
+      </div>
+    </footer>
+</body>
+</html>

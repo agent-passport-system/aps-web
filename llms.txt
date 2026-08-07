@@ -79,3 +79,7 @@ MCP server (agent-passport-system-mcp 4.0.0): 150 tools over stdio; supports MCP
 - [Storage SQLite package](https://www.npmjs.com/package/@aeoess/storage-sqlite): production single-gateway persistence with WAL mode
 - [Mingle MCP package](https://www.npmjs.com/package/mingle-mcp): standalone MCP server for the matching service
 - [Author homepage](https://tymofii.me): Tymofii Pidlisnyi
+
+## Terms
+
+- Binding vs freshness: cryptographic commitment to decision inputs is not freshness at use time; binding does not establish truth or continued truth. https://agent-passport.org/terms/binding-vs-freshness

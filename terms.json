@@ -1,0 +1,14 @@
+{
+  "terms": [
+    {
+      "term": "binding-vs-freshness",
+      "label": "Binding vs freshness",
+      "definition": "Binding identifies the exact values a decision committed to; freshness concerns whether relevant state still holds when the approval is used.",
+      "canonical_url": "https://agent-passport.org/terms/binding-vs-freshness",
+      "spec": "draft-pidlisnyi-aps-03",
+      "spec_published": "2026-07-18",
+      "sections": ["3.5", "4.1", "4.3", "5.3.2", "5.4", "5.5", "5.6"],
+      "first_published": "2026-08-07"
+    }
+  ]
+}
