@@ -94,7 +94,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">446 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">449 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -110,7 +110,43 @@
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(411)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(414)</span></h2>
+<article class="rm-item rm-item-done" id="d172-first-comment-to-certification-wg">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A first comment to a certification working group: two timing observations, no self-citation</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 172</span> 
+<span class="rm-item-ws">Standards</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A 169-word comment on a proposed agent-tool identity and provenance control, the first contact with that body. Two observations: the requirement mandates refusing revoked tools but never states when revocation is checked, so an establishment-only implementation passes every listed scenario; and no case covers verification that cannot be completed, so an agent treating an unreachable registry as still-fine also passes. Both are framed as making the working group's own text explicit rather than adding requirements. The draft cited our own Internet-Draft as prior art; the posted version cites only OpenID Shared Signals/CAEP, deployed and vendor-neutral, because a first comment to a consensus body should not arrive selling anything. Byte-verified against the approved draft after posting.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/appdefensealliance/ASA-WG/pull/437#issuecomment-5222983848">ASA-WG PR 437 comment</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d172-first-term-page-three-layers">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The first protocol term page ships in three layers: human page, llms.txt line, structured terms.json</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 172</span> 
+<span class="rm-item-ws">outward</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">binding-vs-freshness is live at agent-passport.org/terms/binding-vs-freshness as a two-hundred-word canonical page with DefinedTerm structured data, a one-line entry in a new Terms section of llms.txt, and a machine-readable record in terms.json. Two review rounds reshaped it from a standards memo into a term page; the sentence that survived both is that a matching binding proves continuity of the commitments, not freshness of the world they describe. The page pins draft-pidlisnyi-aps-03, published 2026-07-18, seven sections from 3.5 to 5.6, and states what binding does not establish: policy correctness, input completeness, or the truth of the underlying claims. The template now governs fourteen further terms.</p>
+<ul class="rm-item-links"><li><a href="https://agent-passport.org/terms/binding-vs-freshness">terms/binding-vs-freshness</a></li><li><a href="https://agent-passport.org/terms.json">terms.json</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d172-lab-first-outside-cycle-complete">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The lab's first outside contribution cycle completes: reviewed under the posted rules, corrected at source, merged</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 171–172</span> 
+<span class="rm-item-ws">Standards</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">An external pull request adding cross-implementation receipt vectors went through the conformance lab's full cycle: review under the published rules, an on-thread correction where our own characterisation of a canonicalisation package failed against RFC 8785 read at source, and merge as bdd6691. The companion issue closed the same day. The contributed vector stands with no bytes changed and unchanged scoring; the only correction in the cycle was to our review, made by us on the public thread. This is the first time an outside contributor's work has crossed the lab end to end.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/13">suite PR #13</a></li><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/issues/14">suite issue #14</a></li></ul>
+</article>
 <article class="rm-item rm-item-done" id="d170-lfdt-agreement-resolved-no-agreement-for-a-lab">
 <header class="rm-item-h">
 <h3 class="rm-item-title">The contribution agreement question is answered: a lab sits outside the process the agreement belongs to</h3>

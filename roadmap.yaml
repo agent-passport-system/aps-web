@@ -1,7 +1,46 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-08-04 (Day 169). Day 169 added: the offered rerun executed and the public scope correction, four credit-direction corrections, and the sign-off problem found while preparing the conformance contribution.
+# Last updated: 2026-08-07 (Day 172). Day 172 added: the lab's first outside contribution cycle merged, the first protocol term page in three layers, and a first comment to a certification working group.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 172 - 2026-08-07 ═══
+
+- id: d172-lab-first-outside-cycle-complete
+  title: "The lab's first outside contribution cycle completes: reviewed under the posted rules, corrected at source, merged"
+  description: "An external pull request adding cross-implementation receipt vectors went through the conformance lab's full cycle: review under the published rules, an on-thread correction where our own characterisation of a canonicalisation package failed against RFC 8785 read at source, and merge as bdd6691. The companion issue closed the same day. The contributed vector stands with no bytes changed and unchanged scoring; the only correction in the cycle was to our review, made by us on the public thread. This is the first time an outside contributor's work has crossed the lab end to end."
+  status: done
+  workstream: standards
+  day_start: 171
+  day_end: 172
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/13"
+      label: "suite PR #13"
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/issues/14"
+      label: "suite issue #14"
+
+- id: d172-first-term-page-three-layers
+  title: "The first protocol term page ships in three layers: human page, llms.txt line, structured terms.json"
+  description: "binding-vs-freshness is live at agent-passport.org/terms/binding-vs-freshness as a two-hundred-word canonical page with DefinedTerm structured data, a one-line entry in a new Terms section of llms.txt, and a machine-readable record in terms.json. Two review rounds reshaped it from a standards memo into a term page; the sentence that survived both is that a matching binding proves continuity of the commitments, not freshness of the world they describe. The page pins draft-pidlisnyi-aps-03, published 2026-07-18, seven sections from 3.5 to 5.6, and states what binding does not establish: policy correctness, input completeness, or the truth of the underlying claims. The template now governs fourteen further terms."
+  status: done
+  workstream: outward
+  day_start: 172
+  day_end: 172
+  links:
+    - url: "https://agent-passport.org/terms/binding-vs-freshness"
+      label: "terms/binding-vs-freshness"
+    - url: "https://agent-passport.org/terms.json"
+      label: "terms.json"
+
+- id: d172-first-comment-to-certification-wg
+  title: "A first comment to a certification working group: two timing observations, no self-citation"
+  description: "A 169-word comment on a proposed agent-tool identity and provenance control, the first contact with that body. Two observations: the requirement mandates refusing revoked tools but never states when revocation is checked, so an establishment-only implementation passes every listed scenario; and no case covers verification that cannot be completed, so an agent treating an unreachable registry as still-fine also passes. Both are framed as making the working group's own text explicit rather than adding requirements. The draft cited our own Internet-Draft as prior art; the posted version cites only OpenID Shared Signals/CAEP, deployed and vendor-neutral, because a first comment to a consensus body should not arrive selling anything. Byte-verified against the approved draft after posting."
+  status: done
+  workstream: standards
+  day_start: 172
+  day_end: 172
+  links:
+    - url: "https://github.com/appdefensealliance/ASA-WG/pull/437#issuecomment-5222983848"
+      label: "ASA-WG PR 437 comment"
 
 # ═══ DAY 169 - 2026-08-04 ═══
 
