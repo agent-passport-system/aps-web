@@ -1,7 +1,89 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-08-07 (Day 172). Day 172 added: the lab's first outside contribution cycle merged, the first protocol term page in three layers, and a first comment to a certification working group.
+# Last updated: 2026-08-12 (Day 177). Days 173 to 177 added: a competition entry built under evidence lanes, a scan pass that opened eight decisions, the first outside contribution to the SDK, a registry rename decided against a resolver census, a sign-off check enabled mid-review, a cross-implementation corpus reproduced in full, and the canonical domain moved to an edge certificate while its authorization clears.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 177 - 2026-08-12 ═══
+
+- id: d177-dco-check-enabled-mid-review
+  title: "A sign-off check went live mid-review, and the reasoning that dismissed it was wrong in a nameable way"
+  description: "A DCO check appeared on an upstream repository partway through an open pull request. The first read looked at four recently merged pull requests, found no sign-off trailers, and concluded the check was not gating merges. Those pull requests had never been subject to it: the check was enabled that morning, an older commit on the same branch carries twenty-four check runs without it, and every instance found across the repository started the same day. Absence of a signal is not absence of a requirement when the check has not run. Four commits signed off, tree diffed before and after to confirm only trailers moved."
+  status: done
+  workstream: contribution
+
+- id: d177-bilateral-corpus-round-two
+  title: "A cross-implementation corpus reproduced completely, and the five findings were about what the vectors test"
+  description: "Five token digests and lengths, five signatures against the issuer's live key set, eight receipt digests and eight expected error lists all reproduced by running the stated profile rather than reading the published table. The rotation seam held byte-identically against the copy archived a week earlier, recomputed independently from each end. The findings concern coverage rather than correctness: no not-before claim in any token, so the lower-bound vector only rejects for a runner reading sidecar metadata; a malformed key fixture that fails base58 decoding rather than the multicodec check its note describes; a differential policy claim the fixture cannot support without a stated policy; and an identifier that no longer commits to signer identity, proved by minting two signers over one body."
+  status: done
+  workstream: conformance
+
+- id: d177-receipt-id-content-addressed
+  title: "Receipt identifiers are content-addressed on both sides, and ours had been for a round without saying so"
+  description: "The APS receipt identifier preimage excludes signatures, so two valid signers over the same body produce the same identifier. That is what makes wrong-signer separable from tampered-content, and it also means the identifier names unsigned receipt content rather than a signer-bound object. It matters anywhere the identifier is used for deduplication, as a database key, as a reference, or as a revocation target. Recorded as a fourth place the two profiles differ, and flagged for the next draft revision, which currently says nothing either way."
+  status: done
+  workstream: protocol
+
+- id: d177-site-certificate-bridge
+  title: "The canonical domain's certificate would not reissue, so it now terminates at an edge certificate while the host clears the authorization"
+  description: "The certificate expired and the host-side authorization state stayed bad through a domain detach and re-add at three wait intervals and through deleting and recreating the site. Everything checkable was clean: records identical across four public resolvers and the authoritative nameservers, no certificate authority restriction at the apex, the challenge path reachable and unredirected, and a second domain on the same account holding a valid certificate throughout. The domain now serves from an edge certificate as a bridge, with the redirect setting that caused the original interception left off so the host can complete its order. Twenty-five hours down."
+  status: done
+  workstream: infrastructure
+
+# ═══ DAY 176 - 2026-08-11 ═══
+
+- id: d176-rename-clean-cut-over-alias
+  title: "A registry rename decided against a resolver census rather than a preference"
+  description: "A contributor project renamed itself and the registry had to choose between carrying both names and cutting cleanly. A census of external resolvers for the old registry key returned zero hits outside the repository, so an alias would have preserved compatibility with nothing while permanently doubling what every future reader reconciles. Clean cut with a rename ledger entry. The contributor authors his own crosswalk file; cross-references and regenerated material land in a maintainer commit so the cut is atomic."
+  status: done
+  workstream: vocabulary
+
+- id: d176-signal-type-gate-holds
+  title: "The first term to test the two-implementation gate shipped proposed, not canonical"
+  description: "The signal-type status rule requires two independent implementations before a term can be called canonical. One exists. The term ships as proposed with a review date attached, which is the honest state. The gate was applied to a friendly contributor's work on the first term that tested it, which is the only circumstance under which a gate means anything."
+  status: done
+  workstream: vocabulary
+
+# ═══ DAY 175 - 2026-08-10 ═══
+
+- id: d175-first-outside-sdk-contribution
+  title: "The first outside contribution to the SDK was a correction to a claim we shipped wrong"
+  description: "An environment capture function emitted a specification section reference for a case the specification does not cover, while the neighbouring case correctly emitted nothing. The inconsistency had been open as an issue since May. An outside contributor fixed it in one line and it merged the same hour. The originating issue closed with a note stating what the overclaim was, because a silent close would leave the record implying the problem was theoretical."
+  status: done
+  workstream: sdk
+
+- id: d175-norms-precision-split
+  title: "A canonicalisation requirement split into two obligations instead of being argued as unclear"
+  description: "A norms document stated a canonicalisation requirement in a way that conflated two separate obligations. The reply proposed splitting them rather than describing the sentence as ambiguous. The counterparty adopted the split as proposed and characterised the original as wrong rather than imprecise."
+  status: done
+  workstream: standards
+
+- id: d175-hook-lifecycle-event-upstream
+  title: "A pre-tool result event and a stable call identifier opened upstream, across both agent loops"
+  description: "An implementation of a previously proposed event: a result emitted for the pre-tool hook chain on both the allow and deny paths, plus an identifier carried consistently across the lifecycle so a decision and its outcome can be joined. Both agent loops covered. A later commit extended the same lifecycle to the recipe final-output path, which had been bypassing the hook wrapper because its operation is registered ahead of the ordinary tool path."
+  status: done
+  workstream: contribution
+
+# ═══ DAY 174 - 2026-08-09 ═══
+
+- id: d174-scan-pass-three-decisions-opened
+  title: "A three-pass scan exhausted its open lists and put eight decisions up, none of which closed that day"
+  description: "The third pass cleared the carried items from the first two. Two Internet-Drafts cleared the mechanical engagement trigger on credited categories, an opening in a proxy project was proven across all two hundred and forty-seven open issue bodies, and one withheld row closed as not qualifying once the staged document was fetched directly. A directory listing merged, which is a distribution channel and not an adoption signal, and is recorded that way. Eight decisions were put up and none were taken, which is the honest characterisation of the day."
+  status: done
+  workstream: ops
+
+# ═══ DAY 173 - 2026-08-08 ═══
+
+- id: d173-competition-entry-tense-partitioned
+  title: "A competition entry built under evidence lanes, where every claim declares its tense"
+  description: "Every block carries a lane: exists, fixture, proposed, planned. Across three adversarial rounds the partition caught a version number for a release that does not exist as stable, a delegated-action example described more favourably than the artifact supports, and a rollback framed as revocation when a real rollback is a compensating action executed under its own delegation. The evidence fixture was audited from a fresh clone rather than the working tree: one intact bundle verifies clean and three tampered variants fail at member digests, at authority chain scope widening, and at audience binding, each with its own exit code."
+  status: done
+  workstream: research
+
+- id: d173-contributor-cluster-reviews
+  title: "Three reviews on a contributor cluster, including one that blocked"
+  description: "A crosswalk described a signing path in a way that did not match the implementation it was describing, verified against that project's own source. The review blocked. Blocking a contributor whose work you want is uncomfortable and is the entire function of having posted rules rather than posted intentions."
+  status: done
+  workstream: vocabulary
 
 # ═══ DAY 172 - 2026-08-07 ═══
 
