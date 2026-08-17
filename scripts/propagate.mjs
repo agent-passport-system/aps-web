@@ -1060,7 +1060,22 @@ const RECOVERY_SKIP = [
   { suffix: 'aps-web/threat-model.html', variable: 'TEST_COUNT' },
   { suffix: 'aps-web/llms-full.txt', variable: 'MCP_TOOL_COUNT' },
   { suffix: 'agent-passport-mcp/README.md', variable: 'MCP_TOOL_COUNT' },
+  // SDK README "slim profile that presents 26 tools" is a subset count
+  // (2026-08-17 incident: recovery rewrote it to the canonical 150).
+  { suffix: 'agent-passport-system/README.md', variable: 'MCP_TOOL_COUNT' },
 ];
+// Recovery is a blunt instrument: the verify regexes match any "N tests" /
+// "N tools". A found value far below the canonical total is almost always a
+// per-section or subset count the skiplist has not learned yet, never a
+// stale canonical (canonical counts move by small deltas). Refuse to
+// auto-rewrite those; report them for manual review instead.
+const RECOVERY_MIN_RATIO = 0.5;
+function isRecoveryPlausible(d) {
+  const found = Number(String(d.found).replace(/,/g, ''));
+  const expected = Number(String(d.expected).replace(/,/g, ''));
+  if (!Number.isFinite(found) || !Number.isFinite(expected) || expected <= 0) return true;
+  return found / expected >= RECOVERY_MIN_RATIO;
+}
 function isRecoverySkip(filePath, variable) {
   return RECOVERY_SKIP.some(
     (s) => filePath.endsWith(s.suffix) && (s.variable === '' || s.variable === variable),
@@ -1069,9 +1084,15 @@ function isRecoverySkip(filePath, variable) {
 let recoveryDriftHandled = false;
 if (applyMode && staleCount === 0) {
   const recoveryAllDrifts = verifyConsistency(files, current);
-  const recoveryDrifts = recoveryAllDrifts.filter(
+  const recoveryCandidates = recoveryAllDrifts.filter(
     (d) => RECOVERY_VARS.has(d.variable) && !isRecoverySkip(d.file, d.variable),
   );
+  const recoveryDrifts = recoveryCandidates.filter(isRecoveryPlausible);
+  const implausible = recoveryCandidates.filter((d) => !isRecoveryPlausible(d));
+  for (const d of implausible) {
+    const relPath = relative(REPOS.web + '/..', d.file);
+    console.log(`   ⏸ ${relPath}:${d.line}  ${d.variable} = ${d.found} (expected ${d.expected}) left alone: below RECOVERY_MIN_RATIO, likely a subset count; add to RECOVERY_SKIP or fix by hand`);
+  }
   const skippedFalsePositives = recoveryAllDrifts.filter(
     (d) => RECOVERY_VARS.has(d.variable) && isRecoverySkip(d.file, d.variable),
   ).length;
