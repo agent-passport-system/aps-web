@@ -79,13 +79,14 @@
   <section class="page-hero">
     <div class="eyebrow"><span class="sq"></span><span>Protocol specification</span></div>
     <h1>Protocol overview</h1>
-    <p class="dek">An open protocol for accountable AI agents. Verifiable identity, scoped delegation that can only narrow, enforcement at the boundary, and a signed receipt for every action.</p>
+    <p class="dek">An open protocol for accountable AI agents. Verifiable identity, scoped delegation that narrows per hop, enforcement at the boundary, and a signed receipt for every action.</p>
   </section>
   <article class="prose">
 <section>
   <h2>1. What APS is</h2>
   <p>The Agent Passport System is an open protocol for accountable AI agents. It gives an agent a verifiable identity, ties that identity to the person or company it represents, scopes what the agent is allowed to do, and produces a signed receipt for every action it takes.</p>
   <p>One rule holds the protocol together: authority can only decrease at each transfer point. A login authorizes a session. APS authorizes a specific action, at a specific time, under a specific policy, for a specific principal. The proof travels with the action instead of living in a log someone reads after something breaks.</p>
+  <p id="erratum-2026-08-17"><strong>Erratum, 2026-08-17.</strong> The rule above is what the specification requires, including for spend limits, depth ceilings, and validity windows: a child that drops a bound its parent carries is invalid. The shipped TypeScript and Go verifiers currently compare spend and depth only when both parent and child carry the field, and do not check validity-window containment across hops, so a child that omits a field is not compared. Scope narrowing is enforced as stated. The correction ships as one coordinated change across the SDKs with shared conformance vectors.</p>
   </section>
 
   <section>

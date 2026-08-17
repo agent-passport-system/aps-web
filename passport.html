@@ -166,7 +166,7 @@ const agent = await createPassport({
   <p>Kill switch for live delegations. Revocation cascades: revoking A→B automatically invalidates B→C→D. Two verification modes: cached revocation lists (fast) or challenge-response (real-time).</p>
 
   <h3>3.3 Depth Limits</h3>
-  <p>Control how deep sub-delegation chains can go. Scope can only narrow, never widen. Spend can only decrease, never increase. Prevents unbounded agent-to-agent permission chains.</p>
+  <p>Control how deep sub-delegation chains can go. Scope can only narrow, never widen. The specification requires spend limits to decrease per hop (see the <a href="protocol.html#erratum-2026-08-17">erratum of 2026-08-17</a>). Prevents unbounded agent-to-agent permission chains.</p>
   </section>
 
   <section>

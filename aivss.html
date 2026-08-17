@@ -111,7 +111,7 @@
     </div>
     <div class="aps-card">
       <div class="av-card-h"><span class="av-num">#2</span> Access Control Violation</div>
-      <p>Scope monotonic narrowing enforced at every delegation step. The deterministic gate checks scope on every action. Sub-delegations cannot exceed parent scope. Spend limits can only decrease.</p>
+      <p>Scope monotonic narrowing enforced at every delegation step. The deterministic gate checks scope on every action. Sub-delegations cannot exceed parent scope. The specification says the same for spend limits and depth ceilings and forbids a child that drops a bound its parent carries; the shipped verifiers compare those only when both hops carry the field (see the <a href="protocol.html#erratum-2026-08-17">erratum of 2026-08-17</a>).</p>
       <div class="av-tags"><span class="av-tag inv">INV-2</span><span class="av-tag inv">INV-3</span><span class="av-tag">Layer 1: Delegation</span><span class="av-tag">Layer 5: Policy</span><span class="av-tag">Adversarial: S2</span></div>
     </div>
     <div class="aps-card">

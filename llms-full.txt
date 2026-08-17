@@ -20,6 +20,8 @@ Copyright: 2024-2026 Tymofii Pidlisnyi
 
 The Agent Passport System is the enforcement and accountability layer for the agent economy. It sits on top of whatever identity the agent already has: did:key, did:web, SPIFFE SVIDs, OAuth tokens, or native did:aps. The gateway is both judge and executor. Authority can only decrease at each transfer point. Monotonic narrowing, cascade revocation, data lifecycle, Merkle attribution, signed coordination. Ed25519 cryptography throughout. No blockchain required for the core protocol; multi-chain wallet binding when commerce needs settle to an external chain.
 
+Erratum 2026-08-17: spend, depth and validity-window narrowing are specified but the shipped verifiers compare only when both hops carry the field; scope narrowing is enforced. Details: https://agent-passport.org/protocol.html#erratum-2026-08-17
+
 It answers: when AI agents from different creators, running different models, serving different humans begin to collaborate — who is responsible, under what authority, according to what values, and who benefits?
 
 ## Install
