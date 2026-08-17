@@ -1,7 +1,93 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-08-12 (Day 177). Days 173 to 177 added: a competition entry built under evidence lanes, a scan pass that opened eight decisions, the first outside contribution to the SDK, a registry rename decided against a resolver census, a sign-off check enabled mid-review, a cross-implementation corpus reproduced in full, and the canonical domain moved to an edge certificate while its authorization clears.
+# Last updated: 2026-08-17 (Day 182). Days 178 to 180 added: a single-use race found and closed behind a comment that had promised more than it delivered, a scope default that reaches deeper than it reads, a Rust SDK published as verification only, five port defects the other implementations hide, and three designs that turned out to already be in the specification; 4.3.1 released with the CLI numeric flag fixes; narrowing enforcement claim corrected with a dated erratum.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 180 - 2026-08-15 ═══
+
+- id: d180-cli-numeric-flags-431
+  title: "4.3.1: an explicit zero signs a zero cap, and unparseable numeric flags refuse to sign"
+  description: "The published CLI parsed --limit through two falsy coercions, so --limit 0 signed a delegation with no spend cap; --depth abc serialized NaN as null and removed the depth ceiling. Both fixed and released as 4.3.1 on npm: zero is a value, non-decimal and unparseable numeric flags exit 1 with no artifact written. Verified against the shipped tarball and by executing every cell of the flag matrix independently of the CI gates. Suite at 4,378 registered, 4,377 passing, 1 skipped."
+  status: done
+  workstream: protocol
+  day_start: 180
+  day_end: 180
+  links:
+    - url: "https://www.npmjs.com/package/agent-passport-system"
+      label: "npm 4.3.1"
+
+- id: d180-narrowing-claim-erratum
+  title: "Erratum: the site said spend limits can only decrease; the shipped verifiers only compare when both sides carry the field"
+  description: "The specification forbids a child that drops a bound its parent carries. The shipped TypeScript and Go chain verifiers guard the spend and depth comparisons on both sides being present, so an omitted field skips the check. The AIVSS page and the delegation page description now state the specification rule, the current enforcement, and the gap, dated 2026-08-17. Scope narrowing is enforced and that claim stands."
+  status: done
+  workstream: protocol
+  day_start: 180
+  day_end: 182
+
+# ═══ DAY 179 - 2026-08-14 ═══
+
+- id: d179-rust-sdk-published
+  title: "Rust SDK published, verification only, with a README that states what a pass does not prove"
+  description: "agent-passport-system 0.1.0 on crates.io, Apache-2.0, matching the npm and PyPI package names with the library importable as agent_passport. Verifies passports, delegations, chains and ReceiptV1 across both canonicalization profiles against frozen conformance vectors; creates nothing, with no key generation, signing or issuance. 101 tests, no unsafe code, dependency audit clean across 1216 advisories, and consumer resolution verified from a scratch project rather than from the working tree. The README states the limits: it does not implement the seven-facet authority record of the current draft, chain narrowing is pairwise and incomplete on spend and depth, signatures establish static limits and not consumed state, key admissibility is unchecked, and it is a fourth implementation by the same maintainer rather than independent verification."
+  status: done
+  workstream: protocol
+  day_start: 179
+  day_end: 179
+  links:
+    - url: "https://crates.io/crates/agent-passport-system"
+      label: "crates.io"
+    - url: "https://github.com/aeoess/agent-passport-rust"
+      label: "repository"
+    - url: "https://agent-passport.org/blog.html#day-179-a-rust-sdk-published-and-three-designs-already-written"
+      label: "Day 179 write-up"
+
+- id: d179-port-defects-and-gate-reproduction
+  title: "Five defects the port surfaced, and a review method that could not have found them"
+  description: "A language with no undefined forces every absent value to be named. Non-string scope entries were silently dropped instead of rejected; fractional depths flowed through a float accessor so a chain of minus one point five to minus zero point five satisfied the increment rule; clock skew was unbounded with unchecked arithmetic on both boundaries; and a shipped test claiming to cover duplicate keys after escape decoding asserted the same literal twice. My own sign-off had reproduced the gates, which proves a gate ran and says nothing about semantics. Named and recorded as a distinct review failure mode."
+  status: done
+  workstream: conformance
+  day_start: 179
+  day_end: 179
+
+- id: d179-narrowing-pairwise-gap
+  title: "Chain narrowing is checked pairwise and skips when either side omits the field"
+  description: "Each hop compares a child against the link immediately before it, and every comparison is guarded on both sides carrying the constraint. A link omitting a spend limit or depth ceiling removes the comparison rather than widening anything itself, so the descendant below is measured against nothing. Expiry already refuses this in both implementations, with the reasoning in the source comment. Three dimensions lack the rule. The specification already covers all of it: an unbounded child under a bounded parent is invalid, a missing facet is invalid rather than an implicit unconstrained value, depth decrements per hop, and child validity intervals are contained in their parent's. The gap is implementation, not specification, and the draft's implementation status appendix has stated the wire format lag in public since July."
+  status: in_progress
+  workstream: protocol
+  day_start: 179
+
+# ═══ DAY 178 - 2026-08-13 ═══
+
+- id: d178-single-use-race-closed
+  title: "A single-use guard that held sequentially and lost under concurrency, closed"
+  description: "A type exported by the SDK carries a comment stating each approval can be used exactly once. The implementation behind it read the consumed flag, awaited a lock, then set the flag, with no re-read in between. Two concurrent dispatches against one approval both executed; the sequential control denied the second with the replay error, which is what makes it a race rather than a missing check. Closed by re-reading inside the serialized section, probe confirms two to one, full suite 522 passing across 163 suites. Severity calibrated rather than inflated: the path is reachable from no route, imported by no other file, and shipped in the public SDK only as a stub that throws. Defect real, exposure nil."
+  status: done
+  workstream: protocol
+  day_start: 178
+  day_end: 178
+
+- id: d178-two-phase-claim-withdrawn
+  title: "The enforcement path runs single-phase, so the two-phase claim comes off every surface"
+  description: "The deployed configuration evaluates, returns a verdict, and commits spend in one step. The specified model where an approval is minted and then separately consumed before dispatch is not what runs. Recorded as a hard constraint on public language: nothing describes the enforcement here as two-phase, as issuing consumable approvals, or as preventing replay at dispatch, until it is built or the sentence changes. An implementation behind a coherent specification is an ordinary state; describing the gap as closed is not."
+  status: in_progress
+  workstream: protocol
+  day_start: 178
+
+- id: d178-scope-default-depth-unbounded
+  title: "An unqualified parent scope authorizes arbitrarily deep descendants under the default interpretation"
+  description: "Granting the scope code authorizes code:delete, code:exec and code:deploy:prod, with containment unbounded in depth, under the interpretation that applies when none is set. The reverse direction is correctly closed, so the matcher behaves as specified and the finding is about the default rather than a defect. Consequence for issuers: an unqualified parent scope is broader than it reads, and the effective attack is a request for something modest that already contains the target rather than a request for the target."
+  status: done
+  workstream: protocol
+  day_start: 178
+  day_end: 178
+
+- id: d178-upstream-assignment-and-two-more-defects
+  title: "Assigned upstream to the issue the open change implements, with two further defects closed"
+  description: "A maintainer assigned the originating issue, so the implementation is carried rather than volunteered. Two more defects landed on top, both leaving a tool request with no response: a permission denial swallowed between an operation matcher recognising only one variant and a fallback reserving every active call, and two final-output calls in one block each treating the other as unfinished. Two narrowing conditions, 18 lines added across 2 files. The test asserts a bijection over the transcript, each request appearing once with exactly one response and no orphans, which is a stronger invariant than the four individual cases that exercise it."
+  status: done
+  workstream: contribution
+  day_start: 178
+  day_end: 178
 
 # ═══ DAY 177 - 2026-08-12 ═══
 
@@ -10,24 +96,32 @@
   description: "A DCO check appeared on an upstream repository partway through an open pull request. The first read looked at four recently merged pull requests, found no sign-off trailers, and concluded the check was not gating merges. Those pull requests had never been subject to it: the check was enabled that morning, an older commit on the same branch carries twenty-four check runs without it, and every instance found across the repository started the same day. Absence of a signal is not absence of a requirement when the check has not run. Four commits signed off, tree diffed before and after to confirm only trailers moved."
   status: done
   workstream: contribution
+  day_start: 177
+  day_end: 177
 
 - id: d177-bilateral-corpus-round-two
   title: "A cross-implementation corpus reproduced completely, and the five findings were about what the vectors test"
   description: "Five token digests and lengths, five signatures against the issuer's live key set, eight receipt digests and eight expected error lists all reproduced by running the stated profile rather than reading the published table. The rotation seam held byte-identically against the copy archived a week earlier, recomputed independently from each end. The findings concern coverage rather than correctness: no not-before claim in any token, so the lower-bound vector only rejects for a runner reading sidecar metadata; a malformed key fixture that fails base58 decoding rather than the multicodec check its note describes; a differential policy claim the fixture cannot support without a stated policy; and an identifier that no longer commits to signer identity, proved by minting two signers over one body."
   status: done
   workstream: conformance
+  day_start: 177
+  day_end: 177
 
 - id: d177-receipt-id-content-addressed
   title: "Receipt identifiers are content-addressed on both sides, and ours had been for a round without saying so"
   description: "The APS receipt identifier preimage excludes signatures, so two valid signers over the same body produce the same identifier. That is what makes wrong-signer separable from tampered-content, and it also means the identifier names unsigned receipt content rather than a signer-bound object. It matters anywhere the identifier is used for deduplication, as a database key, as a reference, or as a revocation target. Recorded as a fourth place the two profiles differ, and flagged for the next draft revision, which currently says nothing either way."
   status: done
   workstream: protocol
+  day_start: 177
+  day_end: 177
 
 - id: d177-site-certificate-bridge
   title: "The canonical domain's certificate would not reissue, so it now terminates at an edge certificate while the host clears the authorization"
   description: "The certificate expired and the host-side authorization state stayed bad through a domain detach and re-add at three wait intervals and through deleting and recreating the site. Everything checkable was clean: records identical across four public resolvers and the authoritative nameservers, no certificate authority restriction at the apex, the challenge path reachable and unredirected, and a second domain on the same account holding a valid certificate throughout. The domain now serves from an edge certificate as a bridge, with the redirect setting that caused the original interception left off so the host can complete its order. Twenty-five hours down."
   status: done
   workstream: infrastructure
+  day_start: 177
+  day_end: 177
 
 # ═══ DAY 176 - 2026-08-11 ═══
 
@@ -36,12 +130,16 @@
   description: "A contributor project renamed itself and the registry had to choose between carrying both names and cutting cleanly. A census of external resolvers for the old registry key returned zero hits outside the repository, so an alias would have preserved compatibility with nothing while permanently doubling what every future reader reconciles. Clean cut with a rename ledger entry. The contributor authors his own crosswalk file; cross-references and regenerated material land in a maintainer commit so the cut is atomic."
   status: done
   workstream: vocabulary
+  day_start: 176
+  day_end: 176
 
 - id: d176-signal-type-gate-holds
   title: "The first term to test the two-implementation gate shipped proposed, not canonical"
   description: "The signal-type status rule requires two independent implementations before a term can be called canonical. One exists. The term ships as proposed with a review date attached, which is the honest state. The gate was applied to a friendly contributor's work on the first term that tested it, which is the only circumstance under which a gate means anything."
   status: done
   workstream: vocabulary
+  day_start: 176
+  day_end: 176
 
 # ═══ DAY 175 - 2026-08-10 ═══
 
@@ -50,18 +148,24 @@
   description: "An environment capture function emitted a specification section reference for a case the specification does not cover, while the neighbouring case correctly emitted nothing. The inconsistency had been open as an issue since May. An outside contributor fixed it in one line and it merged the same hour. The originating issue closed with a note stating what the overclaim was, because a silent close would leave the record implying the problem was theoretical."
   status: done
   workstream: sdk
+  day_start: 175
+  day_end: 175
 
 - id: d175-norms-precision-split
   title: "A canonicalisation requirement split into two obligations instead of being argued as unclear"
   description: "A norms document stated a canonicalisation requirement in a way that conflated two separate obligations. The reply proposed splitting them rather than describing the sentence as ambiguous. The counterparty adopted the split as proposed and characterised the original as wrong rather than imprecise."
   status: done
   workstream: standards
+  day_start: 175
+  day_end: 175
 
 - id: d175-hook-lifecycle-event-upstream
   title: "A pre-tool result event and a stable call identifier opened upstream, across both agent loops"
   description: "An implementation of a previously proposed event: a result emitted for the pre-tool hook chain on both the allow and deny paths, plus an identifier carried consistently across the lifecycle so a decision and its outcome can be joined. Both agent loops covered. A later commit extended the same lifecycle to the recipe final-output path, which had been bypassing the hook wrapper because its operation is registered ahead of the ordinary tool path."
   status: done
   workstream: contribution
+  day_start: 175
+  day_end: 175
 
 # ═══ DAY 174 - 2026-08-09 ═══
 
@@ -70,6 +174,8 @@
   description: "The third pass cleared the carried items from the first two. Two Internet-Drafts cleared the mechanical engagement trigger on credited categories, an opening in a proxy project was proven across all two hundred and forty-seven open issue bodies, and one withheld row closed as not qualifying once the staged document was fetched directly. A directory listing merged, which is a distribution channel and not an adoption signal, and is recorded that way. Eight decisions were put up and none were taken, which is the honest characterisation of the day."
   status: done
   workstream: ops
+  day_start: 174
+  day_end: 174
 
 # ═══ DAY 173 - 2026-08-08 ═══
 
@@ -78,12 +184,16 @@
   description: "Every block carries a lane: exists, fixture, proposed, planned. Across three adversarial rounds the partition caught a version number for a release that does not exist as stable, a delegated-action example described more favourably than the artifact supports, and a rollback framed as revocation when a real rollback is a compensating action executed under its own delegation. The evidence fixture was audited from a fresh clone rather than the working tree: one intact bundle verifies clean and three tampered variants fail at member digests, at authority chain scope widening, and at audience binding, each with its own exit code."
   status: done
   workstream: research
+  day_start: 173
+  day_end: 173
 
 - id: d173-contributor-cluster-reviews
   title: "Three reviews on a contributor cluster, including one that blocked"
   description: "A crosswalk described a signing path in a way that did not match the implementation it was describing, verified against that project's own source. The review blocked. Blocking a contributor whose work you want is uncomfortable and is the entire function of having posted rules rather than posted intentions."
   status: done
   workstream: vocabulary
+  day_start: 173
+  day_end: 173
 
 # ═══ DAY 172 - 2026-08-07 ═══
 
