@@ -43,13 +43,13 @@
   '.apsx-msg{font-size:15px;line-height:1.5;color:#B6FF45;min-height:1.5em}' +
   '.apsx-msg.err{color:#FF8A78}' +
   '.apsx-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}' +
-  '.apsx-pill{position:fixed;right:16px;bottom:16px;z-index:9980;display:flex;align-items:center;gap:10px;padding:6px 10px 6px 6px;border-radius:999px;background:#0C0E08;color:#E9ECDB;border:1px solid #33372A;box-shadow:0 10px 30px rgba(0,0,0,.45);font:600 13px Archivo,system-ui,sans-serif;cursor:pointer;transition:transform .2s}' +
+  '.apsx-pill{position:fixed;right:16px;bottom:33vh;z-index:9980;display:flex;align-items:center;gap:10px;padding:6px 10px 6px 6px;border-radius:999px;background:#0C0E08;color:#E9ECDB;border:1px solid #33372A;box-shadow:0 10px 30px rgba(0,0,0,.45);font:600 13px Archivo,system-ui,sans-serif;cursor:pointer;transition:transform .2s}' +
   '.apsx-pill:hover{transform:translateY(-2px);border-color:#B6FF45}' +
   '.apsx-pill img{width:36px;height:36px;border-radius:50%;object-fit:cover;display:block}' +
   '.apsx-pill b{color:#B6FF45;font-weight:700}' +
   '.apsx-pill .apsx-px{margin-left:4px;width:22px;height:22px;border-radius:50%;border:1px solid #33372A;background:transparent;color:#878B78;font-size:13px;line-height:1;cursor:pointer}' +
   '.apsx-pill .apsx-px:hover{color:#E9ECDB;border-color:#B6FF45}' +
-  '@media (max-width:720px){.apsx-dlg{grid-template-columns:1fr;max-height:calc(100vh - 24px);align-items:start}.apsx-img{width:100%;max-width:100%;height:auto}.apsx-body{padding:22px 20px 20px}.apsx-h{font-size:32px}.apsx-pill{right:12px;bottom:12px}.apsx-pill span.t{display:none}}' +
+  '@media (max-width:720px){.apsx-dlg{grid-template-columns:1fr;max-height:calc(100vh - 24px);align-items:start}.apsx-img{width:100%;max-width:100%;height:auto}.apsx-body{padding:22px 20px 20px}.apsx-h{font-size:32px}.apsx-pill{right:12px;bottom:33vh}.apsx-pill span.t{display:none}}' +
   '@media (prefers-reduced-motion:reduce){.apsx-ov,.apsx-dlg,.apsx-pill{transition:none}}';
 
   var style = document.createElement('style'); style.textContent = css; document.head.appendChild(style);
