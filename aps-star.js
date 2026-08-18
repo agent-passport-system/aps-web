@@ -54,7 +54,7 @@
 
   var style = document.createElement('style'); style.textContent = css; document.head.appendChild(style);
 
-  var ov, dlg, body, pill, step = st.subscribed ? 1 : 1, lastFocus = null;
+  var ov, dlg, body, pill, step = 1, lastFocus = null;
 
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
@@ -72,8 +72,9 @@
         '<div class="apsx-row"><a class="apsx-btn pri" id="apsxStar" href="' + REPO + '" target="_blank" rel="noopener">&#9733; Star on GitHub &#8599;</a><button class="apsx-link" id="apsxSkip" type="button">Skip for now</button></div>' +
         '<div class="apsx-note">github.com/aeoess/agent-passport-system</div>';
       var star = body.querySelector('#apsxStar');
-      star.addEventListener('click', function () { st.starred = Date.now(); save(st); setTimeout(function () { step = 2; render(); }, 250); });
-      body.querySelector('#apsxSkip').addEventListener('click', function () { step = 2; render(); });
+      // After the star, ask for email only if this browser has not subscribed yet.
+      star.addEventListener('click', function () { st.starred = Date.now(); save(st); setTimeout(function () { if (st.subscribed) { minimize(); } else { step = 2; render(); } }, 250); });
+      body.querySelector('#apsxSkip').addEventListener('click', function () { if (st.subscribed) { minimize(); } else { step = 2; render(); } });
       setTimeout(function () { star.focus(); }, 30);
     } else if (step === 2) {
       body.innerHTML =
@@ -131,8 +132,8 @@
     document.addEventListener('keydown', onKey);
     document.body.appendChild(ov);
     if (pill) pill.style.display = 'none';
-    step = st.subscribed ? 1 : (st.starred ? 2 : 1);
-    if (fromPill && st.subscribed) step = 1;
+    // The star ask always comes first, whatever happened on earlier visits.
+    step = 1;
     render();
     requestAnimationFrame(function () { ov.classList.add('on'); });
     st.seenAt = Date.now(); save(st);
