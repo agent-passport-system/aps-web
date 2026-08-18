@@ -4,8 +4,8 @@
   'use strict';
   var REPO = 'https://github.com/aeoess/agent-passport-system';
   var API = '/api/subscribe';
-  var IMG = '/assets/star-aps.webp';
-  var IMG_FALLBACK = '/assets/star-aps.jpg';
+  var IMG = '/assets/star-aps.webp?v=1';
+  var IMG_FALLBACK = '/assets/star-aps.jpg?v=1';
   var KEY = 'aps_star_v1';
   var DAY = 86400000;
 
