@@ -13,7 +13,7 @@
   function save(s) { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {} }
   var st = load();
   var now = Date.now();
-  if (st.hidePillUntil && st.hidePillUntil > now) return; // user hid everything for a while
+  // The pill stays available once the prompt has been closed; no hide state.
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var css = '' +
@@ -155,14 +155,14 @@
     if (pill) { pill.style.display = 'flex'; return; }
     pill = document.createElement('div');
     pill.className = 'apsx-pill'; pill.setAttribute('role', 'button'); pill.setAttribute('tabindex', '0'); pill.setAttribute('aria-label', 'Star APS on GitHub');
-    pill.innerHTML = '<img src="' + IMG_FALLBACK + '" alt="" width="36" height="36"><span class="t"><b>&#9733;</b> Star APS</span><button class="apsx-px" type="button" aria-label="Hide for a week">&#215;</button>';
-    pill.addEventListener('click', function (e) { if (e.target.closest('.apsx-px')) { st.hidePillUntil = Date.now() + 7 * DAY; save(st); pill.remove(); pill = null; return; } open(true); });
+    pill.innerHTML = '<img src="' + IMG_FALLBACK + '" alt="" width="36" height="36"><span class="t"><b>&#9733;</b> Star APS</span>';
+    pill.addEventListener('click', function () { open(true); });
     pill.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(true); } });
     document.body.appendChild(pill);
   }
 
   function boot() {
-    var autoOpen = !st.minimizedAt || (Date.now() - st.minimizedAt > 14 * DAY);
+    var autoOpen = !st.minimizedAt || (Date.now() - st.minimizedAt > 7 * DAY);
     if (st.subscribed && st.starred) autoOpen = false;
     if (autoOpen) setTimeout(function () { open(false); }, 5000);
     else showPill();
