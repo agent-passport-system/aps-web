@@ -94,7 +94,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">470 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">475 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -135,7 +135,67 @@
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(433)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(438)</span></h2>
+<article class="rm-item rm-item-done" id="d182-narrowing-erratum-sitewide">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Narrowing erratum applied across thirteen site files; one dated erratum on the protocol page is the record</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 182</span> 
+<span class="rm-item-ws">outward</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Scope-only claims stayed. The thesis sentence stayed where it states the specification's rule. Short feature lines that asserted broad authority narrowing moved to the scope form; the AIVSS card and the passport page restate spend as a specification requirement and link the erratum. Dated blog and roadmap bodies untouched. Repository description updated the same way.</p>
+<ul class="rm-item-links"><li><a href="https://agent-passport.org/protocol.html#erratum-2026-08-17">erratum</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d182-new-landing-contact-list">
+<header class="rm-item-h">
+<h3 class="rm-item-title">New landing and contact pages, landscape slide with named incumbents, star prompt, double opt-in email list</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 182</span> 
+<span class="rm-item-ws">outward</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Ten-section landing ported from the design runtime to plain HTML plus a small script; the deck's 'delegated authority can only narrow' headline corrected to scope on the way in. Landscape slide names owners per lane: Entra Agent ID, Google Agent Identity, AWS AgentCore Identity, Okta, Auth0; Ping, Okta, Google and AWS agent gateways; ERC-8004 and A2A Agent Cards; AuthZEN, OAuth agent delegation, Cedar; APS on verifiable action authority, attribution and evidence. Contact page hands the message to the visitor's mail client with an unsigned content-hash record. Email updates: double opt-in through a worker that stores no addresses, signed 48-hour confirmation links, one-click unsubscribe.</p>
+<ul class="rm-item-links"><li><a href="https://agent-passport.org/">agent-passport.org</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d182-rackp-session-start-anchor">
+<header class="rm-item-h">
+<h3 class="rm-item-title">rackp worked example revision 2: real SESSION_START anchor over the served profiles</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 182</span> 
+<span class="rm-item-ws">Standards</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">rackp.agent-ops.v1 is served at its canonical URL, byte-identical to the reviewed draft except effective_date. The worked example now opens with a SESSION_START anchor declaring both served profiles with norm_document_hash over the served bytes; routine anchors renumbered and re-timestamped to follow it; sixteen known-answer vectors reproduced, revision 1 reproduced 9 of 9, schema validated, verifier snippet recomputes four hashes and five signatures from a clean process.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/rackp-io/rackp/issues/1">rackp#1</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d182-strict-jcs-explicit-null">
+<header class="rm-item-h">
+<h3 class="rm-item-title">canonicalizeJCS rejects undefined; shipped builders emit explicit null and no signed byte moves</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 182</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Issue #101 asked whether the RFC 8785 canonicalizer could stop coercing undefined to null. A branch census found 11 call sites emitting the coerced null, pinned in the mutual-auth conformance vectors and the accountability bundle fixture. Explicit null at those sites satisfies strictness with byte-identical output; omission would have changed the bytes everywhere. Shipped: the canonicalizer throws naming the path, twenty call sites write explicit null, 51 pinned files unchanged, full-suite trace 514 of 515 outputs identical with the one delta a rewritten adversarial test. Also repairs a wire defect: artifacts signed with an omitted optional verified in-process and failed after a JSON round trip. Core BilateralReceipt keeps the legacy preimage and declares it; fixture READMEs scoped.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/pull/108">PR #108</a></li><li><a href="https://github.com/aeoess/agent-passport-system/issues/101">#101</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d182-vocab-bilateral-receipt-canonical-form">
+<header class="rm-item-h">
+<h3 class="rm-item-title">bilateral_receipt: no term-level canonical byte profile; declared preimage per row, evidence decides</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 182</span> 
+<span class="rm-item-ws">vocab</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The registry entry keeps its declared-preimage text. Definition purity keeps one implementer's algorithm choices out of a canonical definition; the canonical bar asks for compatible emitted shapes plus a checkable vector, not byte-identical output; nothing qualifying is emitted over JCS in evidence yet. Promotion trigger widened from two named implementations to any independent one. No APS crosswalk row until APS emits a signed purpose.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/pull/139">vocab #139</a></li></ul>
+</article>
 <article class="rm-item rm-item-done" id="d180-cli-numeric-flags-431">
 <header class="rm-item-h">
 <h3 class="rm-item-title">4.3.1: an explicit zero signs a zero cap, and unparseable numeric flags refuse to sign</h3>

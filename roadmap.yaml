@@ -1,7 +1,66 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-08-17 (Day 182). Days 178 to 180 added: a single-use race found and closed behind a comment that had promised more than it delivered, a scope default that reaches deeper than it reads, a Rust SDK published as verification only, five port defects the other implementations hide, and three designs that turned out to already be in the specification; 4.3.1 released with the CLI numeric flag fixes; narrowing enforcement claim corrected with a dated erratum.
+# Last updated: 2026-08-17 (Day 182). Day 182 added: strict JCS with explicit null and unchanged bytes plus a wire round-trip defect repaired, the narrowing erratum applied site-wide, the new landing and contact pages with an email list, the rackp SESSION_START anchor, and the bilateral_receipt canonical-form answer.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 182 - 2026-08-17 ═══
+
+- id: d182-strict-jcs-explicit-null
+  title: "canonicalizeJCS rejects undefined; shipped builders emit explicit null and no signed byte moves"
+  description: "Issue #101 asked whether the RFC 8785 canonicalizer could stop coercing undefined to null. A branch census found 11 call sites emitting the coerced null, pinned in the mutual-auth conformance vectors and the accountability bundle fixture. Explicit null at those sites satisfies strictness with byte-identical output; omission would have changed the bytes everywhere. Shipped: the canonicalizer throws naming the path, twenty call sites write explicit null, 51 pinned files unchanged, full-suite trace 514 of 515 outputs identical with the one delta a rewritten adversarial test. Also repairs a wire defect: artifacts signed with an omitted optional verified in-process and failed after a JSON round trip. Core BilateralReceipt keeps the legacy preimage and declares it; fixture READMEs scoped."
+  status: done
+  workstream: protocol
+  day_start: 182
+  day_end: 182
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/pull/108"
+      label: "PR #108"
+    - url: "https://github.com/aeoess/agent-passport-system/issues/101"
+      label: "#101"
+
+- id: d182-narrowing-erratum-sitewide
+  title: "Narrowing erratum applied across thirteen site files; one dated erratum on the protocol page is the record"
+  description: "Scope-only claims stayed. The thesis sentence stayed where it states the specification's rule. Short feature lines that asserted broad authority narrowing moved to the scope form; the AIVSS card and the passport page restate spend as a specification requirement and link the erratum. Dated blog and roadmap bodies untouched. Repository description updated the same way."
+  status: done
+  workstream: outward
+  day_start: 182
+  day_end: 182
+  links:
+    - url: "https://agent-passport.org/protocol.html#erratum-2026-08-17"
+      label: "erratum"
+
+- id: d182-new-landing-contact-list
+  title: "New landing and contact pages, landscape slide with named incumbents, star prompt, double opt-in email list"
+  description: "Ten-section landing ported from the design runtime to plain HTML plus a small script; the deck's 'delegated authority can only narrow' headline corrected to scope on the way in. Landscape slide names owners per lane: Entra Agent ID, Google Agent Identity, AWS AgentCore Identity, Okta, Auth0; Ping, Okta, Google and AWS agent gateways; ERC-8004 and A2A Agent Cards; AuthZEN, OAuth agent delegation, Cedar; APS on verifiable action authority, attribution and evidence. Contact page hands the message to the visitor's mail client with an unsigned content-hash record. Email updates: double opt-in through a worker that stores no addresses, signed 48-hour confirmation links, one-click unsubscribe."
+  status: done
+  workstream: outward
+  day_start: 182
+  day_end: 182
+  links:
+    - url: "https://agent-passport.org/"
+      label: "agent-passport.org"
+
+- id: d182-rackp-session-start-anchor
+  title: "rackp worked example revision 2: real SESSION_START anchor over the served profiles"
+  description: "rackp.agent-ops.v1 is served at its canonical URL, byte-identical to the reviewed draft except effective_date. The worked example now opens with a SESSION_START anchor declaring both served profiles with norm_document_hash over the served bytes; routine anchors renumbered and re-timestamped to follow it; sixteen known-answer vectors reproduced, revision 1 reproduced 9 of 9, schema validated, verifier snippet recomputes four hashes and five signatures from a clean process."
+  status: done
+  workstream: standards
+  day_start: 182
+  day_end: 182
+  links:
+    - url: "https://github.com/rackp-io/rackp/issues/1"
+      label: "rackp#1"
+
+- id: d182-vocab-bilateral-receipt-canonical-form
+  title: "bilateral_receipt: no term-level canonical byte profile; declared preimage per row, evidence decides"
+  description: "The registry entry keeps its declared-preimage text. Definition purity keeps one implementer's algorithm choices out of a canonical definition; the canonical bar asks for compatible emitted shapes plus a checkable vector, not byte-identical output; nothing qualifying is emitted over JCS in evidence yet. Promotion trigger widened from two named implementations to any independent one. No APS crosswalk row until APS emits a signed purpose."
+  status: done
+  workstream: vocab
+  day_start: 182
+  day_end: 182
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/139"
+      label: "vocab #139"
 
 # ═══ DAY 180 - 2026-08-15 ═══
 
