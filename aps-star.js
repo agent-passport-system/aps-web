@@ -155,17 +155,20 @@
     if (pill) { pill.style.display = 'flex'; return; }
     pill = document.createElement('div');
     pill.className = 'apsx-pill'; pill.setAttribute('role', 'button'); pill.setAttribute('tabindex', '0'); pill.setAttribute('aria-label', 'Star APS on GitHub');
-    pill.innerHTML = '<img src="' + IMG_FALLBACK + '" alt="" width="36" height="36"><span class="t"><b>&#9733;</b> Star APS</span>';
-    pill.addEventListener('click', function () { open(true); });
+    pill.innerHTML = '<img src="' + IMG_FALLBACK + '" alt="" width="36" height="36"><span class="t"><b>&#9733;</b> Star APS</span><button class="apsx-px" type="button" aria-label="Hide until next visit">&#215;</button>';
+    pill.addEventListener('click', function (e) { if (e.target.closest('.apsx-px')) { try { sessionStorage.setItem('aps_star_pill_hidden', '1'); } catch (x) {} pill.remove(); pill = null; return; } open(true); });
     pill.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(true); } });
     document.body.appendChild(pill);
   }
 
   function boot() {
-    var autoOpen = !st.minimizedAt || (Date.now() - st.minimizedAt > 7 * DAY);
-    if (st.subscribed && st.starred) autoOpen = false;
-    if (autoOpen) setTimeout(function () { open(false); }, 5000);
-    else showPill();
+    var shownThisVisit = false, pillHidden = false;
+    try { shownThisVisit = sessionStorage.getItem('aps_star_shown') === '1'; pillHidden = sessionStorage.getItem('aps_star_pill_hidden') === '1'; } catch (e) {}
+    if (!shownThisVisit) {
+      setTimeout(function () { try { sessionStorage.setItem('aps_star_shown', '1'); } catch (e) {} open(false); }, 5000);
+    } else if (!pillHidden) {
+      showPill();
+    }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
