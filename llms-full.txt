@@ -724,7 +724,7 @@ This is not a replacement for either spec, not a prescription that all agents ne
 - GitHub repository: https://github.com/aeoess/agent-passport-system
 - Enforcement trust anchor spec (v1.2 feat branch, v1.1 on main): https://github.com/aeoess/agent-passport-system/blob/main/docs/ENFORCEMENT-TRUST-ANCHOR.md
 - Capability token spec (v0.2 feat branch, v0.1 on main): https://github.com/aeoess/agent-passport-system/blob/main/docs/CAPABILITY-TOKEN-SPEC-DRAFT.md
-- Conformance suite (cross-implementation test corpus, 37 fixture vectors across 4 categories): https://github.com/aeoess/aps-conformance-suite
+- Conformance suite (cross-implementation test corpus, 37 fixture vectors across 4 categories): https://github.com/Agent-Authority-Conformance/aps-conformance-suite
 - Governance Attestation predicate (in-toto sibling to Decision Receipt, binds delegation chain root + principal signature + scope narrowing + Values Floor): https://github.com/aeoess/governance-attestation-predicate
 - GitHub MCP server: https://github.com/aeoess/agent-passport-mcp
 - npm Mingle: https://www.npmjs.com/package/mingle-mcp
