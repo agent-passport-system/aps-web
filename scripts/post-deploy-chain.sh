@@ -31,7 +31,10 @@ echo
 SDK_V=$(cat "$SDK/package.json" | python3 -c "import json,sys;print(json.load(sys.stdin)['version'])")
 MCP_V=$(cat "$MCP/package.json" | python3 -c "import json,sys;print(json.load(sys.stdin)['version'])")
 PY_V=$(grep '^version' "$PY/pyproject.toml" | head -1 | sed 's/version = "\(.*\)"/\1/')
-MCP_TOOLS=$(grep -c 'server.tool(' "$MCP/src/index.ts")
+# The MCP server moved to registerTool(); the old server.tool( pattern returns zero,
+# and grep's exit 1 on no-match killed this whole chain under set -e. Count the current
+# API and never let a zero count abort the run.
+MCP_TOOLS=$(grep -c 'server.registerTool(' "$MCP/src/index.ts" || true)
 V2_MODS=$(ls "$SDK/src/v2"/*.ts 2>/dev/null | grep -v test | wc -l | tr -d ' ')
 echo "Canonical:"
 echo "  SDK:    $SDK_V"
