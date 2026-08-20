@@ -11,6 +11,10 @@
 #   ./scripts/self-check-propagation.sh --strict   # exit non-zero on any fail
 #   ./scripts/self-check-propagation.sh --json     # machine-readable output
 #
+# Includes scripts/test-verify-patterns.mjs, which asserts the verify patterns
+# still SEE the drift shapes they are supposed to see. Added 2026-08-20 after a
+# stale "150 MCP tools" was invisible to the verify pass for an unknown period.
+#
 # Spec: see internal propagation spec (self-check audit).
 # Run as part of pre-publish discipline.
 
@@ -27,6 +31,7 @@ done
 
 # Repos in scope (TAT intentionally excluded — separate project)
 WEB="$HOME/aps-web"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SDK="$HOME/agent-passport-system"
 MCP="$HOME/agent-passport-mcp"
 PY="$HOME/agent-passport-python"
@@ -320,7 +325,12 @@ if [ -f "$SDK/package.json" ] && [ "$SDK_TEST_COUNT" != "?" ] && [ "$SDK_TEST_CO
 fi
 
 if [ -f "$MCP/package.json" ]; then
-  mcp_tool_count=$(grep -c 'server.tool(' "$MCP/src/index.ts" 2>/dev/null)
+  # Read the GENERATED manifest, not a grep of call sites. The old line counted
+  # 'server.tool(' and returned 0 after the API moved to registerTool(), so this
+  # check has been silently comparing against zero. Sixth instance of that defect
+  # class on 2026-08-20. The manifest is produced from the live tool registry at
+  # build time and is the count of record.
+  mcp_tool_count=$(jq -r '.count' "$MCP/tools-manifest.json" 2>/dev/null || echo "")
   desc=$(jq -r .description "$MCP/package.json")
   desc_tools=$(echo "$desc" | grep -oE "[0-9]+ tools" | head -1 | grep -oE "[0-9]+")
   if [ -n "$desc_tools" ] && [ "$desc_tools" = "$mcp_tool_count" ]; then
@@ -328,6 +338,16 @@ if [ -f "$MCP/package.json" ]; then
   elif [ -n "$desc_tools" ]; then
     record_fail "MCP package.json description says $desc_tools tools (actual $mcp_tool_count)"
   fi
+fi
+
+#
+# CATEGORY G2 — Verify-pattern regression (added 2026-08-20)
+#
+section "G2. Verify-pattern regression"
+if node "$SCRIPT_DIR/test-verify-patterns.mjs" > /dev/null 2>&1; then
+  record_pass "verify patterns still see every known drift shape"
+else
+  record_fail "a verify pattern stopped seeing a drift shape (run scripts/test-verify-patterns.mjs)"
 fi
 
 #
