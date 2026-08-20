@@ -308,6 +308,18 @@ function getTargetFiles() {
     { path: `${REPOS.mcp}/glama.json`, repo: 'mcp' },                   // v3 spec: tools_count
     { path: `${REPOS.mcp}/AGENTS.md`, repo: 'mcp' },                    // v3 audit: counts in prose
     { path: `${REPOS.mcp}/CLAUDE.md`, repo: 'mcp' },                    // v3 audit: pointer-only but kept in sync
+    // Skills. Added 2026-08-20 after they drifted furthest of any surface: last
+    // hand-synced 2026-07-10, carrying tests 4,098 and 3,881, SDK 2.7.0 and 3.3.1,
+    // MCP 3.2.2, Python 2.4.0 and a Go install pin on an old alpha. They were in no
+    // target, so nothing ever told us. Consuming the same canonical fields as every
+    // other surface is the fix; a hand-maintained list is what failed.
+    { path: `${REPOS.sdk}/skills/agent-passport/SKILL.md`, repo: 'sdk' },
+    { path: `${REPOS.sdk}/skills/agent-passport/_meta.json`, repo: 'sdk' },
+    { path: `${REPOS.sdk}/skills/agent-upgrade/SKILL.md`, repo: 'sdk' },
+    { path: `${REPOS.sdk}/skills/agent-upgrade/_meta.json`, repo: 'sdk' },
+    { path: `${REPOS.sdk}/skills/agent-upgrade/references/aps.md`, repo: 'sdk' },
+    { path: `${REPOS.sdk}/skills/core-skill/SKILL.md`, repo: 'sdk' },
+    { path: `${REPOS.sdk}/skills/model-citizen/SKILL.md`, repo: 'sdk' },
     { path: `${REPOS.sdk}/AGENTS.md`, repo: 'sdk' },                    // v3 audit: counts in prose
     { path: `${REPOS.sdk}/CLAUDE.md`, repo: 'sdk' },                    // v3 audit: HEAVILY DRIFTED — catch here
     // Web repo — public pages
@@ -636,6 +648,12 @@ function getVerifyPatterns(varName) {
       // "20-tool profile" (dash) or "120 tools" digit-preceded false cases.
       return [
         { regex: /(?<![\d-])(\d{2,4})(?!-)\s+tools\b/gi },
+        // "N MCP tools". Added 2026-08-20: the rewrite side has carried both
+        // shapes since v4 (see the getVariablePatterns cases above) but the
+        // verify side only had the bare form, so a stale "150 MCP tools" was
+        // invisible to the cache-independent pass. Found by injecting one into
+        // a skill file and watching the drift NOT get reported.
+        { regex: /(?<![\d-])(\d{2,4})(?!-)\s+MCP\s+tools\b/gi },
       ];
     case 'LAYER_COUNT':
       // Spec-locked: only match the full phrases "N protocol modules"
