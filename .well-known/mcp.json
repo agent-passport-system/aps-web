@@ -37,7 +37,8 @@
     "url": "https://gateway.aeoess.com",
     "public_trust": "https://gateway.aeoess.com/api/v1/public/trust/:agentId",
     "enforcement": true,
-    "policy_eval_latency": "<2ms",
+    "policy_eval_latency": "0.14ms p50 (Apple M3, SDK 4.4.0)",
+    "gateway_throughput": "7,100 ops/sec burst, single process (Apple M3, SDK 4.4.0)",
     "constraint_dimensions": 14,
     "routes": 37
   },

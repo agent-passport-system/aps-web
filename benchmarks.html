@@ -76,7 +76,7 @@
 
 
     <div class="stats">
-      <div class="stat"><b>&lt;2ms</b><span>p50 Policy Eval</span></div>
+      <div class="stat"><b>0.14ms</b><span>p50 Policy Eval</span></div>
       <div class="stat"><b>403</b><span>Ops/sec</span></div>
       <div class="stat"><b>&lt;1ms</b><span>Deny Latency</span></div>
       <div class="stat"><b>15</b><span>Constraint Dims</span></div>
@@ -98,10 +98,12 @@
     <p>The L4 figure above is the lean round-trip. The product gateway does more on every call: cascade revocation, escalation checks, charter governance, settlement, drift detection. Measured against that full stack:</p>
     <table>
       <tr><th>Operation</th><th>Latency</th><th>Notes</th></tr>
-      <tr><td>Policy evaluation p50</td><td>&lt;2ms</td><td>full constraint check across all applicable facets</td></tr>
-      <tr><td>Policy evaluation p99</td><td>&lt;10ms</td><td>cold cache, worst case</td></tr>
-      <tr><td>Denial</td><td>&lt;1ms</td><td>fail-fast on the first failing facet</td></tr>
+      <tr><td>Policy evaluation p50</td><td>0.14ms</td><td>full constraint check across all applicable facets</td></tr>
+      <tr><td>Policy evaluation p99</td><td>0.16ms</td><td>full enforcement, warm process</td></tr>
+      <tr><td>Denial</td><td>0.08ms</td><td>fail-fast on the first failing facet</td></tr>
+      <tr><td>Burst throughput</td><td>7,100 ops/sec</td><td>100 sequential calls, single process</td></tr>
     </table>
+    <p><em>Measured 2026-08-20 on Apple M3 with SDK 4.4.0, three runs, publishing the slowest p50 and the lowest throughput of the three rather than the best sample. This is a developer machine and not one of the three canonical environments above. Reproduce it: <code>npx tsx tests/benchmark-gateway.ts</code>, with results and env_capture.json in <code>benchmarks/gateway/2026-08-20/</code> in the SDK repo.</em></p>
     <p><em>Full-stack figures from the gateway benchmark suite, 500 iterations per scenario.</em></p>
 
     <h2>Constraint dimensions</h2>

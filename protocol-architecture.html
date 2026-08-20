@@ -502,7 +502,7 @@ const scene0 = {
     { key:'PASSPORT',   label:'Passport',    sub:'ed25519 · did:key',           detail:'identity minted' },
     { key:'DELEGATION', label:'Delegation',  sub:'scope · budget · ttl',        detail:'authority narrowed' },
     { key:'INTENT',     label:'Intent',      sub:'tool call · signed',          detail:'agent requests action' },
-    { key:'GATEWAY',    label:'Gateway',     sub:'14 gates · <2ms',             detail:'policy evaluated' },
+    { key:'GATEWAY',    label:'Gateway',     sub:'14 gates · 0.14ms',             detail:'policy evaluated' },
     { key:'ACT',        label:'Action',      sub:'executed · witnessed',        detail:'effect in the world' },
     { key:'RECEIPT',    label:'Receipt',     sub:'merkle · d/p/g/c',            detail:'signed & anchored' },
   ],
@@ -1018,7 +1018,7 @@ const scene2 = {
     const tb = document.createElementNS('http://www.w3.org/2000/svg','text');
     tb.setAttribute('x',800); tb.setAttribute('y',50); tb.setAttribute('text-anchor','middle');
     tb.setAttribute('font-family','Fraunces'); tb.setAttribute('font-size','18'); tb.setAttribute('fill','rgba(var(--ink-rgb),0.55)');
-    tb.textContent = 'AGENT  →  GATEWAY ( 14 gates · <2ms )  →  ENFORCED';
+    tb.textContent = 'AGENT  →  GATEWAY ( 14 gates · 0.14ms )  →  ENFORCED';
     svg.appendChild(tb);
 
     // gates vertical column: 14 horizontal gate lines
