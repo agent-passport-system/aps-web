@@ -11,7 +11,7 @@ Compact: https://agent-passport.org/llms.txt
 Canonical: https://agent-passport.org/llms-full.txt
 License: Apache-2.0
 Copyright: 2024-2026 Tymofii Pidlisnyi
-> Policy evaluation in under 2ms. 14 constraint dimensions. 403 ops/sec.
+> Policy evaluation in under 2ms, re-measured 2026-08-20 at 0.132ms p50 on Apple M3.
 > Accepts did:key, did:web, SPIFFE SVIDs, OAuth tokens, native did:aps. Identity is the input. Enforcement is the product.
 > TypeScript SDK + MCP server + Python SDK. Zero heavy dependencies. Apache-2.0 license.
 > Independently cited: PDR in Production (University of British Columbia). DOI: 10.5281/zenodo.19323172

@@ -39,7 +39,6 @@
     "enforcement": true,
     "policy_eval_latency": "<2ms",
     "constraint_dimensions": 14,
-    "throughput": "403 ops/sec",
     "routes": 37
   },
   "lastUpdated": "2026-07-22"

@@ -341,6 +341,16 @@ if [ -f "$MCP/package.json" ]; then
 fi
 
 #
+# CATEGORY G4 — Diff-review extractor has no blind spot (added 2026-08-20)
+#
+section "G4. Diff-review extractor"
+if node "$SCRIPT_DIR/test-diff-extractor.mjs" > /dev/null 2>&1; then
+  record_pass "review extractor returns every changed line, bullets included"
+else
+  record_fail "the review extractor drops changed lines (run scripts/test-diff-extractor.mjs)"
+fi
+
+#
 # CATEGORY G3 — Published metadata carries no mutable facts (added 2026-08-20)
 #
 section "G3. Published package metadata"
