@@ -341,6 +341,16 @@ if [ -f "$MCP/package.json" ]; then
 fi
 
 #
+# CATEGORY G3 — Published metadata carries no mutable facts (added 2026-08-20)
+#
+section "G3. Published package metadata"
+if node "$SCRIPT_DIR/test-package-descriptions.mjs" > /dev/null 2>&1; then
+  record_pass "no counts, versions or benchmarks in published descriptions"
+else
+  record_fail "a mutable fact is back in published metadata (run scripts/test-package-descriptions.mjs)"
+fi
+
+#
 # CATEGORY G2 — Verify-pattern regression (added 2026-08-20)
 #
 section "G2. Verify-pattern regression"
