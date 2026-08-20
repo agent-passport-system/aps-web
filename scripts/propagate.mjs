@@ -56,6 +56,7 @@ const REPOS = {
   vocab: resolve(`${HOME}/agent-governance-vocabulary`),                // v3 audit: vocabulary repo
   ecomap: resolve(`${HOME}/agent-ecosystem-map`),                       // v3 audit: ecosystem map
   remoteMcp: resolve(`${HOME}/agent-passport-remote-mcp`),              // Day-128 audit: remote-mcp README "## Links" drift
+  aeoessWeb: resolve(`${HOME}/aeoess_web`),                             // Day-185: was NOT a target while publishing APS version and count claims, so it drifted to SDK v3.1.0 and 3,959 tests. Founder decision: it makes the claims, so it inherits the contract.
 };
 
 // ── Word-form lookup ──
@@ -320,6 +321,12 @@ function getTargetFiles() {
     { path: `${REPOS.sdk}/skills/agent-upgrade/references/aps.md`, repo: 'sdk' },
     { path: `${REPOS.sdk}/skills/core-skill/SKILL.md`, repo: 'sdk' },
     { path: `${REPOS.sdk}/skills/model-citizen/SKILL.md`, repo: 'sdk' },
+    // aeoess_web. Current-state surfaces only. architecture.html carries BOTH current
+    // chips and a dated timeline plus a QUARTERS roadmap in a different key shape
+    // (s: 'shipped'), and a global replace on 2026-08-20 rewrote one Apr 29 entry from
+    // 8 papers to 9 before it was caught. Dated bodies on this site are history.
+    { path: `${REPOS.aeoessWeb}/README.md`, repo: 'aeoessWeb' },
+    { path: `${REPOS.aeoessWeb}/media.html`, repo: 'aeoessWeb' },
     { path: `${REPOS.sdk}/AGENTS.md`, repo: 'sdk' },                    // v3 audit: counts in prose
     { path: `${REPOS.sdk}/CLAUDE.md`, repo: 'sdk' },                    // v3 audit: HEAVILY DRIFTED — catch here
     // Web repo — public pages
