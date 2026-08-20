@@ -8,7 +8,7 @@
       "description": "152 MCP tools for AI agent governance. Identity, delegation, trust scoring, enforcement, commerce, coordination, attribution, institutional governance.",
       "transport": "sse",
       "url": "https://mcp.aeoess.com/sse",
-      "tools_count": 150,
+      "tools_count": 152,
       "install": "npx -y agent-passport-system-mcp",
       "npm": "https://www.npmjs.com/package/agent-passport-system-mcp"
     }

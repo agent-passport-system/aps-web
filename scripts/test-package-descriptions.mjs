@@ -34,6 +34,21 @@ const TARGETS = [
 
 // Each rule names the real incident it prevents, so a future reader can judge it
 // rather than guess at intent.
+// npm stores only the first 255 characters. Verified 2026-08-20 against the registry
+// API: agent-passport-system 4.3.0, 4.3.1 and 4.4.0 are each EXACTLY 255 published, and
+// 4.4.0 ends mid-sentence at "292ns Mac M3.". So a long local description silently
+// becomes a DIFFERENT artifact on the registry, which is its own drift class: the file
+// you review is not the text a user reads. Keep them identical.
+const MAX_PUBLISHED = 255;
+
+// project-state.json language_replacements retires these. They were live in shipped
+// metadata on 2026-08-20, and one of them survived a description rewrite done with the
+// canonical file open, because the rewrite was checking numbers and not wording.
+const RETIRED = [
+  { from: 'Bayesian reputation', to: 'earned reputation' },
+  { from: 'feeless Nano', to: 'wallet binding' },
+];
+
 const FORBIDDEN = [
   { name: 'semver',      re: /\bv?\d+\.\d+\.\d+/,                       why: 'MCP shipped "Tracks SDK v3.3.0" while depending on 4.4.0' },
   { name: 'test count',  re: /\d[\d,]*\s+tests\b/i,                     why: 'SDK carried "4,361 tests" through three releases of drift' },
@@ -47,11 +62,22 @@ for (const t of TARGETS) {
   const desc = t.read();
   if (!desc) { console.log(`FAIL  ${t.label}: no description found`); failed++; continue; }
   const hits = FORBIDDEN.filter(r => r.re.test(desc));
+  if (desc.length > MAX_PUBLISHED) {
+    hits.push({ name: 'over 255 chars', re: null,
+      why: `npm publishes only the first ${MAX_PUBLISHED}; this is ${desc.length}, so the published text would be a different string` });
+  }
+  for (const r of RETIRED) {
+    if (desc.includes(r.from)) {
+      hits.push({ name: 'retired phrasing', re: null,
+        why: `project-state.json language_replacements retires "${r.from}" in favour of "${r.to}"` });
+    }
+  }
   if (hits.length) {
     failed++;
     console.log(`FAIL  ${t.label}`);
     for (const h of hits) {
-      console.log(`        ${h.name}: ${JSON.stringify(desc.match(h.re)[0])}`);
+      if (h.re) console.log(`        ${h.name}: ${JSON.stringify(desc.match(h.re)[0])}`);
+      else console.log(`        ${h.name}`);
       console.log(`        why this rule exists: ${h.why}`);
     }
   } else {

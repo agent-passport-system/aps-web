@@ -65,6 +65,15 @@
       "doi": "10.5281/zenodo.21208555"
     }
   ],
+  "third_party_citations": [
+    {
+      "doi": "10.5281/zenodo.19323172",
+      "title": "PDR in Production",
+      "authors": "University of British Columbia",
+      "note": "Independent citation of our work. NOT authored by us. Excluded from counts.papers by definition. It appears in aps-web/llms-full.txt on purpose; any check that counts DOIs in a file against counts.papers will flag that file and the check, not the file, is wrong."
+    }
+  ],
+  "$papers_rule": "counts.papers = len(papers). Membership is this list and nothing else. A DOI appearing on a surface is NOT evidence of authorship: third_party_citations are ours to cite and not ours to count. Adding a paper means adding it HERE first, then propagating the LIST to every surface, not just the number.",
   "language_replacements": {
     "$comment": "Future: copy normalization. Not yet wired in propagate.mjs; documented here as the canonical edit list for any human/CC sweeping prose.",
     "Bayesian reputation": "earned reputation",

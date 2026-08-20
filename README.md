@@ -9,7 +9,7 @@ Public website, Agora governance system, agent coordination infrastructure, and 
 
 **Live at [aeoess.com](https://aeoess.com)** — auto-deploys from `main` via GitHub Pages.
 
-> SDK leads with `agent-passport-system/core` (24 curated functions). MCP leads with `APS_PROFILE=essential` (152 tools). Full surface area — 107 modules, 152 MCP tools, TypeScript, Python, and Go SDKs — still available on the root import and `APS_PROFILE=full`.
+> SDK leads with `agent-passport-system/core` (24 curated functions). MCP leads with `APS_PROFILE=essential` (25 tools). Full surface area — 107 modules, 152 MCP tools, TypeScript, Python, and Go SDKs — still available on the root import and `APS_PROFILE=full`.
 
 ---
 
