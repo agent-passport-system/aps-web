@@ -1,7 +1,149 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-08-17 (Day 182). Day 182 added: strict JCS with explicit null and unchanged bytes plus a wire round-trip defect repaired, the narrowing erratum applied site-wide, the new landing and contact pages with an email list, the rackp SESSION_START anchor, and the bilateral_receipt canonical-form answer.
+# Last updated: 2026-08-20 (Day 185). Days 183 to 185 added: the goose hook-semantics correction and a flake adjudicated against unmodified upstream, the lab running an outside composition pack as neutral runner, the RFC 8785 integer-domain fix and the unsafe-integer write policy with its two stated limits, canonical-bytes corpus v2 measured against an outside canonicalizer, SDK 4.4.0 and Python 2.11.0 released, MCP 5.0.0 replacing evaluate_threshold with the amendment lifecycle, the tool count generated from the live registry, the claims audit and ownership registry, published metadata stripped of mutable facts, and the gateway benchmark captured with its environment.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 185 - 2026-08-20 ═══
+
+- id: d185-sdk-440-python-2110-released
+  title: "4.4.0 and 2.11.0 published; the write policy and the RFC 8785 integer fix reach users"
+  description: "npm served 4.3.1 and PyPI served 2.10.0, both equal to the repo versions, so neither registry carried the unsafe-integer write policy and PyPI still shipped the pre-fix canonicalize_jcs. Both released over Trusted Publishing with no token. PyPI failed on the first tag: hatchling now emits Metadata-Version 2.5 and the twine bundled in the pinned publish action refuses it, which killed the run before upload. The same pin published 2.10.0 in July, so this is upstream drift rather than a change here. Pin moved to v1.14.2, tag re-cut on the fixed head, published. Python's changelog leads on the integer alignment because emitted bytes move for integers whose decimal spelling differs from their binary64 serialization."
+  status: done
+  workstream: protocol
+  day_start: 185
+  day_end: 185
+  links:
+    - url: "https://www.npmjs.com/package/agent-passport-system"
+      label: "npm 4.4.0"
+    - url: "https://pypi.org/project/agent-passport-system/"
+      label: "PyPI 2.11.0"
+
+- id: d185-mcp-500-amendment-lifecycle
+  title: "MCP 5.0.0: a tool that reported a cryptographic verdict over an arithmetic check is removed"
+  description: "evaluate_threshold took a charter id and signature records whose signature field defaulted to the empty string, then printed THRESHOLD MET. No amendment ever reached it, the server held no amendments, and the underlying function counted a signature without verifying it. Passing content was not the fix: the SDK keeps the amendment preimage private and exports verifyAmendment, which derives it internally, and the server already imported the lifecycle at one call site and used none of it. 5.0.0 removes the tool and ships propose_amendment, sign_amendment and verify_amendment in the governance profile, with the verdict reported field by field so a caller can see signatures verify while the threshold falls short. Two AST assertions hold the boundary: exactly two files may bind a canonicalization symbol, and the amendment handlers call no canonicalizer. Both negative-tested."
+  status: done
+  workstream: protocol
+  day_start: 185
+  day_end: 185
+  links:
+    - url: "https://github.com/aeoess/agent-passport-mcp/pull/6"
+      label: "PR #6"
+
+- id: d185-tool-count-generated
+  title: "Tool count generated from the live registry instead of written by hand in five files"
+  description: "150 to 152, and no longer a literal anywhere. Every registration passes through the server's own registerTool wrapper, so the manifest is collected there and the test asserts the runtime registry equals the manifest rather than equalling a number. The name is recorded before the wrapper's profile early return, because after it the manifest would silently become a function of whichever profile was active; a test asserts the manifest is identical under full and governance while the tools that actually land still differ, 152 against 37."
+  status: done
+  workstream: ops
+  day_start: 185
+  day_end: 185
+
+- id: d185-claims-audit-and-registry
+  title: "Claims audit across every public surface, and an ownership registry for the numbers"
+  description: "Seven defects of one species in a single day, none of them a value typed wrong. A post-deploy check counted MCP tools with server.tool( and had returned zero since the API moved to registerTool, so it compared a package description against nothing. Composite lines moved one token and froze the rest, three times. A README badge carried the total in the passing slot. Two published descriptions named an SDK two majors behind while being republished the same day. A verify pattern could not see the N MCP tools shape at all. Each was a number no artifact owned. CLAIMS-REGISTRY.md now names the owner for every public claim, and four guards run in the weekly self-check: verify patterns, published metadata, the diff-review extractor and the tool count. Every guard was negative-tested rather than assumed."
+  status: done
+  workstream: ops
+  day_start: 185
+  day_end: 185
+
+- id: d185-published-metadata-durable
+  title: "Package descriptions carry no mutable facts, and fit inside the registry's 255-character ceiling"
+  description: "npm publishes only the first 255 characters of a description, verified against the registry API where 4.3.0, 4.3.1 and 4.4.0 are each exactly 255 and 4.4.0 ends mid-sentence. A longer local string is therefore a different artifact from the one users read. Two of three published descriptions were also stale on live registries, naming an SDK version two majors behind. Counts, versions, benchmarks and parity claims moved to the README, which ships in every tarball and already propagates; descriptions now state what the package is. Generating them was considered and rejected, because a description is immutable between releases and generation would make the wrong thing accurate more often without removing the failure."
+  status: done
+  workstream: ops
+  day_start: 185
+  day_end: 185
+
+- id: d185-gateway-benchmark-captured
+  title: "Gateway policy evaluation measured, captured and published: 0.14ms p50, 7,100 ops/sec"
+  description: "403 ops/sec sat in two machine-readable surfaces with no environment record and no reproduction path. The harness that produced it still runs: three runs report 0.132 to 0.140ms p50 on the full enforcement path and 7,147 to 7,275 ops per second, so the published figure understated throughput roughly eighteen times and the under-2ms bound held by fifteen. Deleting an unowned number was the easy half and made the site say less than the truth, so it was captured the way the canonical latency set is, with env_capture.json, all three runs and a methodology. Published values take the slowest p50 and the lowest throughput of the three, never the best sample, and every surface names the machine. Marked not canonical: this is a developer machine, not one of the three environments in spec sections 13.1, 13.2 and 13.3."
+  status: done
+  workstream: research
+  day_start: 185
+  day_end: 185
+
+# ═══ DAY 184 - 2026-08-19 ═══
+
+- id: d184-python-jcs-integer-domain
+  title: "canonicalize_jcs serializes int through the RFC 8785 number domain; bytes now match TypeScript and Go"
+  description: "RFC 8785 section 3.2.2.3 defines the JCS number domain as IEEE 754 binary64 under ECMAScript Number::toString. Python's int is arbitrary precision and the canonicalizer emitted it verbatim, keeping a decimal spelling the double does not have: 2^60 emitted as 1152921504606846976 where the binary64 form is 1152921504606847000. Where those spellings differ, a digest or signature computed here disagreed with the same object canonicalized by the TypeScript or Go SDK, so an artifact verified in process and failed for any peer that recomputed the bytes. The int branch now widens to binary64 first and takes the float path; an integer beyond the range raises rather than emitting something no implementation can reproduce. Found while preparing to measure an outside canonicalizer, which is how the ordering ran: fix our own house before publishing anything about someone else's."
+  status: done
+  workstream: protocol
+  day_start: 184
+  day_end: 184
+
+- id: d184-unsafe-integer-write-policy
+  title: "Signing and new-write boundaries refuse integers outside the interoperable IEEE 754 range"
+  description: "RFC 7493 section 2.2 says a sender cannot expect a receiver to treat an integer beyond 9007199254740991 as exact and recommends carrying it as a JSON string. Both SDKs signed one anyway. The rule applies through internal read and write twins, byte-identical to their read twins for every value they accept, with the check inside the emitting walk on the single read that produces the byte, so a getter or Proxy answering differently on a second read cannot put an unsafe integer into a signed artifact. Verification and recompute stay unrestricted, so artifacts signed before the rule keep verifying, proven against the built package rather than against source. Refusal carries a stable category and reason plus the JSON path of the offending member."
+  status: done
+  workstream: protocol
+  day_start: 184
+  day_end: 184
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/pull/111"
+      label: "PR #111"
+    - url: "https://github.com/aeoess/agent-passport-python/pull/6"
+      label: "PY #6"
+
+- id: d184-coverage-audit-two-passes
+  title: "657-row call-site inventory across both SDKs, driven to zero unclassified over two audit passes"
+  description: "The first coverage claim was wrong, and the second pass is why that is known. Run after the first pass's fixes, it found what a name-based census cannot: a scripted edit had moved a line inside a verifier onto a write twin, an inventory keyed by basename leaked classifications between nine colliding filenames, a heuristic treating any is prefix as a verifier mislabelled four producers, one build dropped a copyright header from a published file because the compiler elides an import together with the comment attached to it, and one boundary was fixed in TypeScript only, leaving the two SDKs disagreeing at the same place. Coverage is complete for every boundary reachable inside the repositories. Two limits stated rather than hidden: seventeen shared symbols that both mint and re-derive stay unrestricted, because guarding them would refuse re-derivation of a value minted before the rule, and one package carries a local copy of the rule."
+  status: done
+  workstream: protocol
+  day_start: 184
+  day_end: 184
+
+- id: d184-jcs-corpus-v2-and-a2a-run
+  title: "Canonical-bytes corpus v2, and an outside canonicalizer measured against it in public"
+  description: "Two integer vectors added, chosen to exercise both branches of the implementation under test: one where an integer parse succeeds and the emitted form is the decimal text, one where it fails and the token passes through verbatim. The eight v1 vectors stay byte-identical and v1 stays frozen. The lab ran the corpus against a pinned head of an outside pull request, with the fixture pinned by digest and a scratch clone outside the suite repository, redistributing none of their source. The harness asserts per vector, so a byte mismatch exits non-zero; the previous version logged without asserting, which means the morning's eight-of-eight result could not have failed and was held back for that reason. Primary path eight of ten, both misses matching the behaviour predicted from the inspected branches. Wording standard adopted: observed outputs match what the code predicts, never prediction promoted to evidence."
+  status: done
+  workstream: conformance
+  day_start: 184
+  day_end: 184
+
+- id: d184-rackp-verified-and-answered
+  title: "An outside implementer verified the worked example, and the reply states the limit their README sets"
+  description: "rackp reproduced rackp.agent-ops.v1 end to end: data hashes eight of eight, signatures nine of nine under an Ed25519 implementation they wrote rather than a library, document hashes recomputed from the bytes currently served, eight of eight schema-valid. Separately they ran the RFC 8785 canonical-bytes vectors through their own canonicalizer and published a pinned receipt with fixtures pinned by commit and digest. Recorded as interop at the canonical form and nothing above it, which is the limit their own README sets and the limit our wording uses. Not adoption, not endorsement, and the signal entries stay staged rather than folded into a file still carrying a drift warning."
+  status: done
+  workstream: outward
+  day_start: 184
+  day_end: 184
+
+# ═══ DAY 183 - 2026-08-18 ═══
+
+- id: d183-goose-hook-semantics-corrected
+  title: "goose PR corrected: a crashed hook no longer counts as an evaluated policy"
+  description: "A hostile audit of our own pull request, reconciled against two independent audit passes, found policy_evaluated counting a crashed hook as having evaluated the call, which is the opposite of what the signal should say when the policy never ran. Fixed with an at-least-one aggregate rule. Second finding: an inactive code path had changed the public error contract, repaired by restoring the outer error and emitting the failure event directly. The DCO was found unenforced despite earlier records suggesting otherwise, which is why the record was checked rather than trusted. Three commits rebuilt on the current base, full gates run, pushed with force-with-lease against a known anchor, six old review threads verified against the new head and resolved, and a review requested."
+  status: done
+  workstream: contribution
+  day_start: 183
+  day_end: 183
+  links:
+    - url: "https://github.com/aaif-goose/goose/pull/11120"
+      label: "PR #11120"
+
+- id: d183-flake-adjudicated-not-assumed
+  title: "A failing test adjudicated as pre-existing upstream rather than assumed to be ours"
+  description: "A compaction test failed during the final gate. Instead of treating it as a regression introduced by the branch, it ran five times in isolation at the branch head and five times at the exact upstream main in a shared-target worktree. Both failed identically, which makes it an order-dependent test that already existed upstream. CI on the pushed head was later killed by a package-manager hang at the six-hour job limit, so the pull request was closed and reopened once to re-fire the event on the same commit without adding one."
+  status: done
+  workstream: contribution
+  day_start: 183
+  day_end: 183
+
+- id: d183-lab-runs-composition-pack
+  title: "The lab ran an outside composition pack to 27 of 27, as a neutral runner rather than as the protocol"
+  description: "A cross-slot accountability composition pack was read end to end and all fifty-one artifacts fetched before anything ran. Its twenty-seven cases passed with TypeScript and Python consumers written for the purpose, 168 and 171 lines, zero dependencies, and no native profile semantics required. All fourteen runner checks are structural or digest only. The lab was designated the implementer rather than the protocol project, deliberately: a neutral runner is what makes a second implementation mean anything, and naming ourselves would have removed the independence the exercise exists to produce. A findings issue was filed on the pack rather than kept private."
+  status: done
+  workstream: conformance
+  day_start: 183
+  day_end: 183
+
+- id: d183-rackp-worked-example-rev3
+  title: "rackp worked example revision 3, with the session anchor ordered before the routine anchors"
+  description: "Revision 3 shipped with a real SESSION_START anchor that precedes the routine anchors in time and not merely in sequence number, which is the correction that makes the ordering claim true rather than presentational."
+  status: done
+  workstream: outward
+  day_start: 183
+  day_end: 183
 
 # ═══ DAY 182 - 2026-08-17 ═══
 
