@@ -4,7 +4,7 @@
 
 Updated: 2026-08-17
 SDK version: agent-passport-system@4.3.1 (latest)
-MCP version: agent-passport-system-mcp@4.0.0 (150 tools)
+MCP version: agent-passport-system-mcp@5.0.0 (152 tools)
 Python SDK: agent-passport-system==2.10.0
 Go SDK: github.com/aeoess/agent-passport-go@v0.5.0
 Compact: https://agent-passport.org/llms.txt
@@ -444,9 +444,9 @@ Layer 5 adds organizational intent to the agent stack. Key functions:
 - `resolveDeliberation(deliberation, decision, votes)` — produce signed outcome + create precedent
 - `getPrecedentsByTopic(precedents, topic)` — find prior decisions by topic
 
-## MCP Server — agent-passport-system-mcp v4.0.0
+## MCP Server — agent-passport-system-mcp v5.0.0
 
-A full-stack MCP server that any MCP client (Claude Desktop, Cursor, etc.) can connect to. Default profile is `full` (all 150 tools). Set `APS_PROFILE=essential` for a 25-tool slim profile covering identity, delegation, enforcement, commerce, reputation. Nine other profiles available: identity, governance, coordination, commerce, data, gateway, comms, minimal, full. Role-scoped access control throughout.
+A full-stack MCP server that any MCP client (Claude Desktop, Cursor, etc.) can connect to. Default profile is `full` (all 152 tools). Set `APS_PROFILE=essential` for a 25-tool slim profile covering identity, delegation, enforcement, commerce, reputation. Nine other profiles available: identity, governance, coordination, commerce, data, gateway, comms, minimal, full. Role-scoped access control throughout.
 
 Connect (remote, no install):
 ```json
@@ -573,7 +573,7 @@ Q: What are tradeoff rules?
 A: Machine-readable expressions like "when quality and speed conflict, prefer quality until 2× time cost, then prefer speed." They make organizational priorities queryable at runtime instead of locked in prose documents.
 
 Q: How does it compare to other agent identity approaches?
-A: Most alternatives (DeepMind, GaaS, OpenAI, LOKA) are papers or proposals. The Agent Passport System is running code with 4,500 tests. It is the enforcement and accountability layer for AI agents: bring your own identity (did:key, did:web, SPIFFE SVID, OAuth, native did:aps) and the gateway enforces scoped delegation, monotonic narrowing, cascade revocation, 3-signature action chains, Merkle proof attribution, values floor, agentic commerce (ACP by OpenAI + Stripe), reputation-gated authority with Bayesian trust, principal identity with selective disclosure, W3C DID and Verifiable Credentials, Google A2A bridge, and EU AI Act mapping support. The coordination-native MCP server exposes 150 tools under `APS_PROFILE=full` (the default profile; APS_PROFILE=essential presents 26 tools).
+A: Most alternatives (DeepMind, GaaS, OpenAI, LOKA) are papers or proposals. The Agent Passport System is running code with 4,500 tests. It is the enforcement and accountability layer for AI agents: bring your own identity (did:key, did:web, SPIFFE SVID, OAuth, native did:aps) and the gateway enforces scoped delegation, monotonic narrowing, cascade revocation, 3-signature action chains, Merkle proof attribution, values floor, agentic commerce (ACP by OpenAI + Stripe), reputation-gated authority with Bayesian trust, principal identity with selective disclosure, W3C DID and Verifiable Credentials, Google A2A bridge, and EU AI Act mapping support. The coordination-native MCP server exposes 152 tools under `APS_PROFILE=full` (the default profile; APS_PROFILE=essential presents 26 tools).
 
 Q: How does the Signed Execution Envelope work?
 A: The RFC defines a minimal signed envelope for cross-engine governance interop. Any governance engine (CrewAI, Guardian, APS, etc.) can emit it, and any verifier can check it without depending on a specific trust backend. The critical field is evaluation_method (deterministic vs probabilistic), which tells a verifier whether the governance decision can be independently replayed or only signature-checked. The APS SDK already generates every field in the envelope through its 3-signature chain. See: https://github.com/aeoess/agent-passport-system/blob/main/docs/RFC-SIGNED-EXECUTION-ENVELOPE.md
@@ -641,7 +641,7 @@ Day-by-day development log: https://aeoess.com/blog.html
 - Feb 26: 3 controlled multi-agent experiments, role-swap findings
 - Feb 27: Layer 7 Coordination Primitives, full task lifecycle
 - Feb 28: Documentation sprint, llms.txt alignment, Schema.org/OG updates
-- Mar 1: Layer 8 Agentic Commerce (ACP), Integration Wiring, MCP v3.1.1 (150 tools)
+- Mar 1: Layer 8 Agentic Commerce (ACP), Integration Wiring, MCP v3.1.1 (152 tools)
 - Mar 2: Graduated enforcement (inline/audit/warn), threat model (38 scenarios), Agent District
 
 ## Persistence Layer (v2.0.0)

@@ -1,11 +1,11 @@
 {
   "name": "AEOESS — Agent Passport System",
   "description": "Enforcement infrastructure for AI agents. Cryptographic identity, scoped delegation, earned reputation, gateway enforcement, passport grades, Merkle attribution.",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "servers": [
     {
       "name": "agent-passport-mcp",
-      "description": "150 MCP tools for AI agent governance. Identity, delegation, trust scoring, enforcement, commerce, coordination, attribution, institutional governance.",
+      "description": "152 MCP tools for AI agent governance. Identity, delegation, trust scoring, enforcement, commerce, coordination, attribution, institutional governance.",
       "transport": "sse",
       "url": "https://mcp.aeoess.com/sse",
       "tools_count": 150,
