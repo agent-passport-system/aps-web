@@ -641,7 +641,7 @@ Day-by-day development log: https://aeoess.com/blog.html
 - Feb 26: 3 controlled multi-agent experiments, role-swap findings
 - Feb 27: Layer 7 Coordination Primitives, full task lifecycle
 - Feb 28: Documentation sprint, llms.txt alignment, Schema.org/OG updates
-- Mar 1: Layer 8 Agentic Commerce (ACP), Integration Wiring, MCP v3.1.1 (152 tools)
+- Mar 1: Layer 8 Agentic Commerce (ACP), Integration Wiring, MCP v3.1.1 (150 tools)
 - Mar 2: Graduated enforcement (inline/audit/warn), threat model (38 scenarios), Agent District
 
 ## Persistence Layer (v2.0.0)
