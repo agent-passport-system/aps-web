@@ -83,4 +83,4 @@ MCP server (agent-passport-system-mcp 5.0.0): 152 tools over stdio; supports MCP
 ## Terms
 
 - Binding vs freshness: cryptographic commitment to decision inputs is not freshness at use time; binding does not establish truth or continued truth. https://agent-passport.org/terms/binding-vs-freshness
-/terms/action_ref: action_ref, the APS content commitment over a governed action's intent, recomputed at the enforcement boundary before dispatch. https://agent-passport.org/terms/action_ref
+- action_ref: the APS content commitment over a governed action's intent, recomputed at the enforcement boundary before dispatch. https://agent-passport.org/terms/action_ref
