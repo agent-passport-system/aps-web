@@ -1,7 +1,44 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-08-20 (Day 185). Days 183 to 185 added: the goose hook-semantics correction and a flake adjudicated against unmodified upstream, the lab running an outside composition pack as neutral runner, the RFC 8785 integer-domain fix and the unsafe-integer write policy with its two stated limits, canonical-bytes corpus v2 measured against an outside canonicalizer, SDK 4.4.0 and Python 2.11.0 released, MCP 5.0.0 replacing evaluate_threshold with the amendment lifecycle, the tool count generated from the live registry, the claims audit and ownership registry, published metadata stripped of mutable facts, and the gateway benchmark captured with its environment.
+# Last updated: 2026-08-25 (Day 188). Day 188 added: the x402 Phase 3 pull request slotting argentum-core's delegation_chain_ref into the composed envelope with byte-stability proven, the suite's first outside-profile reproduction (ca2a validity windows, 46 passing at a pinned commit), and the action_ref derivation inventory closed by execution with a legacy citation defect found and workstreamed.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 188 - 2026-08-25 ═══
+
+- id: d188-x402-phase3-pr-open
+  title: "Phase 3 opened on the composed receipt envelope: delegation_chain_ref as the additive fourth sibling"
+  description: "The June invitation asked for delegation-chain conformance vectors; the replies under it reframed the work as slotting argentum-core's existing delegation_chain_ref into the composed envelope at v0.4, and the first job draft missed that and specified a new lineage format before review caught it. The pull request that shipped instead: three composed vectors (two-hop narrowing accept, scope widening reject, continuity break reject), each reject isolating one check with root and leaf anchoring valid throughout; all 47 pre-existing files byte-identical; both existing verifier languages extended with zero code lines removed; chain artifacts producing their expected results under the unmodified argentum verifier at the pin. Two scope notes instead of new behavior: no per-hop principal signature verification is defined by the pinned profile, so it is not tested here, and the vectors follow the pinned conformance set where the spec text says SHOULD. PR open for review."
+  status: done
+  workstream: protocol
+  day_start: 188
+  day_end: 188
+  links:
+    - url: "https://github.com/TKCollective/agentoracle-receipt-spec/pull/10"
+      label: "PR #10"
+    - url: "https://github.com/x402-foundation/x402/issues/2332"
+      label: "x402 thread"
+
+- id: d188-ca2a-validity-window-reproduction
+  title: "The suite reproduces an outside profile: ca2a validity windows at a pinned commit"
+  description: "ca2a's full conformance profile executed at a pinned commit outside their CI: 46 passing, including the new expired and not-yet-valid credential cases their validity-window work added. Landed as an interop artifact with the run log, environment, and checksums, and a scope paragraph stating what it does not do: no statement about APS, no APS artifact graded. Case definitions are ca2a's own, referenced by path at the pinned commit."
+  status: done
+  workstream: protocol
+  day_start: 188
+  day_end: 188
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/25"
+      label: "suite PR #25"
+
+- id: d188-actionref-derivation-inventory
+  title: "action_ref inventory: 15 of 15 byte-identical on the external form, and a citation defect in the legacy function"
+  description: "Field-by-field inventory of every action_ref derivation on disk against the published draft, the joint external draft, and the current conformance corpus, closed by execution rather than source reading: the TypeScript external form reproduced all 15 applicable known-answer vectors byte-identically and rejected the integer-epoch negative at the timestamp grammar gate. The same pass found the legacy computeActionRef citing a draft section it does not implement, in each SDK carrying a variant. Consequences split cleanly: Phase 3 composes with the v1 external form; the citation fix is a separate documentation-first workstream; profile naming waits on the next draft revision."
+  status: done
+  workstream: protocol
+  day_start: 188
+  day_end: 188
+  links:
+    - url: "https://github.com/giskard09/action-ref-conformance"
+      label: "corpus"
 
 # ═══ DAY 185 - 2026-08-20 ═══
 
