@@ -1,7 +1,33 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-08-26 (Day 191). Days 190 and 191 added: revocation verification corpus with an independent reproduction, TRACE crosswalk merged against pinned v0.9.0, x402-receipts outside-profile reproduction, verdict delegation attack pack PR, adoption-signals re-verification, lab intake, two provenance corrections, vocab #114 closed on gates.
+# Last updated: 2026-08-27 (Day 192). Day 192 added: offline-verifier root enforcement, Pico drop 12 verified and round 2 rebuilt after a stop, registry validator skipping a third of the corpus, lab text corrected ahead of the fix.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 192 - 2026-08-27 ═══
+
+- id: d192-offline-verifier-root-enforcement
+  title: "A field the verifier documented as authoritative and never read, found by checking a counterparty's aside instead of letting it pass"
+  description: "ReceiptContext.active_delegation_root is exported API, documented as the delegation chain root the verifier treats as authoritative. verifyReceiptContext never read it, so a receipt carrying any chain root verified as long as that root was absent from the revoked list. Both fixture harnesses set the active root equal to the receipt root by construction, which is why no test caught it. Fixed as DELEGATION_ROOT_MISMATCH, appended last so no existing first-failure classification moved, with a regression test and a conformance negative. The regression was itself missing from the test script and would not have run."
+  status: done
+  workstream: sdk
+
+- id: d192-pico-drop12-verified-and-round2
+  title: "A rotation invariant closed across three independent records, and a reciprocal artifact stopped before it shipped broken"
+  description: "Drop 12 verified the day it arrived, 14 vectors for 14, with the rotation digest equal in the counterparty's expired vector, their predecessor block, and our own ledger line, recomputed over the sent bytes. Our reciprocal artifact was then stopped: both signatures declared one did:key separated by fragments that do not resolve, so one did not verify under the identity it named, and our harness passed it because it resolved keys from a private table. Rebuilt as a fixed issuer plus a distinct co-signer key, and the acceptance rule now derives every key from the signer DID itself."
+  status: done
+  workstream: conformance
+
+- id: d192-validator-skipping-a-third-of-the-corpus
+  title: "An outside contributor found our registry validator reporting PASS over thirteen files it never checked"
+  description: "validate-crosswalks.js walks descriptor dimensions in a nested shape and silently skips the flat shape, which thirteen crosswalks use, including one merged the previous day whose PR cited Validator: PASS. Reproduced independently from a clean clone before replying. The out-of-enum value hiding in the gap belongs to the reporter's own file. Routed as ordinary artifact correctness rather than a governance question, with the vocabulary question kept separate."
+  status: done
+  workstream: vocabulary
+
+- id: d192-lab-text-corrected-before-the-fix-shipped
+  title: "The published lab text was corrected first, so a repair never made it false"
+  description: "The conformance corpus provenance file stated that the offline verifier never consults the active delegation root. That was accurate when written and a pending fix would have falsified it. Rewritten as a release-scoped statement about the shipped version, true before the repair and after it, and merged ahead of the SDK change rather than behind it."
+  status: done
+  workstream: conformance
 
 # ═══ DAY 191 - 2026-08-26 ═══
 
