@@ -95,7 +95,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">490 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">505 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -136,7 +136,125 @@
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(453)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(467)</span></h2>
+<article class="rm-item rm-item-done" id="d191-adoption-signals-verification-pass">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Adoption-signals inventory re-verified row by row; the Day 170 warning was itself wrong</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 191</span> 
+<span class="rm-item-ws">evidence</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">All 178 claims checked against the repository API: 86 hold, 39 true once and stale now, 45 fail, 8 cannot be verified; replacement wordings applied in three passes. The Day 170 spot check had read only the first page of comments on threads of 143 and 51 and missed the endorsements at comments 113 and 50, so one of four failed, not three. Rule: read every thread with per_page=100 and state the page count, or a negative finding is worthless.</p>
+</article>
+<article class="rm-item rm-item-done" id="d191-revocation-verification-corpus">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Revocation verification corpus merged, and independently reproduced by the contributor who asked for it</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 191</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Nineteen cases against the existing revocation records, no new signed type, with intrinsic verification (shape, signature, existing verifier) ordered before contextual checks (lookup, authority, binding match). The contributor who opened the request ran the branch himself: 17 of 17, and one artifact digest recomputed in Python with the rfc8785 library, byte-identical. Recorded as an independent reproduction of the corpus; not a lab run report, not validation, not adoption.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/pull/123">PR #123</a></li><li><a href="https://github.com/aeoess/agent-passport-system/issues/89">issue #89</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d191-trace-crosswalk-and-revocation-mapping">
+<header class="rm-item-h">
+<h3 class="rm-item-title">TRACE crosswalk merged against the pinned v0.9.0; revocation mapping opened as an issue with three questions</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 191</span> 
+<span class="rm-item-ws">Ecosystem</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">crosswalk/agentrust-trace.yaml in the vocabulary registry: 19 rows against the released TRACE v0.9.0, one partial (policy.version to baseline_revision) and eighteen explicit no-mapping cells. Revocation schemas exist only on trace-spec main, not at v0.9.0, so released and unreleased surfaces were mapped separately and never blended; authority-to-key is no-mapping on both, revoked_at and reason partial. The publicly promised revocation item went to the integrations repository as an issue for the maintainer, not a table pretending to answer it.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/pull/144">vocab PR #144</a></li><li><a href="https://github.com/agentrust-io/integrations/issues/140">integrations #140</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d191-x402-receipts-outside-profile">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Second outside corpus reproduced in the lab: x402-receipts at pinned debc94f</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 191</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Seven receipt vectors and five negatives from a builder on the x402 delivery-receipt thread, reproduced outside their CI: their 213 tests pass, every envelope digest recomputed with the Python standard library alone, each negative fails exactly the predicate it pins. Scope paragraph states the limit: the corpus exercises ASCII strings and integers only, so the artifact claims reproduction of that corpus and its negatives and makes no claim of general RFC 8785 interoperability. One three-sentence comment on the thread offers the artifact and nothing else.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/tree/main/interop/x402-receipts-debc94f">interop artifact</a></li><li><a href="https://github.com/x402-foundation/x402/issues/2833#issuecomment-5432912765">x402 #2833 comment</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d190-lab-intake-shipped">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Conformance lab intake: run-report format, submission issue form, one-command contributing path</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 190</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The lab had one star and one committer; promotion was reframed as manufacturing independent runs. Two pull requests shipped and were verified live: the suite README top and organization profile, a RUN-REPORT.md format anyone can paste, an issue form for submitting a run, and a one-command CONTRIBUTING path. Three claims handed over by a review leg were refuted at source before any reached a public draft.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite">aps-conformance-suite</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d190-provenance-corrections">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Two public provenance errors corrected with dated notes</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 190</span> 
+<span class="rm-item-ws">evidence</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A pull request I described as still owed to a collaborator had merged on June 13, carrying the nine drift vectors I was proposing as additive; the tree listing I read was truncated at sixty lines. And the Linux Foundation lab file described as edited after merge is 51 lines in one commit by its maintainer. Both corrected on the surfaces that carried them. A truncated listing is worse than an empty grep because it looks like data.</p>
+</article>
+<article class="rm-item rm-item-done" id="d190-vocab-114-closed-on-gates">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Vocabulary crosswalk #114 closed on artifact gates; the gates found stricter than the contributing document</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 190</span> 
+<span class="rm-item-ws">Ecosystem</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The cited independent implementation and the npm package both sat in the spec author's own authorship domain, so the independent-implementer gate could not be met. Closed on that ground. Flagged against myself: the registry's CONTRIBUTING asks only for public inspectability, a working implementation and a named maintainer; the stricter gate was stated in the thread twice and never disputed, but it is not written down. Reconciling the document is its own item. A housekeeping close of a notification-hub issue was stopped when three live workflows turned out to recreate it.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/pull/114">vocab #114</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d188-actionref-derivation-inventory">
+<header class="rm-item-h">
+<h3 class="rm-item-title">action_ref inventory: 15 of 15 byte-identical on the external form, and a citation defect in the legacy function</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 188</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Field-by-field inventory of every action_ref derivation on disk against the published draft, the joint external draft, and the current conformance corpus, closed by execution rather than source reading: the TypeScript external form reproduced all 15 applicable known-answer vectors byte-identically and rejected the integer-epoch negative at the timestamp grammar gate. The same pass found the legacy computeActionRef citing a draft section it does not implement, in each SDK carrying a variant. Consequences split cleanly: Phase 3 composes with the v1 external form; the citation fix is a separate documentation-first workstream; profile naming waits on the next draft revision.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/giskard09/action-ref-conformance">corpus</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d188-ca2a-validity-window-reproduction">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The suite reproduces an outside profile: ca2a validity windows at a pinned commit</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 188</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">ca2a's full conformance profile executed at a pinned commit outside their CI: 46 passing, including the new expired and not-yet-valid credential cases their validity-window work added. Landed as an interop artifact with the run log, environment, and checksums, and a scope paragraph stating what it does not do: no statement about APS, no APS artifact graded. Case definitions are ca2a's own, referenced by path at the pinned commit.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/25">suite PR #25</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d188-x402-phase3-pr-open">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Phase 3 opened on the composed receipt envelope: delegation_chain_ref as the additive fourth sibling</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 188</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The June invitation asked for delegation-chain conformance vectors; the replies under it reframed the work as slotting argentum-core's existing delegation_chain_ref into the composed envelope at v0.4, and the first job draft missed that and specified a new lineage format before review caught it. The pull request that shipped instead: three composed vectors (two-hop narrowing accept, scope widening reject, continuity break reject), each reject isolating one check with root and leaf anchoring valid throughout; all 47 pre-existing files byte-identical; both existing verifier languages extended with zero code lines removed; chain artifacts producing their expected results under the unmodified argentum verifier at the pin. Two scope notes instead of new behavior: no per-hop principal signature verification is defined by the pinned profile, so it is not tested here, and the vectors follow the pinned conformance set where the spec text says SHOULD. PR open for review.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/TKCollective/agentoracle-receipt-spec/pull/10">PR #10</a></li><li><a href="https://github.com/x402-foundation/x402/issues/2332">x402 thread</a></li></ul>
+</article>
 <article class="rm-item rm-item-done" id="d185-claims-audit-and-registry">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Claims audit across every public surface, and an ownership registry for the numbers</h3>
@@ -5512,6 +5630,50 @@
 </header>
 <p class="rm-item-desc">Ed25519 identity, delegation chains, first tests. 'The Speed of Wrong vs The Speed of Right.' SDK v0.1.</p>
 </article>
+<article class="rm-item rm-item-done" id="d192-lab-text-corrected-before-the-fix-shipped">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The published lab text was corrected first, so a repair never made it false</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The conformance corpus provenance file stated that the offline verifier never consults the active delegation root. That was accurate when written and a pending fix would have falsified it. Rewritten as a release-scoped statement about the shipped version, true before the repair and after it, and merged ahead of the SDK change rather than behind it.</p>
+</article>
+<article class="rm-item rm-item-done" id="d192-offline-verifier-root-enforcement">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A field the verifier documented as authoritative and never read, found by checking a counterparty's aside instead of letting it pass</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">sdk</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">ReceiptContext.active_delegation_root is exported API, documented as the delegation chain root the verifier treats as authoritative. verifyReceiptContext never read it, so a receipt carrying any chain root verified as long as that root was absent from the revoked list. Both fixture harnesses set the active root equal to the receipt root by construction, which is why no test caught it. Fixed as DELEGATION_ROOT_MISMATCH, appended last so no existing first-failure classification moved, with a regression test and a conformance negative. The regression was itself missing from the test script and would not have run.</p>
+</article>
+<article class="rm-item rm-item-done" id="d192-pico-drop12-verified-and-round2">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A rotation invariant closed across three independent records, and a reciprocal artifact stopped before it shipped broken</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Drop 12 verified the day it arrived, 14 vectors for 14, with the rotation digest equal in the counterparty's expired vector, their predecessor block, and our own ledger line, recomputed over the sent bytes. Our reciprocal artifact was then stopped: both signatures declared one did:key separated by fragments that do not resolve, so one did not verify under the identity it named, and our harness passed it because it resolved keys from a private table. Rebuilt as a fixed issuer plus a distinct co-signer key, and the acceptance rule now derives every key from the signer DID itself.</p>
+</article>
+<article class="rm-item rm-item-done" id="d192-validator-skipping-a-third-of-the-corpus">
+<header class="rm-item-h">
+<h3 class="rm-item-title">An outside contributor found our registry validator reporting PASS over thirteen files it never checked</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">vocabulary</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">validate-crosswalks.js walks descriptor dimensions in a nested shape and silently skips the flat shape, which thirteen crosswalks use, including one merged the previous day whose PR cited Validator: PASS. Reproduced independently from a clean clone before replying. The out-of-enum value hiding in the gap belongs to the reporter's own file. Routed as ordinary artifact correctness rather than a governance question, with the vocabulary question kept separate.</p>
+</article>
 </section>
 <section class="rm-group rm-group-backlog">
 <h2 class="rm-group-title">Backlog <span class="rm-group-count">(7)</span></h2>
@@ -5682,7 +5844,19 @@
 </article>
 </section>
 <section class="rm-group rm-group-other-no-status-declared-">
-<h2 class="rm-group-title">Other (no status declared) <span class="rm-group-count">(21)</span></h2>
+<h2 class="rm-group-title">Other (no status declared) <span class="rm-group-count">(22)</span></h2>
+<article class="rm-item rm-item-proposed" id="d191-verdict-delegation-attack-pack">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Delegation attack pack proposed to a PHP security package, with the model gap it exposed filed separately</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 191</span> 
+<span class="rm-item-ws">Ecosystem</span> 
+<span class="rm-item-status">proposed</span>
+</p>
+</header>
+<p class="rm-item-desc">Six actor-versus-subject confusion cases for fissible/verdict, five live and one pending on their cross-invocation lineage issue, following their existing pack structure; three tests make the identity assertions fail on purpose; their full local gate passed (1157 tests, 4178 assertions). Their observation object never exposes the persisted decision evidence row, so no pack can assert on the recorded actor or subject fingerprint directly; the PR states that limit, addresses rather than closes their issue, and the gap is filed as its own issue, cross-linked. Written entirely in their vocabulary.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/fissible/verdict/pull/345">PR #345</a></li><li><a href="https://github.com/fissible/verdict/issues/346">issue #346</a></li></ul>
+</article>
 <article class="rm-item rm-item-waiting" id="d149-audit-charter-text">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Charter text proposed for the IETF AUDIT BOF after the chair asked for it</h3>
