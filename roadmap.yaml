@@ -1,7 +1,104 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-08-25 (Day 188). Day 188 added: the x402 Phase 3 pull request slotting argentum-core's delegation_chain_ref into the composed envelope with byte-stability proven, the suite's first outside-profile reproduction (ca2a validity windows, 46 passing at a pinned commit), and the action_ref derivation inventory closed by execution with a legacy citation defect found and workstreamed.
+# Last updated: 2026-08-26 (Day 191). Days 190 and 191 added: revocation verification corpus with an independent reproduction, TRACE crosswalk merged against pinned v0.9.0, x402-receipts outside-profile reproduction, verdict delegation attack pack PR, adoption-signals re-verification, lab intake, two provenance corrections, vocab #114 closed on gates.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 191 - 2026-08-26 ═══
+
+- id: d191-revocation-verification-corpus
+  title: "Revocation verification corpus merged, and independently reproduced by the contributor who asked for it"
+  description: "Nineteen cases against the existing revocation records, no new signed type, with intrinsic verification (shape, signature, existing verifier) ordered before contextual checks (lookup, authority, binding match). The contributor who opened the request ran the branch himself: 17 of 17, and one artifact digest recomputed in Python with the rfc8785 library, byte-identical. Recorded as an independent reproduction of the corpus; not a lab run report, not validation, not adoption."
+  status: done
+  workstream: conformance
+  day_start: 191
+  day_end: 191
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/pull/123"
+      label: "PR #123"
+    - url: "https://github.com/aeoess/agent-passport-system/issues/89"
+      label: "issue #89"
+
+- id: d191-trace-crosswalk-and-revocation-mapping
+  title: "TRACE crosswalk merged against the pinned v0.9.0; revocation mapping opened as an issue with three questions"
+  description: "crosswalk/agentrust-trace.yaml in the vocabulary registry: 19 rows against the released TRACE v0.9.0, one partial (policy.version to baseline_revision) and eighteen explicit no-mapping cells. Revocation schemas exist only on trace-spec main, not at v0.9.0, so released and unreleased surfaces were mapped separately and never blended; authority-to-key is no-mapping on both, revoked_at and reason partial. The publicly promised revocation item went to the integrations repository as an issue for the maintainer, not a table pretending to answer it."
+  status: done
+  workstream: ecosystem
+  day_start: 191
+  day_end: 191
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/144"
+      label: "vocab PR #144"
+    - url: "https://github.com/agentrust-io/integrations/issues/140"
+      label: "integrations #140"
+
+- id: d191-x402-receipts-outside-profile
+  title: "Second outside corpus reproduced in the lab: x402-receipts at pinned debc94f"
+  description: "Seven receipt vectors and five negatives from a builder on the x402 delivery-receipt thread, reproduced outside their CI: their 213 tests pass, every envelope digest recomputed with the Python standard library alone, each negative fails exactly the predicate it pins. Scope paragraph states the limit: the corpus exercises ASCII strings and integers only, so the artifact claims reproduction of that corpus and its negatives and makes no claim of general RFC 8785 interoperability. One three-sentence comment on the thread offers the artifact and nothing else."
+  status: done
+  workstream: conformance
+  day_start: 191
+  day_end: 191
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/tree/main/interop/x402-receipts-debc94f"
+      label: "interop artifact"
+    - url: "https://github.com/x402-foundation/x402/issues/2833#issuecomment-5432912765"
+      label: "x402 #2833 comment"
+
+- id: d191-verdict-delegation-attack-pack
+  title: "Delegation attack pack proposed to a PHP security package, with the model gap it exposed filed separately"
+  description: "Six actor-versus-subject confusion cases for fissible/verdict, five live and one pending on their cross-invocation lineage issue, following their existing pack structure; three tests make the identity assertions fail on purpose; their full local gate passed (1157 tests, 4178 assertions). Their observation object never exposes the persisted decision evidence row, so no pack can assert on the recorded actor or subject fingerprint directly; the PR states that limit, addresses rather than closes their issue, and the gap is filed as its own issue, cross-linked. Written entirely in their vocabulary."
+  status: proposed
+  workstream: ecosystem
+  day_start: 191
+  day_end: 191
+  links:
+    - url: "https://github.com/fissible/verdict/pull/345"
+      label: "PR #345"
+    - url: "https://github.com/fissible/verdict/issues/346"
+      label: "issue #346"
+
+- id: d191-adoption-signals-verification-pass
+  title: "Adoption-signals inventory re-verified row by row; the Day 170 warning was itself wrong"
+  description: "All 178 claims checked against the repository API: 86 hold, 39 true once and stale now, 45 fail, 8 cannot be verified; replacement wordings applied in three passes. The Day 170 spot check had read only the first page of comments on threads of 143 and 51 and missed the endorsements at comments 113 and 50, so one of four failed, not three. Rule: read every thread with per_page=100 and state the page count, or a negative finding is worthless."
+  status: done
+  workstream: evidence
+  day_start: 191
+  day_end: 191
+  links: []
+
+# ═══ DAY 190 - 2026-08-25 ═══
+
+- id: d190-lab-intake-shipped
+  title: "Conformance lab intake: run-report format, submission issue form, one-command contributing path"
+  description: "The lab had one star and one committer; promotion was reframed as manufacturing independent runs. Two pull requests shipped and were verified live: the suite README top and organization profile, a RUN-REPORT.md format anyone can paste, an issue form for submitting a run, and a one-command CONTRIBUTING path. Three claims handed over by a review leg were refuted at source before any reached a public draft."
+  status: done
+  workstream: conformance
+  day_start: 190
+  day_end: 190
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite"
+      label: "aps-conformance-suite"
+
+- id: d190-provenance-corrections
+  title: "Two public provenance errors corrected with dated notes"
+  description: "A pull request I described as still owed to a collaborator had merged on June 13, carrying the nine drift vectors I was proposing as additive; the tree listing I read was truncated at sixty lines. And the Linux Foundation lab file described as edited after merge is 51 lines in one commit by its maintainer. Both corrected on the surfaces that carried them. A truncated listing is worse than an empty grep because it looks like data."
+  status: done
+  workstream: evidence
+  day_start: 190
+  day_end: 190
+  links: []
+
+- id: d190-vocab-114-closed-on-gates
+  title: "Vocabulary crosswalk #114 closed on artifact gates; the gates found stricter than the contributing document"
+  description: "The cited independent implementation and the npm package both sat in the spec author's own authorship domain, so the independent-implementer gate could not be met. Closed on that ground. Flagged against myself: the registry's CONTRIBUTING asks only for public inspectability, a working implementation and a named maintainer; the stricter gate was stated in the thread twice and never disputed, but it is not written down. Reconciling the document is its own item. A housekeeping close of a notification-hub issue was stopped when three live workflows turned out to recreate it."
+  status: done
+  workstream: ecosystem
+  day_start: 190
+  day_end: 190
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/114"
+      label: "vocab #114"
+
 
 # ═══ DAY 188 - 2026-08-25 ═══
 
