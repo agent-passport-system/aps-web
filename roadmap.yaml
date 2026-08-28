@@ -1,6 +1,6 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-08-27 (Day 192). Day 192 added: offline-verifier root enforcement, Pico drop 12 verified and round 2 rebuilt after a stop, registry validator skipping a third of the corpus, lab text corrected ahead of the fix.
+# Last updated: 2026-08-27 (Day 192, second pass). Adds the day's later work: the skip-invariant ruling, the clean-clone audit, the lab governance files, the February erratum, and operating rules moved onto disk. Day 190 banner date corrected to 2026-08-26.
 # Day 1 = 2026-02-17 (project start)
 
 # ═══ DAY 192 - 2026-08-27 ═══
@@ -28,6 +28,36 @@
   description: "The conformance corpus provenance file stated that the offline verifier never consults the active delegation root. That was accurate when written and a pending fix would have falsified it. Rewritten as a release-scoped statement about the shipped version, true before the repair and after it, and merged ahead of the SDK change rather than behind it."
   status: done
   workstream: conformance
+
+- id: d192-skip-invariant-ruled-an-allowlist
+  title: "A conformance guard counted skips, and a count cannot tell you what it counted"
+  description: "An outside contributor asked for an explicit ruling rather than shipping a policy change quietly: raise the suite's fail-loud guard from exactly one declared skip to exactly two. The ruling was neither. A count is preserved under substitution, so the same assertion is satisfied by the two intended skips and by a state where both started being asserted while two unrelated vectors quietly began skipping. Errors that cancel pass the guard. Replaced with a named allowlist that fails in both directions, requires each allowlisted family to declare a verifier that runs in the gate, and requires a mutation run of that verifier to exit non-zero. Two independent review legs converged on the allowlist separately."
+  status: done
+  workstream: conformance
+
+- id: d192-four-fixes-verified-from-clean-clones
+  title: "Four claimed fixes reproduced from clean clones, and one carried-forward number corrected"
+  description: "Audited a contributor's cross-stack fixture work from fresh clones of both heads rather than from a working tree. Provenance placeholders gone, the dependency real and absent from base, and a prepare script that actually builds the package on a git-pinned clean install, which was the true root cause of a failing acceptance command. The reported test count was a number carried forward from an earlier audit rather than a fresh run. Running the base branch in the same clean environment showed the identical figures, so the apparent anomaly was environmental and the change introduced no regression."
+  status: done
+  workstream: conformance
+
+- id: d192-governance-files-three-weeks-late
+  title: "A lab with no maintainers file, and a staged fix whose blocker had been gone for days"
+  description: "The conformance lab had no MAINTAINERS, no code of conduct and no security policy, while being listed as a foundation lab. The fix had been drafted three weeks earlier and left unopened because it was blocked on write access that had since been granted. Opened with three files rather than the five staged: the fourth was a README replacement written to remove a badge that a different change had already removed two weeks before, so shipping it would have reverted newer work. The maintainers file states plainly that the sole maintainer also authors the specification the corpus tests, and that the shared-review rule does not bind until there are two committers."
+  status: done
+  workstream: conformance
+
+- id: d192-erratum-that-shrank-under-checking
+  title: "Correcting a six-month-old proposal, where three of the things I believed were wrong were not"
+  description: "An outside maintainer revived a February integration proposal, which put fresh attention on claims that had aged badly. The correction was expected to cover a frozen name, a stale domain, an unsupported principles claim and an old test count. Checking the artifact rather than grepping for it removed three of the four: the name appeared zero times, the domain is a live product surface, and the principles feature is real and its enforced count exactly right. What actually survived was that the principle total was wrong on the day it was posted, eight in the manifest against seven claimed. The original proposal was preserved byte for byte and the erratum appended."
+  status: done
+  workstream: ecosystem
+
+- id: d192-doctrine-moved-out-of-memory-onto-disk
+  title: "Operating rules that only one process could read were not rules"
+  description: "The rules governing how work gets done lived in assistant memory and nowhere on disk, so subagents and review legs booted without them and every prompt hand-copied a subset. Moved to a canonical on-disk file with stable rule identifiers, cited by ID rather than copied, because a copied rule is a second surface and two surfaces drift. Ledger records gained stable identifiers enforced fail-closed on the write path, which immediately caught a write from a second session running in parallel and a day-number collision between them."
+  status: done
+  workstream: infrastructure
 
 # ═══ DAY 191 - 2026-08-26 ═══
 
@@ -92,7 +122,7 @@
   day_end: 191
   links: []
 
-# ═══ DAY 190 - 2026-08-25 ═══
+# ═══ DAY 190 - 2026-08-26 ═══
 
 - id: d190-lab-intake-shipped
   title: "Conformance lab intake: run-report format, submission issue form, one-command contributing path"

@@ -95,7 +95,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">505 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">510 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -136,7 +136,7 @@
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(467)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(472)</span></h2>
 <article class="rm-item rm-item-done" id="d191-adoption-signals-verification-pass">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Adoption-signals inventory re-verified row by row; the Day 170 warning was itself wrong</h3>
@@ -5630,6 +5630,50 @@
 </header>
 <p class="rm-item-desc">Ed25519 identity, delegation chains, first tests. 'The Speed of Wrong vs The Speed of Right.' SDK v0.1.</p>
 </article>
+<article class="rm-item rm-item-done" id="d192-doctrine-moved-out-of-memory-onto-disk">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Operating rules that only one process could read were not rules</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">infrastructure</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The rules governing how work gets done lived in assistant memory and nowhere on disk, so subagents and review legs booted without them and every prompt hand-copied a subset. Moved to a canonical on-disk file with stable rule identifiers, cited by ID rather than copied, because a copied rule is a second surface and two surfaces drift. Ledger records gained stable identifiers enforced fail-closed on the write path, which immediately caught a write from a second session running in parallel and a day-number collision between them.</p>
+</article>
+<article class="rm-item rm-item-done" id="d192-erratum-that-shrank-under-checking">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Correcting a six-month-old proposal, where three of the things I believed were wrong were not</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">Ecosystem</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">An outside maintainer revived a February integration proposal, which put fresh attention on claims that had aged badly. The correction was expected to cover a frozen name, a stale domain, an unsupported principles claim and an old test count. Checking the artifact rather than grepping for it removed three of the four: the name appeared zero times, the domain is a live product surface, and the principles feature is real and its enforced count exactly right. What actually survived was that the principle total was wrong on the day it was posted, eight in the manifest against seven claimed. The original proposal was preserved byte for byte and the erratum appended.</p>
+</article>
+<article class="rm-item rm-item-done" id="d192-four-fixes-verified-from-clean-clones">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Four claimed fixes reproduced from clean clones, and one carried-forward number corrected</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Audited a contributor's cross-stack fixture work from fresh clones of both heads rather than from a working tree. Provenance placeholders gone, the dependency real and absent from base, and a prepare script that actually builds the package on a git-pinned clean install, which was the true root cause of a failing acceptance command. The reported test count was a number carried forward from an earlier audit rather than a fresh run. Running the base branch in the same clean environment showed the identical figures, so the apparent anomaly was environmental and the change introduced no regression.</p>
+</article>
+<article class="rm-item rm-item-done" id="d192-governance-files-three-weeks-late">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A lab with no maintainers file, and a staged fix whose blocker had been gone for days</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The conformance lab had no MAINTAINERS, no code of conduct and no security policy, while being listed as a foundation lab. The fix had been drafted three weeks earlier and left unopened because it was blocked on write access that had since been granted. Opened with three files rather than the five staged: the fourth was a README replacement written to remove a badge that a different change had already removed two weeks before, so shipping it would have reverted newer work. The maintainers file states plainly that the sole maintainer also authors the specification the corpus tests, and that the shared-review rule does not bind until there are two committers.</p>
+</article>
 <article class="rm-item rm-item-done" id="d192-lab-text-corrected-before-the-fix-shipped">
 <header class="rm-item-h">
 <h3 class="rm-item-title">The published lab text was corrected first, so a repair never made it false</h3>
@@ -5662,6 +5706,17 @@
 </p>
 </header>
 <p class="rm-item-desc">Drop 12 verified the day it arrived, 14 vectors for 14, with the rotation digest equal in the counterparty's expired vector, their predecessor block, and our own ledger line, recomputed over the sent bytes. Our reciprocal artifact was then stopped: both signatures declared one did:key separated by fragments that do not resolve, so one did not verify under the identity it named, and our harness passed it because it resolved keys from a private table. Rebuilt as a fixed issuer plus a distinct co-signer key, and the acceptance rule now derives every key from the signer DID itself.</p>
+</article>
+<article class="rm-item rm-item-done" id="d192-skip-invariant-ruled-an-allowlist">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A conformance guard counted skips, and a count cannot tell you what it counted</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">An outside contributor asked for an explicit ruling rather than shipping a policy change quietly: raise the suite's fail-loud guard from exactly one declared skip to exactly two. The ruling was neither. A count is preserved under substitution, so the same assertion is satisfied by the two intended skips and by a state where both started being asserted while two unrelated vectors quietly began skipping. Errors that cancel pass the guard. Replaced with a named allowlist that fails in both directions, requires each allowlisted family to declare a verifier that runs in the gate, and requires a mutation run of that verifier to exit non-zero. Two independent review legs converged on the allowlist separately.</p>
 </article>
 <article class="rm-item rm-item-done" id="d192-validator-skipping-a-third-of-the-corpus">
 <header class="rm-item-h">
