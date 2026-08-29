@@ -95,7 +95,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">510 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">518 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -136,7 +136,7 @@
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(472)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(480)</span></h2>
 <article class="rm-item rm-item-done" id="d191-adoption-signals-verification-pass">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Adoption-signals inventory re-verified row by row; the Day 170 warning was itself wrong</h3>
@@ -5728,6 +5728,100 @@
 </p>
 </header>
 <p class="rm-item-desc">validate-crosswalks.js walks descriptor dimensions in a nested shape and silently skips the flat shape, which thirteen crosswalks use, including one merged the previous day whose PR cited Validator: PASS. Reproduced independently from a clean clone before replying. The out-of-enum value hiding in the gap belongs to the reporter's own file. Routed as ordinary artifact correctness rather than a governance question, with the vocabulary question kept separate.</p>
+</article>
+<article class="rm-item rm-item-done" id="d193-451-provenance-and-exact-tarball">
+<header class="rm-item-h">
+<h3 class="rm-item-title">4.5.1 is the first release where the attested tarball and the published tarball are the same bytes</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">infrastructure</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">4.5.0 was published by hand after its workflow run failed at an audit gate, so it carried no provenance. 4.5.1 is a lockfile-only patch cut to restore the chain. Before tagging, the release workflow was changed to publish the exact tarball the attestation signs rather than packing a second time; the same fix went into the MCP package's new release workflow, which now publishes through npm Trusted Publishing with OIDC, no token, pinned actions, an SBOM, and one pack. The release asset's SHA-512 equals the registry's integrity field.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/releases/tag/v4.5.1">4.5.1 release</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d193-a-question-with-a-falsifiable-answer">
+<header class="rm-item-h">
+<h3 class="rm-item-title">On a 45-comment thread, the one useful intervention was a question about what required is checked against</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">Standards</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">TRACE's two-axis model separates supply-chain depth from per-action receipts and treats required as a verifier floor. Reading the merged text rather than the thread showed the record carries nothing that says which calls needed a receipt; the conformance fixtures supply that from outside. So a record declaring receipts required with none present can never report one missing. The first draft of this finding was wrong on its premise and died in a hostile pass before posting; the surviving version asks where the coverage set lives, and either answer the editor gives makes required checkable. Six fellowship proposals were building fixtures on top of the gap without naming it.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/agentrust-io/trace-spec/issues/66">trace-spec #66</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d193-interop-run-both-directions-nine-hours">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A second IETF draft author arrived with running code, and the lab turned it into a two-direction record in nine hours</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">attenu-guard (draft-asor-wimse-agent-delegation-chain-00) offered to run APS vectors through its verifier. Direction one: its serializer against the pinned RFC 8785 fixtures, five of ten distinct cases byte-identical, four named divergence classes. Direction two: a clean-room verifier written from the draft and the published vector profile without reading the reference implementation, seven of seven, with one spec gap found on the way (the wildcard rule for scopes is discoverable only from the vectors). Both directions merged as an interop family with author-run and independent labels. Nobody adopted anybody.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/tree/main/interop/attenu-guard-0.6.0">attenu-guard record</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d193-lab-invitation-taken-in-34-minutes">
+<header class="rm-item-h">
+<h3 class="rm-item-title">An invitation to put vectors through the lab, phrased as let's use the machinery together, was taken in 34 minutes</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The trust-signals thread on A2A had three projects publishing their own vectors and asking where cross-implementation results should live. The reply named the lab as a home for the second half, when somebody else runs your vectors, without declaring a convention or asking anyone to adopt anything. argentum-core answered with a cold reproduction of the whole corpus and a pinned candidate set. The wording that worked was the principal's, not the assistant's: shorter, no claim of ownership, one concrete next step.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/a2aproject/A2A/issues/1628">A2A #1628</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d193-live-mcp-served-a-removed-tool">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The public MCP endpoint served a governance tool the source had removed, for eight days, because a pin lagged the docs</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">infrastructure</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The remote bridge pinned the MCP package at 4.0.0 while npm latest was 5.0.0, so mcp.aeoess.com kept exposing evaluate_threshold, a tool 5.0.0 removed because it counted declared signers without verifying anything and still emitted a verdict. The bridge's README had already been rewritten to say 5.0.0; the dependency pin had not. A one-line exact pin and a service version bump fixed it, verified live: 152 tools, the removed tool absent, the three amendment tools present. The lesson recorded: a publicly wrong live answer outranks every scheduled priority, and docs propagation is not deployment.</p>
+</article>
+<article class="rm-item rm-item-done" id="d193-receipt-core-public-api-450">
+<header class="rm-item-h">
+<h3 class="rm-item-title">receipt-core and authority-delegation became public API in 4.5.0 after all four export gates closed</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">sdk</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The two modules had shipped inside the package since 4.2.0, tested but unexported. Four gates stood between them and the public surface: strict duplicate-member parsing on serialized action_ref input, a composite verifier that binds a receipt to its decision before any cross-document conclusion, serialized entry points for receipts, and a known-answer corpus. All four closed on the same day and 4.5.0 shipped with verification described as what it establishes, never as authorization to dispatch or proof of single-use.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/releases/tag/v4.5.0">4.5.0 release notes</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d193-rfc8785-crossrun-four-languages">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The same ten RFC 8785 cases, runnable from four ecosystems with one command, because three projects hit the same bug in one week</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">attenu-guard, REMORA and cMCP each turned out to canonicalize with a sorted-keys JSON encoder that is not RFC 8785: exponent formatting, astral key order, non-ASCII output, and the binary64 number model all diverge. The ten distinct cases already pinned in the lab now have runners in TypeScript, Python, Go and Rust that read the fixture at run time, report byte and digest match per case with the first divergent offset, label whether a first-party canonicalizer or a baseline encoder produced the row, and treat a mismatch as a recorded result rather than a failed run. It is a byte diff on ten cases, not a verdict on anyone.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/tree/main/fixtures/canonical-bytes">canonical-bytes cross-run</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d193-three-sibling-checkout-holes-found-by-outsiders">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Three places where the lab quietly depended on a sibling checkout, every one found by someone else's run</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">An unprompted Mode B report from REMORA noted that the documented one-command run needed a second cloned repository. A cold reproduction from argentum-core stopped at the same place an hour after the fix landed. A CC self-containment gate found the third, a Go replace directive pointing at a neighbouring directory. All three now resolve published artifacts at exact versions, proven from fresh clones with a fake HOME and empty module caches. External cross-runs are exposing defects that internal maintenance passes had not.</p>
 </article>
 </section>
 <section class="rm-group rm-group-backlog">

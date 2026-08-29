@@ -1,7 +1,75 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-08-27 (Day 192, second pass). Adds the day's later work: the skip-invariant ruling, the clean-clone audit, the lab governance files, the February erratum, and operating rules moved onto disk. Day 190 banner date corrected to 2026-08-26.
+# Last updated: 2026-08-28 (Day 193). Adds the day: receipt-core public API in 4.5.0, the attenu-guard two-direction record, the live MCP pin defect, 4.5.1 exact-tarball provenance, three sibling-checkout holes found by outside runs, the four-language RFC 8785 cross-run, the trace-spec#66 coverage question, and the lab invitation taken on A2A#1628.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 193 - 2026-08-28 ═══
+
+- id: d193-receipt-core-public-api-450
+  title: "receipt-core and authority-delegation became public API in 4.5.0 after all four export gates closed"
+  description: "The two modules had shipped inside the package since 4.2.0, tested but unexported. Four gates stood between them and the public surface: strict duplicate-member parsing on serialized action_ref input, a composite verifier that binds a receipt to its decision before any cross-document conclusion, serialized entry points for receipts, and a known-answer corpus. All four closed on the same day and 4.5.0 shipped with verification described as what it establishes, never as authorization to dispatch or proof of single-use."
+  status: done
+  workstream: sdk
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/releases/tag/v4.5.0"
+      label: "4.5.0 release notes"
+
+- id: d193-interop-run-both-directions-nine-hours
+  title: "A second IETF draft author arrived with running code, and the lab turned it into a two-direction record in nine hours"
+  description: "attenu-guard (draft-asor-wimse-agent-delegation-chain-00) offered to run APS vectors through its verifier. Direction one: its serializer against the pinned RFC 8785 fixtures, five of ten distinct cases byte-identical, four named divergence classes. Direction two: a clean-room verifier written from the draft and the published vector profile without reading the reference implementation, seven of seven, with one spec gap found on the way (the wildcard rule for scopes is discoverable only from the vectors). Both directions merged as an interop family with author-run and independent labels. Nobody adopted anybody."
+  status: done
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/tree/main/interop/attenu-guard-0.6.0"
+      label: "attenu-guard record"
+
+- id: d193-live-mcp-served-a-removed-tool
+  title: "The public MCP endpoint served a governance tool the source had removed, for eight days, because a pin lagged the docs"
+  description: "The remote bridge pinned the MCP package at 4.0.0 while npm latest was 5.0.0, so mcp.aeoess.com kept exposing evaluate_threshold, a tool 5.0.0 removed because it counted declared signers without verifying anything and still emitted a verdict. The bridge's README had already been rewritten to say 5.0.0; the dependency pin had not. A one-line exact pin and a service version bump fixed it, verified live: 152 tools, the removed tool absent, the three amendment tools present. The lesson recorded: a publicly wrong live answer outranks every scheduled priority, and docs propagation is not deployment."
+  status: done
+  workstream: infrastructure
+
+- id: d193-451-provenance-and-exact-tarball
+  title: "4.5.1 is the first release where the attested tarball and the published tarball are the same bytes"
+  description: "4.5.0 was published by hand after its workflow run failed at an audit gate, so it carried no provenance. 4.5.1 is a lockfile-only patch cut to restore the chain. Before tagging, the release workflow was changed to publish the exact tarball the attestation signs rather than packing a second time; the same fix went into the MCP package's new release workflow, which now publishes through npm Trusted Publishing with OIDC, no token, pinned actions, an SBOM, and one pack. The release asset's SHA-512 equals the registry's integrity field."
+  status: done
+  workstream: infrastructure
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/releases/tag/v4.5.1"
+      label: "4.5.1 release"
+
+- id: d193-three-sibling-checkout-holes-found-by-outsiders
+  title: "Three places where the lab quietly depended on a sibling checkout, every one found by someone else's run"
+  description: "An unprompted Mode B report from REMORA noted that the documented one-command run needed a second cloned repository. A cold reproduction from argentum-core stopped at the same place an hour after the fix landed. A CC self-containment gate found the third, a Go replace directive pointing at a neighbouring directory. All three now resolve published artifacts at exact versions, proven from fresh clones with a fake HOME and empty module caches. External cross-runs are exposing defects that internal maintenance passes had not."
+  status: done
+  workstream: conformance
+
+- id: d193-rfc8785-crossrun-four-languages
+  title: "The same ten RFC 8785 cases, runnable from four ecosystems with one command, because three projects hit the same bug in one week"
+  description: "attenu-guard, REMORA and cMCP each turned out to canonicalize with a sorted-keys JSON encoder that is not RFC 8785: exponent formatting, astral key order, non-ASCII output, and the binary64 number model all diverge. The ten distinct cases already pinned in the lab now have runners in TypeScript, Python, Go and Rust that read the fixture at run time, report byte and digest match per case with the first divergent offset, label whether a first-party canonicalizer or a baseline encoder produced the row, and treat a mismatch as a recorded result rather than a failed run. It is a byte diff on ten cases, not a verdict on anyone."
+  status: done
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/tree/main/fixtures/canonical-bytes"
+      label: "canonical-bytes cross-run"
+
+- id: d193-a-question-with-a-falsifiable-answer
+  title: "On a 45-comment thread, the one useful intervention was a question about what required is checked against"
+  description: "TRACE's two-axis model separates supply-chain depth from per-action receipts and treats required as a verifier floor. Reading the merged text rather than the thread showed the record carries nothing that says which calls needed a receipt; the conformance fixtures supply that from outside. So a record declaring receipts required with none present can never report one missing. The first draft of this finding was wrong on its premise and died in a hostile pass before posting; the surviving version asks where the coverage set lives, and either answer the editor gives makes required checkable. Six fellowship proposals were building fixtures on top of the gap without naming it."
+  status: done
+  workstream: standards
+  links:
+    - url: "https://github.com/agentrust-io/trace-spec/issues/66"
+      label: "trace-spec #66"
+
+- id: d193-lab-invitation-taken-in-34-minutes
+  title: "An invitation to put vectors through the lab, phrased as let's use the machinery together, was taken in 34 minutes"
+  description: "The trust-signals thread on A2A had three projects publishing their own vectors and asking where cross-implementation results should live. The reply named the lab as a home for the second half, when somebody else runs your vectors, without declaring a convention or asking anyone to adopt anything. argentum-core answered with a cold reproduction of the whole corpus and a pinned candidate set. The wording that worked was the principal's, not the assistant's: shorter, no claim of ownership, one concrete next step."
+  status: done
+  workstream: conformance
+  links:
+    - url: "https://github.com/a2aproject/A2A/issues/1628"
+      label: "A2A #1628"
 
 # ═══ DAY 192 - 2026-08-27 ═══
 
