@@ -1,6 +1,6 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-08-28 (Day 193). Adds the day: receipt-core public API in 4.5.0, the attenu-guard two-direction record, the live MCP pin defect, 4.5.1 exact-tarball provenance, three sibling-checkout holes found by outside runs, the four-language RFC 8785 cross-run, the trace-spec#66 coverage question, and the lab invitation taken on A2A#1628.
+# Last updated: 2026-08-28 (Day 193, second pass). Adds the evening: four external PR reviews where a second reader found what the first missed and the claim-mutation rule that followed, the attenu-guard 0.6.1 record, the declined cross-stack runner, and the DIF promise delivered late with a close date.
 # Day 1 = 2026-02-17 (project start)
 
 # ═══ DAY 193 - 2026-08-28 ═══
@@ -70,6 +70,36 @@
   links:
     - url: "https://github.com/a2aproject/A2A/issues/1628"
       label: "A2A #1628"
+
+- id: d193-the-second-reader-found-what-the-first-missed
+  title: "Four external pull requests, four full protocol reviews, and on each one a second reader found defects the first pass missed"
+  description: "Each review classified its track before the read, wrote adversarial hypotheses first, executed every claim from a clean clone, and wrote a memo. A separate model running the same protocol cold then found what the first pass had not: a collision check comparing a bare digest to a prefixed one; an Ed25519 verifier accepting S plus the group order, invisible to random differential rounds and found by Wycheproof in one run; a vendored attestation that was a signed security verdict about a third party; a runner whose README said the authority chain verifies while it checked signatures, links and continuity only; replay claimed by a verifier that never touches replay; negatives keyed to fixture names. The artifacts were sound every time; the sentences were not. Rule adopted: every README sentence about what a runner enforces gets one mutation built to make it false, and a green aggregate label is a claim to falsify. Second rule: any vendored cryptographic verifier runs against the known-answer corpus for its primitive before any verdict."
+  status: done
+  workstream: conformance
+
+- id: d193-attenu-guard-0-6-1-eighth-vector
+  title: "The counterparty confirmed the four divergence classes himself, added the vector for the spec gap the clean-room run found, and the record moved to his new release the same day"
+  description: "attenu-guard 0.6.1 ships its vectors inside the package and adds reject_wildcard_widening, the case where a child claims a wildcard over a parent holding one scope, which two independent verifier authors had got wrong from the draft text. The clean-room verifier written from the draft scores eight of eight on it with no logic change. Bytes unchanged at five of ten, now recorded under a three-class divergence split with observed bytes. The author reclassified his serializer as a distinct canonicalization that agrees on the ASCII-and-integers subset, identified the one class that can reach a real token, and asked to take that decision with implementers in the room."
+  status: done
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/tree/main/interop/attenu-guard-0.6.1"
+      label: "attenu-guard 0.6.1 record"
+
+- id: d193-cross-stack-runner-declined
+  title: "An automatic runner for every external family was declined: it would have made contributor code execute by default and turned absent verification into a green skip"
+  description: "The obvious fix for external families not being in the suite's test command was a runner that discovers and executes every family's validator. Two hostile reads killed it: the contributing rule requires independent verification before a family lands, not execution by the test command; auto-discovery would make every contributor's code, including a home-grown cryptographic verifier, run by default in CI; and skip semantics would let a family whose toolchain vanished stay green while no longer reproduced. Three things stay separate: the core corpus run with a known toolchain, explicit per-family reproduction recorded with attribution, and lab-wide aggregation only ever behind an allowlisted manifest that reports a missing toolchain as an error. What remains is one documentation sentence."
+  status: done
+  workstream: conformance
+
+- id: d193-a-promise-delivered-on-disk-not-in-the-thread
+  title: "A working-group promise from July was delivered in two days and linked back after thirty-five, with a close date attached"
+  description: "The contribution-policy update and worked fixture promised on a standards working-group thread landed in the registry two days later, with the commit citing the thread, and were never posted back; a held reply waited on an artifact that already existed, and every sweep since read the tracking row without following it to the thread. The link went up today after the fixture README was corrected, since it described a file not in the directory. The thread now carries a close date: if the group has not taken up the stewardship question by 11 September, the issue closes and the registry continues standalone. Rule recorded: a promise delivered on disk and not in the thread is still undelivered, and sweeps compare the thread's last message from us against what shipped."
+  status: done
+  workstream: standards
+  links:
+    - url: "https://github.com/decentralized-identity/trusted-ai-agents/issues/41"
+      label: "DIF trusted-ai-agents #41"
 
 # ═══ DAY 192 - 2026-08-27 ═══
 

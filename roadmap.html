@@ -95,7 +95,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">518 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">522 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -136,7 +136,7 @@
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(480)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(484)</span></h2>
 <article class="rm-item rm-item-done" id="d191-adoption-signals-verification-pass">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Adoption-signals inventory re-verified row by row; the Day 170 warning was itself wrong</h3>
@@ -5741,6 +5741,18 @@
 <p class="rm-item-desc">4.5.0 was published by hand after its workflow run failed at an audit gate, so it carried no provenance. 4.5.1 is a lockfile-only patch cut to restore the chain. Before tagging, the release workflow was changed to publish the exact tarball the attestation signs rather than packing a second time; the same fix went into the MCP package's new release workflow, which now publishes through npm Trusted Publishing with OIDC, no token, pinned actions, an SBOM, and one pack. The release asset's SHA-512 equals the registry's integrity field.</p>
 <ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/releases/tag/v4.5.1">4.5.1 release</a></li></ul>
 </article>
+<article class="rm-item rm-item-done" id="d193-a-promise-delivered-on-disk-not-in-the-thread">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A working-group promise from July was delivered in two days and linked back after thirty-five, with a close date attached</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">Standards</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The contribution-policy update and worked fixture promised on a standards working-group thread landed in the registry two days later, with the commit citing the thread, and were never posted back; a held reply waited on an artifact that already existed, and every sweep since read the tracking row without following it to the thread. The link went up today after the fixture README was corrected, since it described a file not in the directory. The thread now carries a close date: if the group has not taken up the stewardship question by 11 September, the issue closes and the registry continues standalone. Rule recorded: a promise delivered on disk and not in the thread is still undelivered, and sweeps compare the thread's last message from us against what shipped.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/decentralized-identity/trusted-ai-agents/issues/41">DIF trusted-ai-agents #41</a></li></ul>
+</article>
 <article class="rm-item rm-item-done" id="d193-a-question-with-a-falsifiable-answer">
 <header class="rm-item-h">
 <h3 class="rm-item-title">On a 45-comment thread, the one useful intervention was a question about what required is checked against</h3>
@@ -5752,6 +5764,29 @@
 </header>
 <p class="rm-item-desc">TRACE's two-axis model separates supply-chain depth from per-action receipts and treats required as a verifier floor. Reading the merged text rather than the thread showed the record carries nothing that says which calls needed a receipt; the conformance fixtures supply that from outside. So a record declaring receipts required with none present can never report one missing. The first draft of this finding was wrong on its premise and died in a hostile pass before posting; the surviving version asks where the coverage set lives, and either answer the editor gives makes required checkable. Six fellowship proposals were building fixtures on top of the gap without naming it.</p>
 <ul class="rm-item-links"><li><a href="https://github.com/agentrust-io/trace-spec/issues/66">trace-spec #66</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d193-attenu-guard-0-6-1-eighth-vector">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The counterparty confirmed the four divergence classes himself, added the vector for the spec gap the clean-room run found, and the record moved to his new release the same day</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">attenu-guard 0.6.1 ships its vectors inside the package and adds reject_wildcard_widening, the case where a child claims a wildcard over a parent holding one scope, which two independent verifier authors had got wrong from the draft text. The clean-room verifier written from the draft scores eight of eight on it with no logic change. Bytes unchanged at five of ten, now recorded under a three-class divergence split with observed bytes. The author reclassified his serializer as a distinct canonicalization that agrees on the ASCII-and-integers subset, identified the one class that can reach a real token, and asked to take that decision with implementers in the room.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/tree/main/interop/attenu-guard-0.6.1">attenu-guard 0.6.1 record</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d193-cross-stack-runner-declined">
+<header class="rm-item-h">
+<h3 class="rm-item-title">An automatic runner for every external family was declined: it would have made contributor code execute by default and turned absent verification into a green skip</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The obvious fix for external families not being in the suite's test command was a runner that discovers and executes every family's validator. Two hostile reads killed it: the contributing rule requires independent verification before a family lands, not execution by the test command; auto-discovery would make every contributor's code, including a home-grown cryptographic verifier, run by default in CI; and skip semantics would let a family whose toolchain vanished stay green while no longer reproduced. Three things stay separate: the core corpus run with a known toolchain, explicit per-family reproduction recorded with attribution, and lab-wide aggregation only ever behind an allowlisted manifest that reports a missing toolchain as an error. What remains is one documentation sentence.</p>
 </article>
 <article class="rm-item rm-item-done" id="d193-interop-run-both-directions-nine-hours">
 <header class="rm-item-h">
@@ -5811,6 +5846,17 @@
 </header>
 <p class="rm-item-desc">attenu-guard, REMORA and cMCP each turned out to canonicalize with a sorted-keys JSON encoder that is not RFC 8785: exponent formatting, astral key order, non-ASCII output, and the binary64 number model all diverge. The ten distinct cases already pinned in the lab now have runners in TypeScript, Python, Go and Rust that read the fixture at run time, report byte and digest match per case with the first divergent offset, label whether a first-party canonicalizer or a baseline encoder produced the row, and treat a mismatch as a recorded result rather than a failed run. It is a byte diff on ten cases, not a verdict on anyone.</p>
 <ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/tree/main/fixtures/canonical-bytes">canonical-bytes cross-run</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d193-the-second-reader-found-what-the-first-missed">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Four external pull requests, four full protocol reviews, and on each one a second reader found defects the first pass missed</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Each review classified its track before the read, wrote adversarial hypotheses first, executed every claim from a clean clone, and wrote a memo. A separate model running the same protocol cold then found what the first pass had not: a collision check comparing a bare digest to a prefixed one; an Ed25519 verifier accepting S plus the group order, invisible to random differential rounds and found by Wycheproof in one run; a vendored attestation that was a signed security verdict about a third party; a runner whose README said the authority chain verifies while it checked signatures, links and continuity only; replay claimed by a verifier that never touches replay; negatives keyed to fixture names. The artifacts were sound every time; the sentences were not. Rule adopted: every README sentence about what a runner enforces gets one mutation built to make it false, and a green aggregate label is a claim to falsify. Second rule: any vendored cryptographic verifier runs against the known-answer corpus for its primitive before any verdict.</p>
 </article>
 <article class="rm-item rm-item-done" id="d193-three-sibling-checkout-holes-found-by-outsiders">
 <header class="rm-item-h">
