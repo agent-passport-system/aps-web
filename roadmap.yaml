@@ -1,7 +1,79 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-08-28 (Day 193, second pass). Adds the evening: four external PR reviews where a second reader found what the first missed and the claim-mutation rule that followed, the attenu-guard 0.6.1 record, the declined cross-stack runner, and the DIF promise delivered late with a close date.
+# Last updated: 2026-08-29 (Day 194). Adds: the ruling that deterministic verdicts are mandatory-independent claims and the retraction of my own independent labels, the refusal convention, the recomputability-is-not-signature ruling, one rule for npm run verify versus npm test, the generator merge, the answered revocation mapping and trace-spec#246, and two corrections pointing back at me.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 194 - 2026-08-29 ═══
+
+- id: d194-verdict-claims-are-mandatory-independent
+  title: "A ruling on the word including: deterministic verdicts need an outside record before an external family lands, and my own runs did not count"
+  description: "The admission rule said independently recomputable claims, including bytes, digests and signatures, land only with an independent record. On an argentum action_ref family the question was whether domain-rejection and grammar verdicts sit on that side too. They do: including is illustrative, and anything a third party can reproduce from published inputs is on the mandatory side. The same audit found that I had originated eight of the ten domain vectors months earlier through a bug report, so seven independent labels I had drafted for my own runs were retracted before posting. The contributor's work is complete; the merge waits on an outside run and on the lab fixing its own documentation."
+  status: done
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/42"
+      label: "suite #42"
+
+- id: d194-refused-is-a-result-not-a-verdict
+  title: "REMORA refuses two RFC 8785 integer vectors on purpose, and the lab records that as refused, not as supported or unsupported"
+  description: "The REMORA author asked whether the lab should record his implementation as supported with an exception or as unsupported for canonical-byte interoperability. Neither. The record says what was observed, 16 byte-identical, 0 divergent, 2 refused, with the refusal text and his reason beside it, in the enforced form: integers whose binary64 image is not unique are refused, 2^53 included. The wider sentence in his design, that no two argument sets share canonical bytes, was false on inspection (0.1 and its 34-digit spelling collapse before his code sees them) and he narrowed it upstream the same day. Two blockers found and fixed: a BUSL header on a file the lab hosts, and an adapter hash computed over CRLF bytes, the same defect his own record reports two sections later."
+  status: done
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/41"
+      label: "suite #41"
+
+- id: d194-recomputability-is-not-signature-semantics
+  title: "Registry ruling: an unsigned recomputable receipt does not map structurally to a term defined as a signed attestation"
+  description: "A new crosswalk mapped a deterministic decision receipt (ruleset commit plus SHA-256 of the canonical input) onto governance_attestation at match structural, with signature_capability deliberately omitted. Recomputation establishes that a result follows from inputs; it does not establish that an identified issuer made the statement, which is what the signature supplies. The match type for that is non_equivalent_similar_label. Recorded for every future unsigned-artifact mapping, with the property named rather than the format: the rule yields only to another mechanism that provides equivalent authenticated issuer binding. The same review found the cited source directory stating that no engine implements it yet; emitted evidence has to cite the code that emits."
+  status: done
+  workstream: vocabulary
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/151"
+      label: "vocab #151"
+
+- id: d194-one-rule-for-verify-and-test
+  title: "Two of the lab's own rulings disagreed about one family, and the fix is one rule: npm run verify is the generic corpus, npm test is the gate"
+  description: "A day-old sentence said npm test does not execute external families. A two-day-old ruling required an allowlisted family's dedicated verifier and mutation proof to run in npm test. The oracle-safety-check family satisfied the second and violated the first, and the contributor could not satisfy both. The family stays in the gate; the sentence was wrong. The policy change also gives the lab one definition of independent, the runner authored neither the vectors nor the implementation whose output supplies the recomputation, a thin harness around independent primitives does not make a record author-produced, and a harness that decides the semantic result is part of the implementation; and it makes mode and authorship two axes that never determine each other. Committed locally, lands before the two families it unblocks."
+  status: in-progress
+  workstream: conformance
+
+- id: d194-generator-merged-family-waits-on-provenance
+  title: "The oracle-safety-check generator merged into the SDK; the lab family waits on provenance, not on another rewrite"
+  description: "Fourth round on the pair. Every asked item held on both heads under mutation: an expected value of banana exits 1, a fresh key re-signing the canonical bytes exits 1 on the derived-key check, the index is membership-only, the false reason inside the signed decision receipt is gone. The generator PR merged with the repository gates green. What the family still needs is ours: the EIP-712 layer has an ethers record, the APS primitive layer got a clean-room recompute today (rfc8785 and cryptography, no SDK code, 13 of 13 vectors, twenty checks each, only the designed negatives failing), and the composite verdict layer needs an outside run because a checker I write for it does not count."
+  status: done
+  workstream: sdk
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/pull/119"
+      label: "APS #119"
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/32"
+      label: "suite #32"
+
+- id: d194-revocation-mapping-answered-and-a-trace-defect
+  title: "The TRACE maintainer answered the revocation mapping, and the divergence we found turned out to be TRACE against TRACE"
+  description: "Three questions asked on Wednesday, three answers on Saturday. The two TRACE revocation surfaces are one mechanism degrading gracefully, entry-scoped where an inclusion proof exists and binary on the key where it does not; authority revocation and key revocation stay unmapped on both, and an unsigned record with transparency none has no revocation surface by construction; nothing is emitted today. The finding we had filed as an APS-versus-TRACE divergence, that an empty store accepts while an omitted store skips, is now a trace-spec issue in the maintainer's own words: the spec requires absence to be reported as absence and the store path promotes it to a pass. The mapping doc is committed locally with the pointer."
+  status: done
+  workstream: interop
+  links:
+    - url: "https://github.com/agentrust-io/integrations/issues/140"
+      label: "integrations #140"
+    - url: "https://github.com/agentrust-io/trace-spec/issues/246"
+      label: "trace-spec #246"
+
+- id: d194-two-field-names-i-confirmed-were-wrong
+  title: "Two field names attributed to APS in a vocabulary entry do not exist in APS, and the source of the error was me, months ago"
+  description: "The bilateral_receipt entry lists compromise_window_ts and evidence_merkle_leaf as APS-only fields. Neither exists: the receipt field is evidenceCommitments and the compromise window is a verifier input, not a receipt field. The names were confirmed verbatim on the originating issue in May by me. The entry is otherwise sound and held at reserved; the correction is two dropped lines, and the promotion trigger stops naming two projects. The contributor carried the error in good faith and is owed the fix, not the blame."
+  status: in-progress
+  workstream: vocabulary
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/139"
+      label: "vocab #139"
+
+- id: d194-the-roster-on-disk-overruled-my-memory
+  title: "I proposed an independent runner from memory of a good run; the watch file on disk said never cite that account as independent"
+  description: "The admission rule needs an outside run for two layers of the argentum family. My first pick was an account that had reproduced our revocation corpus well three days earlier. The people file, read only after the pick, carries a standing entry from July: elevated verification, never cite their recomputes as independent. The entry stays; changing it because a runner was needed would let the desired outcome write the governance decision. The ask went to an implementer with no involvement in either the vectors or the pinned implementation, and it asks for facts only: run the documented commands at an exact head and paste the output. The lab classifies afterward."
+  status: done
+  workstream: governance
 
 # ═══ DAY 193 - 2026-08-28 ═══
 

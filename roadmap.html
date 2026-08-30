@@ -95,7 +95,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">522 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">530 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -136,7 +136,7 @@
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(484)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(490)</span></h2>
 <article class="rm-item rm-item-done" id="d191-adoption-signals-verification-pass">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Adoption-signals inventory re-verified row by row; the Day 170 warning was itself wrong</h3>
@@ -5869,6 +5869,77 @@
 </header>
 <p class="rm-item-desc">An unprompted Mode B report from REMORA noted that the documented one-command run needed a second cloned repository. A cold reproduction from argentum-core stopped at the same place an hour after the fix landed. A CC self-containment gate found the third, a Go replace directive pointing at a neighbouring directory. All three now resolve published artifacts at exact versions, proven from fresh clones with a fake HOME and empty module caches. External cross-runs are exposing defects that internal maintenance passes had not.</p>
 </article>
+<article class="rm-item rm-item-done" id="d194-generator-merged-family-waits-on-provenance">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The oracle-safety-check generator merged into the SDK; the lab family waits on provenance, not on another rewrite</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">sdk</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Fourth round on the pair. Every asked item held on both heads under mutation: an expected value of banana exits 1, a fresh key re-signing the canonical bytes exits 1 on the derived-key check, the index is membership-only, the false reason inside the signed decision receipt is gone. The generator PR merged with the repository gates green. What the family still needs is ours: the EIP-712 layer has an ethers record, the APS primitive layer got a clean-room recompute today (rfc8785 and cryptography, no SDK code, 13 of 13 vectors, twenty checks each, only the designed negatives failing), and the composite verdict layer needs an outside run because a checker I write for it does not count.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/pull/119">APS #119</a></li><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/32">suite #32</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d194-recomputability-is-not-signature-semantics">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Registry ruling: an unsigned recomputable receipt does not map structurally to a term defined as a signed attestation</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">vocabulary</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A new crosswalk mapped a deterministic decision receipt (ruleset commit plus SHA-256 of the canonical input) onto governance_attestation at match structural, with signature_capability deliberately omitted. Recomputation establishes that a result follows from inputs; it does not establish that an identified issuer made the statement, which is what the signature supplies. The match type for that is non_equivalent_similar_label. Recorded for every future unsigned-artifact mapping, with the property named rather than the format: the rule yields only to another mechanism that provides equivalent authenticated issuer binding. The same review found the cited source directory stating that no engine implements it yet; emitted evidence has to cite the code that emits.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/pull/151">vocab #151</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d194-refused-is-a-result-not-a-verdict">
+<header class="rm-item-h">
+<h3 class="rm-item-title">REMORA refuses two RFC 8785 integer vectors on purpose, and the lab records that as refused, not as supported or unsupported</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The REMORA author asked whether the lab should record his implementation as supported with an exception or as unsupported for canonical-byte interoperability. Neither. The record says what was observed, 16 byte-identical, 0 divergent, 2 refused, with the refusal text and his reason beside it, in the enforced form: integers whose binary64 image is not unique are refused, 2^53 included. The wider sentence in his design, that no two argument sets share canonical bytes, was false on inspection (0.1 and its 34-digit spelling collapse before his code sees them) and he narrowed it upstream the same day. Two blockers found and fixed: a BUSL header on a file the lab hosts, and an adapter hash computed over CRLF bytes, the same defect his own record reports two sections later.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/41">suite #41</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d194-revocation-mapping-answered-and-a-trace-defect">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The TRACE maintainer answered the revocation mapping, and the divergence we found turned out to be TRACE against TRACE</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">interop</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Three questions asked on Wednesday, three answers on Saturday. The two TRACE revocation surfaces are one mechanism degrading gracefully, entry-scoped where an inclusion proof exists and binary on the key where it does not; authority revocation and key revocation stay unmapped on both, and an unsigned record with transparency none has no revocation surface by construction; nothing is emitted today. The finding we had filed as an APS-versus-TRACE divergence, that an empty store accepts while an omitted store skips, is now a trace-spec issue in the maintainer's own words: the spec requires absence to be reported as absence and the store path promotes it to a pass. The mapping doc is committed locally with the pointer.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/agentrust-io/integrations/issues/140">integrations #140</a></li><li><a href="https://github.com/agentrust-io/trace-spec/issues/246">trace-spec #246</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d194-the-roster-on-disk-overruled-my-memory">
+<header class="rm-item-h">
+<h3 class="rm-item-title">I proposed an independent runner from memory of a good run; the watch file on disk said never cite that account as independent</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">governance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The admission rule needs an outside run for two layers of the argentum family. My first pick was an account that had reproduced our revocation corpus well three days earlier. The people file, read only after the pick, carries a standing entry from July: elevated verification, never cite their recomputes as independent. The entry stays; changing it because a runner was needed would let the desired outcome write the governance decision. The ask went to an implementer with no involvement in either the vectors or the pinned implementation, and it asks for facts only: run the documented commands at an exact head and paste the output. The lab classifies afterward.</p>
+</article>
+<article class="rm-item rm-item-done" id="d194-verdict-claims-are-mandatory-independent">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A ruling on the word including: deterministic verdicts need an outside record before an external family lands, and my own runs did not count</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The admission rule said independently recomputable claims, including bytes, digests and signatures, land only with an independent record. On an argentum action_ref family the question was whether domain-rejection and grammar verdicts sit on that side too. They do: including is illustrative, and anything a third party can reproduce from published inputs is on the mandatory side. The same audit found that I had originated eight of the ten domain vectors months earlier through a bug report, so seven independent labels I had drafted for my own runs were retracted before posting. The contributor's work is complete; the merge waits on an outside run and on the lab fixing its own documentation.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/42">suite #42</a></li></ul>
+</article>
 </section>
 <section class="rm-group rm-group-backlog">
 <h2 class="rm-group-title">Backlog <span class="rm-group-count">(7)</span></h2>
@@ -6039,7 +6110,7 @@
 </article>
 </section>
 <section class="rm-group rm-group-other-no-status-declared-">
-<h2 class="rm-group-title">Other (no status declared) <span class="rm-group-count">(22)</span></h2>
+<h2 class="rm-group-title">Other (no status declared) <span class="rm-group-count">(24)</span></h2>
 <article class="rm-item rm-item-proposed" id="d191-verdict-delegation-attack-pack">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Delegation attack pack proposed to a PHP security package, with the model gap it exposed filed separately</h3>
@@ -6322,6 +6393,29 @@
 <p class="rm-item-desc">Two active co-authorship invites on the vocabulary spec sections that each contributor has been deepest on. @QueBallSharken on BBIS-adjacent continuity/boundary language, @0xbrainkid on SATP crosswalk semantics. Invites posted 2026-04-21 as aeoess/agent-governance-vocabulary#39 (QueBall on invariant_survival descriptor) and #40 (0xbrainkid on SATP crosswalk + delegation_chain_root field spec). Passive-waiting on response. Co-authorship compounds retention once accepted.</p>
 <p class="rm-item-kill"><strong>Killed:</strong> Dropped 2026-08-06. Two co-authorship invites posted 2026-04-21 that neither contributor took up. Left open they read as pending obligations on people who declined by silence, which is not a fair thing to keep on a public page. Reversal cost: none, either can be re-offered.</p>
 <p class="rm-item-deps"><strong>Depends on:</strong> <code>vocab-contributing-lands</code></p>
+</article>
+<article class="rm-item rm-item-in-progress" id="d194-one-rule-for-verify-and-test">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Two of the lab's own rulings disagreed about one family, and the fix is one rule: npm run verify is the generic corpus, npm test is the gate</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">in-progress</span>
+</p>
+</header>
+<p class="rm-item-desc">A day-old sentence said npm test does not execute external families. A two-day-old ruling required an allowlisted family's dedicated verifier and mutation proof to run in npm test. The oracle-safety-check family satisfied the second and violated the first, and the contributor could not satisfy both. The family stays in the gate; the sentence was wrong. The policy change also gives the lab one definition of independent, the runner authored neither the vectors nor the implementation whose output supplies the recomputation, a thin harness around independent primitives does not make a record author-produced, and a harness that decides the semantic result is part of the implementation; and it makes mode and authorship two axes that never determine each other. Committed locally, lands before the two families it unblocks.</p>
+</article>
+<article class="rm-item rm-item-in-progress" id="d194-two-field-names-i-confirmed-were-wrong">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Two field names attributed to APS in a vocabulary entry do not exist in APS, and the source of the error was me, months ago</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">vocabulary</span> 
+<span class="rm-item-status">in-progress</span>
+</p>
+</header>
+<p class="rm-item-desc">The bilateral_receipt entry lists compromise_window_ts and evidence_merkle_leaf as APS-only fields. Neither exists: the receipt field is evidenceCommitments and the compromise window is a verifier input, not a receipt field. The names were confirmed verbatim on the originating issue in May by me. The entry is otherwise sound and held at reserved; the correction is two dropped lines, and the promotion trigger stops naming two projects. The contributor carried the error in good faith and is owed the fix, not the blame.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/pull/139">vocab #139</a></li></ul>
 </article>
 </section>
 </div>
