@@ -95,7 +95,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">530 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">536 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -136,7 +136,7 @@
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(490)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(496)</span></h2>
 <article class="rm-item rm-item-done" id="d191-adoption-signals-verification-pass">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Adoption-signals inventory re-verified row by row; the Day 170 warning was itself wrong</h3>
@@ -5939,6 +5939,74 @@
 </header>
 <p class="rm-item-desc">The admission rule said independently recomputable claims, including bytes, digests and signatures, land only with an independent record. On an argentum action_ref family the question was whether domain-rejection and grammar verdicts sit on that side too. They do: including is illustrative, and anything a third party can reproduce from published inputs is on the mandatory side. The same audit found that I had originated eight of the ten domain vectors months earlier through a bug report, so seven independent labels I had drafted for my own runs were retracted before posting. The contributor's work is complete; the merge waits on an outside run and on the lab fixing its own documentation.</p>
 <ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/42">suite #42</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d195-a-check-that-ran-in-the-same-call-as-the-write">
+<header class="rm-item-h">
+<h3 class="rm-item-title">An issue shipped with an empty body because the check that would have caught it ran in the same breath as the write</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">process</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The digest and byte count that would have caught a zero-byte issue body were correct, were written, and ran in the same tool call as the command that created the issue, so they printed after the issue already existed. Repaired 15 seconds later, and adopted as a rule: an irreversible public action never shares a call with the verification that authorises it. Build, verify in one call, write in the next. Recorded with its own caveat, that separation opens a window between the authorising check and the write, so the write may carry a cheap inline guard that recomputes the digest and aborts on mismatch. That guard is not the authorisation and never replaces it.</p>
+</article>
+<article class="rm-item rm-item-done" id="d195-a-rerun-that-overwrites-its-own-evidence">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The documented way to check a record was the same command that produced it, so on drifted inputs it replaced the answer and exited zero</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">An interop record reproduced byte for byte at its pins: 18 vectors, four cause labels verified from observed bytes, zero field differences. The blocker was not in the evidence, it was in the instructions. The rerun command wrote to the tracked results file, so on the recorded inputs the tree stayed clean and nothing looked wrong. Drift one expected value and the same command silently replaced the historical record: the artifact digest moved, the tallies went from 10 and 16 to 9 and 15, no mismatch was reported, exit zero. The environment pins accepted any checkout, so a mutated corpus also produced a clean pass. A reproduction that regenerates the evidence in place cannot fail, which means it was never checking anything.</p>
+</article>
+<article class="rm-item rm-item-done" id="d195-a-successor-that-changes-the-vector-set">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A dependency shipped a successor the same day, and the new version refuses a class of input the old one accepted</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">An external package published a successor release hours after its predecessor's record was merged. Eighteen of twenty vectors are byte-identical between the two versions, and the difference is a new rejection of integers outside the range where a double is exact, which is the same defect class a mutation had found in an unrelated implementation that morning. The merged record is now one version behind and says so. Logged as a successor trigger and deliberately not chased: opening another author-produced record while two contributor reviews are open would put the lab's own work ahead of work it has asked other people to do.</p>
+</article>
+<article class="rm-item rm-item-done" id="d195-an-overflow-that-escapes-the-refusal-path">
+<header class="rm-item-h">
+<h3 class="rm-item-title">An integer large enough to leave the double range aborts the run instead of being recorded as a refusal</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Found by mutation while auditing something else. A canonicalisation library raises an overflow from a float conversion on the integer path, above the guard that would have turned it into the library's own not-canonicalisable refusal, because that guard sits on the float path further down. The adapter catches only the refusal type, so such an input ends the run rather than being recorded as one more refusal beside the others. Unreachable from the corpus, so no gate could have caught it and it is not a conformance failure. Filed upstream as its own issue rather than folded into the evidence review, so one blocker about a record did not quietly become an audit of somebody's codebase.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/darklordVirtual/REMORA-research/issues/510">REMORA-research #510</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d195-four-blockers-grounded-in-definitions">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A registry crosswalk where every objection had to come from the definitions, including the one that was my own fault</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">vocabulary</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Four blockers on a new contributor's crosswalk, each grounded in a registry definition rather than a preference: a source path grounding one endpoint while the crosswalk scopes another, a replay class claiming full replay where the evidence supports only a fingerprint, a refusal authority marked shared where the artifact shows consumer policy, and an invariant recorded as surviving after the action when it is checked before. Equally important was what not to ask for. Three things I could have asked him to downgrade were tested and all held, so asking would have cost him work to make the record less accurate. One blocker was mine: an earlier comment steered him to the wrong reference file, and I then audited his hash claim against the recipe I had sent him to. His public reproduction matches the live hash byte for byte.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/pull/151">vocab #151</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d195-the-rule-we-held-him-to-was-never-published">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The defect blocks the merge on severity; its absence from our own contributor guide is ours</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The rule that a reproduction command must not be able to alter the record it reproduces appears in none of the three documents that govern this: not the contributor guide, not the run-report spec, not the open-runs queue. Measured across all three, the results filename appears zero times, and so do overwrite, tracked and destructive. The lab had applied the rule to its own runner that same morning as a dated note inside its own record. So the review had to carry both halves at once: the defect is real and holds the merge, and the fact that a contributor could not have read the rule anywhere is a failure of publication that belongs to the lab. A review leg caught the first draft contradicting itself, saying it was not a rule to hold a pull request on and then holding the pull request on it.</p>
 </article>
 </section>
 <section class="rm-group rm-group-backlog">

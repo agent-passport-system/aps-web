@@ -1,7 +1,51 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-08-29 (Day 194). Adds: the ruling that deterministic verdicts are mandatory-independent claims and the retraction of my own independent labels, the refusal convention, the recomputability-is-not-signature ruling, one rule for npm run verify versus npm test, the generator merge, the answered revocation mapping and trace-spec#246, and two corrections pointing back at me.
+# Last updated: 2026-08-30 (Day 195). Adds: the reproduction command that overwrote its own evidence and the rule we had never published, an overflow that escapes a refusal path, four definition-grounded crosswalk blockers including one that was mine, the write-separation rule, and a successor release logged rather than chased.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 195 - 2026-08-30 ═══
+
+- id: d195-a-rerun-that-overwrites-its-own-evidence
+  title: "The documented way to check a record was the same command that produced it, so on drifted inputs it replaced the answer and exited zero"
+  description: "An interop record reproduced byte for byte at its pins: 18 vectors, four cause labels verified from observed bytes, zero field differences. The blocker was not in the evidence, it was in the instructions. The rerun command wrote to the tracked results file, so on the recorded inputs the tree stayed clean and nothing looked wrong. Drift one expected value and the same command silently replaced the historical record: the artifact digest moved, the tallies went from 10 and 16 to 9 and 15, no mismatch was reported, exit zero. The environment pins accepted any checkout, so a mutated corpus also produced a clean pass. A reproduction that regenerates the evidence in place cannot fail, which means it was never checking anything."
+  status: done
+  workstream: conformance
+
+- id: d195-the-rule-we-held-him-to-was-never-published
+  title: "The defect blocks the merge on severity; its absence from our own contributor guide is ours"
+  description: "The rule that a reproduction command must not be able to alter the record it reproduces appears in none of the three documents that govern this: not the contributor guide, not the run-report spec, not the open-runs queue. Measured across all three, the results filename appears zero times, and so do overwrite, tracked and destructive. The lab had applied the rule to its own runner that same morning as a dated note inside its own record. So the review had to carry both halves at once: the defect is real and holds the merge, and the fact that a contributor could not have read the rule anywhere is a failure of publication that belongs to the lab. A review leg caught the first draft contradicting itself, saying it was not a rule to hold a pull request on and then holding the pull request on it."
+  status: done
+  workstream: conformance
+
+- id: d195-an-overflow-that-escapes-the-refusal-path
+  title: "An integer large enough to leave the double range aborts the run instead of being recorded as a refusal"
+  description: "Found by mutation while auditing something else. A canonicalisation library raises an overflow from a float conversion on the integer path, above the guard that would have turned it into the library's own not-canonicalisable refusal, because that guard sits on the float path further down. The adapter catches only the refusal type, so such an input ends the run rather than being recorded as one more refusal beside the others. Unreachable from the corpus, so no gate could have caught it and it is not a conformance failure. Filed upstream as its own issue rather than folded into the evidence review, so one blocker about a record did not quietly become an audit of somebody's codebase."
+  status: done
+  workstream: conformance
+  links:
+    - url: "https://github.com/darklordVirtual/REMORA-research/issues/510"
+      label: "REMORA-research #510"
+
+- id: d195-four-blockers-grounded-in-definitions
+  title: "A registry crosswalk where every objection had to come from the definitions, including the one that was my own fault"
+  description: "Four blockers on a new contributor's crosswalk, each grounded in a registry definition rather than a preference: a source path grounding one endpoint while the crosswalk scopes another, a replay class claiming full replay where the evidence supports only a fingerprint, a refusal authority marked shared where the artifact shows consumer policy, and an invariant recorded as surviving after the action when it is checked before. Equally important was what not to ask for. Three things I could have asked him to downgrade were tested and all held, so asking would have cost him work to make the record less accurate. One blocker was mine: an earlier comment steered him to the wrong reference file, and I then audited his hash claim against the recipe I had sent him to. His public reproduction matches the live hash byte for byte."
+  status: done
+  workstream: vocabulary
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/151"
+      label: "vocab #151"
+
+- id: d195-a-check-that-ran-in-the-same-call-as-the-write
+  title: "An issue shipped with an empty body because the check that would have caught it ran in the same breath as the write"
+  description: "The digest and byte count that would have caught a zero-byte issue body were correct, were written, and ran in the same tool call as the command that created the issue, so they printed after the issue already existed. Repaired 15 seconds later, and adopted as a rule: an irreversible public action never shares a call with the verification that authorises it. Build, verify in one call, write in the next. Recorded with its own caveat, that separation opens a window between the authorising check and the write, so the write may carry a cheap inline guard that recomputes the digest and aborts on mismatch. That guard is not the authorisation and never replaces it."
+  status: done
+  workstream: process
+
+- id: d195-a-successor-that-changes-the-vector-set
+  title: "A dependency shipped a successor the same day, and the new version refuses a class of input the old one accepted"
+  description: "An external package published a successor release hours after its predecessor's record was merged. Eighteen of twenty vectors are byte-identical between the two versions, and the difference is a new rejection of integers outside the range where a double is exact, which is the same defect class a mutation had found in an unrelated implementation that morning. The merged record is now one version behind and says so. Logged as a successor trigger and deliberately not chased: opening another author-produced record while two contributor reviews are open would put the lab's own work ahead of work it has asked other people to do."
+  status: done
+  workstream: conformance
 
 # ═══ DAY 194 - 2026-08-29 ═══
 
