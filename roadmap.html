@@ -95,7 +95,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">536 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">543 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -136,7 +136,7 @@
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(496)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(503)</span></h2>
 <article class="rm-item rm-item-done" id="d191-adoption-signals-verification-pass">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Adoption-signals inventory re-verified row by row; the Day 170 warning was itself wrong</h3>
@@ -6007,6 +6007,83 @@
 </p>
 </header>
 <p class="rm-item-desc">The rule that a reproduction command must not be able to alter the record it reproduces appears in none of the three documents that govern this: not the contributor guide, not the run-report spec, not the open-runs queue. Measured across all three, the results filename appears zero times, and so do overwrite, tracked and destructive. The lab had applied the rule to its own runner that same morning as a dated note inside its own record. So the review had to carry both halves at once: the defect is real and holds the merge, and the fact that a contributor could not have read the rule anywhere is a failure of publication that belongs to the lab. A review leg caught the first draft contradicting itself, saying it was not a rule to hold a pull request on and then holding the pull request on it.</p>
+</article>
+<article class="rm-item rm-item-done" id="d196-a-budget-that-reports-a-writing-habit">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A boot-cost ceiling kept breaching, and every time the fix was deleting reasoning that already lived in the ledger</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">infrastructure</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The working index a session reads in full went over its hard byte ceiling three times in one day. Each breach was cleared by removing narrative from rows that duplicated the append-only record: a rewritten history block on one row was 4,665 characters on a single line. The ceiling was never raised and no member was removed from the measured set, because both are the same evasion. Lines came back under by collapsing one-item-per-line term lists into comma runs, a formatting change with 280 items verified present afterward and a word-level check returning no lost tokens. The rule that followed is editorial rather than mechanical: a row carries current state, the exact trigger, and a pointer to the authoritative record, and if deleting a paragraph loses information the information was in the wrong file.</p>
+</article>
+<article class="rm-item rm-item-done" id="d196-a-check-that-asserted-what-the-file-never-promised">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A decision log ordering check kept firing on correct history because it tested write order against event attribution</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">infrastructure</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The log is prepend-only, so physical position records when something was written while the heading records what day it describes. Those axes legitimately diverge: a late close written the following day lands above entries dated after it, and that is correct. Two candidate replacements were measured before one shipped. Comparing day numbers fails the identical case. Comparing the heading date against the day number fires 56 times, almost all of it documented historical drift, which is a permanent noise generator. Comparing the heading date against the record identifier minted at write time fires four times, on the entries carrying both, and all four are real. Write-time properties get enforced at the write; a finished artifact cannot testify about the order it was assembled in.</p>
+</article>
+<article class="rm-item rm-item-done" id="d196-a-control-that-had-to-be-adjusted-is-not-a-control">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A first-landing simulation passed only because the artifact under test had been copied into the clean control</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A regression pack was built to make a merged validator boundary permanent, with the expected outcomes held outside the fixture so a future change cannot relax its own acceptance criterion. The continuous integration wiring was reported as verified against a clean base checkout. It had been verified against a base checkout the new checker was copied into first, which is not the condition being tested. Three further defects followed from the same review: the trust boundary was inverted so the trusted checker would have run the pull request's own validator, an expected-failure case counted any error as the right one and certified a regressed gate under mutation, and the pack tested no case for one of the two branches its own prose claims. If the clean control cannot perform the test, that fact is the result.</p>
+</article>
+<article class="rm-item rm-item-done" id="d196-a-gate-that-left-no-honest-row">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A validator rule fired on any positive mapping, so a truthful partial mapping had no way through except a false claim</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">vocabulary</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A contributed change enforced that any crosswalk row mapping a two-party signed receipt must declare which registered purpose the system emits. A system with a real two-party receipt that emits no signed purpose then had two options, both false: declare a purpose it does not emit, or record no analog when an analog demonstrably exists. Nine executable cases proved it, including all three states of the registry's own evidence axis, which exist to say the artifact does not carry a value and did not relieve the rule. The same nine cases surfaced a second defect nobody had named from either side: a no-analog row carrying a purpose passed silently. The fix keys the obligation to match strength instead of to the act of mapping, and the case matrix became the acceptance criterion rather than a description of one.</p>
+</article>
+<article class="rm-item rm-item-done" id="d196-a-registry-word-that-instructs-the-wrong-test">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The definition tests whether two names look alike; the corpus has never classified on that and the generated docs already say so</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">vocabulary</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">One match type is defined as looking similar lexically while governance semantics differ. The contributor guide calibrates the same decision on what question the primitive answers. Both merged uses of the value fail the lexical reading and follow the semantic one, and the matrix generator already prints the value's legend as different question entirely, so the public documentation and the specification have been describing two different rules. The obvious repair collapses the value into the honest-gap value, because that is also a different question. What separates them is substitution hazard: a candidate close enough that a consumer would wire it up as the canonical one. A merged honest-gap row that examined a candidate and rejected it in full disproved the alternative boundary.</p>
+</article>
+<article class="rm-item rm-item-done" id="d196-a-trigger-attached-to-the-wrong-surface">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A stop-and-ask fired on the thread it was written for and went unserved for 28 days while a scan pointed at a different repository</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">Standards</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A scan reported a pre-registered trigger as fired and unserved, and attached it to a standards issue where the same person had named the principal in an issue body. Reading the trigger's own thread instead shows the counterparty replied there twenty minutes after the original post, four weeks ago, and the thread has not moved since. The scan found a real failure and put it in the wrong place, and the disposition prepared for the wrong surface would have closed the procedural debt without touching what was actually owed. The standards issue itself needed no entry: the requirement text does not name the principal, the proposed amendment has not landed, and the maintainer and the issue author had already supplied both halves of the fix. A trigger's key includes its surface, not only its person and topic.</p>
+</article>
+<article class="rm-item rm-item-done" id="d196-the-calibration-set-was-one-grep-away">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Three reasoners argued deeply over an evidence set that was missing the one merged row that settles the question</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day undefined</span> 
+<span class="rm-item-ws">vocabulary</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A crosswalk classification came down to which match type an unsigned decision receipt should carry. The evidence set was built by searching for the match type's own name, which returned two rows from unrelated slots, and a verdict was reached and nearly published. Searching instead for the canonical slot returns seventeen candidates, of which six are the value under discussion and none is the one that had been argued for. The controlling precedent maps unsigned platform-recorded decisions to the same slot on the stated grounds that they are not portable signed artifacts while the semantic intent overlaps. A second row in the same slot carries the value while being signed, which killed the premise that signature presence was the axis at all. Three reasoners cannot recover an artifact that was never pasted to them.</p>
 </article>
 </section>
 <section class="rm-group rm-group-backlog">
