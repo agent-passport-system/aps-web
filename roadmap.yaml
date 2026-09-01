@@ -1,6 +1,6 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-08-31 (Day 196). Adds: a gate that left no honest row, a calibration set one grep away, a registry word that instructs the wrong test, a budget that reports a writing habit, a check asserting what the file never promised, a control adjusted to make a test possible, and a trigger attached to the wrong surface.
+# Last updated: 2026-08-31 (Day 196). Adds: a gate that left no honest row, a calibration set one grep away, a registry word that instructs the wrong test, a budget that reports a writing habit, a control that had to be adjusted, a wrapper that forced the wrong auth path, affectedness measured across 164 artifacts, a severity that does not borrow impact, a dependency range that could only resolve the defect, and a review that read the branch instead of the release.
 # Day 1 = 2026-02-17 (project start)
 
 # ═══ DAY 196 - 2026-08-31 ═══
@@ -46,6 +46,36 @@
   description: "A scan reported a pre-registered trigger as fired and unserved, and attached it to a standards issue where the same person had named the principal in an issue body. Reading the trigger's own thread instead shows the counterparty replied there twenty minutes after the original post, four weeks ago, and the thread has not moved since. The scan found a real failure and put it in the wrong place, and the disposition prepared for the wrong surface would have closed the procedural debt without touching what was actually owed. The standards issue itself needed no entry: the requirement text does not name the principal, the proposed amendment has not landed, and the maintainer and the issue author had already supplied both halves of the fix. A trigger's key includes its surface, not only its person and topic."
   status: done
   workstream: standards
+
+- id: d196-the-wrapper-that-forced-the-wrong-auth-path
+  title: "Three failed publishes were the release script's fault, not the registry's"
+  description: "The one-command release wrapper piped all output through tee so it could keep a log. That detaches npm from the terminal, so it could not show the browser prompt and fell back to demanding a one-time password that a passkey account does not have. The command that had always worked was a plain publish attached to a real terminal. Fixed by handing stdin and stdout to /dev/tty for the publish steps only. Every future release wrapper does the same."
+  status: done
+  workstream: infrastructure
+
+- id: d196-affectedness-measured-not-inferred
+  title: "164 published artifacts executed rather than reasoned about, to state one honest version range"
+  description: "The tempting claim was that every published version carried the defect. Instead every registry-published artifact across four ecosystems was installed and executed with a positive control first, so a version that could not run was recorded as untestable rather than clean. One npm version cannot install at all because it declares a dependency whose name is a typo that has never existed, so it is published in neither affected nor unaffected form, and the advisory says so."
+  status: done
+  workstream: security
+
+- id: d196-a-severity-that-does-not-borrow-impact
+  title: "Scored at moderate because the higher score would have imported a different defect's consequences"
+  description: "The advisory covers a verifier accepting a key that proves no possession of a secret. A separate weakness lets a self-declared author reach a positive verdict at all. Scoring the first as high integrity impact would have counted the second's consequences twice. The vector stays at limited integrity impact and the reasoning is recorded next to it so nobody rescoring it later has to reconstruct why."
+  status: done
+  workstream: security
+
+- id: d196-a-dependency-range-that-could-only-resolve-the-defect
+  title: "The MCP shipped hours after the fix while declaring a range that excluded it"
+  description: "The published package constrained the SDK to a line where every release carries the disclosed verifier defect, and one of its tools forwards a caller-supplied key straight into that verifier. Found by installing the published package and reading what it actually resolved, not by reading source. Fixed by moving the range and releasing again through the provenance workflow. Provenance says which bytes shipped; it says nothing about whether the dependency graph is clean."
+  status: done
+  workstream: security
+
+- id: d196-the-branch-that-was-not-the-release
+  title: "A review of current behaviour read the default branch while the release lived on a tag"
+  description: "Minutes after publishing, a bounded review reported a defect and proposed a fix. The defect was real on the default branch and had already shipped fixed, because the branch is protected and the release reaches it through a pull request. For released behaviour the tag or the published package is authoritative and the default branch is not. Same shape as reading the wrong repository, except it is the right repository at the wrong point in time."
+  status: done
+  workstream: infrastructure
 
 # ═══ DAY 195 - 2026-08-30 ═══
 
