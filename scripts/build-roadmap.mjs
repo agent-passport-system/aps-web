@@ -131,6 +131,11 @@ function parseRoadmapYAML(text) {
   for (const it of items) {
     if (typeof it.day_start === 'string') it.day_start = Number(it.day_start)
     if (typeof it.day_end === 'string') it.day_end = Number(it.day_end)
+    // Fall back to the id prefix (dNNN-) so an entry without day_start still carries its day
+    if (!it.day_start && typeof it.id === 'string') {
+      const m = it.id.match(/^d(\d+)-/)
+      if (m) it.day_start = Number(m[1])
+    }
   }
 
   return items

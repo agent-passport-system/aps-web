@@ -1,7 +1,149 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-08-31 (Day 196). Adds: a gate that left no honest row, a calibration set one grep away, a registry word that instructs the wrong test, a budget that reports a writing habit, a control that had to be adjusted, a wrapper that forced the wrong auth path, affectedness measured across 164 artifacts, a severity that does not borrow impact, a dependency range that could only resolve the defect, and a review that read the branch instead of the release.
+# Last updated: 2026-09-01 (Day 197). Adds: a working index that contradicted itself, a removal that needed evidence, a row charged twice, a rerun that aborted on its own success, the right test for the wrong reason, a counterparty who did the work, normalize once at load, a first high alert in my own test, a checker and its trusted call that cannot ship together, mutations that never attacked the data, two issues closed with nothing promoted, a trusted job that checks out a name, approval is not authorization, unmergeable by policy, a release merged and a race found, a count is not the fact, off the ledger since June, one release two triggers, a head that moved and a review that stands, and a kick-off that is December not November.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 197 - 2026-09-01 ═══
+
+- id: d197-the-working-index-contradicted-itself
+  title: "The file a session reads first to learn what is true asserted five things later rows in the same file disproved"
+  description: "The working index is read in full at startup and is supposed to hold one line per live commitment. It said a hosted endpoint answers unauthenticated, while a row further down recorded the containment that closed it three days earlier. It scheduled a release whose contents had already shipped inside a larger one. It named a published crate version one behind the live one. Its list of decisions waiting on the principal opened with an item whose underlying thread had closed completed. None of this was subtle and none of it had been caught, because a file that is only ever appended to is never read adversarially against itself. Forty-four rows tagged closed, dropped or done were sitting in a working set whose own rule forbids them, carrying 13,887 bytes of history that already lived in the append-only ledger."
+  status: done
+  day_start: 197
+  workstream: process
+
+- id: d197-a-removal-needs-evidence-the-history-survived
+  title: "Deleting a finished row is only safe if its record is confirmed somewhere else first, and four of thirty-five did not match on the first pass"
+  description: "The harvest tested every row for a live trigger before touching it: a watch, a reversal, an owed act, a standing rider, anything that could still fire. Nine rows tagged closed turned out to carry real work and were kept and compacted rather than removed, including one whose rider is that the next reply to a particular contributor must say plainly that a repository is not happening. Thirty-five were removed, and none was removed on the strength of its tag. Each had to have its record confirmed present in the ledger by identifier or by search string, with the command and its output recorded. Thirty-one matched directly. The remaining four were resolved individually rather than assumed, one of them because its pointer resolved into the decision log instead of the ledger, which is a different authoritative file and not a missing record. Rows: 213 to 178. Bytes: 229,318 to 218,020."
+  status: done
+  day_start: 197
+  workstream: process
+
+- id: d197-a-row-charged-twice
+  title: "Rewriting one stale row breached a hard ceiling, because the generated state file embeds that class of row verbatim"
+  description: "A row marked highest priority was rewritten to correct its stale claim, and the rewrite carried the evidence narrative explaining why the claim was stale. That pushed the startup byte ceiling into hard breach and the state builder into a failing exit. The multiplier is that the generated state file embeds every highest-priority row verbatim and is itself a measured member, so a byte in one of those rows is charged twice. The budget is also measured before the state file is rewritten, so a breach introduced by an edit appears one run late and looks like it came from somewhere else. The fix was not a threshold and not a member removal: it was trimming the row to state, trigger and pointer, which the content rule already required of it. Headroom went from 58 bytes to 11,356."
+  status: done
+  day_start: 197
+  workstream: process
+
+- id: d197-a-rerun-that-aborted-on-its-own-success
+  title: "A release workflow rerun died because the version was already published, and took every step after it down"
+  description: "The tag workflow repacked a tarball, probed its exports, and then stopped at publish because that version already existed on the registry. Everything downstream was skipped as a consequence. The guard now compares the packed tarball against the registry digest: identical bytes skip the publish and let the remaining steps run, different bytes under the same version fail hard, because one version denoting two byte sequences is the actual danger. The first version of the guard treated any failed registry lookup as absence and would have published on a transient error, which is the same abort it exists to prevent, so a positively identified not-found is now the only state that permits publishing. The comments say plainly what a skipped publish does not restore, so that the skip path is never read as a repair."
+  status: done
+  day_start: 197
+  workstream: security
+
+- id: d197-the-right-test-for-the-wrong-reason
+  title: "A cryptographic test comment explained a correct discriminator with an incorrect account of why it discriminates"
+  description: "The admissibility suite uses a permissive verifier alongside the strict one, so that a negative vector which both reject can be recognised as proving nothing about the strict check. The comment said the permissive path uses the cofactored verification equation. Reading the dependency's source at the pinned version, ordinary verification recomputes R and compares encodings, and the strict path is what adds the explicit small-order rejection of R and of the public key. The discriminator is sound and unchanged; only the stated reason was wrong, which is the kind of error that survives indefinitely because the tests keep passing. The same header claimed four implementations answer every vector identically by construction. Sharing one corpus lets implementations be measured against the same cases and does not make them agree. The tests are what establish that."
+  status: done
+  day_start: 197
+  workstream: protocol
+
+- id: d197-the-counterparty-did-the-work-so-we-said-nothing
+  title: "All three review points were accepted and implemented overnight, and the right response was silence"
+  description: "A comment on another organisation's working-group deliverable made three points: a verdict carrying no failure class is under-specified, a minimum field list reads as a wire contract against the document's own independence sentence, and an incomplete result does not by itself imply replay. The author answered the open question on the parent issue himself, then accepted all three and pushed a revision within the same minute as his reply. Reading the new bytes rather than his summary: the failure class is now carried separately from the headline verdict, the field list is demoted to a conformant representation under four protocol-independent properties, and the consumption rule is narrowed to the exact invariant. He also strengthened completeness beyond what was asked. The instinct was to confirm receipt. The comment had created no review object, so nothing on that pull request appeared unresolved to anyone, and a confirmation would have added no information while casting us as an approval gate on work that is not ours to gate."
+  status: done
+  day_start: 197
+  workstream: standards
+
+- id: d197-normalize-once-at-load
+  title: "A deprecated match-type token became an input alias, normalized once at document load, and every crosswalk cell stayed byte-identical"
+  description: "The vocabulary's canonical replacement for a match type went live: one canonical token, one alias authority in the vocabulary file with the implementation holding no table of its own, and normalization once at load so any consumer reading the field is correct by construction rather than by discipline at each of eight read sites. Proof that no row was reclassified had to be built by isolation, because the committed matrix was already stale: generated twice from the same day's data, once from base and once from the migration, the outputs differ on exactly one line, the legend. Seven acceptance criteria became seventeen executable cases driving the real validator as a subprocess, and a mutation pass caught two of those cases passing vacuously, one because nothing asserted the alias stays out of the enum, which is the precise drift the ruling exists to prevent."
+  status: done
+  day_start: 197
+  workstream: vocabulary
+
+- id: d197-the-first-high-alert-was-in-my-own-test
+  title: "The repository's first high-severity scanning alert appeared in a test I wrote, inside a change arguing that green signals must mean something"
+  description: "A repo-wide source scan in the migration test called stat on a path and then read the same path, a check-then-use pair the scanner flagged as a file-system race. Dismissing it would have merged the first high alert inside a pull request whose whole argument is that a green check has to mean what it says. The fix reads directory entries with their types, recurses on directories, skips symbolic links explicitly and reads only regular files, with no preceding stat. Liveness was proven rather than assumed: planting a file carrying the deprecated spelling still fails the case and removing it restores the count. A reviewer separately reported the scan regex as missing its escape; the backslash was on disk and had been lost in rendering, the same disk-versus-rendering gap that produced two stale artifacts in my own reports the same day, this time producing a false positive in review."
+  status: done
+  day_start: 197
+  workstream: vocabulary
+
+- id: d197-a-checker-and-its-trusted-call-cannot-ship-together
+  title: "A grading step run from the base branch cannot land in the same change as the checker it calls, so one pull request became three"
+  description: "The purpose-gate checker is invoked by a trusted job that checks out the base branch for its code and takes only the case data from the pull request. Because pull request builds run from the merge commit, a step added in a change runs on that very change, and it can only find the checker if the checker is already on main. The single-change plan would have failed on itself. The sequence became migration, checker bootstrap, then the trusted invocation, and the third change proved the point by running its new step on real CI and passing only because the second had merged first. Local adversarial proof before opening: with the pull request's validator gutted and its own copy of the contract repinned, the trusted run still scores full marks; with only the case data changed, the trusted run fails. Ignoring PR-side code sabotage while catching PR-side data change is the property the step exists for."
+  status: done
+  day_start: 197
+  workstream: vocabulary
+
+- id: d197-every-mutation-attacked-the-validator-none-the-data
+  title: "The fixture contract pinned only an identifier and an outcome while the contributor controls the case data, so a weakened case passed the contract"
+  description: "Every mutation built for the regression pack attacked the validator, and none attacked the fixture data, which is the half a contributor actually controls. A hostile pass showed the consequence: a required case could be downgraded to a weaker match type, or an array case collapsed to a scalar, and the contract still passed because it checked neither. The contract now pins match, purpose, expectation and diagnostic with order-sensitive arrays, six data mutations were built and all six are caught, and expected failures must fail for the contracted reason and carry no unexpected extra error. Two other findings from the same pass were refuted at source and recorded as such."
+  status: done
+  day_start: 197
+  workstream: vocabulary
+
+- id: d197-two-issues-closed-separately-nothing-promoted
+  title: "Two vocabulary issues closed against their own evidence, and the term that started the second stays reserved"
+  description: "The match-type issue closed against its seven stated criteria, each exercised by the migration test on main, with the two hardening changes named as downstream and outside its acceptance boundary. The receipt issue closed as resolved into the merged primitive, never as canonicalized. The contributor had set the condition himself that the term stays reserved until a signed purpose exists in a canonically emitted receipt; the status on merged main is still reserved, checked before drafting and again after closing, and the close quotes that condition back so nobody reads it as promotion. One design question was deliberately left out of both closes: naming it in a resolution comment would make a finished issue read as conditionally unfinished."
+  status: done
+  day_start: 197
+  workstream: vocabulary
+
+- id: d197-the-trusted-job-checks-out-a-name
+  title: "The trusted job checks out a mutable branch name rather than the exact base commit the pull request was evaluated against"
+  description: "Found while wiring the oracle and kept out of that chain on purpose. The job takes its grading code from the base branch by name, so the oracle is not reproducible against a fixed base, and a base that moves between checkout and run silently changes what trusted means for that run. It governs all three trusted invocations and predates the chain. The fix is not a one-line reference swap: pinning changes what the job is authoritative against and interacts with how a merge commit is produced, so it gets its own threat-modelled change. Recorded on its own so a harvest of finished rows cannot delete it along with the chain that found it."
+  status: backlog
+  day_start: 197
+  workstream: security
+
+- id: d197-approval-is-not-authorization
+  title: "A security-release handoff was accepted for protected review after three corrections, and the lane froze on the one gate that was real"
+  description: "The hardening candidate arrived with six findings fixed locally: a privileged job executing too much repository code, mutation crossing trust boundaries, publication redirection through package configuration, forged rerun evidence from an existing release, mutable tag and release surfaces, and a write-collaborator race that could occupy the immutable release before the registry publish. Review legs forced three corrections, all adopted: the original order mutated repository-wide release policy before the candidate had been pushed anywhere; a tag-ruleset invariant was overstated because the platform returns bypass actors only to sufficiently privileged callers, so it is a pre-tag check with admin credentials rather than a workflow-proved fact; and a registry trust gate ran on an inferred response schema, which was withdrawn rather than replaced with a second guess. The verdict was ready to push for protected review, not ready to tag. A phrasing that collapsed an approving review into merge authority was then corrected: approval satisfies a repository control, and the merge word is a separate gate."
+  status: done
+  day_start: 197
+  workstream: security
+
+- id: d197-unmergeable-by-policy-not-protected-by-it
+  title: "Main had been unmergeable by policy rather than protected by it: a required check that no workflow could ever produce"
+  description: "After the one-approval rule was set to zero for a repository with one maintainer, the release pull request stayed blocked. The required status context named a job that emits two matrix names, so the required name matched zero check runs at any head and could never be satisfied. Corrected to the two real matrix names plus the analysis and sign-off checks, through the narrow endpoint rather than the full one, because the full endpoint replaces the whole configuration and silently drops any omitted field. Full-state diffs of sixteen fields showed one change for the first correction and two mirrored changes for the second. Net effect is stricter: two real test contexts enforced where one impossible one sat. Both corrections were decided by the principal and executed by his hand."
+  status: done
+  day_start: 197
+  workstream: security
+
+- id: d197-the-release-merged-then-the-hardening-pr-found-a-race
+  title: "The audited release commit merged with its identity intact, and the hardening change that followed surfaced two high-severity races in the release helpers"
+  description: "The security release landed on main as a two-parent merge pinned to the audited head, so the published release identity survives as a first-class commit instead of being squashed away; ancestry was proven from a fresh clone rather than from the compare endpoint, which answers a different question. The hardening candidate was then pushed and opened against that main with all four required checks green. The alert gate failed anyway: two new high-severity file-system-race findings, one in the helper that computes the digests deciding publish versus skip, one in the helper that parses the manifest whose publication-redirect check depends on it. Both resolve a path, validate it by name, then read the name again; nothing binds the validated object to the bytes consumed. The candidate is superseded. The fix is a same-open-file invariant with no-follow and non-blocking open semantics, because a naive no-follow open on a special file trades the race for a hang in a privileged job, and a fallback to the pathname sequence is forbidden because it is the defect."
+  status: in-progress
+  day_start: 197
+  workstream: security
+
+- id: d197-a-count-is-not-the-fact
+  title: "Three times in one day a count was read as a fact: a zero approval as a review requirement, a hit tally as an unknown author, a schema shape as intended semantics"
+  description: "A pull request with zero approvals was described as awaiting review; the repository requires none, and only the state field, not the git-level mergeable flag, separates it from the one that really is blocked. A scan classified a standards author as an unknown outside party from a hit count against files; the hits themselves record months of direct, responsive interaction. A read-only recon of another project's delegation code asserted that a finding answered its own review question affirmatively; three predicates run against the schema showed the premise had been assumed, the claim was withdrawn, and what survives is an unresolved lifecycle question rather than a defect. Same shape each time, and the correction each time was the same: read the thing the number stands for."
+  status: done
+  day_start: 197
+  workstream: process
+
+- id: d197-off-the-ledger-since-june
+  title: "A runnable example delivered on a database vendor's server thread in June had no ledger record at all, and the maintainer just handed us the trigger"
+  description: "The maintainer tagged us to say the multi-user path now works on main, a released version still has a credential-scoping bug, and he is holding the issue open until a release carries the fix. Answering someone else, he drew the boundary himself that a tamper-evident record of delegated scope needs an application-level layer, which is the layer we shipped in June against his invitation. Nothing is owed by us: the example was promised and delivered the next day, and his docs sentence was an offer with no condition. Recording it as a commitment would invent a debt for a later session to act on. The record states that asymmetry, the release is the only trigger, and posting now, right after a promotional account and before he finishes pending work, was ruled out."
+  status: done
+  day_start: 197
+  workstream: ecosystem
+
+- id: d197-one-release-two-triggers
+  title: "A revocation mapping merged upstream, and two future obligations collapsed into one job keyed to the same release"
+  description: "The counterparty merged our revocation mapping and closed the tracking issue, with the one divergence tracked separately on their spec. The recorded act to move the tested-against pin does not fire: their main pins the current release, which is still the latest published, and the pin already notes that the revocation observations are re-run on whichever release carries the spec change. Editing it now would assert a test not yet run. That release is the same trigger as the standing offer to witness their next release, so one future job replaces two: run the published wheel, report version, hash and results, then re-run the observations and move the pin."
+  status: done
+  day_start: 197
+  workstream: ecosystem
+
+- id: d197-a-head-moved-and-the-review-stands
+  title: "A contributor's head moved with no comment; the delta is nine lines of prose and zero of the six blockers, so the review stands unrerun"
+  description: "The conformance-suite contribution under a redesign request pushed a new head a day and a half later. Compared byte for byte against the audited head rather than summarized: the source note gained nine lines, the code is identical, and none of the six blocking findings is addressed. No rerun is owed and the request for changes stands as written."
+  status: done
+  day_start: 197
+  workstream: conformance
+
+- id: d197-the-kick-off-is-december-not-november
+  title: "A standards focus group's schedule verified from its own page: kick-off in December, four preparatory calls, one of them the next morning"
+  description: "Press coverage from July placed the first meeting in November; the group's page says 1 to 4 December in Paris, and the page is the authority. The four preparatory e-meetings are dated, each with a public conference link that needs no account. The leadership is now four people and the working groups are not yet formed. Nothing changes the boundary: the terms of reference put agentic protocols, AI governance and digital identity out of scope, so entry is implementation and conformance evidence only, with any first post to the group a separate gated decision."
+  status: done
+  day_start: 197
+  workstream: standards
 
 # ═══ DAY 196 - 2026-08-31 ═══
 
@@ -9,72 +151,84 @@
   title: "A validator rule fired on any positive mapping, so a truthful partial mapping had no way through except a false claim"
   description: "A contributed change enforced that any crosswalk row mapping a two-party signed receipt must declare which registered purpose the system emits. A system with a real two-party receipt that emits no signed purpose then had two options, both false: declare a purpose it does not emit, or record no analog when an analog demonstrably exists. Nine executable cases proved it, including all three states of the registry's own evidence axis, which exist to say the artifact does not carry a value and did not relieve the rule. The same nine cases surfaced a second defect nobody had named from either side: a no-analog row carrying a purpose passed silently. The fix keys the obligation to match strength instead of to the act of mapping, and the case matrix became the acceptance criterion rather than a description of one."
   status: done
+  day_start: 196
   workstream: vocabulary
 
 - id: d196-the-calibration-set-was-one-grep-away
   title: "Three reasoners argued deeply over an evidence set that was missing the one merged row that settles the question"
   description: "A crosswalk classification came down to which match type an unsigned decision receipt should carry. The evidence set was built by searching for the match type's own name, which returned two rows from unrelated slots, and a verdict was reached and nearly published. Searching instead for the canonical slot returns seventeen candidates, of which six are the value under discussion and none is the one that had been argued for. The controlling precedent maps unsigned platform-recorded decisions to the same slot on the stated grounds that they are not portable signed artifacts while the semantic intent overlaps. A second row in the same slot carries the value while being signed, which killed the premise that signature presence was the axis at all. Three reasoners cannot recover an artifact that was never pasted to them."
   status: done
+  day_start: 196
   workstream: vocabulary
 
 - id: d196-a-registry-word-that-instructs-the-wrong-test
   title: "The definition tests whether two names look alike; the corpus has never classified on that and the generated docs already say so"
   description: "One match type is defined as looking similar lexically while governance semantics differ. The contributor guide calibrates the same decision on what question the primitive answers. Both merged uses of the value fail the lexical reading and follow the semantic one, and the matrix generator already prints the value's legend as different question entirely, so the public documentation and the specification have been describing two different rules. The obvious repair collapses the value into the honest-gap value, because that is also a different question. What separates them is substitution hazard: a candidate close enough that a consumer would wire it up as the canonical one. A merged honest-gap row that examined a candidate and rejected it in full disproved the alternative boundary."
   status: done
+  day_start: 196
   workstream: vocabulary
 
 - id: d196-a-budget-that-reports-a-writing-habit
   title: "A boot-cost ceiling kept breaching, and every time the fix was deleting reasoning that already lived in the ledger"
   description: "The working index a session reads in full went over its hard byte ceiling three times in one day. Each breach was cleared by removing narrative from rows that duplicated the append-only record: a rewritten history block on one row was 4,665 characters on a single line. The ceiling was never raised and no member was removed from the measured set, because both are the same evasion. Lines came back under by collapsing one-item-per-line term lists into comma runs, a formatting change with 280 items verified present afterward and a word-level check returning no lost tokens. The rule that followed is editorial rather than mechanical: a row carries current state, the exact trigger, and a pointer to the authoritative record, and if deleting a paragraph loses information the information was in the wrong file."
   status: done
+  day_start: 196
   workstream: infrastructure
 
 - id: d196-a-check-that-asserted-what-the-file-never-promised
   title: "A decision log ordering check kept firing on correct history because it tested write order against event attribution"
   description: "The log is prepend-only, so physical position records when something was written while the heading records what day it describes. Those axes legitimately diverge: a late close written the following day lands above entries dated after it, and that is correct. Two candidate replacements were measured before one shipped. Comparing day numbers fails the identical case. Comparing the heading date against the day number fires 56 times, almost all of it documented historical drift, which is a permanent noise generator. Comparing the heading date against the record identifier minted at write time fires four times, on the entries carrying both, and all four are real. Write-time properties get enforced at the write; a finished artifact cannot testify about the order it was assembled in."
   status: done
+  day_start: 196
   workstream: infrastructure
 
 - id: d196-a-control-that-had-to-be-adjusted-is-not-a-control
   title: "A first-landing simulation passed only because the artifact under test had been copied into the clean control"
   description: "A regression pack was built to make a merged validator boundary permanent, with the expected outcomes held outside the fixture so a future change cannot relax its own acceptance criterion. The continuous integration wiring was reported as verified against a clean base checkout. It had been verified against a base checkout the new checker was copied into first, which is not the condition being tested. Three further defects followed from the same review: the trust boundary was inverted so the trusted checker would have run the pull request's own validator, an expected-failure case counted any error as the right one and certified a regressed gate under mutation, and the pack tested no case for one of the two branches its own prose claims. If the clean control cannot perform the test, that fact is the result."
   status: done
+  day_start: 196
   workstream: conformance
 
 - id: d196-a-trigger-attached-to-the-wrong-surface
   title: "A stop-and-ask fired on the thread it was written for and went unserved for 28 days while a scan pointed at a different repository"
   description: "A scan reported a pre-registered trigger as fired and unserved, and attached it to a standards issue where the same person had named the principal in an issue body. Reading the trigger's own thread instead shows the counterparty replied there twenty minutes after the original post, four weeks ago, and the thread has not moved since. The scan found a real failure and put it in the wrong place, and the disposition prepared for the wrong surface would have closed the procedural debt without touching what was actually owed. The standards issue itself needed no entry: the requirement text does not name the principal, the proposed amendment has not landed, and the maintainer and the issue author had already supplied both halves of the fix. A trigger's key includes its surface, not only its person and topic."
   status: done
+  day_start: 196
   workstream: standards
 
 - id: d196-the-wrapper-that-forced-the-wrong-auth-path
   title: "Three failed publishes were the release script's fault, not the registry's"
   description: "The one-command release wrapper piped all output through tee so it could keep a log. That detaches npm from the terminal, so it could not show the browser prompt and fell back to demanding a one-time password that a passkey account does not have. The command that had always worked was a plain publish attached to a real terminal. Fixed by handing stdin and stdout to /dev/tty for the publish steps only. Every future release wrapper does the same."
   status: done
+  day_start: 196
   workstream: infrastructure
 
 - id: d196-affectedness-measured-not-inferred
   title: "164 published artifacts executed rather than reasoned about, to state one honest version range"
   description: "The tempting claim was that every published version carried the defect. Instead every registry-published artifact across four ecosystems was installed and executed with a positive control first, so a version that could not run was recorded as untestable rather than clean. One npm version cannot install at all because it declares a dependency whose name is a typo that has never existed, so it is published in neither affected nor unaffected form, and the advisory says so."
   status: done
+  day_start: 196
   workstream: security
 
 - id: d196-a-severity-that-does-not-borrow-impact
   title: "Scored at moderate because the higher score would have imported a different defect's consequences"
   description: "The advisory covers a verifier accepting a key that proves no possession of a secret. A separate weakness lets a self-declared author reach a positive verdict at all. Scoring the first as high integrity impact would have counted the second's consequences twice. The vector stays at limited integrity impact and the reasoning is recorded next to it so nobody rescoring it later has to reconstruct why."
   status: done
+  day_start: 196
   workstream: security
 
 - id: d196-a-dependency-range-that-could-only-resolve-the-defect
   title: "The MCP shipped hours after the fix while declaring a range that excluded it"
   description: "The published package constrained the SDK to a line where every release carries the disclosed verifier defect, and one of its tools forwards a caller-supplied key straight into that verifier. Found by installing the published package and reading what it actually resolved, not by reading source. Fixed by moving the range and releasing again through the provenance workflow. Provenance says which bytes shipped; it says nothing about whether the dependency graph is clean."
   status: done
+  day_start: 196
   workstream: security
 
 - id: d196-the-branch-that-was-not-the-release
   title: "A review of current behaviour read the default branch while the release lived on a tag"
   description: "Minutes after publishing, a bounded review reported a defect and proposed a fix. The defect was real on the default branch and had already shipped fixed, because the branch is protected and the release reaches it through a pull request. For released behaviour the tag or the published package is authoritative and the default branch is not. Same shape as reading the wrong repository, except it is the right repository at the wrong point in time."
   status: done
+  day_start: 196
   workstream: infrastructure
 
 # ═══ DAY 195 - 2026-08-30 ═══
@@ -83,18 +237,21 @@
   title: "The documented way to check a record was the same command that produced it, so on drifted inputs it replaced the answer and exited zero"
   description: "An interop record reproduced byte for byte at its pins: 18 vectors, four cause labels verified from observed bytes, zero field differences. The blocker was not in the evidence, it was in the instructions. The rerun command wrote to the tracked results file, so on the recorded inputs the tree stayed clean and nothing looked wrong. Drift one expected value and the same command silently replaced the historical record: the artifact digest moved, the tallies went from 10 and 16 to 9 and 15, no mismatch was reported, exit zero. The environment pins accepted any checkout, so a mutated corpus also produced a clean pass. A reproduction that regenerates the evidence in place cannot fail, which means it was never checking anything."
   status: done
+  day_start: 195
   workstream: conformance
 
 - id: d195-the-rule-we-held-him-to-was-never-published
   title: "The defect blocks the merge on severity; its absence from our own contributor guide is ours"
   description: "The rule that a reproduction command must not be able to alter the record it reproduces appears in none of the three documents that govern this: not the contributor guide, not the run-report spec, not the open-runs queue. Measured across all three, the results filename appears zero times, and so do overwrite, tracked and destructive. The lab had applied the rule to its own runner that same morning as a dated note inside its own record. So the review had to carry both halves at once: the defect is real and holds the merge, and the fact that a contributor could not have read the rule anywhere is a failure of publication that belongs to the lab. A review leg caught the first draft contradicting itself, saying it was not a rule to hold a pull request on and then holding the pull request on it."
   status: done
+  day_start: 195
   workstream: conformance
 
 - id: d195-an-overflow-that-escapes-the-refusal-path
   title: "An integer large enough to leave the double range aborts the run instead of being recorded as a refusal"
   description: "Found by mutation while auditing something else. A canonicalisation library raises an overflow from a float conversion on the integer path, above the guard that would have turned it into the library's own not-canonicalisable refusal, because that guard sits on the float path further down. The adapter catches only the refusal type, so such an input ends the run rather than being recorded as one more refusal beside the others. Unreachable from the corpus, so no gate could have caught it and it is not a conformance failure. Filed upstream as its own issue rather than folded into the evidence review, so one blocker about a record did not quietly become an audit of somebody's codebase."
   status: done
+  day_start: 195
   workstream: conformance
   links:
     - url: "https://github.com/darklordVirtual/REMORA-research/issues/510"
@@ -104,6 +261,7 @@
   title: "A registry crosswalk where every objection had to come from the definitions, including the one that was my own fault"
   description: "Four blockers on a new contributor's crosswalk, each grounded in a registry definition rather than a preference: a source path grounding one endpoint while the crosswalk scopes another, a replay class claiming full replay where the evidence supports only a fingerprint, a refusal authority marked shared where the artifact shows consumer policy, and an invariant recorded as surviving after the action when it is checked before. Equally important was what not to ask for. Three things I could have asked him to downgrade were tested and all held, so asking would have cost him work to make the record less accurate. One blocker was mine: an earlier comment steered him to the wrong reference file, and I then audited his hash claim against the recipe I had sent him to. His public reproduction matches the live hash byte for byte."
   status: done
+  day_start: 195
   workstream: vocabulary
   links:
     - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/151"
@@ -113,12 +271,14 @@
   title: "An issue shipped with an empty body because the check that would have caught it ran in the same breath as the write"
   description: "The digest and byte count that would have caught a zero-byte issue body were correct, were written, and ran in the same tool call as the command that created the issue, so they printed after the issue already existed. Repaired 15 seconds later, and adopted as a rule: an irreversible public action never shares a call with the verification that authorises it. Build, verify in one call, write in the next. Recorded with its own caveat, that separation opens a window between the authorising check and the write, so the write may carry a cheap inline guard that recomputes the digest and aborts on mismatch. That guard is not the authorisation and never replaces it."
   status: done
+  day_start: 195
   workstream: process
 
 - id: d195-a-successor-that-changes-the-vector-set
   title: "A dependency shipped a successor the same day, and the new version refuses a class of input the old one accepted"
   description: "An external package published a successor release hours after its predecessor's record was merged. Eighteen of twenty vectors are byte-identical between the two versions, and the difference is a new rejection of integers outside the range where a double is exact, which is the same defect class a mutation had found in an unrelated implementation that morning. The merged record is now one version behind and says so. Logged as a successor trigger and deliberately not chased: opening another author-produced record while two contributor reviews are open would put the lab's own work ahead of work it has asked other people to do."
   status: done
+  day_start: 195
   workstream: conformance
 
 # ═══ DAY 194 - 2026-08-29 ═══
@@ -127,6 +287,7 @@
   title: "A ruling on the word including: deterministic verdicts need an outside record before an external family lands, and my own runs did not count"
   description: "The admission rule said independently recomputable claims, including bytes, digests and signatures, land only with an independent record. On an argentum action_ref family the question was whether domain-rejection and grammar verdicts sit on that side too. They do: including is illustrative, and anything a third party can reproduce from published inputs is on the mandatory side. The same audit found that I had originated eight of the ten domain vectors months earlier through a bug report, so seven independent labels I had drafted for my own runs were retracted before posting. The contributor's work is complete; the merge waits on an outside run and on the lab fixing its own documentation."
   status: done
+  day_start: 194
   workstream: conformance
   links:
     - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/42"
@@ -136,6 +297,7 @@
   title: "REMORA refuses two RFC 8785 integer vectors on purpose, and the lab records that as refused, not as supported or unsupported"
   description: "The REMORA author asked whether the lab should record his implementation as supported with an exception or as unsupported for canonical-byte interoperability. Neither. The record says what was observed, 16 byte-identical, 0 divergent, 2 refused, with the refusal text and his reason beside it, in the enforced form: integers whose binary64 image is not unique are refused, 2^53 included. The wider sentence in his design, that no two argument sets share canonical bytes, was false on inspection (0.1 and its 34-digit spelling collapse before his code sees them) and he narrowed it upstream the same day. Two blockers found and fixed: a BUSL header on a file the lab hosts, and an adapter hash computed over CRLF bytes, the same defect his own record reports two sections later."
   status: done
+  day_start: 194
   workstream: conformance
   links:
     - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/41"
@@ -145,6 +307,7 @@
   title: "Registry ruling: an unsigned recomputable receipt does not map structurally to a term defined as a signed attestation"
   description: "A new crosswalk mapped a deterministic decision receipt (ruleset commit plus SHA-256 of the canonical input) onto governance_attestation at match structural, with signature_capability deliberately omitted. Recomputation establishes that a result follows from inputs; it does not establish that an identified issuer made the statement, which is what the signature supplies. The match type for that is non_equivalent_similar_label. Recorded for every future unsigned-artifact mapping, with the property named rather than the format: the rule yields only to another mechanism that provides equivalent authenticated issuer binding. The same review found the cited source directory stating that no engine implements it yet; emitted evidence has to cite the code that emits."
   status: done
+  day_start: 194
   workstream: vocabulary
   links:
     - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/151"
@@ -154,12 +317,14 @@
   title: "Two of the lab's own rulings disagreed about one family, and the fix is one rule: npm run verify is the generic corpus, npm test is the gate"
   description: "A day-old sentence said npm test does not execute external families. A two-day-old ruling required an allowlisted family's dedicated verifier and mutation proof to run in npm test. The oracle-safety-check family satisfied the second and violated the first, and the contributor could not satisfy both. The family stays in the gate; the sentence was wrong. The policy change also gives the lab one definition of independent, the runner authored neither the vectors nor the implementation whose output supplies the recomputation, a thin harness around independent primitives does not make a record author-produced, and a harness that decides the semantic result is part of the implementation; and it makes mode and authorship two axes that never determine each other. Committed locally, lands before the two families it unblocks."
   status: in-progress
+  day_start: 194
   workstream: conformance
 
 - id: d194-generator-merged-family-waits-on-provenance
   title: "The oracle-safety-check generator merged into the SDK; the lab family waits on provenance, not on another rewrite"
   description: "Fourth round on the pair. Every asked item held on both heads under mutation: an expected value of banana exits 1, a fresh key re-signing the canonical bytes exits 1 on the derived-key check, the index is membership-only, the false reason inside the signed decision receipt is gone. The generator PR merged with the repository gates green. What the family still needs is ours: the EIP-712 layer has an ethers record, the APS primitive layer got a clean-room recompute today (rfc8785 and cryptography, no SDK code, 13 of 13 vectors, twenty checks each, only the designed negatives failing), and the composite verdict layer needs an outside run because a checker I write for it does not count."
   status: done
+  day_start: 194
   workstream: sdk
   links:
     - url: "https://github.com/aeoess/agent-passport-system/pull/119"
@@ -171,6 +336,7 @@
   title: "The TRACE maintainer answered the revocation mapping, and the divergence we found turned out to be TRACE against TRACE"
   description: "Three questions asked on Wednesday, three answers on Saturday. The two TRACE revocation surfaces are one mechanism degrading gracefully, entry-scoped where an inclusion proof exists and binary on the key where it does not; authority revocation and key revocation stay unmapped on both, and an unsigned record with transparency none has no revocation surface by construction; nothing is emitted today. The finding we had filed as an APS-versus-TRACE divergence, that an empty store accepts while an omitted store skips, is now a trace-spec issue in the maintainer's own words: the spec requires absence to be reported as absence and the store path promotes it to a pass. The mapping doc is committed locally with the pointer."
   status: done
+  day_start: 194
   workstream: interop
   links:
     - url: "https://github.com/agentrust-io/integrations/issues/140"
@@ -182,6 +348,7 @@
   title: "Two field names attributed to APS in a vocabulary entry do not exist in APS, and the source of the error was me, months ago"
   description: "The bilateral_receipt entry lists compromise_window_ts and evidence_merkle_leaf as APS-only fields. Neither exists: the receipt field is evidenceCommitments and the compromise window is a verifier input, not a receipt field. The names were confirmed verbatim on the originating issue in May by me. The entry is otherwise sound and held at reserved; the correction is two dropped lines, and the promotion trigger stops naming two projects. The contributor carried the error in good faith and is owed the fix, not the blame."
   status: in-progress
+  day_start: 194
   workstream: vocabulary
   links:
     - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/139"
@@ -191,6 +358,7 @@
   title: "I proposed an independent runner from memory of a good run; the watch file on disk said never cite that account as independent"
   description: "The admission rule needs an outside run for two layers of the argentum family. My first pick was an account that had reproduced our revocation corpus well three days earlier. The people file, read only after the pick, carries a standing entry from July: elevated verification, never cite their recomputes as independent. The entry stays; changing it because a runner was needed would let the desired outcome write the governance decision. The ask went to an implementer with no involvement in either the vectors or the pinned implementation, and it asks for facts only: run the documented commands at an exact head and paste the output. The lab classifies afterward."
   status: done
+  day_start: 194
   workstream: governance
 
 # ═══ DAY 193 - 2026-08-28 ═══
@@ -199,6 +367,7 @@
   title: "receipt-core and authority-delegation became public API in 4.5.0 after all four export gates closed"
   description: "The two modules had shipped inside the package since 4.2.0, tested but unexported. Four gates stood between them and the public surface: strict duplicate-member parsing on serialized action_ref input, a composite verifier that binds a receipt to its decision before any cross-document conclusion, serialized entry points for receipts, and a known-answer corpus. All four closed on the same day and 4.5.0 shipped with verification described as what it establishes, never as authorization to dispatch or proof of single-use."
   status: done
+  day_start: 193
   workstream: sdk
   links:
     - url: "https://github.com/aeoess/agent-passport-system/releases/tag/v4.5.0"
@@ -208,6 +377,7 @@
   title: "A second IETF draft author arrived with running code, and the lab turned it into a two-direction record in nine hours"
   description: "attenu-guard (draft-asor-wimse-agent-delegation-chain-00) offered to run APS vectors through its verifier. Direction one: its serializer against the pinned RFC 8785 fixtures, five of ten distinct cases byte-identical, four named divergence classes. Direction two: a clean-room verifier written from the draft and the published vector profile without reading the reference implementation, seven of seven, with one spec gap found on the way (the wildcard rule for scopes is discoverable only from the vectors). Both directions merged as an interop family with author-run and independent labels. Nobody adopted anybody."
   status: done
+  day_start: 193
   workstream: conformance
   links:
     - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/tree/main/interop/attenu-guard-0.6.0"
@@ -217,12 +387,14 @@
   title: "The public MCP endpoint served a governance tool the source had removed, for eight days, because a pin lagged the docs"
   description: "The remote bridge pinned the MCP package at 4.0.0 while npm latest was 5.0.0, so mcp.aeoess.com kept exposing evaluate_threshold, a tool 5.0.0 removed because it counted declared signers without verifying anything and still emitted a verdict. The bridge's README had already been rewritten to say 5.0.0; the dependency pin had not. A one-line exact pin and a service version bump fixed it, verified live: 152 tools, the removed tool absent, the three amendment tools present. The lesson recorded: a publicly wrong live answer outranks every scheduled priority, and docs propagation is not deployment."
   status: done
+  day_start: 193
   workstream: infrastructure
 
 - id: d193-451-provenance-and-exact-tarball
   title: "4.5.1 is the first release where the attested tarball and the published tarball are the same bytes"
   description: "4.5.0 was published by hand after its workflow run failed at an audit gate, so it carried no provenance. 4.5.1 is a lockfile-only patch cut to restore the chain. Before tagging, the release workflow was changed to publish the exact tarball the attestation signs rather than packing a second time; the same fix went into the MCP package's new release workflow, which now publishes through npm Trusted Publishing with OIDC, no token, pinned actions, an SBOM, and one pack. The release asset's SHA-512 equals the registry's integrity field."
   status: done
+  day_start: 193
   workstream: infrastructure
   links:
     - url: "https://github.com/aeoess/agent-passport-system/releases/tag/v4.5.1"
@@ -232,12 +404,14 @@
   title: "Three places where the lab quietly depended on a sibling checkout, every one found by someone else's run"
   description: "An unprompted Mode B report from REMORA noted that the documented one-command run needed a second cloned repository. A cold reproduction from argentum-core stopped at the same place an hour after the fix landed. A CC self-containment gate found the third, a Go replace directive pointing at a neighbouring directory. All three now resolve published artifacts at exact versions, proven from fresh clones with a fake HOME and empty module caches. External cross-runs are exposing defects that internal maintenance passes had not."
   status: done
+  day_start: 193
   workstream: conformance
 
 - id: d193-rfc8785-crossrun-four-languages
   title: "The same ten RFC 8785 cases, runnable from four ecosystems with one command, because three projects hit the same bug in one week"
   description: "attenu-guard, REMORA and cMCP each turned out to canonicalize with a sorted-keys JSON encoder that is not RFC 8785: exponent formatting, astral key order, non-ASCII output, and the binary64 number model all diverge. The ten distinct cases already pinned in the lab now have runners in TypeScript, Python, Go and Rust that read the fixture at run time, report byte and digest match per case with the first divergent offset, label whether a first-party canonicalizer or a baseline encoder produced the row, and treat a mismatch as a recorded result rather than a failed run. It is a byte diff on ten cases, not a verdict on anyone."
   status: done
+  day_start: 193
   workstream: conformance
   links:
     - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/tree/main/fixtures/canonical-bytes"
@@ -247,6 +421,7 @@
   title: "On a 45-comment thread, the one useful intervention was a question about what required is checked against"
   description: "TRACE's two-axis model separates supply-chain depth from per-action receipts and treats required as a verifier floor. Reading the merged text rather than the thread showed the record carries nothing that says which calls needed a receipt; the conformance fixtures supply that from outside. So a record declaring receipts required with none present can never report one missing. The first draft of this finding was wrong on its premise and died in a hostile pass before posting; the surviving version asks where the coverage set lives, and either answer the editor gives makes required checkable. Six fellowship proposals were building fixtures on top of the gap without naming it."
   status: done
+  day_start: 193
   workstream: standards
   links:
     - url: "https://github.com/agentrust-io/trace-spec/issues/66"
@@ -256,6 +431,7 @@
   title: "An invitation to put vectors through the lab, phrased as let's use the machinery together, was taken in 34 minutes"
   description: "The trust-signals thread on A2A had three projects publishing their own vectors and asking where cross-implementation results should live. The reply named the lab as a home for the second half, when somebody else runs your vectors, without declaring a convention or asking anyone to adopt anything. argentum-core answered with a cold reproduction of the whole corpus and a pinned candidate set. The wording that worked was the principal's, not the assistant's: shorter, no claim of ownership, one concrete next step."
   status: done
+  day_start: 193
   workstream: conformance
   links:
     - url: "https://github.com/a2aproject/A2A/issues/1628"
@@ -265,12 +441,14 @@
   title: "Four external pull requests, four full protocol reviews, and on each one a second reader found defects the first pass missed"
   description: "Each review classified its track before the read, wrote adversarial hypotheses first, executed every claim from a clean clone, and wrote a memo. A separate model running the same protocol cold then found what the first pass had not: a collision check comparing a bare digest to a prefixed one; an Ed25519 verifier accepting S plus the group order, invisible to random differential rounds and found by Wycheproof in one run; a vendored attestation that was a signed security verdict about a third party; a runner whose README said the authority chain verifies while it checked signatures, links and continuity only; replay claimed by a verifier that never touches replay; negatives keyed to fixture names. The artifacts were sound every time; the sentences were not. Rule adopted: every README sentence about what a runner enforces gets one mutation built to make it false, and a green aggregate label is a claim to falsify. Second rule: any vendored cryptographic verifier runs against the known-answer corpus for its primitive before any verdict."
   status: done
+  day_start: 193
   workstream: conformance
 
 - id: d193-attenu-guard-0-6-1-eighth-vector
   title: "The counterparty confirmed the four divergence classes himself, added the vector for the spec gap the clean-room run found, and the record moved to his new release the same day"
   description: "attenu-guard 0.6.1 ships its vectors inside the package and adds reject_wildcard_widening, the case where a child claims a wildcard over a parent holding one scope, which two independent verifier authors had got wrong from the draft text. The clean-room verifier written from the draft scores eight of eight on it with no logic change. Bytes unchanged at five of ten, now recorded under a three-class divergence split with observed bytes. The author reclassified his serializer as a distinct canonicalization that agrees on the ASCII-and-integers subset, identified the one class that can reach a real token, and asked to take that decision with implementers in the room."
   status: done
+  day_start: 193
   workstream: conformance
   links:
     - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/tree/main/interop/attenu-guard-0.6.1"
@@ -280,12 +458,14 @@
   title: "An automatic runner for every external family was declined: it would have made contributor code execute by default and turned absent verification into a green skip"
   description: "The obvious fix for external families not being in the suite's test command was a runner that discovers and executes every family's validator. Two hostile reads killed it: the contributing rule requires independent verification before a family lands, not execution by the test command; auto-discovery would make every contributor's code, including a home-grown cryptographic verifier, run by default in CI; and skip semantics would let a family whose toolchain vanished stay green while no longer reproduced. Three things stay separate: the core corpus run with a known toolchain, explicit per-family reproduction recorded with attribution, and lab-wide aggregation only ever behind an allowlisted manifest that reports a missing toolchain as an error. What remains is one documentation sentence."
   status: done
+  day_start: 193
   workstream: conformance
 
 - id: d193-a-promise-delivered-on-disk-not-in-the-thread
   title: "A working-group promise from July was delivered in two days and linked back after thirty-five, with a close date attached"
   description: "The contribution-policy update and worked fixture promised on a standards working-group thread landed in the registry two days later, with the commit citing the thread, and were never posted back; a held reply waited on an artifact that already existed, and every sweep since read the tracking row without following it to the thread. The link went up today after the fixture README was corrected, since it described a file not in the directory. The thread now carries a close date: if the group has not taken up the stewardship question by 11 September, the issue closes and the registry continues standalone. Rule recorded: a promise delivered on disk and not in the thread is still undelivered, and sweeps compare the thread's last message from us against what shipped."
   status: done
+  day_start: 193
   workstream: standards
   links:
     - url: "https://github.com/decentralized-identity/trusted-ai-agents/issues/41"
@@ -297,54 +477,63 @@
   title: "A field the verifier documented as authoritative and never read, found by checking a counterparty's aside instead of letting it pass"
   description: "ReceiptContext.active_delegation_root is exported API, documented as the delegation chain root the verifier treats as authoritative. verifyReceiptContext never read it, so a receipt carrying any chain root verified as long as that root was absent from the revoked list. Both fixture harnesses set the active root equal to the receipt root by construction, which is why no test caught it. Fixed as DELEGATION_ROOT_MISMATCH, appended last so no existing first-failure classification moved, with a regression test and a conformance negative. The regression was itself missing from the test script and would not have run."
   status: done
+  day_start: 192
   workstream: sdk
 
 - id: d192-pico-drop12-verified-and-round2
   title: "A rotation invariant closed across three independent records, and a reciprocal artifact stopped before it shipped broken"
   description: "Drop 12 verified the day it arrived, 14 vectors for 14, with the rotation digest equal in the counterparty's expired vector, their predecessor block, and our own ledger line, recomputed over the sent bytes. Our reciprocal artifact was then stopped: both signatures declared one did:key separated by fragments that do not resolve, so one did not verify under the identity it named, and our harness passed it because it resolved keys from a private table. Rebuilt as a fixed issuer plus a distinct co-signer key, and the acceptance rule now derives every key from the signer DID itself."
   status: done
+  day_start: 192
   workstream: conformance
 
 - id: d192-validator-skipping-a-third-of-the-corpus
   title: "An outside contributor found our registry validator reporting PASS over thirteen files it never checked"
   description: "validate-crosswalks.js walks descriptor dimensions in a nested shape and silently skips the flat shape, which thirteen crosswalks use, including one merged the previous day whose PR cited Validator: PASS. Reproduced independently from a clean clone before replying. The out-of-enum value hiding in the gap belongs to the reporter's own file. Routed as ordinary artifact correctness rather than a governance question, with the vocabulary question kept separate."
   status: done
+  day_start: 192
   workstream: vocabulary
 
 - id: d192-lab-text-corrected-before-the-fix-shipped
   title: "The published lab text was corrected first, so a repair never made it false"
   description: "The conformance corpus provenance file stated that the offline verifier never consults the active delegation root. That was accurate when written and a pending fix would have falsified it. Rewritten as a release-scoped statement about the shipped version, true before the repair and after it, and merged ahead of the SDK change rather than behind it."
   status: done
+  day_start: 192
   workstream: conformance
 
 - id: d192-skip-invariant-ruled-an-allowlist
   title: "A conformance guard counted skips, and a count cannot tell you what it counted"
   description: "An outside contributor asked for an explicit ruling rather than shipping a policy change quietly: raise the suite's fail-loud guard from exactly one declared skip to exactly two. The ruling was neither. A count is preserved under substitution, so the same assertion is satisfied by the two intended skips and by a state where both started being asserted while two unrelated vectors quietly began skipping. Errors that cancel pass the guard. Replaced with a named allowlist that fails in both directions, requires each allowlisted family to declare a verifier that runs in the gate, and requires a mutation run of that verifier to exit non-zero. Two independent review legs converged on the allowlist separately."
   status: done
+  day_start: 192
   workstream: conformance
 
 - id: d192-four-fixes-verified-from-clean-clones
   title: "Four claimed fixes reproduced from clean clones, and one carried-forward number corrected"
   description: "Audited a contributor's cross-stack fixture work from fresh clones of both heads rather than from a working tree. Provenance placeholders gone, the dependency real and absent from base, and a prepare script that actually builds the package on a git-pinned clean install, which was the true root cause of a failing acceptance command. The reported test count was a number carried forward from an earlier audit rather than a fresh run. Running the base branch in the same clean environment showed the identical figures, so the apparent anomaly was environmental and the change introduced no regression."
   status: done
+  day_start: 192
   workstream: conformance
 
 - id: d192-governance-files-three-weeks-late
   title: "A lab with no maintainers file, and a staged fix whose blocker had been gone for days"
   description: "The conformance lab had no MAINTAINERS, no code of conduct and no security policy, while being listed as a foundation lab. The fix had been drafted three weeks earlier and left unopened because it was blocked on write access that had since been granted. Opened with three files rather than the five staged: the fourth was a README replacement written to remove a badge that a different change had already removed two weeks before, so shipping it would have reverted newer work. The maintainers file states plainly that the sole maintainer also authors the specification the corpus tests, and that the shared-review rule does not bind until there are two committers."
   status: done
+  day_start: 192
   workstream: conformance
 
 - id: d192-erratum-that-shrank-under-checking
   title: "Correcting a six-month-old proposal, where three of the things I believed were wrong were not"
   description: "An outside maintainer revived a February integration proposal, which put fresh attention on claims that had aged badly. The correction was expected to cover a frozen name, a stale domain, an unsupported principles claim and an old test count. Checking the artifact rather than grepping for it removed three of the four: the name appeared zero times, the domain is a live product surface, and the principles feature is real and its enforced count exactly right. What actually survived was that the principle total was wrong on the day it was posted, eight in the manifest against seven claimed. The original proposal was preserved byte for byte and the erratum appended."
   status: done
+  day_start: 192
   workstream: ecosystem
 
 - id: d192-doctrine-moved-out-of-memory-onto-disk
   title: "Operating rules that only one process could read were not rules"
   description: "The rules governing how work gets done lived in assistant memory and nowhere on disk, so subagents and review legs booted without them and every prompt hand-copied a subset. Moved to a canonical on-disk file with stable rule identifiers, cited by ID rather than copied, because a copied rule is a second surface and two surfaces drift. Ledger records gained stable identifiers enforced fail-closed on the write path, which immediately caught a write from a second session running in parallel and a day-number collision between them."
   status: done
+  day_start: 192
   workstream: infrastructure
 
 # ═══ DAY 191 - 2026-08-26 ═══
