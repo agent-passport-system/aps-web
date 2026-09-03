@@ -1,7 +1,120 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-09-01 (Day 197). Adds: a working index that contradicted itself, a removal that needed evidence, a row charged twice, a rerun that aborted on its own success, the right test for the wrong reason, a counterparty who did the work, normalize once at load, a first high alert in my own test, a checker and its trusted call that cannot ship together, mutations that never attacked the data, two issues closed with nothing promoted, a trusted job that checks out a name, approval is not authorization, unmergeable by policy, a release merged and a race found, a count is not the fact, off the ledger since June, one release two triggers, a head that moved and a review that stands, and a kick-off that is December not November.
+# Last updated: 2026-09-03 (Day 199). Adds Days 198 and 199: three tags to one release, a family merged on round four, one byte-identical file two runners, a maintainer decided in forty-one minutes, the account surface corrected, a family audited and recomputed from its own rules, five rounds then an approval, three replies after three legs, the red test stays red, and unfinished is not important.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 199 - 2026-09-03 ═══
+
+- id: d199-a-family-audited-and-recomputed-from-its-own-rules
+  title: "A contributor's audit-gateway vector family was audited from a clean clone, and its digests recomputed by a verifier written from the header rules alone"
+  description: "The mcp-audit-gateway v0.6.0 family (suite #63) was audited at its head from a clean clone: both vector files byte-match the upstream tag, every cited line number lands where the README says, all 31 canonical-hash fields recompute, and the two runners pass 47 of 47 and 46 of 46. The review asks for five text edits, all his. Separately, a clean-room verifier written from the documented rules only, with no implementation opened, ran 112 checks: 109 pass, 2 unspecified by the headers, 1 not checkable, zero divergence. That run is ours, so under the lab's own definition it is author-produced and does not count as the independent record; the independent run was asked for in the open as suite issue #68."
+  status: done
+  day_start: 199
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/63"
+      label: "suite PR #63"
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/issues/68"
+      label: "suite issue #68"
+
+- id: d199-five-rounds-then-an-approval
+  title: "The Quesen crosswalk was approved on its fifth round, with the merge held on one line of the pull request body"
+  description: "Round five found one of three owed edits landed, an anchor still wrong, and a merge with main that failed the matrix check because main had moved eight commits and the matrix had not been regenerated. The contributor fixed all three. The head was rechecked from a clean clone: the only change to the crosswalk since the previous head is the anchor, the matrix regenerates byte-identically at 23 systems, and the test suite passes with main merged in. Approved. The merge waits on the body line for governed_action_class, which the file declares as a five-class list while the body says read; a body edit, no push."
+  status: done
+  day_start: 199
+  workstream: vocab
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/151"
+      label: "vocabulary PR #151"
+
+- id: d199-three-replies-after-three-legs
+  title: "Three boundary replies went out after a three-leg adversarial pass, and ten stale issues were closed against the repositories"
+  description: "A SpendShield proposal on the SDK got a product-boundary answer: the spike is welcome with the corpus as its tests, and where it lives in the SDK is a separate decision. A key_custody attribute proposal on the vocabulary got not-as-written with three points and a route to proposed status through one grounded crosswalk. A provenance_tier proposal was held on the parked #73 axis, with source fact kept separate from trust policy. Each reply was drafted after independent legs, checked against the published draft where it cited it, and guarded against new third-party comments before posting. Ten issues on the vocabulary and SDK repositories were closed with one-sentence notes, each verified against the repository first."
+  status: done
+  day_start: 199
+  workstream: vocab
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/issues/134"
+      label: "SDK #134"
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/issues/146"
+      label: "vocabulary #146"
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/issues/152"
+      label: "vocabulary #152"
+
+- id: d199-the-red-test-stays-red
+  title: "The bernstein draft was rebased onto the current upstream head with no conflict, and its one red test stays red because upstream chose the other semantics"
+  description: "The record_delegation_hop branch rebased cleanly. The narrowing test that fails does so because an upstream change (#5306) adopted a file-scope model that collides with the fail-closed contract the maintainer chose for this PR. Changing the test to pass would hide the collision, so it stays red, and one question on the PR asks the maintainer to pick between three file-scope models. A side finding became its own issue (#5390): the fast path's formatter calls escape their working directory, which also explained a day-old anomaly in our own scratch tree."
+  status: in-progress
+  day_start: 199
+  workstream: ecosystem
+  links:
+    - url: "https://github.com/sipyourdrink-ltd/bernstein/pull/5351"
+      label: "bernstein PR #5351"
+    - url: "https://github.com/sipyourdrink-ltd/bernstein/issues/5390"
+      label: "bernstein #5390"
+
+- id: d199-unfinished-is-not-important
+  title: "The working board was cut to seven items after a hostile pass showed the list had been treating unfinished as important"
+  description: "A lost-items sweep found two real public obligations: a one-line contributor PR that had waited fifteen hours unseen (merged; the sentence now names the check that actually runs), and two days missing from this public record. The rest were decayed decisions, drafted mail nobody needed, and process machinery. Eleven items were dropped with reasons and reversal costs, six parked on external triggers, three closed because the work had already shipped under another name. The daily close is simplified to a handful of entries per day, and a missed close is the next boot's first write rather than a recovery project."
+  status: done
+  day_start: 199
+  workstream: ops
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/pull/144"
+      label: "SDK PR #144"
+
+# ═══ DAY 198 - 2026-09-02 ═══
+
+- id: d198-three-tags-to-one-release
+  title: "5.0.3 published with registry provenance on the third tag; the two failed tags stay as permanent identities"
+  description: "The hardening candidate merged as a two-parent commit pinned to its audited head. The trusted-publisher predicate was captured as raw registry JSON and held against 13 mutations. An immutable-version-tags ruleset and immutable releases were enabled and read back. v5.0.1 failed on a Linux argument-length limit when the packed artifact was passed through an environment variable; v5.0.2 failed at release creation because the CLI ran outside a checkout. Each got a one-line workflow fix through the protected path, and v5.0.3 published with provenance and an immutable release. The two failed tags are not moved and not deleted: the owner bypass on the tag ruleset is break-glass authority, not a repair tool."
+  status: done
+  day_start: 198
+  workstream: security
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/releases/tag/v5.0.3"
+      label: "release v5.0.3"
+
+- id: d198-a-family-merged-on-round-four
+  title: "The oracle-safety-check family merged after four rounds, with the cross-stack CI question ruled on the base suite and not charged to the contributor"
+  description: "Round four corrected two false provenance sentences and asked for the family's three verifier scripts to leave the repository-wide test chain, because whether cross-stack verifiers belong in CI at all is base-suite sequencing, not his error. He pushed, CI passed, the family merged. Two records merged beside it: an EIP-712 recompute through ethers, and a clean-room JCS, SHA-256 and Ed25519 recompute, each pinned to the merge commit with its provenance stated exactly. The CI question was then ruled after a hostile leg: native per-family checks, non-required until promoted, with a checks-API design rejected because fork pull requests receive a read-only token."
+  status: done
+  day_start: 198
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/32"
+      label: "suite PR #32"
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/65"
+      label: "suite PR #65"
+
+- id: d198-one-byte-identical-file-two-runners
+  title: "attenu-guard 0.11.0 bundle vectors: two runners over one byte-identical vector file, 8 of 8 under both"
+  description: "The record pins the upstream vector file by digest and runs it through two runners, both passing 8 of 8. Two edge observations were written into the record and posted nowhere. The record labels its layers author-produced under the lab's definition rather than implying an independent run."
+  status: done
+  day_start: 198
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/64"
+      label: "suite PR #64"
+
+- id: d198-a-maintainer-decided-in-forty-one-minutes
+  title: "The missing delegation-hop write path for bernstein shipped as a draft PR after the maintainer answered two design questions in forty-one minutes"
+  description: "Building the write path exposed that no parent identity exists anywhere in a live run and that the spawner swallows identity-creation failures silently, so the caller could not be wired without inventing an identity. Rather than invent one, a design-question comment asked the maintainer for the parent model and the failure behaviour. He chose a run-root identity and a fail-closed abort with a distinct exception type, and assigned the issue. The wiring shipped as a draft PR closing the issue, with one follow-up issue for the remaining gap. A day-long mystery about files being reformatted under our scratch tree turned out to be the project's own test suite running a formatter outside its working directory."
+  status: done
+  day_start: 198
+  workstream: ecosystem
+  links:
+    - url: "https://github.com/sipyourdrink-ltd/bernstein/pull/5351"
+      label: "bernstein PR #5351"
+    - url: "https://github.com/sipyourdrink-ltd/bernstein/issues/5047"
+      label: "bernstein #5047"
+
+- id: d198-the-account-surface-corrected
+  title: "Twelve fact corrections across the public account, dormant repositories archived with notices, fifteen forks deleted"
+  description: "A public-surface audit against the live repositories found stale facts in the profile, the organisation description, several READMEs and one crosswalk. Twelve were corrected with zero code change. Dormant repositories were archived with a notice on each, and fifteen forks that had never been used were deleted by hand from a checked list. The rewrites that would change how the project describes itself, including the front-door README, were held for adversarial review rather than shipped in the sweep."
+  status: done
+  day_start: 198
+  workstream: ops
 
 # ═══ DAY 197 - 2026-09-01 ═══
 
