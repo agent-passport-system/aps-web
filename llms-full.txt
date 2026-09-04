@@ -2,18 +2,19 @@
 
 > Enforcement and accountability layer for AI agents. Bring your own identity. We govern what it can do.
 
-Updated: 2026-08-20
-SDK version: agent-passport-system@4.4.0 (latest)
-MCP version: agent-passport-system-mcp@5.0.0 (152 tools)
-Python SDK: agent-passport-system==2.11.0
-Go SDK: github.com/aeoess/agent-passport-go@v0.5.0
+Updated: 2026-09-04
+SDK version: agent-passport-system@6.0.0 (latest)
+MCP version: agent-passport-system-mcp@5.0.2 (152 tools)
+Python SDK: agent-passport-system==3.0.0
+Rust SDK: agent-passport-system 0.3.0 on crates.io (library crate agent_passport)
+Go SDK: github.com/aeoess/agent-passport-go@v0.7.0
 Compact: https://agent-passport.org/llms.txt
 Canonical: https://agent-passport.org/llms-full.txt
 License: Apache-2.0
 Copyright: 2024-2026 Tymofii Pidlisnyi
 > Gateway policy evaluation p50 0.14ms, 7,100 ops/sec burst, full enforcement path, single process on Apple M3 with SDK 4.4.0. Measured 2026-08-20, three runs, conservative end of the range. Artifacts: benchmarks/gateway/2026-08-20/ in the SDK repo.
 > Accepts did:key, did:web, SPIFFE SVIDs, OAuth tokens, native did:aps. Identity is the input. Enforcement is the product.
-> TypeScript SDK + MCP server + Python SDK. Zero heavy dependencies. Apache-2.0 license.
+> TypeScript SDK + Python SDK + Rust SDK + Go SDK + MCP server. Zero heavy dependencies. Apache-2.0 license.
 > Independently cited: PDR in Production (University of British Columbia). DOI: 10.5281/zenodo.19323172
 
 ## What It Is
@@ -29,7 +30,8 @@ It answers: when AI agents from different creators, running different models, se
 ```bash
 npm install agent-passport-system          # SDK
 pip install agent-passport-system          # Python SDK
-go get github.com/aeoess/agent-passport-go@v0.5.0           # Go SDK
+cargo add agent-passport-system                             # Rust SDK
+go get github.com/aeoess/agent-passport-go@v0.7.0           # Go SDK
 npx agent-passport-system-mcp setup           # Auto-configure Claude Desktop/Cursor (local)
 npx agent-passport-system-mcp setup --remote  # Zero-install remote SSE mode
 
@@ -192,7 +194,7 @@ Structural safeguards: Separation of Powers (legislative/executive/judicial bran
 
 **AMCS — AI-Native Media Credentialing Standard** (v0.1.0): Open specification for credentialing AI-native publications as trustworthy agent-consumable news sources. Published by the project. Two layers: Layer A (cryptographic, binary pass/fail) requires Ed25519 article provenance, journalist agent passports with delegation chains, and a public MCP server. Layer B (editorial, public audit) requires machine-readable confidence labels on every article, a published Code of Conduct citing SPJ/NPC/Scripps, and an automated ethics verification system scoring every article against stated standards. Certification is self-attestation verified by script (Layer A) and public evidence (Layer B). No subjective editorial gatekeeping. Does NOT integrate with trust scoring — badge is informational only. Any publication can apply. Full spec: https://github.com/aeoess/agent-passport-system/blob/main/docs/AMCS-SPEC.md | Page: https://agent-passport.org/amcs.html
 
-**v4.4.0, 4,500 tests (979 suites). 233 test files including adversarial scenario suites.**
+**v6.0.0, 5,281 tests (979 suites). 233 test files including adversarial scenario suites.**
 
 ## Quick Start — 6 Functions
 
@@ -473,7 +475,7 @@ Connect (local, via npx):
 }
 ```
 
-Tools (150 total; 25 in the optional essential profile):
+Tools (152 total; 25 in the optional essential profile):
 Essential profile covers identity, delegation, enforcement, commerce, reputation. Set `APS_PROFILE=full` for the full 150-tool surface, or use a focused profile: identity, governance, coordination, commerce, data, gateway, comms, minimal. Canonical tool list per layer: https://github.com/aeoess/agent-passport-mcp/blob/main/src/index.ts
 
 Role auto-detected from task assignments. Role-specific prompts served via MCP prompts API. File-backed persistence at ~/.agent-passport-tasks.json. Every operation Ed25519 signed.
@@ -561,7 +563,7 @@ Q: What platforms does it run on?
 A: Any platform with Node.js. The SDK is pure TypeScript with no platform-specific dependencies.
 
 Q: Is it production ready?
-A: The SDK has 4,500 tests including 38 adversarial scenarios. It is published on npm and actively used. The protocol is research-stage but the code runs.
+A: The SDK has 5,281 tests including 38 adversarial scenarios. It is published on npm and actively used. The protocol is research-stage but the code runs.
 
 Q: What is Intent Architecture?
 A: Layer 5 of the Agent Social Contract. It gives multi-agent systems organizational intent — goals, tradeoff hierarchies, and decision frameworks that agents can act on. Context engineering tells agents what they know. Intent architecture tells them what to care about.
@@ -573,7 +575,7 @@ Q: What are tradeoff rules?
 A: Machine-readable expressions like "when quality and speed conflict, prefer quality until 2× time cost, then prefer speed." They make organizational priorities queryable at runtime instead of locked in prose documents.
 
 Q: How does it compare to other agent identity approaches?
-A: Most alternatives (DeepMind, GaaS, OpenAI, LOKA) are papers or proposals. The Agent Passport System is running code with 4,500 tests. It is the enforcement and accountability layer for AI agents: bring your own identity (did:key, did:web, SPIFFE SVID, OAuth, native did:aps) and the gateway enforces scoped delegation, monotonic narrowing, cascade revocation, 3-signature action chains, Merkle proof attribution, values floor, agentic commerce (ACP by OpenAI + Stripe), reputation-gated authority with Bayesian trust, principal identity with selective disclosure, W3C DID and Verifiable Credentials, Google A2A bridge, and EU AI Act mapping support. The coordination-native MCP server exposes 152 tools under `APS_PROFILE=full` (the default profile; APS_PROFILE=essential presents 26 tools).
+A: Most alternatives (DeepMind, GaaS, OpenAI, LOKA) are papers or proposals. The Agent Passport System is running code with 5,281 tests. It is the enforcement and accountability layer for AI agents: bring your own identity (did:key, did:web, SPIFFE SVID, OAuth, native did:aps) and the gateway enforces scoped delegation, monotonic narrowing, cascade revocation, 3-signature action chains, Merkle proof attribution, values floor, agentic commerce (ACP by OpenAI + Stripe), reputation-gated authority with Bayesian trust, principal identity with selective disclosure, W3C DID and Verifiable Credentials, Google A2A bridge, and EU AI Act mapping support. The coordination-native MCP server exposes 152 tools under `APS_PROFILE=full` (the default profile; APS_PROFILE=essential presents 26 tools).
 
 Q: How does the Signed Execution Envelope work?
 A: The RFC defines a minimal signed envelope for cross-engine governance interop. Any governance engine (CrewAI, Guardian, APS, etc.) can emit it, and any verifier can check it without depending on a specific trust backend. The critical field is evaluation_method (deterministic vs probabilistic), which tells a verifier whether the governance decision can be independently replayed or only signature-checked. The APS SDK already generates every field in the envelope through its 3-signature chain. See: https://github.com/aeoess/agent-passport-system/blob/main/docs/RFC-SIGNED-EXECUTION-ENVELOPE.md
@@ -724,7 +726,7 @@ This is not a replacement for either spec, not a prescription that all agents ne
 - GitHub repository: https://github.com/aeoess/agent-passport-system
 - Enforcement trust anchor spec (v1.2 feat branch, v1.1 on main): https://github.com/aeoess/agent-passport-system/blob/main/docs/ENFORCEMENT-TRUST-ANCHOR.md
 - Capability token spec (v0.2 feat branch, v0.1 on main): https://github.com/aeoess/agent-passport-system/blob/main/docs/CAPABILITY-TOKEN-SPEC-DRAFT.md
-- Conformance suite (cross-implementation test corpus, 37 fixture vectors across 4 categories): https://github.com/Agent-Authority-Conformance/aps-conformance-suite
+- Conformance suite (cross-implementation test corpus, 97 conformance vectors, 93 passing and 4 governed skips): https://github.com/Agent-Authority-Conformance/aps-conformance-suite
 - Governance Attestation predicate (in-toto sibling to Decision Receipt, binds delegation chain root + principal signature + scope narrowing + Values Floor): https://github.com/aeoess/governance-attestation-predicate
 - GitHub MCP server: https://github.com/aeoess/agent-passport-mcp
 - npm Mingle: https://www.npmjs.com/package/mingle-mcp
