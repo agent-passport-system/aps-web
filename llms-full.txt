@@ -4,7 +4,7 @@
 
 Updated: 2026-09-04
 SDK version: agent-passport-system@6.0.0 (latest)
-MCP version: agent-passport-system-mcp@5.0.2 (152 tools)
+MCP version: agent-passport-system-mcp@6.0.0 (152 tools)
 Python SDK: agent-passport-system==3.0.0
 Rust SDK: agent-passport-system 0.3.0 on crates.io (library crate agent_passport)
 Go SDK: github.com/aeoess/agent-passport-go@v0.7.0

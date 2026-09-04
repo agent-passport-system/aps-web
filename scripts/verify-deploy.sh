@@ -31,7 +31,7 @@ SDK_EXPECTED=$(read_pkg_version "$HOME/agent-passport-system/package.json")
 MCP_EXPECTED=$(read_pkg_version "$HOME/agent-passport-mcp/package.json")
 GATEWAY_EXPECTED=$(read_pkg_version "$HOME/aeoess-gateway/package.json")
 # mcp.aeoess.com serves the agent-passport-remote-mcp package, which is
-# versioned independently of the npm-published agent-passport-mcp. The live
+# versioned independently of the npm-published agent-passport-system-mcp. The live
 # /health version must therefore be compared against the remote-mcp package,
 # not MCP_EXPECTED (that is the npm SDK-side MCP package, checked below).
 REMOTE_MCP_EXPECTED=$(read_pkg_version "$HOME/agent-passport-remote-mcp/package.json")
