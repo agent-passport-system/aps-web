@@ -192,7 +192,7 @@
     <div class="stats">
       <div class="stat" id="stat-a-wrap"><span id="stat-a-label">receipts</span> <b id="stat-a">5 primitives</b></div>
       <div class="stat" id="stat-b-wrap"><span id="stat-b-label">modules</span> <b id="stat-b">107</b></div>
-      <div class="stat" id="stat-c-wrap"><span id="stat-c-label">tests</span> <b id="stat-c">4,378</b></div>
+      <div class="stat" id="stat-c-wrap"><span id="stat-c-label">tests</span> <b id="stat-c">5,281</b></div>
     </div>
   </div>
 
@@ -325,7 +325,7 @@ const BELOW = [
   ],
   [
     ['14 gates', 'Identity, signature, scope, budget, rate, values, reputation, freshness, plus six more.'],
-    ['Conformance', '37 + 10 conformance vectors. <code>aps-conformance-suite</code>, public repo.'],
+    ['Conformance', '97 conformance vectors, 93 passing and 4 governed skips. <code>aps-conformance-suite</code>, public repo.'],
     ['Fail-closed', 'Missing a check is a deny. No bypass on cache miss or ambiguity.'],
   ],
   [
@@ -347,10 +347,10 @@ const BELOW = [
 // Per-scene stats: [[labelA, valueA, labelB, valueB, labelC, valueC], ...]
 // CLAIMS.md compliant: only verifiable numbers. No latency, no throughput.
 const STATS_PER_SCENE = [
-  ['receipts',     '5 primitives', 'modules',        '107',       'tests',       '4,378'],
-  ['narrowing',    'monotonic',    'cascade',        'one call',  'tests',       '4,378'],
-  ['gates',        '14',           'conformance',    '37 + 10',   'fail-closed', 'yes'],
-  ['vocab',        '32 crosswalks','papers',         '9',         'tests',       '4,378'],
+  ['receipts',     '5 primitives', 'modules',        '107',       'tests',       '5,281'],
+  ['narrowing',    'monotonic',    'cascade',        'one call',  'tests',       '5,281'],
+  ['gates',        '14',           'conformance',    '97',   'fail-closed', 'yes'],
+  ['vocab',        '35 crosswalks','papers',         '9',         'tests',       '5,281'],
   ['rails',        '5',            'registries',     '4',         'phase',       '4.1 alpha'],
   ['implementations','6',          'canonicalizers', '8',         'CTEF',        'v0.3.2 §A'],
 ];

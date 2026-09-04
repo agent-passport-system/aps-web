@@ -1,7 +1,7 @@
 {
   "name": "AEOESS — Agent Passport System",
   "description": "Enforcement infrastructure for AI agents. Cryptographic identity, scoped delegation, earned reputation, gateway enforcement, passport grades, Merkle attribution.",
-  "version": "5.0.0",
+  "version": "5.0.2",
   "servers": [
     {
       "name": "agent-passport-mcp",
@@ -16,12 +16,14 @@
   "sdk": {
     "npm": "agent-passport-system",
     "pypi": "agent-passport-system",
-    "version": "4.4.0",
+    "version": "6.0.0",
     "modules": 107,
-    "tests": 4378,
-    "python_version": "2.10.0",
+    "tests": 5281,
+    "python_version": "3.0.0",
+    "rust": "agent-passport-system",
+    "rust_version": "0.3.0",
     "go": "github.com/aeoess/agent-passport-go",
-    "go_version": "v0.5.0"
+    "go_version": "v0.7.0"
   },
   "documentation": {
     "llms_txt": "https://agent-passport.org/llms.txt",
@@ -42,5 +44,5 @@
     "constraint_dimensions": 14,
     "routes": 37
   },
-  "lastUpdated": "2026-07-22"
+  "lastUpdated": "2026-09-04"
 }
