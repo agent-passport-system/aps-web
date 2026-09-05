@@ -1,7 +1,63 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-09-03 (Day 199). Adds Days 198 and 199: three tags to one release, a family merged on round four, one byte-identical file two runners, a maintainer decided in forty-one minutes, the account surface corrected, a family audited and recomputed from its own rules, five rounds then an approval, three replies after three legs, the red test stays red, and unfinished is not important.
+# Last updated: 2026-09-05 (Day 201). Adds Day 200: four registries in one cut, the MCP server followed the SDK, his run report under his own name, three runners one file, same patch new head. Previous: Adds Days 198 and 199: three tags to one release, a family merged on round four, one byte-identical file two runners, a maintainer decided in forty-one minutes, the account surface corrected, a family audited and recomputed from its own rules, five rounds then an approval, three replies after three legs, the red test stays red, and unfinished is not important.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 200 - 2026-09-04 ═══
+
+- id: d200-four-registries-in-one-cut
+  title: "The coordinated security release shipped on four registries in one cut, and four cross-referenced advisories were published once the last package appeared"
+  description: "SDK 6.0.0 on npm, Python 3.0.0 on PyPI, Rust 0.3.0 on crates.io and Go v0.7.0 on the module proxy went out from four merged pull requests, each tag signed, npm through trusted publishing with provenance verified from a clean install. The four advisories share one text, carry per-package affected ranges, and each links the other three; they were published after crates.io showed 0.3.0 so no registry lagged the disclosure. No CVE was requested; that is a separate decision."
+  status: done
+  day_start: 200
+  workstream: security
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/security/advisories/GHSA-r2fw-x6mg-f6h8"
+      label: "GHSA-r2fw-x6mg-f6h8"
+    - url: "https://github.com/aeoess/agent-passport-system/releases/tag/v6.0.0"
+      label: "SDK v6.0.0"
+
+- id: d200-the-mcp-server-followed-the-sdk
+  title: "The MCP server moved to the new SDK authority verification with rewritten tool contracts, and every public surface was refreshed to the four-SDK family"
+  description: "agent-passport-system-mcp 6.0.0 depends on SDK ^6.0.0: trust inputs sit on the tool schema, allow-self-signed is never defaulted and is described as integrity-only, and verify_charter takes the attribution receipts it previously never passed. A first reachability count of 2 affected tools out of 65 was wrong (a truncated constant) and was corrected to 18 by the same audit before merge. Skills, security policies, release notes, the profile README and agent-passport.org now state one set of versions with Rust in every list."
+  status: done
+  day_start: 200
+  workstream: sdk
+  links:
+    - url: "https://www.npmjs.com/package/agent-passport-system-mcp"
+      label: "agent-passport-system-mcp on npm"
+
+- id: d200-his-run-report-under-his-own-name
+  title: "A contributor's SDK repin was superseded by a maintainer pull request carrying his run report under his own authorship, after a mutation test showed the default test chain never executes the SDK"
+  description: "The contributor's pull request repinned the suite's SDK to a version that had just entered a published advisory range. Rather than merge a pin inside an affected range, a maintainer pull request carried his run-report commit unchanged under his authorship plus a pin to 6.0.0, and his original was closed superseded with credit. Before deciding, a mutation of the SDK import proved that npm test never reaches it; the four out-of-chain importers reproduce at 6.0.0."
+  status: done
+  day_start: 200
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/74"
+      label: "suite PR #74"
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/67"
+      label: "suite PR #67"
+
+- id: d200-three-runners-one-file
+  title: "The attenu-guard envelope vectors got a successor record with three runners over one byte-identical file, 18 of 18 under each, all author-produced"
+  description: "attenu-guard 0.13.0 shipped envelope_vectors_v1.json v1.1 with 18 cases and an announced digest. The lab record pins the file by byte identity, runs the Python and TypeScript runners and a clean-room verifier over it, and records 18 of 18 under each. Every run is ours, so the record says author-produced and lists the three layers that still want an independent run."
+  status: done
+  day_start: 200
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/75"
+      label: "suite PR #75"
+
+- id: d200-same-patch-new-head
+  title: "The OpenClaw atomic-write fix was rebased onto the current upstream head with the patch unchanged, and the request's evidence section refreshed with the current red and green numbers"
+  description: "After the upstream flake fix merged, the branch was rebased onto the new head, force-pushed with lease, and range-diff shows the patch identical. The regression is red on the base at 1 failed and 149 passed and green at 150 with the fix; the pull request body now carries those numbers. A second rebase onto later unrelated commits was declined because CI was already running on the current head."
+  status: in-progress
+  day_start: 200
+  workstream: ecosystem
+  links:
+    - url: "https://github.com/openclaw/openclaw/pull/137713"
+      label: "openclaw PR #137713"
 
 # ═══ DAY 199 - 2026-09-03 ═══
 

@@ -95,7 +95,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">578 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">583 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -136,7 +136,55 @@
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(535)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(539)</span></h2>
+<article class="rm-item rm-item-done" id="d200-four-registries-in-one-cut">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The coordinated security release shipped on four registries in one cut, and four cross-referenced advisories were published once the last package appeared</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 200</span> 
+<span class="rm-item-ws">security</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">SDK 6.0.0 on npm, Python 3.0.0 on PyPI, Rust 0.3.0 on crates.io and Go v0.7.0 on the module proxy went out from four merged pull requests, each tag signed, npm through trusted publishing with provenance verified from a clean install. The four advisories share one text, carry per-package affected ranges, and each links the other three; they were published after crates.io showed 0.3.0 so no registry lagged the disclosure. No CVE was requested; that is a separate decision.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/security/advisories/GHSA-r2fw-x6mg-f6h8">GHSA-r2fw-x6mg-f6h8</a></li><li><a href="https://github.com/aeoess/agent-passport-system/releases/tag/v6.0.0">SDK v6.0.0</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d200-his-run-report-under-his-own-name">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A contributor's SDK repin was superseded by a maintainer pull request carrying his run report under his own authorship, after a mutation test showed the default test chain never executes the SDK</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 200</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The contributor's pull request repinned the suite's SDK to a version that had just entered a published advisory range. Rather than merge a pin inside an affected range, a maintainer pull request carried his run-report commit unchanged under his authorship plus a pin to 6.0.0, and his original was closed superseded with credit. Before deciding, a mutation of the SDK import proved that npm test never reaches it; the four out-of-chain importers reproduce at 6.0.0.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/74">suite PR #74</a></li><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/67">suite PR #67</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d200-the-mcp-server-followed-the-sdk">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The MCP server moved to the new SDK authority verification with rewritten tool contracts, and every public surface was refreshed to the four-SDK family</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 200</span> 
+<span class="rm-item-ws">sdk</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">agent-passport-system-mcp 6.0.0 depends on SDK ^6.0.0: trust inputs sit on the tool schema, allow-self-signed is never defaulted and is described as integrity-only, and verify_charter takes the attribution receipts it previously never passed. A first reachability count of 2 affected tools out of 65 was wrong (a truncated constant) and was corrected to 18 by the same audit before merge. Skills, security policies, release notes, the profile README and agent-passport.org now state one set of versions with Rust in every list.</p>
+<ul class="rm-item-links"><li><a href="https://www.npmjs.com/package/agent-passport-system-mcp">agent-passport-system-mcp on npm</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d200-three-runners-one-file">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The attenu-guard envelope vectors got a successor record with three runners over one byte-identical file, 18 of 18 under each, all author-produced</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 200</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">attenu-guard 0.13.0 shipped envelope_vectors_v1.json v1.1 with 18 cases and an announced digest. The lab record pins the file by byte identity, runs the Python and TypeScript runners and a clean-room verifier over it, and records 18 of 18 under each. Every run is ours, so the record says author-produced and lists the three layers that still want an independent run.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/75">suite PR #75</a></li></ul>
+</article>
 <article class="rm-item rm-item-done" id="d199-a-family-audited-and-recomputed-from-its-own-rules">
 <header class="rm-item-h">
 <h3 class="rm-item-title">A contributor's audit-gateway vector family was audited from a clean clone, and its digests recomputed by a verifier written from the header rules alone</h3>
@@ -6626,7 +6674,19 @@
 </article>
 </section>
 <section class="rm-group rm-group-other-no-status-declared-">
-<h2 class="rm-group-title">Other (no status declared) <span class="rm-group-count">(26)</span></h2>
+<h2 class="rm-group-title">Other (no status declared) <span class="rm-group-count">(27)</span></h2>
+<article class="rm-item rm-item-in-progress" id="d200-same-patch-new-head">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The OpenClaw atomic-write fix was rebased onto the current upstream head with the patch unchanged, and the request's evidence section refreshed with the current red and green numbers</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 200</span> 
+<span class="rm-item-ws">Ecosystem</span> 
+<span class="rm-item-status">in-progress</span>
+</p>
+</header>
+<p class="rm-item-desc">After the upstream flake fix merged, the branch was rebased onto the new head, force-pushed with lease, and range-diff shows the patch identical. The regression is red on the base at 1 failed and 149 passed and green at 150 with the fix; the pull request body now carries those numbers. A second rebase onto later unrelated commits was declined because CI was already running on the current head.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/openclaw/openclaw/pull/137713">openclaw PR #137713</a></li></ul>
+</article>
 <article class="rm-item rm-item-in-progress" id="d199-the-red-test-stays-red">
 <header class="rm-item-h">
 <h3 class="rm-item-title">The bernstein draft was rebased onto the current upstream head with no conflict, and its one red test stays red because upstream chose the other semantics</h3>
