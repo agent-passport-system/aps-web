@@ -2,7 +2,7 @@
 
 > Enforcement and accountability layer for AI agents. Bring your own identity. We govern what it can do.
 
-Updated 2026-09-04 · SDK 6.0.0 · MCP 6.0.0 (152 tools) · Python 3.0.0 · Rust 0.3.0 · Go v0.7.0 · License Apache-2.0 · 5,276 of 5,281 tests passing · 9 papers · © 2026 Tymofii Pidlisnyi
+Updated 2026-09-04 · SDK 6.0.0 · MCP 6.0.0 (152 tools) · Python 3.0.0 · Rust 0.3.0 · Go v0.7.0 · License Apache-2.0 · 5,281 tests · 9 papers · © 2026 Tymofii Pidlisnyi
 
 APS is the enforcement layer that sits on top of whatever identity an agent already has. Accepts did:key, did:web, SPIFFE SVID, OAuth, and native did:aps. Identity is the input. Enforcement is the product. The gateway is both judge and executor. Authority can only decrease at each transfer point.
 
