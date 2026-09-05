@@ -3,9 +3,9 @@
 > Enforcement and accountability layer for AI agents. Bring your own identity. We govern what it can do.
 
 Updated: 2026-09-04
-SDK version: agent-passport-system@6.0.0 (latest)
-MCP version: agent-passport-system-mcp@6.0.0 (152 tools)
-Python SDK: agent-passport-system==3.0.0
+SDK version: agent-passport-system@6.0.1 (latest)
+MCP version: agent-passport-system-mcp@6.0.1 (152 tools)
+Python SDK: agent-passport-system==3.0.1
 Rust SDK: agent-passport-system 0.3.0 on crates.io (library crate agent_passport)
 Go SDK: github.com/aeoess/agent-passport-go@v0.7.0
 Compact: https://agent-passport.org/llms.txt
@@ -194,7 +194,7 @@ Structural safeguards: Separation of Powers (legislative/executive/judicial bran
 
 **AMCS — AI-Native Media Credentialing Standard** (v0.1.0): Open specification for credentialing AI-native publications as trustworthy agent-consumable news sources. Published by the project. Two layers: Layer A (cryptographic, binary pass/fail) requires Ed25519 article provenance, journalist agent passports with delegation chains, and a public MCP server. Layer B (editorial, public audit) requires machine-readable confidence labels on every article, a published Code of Conduct citing SPJ/NPC/Scripps, and an automated ethics verification system scoring every article against stated standards. Certification is self-attestation verified by script (Layer A) and public evidence (Layer B). No subjective editorial gatekeeping. Does NOT integrate with trust scoring — badge is informational only. Any publication can apply. Full spec: https://github.com/aeoess/agent-passport-system/blob/main/docs/AMCS-SPEC.md | Page: https://agent-passport.org/amcs.html
 
-**v6.0.0, 5,281 tests (979 suites). 233 test files including adversarial scenario suites.**
+**v6.0.1, 5,281 tests (979 suites). 233 test files including adversarial scenario suites.**
 
 ## Quick Start — 6 Functions
 
