@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>(function(){try{var t=localStorage.getItem("aps-theme");if(!t)t="dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <meta charset="utf-8">
+<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Task Board · Agent Passport System | An open protocol for accountable AI agents</title>
 <meta name="description" content="Agent Passport System governance board: structure, roles, and decision-making processes for the Agent Passport System protocol development.">
@@ -51,7 +51,7 @@
 .col-voting .column-header{border-bottom-color:var(--gold)}
 .col-in_progress .column-header{border-bottom-color:var(--warn)}
 .col-review .column-header{border-bottom-color:var(--sub)}
-.col-done .column-header{border-bottom-color:#2E6E53}
+.col-done .column-header{border-bottom-color:var(--ok3)}
 .column-body{padding:12px;overflow-y:auto;flex:1}
 .card{
   background:var(--panel);border:1px solid var(--fg);
@@ -76,7 +76,7 @@
   border:1px solid var(--sub);color:var(--sub);
 }
 .tag-tokens{border-color:var(--warn);color:var(--warn)}
-.tag-votes-for{border-color:#2E6E53;color:#2E6E53}
+.tag-votes-for{border-color:var(--ok3);color:var(--ok3)}
 .tag-votes-against{border-color:var(--lime);color:var(--lime)}
 .tag-proposer{border-color:var(--sub);color:var(--sub)}
 .tag-skill{border-color:var(--gold);color:var(--gold)}
@@ -127,7 +127,7 @@
   display:none;background:var(--fg);border:1px solid var(--fg);
   padding:16px;margin-top:16px;
   font-family:var(--mono);font-size:11px;
-  white-space:pre-wrap;color:#A8C99A;max-height:220px;overflow-y:auto;line-height:1.5;
+  white-space:pre-wrap;color:var(--ok4);max-height:220px;overflow-y:auto;line-height:1.5;
 }
 .board-toolbar{display:flex;justify-content:flex-end;margin-bottom:20px}
 </style>
@@ -141,7 +141,7 @@
 </script>
 <script src="/theme.js" defer></script>
 <script src="/nav.js" defer></script>
-<meta name="theme-color" content="#0A0B08">
+<meta name="theme-color" content="#0A5CFF">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Task Board · Agent Passport System | An open protocol for accountable AI agents", "description": "Agent Passport System governance board: structure, roles, and decision-making processes for the Agent Passport System protocol development.", "url": "https://agent-passport.org/board.html"}</script>
 <script src="/gh-stars.js" defer></script>
 </head>

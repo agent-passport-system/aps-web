@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>(function(){try{var t=localStorage.getItem("aps-theme");if(!t)t="dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <meta charset="utf-8">
+<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Working Group | Agent Passport System</title>
 <meta name="description" content="The Agent Governance Working Group: ratified specs, active participants, open contributions. Building interoperability standards for the agent economy.">
@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="/aps-v2.css?v=150">
 <style>
 .wg-spec-status{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;border:1px solid var(--fg);margin-bottom:10px}
-.wg-spec-status.ratified{color:#2E6E53;border-color:#2E6E53}
+.wg-spec-status.ratified{color:var(--ok3);border-color:var(--ok3)}
 .wg-spec-status.draft{color:var(--warn);border-color:var(--warn)}
 .wg-spec-version{font-family:var(--mono);font-size:11.5px;color:var(--sub);margin-top:8px}
 .wg-p-name{font-family:var(--disp);font-size:18px;font-weight:600;letter-spacing:-0.01em}
@@ -35,7 +35,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Working Group · Agent Passport System | Agent Governance Standards","description":"The Agent Governance Working Group: ratified specs, active participants, open contributions. Building interoperability standards for the agent economy.","url":"https://agent-passport.org/working-group.html","dateModified":"2026-07-02","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","about":{"@type":"Thing","name":"Agent Governance Working Group"}}</script>
 <script src="/theme.js" defer></script>
 <script src="/nav.js" defer></script>
-<meta name="theme-color" content="#0A0B08">
+<meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
 </head>
 <body>
@@ -84,7 +84,6 @@
     <p class="dek">The Agent Governance Working Group builds interoperability standards for the agent economy. Multiple projects. Shared primitives. No single vendor controls the specs. If you're building agent infrastructure, the door is open.</p>
   </section>
   <article class="prose">
-
 
     <h2 class="no-rule">Ratified Specifications</h2>
     <div class="aps-grid-2">

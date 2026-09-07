@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>(function(){try{var t=localStorage.getItem("aps-theme");if(!t)t="dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <meta charset="utf-8">
+<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>action_ref | Agent Passport System</title>
 <meta name="description" content="Content commitment over a governed action&#39;s intent, recomputed at the enforcement boundary before dispatch.">
@@ -33,7 +33,7 @@
 </script>
 <script src="/theme.js" defer></script>
 <script src="/nav.js" defer></script>
-<meta name="theme-color" content="#0A0B08">
+<meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
 </head>
 <body>

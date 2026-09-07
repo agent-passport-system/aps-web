@@ -393,44 +393,171 @@
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important; transition:none !important}.r{opacity:1 !important; transform:none !important}html{scroll-behavior:auto !important}}
 
 
-  :root{
+  /* ==========================================================================
+     THEME TOKENS. Two palettes, one layout, one type scale.
+
+     :root and html[data-theme="bright"] carry BRIGHT, which is the default.
+     html[data-theme="dark"] carries the night palette, value for value, so a
+     dark page renders exactly as it did before the bright theme existed.
+
+     The landing alternates two slide kinds. --a-* is the kind the night palette
+     paints black (vivid blue when bright); --b-* is the kind it paints beige
+     (white when bright). Each token's dark value IS the hex the slide used
+     inline before, which is why dark is unchanged; bright collapses the ramps
+     onto the four-colour palette. Roles: bg surface, c card, r rule, t ink,
+     m muted ink, k accent.
+
+     Inline SVG figures use the --a-* ramp wherever they sit: their fills
+     describe the figure, not the slide behind it.
+     ========================================================================== */
+  :root, html[data-theme="bright"]{
+    /* slide A: night black -> vivid blue */
+    --a-bg1:#0A5CFF; --a-t1:#FFFFFF; --a-k1:#FFF200; --a-c1:#8DB6FF;
+    --a-r1:#8DB6FF; --a-m1:#E4EEFF; --a-r2:#8DB6FF; --a-t2:#FFFFFF;
+    --a-t3:#0A5CFF; --a-r3:#8DB6FF; --a-m2:#E4EEFF; --a-k2:#FFF200;
+    --a-m3:#E4EEFF; --a-t4:#FFFFFF; --a-m4:#E4EEFF; --a-c2:#0745D9;
+    --a-r4:#8DB6FF; --a-c3:#0745D9; --a-k3:#FFF200; --a-c4:#0745D9;
+    --a-c5:#CFE0FF; --a-c6:#CFE0FF; --a-k4:#FFF200; --a-c7:#0745D9;
+    --a-r5:#CFE0FF; --a-r6:#8DB6FF; --a-t5:#0A5CFF; --a-t6:#FFFFFF;
+    /* slide B: night beige -> white */
+    --b-bg1:#FFFFFF; --b-k1:#FFF200; --b-m1:#3C6DC3; --b-t1:#0A5CFF;
+    --b-r1:#C9DBFF; --b-r2:#C9DBFF; --b-m2:#3C6DC3; --b-c1:#EEF3FF;
+    --b-c2:#0745D9; --b-t2:#FFFFFF; --b-t3:#FFFFFF; --b-m3:#E4EEFF;
+    --b-r3:#0A5CFF; --b-m4:#E4EEFF;
+    /* accent, and the ink that sits on it. Yellow text is legible on blue and
+       illegible on white, so slide B spends the accent as a highlight instead. */
+    --acc:#FFF200; --on-acc:#0A5CFF;
+    /* the landing paints its highlight a shade brighter than the site accent */
+    --acc-hero:#FFF200; --on-acc2:#0A5CFF; --faint2:#E4EEFF;
+    /* washes */
+    --a-kglow:rgba(255,242,0,.5); --a-wash:rgba(255,255,255,.22);
+    --glow:rgba(255,242,0,.07); --dots:rgba(255,255,255,.045);
+    --nav-a:rgba(10,92,255,.92); --nav-b:rgba(10,92,255,0);
+    --shadow:rgba(5,40,140,.45); --scrim:rgba(5,40,140,.55);
+    --wash1:rgba(255,255,255,.012); --wash2:rgba(255,255,255,.02); --wash3:rgba(255,255,255,.06);
+    --acc-14:rgba(255,242,0,.14); --acc-30:rgba(255,242,0,.3); --acc-35:rgba(255,242,0,.35);
+    --acc-32:rgba(255,242,0,.32); --acc-50:rgba(255,242,0,.5);
+    --acc-18:rgba(255,242,0,.18); --acc-42:rgba(255,242,0,.42);
+    /* interior pages are a slide-A surface */
+    --bg:#0A5CFF; --panel:#0745D9; --panel2:#0745D9;
+    --line:#8DB6FF; --line2:#8DB6FF; --codeline:#8DB6FF;
+    /* One subdued tier, not three. White on #0A5CFF is 5.27:1, so #CFE0FF
+       (3.95:1) and anything below it misses the 4.5:1 body bar; the tiers fold
+       into the one value that clears it. Hierarchy on bright is carried by
+       size and weight. Restoring the ramp means darkening the surface, e.g.
+       #0A4BD1, which puts #CFE0FF back at 5.36:1. */
+    --fg:#FFFFFF; --sub:#E4EEFF; --dim:#E4EEFF; --faint:#E4EEFF;
+    --lime:#FFF200;
+    --warn:#F8EDD5;
+    /* Red states stay red. On the blue panel a red LABEL cannot reach 4.5:1
+       and still read as red, so bright hands the word to white and lets the
+       dot beside it carry the colour; the slide-B red darkens instead. */
+    --a-red:#FF4D5A; --a-red-ink:#FFFFFF; --b-red:#FF4436; --b-red-ink:#FFFFFF;
+    /* code panels keep one look on both slide kinds: deep blue, white ink */
+    --code-k:#FFF200; --code-s:#E4EEFF; --code-n:#FFECB9;
+    /* roadmap status colours */
+    --st-done:#0B8A3E; --st-live:#FFF200; --st-queued:#6E7BAA; --st-cut:#A05A3C; --st-held:#8A6A17;
+    --st-done-bg:rgba(11,138,62,.30); --st-live-bg:#FFF200;
+    --st-queued-bg:rgba(110,123,170,.22); --st-cut-bg:rgba(170,90,60,.25); --st-held-bg:rgba(138,106,23,.20);
+    /* HUD (aps-landing.js). Chosen by the luminance of the slide under it, so
+       each theme states both cases; the script only reads them. */
+    --hud-a-fg:#FFFFFF; --hud-a-sub:#E4EEFF; --hud-a-dot:#8DB6FF;
+    --hud-a-track:rgba(255,255,255,.22); --hud-a-acc:#FFF200; --hud-a-glow:0 0 12px rgba(255,242,0,.5);
+    --hud-b-fg:#0A5CFF; --hud-b-sub:#3C6DC3; --hud-b-dot:#C9DBFF;
+    --hud-b-track:rgba(10,92,255,.12); --hud-b-acc:#0A5CFF; --hud-b-glow:none;
+    /* star modal (aps-star.js), which injects its own sheet */
+    --x-ovl:rgba(5,40,140,.62); --x-bg:#0745D9; --x-fg:#FFFFFF; --x-line:#8DB6FF;
+    --x-img:#0745D9; --x-sub:#E4EEFF; --x-note:#E4EEFF; --x-acc:#FFF200; --x-acc2:#FFF200;
+    --x-on-acc:#0A5CFF; --x-shadow:rgba(5,40,140,.6); --x-err:#FF8A78; --x-white:#FFFFFF;
+    /* status ink, shared by verify / threat-model / board / aivss /
+       working-group / action-ref. Dark keeps each page's current value;
+       bright lifts the hue to the lightest tint that clears 4.5:1 on the
+       blue surface, which is what a saturated background costs. */
+    --err:#FF9E90;
+    --ok:#DAF5DC; --ok2:#D7F5E4; --ok3:#E1F2EB; --ok4:#E7F0E3;
+    --caution:#F6EDD2; --caution2:#F6EDD2; --partial:#FAEBDB; --alert:#FCE9E9;
+    --tint-warn:#FFF2004d; --tint-alert:#FF44364d;
+    --info:#E5EEFB; --neutral:#EEEEEE;
+    --disp:'Space Grotesk',sans-serif; --body:'Archivo',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  html[data-theme="dark"]{
+    /* slide A, the night values, unchanged */
+    --a-bg1:#080A0F; --a-t1:#E9ECDB; --a-k1:#B6FF45; --a-c1:#33372A;
+    --a-r1:#22251A; --a-m1:#878B78; --a-r2:#2A2D20; --a-t2:#FFFFFF;
+    --a-t3:#080A0F; --a-r3:#33372A; --a-m2:#9AA1A8; --a-k2:#A6FF2E;
+    --a-m3:#9BA1AA; --a-t4:#F7F8FA; --a-m4:#6F7680; --a-c2:#12161C;
+    --a-r4:#343A43; --a-c3:#101D0A; --a-k3:#79B91E; --a-c4:#171C23;
+    --a-c5:#9BA1AA; --a-c6:#6F7680; --a-k4:#4E741B; --a-c7:#0C1207;
+    --a-r5:#9BA1AA; --a-r6:#4A5058; --a-t5:#11151A; --a-t6:#F7F4ED;
+    /* slide B, the night values, unchanged */
+    --b-bg1:#F7F4ED; --b-k1:#B6FF45; --b-m1:#6F7377; --b-t1:#11151A;
+    --b-r1:#E7E2D5; --b-r2:#EDE9DE; --b-m2:#A7A399; --b-c1:#FFFFFF;
+    --b-c2:#11151A; --b-t2:#E9ECDB; --b-t3:#F7F4ED; --b-m3:#9AA1A8;
+    --b-r3:#3A4230; --b-m4:#C9C4B7;
+    --acc:#C8F032; --on-acc:#0A0B08;
+    --acc-hero:#B6FF45; --on-acc2:#080A0F; --faint2:#5C6152;
+    --a-kglow:rgba(182,255,69,.5); --a-wash:rgba(255,255,255,.22);
+    --glow:rgba(200,242,50,.07); --dots:rgba(255,255,255,.045);
+    --nav-a:rgba(10,11,8,.92); --nav-b:rgba(10,11,8,0);
+    --shadow:rgba(0,0,0,.45); --scrim:rgba(0,0,0,.55);
+    --wash1:rgba(255,255,255,.012); --wash2:rgba(255,255,255,.02); --wash3:rgba(255,255,255,.06);
+    --acc-14:rgba(200,240,50,.14); --acc-30:rgba(200,240,50,.3); --acc-35:rgba(200,240,50,.35);
+    --acc-32:rgba(200,240,50,.32); --acc-50:rgba(200,242,50,.5);
+    --acc-18:rgba(200,242,50,.18); --acc-42:rgba(200,242,50,.42);
     --bg:#0A0B08; --panel:#13150E; --panel2:#0C0E08;
     --line:#22251A; --line2:#33372A; --codeline:#252a17;
     --fg:#E9ECDB; --sub:#878B78; --dim:#6A6F5E; --faint:#565B4B;
     --lime:#C8F032;
-    --disp:'Space Grotesk',sans-serif; --body:'Archivo',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+    --warn:#E0B450;
+    --a-red:#FF4D5A; --a-red-ink:#FF4D5A; --b-red:#FF4436; --b-red-ink:#FF4436;
+    --code-k:#86ABD8; --code-s:#C3D98A; --code-n:#E2A55C;
+    --st-done:#6FA33B; --st-live:#C8F032; --st-queued:#6E7BAA; --st-cut:#A05A3C; --st-held:#C9A24B;
+    --st-done-bg:rgba(111,163,59,.55); --st-live-bg:#C8F032;
+    --st-queued-bg:rgba(110,123,170,.22); --st-cut-bg:rgba(170,90,60,.25); --st-held-bg:rgba(201,162,75,.22);
+    --hud-a-fg:#E9ECDB; --hud-a-sub:#878B78; --hud-a-dot:#33372A;
+    --hud-a-track:rgba(255,255,255,.06); --hud-a-acc:#B6FF45; --hud-a-glow:0 0 12px rgba(182,255,69,.5);
+    --hud-b-fg:#11151A; --hud-b-sub:#6F7377; --hud-b-dot:#C9C4B7;
+    --hud-b-track:rgba(0,0,0,.10); --hud-b-acc:#11151A; --hud-b-glow:none;
+    --x-ovl:rgba(8,10,15,.62); --x-bg:#0C0E08; --x-fg:#E9ECDB; --x-line:#33372A;
+    --x-img:#13150E; --x-sub:#B4B8A6; --x-note:#6F7377; --x-acc:#B6FF45; --x-acc2:#C8F032;
+    --x-on-acc:#080A0F; --x-shadow:rgba(0,0,0,.6); --x-err:#FF8A78; --x-white:#FFFFFF;
+    --err:#FF6B57;
+    --ok:#9BE3A0; --ok2:#86E0AE; --ok3:#2E6E53; --ok4:#A8C99A;
+    --caution:#E6CE86; --caution2:#E6CC82; --partial:#EBB273; --alert:#F0A0A0;
+    --tint-warn:#8b743814; --tint-alert:#b83a2e14;
+    --info:#A6C4F2; --neutral:#B7B7B7;
   }
   *{box-sizing:border-box}
   html{scroll-snap-type:y mandatory; scroll-behavior:smooth}
   body{margin:0; background:var(--bg); color:var(--fg); font-family:var(--body)}
   a{text-decoration:none; color:inherit}
-  ::selection{background:var(--lime); color:var(--bg)}
+  ::selection{background:var(--lime); color:var(--on-acc)}
   h1,h2,h3,h4,p{margin:0}
 
   /* background layers */
-  .bg-glow{position:fixed; inset:0; z-index:0; pointer-events:none; background:radial-gradient(circle at 50% -10%, rgba(200,242,50,.07), transparent 55%), var(--bg)}
-  .bg-dots{position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.5; background-image:radial-gradient(rgba(255,255,255,.045) 1px, transparent 1px); background-size:36px 36px}
+  .bg-glow{position:fixed; inset:0; z-index:0; pointer-events:none; background:radial-gradient(circle at 50% -10%, var(--glow), transparent 55%), var(--bg)}
+  .bg-dots{position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.5; background-image:radial-gradient(var(--dots) 1px, transparent 1px); background-size:36px 36px}
 
   /* HUD */
-  .nav{position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:space-between; gap:24px; padding:18px 5vw; background:linear-gradient(180deg, rgba(10,11,8,.92), rgba(10,11,8,0))}
+  .nav{position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:space-between; gap:24px; padding:18px 5vw; background:linear-gradient(180deg, var(--nav-a), var(--nav-b))}
   .brand{display:flex; align-items:center; gap:14px}
   .brand a{display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:13px; letter-spacing:.04em}
   .sq{width:11px; height:11px; background:var(--lime); display:inline-block}
-  .badge{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:#A7AB97; border:1px solid #2A2D20; padding:4px 9px; border-radius:2px}
+  .badge{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--sub); border:1px solid var(--line2); padding:4px 9px; border-radius:2px}
   .badge i{width:6px; height:6px; background:var(--lime); display:inline-block}
   .nav-links{display:flex; align-items:center; gap:20px; font-family:var(--mono); font-size:12.5px; letter-spacing:.02em}
   .nav-links a{color:var(--sub); transition:color .2s}
   .nav-links a:hover{color:var(--fg)}
-  .nav-links a.gh{padding:7px 13px; background:var(--lime); color:var(--bg); font-weight:600; border-radius:2px}
-  .nav-links a.gh:hover{opacity:.88; color:var(--bg)}
+  .nav-links a.gh{padding:7px 13px; background:var(--lime); color:var(--on-acc); font-weight:600; border-radius:2px}
+  .nav-links a.gh:hover{opacity:.88; color:var(--on-acc)}
   .hud-counter{position:fixed; left:5vw; bottom:30px; z-index:50; font-family:var(--mono); font-size:13px; letter-spacing:.1em; color:var(--sub); pointer-events:none; transition:opacity .4s}
   .hud-counter b{color:var(--fg); font-size:15px; font-weight:400}
   .hud-counter em{color:var(--lime); letter-spacing:.2em; text-transform:uppercase; font-size:11.5px; font-style:normal}
   .dots{position:fixed; right:30px; top:50%; transform:translateY(-50%); z-index:50; display:flex; flex-direction:column; gap:9px; align-items:center}
   .dots button{border:none; cursor:pointer; padding:0; width:8px; height:8px; border-radius:100px; background:var(--line2); transition:height .35s, background .35s}
   .dots button.on{height:24px; background:var(--lime)}
-  .bar-track{position:fixed; left:0; right:0; bottom:0; z-index:50; height:3px; background:rgba(255,255,255,.06)}
-  .bar{height:100%; width:7.7%; background:var(--lime); transition:width .5s cubic-bezier(.4,0,.1,1); box-shadow:0 0 12px rgba(200,242,50,.5)}
+  .bar-track{position:fixed; left:0; right:0; bottom:0; z-index:50; height:3px; background:var(--wash3)}
+  .bar{height:100%; width:7.7%; background:var(--lime); transition:width .5s cubic-bezier(.4,0,.1,1); box-shadow:0 0 12px var(--acc-50)}
 
   /* slides */
   .slide{min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column; justify-content:center; padding:120px 5vw 96px; position:relative; z-index:1}
@@ -442,7 +569,7 @@
   .lime{color:var(--lime)}
   .subtle{color:var(--sub)}
 
-  .btn{display:inline-flex; align-items:center; gap:8px; padding:14px 24px; font-weight:600; font-size:15px; border-radius:2px; background:var(--lime); color:var(--bg); transition:opacity .2s}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:14px 24px; font-weight:600; font-size:15px; border-radius:2px; background:var(--lime); color:var(--on-acc); transition:opacity .2s}
   .btn:hover{opacity:.88}
   .btn.ghost{background:transparent; border:1px solid var(--line2); color:var(--fg); font-weight:500; transition:border-color .2s}
   .btn.ghost:hover{border-color:var(--lime)}
@@ -466,14 +593,14 @@
   .scroll-hint i{font-size:16px; font-style:normal; animation:nudge 1.8s ease-in-out infinite}
   @keyframes travel{0%{left:-3%;opacity:0}8%{opacity:1}92%{opacity:1}100%{left:101%;opacity:0}}
   @keyframes travelBack{0%{right:-3%;opacity:0}8%{opacity:1}92%{opacity:1}100%{right:101%;opacity:0}}
-  @keyframes glowpulse{0%,100%{box-shadow:0 0 0 1px var(--lime), 0 0 26px rgba(200,242,50,.18)}50%{box-shadow:0 0 0 1px var(--lime), 0 0 46px rgba(200,242,50,.42)}}
+  @keyframes glowpulse{0%,100%{box-shadow:0 0 0 1px var(--lime), 0 0 26px var(--acc-18)}50%{box-shadow:0 0 0 1px var(--lime), 0 0 46px var(--acc-42)}}
   @keyframes arrowpulse{0%,100%{opacity:.35;transform:translateY(0)}50%{opacity:1;transform:translateY(3px)}}
 
   /* chat->action vertical */
   .stack-diagram{display:flex; flex-direction:column; align-items:center}
   .chip{font-family:var(--mono); font-size:13px; letter-spacing:.2em; text-transform:uppercase; padding:11px 30px; border-radius:2px}
   .chip.line{color:var(--fg); border:1px solid var(--line2)}
-  .chip.fill{background:var(--lime); color:var(--bg); font-weight:600}
+  .chip.fill{background:var(--lime); color:var(--on-acc); font-weight:600}
   .v-arrow{color:var(--lime); font-size:20px; padding:7px 0; animation:arrowpulse 2.2s ease-in-out infinite; font-style:normal}
   .touch-label{font-family:var(--mono); font-size:11px; letter-spacing:.32em; text-transform:uppercase; color:var(--sub); padding:16px 0 14px}
   .touch-grid{width:100%}
@@ -489,21 +616,21 @@
   .door-list>div{display:flex; align-items:center; gap:14px; font-size:18px}
   .pip{width:20px; height:20px; flex:0 0 auto; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:11px}
   .pip.x{border:1px solid var(--line2); color:var(--sub)}
-  .pip.v{background:var(--lime); color:var(--bg)}
+  .pip.v{background:var(--lime); color:var(--on-acc)}
 
   /* flow */
   .flow-wrap{display:grid; grid-template-columns:1fr 300px; gap:48px; align-items:center}
   .flow-legend{display:flex; justify-content:space-between; margin-bottom:14px; font-family:var(--mono); font-size:11.5px; letter-spacing:.14em; text-transform:uppercase}
   .flow-track{position:relative; padding:30px 0}
-  .flow-line{position:absolute; top:50px; left:3%; right:3%; height:2px; background:#2A2D20}
+  .flow-line{position:absolute; top:50px; left:3%; right:3%; height:2px; background:var(--line2)}
   .flow-line i{position:absolute; top:-4px; width:10px; height:10px; border-radius:50%; background:var(--lime); box-shadow:0 0 14px var(--lime); animation:travel 3.4s linear infinite}
   .flow-line em{position:absolute; bottom:-12px; width:7px; height:7px; border-radius:50%; background:var(--fg); animation:travelBack 3.4s linear infinite; animation-delay:1.4s}
   .flow-nodes{position:relative; display:flex; justify-content:space-between; gap:8px}
   .flow-nodes>div{flex:1; text-align:center; min-width:0}
-  .fn-num{display:inline-flex; width:42px; height:42px; border-radius:50%; align-items:center; justify-content:center; background:var(--bg); border:1.5px solid #2A2D20; font-family:var(--mono); font-size:13px; color:var(--lime); position:relative; z-index:2}
+  .fn-num{display:inline-flex; width:42px; height:42px; border-radius:50%; align-items:center; justify-content:center; background:var(--bg); border:1.5px solid var(--line2); font-family:var(--mono); font-size:13px; color:var(--lime); position:relative; z-index:2}
   .fn-t{font-size:14px; font-weight:600; margin-top:14px}
   .fn-s{font-family:var(--mono); font-size:10.5px; color:var(--sub); margin-top:5px; letter-spacing:.02em; line-height:1.4}
-  .narrow-card{border:1px solid #2A2D20; border-radius:3px; padding:22px}
+  .narrow-card{border:1px solid var(--line2); border-radius:3px; padding:22px}
   .narrow-card .bar-row{margin-bottom:12px}
   .narrow-card .bl{font-family:var(--mono); font-size:11px; color:var(--sub); margin-bottom:5px}
   .narrow-card .b{height:9px; background:var(--lime); border-radius:2px}
@@ -511,23 +638,23 @@
 
   /* code cards */
   .code-card{background:var(--panel2); border:1px solid var(--codeline); border-radius:4px; overflow:hidden}
-  .code-card.hot{border-color:#2f3a18; border-top:3px solid var(--lime); box-shadow:0 20px 50px rgba(0,0,0,.45)}
+  .code-card.hot{border-color:var(--codeline); border-top:3px solid var(--lime); box-shadow:0 20px 50px var(--shadow)}
   .code-head{display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--codeline)}
   .code-head span{font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--sub)}
-  .code-head .tag{display:inline-flex; align-items:center; gap:6px; font-size:10.5px; letter-spacing:.1em; color:var(--bg); background:var(--lime); padding:3px 9px; border-radius:2px; font-weight:600}
+  .code-head .tag{display:inline-flex; align-items:center; gap:6px; font-size:10.5px; letter-spacing:.1em; color:var(--on-acc); background:var(--lime); padding:3px 9px; border-radius:2px; font-weight:600}
   .code-card pre{margin:0; padding:18px; font-family:var(--mono); font-size:11.5px; line-height:1.6; white-space:pre-wrap; word-break:break-word; color:var(--dim); max-height:44vh; overflow:auto}
-  .code-card pre .k{color:#86ABD8}
-  .code-card pre .s{color:#C3D98A}
+  .code-card pre .k{color:var(--code-k)}
+  .code-card pre .s{color:var(--code-s)}
   .code-card pre .c{color:var(--faint)}
-  .code-card pre .n{color:#E2A55C}
+  .code-card pre .n{color:var(--code-n)}
   .receipt-grid{display:grid; grid-template-columns:.72fr 1.28fr; gap:20px; align-items:start}
 
   /* npm */
   .npm{display:flex; align-items:stretch; max-width:560px; background:var(--panel2); border:1px solid var(--codeline); border-radius:3px; overflow:hidden}
-  .npm code{flex:1; font-family:var(--mono); font-size:14px; color:#C3D98A; padding:14px 18px; white-space:nowrap; overflow:auto}
+  .npm code{flex:1; font-family:var(--mono); font-size:14px; color:var(--code-s); padding:14px 18px; white-space:nowrap; overflow:auto}
   .npm code b{color:var(--dim); font-weight:400}
-  .npm button{border:none; cursor:pointer; background:#1a1e10; color:var(--lime); font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; padding:14px 18px}
-  .npm button:hover{background:#222716}
+  .npm button{border:none; cursor:pointer; background:var(--panel2); color:var(--lime); font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; padding:14px 18px}
+  .npm button:hover{background:var(--panel)}
 
   /* cards */
   .cell{padding:30px}
@@ -557,13 +684,13 @@
   .chain .n{font-family:var(--disp); font-size:clamp(20px,2.4vw,32px); font-weight:600; padding:14px 26px; border:1px solid var(--line2); border-radius:3px}
   .chain .arr{color:var(--sub); font-size:22px}
   .chain .arr.l{color:var(--lime)}
-  .chain .fin{display:inline-flex; flex-direction:column; align-items:flex-start; line-height:1.05; font-family:var(--disp); font-size:clamp(20px,2.4vw,32px); font-weight:600; padding:14px 26px; background:var(--lime); color:var(--bg); border-radius:3px}
+  .chain .fin{display:inline-flex; flex-direction:column; align-items:flex-start; line-height:1.05; font-family:var(--disp); font-size:clamp(20px,2.4vw,32px); font-weight:600; padding:14px 26px; background:var(--lime); color:var(--on-acc); border-radius:3px}
   .chain .fin small{font-family:var(--mono); font-size:12px; font-weight:400; opacity:.72; margin-top:5px}
 
   /* audience */
   .tabs{display:flex; gap:6px; margin-bottom:44px; flex-wrap:wrap}
   .tabs button{font-family:var(--mono); font-size:13px; letter-spacing:.04em; cursor:pointer; padding:12px 24px; border-radius:2px; border:1px solid var(--line2); background:transparent; color:var(--sub)}
-  .tabs button.on{border-color:var(--lime); background:var(--lime); color:var(--bg)}
+  .tabs button.on{border-color:var(--lime); background:var(--lime); color:var(--on-acc)}
 
   /* footer */
   footer{border-top:1px solid var(--line); padding:40px 0 28px; margin-top:48px}
@@ -573,7 +700,7 @@
   .foot-grid .links a{color:var(--fg); transition:color .2s}
   .foot-grid .links a:hover{color:var(--lime)}
   .foot-base{display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:14px; padding-top:20px; font-family:var(--mono); font-size:12px; color:var(--sub)}
-  .fbk{display:block; font-style:normal; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:#5C6152; margin-bottom:6px}
+  .fbk{display:block; font-style:normal; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--faint2); margin-bottom:6px}
 
   @media (max-height:660px){
     .hud-counter{display:none}
@@ -594,7 +721,6 @@
 
 
 /* ===== v2 subpage layer: document pages ===== */
-:root{--warn:#E0B450}
 html{scroll-snap-type:none}
 main.page{position:relative; z-index:1; max-width:920px; margin:0 auto; padding:150px 5vw 60px}
 .page-hero{padding-bottom:44px; border-bottom:1px solid var(--line); margin-bottom:10px}
@@ -610,7 +736,7 @@ article.prose p{margin:0 0 14px; line-height:1.68; font-size:15.5px; max-width:7
 article.prose ul,article.prose ol{margin:0 0 16px; padding-left:22px; line-height:1.68; font-size:15.5px; max-width:74ch}
 article.prose li{margin-bottom:9px}
 article.prose li strong{color:var(--lime); font-weight:600}
-article.prose a{color:var(--lime); border-bottom:1px solid rgba(200,240,50,.3)}
+article.prose a{color:var(--lime); border-bottom:1px solid var(--acc-30)}
 article.prose a:hover{border-bottom-color:var(--lime)}
 article.prose table{width:100%; border-collapse:collapse; font-size:13px; margin:6px 0 20px; font-family:var(--mono)}
 article.prose th{text-align:left; font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--sub); padding:10px 12px; border-bottom:1px solid var(--line2); background:var(--panel2)}
@@ -669,10 +795,10 @@ footer{position:relative; z-index:1; width:100%; box-sizing:border-box; margin:0
 .rm-card details summary{font-family:var(--mono); font-size:10.5px; color:var(--dim); cursor:pointer}
 .rm-card details p{font-size:13px; color:var(--sub); line-height:1.6; margin:8px 0 4px}
 .rm-links{display:flex; gap:14px; flex-wrap:wrap; margin-top:8px}
-.rm-links a{font-family:var(--mono); font-size:11px; color:var(--lime); border-bottom:1px solid rgba(200,240,50,.3)}
+.rm-links a{font-family:var(--mono); font-size:11px; color:var(--lime); border-bottom:1px solid var(--acc-30)}
 /* horizontal roadmap timeline */
 .tl-wrap{position:relative; z-index:1; margin-top:6px}
-.tl-scroll{overflow-x:auto; overflow-y:hidden; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:rgba(255,255,255,.012)}
+.tl-scroll{overflow-x:auto; overflow-y:hidden; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--wash1)}
 .tl-board{position:relative; padding-bottom:16px}
 .tl-ruler{position:relative; height:40px}
 .tl-tick{position:absolute; top:8px; font-family:var(--mono); font-size:10px; color:var(--sub); border-left:1px solid var(--line2); padding-left:5px; line-height:1.3}
@@ -681,11 +807,11 @@ footer{position:relative; z-index:1; width:100%; box-sizing:border-box; margin:0
 .tl-lab{position:sticky; left:0; display:inline-block; z-index:3; font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--sub); background:var(--bg); padding:6px 10px 4px 5vw; max-width:118px; box-sizing:border-box}
 .tl-bar{position:absolute; height:16px; border-radius:2px; cursor:pointer; box-sizing:border-box; border:1px solid var(--line2); background:var(--panel)}
 .tl-bar:hover{border-color:var(--fg); z-index:2}
-.tl-done{background:rgba(200,240,50,.14); border-color:rgba(200,240,50,.35)}
-.tl-live{background:rgba(200,240,50,.32); border-color:var(--lime)}
+.tl-done{background:var(--acc-14); border-color:var(--acc-35)}
+.tl-live{background:var(--acc-32); border-color:var(--lime)}
 .tl-queued{background:transparent; border-style:dashed}
 .tl-cut{opacity:.4}
-.tl-held{background:rgba(201,162,75,.12); border-color:rgba(201,162,75,.5); border-style:dotted}
+.tl-held{background:var(--st-held-bg); border-color:var(--st-held); border-style:dotted}
 .tl-clip{border-right-style:dotted}
 .tl-today{position:absolute; top:0; bottom:0; width:0; border-left:1px dashed var(--lime); z-index:2; pointer-events:none}
 .tl-today-lab{position:absolute; top:2px; left:6px; font-family:var(--mono); font-size:9.5px; color:var(--lime); white-space:nowrap}
@@ -697,50 +823,42 @@ footer{position:relative; z-index:1; width:100%; box-sizing:border-box; margin:0
 .tl-close{position:absolute; top:8px; right:12px; background:none; border:0; color:var(--sub); font-size:20px; cursor:pointer}
 @media (max-width:700px){.tl-lab{padding-left:16px}}
 
-/* light mode (deck bright-slide palette) */
-html[data-theme="light"]{
-  --bg:#F4F1EA; --panel:#FFFFFF; --panel2:#ECE9E0;
-  --line:#E2DFD5; --line2:#C9C6BA; --codeline:#E5E2D6;
-  --fg:#16181D; --sub:#4C4F57; --dim:#7C7F86; --faint:#A0A3A9;
-  --lime:#5F7D0C;
-}
-html[data-theme="light"] .bg-glow{opacity:.3}
-html[data-theme="light"] pre, html[data-theme="light"] .code-card{background:#101208; color:#DDE3C8; border-color:#2A2D20}
-html[data-theme="light"] .code-card pre{background:transparent}
+/* The cream "light" theme is retired. Bright replaced it, `light` in a stored
+   preference reads as bright (theme.js), and code panels are themed by
+   --panel2 / --codeline like every other surface. */
 .theme-toggle{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; background:none; border:1px solid var(--line2); color:var(--sub); padding:6px 10px; border-radius:2px; cursor:pointer; white-space:nowrap}
 .theme-toggle:hover{color:var(--fg); border-color:var(--fg)}
+.theme-toggle:focus-visible, .burger:focus-visible, .bp-chip:focus-visible,
+.rm-filters button:focus-visible{outline:2px solid var(--acc); outline-offset:2px; color:var(--fg); border-color:var(--fg)}
 /* roadmap v3: accordion lanes + status colors */
 .tl-lane{cursor:default; transition:height .18s ease}
 .tl-lab{cursor:pointer; user-select:none; display:flex; gap:8px; align-items:center; padding-top:7px}
 .tl-lab-n{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg)}
 .tl-lab-c{font-family:var(--mono); font-size:9.5px; color:var(--dim)}
 .tl-lab-a{font-family:var(--mono); font-size:12px; color:var(--lime)}
-.tl-open{background:rgba(255,255,255,.02)}
+.tl-open{background:var(--wash2)}
 .tl-bar{height:8px; border-width:1px}
 .tl-open .tl-bar{height:19px; line-height:17px; padding:0 5px; overflow:visible}
-.tl-done{background:rgba(111,163,59,.55); border-color:#6FA33B}
-.tl-live{background:#C8F032; border-color:#C8F032}
-.tl-queued{background:rgba(110,123,170,.22); border-color:#6E7BAA; border-style:dashed}
-.tl-cut{background:rgba(170,90,60,.25); border-color:#A05A3C; opacity:.65}
-.tl-held{background:rgba(201,162,75,.22); border-color:#C9A24B; border-style:dotted}
+.tl-done{background:var(--st-done-bg); border-color:var(--st-done)}
+.tl-live{background:var(--st-live-bg); border-color:var(--st-live)}
+.tl-queued{background:var(--st-queued-bg); border-color:var(--st-queued); border-style:dashed}
+.tl-cut{background:var(--st-cut-bg); border-color:var(--st-cut); opacity:.65}
+.tl-held{background:var(--st-held-bg); border-color:var(--st-held); border-style:dotted}
 .tl-t{font-family:var(--body); font-size:11px; color:var(--fg); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block; max-width:100%}
-.tl-live .tl-t{color:#0A0B08}
+.tl-live .tl-t{color:var(--on-acc)}
 .tl-t-out{position:absolute; left:100%; margin-left:6px; overflow:visible; color:var(--sub); max-width:340px; text-overflow:ellipsis}
 .tl-cut .tl-t{text-decoration:line-through}
 .rm-filters button{display:inline-flex; align-items:center; gap:7px}
 .tl-dot{width:8px; height:8px; border-radius:2px; display:inline-block}
-.tl-dot-all{background:linear-gradient(90deg,#6FA33B 25%,#C8F032 25%,#C8F032 50%,#6E7BAA 50%,#6E7BAA 75%,#A05A3C 75%)}
-.tl-dot-done{background:#6FA33B}.tl-dot-live{background:#C8F032}.tl-dot-queued{background:#6E7BAA}.tl-dot-cut{background:#A05A3C}.tl-dot-held{background:#C9A24B}
+.tl-dot-all{background:linear-gradient(90deg,var(--st-done) 25%,var(--st-live) 25%,var(--st-live) 50%,var(--st-queued) 50%,var(--st-queued) 75%,var(--st-cut) 75%)}
+.tl-dot-done{background:var(--st-done)}.tl-dot-live{background:var(--st-live)}.tl-dot-queued{background:var(--st-queued)}.tl-dot-cut{background:var(--st-cut)}.tl-dot-held{background:var(--st-held)}
 .tl-count{font-style:normal; color:var(--dim); font-size:9.5px}
-html[data-theme="light"] .tl-done{background:rgba(111,163,59,.5)}
-html[data-theme="light"] .tl-open{background:rgba(0,0,0,.025)}
-html[data-theme="light"] .tl-live .tl-t{color:#16181D}
 
 /* shared header drawer (from homepage) */
 .burger{display:none; flex-direction:column; justify-content:center; gap:5px; width:44px; height:44px; background:transparent; border:1px solid var(--line2); border-radius:2px; cursor:pointer; padding:0 11px}
 .burger i{display:block; height:2px; background:var(--fg)}
 .drawer{position:fixed; inset:0; z-index:80; pointer-events:none}
-.drawer-scrim{position:absolute; inset:0; background:rgba(0,0,0,.55); opacity:0; transition:opacity .3s}
+.drawer-scrim{position:absolute; inset:0; background:var(--scrim); opacity:0; transition:opacity .3s}
 .drawer-panel{position:absolute; top:0; right:0; bottom:0; width:min(320px,84vw); background:var(--panel2); border-left:1px solid var(--line); transform:translateX(102%); transition:transform .35s cubic-bezier(.2,.7,.2,1); display:flex; flex-direction:column; padding:22px 22px 28px; overflow-y:auto}
 .drawer.open{pointer-events:auto}
 .drawer.open .drawer-scrim{opacity:1}
@@ -749,7 +867,7 @@ html[data-theme="light"] .tl-live .tl-t{color:#16181D}
 .drawer-close{background:none; border:none; color:var(--sub); font-size:20px; cursor:pointer; padding:8px; line-height:1}
 .drawer-panel a.dl{font-family:var(--mono); font-size:15px; letter-spacing:.04em; color:var(--fg); padding:14px 10px; border-bottom:1px solid var(--line)}
 .drawer-panel a.dl:active{color:var(--lime)}
-.drawer-panel .gh-big{margin-top:20px; display:inline-flex; justify-content:center; padding:14px; background:var(--lime); color:var(--bg); font-family:var(--mono); font-weight:600; border-radius:2px; font-size:14px}
+.drawer-panel .gh-big{margin-top:20px; display:inline-flex; justify-content:center; padding:14px; background:var(--lime); color:var(--on-acc); font-family:var(--mono); font-weight:600; border-radius:2px; font-size:14px}
 @media (max-width:900px){.nav-links{display:none}.burger{display:flex}}
 /* roadmap tooltip + label hygiene */
 #tl-tip{position:fixed; display:none; z-index:99; pointer-events:none; max-width:400px; background:var(--panel); color:var(--fg); border:1px solid var(--line2); border-left:2px solid var(--lime); padding:8px 11px; font-family:var(--body); font-size:12px; line-height:1.5; border-radius:2px; box-shadow:0 8px 28px rgba(0,0,0,.45)}
@@ -765,33 +883,28 @@ html[data-theme="light"] .tl-live .tl-t{color:#16181D}
 .tl-ruler{margin-left:0}
 .tl-lane{overflow:visible}
 
-/* light mode: deck highlight language */
-html[data-theme="light"] h1 .lime, html[data-theme="light"] h2 .lime,
-html[data-theme="light"] h3 .lime, html[data-theme="light"] p .lime{
-  background:#C8F032; color:#16181D; padding:.02em .2em;
+/* Marker highlight. Bright spends the accent as a highlight behind the word,
+   which is the one treatment that reads on a blue slide and on a white one.
+   Night keeps the accent as the word's own colour. */
+h1 .lime, h2 .lime, h3 .lime, p .lime{
+  background:var(--acc); color:var(--on-acc); padding:.02em .2em;
   -webkit-box-decoration-break:clone; box-decoration-break:clone;
 }
-html[data-theme="light"] .sq{background:#C8F032; outline:1px solid #16181D}
-html[data-theme="light"] .btn:not(.ghost){background:#16181D; color:#C8F032; border-color:#16181D}
-html[data-theme="light"] .badge i{background:#C8F032}
-html[data-theme="light"] .eyebrow{color:#5F7D0C}
+html[data-theme="dark"] h1 .lime, html[data-theme="dark"] h2 .lime,
+html[data-theme="dark"] h3 .lime, html[data-theme="dark"] p .lime{
+  background:none; color:var(--lime); padding:0;
+}
 /* blog day picker */
 .bp-bar{position:sticky; top:0; z-index:6; display:flex; gap:6px; overflow-x:auto; padding:10px 5vw; background:var(--bg); border-bottom:1px solid var(--line); scrollbar-width:thin}
 .bp-chip{flex:0 0 auto; font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; background:none; border:1px solid var(--line2); color:var(--sub); padding:5px 10px; border-radius:2px; cursor:pointer}
 .bp-chip:hover{color:var(--fg); border-color:var(--fg)}
 .bp-chip.on{color:var(--lime); border-color:var(--lime)}
 
-/* screenshot fixes: heading accent in light, light nav scrim, hero color, prose btn */
-html[data-theme="light"] h1 .split, html[data-theme="light"] h2 .split,
-html[data-theme="light"] h3 .split{color:#5F7D0C}
-html[data-theme="light"] .nav{background:linear-gradient(180deg, rgba(244,241,234,.95), rgba(244,241,234,0))}
+/* hero colour, prose button */
 .page-hero h1{color:var(--fg)}
 .page-hero .dek{color:var(--sub)}
-article.prose a.btn{color:var(--bg); border-bottom:0}
+article.prose a.btn{color:var(--on-acc); border-bottom:0}
 article.prose a.btn.ghost{color:var(--fg)}
-html[data-theme="light"] article.prose a.btn:not(.ghost){color:#C8F032}
-/* batch: light closer tones + quiet badge */
-html[data-theme="light"]{--clo-a:#4C5438;--clo-b:#5F7D0C;--clo-c:#5C6647;--clo-d:#6E7D1F}
 .nav .badge{border-color:var(--line); color:var(--dim); font-size:9.5px; padding:4px 8px}
 /* stacking: content regions above fixed bg-glow (blog hero had no main wrapper) */
 .page-hero, article.prose, .blog-feed, .post{position:relative; z-index:1}
@@ -801,14 +914,6 @@ html[data-theme="light"]{--clo-a:#4C5438;--clo-b:#5F7D0C;--clo-c:#5C6647;--clo-d
 .gh-star svg{color:var(--lime)}
 #ghStarCount{font-variant-numeric:tabular-nums}
 
-/* light: lime fills need near-black text. --bg is cream in light, so color:var(--bg) inverted them. */
-html[data-theme="light"] ::selection,
-html[data-theme="light"] .nav-links a.gh,
-html[data-theme="light"] .nav-links a.gh:hover,
-html[data-theme="light"] .drawer-panel .gh-big,
-html[data-theme="light"] .chip.fill,
-html[data-theme="light"] .pip.v,
-html[data-theme="light"] .chain .fin,
-html[data-theme="light"] .tabs button.on,
-html[data-theme="light"] .code-head .tag{color:#16181D}
-html[data-theme="light"] .chain .fin small{opacity:.66}
+/* Every accent fill takes its ink from --on-acc, so neither theme has to
+   re-state the pairing per component. */
+.chain .fin small{opacity:.72}

@@ -1,6 +1,13 @@
 
 var APS_LANDING = {
-  props: { accent: "#B6FF45", motion: true, snapScroll: true, showCounters: true },
+  // accent is read from CSS at mount so the two palettes stay in one place;
+  // an explicit value here still wins, which is what the prop is for.
+  props: { accent: null, motion: true, snapScroll: true, showCounters: true },
+
+  // Read a custom property off :root. The theme switch rewrites what these
+  // resolve to, so every read is done live rather than cached at load.
+  css(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); },
+  accent() { return this.props.accent || this.css('--acc-hero'); },
   mount() {
     this.scroller = document.querySelector('[data-sec]') ? document.querySelector('[data-sec]').parentNode : null;
     this.fit = () => {
@@ -13,6 +20,18 @@ var APS_LANDING = {
     this.apply();
     this.play();
     this.hud();
+    this.watchTheme();
+  },
+
+  // data-theme changes under us when the toggle is used, so re-read every
+  // colour the script pushed into custom properties.
+  watchTheme() {
+    if (!('MutationObserver' in window)) return;
+    const self = this;
+    new MutationObserver(function () {
+      self.apply();
+      if (self.sync) { self.cur = -1; self.sync(true); }
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   },
 
   // Fixed HUD: counter + label, dot rail, progress bar, driven by the
@@ -34,15 +53,15 @@ var APS_LANDING = {
     const hint = document.querySelector('[data-scroll-hint]');
     if (hint) hint.addEventListener('click', function () { goTo(Math.min(1, secs.length - 1)); });
 
-    let cur = -1;
-    this.sync = () => {
+    this.cur = -1;
+    this.sync = (force) => {
       const mid = sc.scrollTop + sc.clientHeight / 2;
       let idx = 0;
       for (let i = 0; i < secs.length; i++) {
         if (secs[i].offsetTop <= mid) idx = i;
       }
-      if (idx === cur) return;
-      cur = idx;
+      if (idx === this.cur && !force) return;
+      this.cur = idx;
       const sec = secs[idx];
       const name = (sec.getAttribute('data-screen-label') || '').replace(/^\d+\s*/, '');
       if (countEl) countEl.textContent = ('0' + (idx + 1)).slice(-2);
@@ -51,12 +70,15 @@ var APS_LANDING = {
       dots.forEach(function (d, i) { d.className = i === idx ? 'on' : ''; });
       const rgb = (getComputedStyle(sec).backgroundColor.match(/\d+/g) || [0, 0, 0]).map(Number);
       const light = (rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114) > 140;
-      root.setProperty('--hud-fg', light ? '#11151A' : '#E9ECDB');
-      root.setProperty('--hud-sub', light ? '#6F7377' : '#878B78');
-      root.setProperty('--hud-dot', light ? '#C9C4B7' : '#33372A');
-      root.setProperty('--hud-track', light ? 'rgba(0,0,0,.10)' : 'rgba(255,255,255,.06)');
-      root.setProperty('--hud-accent', light ? '#11151A' : (this.props.accent || '#B6FF45'));
-      root.setProperty('--hud-glow', light ? 'none' : '0 0 12px rgba(182,255,69,.5)');
+      // The slide under the HUD decides which of the two sets applies; the
+      // theme decides what each set contains. Both live in aps-v2.css.
+      const k = light ? '--hud-b-' : '--hud-a-';
+      root.setProperty('--hud-fg', this.css(k + 'fg'));
+      root.setProperty('--hud-sub', this.css(k + 'sub'));
+      root.setProperty('--hud-dot', this.css(k + 'dot'));
+      root.setProperty('--hud-track', this.css(k + 'track'));
+      root.setProperty('--hud-accent', light ? this.css('--hud-b-acc') : this.accent());
+      root.setProperty('--hud-glow', this.css(k + 'glow'));
     };
     this.sync();
     sc.addEventListener('scroll', this.sync, { passive: true });
@@ -72,7 +94,7 @@ var APS_LANDING = {
 
   apply() {
     const root = document.documentElement;
-    root.style.setProperty('--aps-accent', this.props.accent || '#B6FF45');
+    root.style.setProperty('--aps-accent', this.accent());
     const on = this.props.showCounters !== false;
     // The fixed HUD marks the slide now, so the in-slide numbers stay off.
     document.querySelectorAll('[data-counter]').forEach(function (el) { el.style.display = 'none'; });

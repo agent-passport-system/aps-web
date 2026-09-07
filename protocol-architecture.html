@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
+<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <link rel="icon" href="/favicon.ico?v=2" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
@@ -23,9 +24,41 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300&display=swap" rel="stylesheet">
 <style>
-  :root {
+  /* This page carries its own palette because it does not load aps-v2.css.
+     Same rule as the rest of the site: :root is bright, [data-theme=dark] is
+     the night palette this page shipped with, value for value. */
+  /* The UA default #0000EE is 2.10:1 on this page's blue and 1.78:1 on the
+     bright one. Only bright is corrected here: night is left exactly as it
+     shipped, so the dark link keeps its pre-existing contrast miss. */
+  html[data-theme="bright"] a{color:var(--accent)}
+  /* This page does not load aps-v2.css, so the toggle carries its own style. */
+  .theme-toggle{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    background:none;border:1px solid var(--line-2);color:var(--ink-2);padding:6px 10px;border-radius:2px;
+    cursor:pointer;white-space:nowrap}
+  .theme-toggle:hover{color:var(--ink);border-color:var(--ink)}
+  .theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px;color:var(--ink)}
+  :root, html[data-theme="bright"] {
+    --bg: #0A5CFF;
+    --bg-2: #0745D9;
+    --bg-3: #0745D9;
+    --ink: #FFFFFF;
+    --ink-2: #E4EEFF;
+    --ink-3: #E4EEFF;
+    --line: rgba(255,255,255,0.28);
+    --line-2: rgba(255,255,255,0.45);
+    --accent: #FFF200;     /* marker yellow stands in for the crypto green */
+    --accent-glow: rgba(255,242,0,0.35);
+    --on-accent: #0A5CFF;
+    --danger: #ff6b6b;     /* red states stay red in both themes */
+    --warn: #FFECB9;
+    --sw-1: #CFF3EA; --sw-2: #E7F0E3; --sw-3: #D8ECFF; --sw-4: #EEE2FF; --sw-5: #FFFFFF;
+    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --serif: 'Fraunces', Georgia, serif;
+  }
+  html[data-theme="dark"] {
     --bg: #0a0b0d;
     --bg-2: #101216;
+    --bg-3: #13161b;
     --ink: #e8eaec;
     --ink-2: #9ba1a9;
     --ink-3: #5a6069;
@@ -33,10 +66,10 @@
     --line-2: rgba(255,255,255,0.16);
     --accent: #7cf6b9;     /* cryptographic green */
     --accent-glow: rgba(124,246,185,0.35);
+    --on-accent: #0a0b0d;
     --danger: #ff6b6b;
     --warn: #ffcc66;
-    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-    --serif: 'Fraunces', Georgia, serif;
+    --sw-1: #5fb8a4; --sw-2: #7a8b6b; --sw-3: #6ecbff; --sw-4: #c69bff; --sw-5: #e8eaec;
   }
   * { box-sizing: border-box; }
   html, body { margin:0; padding:0; background: var(--bg); color: var(--ink); font-family: var(--mono); font-size: 14px; line-height: 1.5; }
@@ -72,7 +105,7 @@
   .stage {
     position: relative; width: 100%;
     aspect-ratio: 16 / 6.5;
-    background: radial-gradient(ellipse at center, #13161b 0%, var(--bg) 70%);
+    background: radial-gradient(ellipse at center, var(--bg-3) 0%, var(--bg) 70%);
     border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
   }
   @media (max-width: 720px) { .stage { aspect-ratio: 4/4.2; } }
@@ -128,7 +161,7 @@
   .seg { display:flex; gap: 0; border: 1px solid var(--line-2); border-radius: 4px; overflow: hidden; }
   .seg button { flex: 1; background: transparent; color: var(--ink-2); border: 0; padding: 6px 4px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
   .seg button + button { border-left: 1px solid var(--line-2); }
-  .seg button.sel { background: var(--accent); color: #0a0b0d; font-weight: 600; }
+  .seg button.sel { background: var(--accent); color: var(--on-accent); font-weight: 600; }
   .tweaks-open-btn {
     position: fixed; bottom: 24px; right: 24px; z-index: 49;
     background: rgba(16,18,22,0.92); backdrop-filter: blur(12px);
@@ -136,8 +169,6 @@
     color: var(--ink); padding: 10px 16px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
     display: none;
   }
-
-
 
   /* scene1 specifics */
   .token-label { font-family: var(--mono); font-size: 10px; fill: var(--ink-2); letter-spacing: 0.04em; }
@@ -158,7 +189,7 @@
   /* glow filter reuse via css */
   .glow { filter: drop-shadow(0 0 4px var(--accent-glow)); }
 </style>
-<meta name="theme-color" content="#0A0B08">
+<meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
 </head>
 <body data-labels="medium">
@@ -257,17 +288,22 @@
     <div class="field">
       <label>Accent <b id="accent-name">crypto green</b></label>
       <div class="swatch-row" id="swatch-row">
-        <div class="swatch sel" data-c="#5fb8a4" data-n="restrained teal" style="background:#5fb8a4"></div>
-        <div class="swatch" data-c="#7a8b6b" data-n="olive" style="background:#7a8b6b"></div>
-        <div class="swatch" data-c="#6ecbff" data-n="trust blue" style="background:#6ecbff"></div>
-        <div class="swatch" data-c="#c69bff" data-n="court violet" style="background:#c69bff"></div>
-        <div class="swatch" data-c="#e8eaec" data-n="mono ink" style="background:#e8eaec"></div>
+        <div class="swatch sel" data-c="#5fb8a4" data-n="restrained teal" style="background: var(--sw-1)"></div>
+        <div class="swatch" data-c="#7a8b6b" data-n="olive" style="background: var(--sw-2)"></div>
+        <div class="swatch" data-c="#6ecbff" data-n="trust blue" style="background: var(--sw-3)"></div>
+        <div class="swatch" data-c="#c69bff" data-n="court violet" style="background: var(--sw-4)"></div>
+        <div class="swatch" data-c="#e8eaec" data-n="mono ink" style="background: var(--sw-5)"></div>
       </div>
     </div>
   </div>
 </div>
 
 <script>
+// Scene labels are drawn programmatically, so they read the ink colour from
+// the stylesheet instead of carrying a hex. Re-reading per call keeps them
+// correct after a theme switch.
+function apsInk(){return getComputedStyle(document.documentElement).getPropertyValue('--ink').trim()||'#e8eaec';}
+
 /* ================================================================
    APS — Protocol Architecture
    4 scenes, pure SVG + JS rAF. No deps.
@@ -555,7 +591,7 @@ const scene0 = {
       const lbl = document.createElementNS('http://www.w3.org/2000/svg','text');
       lbl.setAttribute('x',0); lbl.setAttribute('y',-60); lbl.setAttribute('text-anchor','middle');
       lbl.setAttribute('font-family','Fraunces'); lbl.setAttribute('font-size','26');
-      lbl.setAttribute('fill','#e8eaec'); lbl.setAttribute('font-weight','300');
+      lbl.setAttribute('fill',apsInk()); lbl.setAttribute('font-weight','300');
       lbl.textContent = p.label;
       g.appendChild(lbl);
       // sublabel
@@ -809,7 +845,7 @@ const scene1 = {
     human.appendChild(hRect);
     const hT = document.createElementNS('http://www.w3.org/2000/svg','text');
     hT.setAttribute('text-anchor','middle'); hT.setAttribute('y',-2);
-    hT.setAttribute('font-family','Fraunces'); hT.setAttribute('font-size','14'); hT.setAttribute('fill','#e8eaec');
+    hT.setAttribute('font-family','Fraunces'); hT.setAttribute('font-size','14'); hT.setAttribute('fill',apsInk());
     hT.textContent = 'HUMAN';
     human.appendChild(hT);
     const hS = document.createElementNS('http://www.w3.org/2000/svg','text');
@@ -1286,7 +1322,7 @@ const scene3 = {
         // human: square outline
         const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
         r.setAttribute('x',-10); r.setAttribute('y',-10); r.setAttribute('width',20); r.setAttribute('height',20);
-        r.setAttribute('fill','transparent'); r.setAttribute('stroke','#e8eaec'); r.setAttribute('stroke-width','1');
+        r.setAttribute('fill','transparent'); r.setAttribute('stroke',apsInk()); r.setAttribute('stroke-width','1');
         g.appendChild(r);
         if (state.labels !== 'sparse') {
           const t = document.createElementNS('http://www.w3.org/2000/svg','text');
@@ -1419,7 +1455,7 @@ const scene4 = {
     // agent header label
     const aH = document.createElementNS('http://www.w3.org/2000/svg','text');
     aH.setAttribute('x',agentX+agentW/2); aH.setAttribute('y',agentY+38); aH.setAttribute('text-anchor','middle');
-    aH.setAttribute('font-family','Fraunces'); aH.setAttribute('font-size','22'); aH.setAttribute('fill','#e8eaec');
+    aH.setAttribute('font-family','Fraunces'); aH.setAttribute('font-size','22'); aH.setAttribute('fill',apsInk());
     aH.setAttribute('font-weight','300');
     aH.textContent = 'AGENT';
     svg.appendChild(aH);
@@ -1454,7 +1490,7 @@ const scene4 = {
       const cv = document.createElementNS('http://www.w3.org/2000/svg','text');
       cv.setAttribute('x',agentX+30); cv.setAttribute('y',cy+30);
       cv.setAttribute('font-family','JetBrains Mono'); cv.setAttribute('font-size','11');
-      cv.setAttribute('fill','#e8eaec');
+      cv.setAttribute('fill',apsInk());
       cv.textContent = c[1];
       svg.appendChild(cv);
     });
@@ -1476,7 +1512,7 @@ const scene4 = {
     svg.appendChild(mBox);
     const mHd = document.createElementNS('http://www.w3.org/2000/svg','text');
     mHd.setAttribute('x',mX+mW/2); mHd.setAttribute('y',mY+38); mHd.setAttribute('text-anchor','middle');
-    mHd.setAttribute('font-family','Fraunces'); mHd.setAttribute('font-size','22'); mHd.setAttribute('fill','#e8eaec');
+    mHd.setAttribute('font-family','Fraunces'); mHd.setAttribute('font-size','22'); mHd.setAttribute('fill',apsInk());
     mHd.setAttribute('font-weight','300');
     mHd.textContent = 'MERCHANT';
     svg.appendChild(mHd);
@@ -1561,7 +1597,7 @@ const scene4 = {
       const lbl = document.createElementNS('http://www.w3.org/2000/svg','text');
       lbl.setAttribute('x',railX0-12); lbl.setAttribute('y',y+4); lbl.setAttribute('text-anchor','end');
       lbl.setAttribute('font-family','JetBrains Mono'); lbl.setAttribute('font-size','11');
-      lbl.setAttribute('fill','#e8eaec'); lbl.setAttribute('letter-spacing','0.08em');
+      lbl.setAttribute('fill',apsInk()); lbl.setAttribute('letter-spacing','0.08em');
       lbl.textContent = r.k;
       svg.appendChild(lbl);
       // sublabel below
@@ -1757,7 +1793,7 @@ const scene5 = {
     const fH1 = document.createElementNS('http://www.w3.org/2000/svg','text');
     fH1.setAttribute('x',fcx); fH1.setAttribute('y',fY+44); fH1.setAttribute('text-anchor','middle');
     fH1.setAttribute('font-family','Fraunces'); fH1.setAttribute('font-size','22');
-    fH1.setAttribute('fill','#e8eaec'); fH1.setAttribute('font-weight','300');
+    fH1.setAttribute('fill',apsInk()); fH1.setAttribute('font-weight','300');
     fH1.textContent = 'FIXTURE';
     svg.appendChild(fH1);
     const fH2 = document.createElementNS('http://www.w3.org/2000/svg','text');
@@ -1808,7 +1844,7 @@ const scene5 = {
       const t1 = document.createElementNS('http://www.w3.org/2000/svg','text');
       t1.setAttribute('x',18); t1.setAttribute('y',26);
       t1.setAttribute('font-family','Fraunces'); t1.setAttribute('font-size','18');
-      t1.setAttribute('fill','#e8eaec'); t1.setAttribute('font-weight','300');
+      t1.setAttribute('fill',apsInk()); t1.setAttribute('font-weight','300');
       t1.textContent = m.k;
       g.appendChild(t1);
       // detail
@@ -1867,7 +1903,7 @@ const scene5 = {
     const bH1 = document.createElementNS('http://www.w3.org/2000/svg','text');
     bH1.setAttribute('x',bcx); bH1.setAttribute('y',bY+44); bH1.setAttribute('text-anchor','middle');
     bH1.setAttribute('font-family','Fraunces'); bH1.setAttribute('font-size','22');
-    bH1.setAttribute('fill','#e8eaec'); bH1.setAttribute('font-weight','300');
+    bH1.setAttribute('fill',apsInk()); bH1.setAttribute('font-weight','300');
     bH1.textContent = 'BYTE-MATCH';
     svg.appendChild(bH1);
     const bH2 = document.createElementNS('http://www.w3.org/2000/svg','text');
@@ -2092,5 +2128,6 @@ requestAnimationFrame(loop);
   <div class="footer-bottom"><span class="footer-copy">Agent Passport System &copy; 2026 &middot; Apache-2.0 &middot; Built by <a href="https://tymofii.me">Tymofii Pidlisnyi</a></span><div class="footer-ext"><a href="https://www.npmjs.com/package/agent-passport-system">npm</a><a href="https://pypi.org/project/agent-passport-system/">PyPI</a><a href="https://github.com/aeoess">GitHub</a></div></div>
 </div>
 </footer>
+<script src="/theme.js" defer></script>
 </body>
 </html>

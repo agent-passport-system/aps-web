@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>(function(){try{var t=localStorage.getItem("aps-theme");if(!t)t="dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <meta charset="utf-8">
+<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AAT and APS: where one stops and the other starts | Agent Passport System</title>
 <meta name="description" content="Joint reference for implementers wiring AgentLair AAT issuance to AEOESS APS verification. AAT is session identity inside the issuer. APS is delegation chains and receipts after handoff.">
@@ -35,7 +35,7 @@
 </script>
 <script src="/theme.js" defer></script>
 <script src="/nav.js" defer></script>
-<meta name="theme-color" content="#0A0B08">
+<meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
 </head>
 <body>
@@ -84,7 +84,6 @@
     <p class="dek">Joint reference for implementers wiring AgentLair AAT issuance to AEOESS APS verification. AAT is session identity inside the issuer. APS is delegation chains and receipts after handoff.</p>
   </section>
   <article class="prose">
-
 
     <h2>The boundary</h2>
     <p>A session begins when an agent obtains a bearer token from its issuer. A handoff begins when that agent passes work, or delegated authority, to a counterparty agent it does not control. The boundary is the handoff.</p>

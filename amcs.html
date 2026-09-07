@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>(function(){try{var t=localStorage.getItem("aps-theme");if(!t)t="dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <meta charset="utf-8">
+<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AMCS | Agent Passport System</title>
 <meta name="description" content="Open standard for credentialing AI-native publications. 6 requirements across cryptographic infrastructure and editorial accountability. The SSL certificate for AI journalism.">
@@ -34,7 +34,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"AMCS · AI-Native Media Credentialing Standard | Agent Passport System","description":"Open standard for credentialing AI-native publications. 6 requirements across cryptographic infrastructure and editorial accountability. The SSL certificate for AI journalism.","url":"https://agent-passport.org/amcs.html","dateModified":"2026-07-02","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"AMCS · AI-Native Media Credentialing Standard","articleSection":"Specification","mainEntityOfPage":{"@type":"WebPage","@id":"https://agent-passport.org/amcs.html"}}</script>
 <script src="/theme.js" defer></script>
 <script src="/nav.js" defer></script>
-<meta name="theme-color" content="#0A0B08">
+<meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
 </head>
 <body>
@@ -83,7 +83,6 @@
     <p class="dek">AI-Native Media Credentialing Standard. The SSL certificate for AI journalism. Six requirements. Two layers. Any publication can apply. Verified by math and public evidence, not editorial judgment.</p>
   </section>
   <article class="prose">
-
 
     <div class="amcs-disclosure">
       <p><strong>Disclosure:</strong> AMCS is published by <a href="https://agent-passport.org/">Agent Passport System</a> as an open standard. AMCS spans two layers. Editorial accountability is verified through self-attestation and a public evidence audit trail. Cryptographic infrastructure includes Ed25519 signing, agent passports, and delegation chains. The criteria are public, technically auditable, and designed to be met by any publication. We invite scrutiny.</p>

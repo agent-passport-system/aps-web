@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>(function(){try{var t=localStorage.getItem("aps-theme");if(!t)t="dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <meta charset="utf-8">
+<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Threat Model | Agent Passport System</title>
 <meta name="description" content="Threat model for the Agent Passport System: assets, threat actors, attack surface by layer, mitigations with test references, assumptions, and non-goals. 38 adversarial scenarios tested.">
@@ -22,10 +22,10 @@
 <link rel="stylesheet" href="/aps-v2.css?v=150">
 <style>
 .tm-tag{display:inline-block;padding:.1rem .5rem;border-radius:3px;font-size:.72rem;font-weight:600;letter-spacing:.02em;font-family:"JetBrains Mono",ui-monospace,monospace;white-space:nowrap}
-  .tm-tag.blocked{background:rgba(95,205,150,0.14);color:#86E0AE}
-  .tm-tag.detected{background:rgba(224,196,120,0.14);color:#E6CC82}
-  .tm-tag.mitigated{background:rgba(120,170,235,0.14);color:#A6C4F2}
-  .tm-tag.ngoal{background:rgba(230,120,120,0.16);color:#F0A0A0}
+  .tm-tag.blocked{background:rgba(95,205,150,0.14);color:var(--ok2)}
+  .tm-tag.detected{background:rgba(224,196,120,0.14);color:var(--caution2)}
+  .tm-tag.mitigated{background:rgba(120,170,235,0.14);color:var(--info)}
+  .tm-tag.ngoal{background:rgba(230,120,120,0.16);color:var(--alert)}
   .test-ref{display:block;margin-top:.3rem;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.78rem}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"Threat Model: Agent Passport System | Agent Passport System Security Analysis","description":"Threat model for the Agent Passport System: assets, threat actors, attack surface by layer, mitigations with test references, assumptions, and non-goals. 38 adversarial scenarios tested.","url":"https://agent-passport.org/threat-model.html","dateModified":"2026-07-16","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"Agent Passport System Threat Model","articleSection":"Security Analysis","mainEntityOfPage":{"@type":"WebPage","@id":"https://agent-passport.org/threat-model.html"}}</script>
@@ -39,7 +39,7 @@
 </script>
 <script src="/theme.js" defer></script>
 <script src="/nav.js" defer></script>
-<meta name="theme-color" content="#0A0B08">
+<meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
 </head>
 <body>
@@ -88,7 +88,6 @@
     <p class="dek">Security analysis of the Agent Passport System. What we protect, what we assume, what we test, and what we explicitly do not solve. Every mitigation references a specific test. Current as of SDK v6.0.1 (5,281 tests, 38 adversarial scenarios).</p>
   </section>
   <article class="prose">
-
 
     <h2>1. System Model</h2>
     <p>The Agent Passport System operates as a <strong>client-side protocol library</strong>. It runs inside agent runtimes (Node.js, browser, Python via canonical serialization). There is no central server, no blockchain, no consensus network. Each agent holds its own Ed25519 private key and produces signed artifacts (passports, delegations, receipts, messages) that any other party can verify using only the public key and the signed data.</p>

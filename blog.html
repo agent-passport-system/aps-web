@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>(function(){try{var t=localStorage.getItem("aps-theme");if(!t)t="dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <meta charset="utf-8">
+<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blog | APS</title>
 <meta name="description" content="Day-by-day dev log of building the Agent Passport System · enforcement and accountability layer for AI agents. Bring your own identity. Verifier hot path p50 318ns (Mac M3). 5,281 tests. SDK leads with /core subpath (curated essentials), MCP leads with 25 essential tools. Full surface area: 150 MCP tools, 9 research papers, IETF Internet-Draft. Started February 18, 2026.">
@@ -851,7 +851,7 @@
 <script src="/theme.js" defer></script>
 <script src="/nav.js" defer></script>
 <script src="/blog-nav.js" defer></script>
-<meta name="theme-color" content="#0A0B08">
+<meta name="theme-color" content="#0A5CFF">
 <link rel="alternate" type="application/rss+xml" title="APS Dev Log" href="/feed.xml">
 <script src="/gh-stars.js" defer></script>
 </head>
@@ -1546,7 +1546,6 @@
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong>An adversarial hardening pass across every APS surface found and closed a related family of gaps, and the fixes released together as TypeScript 2.9.0, Python 2.5.0, Go v0.2.0-alpha.3, and MCP 3.2.4.</strong> The sharpest one: <code>subDelegate</code> did not verify the parent delegation's signature before minting a child, so a forged parent could seed a chain that verified from the child down. The child path now verifies the parent first, in all three language SDKs. <code>ValidateChain</code> in Go failed open when <code>not_after</code> was missing and now fails closed. The spend gate was currency-blind, so an amount check could pass against a different denomination; spend narrowing now rejects a unit change once a delegation carries one. Capability tokens in the MCP now enforce <code>expires_at</code> at mint and at use, and RFC 9421 signature verification enforces the <code>expires</code> parameter it previously read past. Each fix landed with the adversarial vector that finds it, and the changelogs name the versions a consumer should move off.</p>
 </article>
 
-
 <article class="post" id="day-127-regulated-action-profile">
   <time class="post-date" datetime="2026-06-25">June 25, 2026</time>
   <h2>Day 127: a regulated action reaches finality only when two trust domains outside the operator agree.</h2>
@@ -1622,7 +1621,6 @@
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The Day 105 entry said the stable cut waits on two things: a content-derived decision identifier, and batch-verify parity running green rather than environment-gated. Both closed today. decision_id is now a domain-separated content hash over the record's identity fields, recomputable offline by any verifier from disclosed fields alone, and the field taxonomy that should have existed from the start now does: identity fields are path-independent, ordering fields state their scope, event-instance fields are disclosed and MAC-bound. With that in place the parity claim stopped being a test that could fail and became a property that cannot: a single check and a batched check return byte-identical decision records under a pinned clock, exercised in the production binding before the merge, not in a lab wiring that production never ships. The number that is published is still the one that can be defended. What changed tonight is how much it defends.</p>
 </article>
 
-
 <article class="post" id="day-114-an-outside-contributor-ships-the-check-the-last-review-asked-for">
   <time class="post-date" datetime="2026-06-10">June 10, 2026</time>
   <h2>Day 114: An outside contributor ships the check the last review asked for, and the site starts carrying its own terms.</h2>
@@ -1637,7 +1635,6 @@
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The cross-ecosystem correlation key from Day 106 is now a frozen specification with conformance vectors (<a href="action-ref.html">spec page</a>). Four fields in the preimage, and the field that caused every interoperability argument, the timestamp, is pinned to one exact representation: RFC 3339 UTC with exactly three fractional digits, uppercase T and Z, zero-padded, one valid byte sequence per instant, hashed as opaque bytes and never normalized. The vectors enforce that choice from both directions: the negative vectors reject every non-canonical timestamp form, and two of the accept vectors byte-match hashes published by independent ecosystem implementations, so a pass demonstrates cross-implementation agreement rather than self-consistency. There are two verifiers because the failure modes differ: a stdlib-only Python verifier that vendors its own minimal RFC 8785 serializer and recomputes every hash with no dependency on this project, and a Node verifier that imports the shipping helper, so the vectors stay pinned to the code that actually runs rather than a reimplementation of it. The non-goals are part of the spec: a pass proves byte-exact agreement on the derivation, and nothing about whether an action was authorized, occurred, or honored its scope. Those claims belong to the records the key correlates.</p>
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The evidence layer learned two things in the same cut. Verification-source provenance now travels inside signed evidence: when a verification result is carried as evidence, the record of how the key behind it was resolved rides in the signed envelope, not in the verifier's logs, because a claim a verifier makes about itself is exactly the kind of claim this layer exists to replace. And the producer-attestation commitment kind landed with a slot for a Context Provenance Attestation, connecting Day 107's context custody to the evidence chain: an action receipt can now carry a committed reference to the declared basis the action was built on, with the same stated boundary as before. Custody of the declared basis, not truth of it.</p>
 </article>
-
 
 <article class="post" id="day-107-context-provenance-attestation-and-a-third-language">
   <time class="post-date" datetime="2026-06-03">June 3, 2026</time>
@@ -1654,14 +1651,12 @@
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">That last point is what the W3C auditability thread (<a href="https://github.com/w3c-cg/ai-agent-protocol/issues/34">#34</a>) settled this week, and it meant withdrawing something said earlier. If a correlation key's whole value is that any verifier can recompute it without trusting whoever issued the record, then it cannot be defined by reference into any single implementation draft, including this project's. The derivation belongs in the community-group text itself, with the implementations listed underneath as references rather than as the definition. The earlier position that named the APS draft section as the source was the dependency the layer exists to remove, so it came out. The honest open item is that the field set is the specification: JCS canonicalizes JSON structure, not value semantics, so the tuple has to pin types and precision, a timestamp as an epoch integer and the same instant as an ISO-8601 string produce different digests. Requested scope was removed from the key as well, because scope narrows during a decision, and binding the key to the requested scope would force disclosing the original broad request to verify a narrowed receipt, which defeats the selective disclosure the layer is there to protect. Those two went back to the thread as the review items.</p>
 </article>
 
-
 <article class="post" id="day-105-evidence-layer-alpha-and-a-descriptor-that-refuses-to-score-itself">
   <time class="post-date" datetime="2026-06-01">June 1, 2026</time>
   <h2>Day 105: The evidence layer ships to the alpha tag, and a descriptor that refuses to score itself.</h2>
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The second wave of v2 modules went to the prerelease tag on npm, twelve of them covering evidence description, trust-root policy, a remote signer, revocation enforcement, audience binding, human oversight, hash-and-pointer selective disclosure, a scope-dimension registry, and an offline verifier with a conformance runner. It published to <code>alpha</code> (2.6.0-alpha.9), not to <code>latest</code>, which still points at 2.2.0. That is deliberate: the stable cut waits on finalizing a content-derived decision identifier and on the native batch-verify parity running green in a capable build rather than being gated by the environment. The number that is published is the one that can be defended.</p>
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The load-bearing design choice is in the evidence descriptor. It is derived by the verifier, not asserted by the issuer. It records mechanical facts, who signed, whether that signer is independent of the key graph that vouches for it, and a four-valued corroboration status, and it does not emit a scalar assurance score. A test feeds it a spurious assurance field and asserts the field never reaches the output. The reasoning is the same one that runs through the rest of the protocol: a number a subject can set about itself is a number it can inflate, so the descriptor reports only what an independent verifier can derive, and leaves the claim of trustworthiness to the party doing the checking.</p>
 </article>
-
 
 <article class="post" id="day-104-three-records-and-a-binding-that-says-what-it-does-not-prove">
   <time class="post-date" datetime="2026-05-31">May 31, 2026</time>
@@ -1671,7 +1666,6 @@
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">On the Cycles payment rail, a contributed verification check (<a href="https://github.com/aeoess/agent-passport-system/pull/42">#42</a>) earned a careful review. It binds an APS receipt to the specific Cycles evidence envelope the receipt points at, by recomputing the envelope's content hash and confirming it matches both the envelope's own id and the hash the signed receipt committed to. That recompute reproduces the Cycles server's identifier byte for byte, so the binding is real and tampering with the envelope is caught. The honest part is the boundary. The check proves the receipt is bound to this envelope, and that the envelope is internally consistent. It does not verify the envelope's own signature against a Cycles signing key, which is a separate step now tracked for the next cut as issue <a href="https://github.com/aeoess/agent-passport-system/issues/43">#43</a>. A passing check means bound. It does not yet mean authentic, and the review asked the result to say so plainly rather than let a reader infer more.</p>
 </article>
 
-
 <article class="post" id="day-103-where-it-plugs-in-and-the-authority-on-the-receipt">
   <time class="post-date" datetime="2026-05-30">May 30, 2026</time>
   <h2>Day 103: The site says where the protocol plugs in, and the Cycles receipt carries the authority it saw.</h2>
@@ -1680,7 +1674,6 @@
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">One older thread closed a loose end. On the AIVSS enforcement-effectiveness review (<a href="https://github.com/aeoess/aivss-enforcement-effectiveness/issues/4">#4</a>), the reviewer confirmed the bound-parity language reads clean. Two substrates whose security windows land inside the same bound establish that the dimension measures the methodology, not the backend, so the substrate drops out of the comparison. It is a small fix, but it was creating a reader contradiction, and the v0.2 cut needed it settled before the remaining two items land.</p>
 </article>
 
-
 <article class="post" id="day-101-resume-time-enforcement-and-the-auditability-gap">
   <time class="post-date" datetime="2026-05-28">May 28, 2026</time>
   <h2>Day 101: Resume-time enforcement modes, and an auditability gap that walks by hash.</h2>
@@ -1688,7 +1681,6 @@
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The W3C AI Agent Protocol community group opened an auditability-gap RFC (<a href="https://github.com/w3c-cg/ai-agent-protocol/issues/34">#34</a>) around three questions an auditor has to answer about any agent action: who authorized it, what was decided, and what was committed. APS answers all three with content-addressed artifacts that reference each other by hash instead of by embedding. The intent carries a content hash of its unsigned form. A compound digest binds the hash of the intent and the hash of the policy receipt. A receipt can name the previous receipt by hash. An auditor walks authority to decision to commitment to receipt by checking hashes and canonical forms, with no requirement that every participant run the same software. The direction that came out of the thread for the white-paper subsection is vocabulary-first: state the gap in protocol-neutral terms, then place APS and the other framework underneath as implementation bindings, so the section is usable by anyone who agrees on the gap without adopting a stack to read it.</p>
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Two A2A threads carried the same posture on the identity side. <a href="https://github.com/a2aproject/A2A/issues/1850">#1850</a> added an Identity Trust Framework roadmap that keeps the native <code>draft-pidlisnyi-aps-01</code> §4.1 action_ref as the primitive APS receipts sign, while emitting or carrying the shared external action-ref-v1 correlation key, so a receipt keeps its own preimage and still lines up on the cross-system key. <a href="https://github.com/a2aproject/A2A/issues/1628">#1628</a> consolidated the <code>trust.signals[]</code> extension into one signal-type specification rather than a scatter of per-vendor fields, so a downstream verifier has a single shape to route on. The pattern across all four threads is the one the project keeps returning to. The framing changes, the primitive does not, and the work is showing that the primitive already answers the question.</p>
 </article>
-
 
 <article class="post" id="day-99-contributor-acknowledgement-substrate-cycle-2">
   <time class="post-date" datetime="2026-05-26">May 26, 2026</time>
@@ -1702,7 +1694,6 @@
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">If you contributed to one of the substrate primitives and your name is not in this post, the omission is mine and the fix is one PR or issue away. The discipline is to credit the work that made the artifact possible, not to claim the artifact alone. Substrate cycle 3 will build on this one. The pattern holds.</p>
 </article>
 
-
 <article class="post" id="day-99-matrix-v2-substrate-cycle-2">
   <time class="post-date" datetime="2026-05-26">May 26, 2026</time>
   <h2>Day 99: Substrate cycle 2 ships. Three new attestation envelope signal types in alpha.6.</h2>
@@ -1713,7 +1704,6 @@
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Test count moved from 3,008 to 3,064, across five new module directories under <code>src/v2/</code>. Each signal type shipped with its envelope schema, validation rules, and a dedicated test file, and the release went out to the SDK, MCP, and Python packages in one pass.</p>
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The discipline pattern that matters here is the public-private boundary holding under load. Building three modules in parallel, the one with the most product-intelligence-shaped affordances was <code>behavioral_drift_window</code>, and it had every opportunity to drift across the boundary. The boundary held: each metric field is a placeholder, the SDK validates internal consistency only, recomputation is named as a downstream responsibility in the <code>verify.ts</code> comments. The protocol stays a public primitive, the analytics stay private. The substrate window can deliver the receipt shape without the SDK quietly turning into the product.</p>
 </article>
-
 
 <article class="post" id="day-96-spendguard-third-implementer-budget-reservation">
   <time class="post-date" datetime="2026-05-23">May 23, 2026</time>

@@ -1,6 +1,9 @@
 (function () {
   'use strict';
-  var SYS = '#878B78', OUT = '#E9ECDB', ACC = '#C8F032', ERR = '#FF6B57', DIM = '#565B4B';
+  // Terminal ink comes from the stylesheet so the two palettes stay in one
+  // place; every line is painted with a var(), which also means a theme switch
+  // recolours the transcript already on screen.
+  var SYS = 'var(--sub)', OUT = 'var(--fg)', ACC = 'var(--lime)', ERR = 'var(--err)', DIM = 'var(--faint)';
   var TO = 'signal@aeoess.com';
   var STEPS = [
     { key: 'name', label: 'name', q: 'Who are we talking to?', ph: 'Ada Lovelace' },

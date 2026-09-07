@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark"><head>
+<html lang="en"><head>
 <meta charset="utf-8">
+<meta name="theme-color" content="#0A5CFF">
+<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Updates — Agent Passport System</title>
 <meta name="description" content="Agent Passport System email updates: confirmation and unsubscribe status."><meta name="robots" content="noindex">
@@ -21,9 +23,9 @@
 @font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;src:url("fonts/anton-latin.woff2") format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;src:url("fonts/anton-latin-ext.woff2") format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 
-body{margin:0;background:#0A0B08;color:#E9ECDB}
+body{margin:0;background:var(--bg);color:var(--fg)}
 a{color:inherit;text-decoration:none}
-a:hover{color:#C8F032}
+a:hover{color:var(--lime)}
 @keyframes apsCaret{0%,49%{opacity:1}50%,100%{opacity:0}}
 @keyframes apsScan{from{transform:translateY(-100%)}to{transform:translateY(100%)}}
 @media (max-width:900px){
@@ -44,9 +46,9 @@ a:hover{color:#C8F032}
 <script src="gh-stars.js" defer></script>
 </head>
 <body>
-<div style="min-height:100vh;background:#0A0B08">
+<div style="min-height:100vh;background:var(--bg)">
 
-<header class="nav" style="background:#0A0B08;border-bottom:1px solid #22251A">
+<header class="nav" style="background:var(--bg);border-bottom:1px solid var(--line)">
   <div class="brand">
     <a href="/"><span class="sq"></span>APS <span style="color:var(--sub)">· Agent Passport System</span></a>
     <span class="badge"><i></i>Apache 2.0</span>
@@ -84,12 +86,12 @@ a:hover{color:#C8F032}
 </div>
 
 <main style="max-width:760px;margin:0 auto;padding:132px 5vw 80px;box-sizing:border-box">
-  <div style="display:flex;align-items:center;gap:11px;margin-bottom:26px"><span style="width:10px;height:10px;background:#C8F032"></span><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:#878B78">Updates</span></div>
-  <h1 id="subTitle" style="margin:0 0 14px;font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(40px,6vw,72px);line-height:1.02;letter-spacing:.004em;color:#E9ECDB">You are on the list.</h1>
-  <p id="subText" style="margin:0 0 40px;max-width:56ch;font-family:'Archivo',system-ui,sans-serif;font-size:19px;line-height:1.55;color:#878B78">Confirmed. Releases, spec changes and dev log highlights, a few emails a month at most. Every email carries a one-click unsubscribe.</p>
+  <div style="display:flex;align-items:center;gap:11px;margin-bottom:26px"><span style="width:10px;height:10px;background:var(--lime)"></span><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:var(--sub)">Updates</span></div>
+  <h1 id="subTitle" style="margin:0 0 14px;font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(40px,6vw,72px);line-height:1.02;letter-spacing:.004em;color:var(--fg)">You are on the list.</h1>
+  <p id="subText" style="margin:0 0 40px;max-width:56ch;font-family:'Archivo',system-ui,sans-serif;font-size:19px;line-height:1.55;color:var(--sub)">Confirmed. Releases, spec changes and dev log highlights, a few emails a month at most. Every email carries a one-click unsubscribe.</p>
   <div style="display:flex;flex-wrap:wrap;gap:13px">
-    <a href="/" style="display:inline-flex;align-items:center;gap:8px;padding:14px 24px;font-family:'Archivo',system-ui,sans-serif;font-size:15px;font-weight:500;border-radius:2px;background:#C8F032;color:#080A0F">Back to overview</a>
-    <a href="https://github.com/aeoess/agent-passport-system" style="display:inline-flex;align-items:center;gap:8px;padding:14px 24px;font-family:'Archivo',system-ui,sans-serif;font-size:15px;font-weight:500;border-radius:2px;border:1px solid #33372A;color:#E9ECDB">Star APS on GitHub &#8599;</a>
+    <a href="/" style="display:inline-flex;align-items:center;gap:8px;padding:14px 24px;font-family:'Archivo',system-ui,sans-serif;font-size:15px;font-weight:500;border-radius:2px;background:var(--lime);color:var(--on-acc2)">Back to overview</a>
+    <a href="https://github.com/aeoess/agent-passport-system" style="display:inline-flex;align-items:center;gap:8px;padding:14px 24px;font-family:'Archivo',system-ui,sans-serif;font-size:15px;font-weight:500;border-radius:2px;border:1px solid var(--line2);color:var(--fg)">Star APS on GitHub &#8599;</a>
   </div>
   <script>(function(){var s=new URLSearchParams(location.search).get('state')||'ok';var T=document.getElementById('subTitle'),P=document.getElementById('subText');
   if(s==='expired'){T.textContent='That link has expired.';P.textContent='Confirmation links are valid for 48 hours. Ask for a new one from the star prompt on the homepage, or mail signal@aeoess.com and a human adds you.';}
@@ -151,5 +153,6 @@ a:hover{color:#C8F032}
 </footer>
 
 </div>
+<script src="/theme.js" defer></script>
 </body>
 </html>

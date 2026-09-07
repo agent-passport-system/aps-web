@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>(function(){try{var t=localStorage.getItem("aps-theme");if(!t)t="dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <meta charset="utf-8">
+<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Docs &middot; Agent Passport System</title>
 <meta name="description" content="Developer docs for the Agent Passport System: install, quickstart, core concepts, receipts, the gateway, and how APS evidence maps to compliance controls. Apache 2.0.">
@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="/aps-v2.css?v=150">
 <script src="/theme.js" defer></script>
 <script src="/nav.js" defer></script>
-<meta name="theme-color" content="#0A0B08">
+<meta name="theme-color" content="#0A5CFF">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Docs · Agent Passport System", "description": "Developer docs for the Agent Passport System: install, quickstart, core concepts, receipts, the gateway, and how APS evidence maps to compliance controls. Apache 2.0.", "url": "https://agent-passport.org/docs.html"}</script>
 <script src="/gh-stars.js" defer></script>
 </head>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>(function(){try{var t=localStorage.getItem("aps-theme");if(!t)t="dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <meta charset="utf-8">
+<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AIVSS Risk Mapping | Agent Passport System</title>
 <meta name="description" content="Honest mapping of the Agent Passport System against the OWASP AIVSS risk taxonomy. 5 strong, 3 partial, 2 weak.">
@@ -25,7 +25,7 @@
 .av-badge{border:1px solid var(--fg);background:var(--panel);padding:16px 28px;display:flex;flex-direction:column;align-items:center;min-width:130px}
 .av-badge .count{font-family:var(--disp);font-size:42px;line-height:1;font-weight:500}
 .av-badge .label{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--sub);margin-top:6px}
-.av-badge.strong .count{color:#2E6E53}
+.av-badge.strong .count{color:var(--ok3)}
 .av-badge.partial .count{color:var(--warn)}
 .av-badge.weak .count{color:var(--lime)}
 .av-disclaimer{border-left:2px solid var(--lime);background:var(--panel);padding:16px 22px;margin:0 0 30px}
@@ -36,14 +36,14 @@
 .av-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:0.04em;padding:3px 9px;border:1px solid var(--line);background:var(--panel2)}
 .av-tag.inv{color:var(--warn);border-color:var(--warn)}
 .av-gap{margin-top:12px;padding:10px 14px;font-family:"Inter",sans-serif;font-size:13.5px;line-height:1.5;border:1px solid var(--line)}
-.av-gap.partial{background:#8b743814}
-.av-gap.weak{background:#b83a2e14}
+.av-gap.partial{background:var(--tint-warn)}
+.av-gap.weak{background:var(--tint-alert)}
 .av-paperlink{border:1px solid var(--fg);padding:24px;text-align:center;margin:36px 0 0}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"AIVSS Risk Mapping · Agent Passport System","description":"Honest mapping of the Agent Passport System against the OWASP AIVSS risk taxonomy. 5 strong, 3 partial, 2 weak.","url":"https://agent-passport.org/aivss.html","dateModified":"2026-07-16","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"AIVSS Risk Mapping for the Agent Passport System","articleSection":"Security Analysis","mainEntityOfPage":{"@type":"WebPage","@id":"https://agent-passport.org/aivss.html"}}</script>
 <script src="/theme.js" defer></script>
 <script src="/nav.js" defer></script>
-<meta name="theme-color" content="#0A0B08">
+<meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
 </head>
 <body>
@@ -92,7 +92,6 @@
     <p class="dek">How the Agent Passport System maps against the OWASP AI Vulnerability Scoring System. 10 risks assessed. Honest coverage. No inflated claims.</p>
   </section>
   <article class="prose">
-
 
     <div class="av-summary">
       <div class="av-badge strong"><span class="count">5</span><span class="label">Strong</span></div>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>(function(){try{var t=localStorage.getItem("aps-theme");if(!t)t="dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <meta charset="utf-8">
+<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Evidence Bundle Inspector | Agent Passport System</title>
 <meta name="description" content="Offline browser inspector for APS evidence bundles. Drop or paste a bundle and read the per-axis claim-state report (authority, action, revocation, evidence). The verifier is the published agent-passport-system SDK, bundled to run entirely in your browser.">
@@ -22,14 +22,14 @@
 <link rel="stylesheet" href="/aps-v2.css?v=150">
 <style>
   .vb-zone{border:1px dashed var(--line2);border-radius:6px;padding:28px 20px;text-align:center;cursor:pointer;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.82rem;color:var(--sub);transition:border-color .15s,background .15s}
-  .vb-zone.vb-over{border-color:var(--acc,#C8F032);background:rgba(200,240,50,0.06)}
+  .vb-zone.vb-over{border-color:var(--acc);background:rgba(200,240,50,0.06)}
   .vb-paste{width:100%;min-height:120px;box-sizing:border-box;margin-top:14px;padding:12px;border:1px solid var(--line2);border-radius:6px;background:var(--bg2,rgba(255,255,255,0.02));color:var(--fg);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.78rem;line-height:1.5}
   .vb-controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;align-items:center}
   .vb-btn{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;border:1px solid var(--line2);border-radius:3px;background:transparent;color:var(--fg);cursor:pointer}
-  .vb-btn:hover{border-color:var(--acc,#C8F032)}
+  .vb-btn:hover{border-color:var(--acc)}
   .vb-demos{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 0}
   .vb-demo{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.72rem;padding:6px 10px;border:1px solid var(--line2);border-radius:3px;background:transparent;color:var(--sub);cursor:pointer}
-  .vb-demo:hover{color:var(--fg);border-color:var(--acc,#C8F032)}
+  .vb-demo:hover{color:var(--fg);border-color:var(--acc)}
   .vb-label{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
   .vb-report{margin-top:26px}
   .vb-overall{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:14px 16px;border:1px solid var(--line2);border-radius:6px;margin-bottom:16px}
@@ -40,11 +40,11 @@
   .vb-reason{margin-top:8px;font-size:.82rem;line-height:1.55;color:var(--sub)}
   .vb-note{margin-top:10px;font-size:.82rem;line-height:1.55;color:var(--sub);border-left:2px solid var(--line2);padding-left:12px}
   .vb-state{display:inline-block;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.72rem;font-weight:700;letter-spacing:.06em;padding:.15rem .55rem;border-radius:3px}
-  .vb-s-VERIFIED,.vb-s-RESOLVED{background:rgba(120,220,120,0.16);color:#9BE3A0}
-  .vb-s-EVALUATED,.vb-s-ASSERTED{background:rgba(230,200,110,0.16);color:#E6CE86}
-  .vb-s-UNKNOWN,.vb-s-MISSING{background:rgba(160,160,160,0.16);color:#B7B7B7}
-  .vb-s-STALE{background:rgba(230,170,90,0.16);color:#EBB273}
-  .vb-s-INVALID{background:rgba(235,120,120,0.18);color:#F0A0A0}
+  .vb-s-VERIFIED,.vb-s-RESOLVED{background:rgba(120,220,120,0.16);color:var(--ok)}
+  .vb-s-EVALUATED,.vb-s-ASSERTED{background:rgba(230,200,110,0.16);color:var(--caution)}
+  .vb-s-UNKNOWN,.vb-s-MISSING{background:rgba(160,160,160,0.16);color:var(--neutral)}
+  .vb-s-STALE{background:rgba(230,170,90,0.16);color:var(--partial)}
+  .vb-s-INVALID{background:rgba(235,120,120,0.18);color:var(--alert)}
   .vb-meta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.72rem;color:var(--sub)}
 </style>
 <!-- Google Analytics -->
@@ -57,7 +57,7 @@
 </script>
 <script src="/theme.js" defer></script>
 <script src="/nav.js" defer></script>
-<meta name="theme-color" content="#0A0B08">
+<meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
 </head>
 <body>

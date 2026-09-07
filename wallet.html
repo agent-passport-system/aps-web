@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>(function(){try{var t=localStorage.getItem("aps-theme");if(!t)t="dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <meta charset="utf-8">
+<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agent Wallet | Agent Passport System</title>
 <meta name="description" content="Agent wallets tied to APS passports. Nano-powered, feeless, instant. Every spend is delegation-scoped. Every transaction produces a signed receipt. Zero gas fees.">
@@ -34,7 +34,7 @@
 </script>
 <script src="/theme.js" defer></script>
 <script src="/nav.js" defer></script>
-<meta name="theme-color" content="#0A0B08">
+<meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
 </head>
 <body>
@@ -83,7 +83,6 @@
     <p class="dek">Every agent with a passport gets a crypto wallet. Nano-powered: feeless, instant, Layer 1 finality. Every transaction goes through the APS delegation pipeline. Scope check. Spend limit. Signed receipt. No gas fees. No session caps. No intermediary taking a cut.</p>
   </section>
   <article class="prose">
-
 
     <p><a href="/">Agent Passport System</a> / Agent Wallet</p>
 
