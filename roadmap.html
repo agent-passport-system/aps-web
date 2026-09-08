@@ -95,7 +95,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">583 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">598 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -136,7 +136,160 @@
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(539)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(552)</span></h2>
+<article class="rm-item rm-item-done" id="d203-find-people-through-your-agent">
+<header class="rm-item-h">
+<h3 class="rm-item-title">aeoess.com/mingle was cut from 424 words to 185, mingle-mcp 3.2.0 surfaces pending matches without a search, and OpenClaw was asked whether it wants the capability</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 203</span> 
+<span class="rm-item-ws">mingle</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The landing now says the product in one screen: find people through your agent. The MCP client polls the new pending endpoint at session start, treats an expired card differently from a withdrawn one, nudges before expiry rather than after, and states the disclosure promise as it actually works: only what you allowed for that connection, and you can ask what was shared with whom. A feature request on openclaw/openclaw asks the community whether a persistent agent should hold a standing intent and only interrupt when both sides agree, with the existing implementation offered for contribution.</p>
+<ul class="rm-item-links"><li><a href="https://aeoess.com/mingle.html">aeoess.com/mingle</a></li><li><a href="https://github.com/openclaw/openclaw/issues/141765">openclaw #141765</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d203-mingle-never-had-a-network">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A read-only look at Mingle's production database showed the 579 published cards were seed scripts, so the server was rebuilt to tell the truth and to push a match to both sides</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 203</span> 
+<span class="rm-item-ws">mingle</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">All 504 principals were auto-generated ids with no links and no intros; the twelve v3 cards were a July test run. The public counter that read zero matches was a legacy field the v3 path never touched. The server now keeps expired distinct from withdrawn, deletes legacy 48-hour cards before it logs their expiry rather than inside the same transaction, records every card transition in an event log, reports the v3 network from its own tables with a marker it writes itself on first start, and pushes a newly created match to both sides through a pollable pending endpoint. Live on api.aeoess.com; nothing the user signs changed.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/intent-network-api">intent-network-api</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d203-second-openclaw-merge-and-the-node-floor">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The maintainer merged the second OpenClaw fix after refreshing the branch himself, and the Node 22 issue was closed by his own runtime-floor change with our report named as the cause</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 203</span> 
+<span class="rm-item-ws">Ecosystem</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The status-renderer fix conflicted with main after the maintainer's own commit on the branch; he merged main into it, then merged the pull request, authorship kept. Hours later his 84-file change raised the runtime floor to the first Node releases with lossless SQLite reads and closed the embedded-NUL issue as fixed, its body opening with the report that started it. Two merges and one repo-wide floor change from one week of reading their source.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/openclaw/openclaw/pull/140547">openclaw PR #140547</a></li><li><a href="https://github.com/openclaw/openclaw/pull/140672">openclaw PR #140672</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d202-a-second-palette">
+<header class="rm-item-h">
+<h3 class="rm-item-title">agent-passport.org got a bright default palette behind the existing theme toggle, with every landing-page color converted to a token so the night theme reproduces the old file byte for byte</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 202</span> 
+<span class="rm-item-ws">site</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Blue, white and yellow by default, night one click away. The screenshot pass found two limes and a black the site used inconsistently and gave each a token. Bright keeps one tier of subdued text where night has four, because the second tier fails the contrast floor on this blue. The first deploy shipped without bumping the stylesheet version tag and looked broken until it did; a CSS or script change now bumps its tag in the same commit.</p>
+</article>
+<article class="rm-item rm-item-done" id="d202-cross-stack-ci-off-a-registry">
+<header class="rm-item-h">
+<h3 class="rm-item-title">External vector families now run in their own CI job driven by a machine-checked registry, and the contributing guide says exactly that</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 202</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A runner that resolved the SDK from a sibling path outside the repo and rewrote results.json on every run was repaired the way an August fix was. Each cross-stack family declares its npm script names in an index, never shell strings; none is a passing legitimate absence with a reason and blocked is a failing diagnostic state; a check fails CI on a family missing from the registry or a command that does not exist. The job, the cross-stack typecheck and CONTRIBUTING line 32 landed as one pull request.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/85">suite PR #85</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d202-nineteenth-envelope-vector">
+<header class="rm-item-h">
+<h3 class="rm-item-title">attenu-guard's nineteenth envelope vector was scored the same day by two people who wrote neither the vectors nor the checkers, and the lab record runs both their verifiers unchanged</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 202</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The record pins the file from four published sources and keeps the row-19 mutation: judging an envelope before the duplicate check reports a bad signature and leaves a defective envelope witness-signed. Under the lab's labeling rule these two pinned runs are the first on this family that count as independent.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/81">suite PR #81</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d202-three-more-doors-at-openclaw">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The first OpenClaw fix was merged overnight, two more were rated ready for a maintainer, and a Node 22 issue drew the maintainer's own draft within five hours</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 202</span> 
+<span class="rm-item-ws">Ecosystem</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Atomic writes on config recovery merged with the maintainer's second commit on the branch. A Google Chat reply that went to a lowercased space id now uses the canonical id already stored on the session, proven through the transport with a mutation that counts store enumerations. A two-line renderer fix stops a running service printing above a failed probe of a different Gateway without saying so. Four session tests failing on an endorsed Node 22 build were traced to that runtime's SQLite binding truncating text at an embedded NUL; the maintainer's tooling opened a draft raising the floor.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/openclaw/openclaw/pull/137713">openclaw PR #137713</a></li><li><a href="https://github.com/openclaw/openclaw/issues/140465">openclaw #140465</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d202-trace-release-witness">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The promised release witness for agentrust-trace 0.10.0 was run against the published wheel, not a checkout, and posted with version, hash and every result</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 202</span> 
+<span class="rm-item-ws">interop</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The packaged schema now accepts a record carrying references, and the thirteen revocation-store cases from the integration mapping behave as specified, with callable stores returning empty values failing closed where 0.9.0 failed open. The witness states what it does not show: no end-to-end revocation statement was produced or consumed, and tested_against did not move.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/agentrust-io/trace-spec/issues/241">trace-spec #241</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d201-bernstein-merged">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The bernstein delegation-receipt pull request was merged by its maintainer after the option he chose was implemented in two commits with CI fully green</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 201</span> 
+<span class="rm-item-ws">Ecosystem</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Delegation receipts are recorded at identity mint in the real spawn path, fail closed on an unreceipted spawn, and anchor on a per-run root in the run manifest so the chain verifies without the identity store; allowed_files is recorded as its own ungraded axis, the maintainer's choice.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/sipyourdrink-ltd/bernstein/pull/5351">bernstein PR #5351</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d201-bridge-out-of-the-advisory-range">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The hosted MCP bridge at mcp.aeoess.com moved from inside the published advisory range to MCP 6.0.1 on SDK 6.0.1, with manifest parity checked at both pins before the push</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 201</span> 
+<span class="rm-item-ws">sdk</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">One hundred fifty-two tools, zero required-input additions, one intended change: a zone-less timestamp is refused rather than accepted. Anonymous access still returns 401. The authenticated smoke stays a separate step with the key never in a transcript.</p>
+</article>
+<article class="rm-item rm-item-done" id="d201-five-suite-records-in-a-day">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Five conformance pull requests merged in one day: two CTEF records, an independent mcp-audit run, the TypeScript 7 migration, and a token-exchange attenuation family</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 201</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The CTEF admissibility record counts as independent because a contributor's own checker at a published pin supplied the recomputation; the crypto-layer record does not, because the lab wrote and ran it. The token-exchange family turns an invariant stated on a toolhive thread into twelve engine-neutral cases decided from claim structure alone, with two widening vectors rejected as invalid rather than denied.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/80">suite PR #80</a></li><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/79">suite PR #79</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d201-independence-follows-the-checker">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The label independent now follows the author of the implementation whose output supplies the recomputation, and the contributing guide says so</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 201</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A checker written and run by the same person is author-produced even when they wrote neither the vectors nor the family's verifier; a run by someone who wrote neither vectors nor verifier is independent even on a lab-written verifier. The rule closed a labeling error in a draft record before it was published.</p>
+</article>
+<article class="rm-item rm-item-done" id="d201-verify-retry-after-publish">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The SDK release workflow retries its post-publish verify instead of failing twice after successful publishes</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 201</span> 
+<span class="rm-item-ws">sdk</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Two releases had published correctly and then failed their own verification on an ETARGET from the registry not yet serving the new version. The workflow now waits and retries before declaring a failed identity.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/pull/150">SDK PR #150</a></li></ul>
+</article>
 <article class="rm-item rm-item-done" id="d200-four-registries-in-one-cut">
 <header class="rm-item-h">
 <h3 class="rm-item-title">The coordinated security release shipped on four registries in one cut, and four cross-referenced advisories were published once the last package appeared</h3>
@@ -6674,7 +6827,31 @@
 </article>
 </section>
 <section class="rm-group rm-group-other-no-status-declared-">
-<h2 class="rm-group-title">Other (no status declared) <span class="rm-group-count">(27)</span></h2>
+<h2 class="rm-group-title">Other (no status declared) <span class="rm-group-count">(29)</span></h2>
+<article class="rm-item rm-item-in-progress" id="d203-a-proof-that-disproved-itself-then-held">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A third OpenClaw fix went up with a unit regression, the review bot asked for a real Gateway trace, and the first attempt at that trace said the fix did nothing</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 203</span> 
+<span class="rm-item-ws">Ecosystem</span> 
+<span class="rm-item-status">in-progress</span>
+</p>
+</header>
+<p class="rm-item-desc">The completion path dropped a requester agent id that spawn had already persisted, so on a multi-agent Gateway a finished child re-derived its owner, threw, and retried forever. The first real-Gateway run reported the fix changed nothing; the cause was a build stamp keyed to the git head, which let an edit-run-revert cycle reuse the mutated build. With the stamp deleted on both sides the restored-row case fails without the line and delivers with it, three runs each way, and that e2e is now the second commit on the pull request.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/openclaw/openclaw/pull/141480">openclaw PR #141480</a></li></ul>
+</article>
+<article class="rm-item rm-item-in-progress" id="d203-level-0-or-schema-valid">
+<header class="rm-item-h">
+<h3 class="rm-item-title">agentrust-trace 0.10.0 fixed the schema defect and surfaced a question the integration cannot answer alone: must a Level 0 record pass the full verifier</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 203</span> 
+<span class="rm-item-ws">interop</span> 
+<span class="rm-item-status">in-progress</span>
+</p>
+</header>
+<p class="rm-item-desc">The witness run against the published wheel confirmed the packaged-schema fix and the fail-closed revocation stores. It also showed the APS mapper's record, which omits three fields APS never observes, now fails verify_record while still passing trace-tests at Level 0, and the integration's own CI has been red since the release. The repository's adapters guide already says there is nothing truthful to default the missing digest to, so the issue asks only which of the two graders defines Level 0; tested_against stays at 0.9.0 until it is answered.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/agentrust-io/integrations/issues/170">integrations #170</a></li></ul>
+</article>
 <article class="rm-item rm-item-in-progress" id="d200-same-patch-new-head">
 <header class="rm-item-h">
 <h3 class="rm-item-title">The OpenClaw atomic-write fix was rebased onto the current upstream head with the patch unchanged, and the request's evidence section refreshed with the current red and green numbers</h3>

@@ -1,7 +1,162 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-09-05 (Day 201). Adds Day 200: four registries in one cut, the MCP server followed the SDK, his run report under his own name, three runners one file, same patch new head. Previous: Adds Days 198 and 199: three tags to one release, a family merged on round four, one byte-identical file two runners, a maintainer decided in forty-one minutes, the account surface corrected, a family audited and recomputed from its own rules, five rounds then an approval, three replies after three legs, the red test stays red, and unfinished is not important.
+# Last updated: 2026-09-07 (Day 203). Adds Days 201 to 203: the bridge out of the advisory range, five records in a day and what independent means, the verify retry, bernstein merged; a second palette, three doors at OpenClaw, the nineteenth envelope vector, cross-stack CI off a registry, the trace release witness; the second OpenClaw merge and the Node floor, a proof that disproved itself then held, Level 0 or schema-valid, a network that never existed, find people through your agent.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 203 - 2026-09-07 ═══
+
+- id: d203-second-openclaw-merge-and-the-node-floor
+  title: "The maintainer merged the second OpenClaw fix after refreshing the branch himself, and the Node 22 issue was closed by his own runtime-floor change with our report named as the cause"
+  description: "The status-renderer fix conflicted with main after the maintainer's own commit on the branch; he merged main into it, then merged the pull request, authorship kept. Hours later his 84-file change raised the runtime floor to the first Node releases with lossless SQLite reads and closed the embedded-NUL issue as fixed, its body opening with the report that started it. Two merges and one repo-wide floor change from one week of reading their source."
+  status: done
+  day_start: 203
+  workstream: ecosystem
+  links:
+    - url: "https://github.com/openclaw/openclaw/pull/140547"
+      label: "openclaw PR #140547"
+    - url: "https://github.com/openclaw/openclaw/pull/140672"
+      label: "openclaw PR #140672"
+
+- id: d203-a-proof-that-disproved-itself-then-held
+  title: "A third OpenClaw fix went up with a unit regression, the review bot asked for a real Gateway trace, and the first attempt at that trace said the fix did nothing"
+  description: "The completion path dropped a requester agent id that spawn had already persisted, so on a multi-agent Gateway a finished child re-derived its owner, threw, and retried forever. The first real-Gateway run reported the fix changed nothing; the cause was a build stamp keyed to the git head, which let an edit-run-revert cycle reuse the mutated build. With the stamp deleted on both sides the restored-row case fails without the line and delivers with it, three runs each way, and that e2e is now the second commit on the pull request."
+  status: in-progress
+  day_start: 203
+  workstream: ecosystem
+  links:
+    - url: "https://github.com/openclaw/openclaw/pull/141480"
+      label: "openclaw PR #141480"
+
+- id: d203-level-0-or-schema-valid
+  title: "agentrust-trace 0.10.0 fixed the schema defect and surfaced a question the integration cannot answer alone: must a Level 0 record pass the full verifier"
+  description: "The witness run against the published wheel confirmed the packaged-schema fix and the fail-closed revocation stores. It also showed the APS mapper's record, which omits three fields APS never observes, now fails verify_record while still passing trace-tests at Level 0, and the integration's own CI has been red since the release. The repository's adapters guide already says there is nothing truthful to default the missing digest to, so the issue asks only which of the two graders defines Level 0; tested_against stays at 0.9.0 until it is answered."
+  status: in-progress
+  day_start: 203
+  workstream: interop
+  links:
+    - url: "https://github.com/agentrust-io/integrations/issues/170"
+      label: "integrations #170"
+
+- id: d203-mingle-never-had-a-network
+  title: "A read-only look at Mingle's production database showed the 579 published cards were seed scripts, so the server was rebuilt to tell the truth and to push a match to both sides"
+  description: "All 504 principals were auto-generated ids with no links and no intros; the twelve v3 cards were a July test run. The public counter that read zero matches was a legacy field the v3 path never touched. The server now keeps expired distinct from withdrawn, deletes legacy 48-hour cards before it logs their expiry rather than inside the same transaction, records every card transition in an event log, reports the v3 network from its own tables with a marker it writes itself on first start, and pushes a newly created match to both sides through a pollable pending endpoint. Live on api.aeoess.com; nothing the user signs changed."
+  status: done
+  day_start: 203
+  workstream: mingle
+  links:
+    - url: "https://github.com/aeoess/intent-network-api"
+      label: "intent-network-api"
+
+- id: d203-find-people-through-your-agent
+  title: "aeoess.com/mingle was cut from 424 words to 185, mingle-mcp 3.2.0 surfaces pending matches without a search, and OpenClaw was asked whether it wants the capability"
+  description: "The landing now says the product in one screen: find people through your agent. The MCP client polls the new pending endpoint at session start, treats an expired card differently from a withdrawn one, nudges before expiry rather than after, and states the disclosure promise as it actually works: only what you allowed for that connection, and you can ask what was shared with whom. A feature request on openclaw/openclaw asks the community whether a persistent agent should hold a standing intent and only interrupt when both sides agree, with the existing implementation offered for contribution."
+  status: done
+  day_start: 203
+  workstream: mingle
+  links:
+    - url: "https://aeoess.com/mingle.html"
+      label: "aeoess.com/mingle"
+    - url: "https://github.com/openclaw/openclaw/issues/141765"
+      label: "openclaw #141765"
+
+# ═══ DAY 202 - 2026-09-06 ═══
+
+- id: d202-a-second-palette
+  title: "agent-passport.org got a bright default palette behind the existing theme toggle, with every landing-page color converted to a token so the night theme reproduces the old file byte for byte"
+  description: "Blue, white and yellow by default, night one click away. The screenshot pass found two limes and a black the site used inconsistently and gave each a token. Bright keeps one tier of subdued text where night has four, because the second tier fails the contrast floor on this blue. The first deploy shipped without bumping the stylesheet version tag and looked broken until it did; a CSS or script change now bumps its tag in the same commit."
+  status: done
+  day_start: 202
+  workstream: site
+
+- id: d202-three-more-doors-at-openclaw
+  title: "The first OpenClaw fix was merged overnight, two more were rated ready for a maintainer, and a Node 22 issue drew the maintainer's own draft within five hours"
+  description: "Atomic writes on config recovery merged with the maintainer's second commit on the branch. A Google Chat reply that went to a lowercased space id now uses the canonical id already stored on the session, proven through the transport with a mutation that counts store enumerations. A two-line renderer fix stops a running service printing above a failed probe of a different Gateway without saying so. Four session tests failing on an endorsed Node 22 build were traced to that runtime's SQLite binding truncating text at an embedded NUL; the maintainer's tooling opened a draft raising the floor."
+  status: done
+  day_start: 202
+  workstream: ecosystem
+  links:
+    - url: "https://github.com/openclaw/openclaw/pull/137713"
+      label: "openclaw PR #137713"
+    - url: "https://github.com/openclaw/openclaw/issues/140465"
+      label: "openclaw #140465"
+
+- id: d202-nineteenth-envelope-vector
+  title: "attenu-guard's nineteenth envelope vector was scored the same day by two people who wrote neither the vectors nor the checkers, and the lab record runs both their verifiers unchanged"
+  description: "The record pins the file from four published sources and keeps the row-19 mutation: judging an envelope before the duplicate check reports a bad signature and leaves a defective envelope witness-signed. Under the lab's labeling rule these two pinned runs are the first on this family that count as independent."
+  status: done
+  day_start: 202
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/81"
+      label: "suite PR #81"
+
+- id: d202-cross-stack-ci-off-a-registry
+  title: "External vector families now run in their own CI job driven by a machine-checked registry, and the contributing guide says exactly that"
+  description: "A runner that resolved the SDK from a sibling path outside the repo and rewrote results.json on every run was repaired the way an August fix was. Each cross-stack family declares its npm script names in an index, never shell strings; none is a passing legitimate absence with a reason and blocked is a failing diagnostic state; a check fails CI on a family missing from the registry or a command that does not exist. The job, the cross-stack typecheck and CONTRIBUTING line 32 landed as one pull request."
+  status: done
+  day_start: 202
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/85"
+      label: "suite PR #85"
+
+- id: d202-trace-release-witness
+  title: "The promised release witness for agentrust-trace 0.10.0 was run against the published wheel, not a checkout, and posted with version, hash and every result"
+  description: "The packaged schema now accepts a record carrying references, and the thirteen revocation-store cases from the integration mapping behave as specified, with callable stores returning empty values failing closed where 0.9.0 failed open. The witness states what it does not show: no end-to-end revocation statement was produced or consumed, and tested_against did not move."
+  status: done
+  day_start: 202
+  workstream: interop
+  links:
+    - url: "https://github.com/agentrust-io/trace-spec/issues/241"
+      label: "trace-spec #241"
+
+# ═══ DAY 201 - 2026-09-05 ═══
+
+- id: d201-bridge-out-of-the-advisory-range
+  title: "The hosted MCP bridge at mcp.aeoess.com moved from inside the published advisory range to MCP 6.0.1 on SDK 6.0.1, with manifest parity checked at both pins before the push"
+  description: "One hundred fifty-two tools, zero required-input additions, one intended change: a zone-less timestamp is refused rather than accepted. Anonymous access still returns 401. The authenticated smoke stays a separate step with the key never in a transcript."
+  status: done
+  day_start: 201
+  workstream: sdk
+
+- id: d201-five-suite-records-in-a-day
+  title: "Five conformance pull requests merged in one day: two CTEF records, an independent mcp-audit run, the TypeScript 7 migration, and a token-exchange attenuation family"
+  description: "The CTEF admissibility record counts as independent because a contributor's own checker at a published pin supplied the recomputation; the crypto-layer record does not, because the lab wrote and ran it. The token-exchange family turns an invariant stated on a toolhive thread into twelve engine-neutral cases decided from claim structure alone, with two widening vectors rejected as invalid rather than denied."
+  status: done
+  day_start: 201
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/80"
+      label: "suite PR #80"
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/79"
+      label: "suite PR #79"
+
+- id: d201-independence-follows-the-checker
+  title: "The label independent now follows the author of the implementation whose output supplies the recomputation, and the contributing guide says so"
+  description: "A checker written and run by the same person is author-produced even when they wrote neither the vectors nor the family's verifier; a run by someone who wrote neither vectors nor verifier is independent even on a lab-written verifier. The rule closed a labeling error in a draft record before it was published."
+  status: done
+  day_start: 201
+  workstream: conformance
+
+- id: d201-verify-retry-after-publish
+  title: "The SDK release workflow retries its post-publish verify instead of failing twice after successful publishes"
+  description: "Two releases had published correctly and then failed their own verification on an ETARGET from the registry not yet serving the new version. The workflow now waits and retries before declaring a failed identity."
+  status: done
+  day_start: 201
+  workstream: sdk
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/pull/150"
+      label: "SDK PR #150"
+
+- id: d201-bernstein-merged
+  title: "The bernstein delegation-receipt pull request was merged by its maintainer after the option he chose was implemented in two commits with CI fully green"
+  description: "Delegation receipts are recorded at identity mint in the real spawn path, fail closed on an unreceipted spawn, and anchor on a per-run root in the run manifest so the chain verifies without the identity store; allowed_files is recorded as its own ungraded axis, the maintainer's choice."
+  status: done
+  day_start: 201
+  workstream: ecosystem
+  links:
+    - url: "https://github.com/sipyourdrink-ltd/bernstein/pull/5351"
+      label: "bernstein PR #5351"
 
 # ═══ DAY 200 - 2026-09-04 ═══
 
