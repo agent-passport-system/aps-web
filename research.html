@@ -5,10 +5,10 @@
 <script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>APS research: nine papers behind the protocol</title>
-<meta name="description" content="Nine peer-reviewable papers, nine DOIs, federal-record submissions (NIST CAISI, NIST AI 800-2, NCCoE), and an independent UBC citation. Open access.">
+<meta name="description" content="Nine peer-reviewable papers, nine DOIs, three U.S. federal submissions, and eight independent works that reference the Agent Passport System by name. Open access.">
 <link rel="canonical" href="https://agent-passport.org/research.html">
 <meta property="og:title" content="APS research: nine papers behind the protocol">
-<meta property="og:description" content="Nine peer-reviewable papers, nine DOIs, federal-record submissions (NIST CAISI, NIST AI 800-2, NCCoE), and an independent UBC citation. Open access.">
+<meta property="og:description" content="Nine peer-reviewable papers, nine DOIs, three U.S. federal submissions, and eight independent works that reference the Agent Passport System by name. Open access.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Agent Passport System">
 <meta property="og:url" content="https://agent-passport.org/research.html">
@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
 <link rel="stylesheet" href="/aps-v2.css?v=20260910b">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"APS research: nine papers behind the protocol","url":"https://agent-passport.org/research.html","description":"Nine peer-reviewable papers, nine DOIs, federal-record submissions (NIST CAISI, NIST AI 800-2, NCCoE), and an independent UBC citation. Open access.","isPartOf":{"@type":"WebSite","name":"APS","url":"https://agent-passport.org"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"APS research: nine papers behind the protocol","url":"https://agent-passport.org/research.html","description":"Nine peer-reviewable papers, nine DOIs, three U.S. federal submissions, and eight independent works that reference the Agent Passport System by name.","isPartOf":{"@type":"WebSite","name":"APS","url":"https://agent-passport.org"}}</script>
 <script src="/theme.js?v=20260907a" defer></script>
 <script src="/nav.js?v=20260907a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
@@ -68,117 +68,48 @@
 <main class="page">
   <section class="page-hero">
     <div class="eyebrow"><span class="sq"></span><span>Research</span></div>
-    <h1>Nine papers behind the protocol.</h1>
-    <p class="dek">Open access. Apache 2.0. Cite freely.</p>
+    <h1>Papers</h1>
+    <p class="dek">Nine papers behind the protocol. Open access, Apache 2.0, cite freely. Full bibliography on <a href="https://orcid.org/0009-0002-4700-3594" target="_blank" rel="noopener">ORCID</a>.</p>
   </section>
   <article class="prose">
-
-    <p>
-      <a href="https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/" rel="noopener" target="_blank" class="btn">Read the IETF draft →</a>
-      <a href="https://orcid.org/0009-0002-4700-3594" rel="noopener" target="_blank" class="btn ghost">All 9 papers on ORCID →</a>
-    </p>
-
-    <div class="eyebrow"><span class="sq"></span><span>Papers</span></div>
-    <h2>Nine peer-reviewable papers, nine DOIs.</h2>
-    <div class="aps-grid-2">
-      <div class="aps-card">
-        <h4><a href="https://doi.org/10.5281/zenodo.18749779" rel="noopener" target="_blank">The Agent Social Contract</a></h4>
-        <p>The foundational paper. Defines the social contract between agents, owners, and observers, and why governance is a substrate problem rather than a policy problem.</p>
-        <p><code>https://doi.org/10.5281/zenodo.18749779</code></p>
-      </div>
-      <div class="aps-card">
-        <h4><a href="https://doi.org/10.5281/zenodo.18932404" rel="noopener" target="_blank">Monotonic Narrowing</a></h4>
-        <p>The invariant that makes delegation chains safe: authority can narrow as it descends, never widen. Mirrored at SSRN abstract 6415678.</p>
-        <p><code>https://doi.org/10.5281/zenodo.18932404</code></p>
-      </div>
-      <div class="aps-card">
-        <h4><a href="https://doi.org/10.5281/zenodo.19260073" rel="noopener" target="_blank">Faceted Authority Attenuation</a></h4>
-        <p>Multi-facet authority decay across delegation hops, with closed-form attenuation per facet (scope, time, principal, etc.).</p>
-        <p><code>https://doi.org/10.5281/zenodo.19260073</code></p>
-      </div>
-      <div class="aps-card">
-        <h4><a href="https://doi.org/10.5281/zenodo.19476002" rel="noopener" target="_blank">Behavioral Derivation Rights</a></h4>
-        <p>How an agent earns the right to act based on observed behavior. Derivation, not declaration.</p>
-        <p><code>https://doi.org/10.5281/zenodo.19476002</code></p>
-      </div>
-      <div class="aps-card">
-        <h4><a href="https://doi.org/10.5281/zenodo.19478584" rel="noopener" target="_blank">Physics-Enforced Delegation</a></h4>
-        <p>Cryptographic primitives that make scope violation physically impossible, not merely policy-prohibited.</p>
-        <p><code>https://doi.org/10.5281/zenodo.19478584</code></p>
-      </div>
-      <div class="aps-card">
-        <h4><a href="https://doi.org/10.5281/zenodo.19582550" rel="noopener" target="_blank">Governance in the Medium</a></h4>
-        <p>Governance lives in the substrate that carries actions, not in the policies layered on top. This is why the gateway exists.</p>
-        <p><code>https://doi.org/10.5281/zenodo.19582550</code></p>
-      </div>
-      <div class="aps-card">
-        <h4><a href="https://doi.org/10.5281/zenodo.19646276" rel="noopener" target="_blank">Cognitive Attestation</a></h4>
-        <p>Signed declarations of feature-level model computation. Accountability for AI decisions without exposing model internals.</p>
-        <p><code>https://doi.org/10.5281/zenodo.19646276</code></p>
-      </div>
-      <div class="aps-card">
-        <h4><a href="https://doi.org/10.5281/zenodo.19914628" rel="noopener" target="_blank">The Evidence-Safety Gap</a></h4>
-        <p>Why standard ML safety arguments don't transfer to agentic systems, and what evidentiary structures are needed instead.</p>
-        <p><code>https://doi.org/10.5281/zenodo.19914628</code></p>
-      </div>
-      <div class="aps-card">
-        <h4><a href="https://doi.org/10.5281/zenodo.21208555" rel="noopener" target="_blank">Plausibly Wrong</a></h4>
-        <p>A controlled isolation of the retention rule in short-lived LLM agent populations: peer-voted retention kept a worse shared memory than random selection in 4 of 5 replicates. Pre-registered, with kill conditions and an artifact record.</p>
-        <p><code>https://doi.org/10.5281/zenodo.21208555</code></p>
-      </div>
-    </div>
-    <p>Full bibliography on <a href="https://orcid.org/0009-0002-4700-3594" rel="noopener" target="_blank">ORCID</a>.</p>
-
-    <div class="eyebrow"><span class="sq"></span><span>Federal record</span></div>
-    <h2>Submissions filed with U.S. agencies.</h2>
-    <div class="aps-grid-3">
-      <div class="aps-card">
-        <h4>NIST CAISI submission</h4>
-        <p>Comment filed with the NIST Center for AI Standards and Innovation. Acknowledged by Drew Keller.</p>
-      </div>
-      <div class="aps-card">
-        <h4>NIST AI 800-2 comment</h4>
-        <p>Comment on NIST AI 800-2 framework, covering agent identity and delegation primitives.</p>
-      </div>
-      <div class="aps-card">
-        <h4>NCCoE concept paper</h4>
-        <p>Concept paper submitted to the National Cybersecurity Center of Excellence.</p>
-      </div>
-    </div>
-
-    <div class="eyebrow"><span class="sq"></span><span>Citations</span></div>
-    <h2>Referenced by name in independent published work.</h2>
-    <div class="aps-card">
-      <h4>PDR in Production</h4>
-      <p>University of British Columbia, 2026 · Section 7.6</p>
-      <p>References the APS earned-reputation model, sigma dynamics, and the structuralVerdict / trustVerdict separation.</p>
-      <p><a href="https://doi.org/10.5281/zenodo.19323172" rel="noopener" target="_blank">https://doi.org/10.5281/zenodo.19323172</a></p>
-    </div>
-
-    <div class="aps-card">
-      <h4>Notarized Agents</h4>
-      <p>Juan Figuera, 2026</p>
-      <p>Receiver-attested confidential receipts for AI agent actions. Situates its work among Signet, AgentROA, the Agent Passport System, draft-farley-acta and SCITT.</p>
-      <p><a href="https://arxiv.org/abs/2606.04193" rel="noopener" target="_blank">https://arxiv.org/abs/2606.04193</a></p>
-    </div>
-
-    <div class="aps-card">
-      <h4>Composable Trust Infrastructure for the Agent Internet</h4>
-      <p>Frans Moore, 2026</p>
-      <p>A federated architecture composing identity resolution, encrypted transport, execution attestation and delegation governance. Names the Agent Passport System as the delegation governance layer.</p>
-      <p><a href="https://doi.org/10.5281/zenodo.19263547" rel="noopener" target="_blank">https://doi.org/10.5281/zenodo.19263547</a></p>
-    </div>
-
-    <div class="aps-card">
-      <h4>The Governability Gap in Agentic AI</h4>
-      <p>Mayur Agnihotri, 2026</p>
-      <p>Why authority gating cannot be proven across composed multi-agent flows. Cites the APS Internet-Draft for its reversibility scheme.</p>
-      <p><a href="https://doi.org/10.5281/zenodo.21376745" rel="noopener" target="_blank">https://doi.org/10.5281/zenodo.21376745</a></p>
-    </div>
-
+    <h2>Papers</h2>
+    <ul>
+      <li><strong>The Agent Social Contract</strong> (<a href="https://doi.org/10.5281/zenodo.18749779">10.5281/zenodo.18749779</a>): the foundational paper. Defines the contract between agents, owners and observers, and why governance is a substrate problem rather than a policy problem.</li>
+      <li><strong>Monotonic Narrowing</strong> (<a href="https://doi.org/10.5281/zenodo.18932404">10.5281/zenodo.18932404</a>): the invariant that makes delegation chains safe. Authority can narrow as it descends, never widen. Mirrored at SSRN abstract 6415678.</li>
+      <li><strong>Faceted Authority Attenuation</strong> (<a href="https://doi.org/10.5281/zenodo.19260073">10.5281/zenodo.19260073</a>): multi-facet authority decay across delegation hops, with closed-form attenuation per facet.</li>
+      <li><strong>Physics-Enforced Delegation</strong> (<a href="https://doi.org/10.5281/zenodo.19478584">10.5281/zenodo.19478584</a>): cryptographic primitives that make scope violation physically impossible rather than merely policy-prohibited.</li>
+      <li><strong>Governance in the Medium</strong> (<a href="https://doi.org/10.5281/zenodo.19582550">10.5281/zenodo.19582550</a>): governance lives in the substrate that carries actions, not in the policies layered on top. This is why the gateway exists.</li>
+      <li><strong>Cognitive Attestation</strong> (<a href="https://doi.org/10.5281/zenodo.19646276">10.5281/zenodo.19646276</a>): signed declarations of feature-level model computation. Accountability for AI decisions without exposing model internals.</li>
+      <li><strong>Behavioral Derivation Rights</strong> (<a href="https://doi.org/10.5281/zenodo.19476002">10.5281/zenodo.19476002</a>): how an agent earns the right to act based on observed behaviour. Derivation, not declaration.</li>
+      <li><strong>The Evidence-Safety Gap</strong> (<a href="https://doi.org/10.5281/zenodo.19914628">10.5281/zenodo.19914628</a>): why standard ML safety arguments do not transfer to agentic systems, and what evidentiary structures are needed instead.</li>
+      <li><strong>Plausibly Wrong</strong> (<a href="https://doi.org/10.5281/zenodo.21208555">10.5281/zenodo.21208555</a>): a controlled isolation of the retention rule in short-lived LLM agent populations. Peer-voted retention kept a worse shared memory than random selection in 4 of 5 replicates. Pre-registered, with kill conditions and an artifact record.</li>
+    </ul>
+    <h2>Referenced by name in independent work</h2>
+    <ul>
+      <li><strong>Canonical Payload Binding</strong> (S. Mih and A. Sokolov, IETF Internet-Draft): names Tymofii Pidlisnyi (Agent Passport System) in its Contributors section for the content-derived action reference pattern of NFC normalization, code-point sort and JCS, with a field-table row in Appendix C. <a href="https://datatracker.ietf.org/doc/draft-mih-sokolov-scitt-payload-binding/" target="_blank" rel="noopener">draft-mih-sokolov-scitt-payload-binding</a></li>
+      <li><strong>Emilia Protocol</strong> interoperability survey: of 25 IETF Internet-Drafts surveyed for consequential-action coverage, two reached COMPLETE on fields. draft-pidlisnyi-aps-03 is one of them, recorded alongside its declared loss and its indeterminate result. <a href="https://github.com/emiliaprotocol/emilia-protocol" target="_blank" rel="noopener">emilia-protocol</a></li>
+      <li><strong>Notarized Agents</strong> (Juan Figuera, <a href="https://arxiv.org/abs/2606.04193">arXiv:2606.04193</a>): receiver-attested confidential receipts for AI agent actions. References the Agent Passport System.</li>
+      <li><strong>Composable Trust Infrastructure for the Agent Internet</strong> (Frans Moore, <a href="https://doi.org/10.5281/zenodo.19263547">10.5281/zenodo.19263547</a>): a federated architecture composing four layers, naming delegation governance by the Agent Passport System as one of them.</li>
+      <li><strong>Verifiable Agent Trust Envelope</strong> (Poke-nushi, <a href="https://doi.org/10.5281/zenodo.19839769">10.5281/zenodo.19839769</a>): lists the Agent Passport System among its closest adjacent work, with a dedicated comparison document.</li>
+      <li><strong>The Governability Gap in Agentic AI</strong> (Mayur Agnihotri, <a href="https://doi.org/10.5281/zenodo.21376745">10.5281/zenodo.21376745</a>): why authority gating cannot be proven across composed multi-agent flows. Cites the APS Internet-Draft for its reversibility scheme.</li>
+      <li><strong>PDR in Production</strong>, section 7.6 (<a href="https://doi.org/10.5281/zenodo.19323172">10.5281/zenodo.19323172</a>): references the APS earned-reputation model, the sigma drift dynamics, and the structuralVerdict and trustVerdict separation.</li>
+      <li><strong>Íñigo Medina</strong> (Instituto Tramontana), 2026-04-19: catalogued the working paper <a href="https://inigomedina.co/library/work/pidlisnyi-governance-medium" target="_blank" rel="noopener">"Governance in the Medium"</a> in his research library, with an independent summary and critique.</li>
+    </ul>
+    <h2>Federal submissions</h2>
+    <p>Filed as public comment. Filing is not endorsement.</p>
+    <ul>
+      <li><strong>NIST CAISI</strong>: comment filed with the NIST Center for AI Standards and Innovation. Acknowledged by Drew Keller.</li>
+      <li><strong>NIST AI 800-2</strong>: comment on the framework, covering agent identity and delegation primitives.</li>
+      <li><strong>NCCoE</strong>: concept paper submitted to the National Cybersecurity Center of Excellence.</li>
+    </ul>
+    <h2>Facts</h2>
+    <table>
+      <tr><td>Papers</td><td>9, each with a DOI, open access</td></tr>
+      <tr><td>Spec</td><td><a href="https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/" target="_blank" rel="noopener">draft-pidlisnyi-aps</a> (IETF Internet-Draft)</td></tr>
+      <tr><td>Author</td><td>Tymofii Pidlisnyi · <a href="https://orcid.org/0009-0002-4700-3594" target="_blank" rel="noopener">ORCID</a></td></tr>
+      <tr><td>Press</td><td><a href="/media.html">Coverage and citations</a></td></tr>
+    </table>
     <p>For AI agents: <a href="/llms-full.txt">llms-full.txt</a> · <a href="/.well-known/mcp.json">MCP descriptor</a></p>
-
-  
   </article>
 </main>
 <footer class="r">
