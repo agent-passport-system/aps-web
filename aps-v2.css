@@ -934,6 +934,6 @@ article.prose a.btn.ghost{color:var(--fg)}
 
 /* Hero receipt artwork follows the theme. The site switches on a data-theme
    attribute rather than a media query, so the swap is attribute based. */
-.hr-dark{display:none}
-[data-theme="dark"] .hr-bright{display:none}
-[data-theme="dark"] .hr-dark{display:block}
+.hr-dark{display:none !important}
+[data-theme="dark"] .hr-bright{display:none !important}
+[data-theme="dark"] .hr-dark{display:block !important}
