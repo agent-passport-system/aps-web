@@ -917,3 +917,23 @@ article.prose a.btn.ghost{color:var(--fg)}
 /* Every accent fill takes its ink from --on-acc, so neither theme has to
    re-state the pairing per component. */
 .chain .fin small{opacity:.72}
+
+/* The theme control belongs in the burger drawer on narrow screens. theme.js
+   appends one to .nav-links and, when that is hidden, falls through to .nav
+   itself, which puts a second control in the mobile header. The drawer copy
+   lives outside .nav and is unaffected. */
+@media(max-width:900px){
+  .nav .theme-toggle{display:none !important}
+}
+
+/* Hero artwork follows the theme. The site switches on a data-theme attribute
+   rather than a media query, so the swap cannot be done with prefers-color-scheme. */
+.art-dark{display:none}
+[data-theme="dark"] .art-bright{display:none}
+[data-theme="dark"] .art-dark{display:block}
+
+/* Hero receipt artwork follows the theme. The site switches on a data-theme
+   attribute rather than a media query, so the swap is attribute based. */
+.hr-dark{display:none}
+[data-theme="dark"] .hr-bright{display:none}
+[data-theme="dark"] .hr-dark{display:block}
