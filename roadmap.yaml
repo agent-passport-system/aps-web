@@ -1,7 +1,80 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-09-07 (Day 203). Adds Days 201 to 203: the bridge out of the advisory range, five records in a day and what independent means, the verify retry, bernstein merged; a second palette, three doors at OpenClaw, the nineteenth envelope vector, cross-stack CI off a registry, the trace release witness; the second OpenClaw merge and the Node floor, a proof that disproved itself then held, Level 0 or schema-valid, a network that never existed, find people through your agent.
+# Last updated: 2026-09-10 (Day 206). Adds Days 204 to 206: the admission-evidence proof closed on a real Gateway and the security-audit workstream closed with it; 3C adopted as the standing pre-ship pass and AI attribution trailers stopped at the push; a driver that rewrote the policy it was tested against, corrected in public and the rule taken upstream, an evidence-sufficiency boundary statement at CoSAI, a Physical AI gap opened in the vocabulary, and an expired attestation withdrawn instead of annotated.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 206 - 2026-09-10 ═══
+
+- id: d206-the-driver-that-rewrote-its-own-test
+  title: "A conformance driver we wrote was rewriting the policy it was being tested against, and the correction was taken upstream as a rule"
+  description: "The fixture policy used an idiom Cedar rejects, so an earlier revision of our driver rewrote it before evaluating and reported four correct decisions. Measured three ways: without the rewrite the same policy denies sequence two silently, and the one negative vector in the set was passing because its forbid clause never evaluated at all. The driver now fails on any Cedar diagnostic error instead of reading the resulting deny as a decision. The maintainer merged it, reproduced the result on his own machine with cedarpy 4.8.7 and the published SDK, credited both findings, and wrote the rule into the upstream README: the policy under test is the on-disk bytes, a driver does not rewrite them, and an evaluator that cannot run the policy must fail rather than deny."
+  status: done
+  day_start: 206
+  workstream: interop
+  links:
+    - url: "https://github.com/ScopeBlind/agent-governance-testvectors/pull/1"
+      label: "testvectors PR #1"
+    - url: "https://github.com/ScopeBlind/agent-governance-testvectors/issues/18"
+      label: "testvectors #18"
+
+- id: d206-what-a-verifier-may-conclude-from-absence
+  title: "A boundary statement for what a verifier may conclude when evidence is absent, delivered to the CoSAI workstream that asked for it"
+  description: "Three parties had reached the same requirement separately: a verifier that finds no evidence needs a third answer, because absence is neither conformance nor violation. The statement keeps three layers apart. A runtime outcome describes what happened, a receipt-chain outcome describes a disclosed gap in a chain, and not_established is the property verdict, returned after the applicable verification has run when the admissible evidence justifies neither pass nor fail. It must name the unresolved obligation and must not absorb verifier failures, or a broken verifier becomes conformant by returning the third value. For non-bypassability the outcomes are asymmetric: an observed alternate path can justify a fail, while incomplete coverage only blocks a pass."
+  status: in-progress
+  day_start: 206
+  workstream: standards
+  links:
+    - url: "https://github.com/cosai-oasis/ws4-secure-design-agentic-systems/issues/189"
+      label: "CoSAI WS4 #189"
+
+- id: d206-physical-ai-gap-in-the-vocabulary
+  title: "The governance vocabulary can read the physical world as context and cannot name authority over it"
+  description: "governed_action_class has six values, all digital-native, and none of them describes operating a sensor or an actuator. physical_environment_state already exists as a context dimension resolved from signed sensor readings, so the physical world sits on the input side of a decision with no matching class on the action side. The issue proposes no new values. Three outcomes are named as legitimate, including that the six classes are deliberately broad and nothing changes."
+  status: in-progress
+  day_start: 206
+  workstream: vocab
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/issues/162"
+      label: "vocabulary #162"
+
+- id: d206-an-expired-attestation-withdrawn
+  title: "The first reverify deadline in the registry's history passed, and the claim it protected was withdrawn rather than annotated"
+  description: "A principal attestation on one crosswalk cell reached its deadline with no renewal, and the fail-closed rule turned the whole build red. Renewal was not available: the upstream sample has been unmerged since May and no third party has attested. Three resolutions were argued. Softening the control to a warning would have overridden a documented fail intent. Waiting on the counterparty would give one organisation permanent blocking power over unrelated contributions. The claim was withdrawn instead, taking its deadline with it, with the attestation date and the reason preserved in the notes. Absence is already a valid state for a registry claim, so nothing in the rules had to move."
+  status: done
+  day_start: 206
+  workstream: vocab
+
+# ═══ DAY 205 - 2026-09-09 ═══
+
+- id: d205-3c-becomes-the-standing-pre-ship-pass
+  title: "Claims, Context, Copy adopted as a required pass before anything ships, and AI attribution trailers stopped at the push rather than at review"
+  description: "Claims means reverifying every fact, number and evidence chain against primary evidence. Context means rechecking repository state, prior decisions, scope and public promises, and whether a true sentence is misleading where it lands. Copy is the writing pass. It is now run on every deliverable before it is shown. Separately, a pre-push hook stops any commit we author that carries an AI attribution trailer, which moves that rule from something remembered at review time to something enforced at the point of push."
+  status: done
+  day_start: 205
+  workstream: ops
+
+- id: d205-a-proxy-for-evidence-kept-becoming-evidence
+  title: "Four errors in one day shared a single shape, and the rule that came out of it names the shape"
+  description: "The exit code of head read as the exit code of the program. An empty regex match treated as proof of absence. A path-matched test selection reported as the repository's named contract suite. A run another agent performed becoming I ran it in a draft for a standards thread. None was a lie. Each substituted something adjacent to the evidence for the evidence itself. The rule requires the exact command, its own exit code and the output that shows the property actually being claimed, and it separates a reproduction on the same machine from an independent verification elsewhere."
+  status: done
+  day_start: 205
+  workstream: ops
+
+# ═══ DAY 204 - 2026-09-08 ═══
+
+- id: d204-admission-evidence-proved-on-a-real-gateway
+  title: "The adversarial admission-evidence proof closed on a real Gateway, and the sentence it earns is narrower than the one we wanted"
+  description: "Seven cases against a current runtime, built to attack our own claim rather than support it. Two were established on a real host, three were legitimately local, and the stop condition held for the rest. The earned sentence: the gate proves what it saw and admitted, and a later hook can change the arguments the tool actually receives, so what can be produced at the boundary is bounded by where the boundary sits. No new behaviour shipped from the proof. The upstream bug found on the way was filed on its own repro."
+  status: done
+  day_start: 204
+  workstream: research
+
+- id: d204-security-audit-workstream-closed
+  title: "The D1 to D9 security-audit workstream closed after each item was verified against disk rather than against the index row that described it"
+  description: "The Ed25519 admissibility rule shipped as the strict rule across all four SDKs. One item was ruled not to be a project at all: a dead helper with misleading labels, fixed opportunistically the next time that surface is touched, rather than carried as a security lane. The one production check that survives becomes a bounded compatibility item. The corpus-gap row stayed open and unblocked, because the vectors it needs now have a shipped rule to encode."
+  status: done
+  day_start: 204
+  workstream: protocol
 
 # ═══ DAY 203 - 2026-09-07 ═══
 

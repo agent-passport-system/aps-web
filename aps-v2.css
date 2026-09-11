@@ -456,9 +456,9 @@
     /* code panels keep one look on both slide kinds: deep blue, white ink */
     --code-k:#FFF200; --code-s:#E4EEFF; --code-n:#FFECB9;
     /* roadmap status colours */
-    --st-done:#0B8A3E; --st-live:#FFF200; --st-queued:#6E7BAA; --st-cut:#A05A3C; --st-held:#8A6A17;
-    --st-done-bg:rgba(11,138,62,.30); --st-live-bg:#FFF200;
-    --st-queued-bg:rgba(110,123,170,.22); --st-cut-bg:rgba(170,90,60,.25); --st-held-bg:rgba(138,106,23,.20);
+    --st-done:#3DE68C; --st-live:#FFF200; --st-queued:#C7B2FF; --st-cut:#FF5A7A; --st-held:#FFA24B;
+    --st-done-bg:rgba(61,230,140,.30); --st-live-bg:#FFF200;
+    --st-queued-bg:rgba(199,178,255,.22); --st-cut-bg:rgba(255,90,122,.25); --st-held-bg:rgba(255,162,75,.22);
     /* HUD (aps-landing.js). Chosen by the luminance of the slide under it, so
        each theme states both cases; the script only reads them. */
     --hud-a-fg:#FFFFFF; --hud-a-sub:#E4EEFF; --hud-a-dot:#8DB6FF;
