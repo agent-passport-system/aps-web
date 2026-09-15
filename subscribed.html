@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="theme-color" content="#0A5CFF">
-<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
+<script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Updates — Agent Passport System</title>
 <meta name="description" content="Agent Passport System email updates: confirmation and unsubscribe status."><meta name="robots" content="noindex">
@@ -153,6 +153,5 @@ a:hover{color:var(--lime)}
 </footer>
 
 </div>
-<script src="/theme.js?v=20260907a" defer></script>
 </body>
 </html>

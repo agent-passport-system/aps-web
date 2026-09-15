@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
+<script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FAQ | Agent Passport System</title>
 <meta name="description" content="Frequently asked questions about the Agent Passport System. Enforcement infrastructure for AI agents. Verifier hot path p50 318ns (Mac M3). Wallet binding across chains. 5,281 tests.">
@@ -31,7 +31,6 @@
 {"@type":"Question","name":"What standards does Agent Passport System support?","acceptedAnswer":{"@type":"Answer","text":"W3C Decentralized Identifiers (DID:APS method), W3C Verifiable Credentials, Google A2A protocol bridge, and an article-level EU AI Act mapping for signed evidence records and agent accountability workflows; EU AI Act obligations phase in over 2027 and 2028."}}
 ]}
 </script>
-<script src="/theme.js?v=20260907a" defer></script>
 <script src="/nav.js?v=20260907a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>

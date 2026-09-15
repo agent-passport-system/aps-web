@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="theme-color" content="#0A5CFF">
-<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
+<script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agent Passport System | Know Your Agent</title>
 <meta name="description" content="APS gives every AI agent a verifiable identity, ties it to the person or company it represents, and signs proof for every action taken under that authority. An Apache 2.0 open protocol.">
@@ -162,7 +162,8 @@ html[data-theme="dark"] .scene.blue{background:var(--a-bg1)}
 .flow-line{top:auto;left:auto;right:auto;bottom:auto}
 .flow-line i,.flow-line em{display:none}
 
-.intro-visual img{width:100%;max-width:430px;height:auto}
+.intro-visual img{width:100%;max-width:380px;height:auto}
+@media(min-width:1001px){.intro .scene-grid{grid-template-columns:1.5fr 1fr}.intro h1{max-width:none}}
 .final-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:36px}
 .final-actions .cta{margin-top:0;gap:14px}
 .final-actions .cta.ghost{background:transparent;color:var(--ink);border-color:#10213d55}
@@ -321,6 +322,5 @@ html[data-theme="dark"] .scene.blue{background:var(--a-bg1)}
  track();
 })();
 </script>
-<script src="/theme.js?v=20260907a" defer></script>
 </body>
 </html>

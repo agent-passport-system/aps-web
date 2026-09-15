@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
+<script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blog | APS</title>
 <meta name="description" content="Day-by-day dev log of building the Agent Passport System · enforcement and accountability layer for AI agents. Bring your own identity. Verifier hot path p50 318ns (Mac M3). 5,281 tests. SDK leads with /core subpath (curated essentials), MCP leads with 25 essential tools. Full surface area: 150 MCP tools, 9 research papers, IETF Internet-Draft. Started February 18, 2026.">
@@ -848,7 +848,6 @@
   gtag('js', new Date());
   gtag('config', 'G-S7QVCJGMKR');
 </script>
-<script src="/theme.js?v=20260907a" defer></script>
 <script src="/nav.js?v=20260907a" defer></script>
 <script src="/blog-nav.js" defer></script>
 <meta name="theme-color" content="#0A5CFF">

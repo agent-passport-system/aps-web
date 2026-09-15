@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
+<script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AIVSS Risk Mapping | Agent Passport System</title>
 <meta name="description" content="Honest mapping of the Agent Passport System against the OWASP AIVSS risk taxonomy. 5 strong, 3 partial, 2 weak.">
@@ -41,7 +41,6 @@
 .av-paperlink{border:1px solid var(--fg);padding:24px;text-align:center;margin:36px 0 0}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"AIVSS Risk Mapping · Agent Passport System","description":"Honest mapping of the Agent Passport System against the OWASP AIVSS risk taxonomy. 5 strong, 3 partial, 2 weak.","url":"https://agent-passport.org/aivss.html","dateModified":"2026-07-16","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"AIVSS Risk Mapping for the Agent Passport System","articleSection":"Security Analysis","mainEntityOfPage":{"@type":"WebPage","@id":"https://agent-passport.org/aivss.html"}}</script>
-<script src="/theme.js?v=20260907a" defer></script>
 <script src="/nav.js?v=20260907a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>

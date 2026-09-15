@@ -5,7 +5,7 @@
   <meta name="robots" content="noindex,nofollow">
 <meta charset="utf-8"/>
 <meta name="theme-color" content="#0A5CFF">
-<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
+<script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
   <link rel="alternate" type="text/plain" href="https://agent-passport.org/llms.txt" title="LLM documentation (compact)">
   <link rel="alternate" type="text/plain" href="https://agent-passport.org/llms-full.txt" title="LLM documentation (full)">
   <link rel="alternate" type="text/markdown" href="https://agent-passport.org/AGENTS.md" title="Agent instructions (AGENTS.md standard)">

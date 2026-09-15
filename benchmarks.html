@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
+<script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Benchmarks | Agent Passport System</title>
 <meta name="description" content="Agent Passport System performance benchmarks. Verifier hot path p50 292ns (Mac M3) / 347ns (AWS c7i.2xlarge) / 420ns (bare-metal EPYC 7313P). L4 gateway-loopback p50 305µs (Mac M3) / 1.07ms (AWS) / 822µs (bare-metal).">
@@ -23,7 +23,6 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-07-04","name":"Agent Passport System Benchmarks","description":"Performance benchmarks for the Agent Passport System verifier. Hot path p50 292ns (Mac M3) / 347ns (AWS c7i.2xlarge) / 420ns (bare-metal EPYC 7313P). L4 gateway-loopback p50 305µs / 1.07ms / 822µs across the same three environments.","url":"https://agent-passport.org/benchmarks.html","isPartOf":{"@type":"WebSite","name":"Agent Passport System","url":"https://agent-passport.org/"}}
 </script>
-<script src="/theme.js?v=20260907a" defer></script>
 <script src="/nav.js?v=20260907a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>

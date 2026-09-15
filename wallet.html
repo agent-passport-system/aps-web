@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
+<script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agent Wallet | Agent Passport System</title>
 <meta name="description" content="Agent wallets tied to APS passports. Nano-powered, feeless, instant. Every spend is delegation-scoped. Every transaction produces a signed receipt. Zero gas fees.">
@@ -32,7 +32,6 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-07-02","name":"Agent Wallet · Feeless Crypto for AI Agents","description":"Nano-powered agent wallets tied to APS passports. Feeless, instant, delegation-scoped. Every transaction produces a signed receipt.","url":"https://agent-passport.org/wallet.html","isPartOf":{"@type":"WebSite","name":"Agent Passport System","url":"https://agent-passport.org/"},"about":{"@type":"SoftwareApplication","name":"Agent Wallet","applicationCategory":"FinanceApplication","description":"Feeless cryptocurrency wallet for AI agents. HD key derivation, delegation-scoped spending limits, signed receipts, Nano-powered with zero gas fees.","operatingSystem":"Cross-platform","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}}
 </script>
-<script src="/theme.js?v=20260907a" defer></script>
 <script src="/nav.js?v=20260907a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>

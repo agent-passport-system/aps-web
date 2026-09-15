@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
+<script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Working Group | Agent Passport System</title>
 <meta name="description" content="The Agent Governance Working Group: ratified specs, active participants, open contributions. Building interoperability standards for the agent economy.">
@@ -33,7 +33,6 @@
 .wg-tl .d{font-family:var(--mono);font-size:12px;color:var(--lime);min-width:54px;flex-shrink:0}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Working Group · Agent Passport System | Agent Governance Standards","description":"The Agent Governance Working Group: ratified specs, active participants, open contributions. Building interoperability standards for the agent economy.","url":"https://agent-passport.org/working-group.html","dateModified":"2026-07-02","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","about":{"@type":"Thing","name":"Agent Governance Working Group"}}</script>
-<script src="/theme.js?v=20260907a" defer></script>
 <script src="/nav.js?v=20260907a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
