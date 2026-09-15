@@ -1,7 +1,37 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-09-10 (Day 206). Adds Days 204 to 206: the admission-evidence proof closed on a real Gateway and the security-audit workstream closed with it; 3C adopted as the standing pre-ship pass and AI attribution trailers stopped at the push; a driver that rewrote the policy it was tested against, corrected in public and the rule taken upstream, an evidence-sufficiency boundary statement at CoSAI, a Physical AI gap opened in the vocabulary, and an expired attestation withdrawn instead of annotated.
+# Last updated: 2026-09-14 (Day 210). Adds Day 210. A Mingle inbox that reported every introduction backwards, shipped as a breaking release with no compatibility alias. The three ways that fix could have shipped with the old contract still in the package. A publish banner that would have restarted a compatibility clock belonging to an earlier release. And an independent conformance run reattributed to the layers it actually covered.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 210 - 2026-09-14 ═══
+
+- id: d210-the-inbox-that-inverted-every-introduction
+  title: "An inbox that reported your own introduction as a stranger's request shipped for two days, and the fix went out as a major with no compatibility alias"
+  description: "The server always returned the direction. The client relabelled it, so an outgoing request read as incoming and the requester's own note was attributed to the counterparty. The replacement contract renames the container, splits the note from its author, and keeps an absent server projection distinct from a derived state. No alias was kept for the old names, because the old direction values were inverted and an alias would re-teach the defect to the clients still reading it. The release note states that an install that does not upgrade keeps working and keeps showing every introduction backwards."
+  status: done
+  day_start: 210
+  workstream: product
+
+- id: d210-a-green-suite-that-skipped-its-own-end-to-end-lane
+  title: "Three ways a correct fix could have shipped with the old contract intact, and the guard that closes the quiet one"
+  description: "The shipped skill still taught the replaced field names, so an agent following it would report an empty inbox. The test guarding that skill still carried the three dead names on its approved list, so the old contract could have returned without a failure. And the suite exited 0 with all thirteen end-to-end tests skipped on an unresolved path default. The dead names are removed rather than renamed so their return is a failure, and the pre-test guard now resolves the same path the test resolves and refuses to run without it, with a named flag for skipping deliberately."
+  status: done
+  day_start: 210
+  workstream: ops
+
+- id: d210-a-publish-banner-that-would-have-restarted-someone-elses-clock
+  title: "Release tooling told a later version to reinitialize a compatibility window anchored to an earlier one"
+  description: "The thirty day legacy window was promised in one release and anchored to that release's own publication instant. The publish banner printed the initialization procedure for whatever version was being released, which would have instructed the operator to restart it. The server refuses a repeated initialization, but a backstop behind a wrong instruction is not a procedure. The banner now branches on the anchor release and prints a do-not-touch notice with a verify-only check for every later version. A dated errata in the same release corrects an earlier note that printed the cutoff where the publication instant belonged."
+  status: done
+  day_start: 210
+  workstream: ops
+
+- id: d210-attributing-an-independent-run-to-the-layers-it-covered
+  title: "The independent record a family was waiting on already existed, and our own attribution was the narrow part"
+  description: "A cross-stack family's two exercised completeness outcomes looked to be missing an independent record, and I said so. The run we commissioned had in fact executed all four of those checks and passed them, and the verifier derives each outcome from the record data before comparing it to the published failure code, so neither check restates the file's own claim. The earlier record had assigned that run to the byte, digest and chain layers only. The correction appends a dated attribution assigning the two semantic layers to the run that made them, leaves the original claims as published, and does not extend to the third failure code in that class, which no vector raises."
+  status: done
+  day_start: 210
+  workstream: conformance
 
 # ═══ DAY 206 - 2026-09-10 ═══
 

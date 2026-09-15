@@ -95,7 +95,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">606 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">610 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -136,7 +136,51 @@
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(558)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(562)</span></h2>
+<article class="rm-item rm-item-done" id="d210-a-green-suite-that-skipped-its-own-end-to-end-lane">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Three ways a correct fix could have shipped with the old contract intact, and the guard that closes the quiet one</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 210</span> 
+<span class="rm-item-ws">Ops</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The shipped skill still taught the replaced field names, so an agent following it would report an empty inbox. The test guarding that skill still carried the three dead names on its approved list, so the old contract could have returned without a failure. And the suite exited 0 with all thirteen end-to-end tests skipped on an unresolved path default. The dead names are removed rather than renamed so their return is a failure, and the pre-test guard now resolves the same path the test resolves and refuses to run without it, with a named flag for skipping deliberately.</p>
+</article>
+<article class="rm-item rm-item-done" id="d210-a-publish-banner-that-would-have-restarted-someone-elses-clock">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Release tooling told a later version to reinitialize a compatibility window anchored to an earlier one</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 210</span> 
+<span class="rm-item-ws">Ops</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The thirty day legacy window was promised in one release and anchored to that release's own publication instant. The publish banner printed the initialization procedure for whatever version was being released, which would have instructed the operator to restart it. The server refuses a repeated initialization, but a backstop behind a wrong instruction is not a procedure. The banner now branches on the anchor release and prints a do-not-touch notice with a verify-only check for every later version. A dated errata in the same release corrects an earlier note that printed the cutoff where the publication instant belonged.</p>
+</article>
+<article class="rm-item rm-item-done" id="d210-attributing-an-independent-run-to-the-layers-it-covered">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The independent record a family was waiting on already existed, and our own attribution was the narrow part</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 210</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A cross-stack family's two exercised completeness outcomes looked to be missing an independent record, and I said so. The run we commissioned had in fact executed all four of those checks and passed them, and the verifier derives each outcome from the record data before comparing it to the published failure code, so neither check restates the file's own claim. The earlier record had assigned that run to the byte, digest and chain layers only. The correction appends a dated attribution assigning the two semantic layers to the run that made them, leaves the original claims as published, and does not extend to the third failure code in that class, which no vector raises.</p>
+</article>
+<article class="rm-item rm-item-done" id="d210-the-inbox-that-inverted-every-introduction">
+<header class="rm-item-h">
+<h3 class="rm-item-title">An inbox that reported your own introduction as a stranger's request shipped for two days, and the fix went out as a major with no compatibility alias</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 210</span> 
+<span class="rm-item-ws">Product</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The server always returned the direction. The client relabelled it, so an outgoing request read as incoming and the requester's own note was attributed to the counterparty. The replacement contract renames the container, splits the note from its author, and keeps an absent server projection distinct from a derived state. No alias was kept for the old names, because the old direction values were inverted and an alias would re-teach the defect to the clients still reading it. The release note states that an install that does not upgrade keeps working and keeps showing every introduction backwards.</p>
+</article>
 <article class="rm-item rm-item-done" id="d206-an-expired-attestation-withdrawn">
 <header class="rm-item-h">
 <h3 class="rm-item-title">The first reverify deadline in the registry's history passed, and the claim it protected was withdrawn rather than annotated</h3>
