@@ -96,29 +96,10 @@
 body{margin:0;background:var(--a-bg1);color:var(--a-t1)}
 a{color:inherit;text-decoration:none}
 a:hover{color:var(--a-k1)}
-@keyframes apsRise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
-@keyframes apsFade{from{opacity:0}to{opacity:1}}
-@keyframes apsWipe{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-@keyframes apsMark{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
-@keyframes apsDrift{from{transform:translateY(38px)}to{transform:translateY(0)}}
-@keyframes apsTilt{from{transform:rotate(-1.6deg)}to{transform:rotate(1.2deg)}}
-@keyframes apsNudge{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(7px);opacity:1}}
-.dots button{border:none;cursor:pointer;padding:0;width:8px;height:8px;border-radius:100px;background:var(--hud-dot,var(--a-c1));transition:height .35s,background .35s}
-.dots button.on{height:24px;background:var(--hud-accent,var(--a-k1))}
-@media (max-height:660px){.hud[data-hud],[data-scroll-hint]{display:none}}
-.mob{display:none}
 @media (max-width:900px){
-  .desk{display:none!important}
-  .mob{display:block}
-  .aps-scroll{height:auto!important;overflow:visible!important;scroll-snap-type:none!important}
-  [data-sec]{height:auto!important;overflow:visible!important;scroll-snap-align:none!important}
-  .mob a{display:block}
-  .mob img{max-width:100%;height:auto}
-  .mob h1 span,.mob h2 span,.mob h3 span,.mob p span{display:inline-block!important;line-height:.9!important;padding:.05em .07em!important;max-width:100%;white-space:normal;vertical-align:baseline}
   footer.r{padding-left:20px;padding-right:20px;box-sizing:border-box}
   .foot-grid{gap:26px 20px}
 }
-
 </style>
 <script src="nav.js?v=20260907a" defer></script>
 <script src="gh-stars.js" defer></script>
@@ -242,7 +223,7 @@ html[data-theme="dark"] .scene.blue{background:var(--a-bg1)}
   </aside>
 </div>
 <main id="story">
-<section class="scene blue intro seen" id="scene-0" aria-labelledby="title-0"><div class="chapter" aria-hidden="true">01 / 13</div><div class="scene-grid"><div class="copy reveal"><h1 id="title-0">Govern actions.<br><em>Attribute outcomes.</em></h1><div class="intro-actions"><a href="#scene-1">See how ↘</a><a href="https://agent-passport.org/docs.html">Docs ↗</a></div></div><div class="visual intro-visual reveal"><img class="hr-bright" src="assets/images/aps-hero-receipt.webp" width="960" height="772" alt="Signed action receipt reading action approved with an action reference"><img class="hr-dark" src="assets/images/aps-hero-receipt-dark.webp" width="960" height="772" alt="Signed action receipt reading action approved with an action reference"></div></div></section>
+<section class="scene blue intro seen" id="scene-0" aria-labelledby="title-0"><div class="chapter" aria-hidden="true">01 / 13</div><div class="scene-grid"><div class="copy reveal"><h1 id="title-0">Govern actions.<br><em>Attribute outcomes.</em></h1><div class="intro-actions"><a href="#scene-1">See how ↘</a><a href="docs.html">Docs ↗</a></div></div><div class="visual intro-visual reveal"><img class="hr-bright" src="assets/images/aps-hero-receipt.webp" width="960" height="772" alt="Signed action receipt reading action approved with an action reference"><img class="hr-dark" src="assets/images/aps-hero-receipt-dark.webp" width="960" height="772" alt="Signed action receipt reading action approved with an action reference"></div></div></section>
 <section class="scene blue hero seen" id="scene-1" aria-labelledby="title-1"><div class="chapter" aria-hidden="true">02 / 13</div><div class="scene-grid"><div class="copy reveal"><h2 id="title-1">The world<br>runs on<br><em>receipts.</em></h2></div><div class="art carton reveal" role="img" aria-label="A blue parcel with yellow tape beside a curling paper receipt"></div></div></section>
 <section class="scene paper" id="scene-2" aria-labelledby="title-2"><div class="chapter" aria-hidden="true">03 / 13</div><div class="scene-grid"><div class="copy reveal"><h2 id="title-2">Agent actions<br>need <span>receipts</span><br>too.</h2></div><div class="visual reveal" role="img" aria-label="An agent action is linked to a receipt"><div class="agent-flow"><div class="node"><svg class="icon"><use href="#i-agent"/></svg></div><div class="flow-line"><i class="flow-pulse"></i></div><div class="record tilt" data-record></div></div></div></div></section>
 <section class="scene blue dispute" id="scene-3" aria-labelledby="title-3"><div class="chapter" aria-hidden="true">04 / 13</div><div class="scene-grid"><div class="copy reveal"><h2 id="title-3">Disputes<br>need <span>a record.</span></h2></div><div class="art hands reveal" role="img" aria-label="Two people exchange the same receipt to review a disputed transaction"></div></div></section>
@@ -310,7 +291,7 @@ html[data-theme="dark"] .scene.blue{background:var(--a-bg1)}
 </footer>
 <nav class="scene-navigation" aria-label="Story chapters"></nav>
 <div class="bottom-nav"><div class="count" aria-label="Story progress"><span id="current-scene">01</span><span class="track" aria-hidden="true"><span class="fill"></span></span><span>13</span></div><div class="bottom-buttons"><button id="previous" aria-label="Previous scene" disabled><svg class="icon" style="transform:rotate(180deg)" aria-hidden="true"><use href="#i-arrow"/></svg></button><button id="next" aria-label="Next scene"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button></div></div>
-<dialog id="receipt-dialog" aria-labelledby="dialog-title"><div class="dialog-inner"><div class="dialog-head"><h2 id="dialog-title">Inspect an action record.</h2><button class="close" aria-label="Close receipt"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div><p class="dialog-note">A purchasing agent has a $100 limit. Change the request to see how its recorded decision changes.</p><div class="sample-controls" role="group" aria-label="Example purchase amount"><button data-amount="80" aria-pressed="true">$80 purchase</button><button data-amount="120" aria-pressed="false">$120 purchase</button></div><div class="sample-record" aria-live="polite"><dl><div><dt>Authorized by</dt><dd>Your team</dd></div><div><dt>Agent</dt><dd>Purchasing agent</dd></div><div><dt>Beneficiary</dt><dd>Your company</dd></div><div><dt>Delegated limit</dt><dd>$100</dd></div><div><dt>Requested amount</dt><dd id="sample-amount">$80</dd></div><div><dt>Gateway decision</dt><dd class="decision-value" id="sample-decision">Permit</dd></div><div><dt>External result</dt><dd id="sample-result">Not established</dd></div></dl></div><p class="dialog-note">Illustrative example. No real action is performed, and this is not a signed APS receipt. A permit does not prove a purchase completed. A record supports review, but does not guarantee a refund or an audit outcome.</p><div class="dialog-links"><a href="https://agent-passport.org/verify.html" target="_blank" rel="noopener noreferrer">Open the receipt verifier ↗</a><a href="https://agent-passport.org/docs.html" target="_blank" rel="noopener noreferrer">Read the integration guide ↗</a></div></div></dialog>
+<dialog id="receipt-dialog" aria-labelledby="dialog-title"><div class="dialog-inner"><div class="dialog-head"><h2 id="dialog-title">Inspect an action record.</h2><button class="close" aria-label="Close receipt"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div><p class="dialog-note">A purchasing agent has a $100 limit. Change the request to see how its recorded decision changes.</p><div class="sample-controls" role="group" aria-label="Example purchase amount"><button data-amount="80" aria-pressed="true">$80 purchase</button><button data-amount="120" aria-pressed="false">$120 purchase</button></div><div class="sample-record" aria-live="polite"><dl><div><dt>Authorized by</dt><dd>Your team</dd></div><div><dt>Agent</dt><dd>Purchasing agent</dd></div><div><dt>Beneficiary</dt><dd>Your company</dd></div><div><dt>Delegated limit</dt><dd>$100</dd></div><div><dt>Requested amount</dt><dd id="sample-amount">$80</dd></div><div><dt>Gateway decision</dt><dd class="decision-value" id="sample-decision">Permit</dd></div><div><dt>External result</dt><dd id="sample-result">Not established</dd></div></dl></div><p class="dialog-note">Illustrative example. No real action is performed, and this is not a signed APS receipt. A permit does not prove a purchase completed. A record supports review, but does not guarantee a refund or an audit outcome.</p><div class="dialog-links"><a href="verify.html" target="_blank" rel="noopener noreferrer">Open the receipt verifier ↗</a><a href="docs.html" target="_blank" rel="noopener noreferrer">Read the integration guide ↗</a></div></div></dialog>
 <script>
 (()=>{
  'use strict';
