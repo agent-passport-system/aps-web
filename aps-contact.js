@@ -5,6 +5,10 @@
   // recolours the transcript already on screen.
   var SYS = 'var(--sub)', OUT = 'var(--fg)', ACC = 'var(--lime)', ERR = 'var(--err)', DIM = 'var(--faint)';
   var TO = 'signal@aeoess.com';
+  // The form posts here and the message is delivered server side. If that call
+  // fails the flow falls back to the mail client, which is all this page did
+  // before anything was actually delivered.
+  var ENDPOINT = '/api/contact';
   var STEPS = [
     { key: 'name', label: 'name', q: 'Who are we talking to?', ph: 'Ada Lovelace' },
     { key: 'email', label: 'email', q: 'Where should the reply land?', ph: 'you@company.com' },
@@ -106,8 +110,61 @@
       var body = 'Name: ' + a.name + '\nEmail: ' + a.email + '\nOrg: ' + a.org + '\nTopic: ' + a.topic + '\n\n' + a.message + '\n\n--\nsubmitted_at: ' + ts + (hash ? '\ncontent_sha256: ' + hash : '');
       var subject = '[APS contact] ' + a.topic + ' \u00B7 ' + a.name;
       var href = 'mailto:' + TO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-      var rec = [
-        '\u2713 HANDED TO YOUR MAIL CLIENT: receipt of what you sent',
+      deliver(a, ts, hash).then(function (res) {
+        if (res && res.ok) return receipt(a, ts, hash, res, null);
+        receipt(a, ts, hash, null, href);
+      });
+    });
+  }
+
+  // POST the message. Resolves to {ok:true,...} on delivery, null on anything
+  // else, including a browser with no fetch.
+  function deliver(a, ts, hash) {
+    if (!window.fetch) return Promise.resolve(null);
+    var ctl = null, timer = null;
+    try { ctl = new AbortController(); timer = setTimeout(function () { ctl.abort(); }, 12000); } catch (e) { ctl = null; }
+    return fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: a.name, email: a.email, org: a.org, topic: a.topic,
+        message: a.message, content_sha256: hash || '', website: ''
+      }),
+      signal: ctl ? ctl.signal : undefined
+    }).then(function (r) {
+      if (timer) clearTimeout(timer);
+      if (!r.ok) return null;
+      return r.json().catch(function () { return null; });
+    }).then(function (d) {
+      return d && d.ok ? d : null;
+    }).catch(function () {
+      if (timer) clearTimeout(timer);
+      return null;
+    });
+  }
+
+  // One receipt shape for both outcomes. What it asserts changes with what
+  // actually happened, because a receipt that overstates is worse than none.
+  function receipt(a, ts, hash, res, href) {
+    var delivered = !!res;
+    var rec = delivered
+      ? [
+        '\u2713 SENT: receipt of what was delivered',
+        '{',
+        '  "record_type": "aps:contact:v1",',
+        '  "submitted_at": "' + ((res && res.submitted_at) || ts) + '",',
+        '  "principal": ' + JSON.stringify(a.name) + ',',
+        '  "reply_to": ' + JSON.stringify(a.email) + ',',
+        '  "topic": ' + JSON.stringify(a.topic) + ',',
+        '  "content_sha256": ' + JSON.stringify(hash || 'unavailable in this browser') + ',',
+        '  "message_id": ' + JSON.stringify((res && res.id) || 'not returned') + ',',
+        '  "asserts": "the mail provider accepted this message for delivery",',
+        '  "does_not_assert": ["that it reached the inbox", "that it was read", "that a reply has been sent"],',
+        '  "signature": "none. This page holds no key, so it signs nothing. The hash lets you check the message you sent matches this record."',
+        '}'
+      ]
+      : [
+        '\u26A0 NOT SENT: handing this to your mail client instead',
         '{',
         '  "record_type": "aps:contact:v1",',
         '  "submitted_at": "' + ts + '",',
@@ -117,18 +174,19 @@
         '  "content_sha256": ' + JSON.stringify(hash || 'unavailable in this browser') + ',',
         '  "asserts": "these fields are what this page handed to your mail client",',
         '  "does_not_assert": ["that the message was delivered", "that a reply has been sent"],',
-        '  "signature": "none. This page holds no key, so it signs nothing. The hash lets you check the message you send matches this record."',
+        '  "signature": "none. This page holds no key, so it signs nothing."',
         '}'
       ];
-      rec.forEach(function (t, i) { later(function () { push(t, i === 0 ? ACC : OUT); }, 110 * (i + 1)); });
-      later(function () {
-        push('', SYS);
-        push('If nothing opened, mail ' + TO + ' directly. A human reads it.', SYS);
-        push('Press Enter to file another.', DIM);
-        st.phase = 'sent'; input.value = ''; render();
-        window.location.href = href;
-      }, 110 * (rec.length + 1));
-    });
+    rec.forEach(function (t, i) { later(function () { push(t, i === 0 ? (delivered ? ACC : ERR) : OUT); }, 110 * (i + 1)); });
+    later(function () {
+      push('', SYS);
+      push(delivered
+        ? 'It is in the inbox at ' + TO + '. A human reads it.'
+        : 'Delivery failed. If nothing opened, mail ' + TO + ' directly.', SYS);
+      push('Press Enter to file another.', DIM);
+      st.phase = 'sent'; input.value = ''; render();
+      if (href) window.location.href = href;
+    }, 110 * (rec.length + 1));
   }
   function restart() {
     log.textContent = ''; st.answers = {}; st.phase = 'ask'; input.value = ''; ask(0);
