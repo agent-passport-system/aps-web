@@ -1,6 +1,6 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-09-17 (Day 213). Adds Day 213. Two independent fixture packs merged with a dated note that a later draft revision resolved the case one of them leaves open. A vocabulary re-date whose bytes were pinned while its keys and verifier were not. A published single-parent characterization of APS delegation checked against the draft and found fair. And an AuthZEN vector directory landing upstream.
+# Last updated: 2026-09-17 (Day 213). Adds Day 213. Two independent fixture packs merged with a dated note that a later draft revision resolved the case one of them leaves open. A vocabulary re-date whose bytes were pinned while its keys and verifier were not. A published single-parent characterization of APS delegation checked against the draft and found fair. And an AuthZEN vector directory landing upstream. Backfills Days 207, 208, 211 and 212 from the decision record.
 # Day 1 = 2026-02-17 (project start)
 
 # ═══ DAY 213 - 2026-09-17 ═══
@@ -45,6 +45,80 @@
     - url: "https://github.com/openid/authzen/issues/556"
       label: "openid/authzen #556"
 
+# ═══ DAY 212 - 2026-09-16 ═══
+
+- id: d212-negative-pass-rule-text-put-to-the-thread
+  title: "The evidence-sufficiency rule text was put to CoSAI WS4 #189 for the reviewer to confirm or tighten"
+  description: "A negative claim over a scope passes only when both field visibility and observation completeness for that same scope are established, whether the relevant field is absent or present but empty. Missing either gives not_established with the unmet obligation named. Malformed input, unsupported verification, parser failure and internal error stay outside the verdict. Posted as a question to the reviewer who found the four defects, not as a settlement. The merged candidate cases stay labelled candidate against proposed text."
+  status: waiting
+  day_start: 212
+  workstream: conformance
+  links:
+    - url: "https://github.com/cosai-oasis/ws4-secure-design-agentic-systems/issues/189"
+      label: "CoSAI WS4 #189"
+
+- id: d212-merge-values-given-in-content-hashes-not-blob-ids
+  title: "The AEP run record's merge values were handed to its counterparty as SHA-256 content hashes, with the rebase result correctly described"
+  description: "The WasmAgent maintainer's external-evidence ledger waits on the final head, the resulting main commit and the digests of four result files. The first draft nearly sent git blob identifiers where content hashes belong, and nearly called a one-parent rebase result a merge commit. Both corrected before posting. He recorded the merge with the two anchors and confirmed the assurance ceiling unchanged."
+  status: done
+  day_start: 212
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/issues/92"
+      label: "aps-conformance-suite #92"
+
+- id: d212-papers-readme-fix
+  title: "papers/README.md corrected in the SDK repository"
+  description: "A reader confusion in the papers index, fixed and merged. No published artifact touched."
+  status: done
+  day_start: 212
+  workstream: sdk
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/pull/170"
+      label: "agent-passport-system #170"
+
+- id: d212-aisvs-1152-closed-as-aspirational
+  title: "The OWASP AISVS binding requirement was closed by the maintainer as too aspirational for 1.01, and nothing further was posted"
+  description: "The test had already been tightened to the binding with a first-declaration negative fixture after a reviewer's correction, and the reviewer had accepted the requirement. The maintainer closed to keep the backlog concise and left the door open for later. No follow-up comment, no related issue. Not a rejection of the finding, not an acceptance of the requirement, and not evidence that an executable vector is what it lacked."
+  status: dropped
+  day_start: 212
+  workstream: standards
+  links:
+    - url: "https://github.com/OWASP/AISVS/issues/1152"
+      label: "OWASP AISVS #1152"
+
+# ═══ DAY 211 - 2026-09-15 ═══
+
+- id: d211-aep-layered-run-record-merged
+  title: "The WasmAgent AEP layered run record merged after being re-anchored on immutable references"
+  description: "The record had cited a moving branch. Repaired to pin the component tuple, the publication commit and the lab revision as immutable references, with the four result files unchanged throughout. Merged by rebase as six commits on main. The claim stays scoped: an independent layered run against the component tuple published for one certified snapshot, with JS and Rust native verification and the lab-authored semantic recomputation reported separately, and the semantic layer recorded as author-produced."
+  status: done
+  day_start: 211
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/94"
+      label: "aps-conformance-suite #94"
+
+- id: d211-cosai-189-candidate-cases-merged
+  title: "The CoSAI WS4 #189 candidate cases merged after the reviewer reran the repaired head"
+  description: "Four defects reported by the reviewer, repaired and independently verified by a second participant: the coverage premise made explicit and load-bearing, unsupported verification raised as a non-verdict, a missing gating descriptor made a structural input error, and the harness made read-only so reproduction cannot repair the artifact it checks. A DCO-forced rewrite changed commit messages only. Merged by rebase as four commits. Still candidates against proposed text."
+  status: done
+  day_start: 211
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/91"
+      label: "aps-conformance-suite #91"
+
+- id: d211-provenance-model-is-two-level
+  title: "A certified snapshot's manifest cannot live inside the commit it names, so provenance is recorded at two levels"
+  description: "The protocol component SHA inside the certified tuple still carries the previous manifest, because a manifest naming a commit changes the commit. The counterparty confirmed the intended model: the component tuple plus a separate publication commit on the protected main branch. Both are now recorded side by side in the run record so the next reader does not take the earlier manifest for a mistake."
+  status: done
+  day_start: 211
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/issues/92"
+      label: "aps-conformance-suite #92"
+
 # ═══ DAY 210 - 2026-09-14 ═══
 
 - id: d210-the-inbox-that-inverted-every-introduction
@@ -74,6 +148,37 @@
   status: done
   day_start: 210
   workstream: conformance
+
+# ═══ DAY 208 - 2026-09-12 ═══
+
+- id: d208-mingle-canonical-server-and-mcp-shipped
+  title: "Mingle shipped: the canonical server live, mingle-mcp 4.0.0 then 4.0.1 on npm, and a thirty day compatibility window started from the registry timestamp"
+  description: "Stage 2B closed with a one-action withdraw that atomically cleans up unreleased contact, live fit and First Step, with the race resolved at the write in both orderings. Stage 2C reduced forty-six tools across three generations to eight canonical ones, with the legacy set behind a flag. A two-principal end-to-end run through real MCP processes against a real API found six dead call sites the mocks had blessed, and review found seven severe items, two of them security, all fixed before publish. The server went live first, then 4.0.0 was published by hand under WebAuthn, and the registry timestamp of that publish is what the server records as the start of the legacy window. No patch moves the clock. 4.0.1 followed the same day as a copy-only patch for six overclaims in the shipped skill and README."
+  status: done
+  day_start: 208
+  workstream: product
+  links:
+    - url: "https://www.npmjs.com/package/mingle-mcp"
+      label: "mingle-mcp on npm"
+
+- id: d208-scopeblind-verified-runs-answered
+  title: "A maintainer merged our driver and asked what his three published files establish, and the answer was an outside reading with six questions"
+  description: "Run locally with inputs never modified. The published verifier exits zero on seven mutations with top-level valid true. A log digest field is shape-checked and never compared to the file. The published command omits the provenance flag and so never reads the Sigstore bundle. And a twenty-eight of twenty-eight agreement covers tool identity only, because the receipts carry no principal, context or input. Posted as findings with questions back to him, naming no lab and no APS."
+  status: done
+  day_start: 208
+  workstream: conformance
+  links:
+    - url: "https://github.com/ScopeBlind/agent-governance-testvectors/pull/1"
+      label: "ScopeBlind testvectors #1"
+
+# ═══ DAY 207 - 2026-09-11 ═══
+
+- id: d207-mingle-correctness-batch-and-containment-gates
+  title: "Nine Mingle correctness fixes, a privacy bug caught in their review, containment gates deployed, and the MCP held unpublished"
+  description: "A product review found Mingle deep before wide. Nine correctness items shipped, among them an acceptance email that never fired, a hidden opt-in default, semantic search ordered by recency, no atomic card replace, a false purge promise, a world-readable private key and bare sweep routes. The review of that batch found that one party's reveal released both exact values, fixed with a per-dimension releaser set. A binding audit of forty-three mutating routes recorded which request and commit signatures actually bind what the receipt claims. Fit and v2 containment gates deployed to Railway. The Stage 2A design was audited by two independent adversarial reviews and approved. The MCP stayed unpublished until the server it depends on was live."
+  status: done
+  day_start: 207
+  workstream: product
 
 # ═══ DAY 206 - 2026-09-10 ═══
 
