@@ -1,7 +1,49 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-09-14 (Day 210). Adds Day 210. A Mingle inbox that reported every introduction backwards, shipped as a breaking release with no compatibility alias. The three ways that fix could have shipped with the old contract still in the package. A publish banner that would have restarted a compatibility clock belonging to an earlier release. And an independent conformance run reattributed to the layers it actually covered.
+# Last updated: 2026-09-17 (Day 213). Adds Day 213. Two independent fixture packs merged with a dated note that a later draft revision resolved the case one of them leaves open. A vocabulary re-date whose bytes were pinned while its keys and verifier were not. A published single-parent characterization of APS delegation checked against the draft and found fair. And an AuthZEN vector directory landing upstream.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 213 - 2026-09-17 ═══
+
+- id: d213-two-fixture-packs-landed-with-a-dated-note-on-a-superseded-draft
+  title: "Two independent fixture packs landed, and the AAT pack records that a later draft revision resolved the case it leaves open"
+  description: "The AAT and ODIS packs sat in a conflicting pull request for six days. The only conflict was a generated inventory table, resolved by keeping every row and letting the generator confirm the result. Both packs merged byte identical to the reviewed branch. While the pull request waited, draft-sharif-agent-audit-trail-04 was published with a signer key identifier and a named signing principal per recording mode, which resolves the recorder-key ambiguity the -03 pack deliberately leaves unresolved. One dated paragraph now says so. The pack stays pinned to -03, the unresolved case stays unresolved against -03 only, and the manifest digest moved with the README because the manifest covers it. The sign-off on that commit was added only after an explicit word, because a DCO trailer is a certification rather than housekeeping."
+  status: done
+  day_start: 213
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/90"
+      label: "aps-conformance-suite #90"
+
+- id: d213-a-re-date-that-pinned-the-bytes-and-not-the-keys
+  title: "A vocabulary re-date pinned its evidence by revision, tree and digest, and the keys and verifier that give the evidence its meaning were still floating"
+  description: "The commit, tree object and discovery-copy digest all reproduce. Twelve of the twenty-three vectors are deliberate derivations, not artifacts as issued. The runner that reports twenty-three of twenty-three imports the issuer's own verifier, so the result is author-produced inside one trust domain. Its two packages are installed unversioned while the README documents version-dependent verdicts, and twelve vectors resolve keys from a live JWKS endpoint with no snapshot in the tree. Changes requested on the evidence record only. The signal's status, issuer count and promotion trigger are untouched. The refused-vector count is stated with its predicate, because every frozen vector expects an expiry failure and two carry a signed false verdict that is not a verification failure."
+  status: in_progress
+  day_start: 213
+  workstream: vocabulary
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/166"
+      label: "agent-governance-vocabulary #166"
+
+- id: d213-single-parent-delegation-is-a-real-limit
+  title: "A published paper describes APS delegation as a single-parent rooted tree, and against the current draft that is fair"
+  description: "Each delegation record has one parent identifier, one chain authorizes an action, scopes and budgets are never unioned across chains, and revocation cascades through descendants. The limit is at the record level rather than the agent level: an agent holding two unrelated chains keeps the second when the first is revoked, but a descendant created under the revoked chain does not survive on the strength of the other. No correction is owed to the authors. What is recorded is a design question on revocation semantics for independently authorized shared agents, not a change, and not the obvious change of making the parent field an array."
+  status: proposed
+  day_start: 213
+  workstream: protocol
+  links:
+    - url: "https://arxiv.org/abs/2608.30091"
+      label: "VERA, arXiv:2608.30091"
+
+- id: d213-authzen-binding-hash-vectors-landed-upstream
+  title: "AuthZEN landed an official binding_hash vector directory and cited the larger set offered in July"
+  description: "The issue that carried the offer closed because the maintainers' own pull request merged a known-answer directory and referenced the larger corpus while doing it. The larger set, thirty-five normative cases, five around unresolved spec decisions and eight rejection cases, recomputed in TypeScript, Python and Go and checked byte for byte against each other, remains available. One comment on the closed issue says so. A diff against the upstream vectors is the next step only if it is wanted."
+  status: done
+  day_start: 213
+  workstream: standards
+  links:
+    - url: "https://github.com/openid/authzen/issues/556"
+      label: "openid/authzen #556"
 
 # ═══ DAY 210 - 2026-09-14 ═══
 
