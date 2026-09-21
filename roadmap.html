@@ -94,7 +94,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">610 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">650 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -110,7 +110,30 @@
 </article>
 </section>
 <section class="rm-group rm-group-in-progress">
-<h2 class="rm-group-title">In progress <span class="rm-group-count">(2)</span></h2>
+<h2 class="rm-group-title">In progress <span class="rm-group-count">(4)</span></h2>
+<article class="rm-item rm-item-in_progress" id="d216-7-0-0-shipped-without-npm-provenance">
+<header class="rm-item-h">
+<h3 class="rm-item-title">7.0.0 shipped without npm provenance, and its tag waits for a safe way to add one</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 216</span> 
+<span class="rm-item-ws">security</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">It was published by hand, so its bytes match and its commit is recorded, but it has no provenance attestation where 6.0.1 did. Both release workflows publish on tag, so a retrospective tag would run a publication pipeline against an existing version. The tag and a dated SECURITY.md note are deferred.</p>
+</article>
+<article class="rm-item rm-item-in_progress" id="d213-a-re-date-that-pinned-the-bytes-and-not-the-keys">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A vocabulary re-date pinned its evidence by revision, tree and digest, and the keys and verifier that give the evidence its meaning were still floating</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 213</span> 
+<span class="rm-item-ws">vocabulary</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">The commit, tree object and discovery-copy digest all reproduce. Twelve of the twenty-three vectors are deliberate derivations, not artifacts as issued. The runner that reports twenty-three of twenty-three imports the issuer's own verifier, so the result is author-produced inside one trust domain. Its two packages are installed unversioned while the README documents version-dependent verdicts, and twelve vectors resolve keys from a live JWKS endpoint with no snapshot in the tree. Changes requested on the evidence record only. The signal's status, issuer count and promotion trigger are untouched. The refused-vector count is stated with its predicate, because every frozen vector expects an expiry failure and two carry a signed false verdict that is not a verification failure.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/pull/166">agent-governance-vocabulary #166</a></li></ul>
+</article>
 <article class="rm-item rm-item-in_progress" id="d179-narrowing-pairwise-gap">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Chain narrowing is checked pairwise and skips when either side omits the field</h3>
@@ -135,7 +158,336 @@
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(562)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(593)</span></h2>
+<article class="rm-item rm-item-done" id="d216-claim-binding-merged-into-cosai-candidates">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Per-claim binding of observation coverage merged into the CoSAI candidate cases</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 216</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Coverage now has to be tied to the claim it supports, and matching identifiers alone do not establish the link. The reviewer who raised it confirmed the wording. The cases stay candidates until the workstream adopts the rule.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/98">aps-conformance-suite #98</a></li><li><a href="https://github.com/cosai-oasis/ws4-secure-design-agentic-systems/issues/189">CoSAI WS4 #189</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d216-hand-copied-metric-line-dropped">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A hand-copied metric line dropped from INTEGRATION.md</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 216</span> 
+<span class="rm-item-ws">Ops</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The values were current. The line went because it was copied by hand.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/pull/172">agent-passport-system #172</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d216-oracle-safety-corpus-reminted-and-pinned">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The lab's oracle-safety corpus re-minted for the stage rules, and the suite pinned to 7.0.0</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 216</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">All 26 committed receipts failed the new stage validation before the re-mint and none fail after it. The suite now depends on exact 7.0.0, so its lanes run against the released package.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/100">aps-conformance-suite #100</a></li><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/101">aps-conformance-suite #101</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d216-priorseal-adapter-verified-and-referenced">
+<header class="rm-item-h">
+<h3 class="rm-item-title">PriorSeal's sibling adapter verified clean and referenced from INTEGRATION.md</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 216</span> 
+<span class="rm-item-ws">Ecosystem</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Installed from the registry in a clean environment and checked at the commit its author named, with no corrections.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/pull/171">agent-passport-system #171</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d216-sdk-7-0-0-and-python-4-0-0-published">
+<header class="rm-item-h">
+<h3 class="rm-item-title">SDK 7.0.0 and Python 4.0.0 published, both reconciled to draft-03</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 216</span> 
+<span class="rm-item-ws">sdk</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Action references, receipts and authority delegation now follow draft-pidlisnyi-aps-03 in TypeScript and Python. Each package was installed clean from its registry and checked against the artifact it was built from. The TypeScript suite runs 5,491 tests with none failing. Major versions for both, because verification results changed shape.</p>
+<ul class="rm-item-links"><li><a href="https://www.npmjs.com/package/agent-passport-system/v/7.0.0">npm agent-passport-system 7.0.0</a></li><li><a href="https://pypi.org/project/agent-passport-system/4.0.0/">PyPI agent-passport-system 4.0.0</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d216-seven-rulings-where-draft-03-was-silent">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Seven rulings settled where draft-03 was silent or the two SDKs disagreed</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 216</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The required signature set decides a receipt's state, and extra signatures are reported beside it. A key that cannot be resolved, malformed key material included, is indeterminate and never a signature failure. An empty scope_required is rejected by default. No SDK input grammar becomes protocol.</p>
+</article>
+<article class="rm-item rm-item-done" id="d215-aeoess-com-home-replaced">
+<header class="rm-item-h">
+<h3 class="rm-item-title">aeoess.com's home became a single interactive line above the four projects</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 215</span> 
+<span class="rm-item-ws">site</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The entry chooser was removed. The page makes no new external requests.</p>
+<ul class="rm-item-links"><li><a href="https://aeoess.com">aeoess.com</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d215-claim-binding-sent-as-a-pull-request">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Asked to make claim binding explicit, we sent the edited cases and one line</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 215</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The reviewer resolved his original objection and asked for coverage tied to the claim in the rule text. The answer was suite PR #98, not another explanation on the thread.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/cosai-oasis/ws4-secure-design-agentic-systems/issues/189">CoSAI WS4 #189</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d215-closure-became-a-gate">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Closure became a gate on the whole surface, with a fourth reason a change may exist</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 215</span> 
+<span class="rm-item-ws">process</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A job is judged by whether its surface matches the draft, checked at the end. The fourth reason is implementation hardening, for reliability and resource safety where the protocol does not prescribe the runtime property. One commit carries one reason.</p>
+</article>
+<article class="rm-item rm-item-done" id="d215-dependency-queue-with-sdk-bumps-held">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Three dependency updates merged, four SDK bumps held behind the reconciliation</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 215</span> 
+<span class="rm-item-ws">Ops</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The CodeQL action pin was checked against its upstream annotated tag before merging.</p>
+</article>
+<article class="rm-item rm-item-done" id="d215-insumerapi-crosswalk-refreshed">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The insumerapi crosswalk refreshed to the wallet_state block the API issues today</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 215</span> 
+<span class="rm-item-ws">vocabulary</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Merged after a clean clone passed its tests and the live key set matched the snapshot committed with #166.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/pull/167">agent-governance-vocabulary #167</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d215-priorseal-fixtures-delivered">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Four PriorSeal fixture inputs delivered, shaped against draft-03 sections 5.3.1, 5.3.2 and 5.4</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 215</span> 
+<span class="rm-item-ws">Ecosystem</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Built on an isolated branch cut from 6.0.1, so the reconciliation work was never touched. The adapter's author had held his work waiting for them.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/issues/163">agent-passport-system #163</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d215-review-loop-capped-after-nine-cycles">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A review loop with no stopping rule ran nine cycles in eleven hours before it was capped</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 215</span> 
+<span class="rm-item-ws">process</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A job closed when neither reviewer had an unresolved correctness finding, and each pass found something. The eighth found a real ledger defect, a reservation accepted after a cancel, which belongs to hardening. Closure is now at most two whole cycles, and later findings are classified and carried.</p>
+</article>
+<article class="rm-item rm-item-done" id="d214-aep-driver-and-claim-binding-answered">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The AEP driver and CoSAI claim binding threads answered without new asks</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 214</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A semantic AEP implementation, if one is done, uses the packaged corpus pinned and keeps its first blind run. Per-claim binding belongs in the CoSAI rule text, and its shape stays the workstream's call.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/issues/92">aps-conformance-suite #92</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d214-authority-delegation-v1-is-the-draft-record">
+<header class="rm-item-h">
+<h3 class="rm-item-title">AuthorityDelegationV1 is the draft-03 authority record, and legacy Delegation is a compatibility surface</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 214</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">External verifiers should target AuthorityDelegationV1. The older createDelegation and verifyDelegation family stays shipped in both SDKs, off the draft path.</p>
+</article>
+<article class="rm-item rm-item-done" id="d214-draft-03-reconciliation-began">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A three-day reconciliation of both SDKs to draft-03 began with a rule-by-rule matrix</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 214</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Every draft-03 rule was checked against both implementations, and each gap was ruled on before code changed. Each change declares one reason: a repair toward the draft, hardening of an existing path, or evolution toward -04. A new rule is never presented as an old one.</p>
+</article>
+<article class="rm-item rm-item-done" id="d214-legacy-action-ref-kept-off-the-draft-label">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A planning note would have put the draft's action reference label on a different digest</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 214</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The Python helper hashes camelCase keys, a sorted scope array and a timestamp truncated to seconds. Section 4.2's form is snake_case with one scope string and milliseconds. The matrix caught it before code moved, and the helper stays documented as pre-draft.</p>
+</article>
+<article class="rm-item rm-item-done" id="d214-mcp-audit-gateway-vectors-merged">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Cross-stack conformance vectors from mcp-audit-gateway merged into the lab</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 214</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">An external contribution, reviewed and merged by rebase.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/63">aps-conformance-suite #63</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d214-priorseal-sibling-adapter-agreed">
+<header class="rm-item-h">
+<h3 class="rm-item-title">PriorSeal will bind APS decision evidence through a sibling adapter</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 214</span> 
+<span class="rm-item-ws">Ecosystem</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The proposal to bind APS decision receipts to PriorSeal EVM execution receipts was answered with a separate adapter on published APS surfaces, and its author accepted the direction.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/issues/163">agent-passport-system #163</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d214-trace-integration-back-to-draft">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The TRACE action receipt integration went back to draft the day it opened</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 214</span> 
+<span class="rm-item-ws">interop</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Its fixture was issued by a gateway where draft-03 requires the acting agent, and its result was free-form where the draft fixes one. It waited for SDKs that enforce both.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/agentrust-io/integrations/pull/200">agentrust-io/integrations #200</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d214-wallet-state-re-date-merged">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The wallet_state re-date merged once its keys and verifier were pinned next to its bytes</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 214</span> 
+<span class="rm-item-ws">vocabulary</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Packages versioned with a lockfile, a key set snapshot committed, 23 of 23 from a clean install. The approval corrected an error in our own earlier review of vector 22.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/pull/166">agent-governance-vocabulary #166</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d213-authzen-binding-hash-vectors-landed-upstream">
+<header class="rm-item-h">
+<h3 class="rm-item-title">AuthZEN landed an official binding_hash vector directory and cited the larger set offered in July</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 213</span> 
+<span class="rm-item-ws">Standards</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The issue that carried the offer closed because the maintainers' own pull request merged a known-answer directory and referenced the larger corpus while doing it. The larger set, thirty-five normative cases, five around unresolved spec decisions and eight rejection cases, recomputed in TypeScript, Python and Go and checked byte for byte against each other, remains available. One comment on the closed issue says so. A diff against the upstream vectors is the next step only if it is wanted.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/openid/authzen/issues/556">openid/authzen #556</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d213-two-fixture-packs-landed-with-a-dated-note-on-a-superseded-draft">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Two independent fixture packs landed, and the AAT pack records that a later draft revision resolved the case it leaves open</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 213</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The AAT and ODIS packs sat in a conflicting pull request for six days. The only conflict was a generated inventory table, resolved by keeping every row and letting the generator confirm the result. Both packs merged byte identical to the reviewed branch. While the pull request waited, draft-sharif-agent-audit-trail-04 was published with a signer key identifier and a named signing principal per recording mode, which resolves the recorder-key ambiguity the -03 pack deliberately leaves unresolved. One dated paragraph now says so. The pack stays pinned to -03, the unresolved case stays unresolved against -03 only, and the manifest digest moved with the README because the manifest covers it. The sign-off on that commit was added only after an explicit word, because a DCO trailer is a certification rather than housekeeping.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/90">aps-conformance-suite #90</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d212-merge-values-given-in-content-hashes-not-blob-ids">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The AEP run record's merge values were handed to its counterparty as SHA-256 content hashes, with the rebase result correctly described</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 212</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The WasmAgent maintainer's external-evidence ledger waits on the final head, the resulting main commit and the digests of four result files. The first draft nearly sent git blob identifiers where content hashes belong, and nearly called a one-parent rebase result a merge commit. Both corrected before posting. He recorded the merge with the two anchors and confirmed the assurance ceiling unchanged.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/issues/92">aps-conformance-suite #92</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d212-papers-readme-fix">
+<header class="rm-item-h">
+<h3 class="rm-item-title">papers/README.md corrected in the SDK repository</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 212</span> 
+<span class="rm-item-ws">sdk</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A reader confusion in the papers index, fixed and merged. No published artifact touched.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/pull/170">agent-passport-system #170</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d211-aep-layered-run-record-merged">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The WasmAgent AEP layered run record merged after being re-anchored on immutable references</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 211</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The record had cited a moving branch. Repaired to pin the component tuple, the publication commit and the lab revision as immutable references, with the four result files unchanged throughout. Merged by rebase as six commits on main. The claim stays scoped: an independent layered run against the component tuple published for one certified snapshot, with JS and Rust native verification and the lab-authored semantic recomputation reported separately, and the semantic layer recorded as author-produced.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/94">aps-conformance-suite #94</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d211-cosai-189-candidate-cases-merged">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The CoSAI WS4 #189 candidate cases merged after the reviewer reran the repaired head</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 211</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Four defects reported by the reviewer, repaired and independently verified by a second participant: the coverage premise made explicit and load-bearing, unsupported verification raised as a non-verdict, a missing gating descriptor made a structural input error, and the harness made read-only so reproduction cannot repair the artifact it checks. A DCO-forced rewrite changed commit messages only. Merged by rebase as four commits. Still candidates against proposed text.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/91">aps-conformance-suite #91</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d211-provenance-model-is-two-level">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A certified snapshot's manifest cannot live inside the commit it names, so provenance is recorded at two levels</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 211</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The protocol component SHA inside the certified tuple still carries the previous manifest, because a manifest naming a commit changes the commit. The counterparty confirmed the intended model: the component tuple plus a separate publication commit on the protected main branch. Both are now recorded side by side in the run record so the next reader does not take the earlier manifest for a mistake.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/issues/92">aps-conformance-suite #92</a></li></ul>
+</article>
 <article class="rm-item rm-item-done" id="d210-a-green-suite-that-skipped-its-own-end-to-end-lane">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Three ways a correct fix could have shipped with the old contract intact, and the guard that closes the quiet one</h3>
@@ -179,6 +531,41 @@
 </p>
 </header>
 <p class="rm-item-desc">The server always returned the direction. The client relabelled it, so an outgoing request read as incoming and the requester's own note was attributed to the counterparty. The replacement contract renames the container, splits the note from its author, and keeps an absent server projection distinct from a derived state. No alias was kept for the old names, because the old direction values were inverted and an alias would re-teach the defect to the clients still reading it. The release note states that an install that does not upgrade keeps working and keeps showing every introduction backwards.</p>
+</article>
+<article class="rm-item rm-item-done" id="d208-mingle-canonical-server-and-mcp-shipped">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Mingle shipped: the canonical server live, mingle-mcp 4.0.0 then 4.0.1 on npm, and a thirty day compatibility window started from the registry timestamp</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 208</span> 
+<span class="rm-item-ws">Product</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Stage 2B closed with a one-action withdraw that atomically cleans up unreleased contact, live fit and First Step, with the race resolved at the write in both orderings. Stage 2C reduced forty-six tools across three generations to eight canonical ones, with the legacy set behind a flag. A two-principal end-to-end run through real MCP processes against a real API found six dead call sites the mocks had blessed, and review found seven severe items, two of them security, all fixed before publish. The server went live first, then 4.0.0 was published by hand under WebAuthn, and the registry timestamp of that publish is what the server records as the start of the legacy window. No patch moves the clock. 4.0.1 followed the same day as a copy-only patch for six overclaims in the shipped skill and README.</p>
+<ul class="rm-item-links"><li><a href="https://www.npmjs.com/package/mingle-mcp">mingle-mcp on npm</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d208-scopeblind-verified-runs-answered">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A maintainer merged our driver and asked what his three published files establish, and the answer was an outside reading with six questions</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 208</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Run locally with inputs never modified. The published verifier exits zero on seven mutations with top-level valid true. A log digest field is shape-checked and never compared to the file. The published command omits the provenance flag and so never reads the Sigstore bundle. And a twenty-eight of twenty-eight agreement covers tool identity only, because the receipts carry no principal, context or input. Posted as findings with questions back to him, naming no lab and no APS.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/ScopeBlind/agent-governance-testvectors/pull/1">ScopeBlind testvectors #1</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d207-mingle-correctness-batch-and-containment-gates">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Nine Mingle correctness fixes, a privacy bug caught in their review, containment gates deployed, and the MCP held unpublished</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 207</span> 
+<span class="rm-item-ws">Product</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A product review found Mingle deep before wide. Nine correctness items shipped, among them an acceptance email that never fired, a hidden opt-in default, semantic search ordered by recency, no atomic card replace, a false purge promise, a world-readable private key and bare sweep routes. The review of that batch found that one party's reveal released both exact values, fixed with a per-dimension releaser set. A binding audit of forty-three mutating routes recorded which request and commit signatures actually bind what the receipt claims. Fit and v2 containment gates deployed to Railway. The Stage 2A design was audited by two independent adversarial reviews and approved. The MCP stayed unpublished until the server it depends on was live.</p>
 </article>
 <article class="rm-item rm-item-done" id="d206-an-expired-attestation-withdrawn">
 <header class="rm-item-h">
@@ -6937,7 +7324,91 @@
 </article>
 </section>
 <section class="rm-group rm-group-other-no-status-declared-">
-<h2 class="rm-group-title">Other (no status declared) <span class="rm-group-count">(31)</span></h2>
+<h2 class="rm-group-title">Other (no status declared) <span class="rm-group-count">(38)</span></h2>
+<article class="rm-item rm-item-waiting" id="d216-a2a-agentcard-signing-example-unverifiable">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A2A's AgentCard signing example cannot be verified as published, filed upstream</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 216</span> 
+<span class="rm-item-ws">Standards</span> 
+<span class="rm-item-status">waiting</span>
+</p>
+</header>
+<p class="rm-item-desc">The specification publishes neither the verification key nor the exact signed payload, and it never pairs the example signature with the canonical form it defines. The issue asks for both.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/a2aproject/A2A/issues/2249">a2aproject/A2A #2249</a></li></ul>
+</article>
+<article class="rm-item rm-item-waiting" id="d216-agent-replay-run-reproduced">
+<header class="rm-item-h">
+<h3 class="rm-item-title">An Agent Replay run over the lab's corpus reproduced, and recorded as an observation</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 216</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">waiting</span>
+</p>
+</header>
+<p class="rm-item-desc">Its 13 vendored fixtures are byte identical to the suite's, and every recorded blob hash matches. How the lab records an external tool is still an open question, and this is not counted as adoption.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/issues/99">aps-conformance-suite #99</a></li></ul>
+</article>
+<article class="rm-item rm-item-dropped" id="d216-bernstein-assignment-released-undelivered">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A Bernstein assignment we held for 17 days was released before we delivered</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 216</span> 
+<span class="rm-item-ws">Ecosystem</span> 
+<span class="rm-item-status">dropped</span>
+</p>
+</header>
+<p class="rm-item-desc">The issue is a delegation chain that still verifies after its final receipt is removed. The maintainer freed the assignment. Recorded as dropped.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/sipyourdrink-ltd/bernstein/issues/5352">bernstein #5352</a></li></ul>
+</article>
+<article class="rm-item rm-item-waiting" id="d216-trace-action-receipt-integration-back-for-review">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The TRACE action receipt integration rebuilt on Python 4.0.0 and returned for review</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 216</span> 
+<span class="rm-item-ws">interop</span> 
+<span class="rm-item-status">waiting</span>
+</p>
+</header>
+<p class="rm-item-desc">It verifies a draft-03 action intent, issued and signed by the acting agent, with the fixed declaration as its result. Key resolution failures report as unverified, never as bad signatures. An appended third-party signature can no longer change the result. The fixture's authority delegation is real, and its validity is tested separately.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/agentrust-io/integrations/pull/200">agentrust-io/integrations #200</a></li></ul>
+</article>
+<article class="rm-item rm-item-proposed" id="d213-single-parent-delegation-is-a-real-limit">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A published paper describes APS delegation as a single-parent rooted tree, and against the current draft that is fair</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 213</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">proposed</span>
+</p>
+</header>
+<p class="rm-item-desc">Each delegation record has one parent identifier, one chain authorizes an action, scopes and budgets are never unioned across chains, and revocation cascades through descendants. The limit is at the record level rather than the agent level: an agent holding two unrelated chains keeps the second when the first is revoked, but a descendant created under the revoked chain does not survive on the strength of the other. No correction is owed to the authors. What is recorded is a design question on revocation semantics for independently authorized shared agents, not a change, and not the obvious change of making the parent field an array.</p>
+<ul class="rm-item-links"><li><a href="https://arxiv.org/abs/2608.30091">VERA, arXiv:2608.30091</a></li></ul>
+</article>
+<article class="rm-item rm-item-dropped" id="d212-aisvs-1152-closed-as-aspirational">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The OWASP AISVS binding requirement was closed by the maintainer as too aspirational for 1.01, and nothing further was posted</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 212</span> 
+<span class="rm-item-ws">Standards</span> 
+<span class="rm-item-status">dropped</span>
+</p>
+</header>
+<p class="rm-item-desc">The test had already been tightened to the binding with a first-declaration negative fixture after a reviewer's correction, and the reviewer had accepted the requirement. The maintainer closed to keep the backlog concise and left the door open for later. No follow-up comment, no related issue. Not a rejection of the finding, not an acceptance of the requirement, and not evidence that an executable vector is what it lacked.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/OWASP/AISVS/issues/1152">OWASP AISVS #1152</a></li></ul>
+</article>
+<article class="rm-item rm-item-waiting" id="d212-negative-pass-rule-text-put-to-the-thread">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The evidence-sufficiency rule text was put to CoSAI WS4 #189 for the reviewer to confirm or tighten</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 212</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">waiting</span>
+</p>
+</header>
+<p class="rm-item-desc">A negative claim over a scope passes only when both field visibility and observation completeness for that same scope are established, whether the relevant field is absent or present but empty. Missing either gives not_established with the unmet obligation named. Malformed input, unsupported verification, parser failure and internal error stay outside the verdict. Posted as a question to the reviewer who found the four defects, not as a settlement. The merged candidate cases stay labelled candidate against proposed text.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/cosai-oasis/ws4-secure-design-agentic-systems/issues/189">CoSAI WS4 #189</a></li></ul>
+</article>
 <article class="rm-item rm-item-in-progress" id="d206-physical-ai-gap-in-the-vocabulary">
 <header class="rm-item-h">
 <h3 class="rm-item-title">The governance vocabulary can read the physical world as context and cannot name authority over it</h3>

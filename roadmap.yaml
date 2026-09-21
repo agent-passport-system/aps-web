@@ -1,7 +1,255 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-09-17 (Day 213). Adds Day 213. Two independent fixture packs merged with a dated note that a later draft revision resolved the case one of them leaves open. A vocabulary re-date whose bytes were pinned while its keys and verifier were not. A published single-parent characterization of APS delegation checked against the draft and found fair. And an AuthZEN vector directory landing upstream. Backfills Days 207, 208, 211 and 212 from the decision record.
+# Last updated: 2026-09-20 (Day 216). Adds Days 214 to 216. Both SDKs reconciled to draft-03 and published as 7.0.0 and 4.0.0, the lab corpus re-minted and pinned to the release, and the TRACE action receipt integration returned for review. Also records a release that shipped without npm provenance and an assignment released before we delivered.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 216 - 2026-09-20 ═══
+
+- id: d216-sdk-7-0-0-and-python-4-0-0-published
+  title: "SDK 7.0.0 and Python 4.0.0 published, both reconciled to draft-03"
+  description: "Action references, receipts and authority delegation now follow draft-pidlisnyi-aps-03 in TypeScript and Python. Each package was installed clean from its registry and checked against the artifact it was built from. The TypeScript suite runs 5,491 tests with none failing. Major versions for both, because verification results changed shape."
+  status: done
+  day_start: 216
+  workstream: sdk
+  links:
+    - url: "https://www.npmjs.com/package/agent-passport-system/v/7.0.0"
+      label: "npm agent-passport-system 7.0.0"
+    - url: "https://pypi.org/project/agent-passport-system/4.0.0/"
+      label: "PyPI agent-passport-system 4.0.0"
+
+- id: d216-seven-rulings-where-draft-03-was-silent
+  title: "Seven rulings settled where draft-03 was silent or the two SDKs disagreed"
+  description: "The required signature set decides a receipt's state, and extra signatures are reported beside it. A key that cannot be resolved, malformed key material included, is indeterminate and never a signature failure. An empty scope_required is rejected by default. No SDK input grammar becomes protocol."
+  status: done
+  day_start: 216
+  workstream: protocol
+
+- id: d216-oracle-safety-corpus-reminted-and-pinned
+  title: "The lab's oracle-safety corpus re-minted for the stage rules, and the suite pinned to 7.0.0"
+  description: "All 26 committed receipts failed the new stage validation before the re-mint and none fail after it. The suite now depends on exact 7.0.0, so its lanes run against the released package."
+  status: done
+  day_start: 216
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/100"
+      label: "aps-conformance-suite #100"
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/101"
+      label: "aps-conformance-suite #101"
+
+- id: d216-trace-action-receipt-integration-back-for-review
+  title: "The TRACE action receipt integration rebuilt on Python 4.0.0 and returned for review"
+  description: "It verifies a draft-03 action intent, issued and signed by the acting agent, with the fixed declaration as its result. Key resolution failures report as unverified, never as bad signatures. An appended third-party signature can no longer change the result. The fixture's authority delegation is real, and its validity is tested separately."
+  status: waiting
+  day_start: 216
+  workstream: interop
+  links:
+    - url: "https://github.com/agentrust-io/integrations/pull/200"
+      label: "agentrust-io/integrations #200"
+
+- id: d216-7-0-0-shipped-without-npm-provenance
+  title: "7.0.0 shipped without npm provenance, and its tag waits for a safe way to add one"
+  description: "It was published by hand, so its bytes match and its commit is recorded, but it has no provenance attestation where 6.0.1 did. Both release workflows publish on tag, so a retrospective tag would run a publication pipeline against an existing version. The tag and a dated SECURITY.md note are deferred."
+  status: in_progress
+  day_start: 216
+  workstream: security
+
+- id: d216-claim-binding-merged-into-cosai-candidates
+  title: "Per-claim binding of observation coverage merged into the CoSAI candidate cases"
+  description: "Coverage now has to be tied to the claim it supports, and matching identifiers alone do not establish the link. The reviewer who raised it confirmed the wording. The cases stay candidates until the workstream adopts the rule."
+  status: done
+  day_start: 216
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/98"
+      label: "aps-conformance-suite #98"
+    - url: "https://github.com/cosai-oasis/ws4-secure-design-agentic-systems/issues/189"
+      label: "CoSAI WS4 #189"
+
+- id: d216-priorseal-adapter-verified-and-referenced
+  title: "PriorSeal's sibling adapter verified clean and referenced from INTEGRATION.md"
+  description: "Installed from the registry in a clean environment and checked at the commit its author named, with no corrections."
+  status: done
+  day_start: 216
+  workstream: ecosystem
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/pull/171"
+      label: "agent-passport-system #171"
+
+- id: d216-agent-replay-run-reproduced
+  title: "An Agent Replay run over the lab's corpus reproduced, and recorded as an observation"
+  description: "Its 13 vendored fixtures are byte identical to the suite's, and every recorded blob hash matches. How the lab records an external tool is still an open question, and this is not counted as adoption."
+  status: waiting
+  day_start: 216
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/issues/99"
+      label: "aps-conformance-suite #99"
+
+- id: d216-a2a-agentcard-signing-example-unverifiable
+  title: "A2A's AgentCard signing example cannot be verified as published, filed upstream"
+  description: "The specification publishes neither the verification key nor the exact signed payload, and it never pairs the example signature with the canonical form it defines. The issue asks for both."
+  status: waiting
+  day_start: 216
+  workstream: standards
+  links:
+    - url: "https://github.com/a2aproject/A2A/issues/2249"
+      label: "a2aproject/A2A #2249"
+
+- id: d216-hand-copied-metric-line-dropped
+  title: "A hand-copied metric line dropped from INTEGRATION.md"
+  description: "The values were current. The line went because it was copied by hand."
+  status: done
+  day_start: 216
+  workstream: ops
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/pull/172"
+      label: "agent-passport-system #172"
+
+- id: d216-bernstein-assignment-released-undelivered
+  title: "A Bernstein assignment we held for 17 days was released before we delivered"
+  description: "The issue is a delegation chain that still verifies after its final receipt is removed. The maintainer freed the assignment. Recorded as dropped."
+  status: dropped
+  day_start: 216
+  workstream: ecosystem
+  links:
+    - url: "https://github.com/sipyourdrink-ltd/bernstein/issues/5352"
+      label: "bernstein #5352"
+
+# ═══ DAY 215 - 2026-09-19 ═══
+
+- id: d215-review-loop-capped-after-nine-cycles
+  title: "A review loop with no stopping rule ran nine cycles in eleven hours before it was capped"
+  description: "A job closed when neither reviewer had an unresolved correctness finding, and each pass found something. The eighth found a real ledger defect, a reservation accepted after a cancel, which belongs to hardening. Closure is now at most two whole cycles, and later findings are classified and carried."
+  status: done
+  day_start: 215
+  workstream: process
+
+- id: d215-closure-became-a-gate
+  title: "Closure became a gate on the whole surface, with a fourth reason a change may exist"
+  description: "A job is judged by whether its surface matches the draft, checked at the end. The fourth reason is implementation hardening, for reliability and resource safety where the protocol does not prescribe the runtime property. One commit carries one reason."
+  status: done
+  day_start: 215
+  workstream: process
+
+- id: d215-claim-binding-sent-as-a-pull-request
+  title: "Asked to make claim binding explicit, we sent the edited cases and one line"
+  description: "The reviewer resolved his original objection and asked for coverage tied to the claim in the rule text. The answer was suite PR #98, not another explanation on the thread."
+  status: done
+  day_start: 215
+  workstream: conformance
+  links:
+    - url: "https://github.com/cosai-oasis/ws4-secure-design-agentic-systems/issues/189"
+      label: "CoSAI WS4 #189"
+
+- id: d215-priorseal-fixtures-delivered
+  title: "Four PriorSeal fixture inputs delivered, shaped against draft-03 sections 5.3.1, 5.3.2 and 5.4"
+  description: "Built on an isolated branch cut from 6.0.1, so the reconciliation work was never touched. The adapter's author had held his work waiting for them."
+  status: done
+  day_start: 215
+  workstream: ecosystem
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/issues/163"
+      label: "agent-passport-system #163"
+
+- id: d215-insumerapi-crosswalk-refreshed
+  title: "The insumerapi crosswalk refreshed to the wallet_state block the API issues today"
+  description: "Merged after a clean clone passed its tests and the live key set matched the snapshot committed with #166."
+  status: done
+  day_start: 215
+  workstream: vocabulary
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/167"
+      label: "agent-governance-vocabulary #167"
+
+- id: d215-dependency-queue-with-sdk-bumps-held
+  title: "Three dependency updates merged, four SDK bumps held behind the reconciliation"
+  description: "The CodeQL action pin was checked against its upstream annotated tag before merging."
+  status: done
+  day_start: 215
+  workstream: ops
+
+- id: d215-aeoess-com-home-replaced
+  title: "aeoess.com's home became a single interactive line above the four projects"
+  description: "The entry chooser was removed. The page makes no new external requests."
+  status: done
+  day_start: 215
+  workstream: site
+  links:
+    - url: "https://aeoess.com"
+      label: "aeoess.com"
+
+# ═══ DAY 214 - 2026-09-18 ═══
+
+- id: d214-draft-03-reconciliation-began
+  title: "A three-day reconciliation of both SDKs to draft-03 began with a rule-by-rule matrix"
+  description: "Every draft-03 rule was checked against both implementations, and each gap was ruled on before code changed. Each change declares one reason: a repair toward the draft, hardening of an existing path, or evolution toward -04. A new rule is never presented as an old one."
+  status: done
+  day_start: 214
+  workstream: protocol
+
+- id: d214-authority-delegation-v1-is-the-draft-record
+  title: "AuthorityDelegationV1 is the draft-03 authority record, and legacy Delegation is a compatibility surface"
+  description: "External verifiers should target AuthorityDelegationV1. The older createDelegation and verifyDelegation family stays shipped in both SDKs, off the draft path."
+  status: done
+  day_start: 214
+  workstream: protocol
+
+- id: d214-legacy-action-ref-kept-off-the-draft-label
+  title: "A planning note would have put the draft's action reference label on a different digest"
+  description: "The Python helper hashes camelCase keys, a sorted scope array and a timestamp truncated to seconds. Section 4.2's form is snake_case with one scope string and milliseconds. The matrix caught it before code moved, and the helper stays documented as pre-draft."
+  status: done
+  day_start: 214
+  workstream: protocol
+
+- id: d214-trace-integration-back-to-draft
+  title: "The TRACE action receipt integration went back to draft the day it opened"
+  description: "Its fixture was issued by a gateway where draft-03 requires the acting agent, and its result was free-form where the draft fixes one. It waited for SDKs that enforce both."
+  status: done
+  day_start: 214
+  workstream: interop
+  links:
+    - url: "https://github.com/agentrust-io/integrations/pull/200"
+      label: "agentrust-io/integrations #200"
+
+- id: d214-wallet-state-re-date-merged
+  title: "The wallet_state re-date merged once its keys and verifier were pinned next to its bytes"
+  description: "Packages versioned with a lockfile, a key set snapshot committed, 23 of 23 from a clean install. The approval corrected an error in our own earlier review of vector 22."
+  status: done
+  day_start: 214
+  workstream: vocabulary
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/166"
+      label: "agent-governance-vocabulary #166"
+
+- id: d214-mcp-audit-gateway-vectors-merged
+  title: "Cross-stack conformance vectors from mcp-audit-gateway merged into the lab"
+  description: "An external contribution, reviewed and merged by rebase."
+  status: done
+  day_start: 214
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/63"
+      label: "aps-conformance-suite #63"
+
+- id: d214-priorseal-sibling-adapter-agreed
+  title: "PriorSeal will bind APS decision evidence through a sibling adapter"
+  description: "The proposal to bind APS decision receipts to PriorSeal EVM execution receipts was answered with a separate adapter on published APS surfaces, and its author accepted the direction."
+  status: done
+  day_start: 214
+  workstream: ecosystem
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/issues/163"
+      label: "agent-passport-system #163"
+
+- id: d214-aep-driver-and-claim-binding-answered
+  title: "The AEP driver and CoSAI claim binding threads answered without new asks"
+  description: "A semantic AEP implementation, if one is done, uses the packaged corpus pinned and keeps its first blind run. Per-claim binding belongs in the CoSAI rule text, and its shape stays the workstream's call."
+  status: done
+  day_start: 214
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/issues/92"
+      label: "aps-conformance-suite #92"
 
 # ═══ DAY 213 - 2026-09-17 ═══
 

@@ -5,10 +5,10 @@
 <script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blog | APS</title>
-<meta name="description" content="Day-by-day dev log of building the Agent Passport System · enforcement and accountability layer for AI agents. Bring your own identity. Verifier hot path p50 318ns (Mac M3). 5,281 tests. SDK leads with /core subpath (curated essentials), MCP leads with 25 essential tools. Full surface area: 150 MCP tools, 9 research papers, IETF Internet-Draft. Started February 18, 2026.">
+<meta name="description" content="Day-by-day dev log of building the Agent Passport System · enforcement and accountability layer for AI agents. Bring your own identity. Verifier hot path p50 318ns (Mac M3). 5,491 tests. SDK leads with /core subpath (curated essentials), MCP leads with 25 essential tools. Full surface area: 150 MCP tools, 9 research papers, IETF Internet-Draft. Started February 18, 2026.">
 <link rel="canonical" href="https://agent-passport.org/blog.html">
 <meta property="og:title" content="Blog | APS">
-<meta property="og:description" content="Day-by-day dev log of building the Agent Passport System · enforcement and accountability layer for AI agents. Bring your own identity. Verifier hot path p50 318ns (Mac M3). 5,281 tests. SDK leads with /core subpath (curated essentials), MCP leads with 25 essential tools. Full surface area: 150 MCP tools, 9 research papers, IETF Internet-Draft. Started February 18, 2026.">
+<meta property="og:description" content="Day-by-day dev log of building the Agent Passport System · enforcement and accountability layer for AI agents. Bring your own identity. Verifier hot path p50 318ns (Mac M3). 5,491 tests. SDK leads with /core subpath (curated essentials), MCP leads with 25 essential tools. Full surface area: 150 MCP tools, 9 research papers, IETF Internet-Draft. Started February 18, 2026.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Agent Passport System">
 <meta property="og:url" content="https://agent-passport.org/blog.html">
@@ -898,12 +898,54 @@
     <div class="eyebrow"><span class="sq"></span><span>Dev log</span></div>
     <h1>Building Agent Passport System, <span class="it">day by day.</span></h1>
 <!-- PROPAGATION-ZONE-START -->
-    <p class="dek">Day-by-day record of building the enforcement and accountability layer for AI agents. Bring your own identity: did:key, did:web, SPIFFE, OAuth, native did:aps. Started February 18, 2026. <b>5,281 tests, nine papers, IETF draft.</b> Open source. Full surface area: 152 MCP tools.</p>
+    <p class="dek">Day-by-day record of building the enforcement and accountability layer for AI agents. Bring your own identity: did:key, did:web, SPIFFE, OAuth, native did:aps. Started February 18, 2026. <b>5,491 tests, nine papers, IETF draft.</b> Open source. Full surface area: 152 MCP tools.</p>
 <!-- PROPAGATION-ZONE-END -->
     <p class="dek" style="font-size:16px;margin-top:14px">See the full picture on <a href="roadmap.html" style="font-weight:600;color:var(--lime)">the roadmap</a> · every ship across protocol, product, research, comms, and ops with dependency arrows.</p>
   </div>
 </section>
 <main class="blog-feed">
+<!-- ═══ DAY 216 - 2026-09-20 ═══ -->
+<article class="post" id="day-216-two-releases-a-lab-that-runs-on-them-and-a-tag-i-could-not-push">
+<h2>Day 216: two releases, a lab that runs on them, and a tag I could not push</h2>
+<p class="post-date">2026-09-20</p>
+
+<p>Seven questions that draft-03 either left open or that the two SDKs had answered differently went to four independent reviews this morning, and I ruled on each. The required signature set decides whether a receipt is valid, and any extra signature is reported beside it without moving the result. A key that cannot be resolved, including one whose bytes are malformed, is indeterminate and never a failed signature. An empty scope_required is rejected unless a caller opts in. And no input grammar that happens to live in one SDK becomes protocol. Two reviewers changed position during the day because of evidence.</p>
+
+<p>By evening both SDKs were on main and published, 7.0.0 on npm and 4.0.0 on PyPI. Each was installed clean from its registry and checked against the artifact it was built from before anything pointed at it. The TypeScript suite runs 5,491 tests with none failing. Then the conformance lab caught up. Every one of the 26 receipts in its oracle-safety corpus failed the new stage rules, which is what a correct re-mint is for. After the re-mint none fail, and the suite now depends on exact 7.0.0 instead of a branch.</p>
+
+<p>That unblocked the pull request I pulled back on Friday. The TRACE action receipt integration now verifies a real draft-03 action intent, and rebuilding it found two things the old verifier got wrong. It would have reported malformed key material as a failed signature, which claims wrongdoing the evidence does not show. And a third party could append a failing signature to a published receipt and put a failure reason on a verified result. Both are fixed and pinned by tests, and it is back with the maintainers.</p>
+
+<p>One failure of my own. 7.0.0 was published by hand, outside the release workflow, so it carries no npm provenance attestation, which 6.0.1 did. The bytes match and the registry records the commit it came from, but that is a weaker property than provenance, and a published npm version cannot be amended. I cannot tag it either. Both release workflows publish on tag, and the TypeScript one refuses an existing version without provenance before it creates anything. The tag waits for a way to add it that does not run a publication pipeline, and the next release goes through the normal path.</p>
+</article>
+
+<!-- ═══ DAY 215 - 2026-09-19 ═══ -->
+<article class="post" id="day-215-a-stopping-rule-written-after-the-ninth-cycle">
+<h2>Day 215: a stopping rule, written after the ninth cycle</h2>
+<p class="post-date">2026-09-19</p>
+
+<p>The reconciliation called a job finished when neither reviewer had an unresolved correctness finding. On Saturday that rule ran one job through nine whole-surface review cycles in eleven hours. Each pass could find something, so each pass did. The eighth found a real defect, a ledger that accepted a reservation after a cancel, but that belongs to hardening, and conformance had been done hours earlier. The rule now allows at most two whole cycles per job. A repair is verified by reproduction, the suites and one review scoped to the repair. Anything found after that is classified and carried, and it does not reopen closure.</p>
+
+<p>Two other structural changes came out of the same afternoon. Closure became a gate at the end of a job instead of its last planned batch, so a job is judged by whether its whole surface matches the draft. And a fourth reason a change may exist got a name. Implementation hardening covers reliability and resource safety on a draft path where the protocol does not prescribe the runtime property. One commit carries one reason. A Python commit that mixed two is recorded as an erratum and left as it is.</p>
+
+<p>Outside the SDKs, three things moved. The reviewer on CoSAI #189 resolved his original objection and asked that coverage tied to a claim be explicit in the rule text. I had a long reply drafted. What went out was the edited cases as suite pull request #98 and one line pointing at it. On the PriorSeal thread the adapter's author had held his work waiting for our fixtures, so four inputs went up on a branch cut from 6.0.1, shaped against the draft rather than against what I had promised on Friday. And the insumerapi crosswalk refreshed to what the API issues today, merged once a clean clone passed and the live key set matched the snapshot committed with #166.</p>
+
+<p>aeoess.com changed too. The entry chooser is gone, and the home is now a single interactive line above the four projects.</p>
+</article>
+
+<!-- ═══ DAY 214 - 2026-09-18 ═══ -->
+<article class="post" id="day-214-i-opened-a-pull-request-and-pulled-it-back-the-same-afternoon">
+<h2>Day 214: I opened a pull request and pulled it back the same afternoon</h2>
+<p class="post-date">2026-09-18</p>
+
+<p>On Friday morning I opened a pull request against the TRACE integrations repository that verifies an APS action receipt as evidence that an agent issued an action. By the afternoon it was back in draft. Read against draft-03 section 5.3.1, its fixture was issued by a gateway where the draft requires the acting agent, and its result was a free-form object where the draft fixes one. The SDKs I built it on enforced neither rule. That is a problem in the SDKs, so the fix belonged there.</p>
+
+<p>So the week's job started, reconciling both SDKs to draft-03 rule by rule before anything else was allowed to depend on them. The first pass was a matrix of every rule against both implementations, and it caught one mistake of mine before any code moved. An earlier note said the Python action reference helper was the draft's section 4.2 form. It is a different digest. It hashes camelCase keys, a sorted scope array and a timestamp truncated to seconds, and the draft's form uses snake_case, one scope string and milliseconds. Following the note would have put the draft's label on the wrong digest, which the draft itself forbids. The helper stays, documented as pre-draft.</p>
+
+<p>Two rules came out of the day. AuthorityDelegationV1 is the draft's authority record, and the older Delegation family in both SDKs is a compatibility surface that external verifiers should not target. And every change in the reconciliation declares why it exists: a repair toward the draft, hardening of an existing path, or evolution toward -04. A new rule is never presented as an old one.</p>
+
+<p>The rest of the day was other people's work landing. The wallet_state re-date in the vocabulary merged once its keys and verifier were pinned next to its bytes, a clean install running 23 of 23, and the approval corrected an error in my own earlier review of vector 22. Cross-stack vectors from mcp-audit-gateway merged into the lab. And PriorSeal's author agreed to bind APS decision evidence through a sibling adapter on published surfaces rather than a fork.</p>
+</article>
+
 <!-- ═══ DAY 213 - 2026-09-17 ═══ -->
 <article class="post" id="day-213-a-pack-pinned-correctly-went-stale-in-four-days">
 <h2>Day 213: a pack pinned correctly went stale in four days, and a re-date pinned the bytes but not the keys</h2>
