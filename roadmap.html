@@ -94,7 +94,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">650 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">656 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -110,7 +110,31 @@
 </article>
 </section>
 <section class="rm-group rm-group-in-progress">
-<h2 class="rm-group-title">In progress <span class="rm-group-count">(4)</span></h2>
+<h2 class="rm-group-title">In progress <span class="rm-group-count">(6)</span></h2>
+<article class="rm-item rm-item-in_progress" id="d217-lab-lifecycle-cases">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Three lifecycle cases opened in the conformance lab</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 217</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">Ancestor revocation above a chain, sponsor handover where the same agent continues under a newly issued chain while the old one fails, and denial continuity from an OWASP discussion as candidate cases.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/107">aps-conformance-suite#107</a></li><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/108">aps-conformance-suite#108</a></li><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/109">aps-conformance-suite#109</a></li></ul>
+</article>
+<article class="rm-item rm-item-in_progress" id="d217-lifecycle-contributions">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Lifecycle cases taken to CoSAI, OWASP and AgenTrust</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 217</span> 
+<span class="rm-item-ws">outward</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">The handover case on the CoSAI decommissioning thread, the denial case back to the OWASP thread it came from, and a delegation verifier for the AgenTrust integrations that keeps receipt evidence and delegation authority as two results.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/cosai-oasis/ws4-secure-design-agentic-systems/issues/170">CoSAI ws4 #170</a></li><li><a href="https://github.com/OWASP/www-project-agentic-skills-top-10/issues/71">OWASP agentic skills #71</a></li><li><a href="https://github.com/agentrust-io/integrations/pull/216">agentrust-io/integrations#216</a></li></ul>
+</article>
 <article class="rm-item rm-item-in_progress" id="d216-7-0-0-shipped-without-npm-provenance">
 <header class="rm-item-h">
 <h3 class="rm-item-title">7.0.0 shipped without npm provenance, and its tag waits for a safe way to add one</h3>
@@ -158,7 +182,54 @@
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(593)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(597)</span></h2>
+<article class="rm-item rm-item-done" id="d217-agent-authority-lifecycle-published">
+<header class="rm-item-h">
+<h3 class="rm-item-title">agent-authority-lifecycle published</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 217</span> 
+<span class="rm-item-ws">Research</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Revocation, succession, suspension and handover gathered in one repository, each claim labeled specified, tested, candidate or open.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-authority-lifecycle">aeoess/agent-authority-lifecycle</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d217-agent-passport-gateway-public">
+<header class="rm-item-h">
+<h3 class="rm-item-title">The gateway published as agent-passport-gateway</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 217</span> 
+<span class="rm-item-ws">Product</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Open by default. 245 commits of real history, with deployment details, tenant data and internal notes removed from every revision. The operator email is a setting with no default. The only signed commit is the release commit.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-gateway">aeoess/agent-passport-gateway</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d217-gateway-ancestor-revocation-enforced">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Gateway enforces ancestor revocation across sub-delegation chains</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 217</span> 
+<span class="rm-item-ws">security</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A sub-delegation could keep acting after a delegation above it was revoked. Every sub-delegation is now bound to its inbound chain and each ancestor is checked at evaluation time. Reproduced with a four-hop chain before the fix. Production held no active chain longer than one hop. Deployed.</p>
+</article>
+<article class="rm-item rm-item-done" id="d217-mcp-6-1-0-persistent-replay-state">
+<header class="rm-item-h">
+<h3 class="rm-item-title">MCP 6.1.0 keeps capability-token replay state across processes and restarts</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 217</span> 
+<span class="rm-item-ws">security</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Used tokens are recorded as files on disk, created exclusively so only one process can win. The hosted service keeps them on a volume. Closed only after a live test: redeem, restart with a new process confirmed, redeem the same token, rejected.</p>
+<ul class="rm-item-links"><li><a href="https://www.npmjs.com/package/agent-passport-system-mcp/v/6.1.0">npm agent-passport-system-mcp 6.1.0</a></li><li><a href="https://github.com/aeoess/agent-passport-mcp/pull/15">agent-passport-mcp#15</a></li></ul>
+</article>
 <article class="rm-item rm-item-done" id="d216-claim-binding-merged-into-cosai-candidates">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Per-claim binding of observation coverage merged into the CoSAI candidate cases</h3>

@@ -1,7 +1,76 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-09-20 (Day 216). Adds Days 214 to 216. Both SDKs reconciled to draft-03 and published as 7.0.0 and 4.0.0, the lab corpus re-minted and pinned to the release, and the TRACE action receipt integration returned for review. Also records a release that shipped without npm provenance and an assignment released before we delivered.
+# Last updated: 2026-09-21 (Day 217). Adds Day 217. The gateway ancestor revocation fix, the gateway published with sanitized history, MCP 6.1.0 with persistent replay state verified by a restart test on the hosted service, the agent-authority-lifecycle repository, three lifecycle cases in the lab, and the contributions that carried them.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 217 - 2026-09-21 ═══
+
+- id: d217-gateway-ancestor-revocation-enforced
+  title: "Gateway enforces ancestor revocation across sub-delegation chains"
+  description: "A sub-delegation could keep acting after a delegation above it was revoked. Every sub-delegation is now bound to its inbound chain and each ancestor is checked at evaluation time. Reproduced with a four-hop chain before the fix. Production held no active chain longer than one hop. Deployed."
+  status: done
+  day_start: 217
+  workstream: security
+
+- id: d217-agent-passport-gateway-public
+  title: "The gateway published as agent-passport-gateway"
+  description: "Open by default. 245 commits of real history, with deployment details, tenant data and internal notes removed from every revision. The operator email is a setting with no default. The only signed commit is the release commit."
+  status: done
+  day_start: 217
+  workstream: product
+  links:
+    - url: "https://github.com/aeoess/agent-passport-gateway"
+      label: "aeoess/agent-passport-gateway"
+
+- id: d217-mcp-6-1-0-persistent-replay-state
+  title: "MCP 6.1.0 keeps capability-token replay state across processes and restarts"
+  description: "Used tokens are recorded as files on disk, created exclusively so only one process can win. The hosted service keeps them on a volume. Closed only after a live test: redeem, restart with a new process confirmed, redeem the same token, rejected."
+  status: done
+  day_start: 217
+  workstream: security
+  links:
+    - url: "https://www.npmjs.com/package/agent-passport-system-mcp/v/6.1.0"
+      label: "npm agent-passport-system-mcp 6.1.0"
+    - url: "https://github.com/aeoess/agent-passport-mcp/pull/15"
+      label: "agent-passport-mcp#15"
+
+- id: d217-agent-authority-lifecycle-published
+  title: "agent-authority-lifecycle published"
+  description: "Revocation, succession, suspension and handover gathered in one repository, each claim labeled specified, tested, candidate or open."
+  status: done
+  day_start: 217
+  workstream: research
+  links:
+    - url: "https://github.com/aeoess/agent-authority-lifecycle"
+      label: "aeoess/agent-authority-lifecycle"
+
+- id: d217-lab-lifecycle-cases
+  title: "Three lifecycle cases opened in the conformance lab"
+  description: "Ancestor revocation above a chain, sponsor handover where the same agent continues under a newly issued chain while the old one fails, and denial continuity from an OWASP discussion as candidate cases."
+  status: in_progress
+  day_start: 217
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/107"
+      label: "aps-conformance-suite#107"
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/108"
+      label: "aps-conformance-suite#108"
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/109"
+      label: "aps-conformance-suite#109"
+
+- id: d217-lifecycle-contributions
+  title: "Lifecycle cases taken to CoSAI, OWASP and AgenTrust"
+  description: "The handover case on the CoSAI decommissioning thread, the denial case back to the OWASP thread it came from, and a delegation verifier for the AgenTrust integrations that keeps receipt evidence and delegation authority as two results."
+  status: in_progress
+  day_start: 217
+  workstream: outward
+  links:
+    - url: "https://github.com/cosai-oasis/ws4-secure-design-agentic-systems/issues/170"
+      label: "CoSAI ws4 #170"
+    - url: "https://github.com/OWASP/www-project-agentic-skills-top-10/issues/71"
+      label: "OWASP agentic skills #71"
+    - url: "https://github.com/agentrust-io/integrations/pull/216"
+      label: "agentrust-io/integrations#216"
 
 # ═══ DAY 216 - 2026-09-20 ═══
 
