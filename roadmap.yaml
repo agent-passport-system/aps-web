@@ -1,7 +1,103 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-09-21 (Day 217). Adds Day 217. The gateway ancestor revocation fix, the gateway published with sanitized history, MCP 6.1.0 with persistent replay state verified by a restart test on the hosted service, the agent-authority-lifecycle repository, three lifecycle cases in the lab, and the contributions that carried them.
+# Last updated: 2026-09-23 (Day 219). Adds Days 218 and 219. SDK 7.1.0 and Python 4.1.0, twelve lab pull requests, WIMSE, AuthZEN and AAIF contributions, the Goose and OpenClaw evidence, the ASA-WG questions and two lab mappings.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 219 - 2026-09-23 ═══
+
+- id: d219-goose-reused-approval-id-reproduced
+  title: "A late approval reaches the replacement invocation in Goose's confirmation router, reproduced on current main"
+  description: "Goose #11739 says approvals are matched only by the provider's request id. A registers, its receiver is dropped, B registers the same id, and the router has already pruned A's closed sender. A late AllowOnce meant for A's prompt still goes to B, so cleanup does not change the result. The same test with a different id passes. The ACP path is keyed the same way, but the existing fixtures could not drive two real stream invocations through that interleaving, so no runtime claim is made there. Tests posted on the issue. The fix belongs to the assigned maintainer."
+  status: done
+  day_start: 219
+  workstream: outward
+  links:
+    - url: "https://github.com/aaif-goose/goose/issues/11739#issuecomment-5788463118"
+      label: "goose#11739"
+
+- id: d219-openclaw-hook-name-live-run
+  title: "OpenClaw's hook receives MCP tool names with the transport prefix, shown in a live Claude CLI run"
+  description: "For OpenClaw #155946. A hook matching db__query never fired and the tool ran. The same hook returning requireApproval never fired either. A hook matching mcp__db__query fired, blocked, and the tool never ran. So the name arrives with its prefix, and a matching block lands before the MCP server executes. Evidence only, no fix proposed."
+  status: done
+  day_start: 219
+  workstream: outward
+  links:
+    - url: "https://github.com/openclaw/openclaw/issues/155946#issuecomment-5787186112"
+      label: "openclaw#155946"
+
+- id: d219-asa-wg-tool-revocation-questions
+  title: "Two questions on the App Defense Alliance tool provenance section, and a note that a refactor would drop it"
+  description: "Section 2.4.2 of the AI Agent Specification requires refusing revoked tools. Its test does not say whether revocation happens after session setup, and the section does not say what happens when revocation status cannot be established. Filed as two issues. A reformatting pull request cut before the section merged left it out of both new files, and got a short note."
+  status: done
+  day_start: 219
+  workstream: standards
+  links:
+    - url: "https://github.com/appdefensealliance/ASA-WG/issues/497"
+      label: "ASA-WG#497"
+    - url: "https://github.com/appdefensealliance/ASA-WG/issues/498"
+      label: "ASA-WG#498"
+    - url: "https://github.com/appdefensealliance/ASA-WG/pull/494#issuecomment-5787136632"
+      label: "ASA-WG#494 note"
+
+- id: d219-lab-mappings-asa-and-contextforge
+  title: "Two candidate mappings in the lab, one with a script that runs ContextForge's own cache code"
+  description: "One maps the ASA-WG section to existing revocation families. One maps IBM ContextForge's policy engine requirements to the cached authorization family, and includes a script that loads two ContextForge source files unmodified at a pinned commit and refuses to run otherwise. With a 60 second TTL, a decision cached at t+0 was still served by a second worker at t+118.5, because a Redis hit starts a fresh in-memory TTL. Whether that TTL is meant to be the propagation window in their issue is not established. Neither mapping is a conformance claim."
+  status: done
+  day_start: 219
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/118"
+      label: "lab#118"
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/119"
+      label: "lab#119"
+
+# ═══ DAY 218 - 2026-09-22 ═══
+
+- id: d218-sdk-7-1-0-root-exports
+  title: "SDK 7.1.0 exports the delegation issuance functions its own docs pointed at"
+  description: "issueAuthorityDelegation, issueSubAuthorityDelegation, scope comparison and budget were documented and not exported from the package root. 7.1.0 exports them, with direct authority revocation and opt-in predecessor binding. Published on npm with provenance. The post-publish check hit a 404 while the registry was processing and passed on rerun."
+  status: done
+  day_start: 218
+  workstream: protocol
+  links:
+    - url: "https://www.npmjs.com/package/agent-passport-system/v/7.1.0"
+      label: "npm 7.1.0"
+    - url: "https://github.com/aeoess/agent-passport-system/pull/185"
+      label: "agent-passport-system#185"
+
+- id: d218-python-4-1-0-gated-publish
+  title: "Python 4.1.0 published through a gated workflow with attestations"
+  description: "The workflow checks the tag equals the version and the commit is on main, runs the full suite (2,127 passed, 6 skipped), then publishes. Wheel and sdist each carry a PEP 740 attestation. A clean install reports 4.1.0."
+  status: done
+  day_start: 218
+  workstream: sdk
+  links:
+    - url: "https://pypi.org/project/agent-passport-system/4.1.0/"
+      label: "PyPI 4.1.0"
+
+- id: d218-twelve-lab-pull-requests
+  title: "Twelve lab pull requests merged, most of them revocation and authority cases"
+  description: "Lab #106 to #117. A revoked ancestor fails a deeper descendant, one agent identity runs under an old and a replacement chain, cached authorization after revocation, denial continuity, approval as a single-use permit, historical key selection, one chain per action on the real scope and budget code, issuer refusal with distinct codes, and candidate cases against the AuthZEN ARAP profile. The two SDK-pinned families were re-recorded on 7.1.0 with only the version string and one new not-checked field allowed to differ."
+  status: done
+  day_start: 218
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pulls?q=is%3Apr+is%3Amerged"
+      label: "lab merged pull requests"
+
+- id: d218-wimse-authzen-aaif-contributions
+  title: "A WIMSE draft review, one AuthZEN ARAP case, and the first contribution in an AAIF working group"
+  description: "A review of the WIMSE agent audit record draft on #144. One candidate case against the AuthZEN ARAP profile on #663. A mapping of lab families to the freshness and revocation rules in AAIF Identity and Trust #5."
+  status: done
+  day_start: 218
+  workstream: standards
+  links:
+    - url: "https://github.com/ietf-wg-wimse/draft-ietf-wimse-aims/issues/144#issuecomment-5782206278"
+      label: "WIMSE #144"
+    - url: "https://github.com/openid/authzen/issues/663#issuecomment-5785500364"
+      label: "AuthZEN #663"
+    - url: "https://github.com/aaif/wg-identity-and-trust/issues/5#issuecomment-5786289272"
+      label: "AAIF I&T #5"
 
 # ═══ DAY 217 - 2026-09-21 ═══
 

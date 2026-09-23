@@ -94,7 +94,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">656 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">664 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -182,7 +182,103 @@
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(597)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(605)</span></h2>
+<article class="rm-item rm-item-done" id="d219-asa-wg-tool-revocation-questions">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Two questions on the App Defense Alliance tool provenance section, and a note that a refactor would drop it</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 219</span> 
+<span class="rm-item-ws">Standards</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Section 2.4.2 of the AI Agent Specification requires refusing revoked tools. Its test does not say whether revocation happens after session setup, and the section does not say what happens when revocation status cannot be established. Filed as two issues. A reformatting pull request cut before the section merged left it out of both new files, and got a short note.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/appdefensealliance/ASA-WG/issues/497">ASA-WG#497</a></li><li><a href="https://github.com/appdefensealliance/ASA-WG/issues/498">ASA-WG#498</a></li><li><a href="https://github.com/appdefensealliance/ASA-WG/pull/494#issuecomment-5787136632">ASA-WG#494 note</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d219-goose-reused-approval-id-reproduced">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A late approval reaches the replacement invocation in Goose's confirmation router, reproduced on current main</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 219</span> 
+<span class="rm-item-ws">outward</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Goose #11739 says approvals are matched only by the provider's request id. A registers, its receiver is dropped, B registers the same id, and the router has already pruned A's closed sender. A late AllowOnce meant for A's prompt still goes to B, so cleanup does not change the result. The same test with a different id passes. The ACP path is keyed the same way, but the existing fixtures could not drive two real stream invocations through that interleaving, so no runtime claim is made there. Tests posted on the issue. The fix belongs to the assigned maintainer.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aaif-goose/goose/issues/11739#issuecomment-5788463118">goose#11739</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d219-lab-mappings-asa-and-contextforge">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Two candidate mappings in the lab, one with a script that runs ContextForge's own cache code</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 219</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">One maps the ASA-WG section to existing revocation families. One maps IBM ContextForge's policy engine requirements to the cached authorization family, and includes a script that loads two ContextForge source files unmodified at a pinned commit and refuses to run otherwise. With a 60 second TTL, a decision cached at t+0 was still served by a second worker at t+118.5, because a Redis hit starts a fresh in-memory TTL. Whether that TTL is meant to be the propagation window in their issue is not established. Neither mapping is a conformance claim.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/118">lab#118</a></li><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/119">lab#119</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d219-openclaw-hook-name-live-run">
+<header class="rm-item-h">
+<h3 class="rm-item-title">OpenClaw's hook receives MCP tool names with the transport prefix, shown in a live Claude CLI run</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 219</span> 
+<span class="rm-item-ws">outward</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">For OpenClaw #155946. A hook matching db__query never fired and the tool ran. The same hook returning requireApproval never fired either. A hook matching mcp__db__query fired, blocked, and the tool never ran. So the name arrives with its prefix, and a matching block lands before the MCP server executes. Evidence only, no fix proposed.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/openclaw/openclaw/issues/155946#issuecomment-5787186112">openclaw#155946</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d218-python-4-1-0-gated-publish">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Python 4.1.0 published through a gated workflow with attestations</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 218</span> 
+<span class="rm-item-ws">sdk</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The workflow checks the tag equals the version and the commit is on main, runs the full suite (2,127 passed, 6 skipped), then publishes. Wheel and sdist each carry a PEP 740 attestation. A clean install reports 4.1.0.</p>
+<ul class="rm-item-links"><li><a href="https://pypi.org/project/agent-passport-system/4.1.0/">PyPI 4.1.0</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d218-sdk-7-1-0-root-exports">
+<header class="rm-item-h">
+<h3 class="rm-item-title">SDK 7.1.0 exports the delegation issuance functions its own docs pointed at</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 218</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">issueAuthorityDelegation, issueSubAuthorityDelegation, scope comparison and budget were documented and not exported from the package root. 7.1.0 exports them, with direct authority revocation and opt-in predecessor binding. Published on npm with provenance. The post-publish check hit a 404 while the registry was processing and passed on rerun.</p>
+<ul class="rm-item-links"><li><a href="https://www.npmjs.com/package/agent-passport-system/v/7.1.0">npm 7.1.0</a></li><li><a href="https://github.com/aeoess/agent-passport-system/pull/185">agent-passport-system#185</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d218-twelve-lab-pull-requests">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Twelve lab pull requests merged, most of them revocation and authority cases</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 218</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Lab #106 to #117. A revoked ancestor fails a deeper descendant, one agent identity runs under an old and a replacement chain, cached authorization after revocation, denial continuity, approval as a single-use permit, historical key selection, one chain per action on the real scope and budget code, issuer refusal with distinct codes, and candidate cases against the AuthZEN ARAP profile. The two SDK-pinned families were re-recorded on 7.1.0 with only the version string and one new not-checked field allowed to differ.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pulls?q=is%3Apr+is%3Amerged">lab merged pull requests</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d218-wimse-authzen-aaif-contributions">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A WIMSE draft review, one AuthZEN ARAP case, and the first contribution in an AAIF working group</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 218</span> 
+<span class="rm-item-ws">Standards</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">A review of the WIMSE agent audit record draft on #144. One candidate case against the AuthZEN ARAP profile on #663. A mapping of lab families to the freshness and revocation rules in AAIF Identity and Trust #5.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/ietf-wg-wimse/draft-ietf-wimse-aims/issues/144#issuecomment-5782206278">WIMSE #144</a></li><li><a href="https://github.com/openid/authzen/issues/663#issuecomment-5785500364">AuthZEN #663</a></li><li><a href="https://github.com/aaif/wg-identity-and-trust/issues/5#issuecomment-5786289272">AAIF I&amp;T #5</a></li></ul>
+</article>
 <article class="rm-item rm-item-done" id="d217-agent-authority-lifecycle-published">
 <header class="rm-item-h">
 <h3 class="rm-item-title">agent-authority-lifecycle published</h3>
