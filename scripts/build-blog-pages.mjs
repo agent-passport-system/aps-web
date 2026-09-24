@@ -11,7 +11,14 @@
 // back out of the files it wrote, so running it twice in a row is a no-op.
 // Post order is document order, newest first, never re-sorted.
 //
-// Zero dependencies. Run via: node scripts/build-blog-pages.mjs
+// Zero dependencies.
+//   node scripts/build-blog-pages.mjs           rewrite every page
+//   node scripts/build-blog-pages.mjs --check   report drift, write nothing
+//
+// --check exists because propagate.mjs rewrites blog.html only. The other
+// pages copy their head and hero from blog.html, so a propagation run leaves
+// them behind until this script runs again. --check exits 1 when that has
+// happened, which is what a pre-push or self-check pass wants.
 
 import { readFileSync, writeFileSync, existsSync, unlinkSync } from 'node:fs'
 import { dirname, join } from 'node:path'
@@ -355,6 +362,8 @@ function writeSitemap(chunks) {
 // Build
 // ─────────────────────────────────────────────────────────────────────────────
 
+const CHECK = process.argv.includes('--check')
+
 function main() {
   const blogPath = join(root, 'blog.html')
   const shell = shellOf(readFileSync(blogPath, 'utf8'))
@@ -365,6 +374,7 @@ function main() {
   for (let i = 0; i < all.length; i += PAGE_SIZE) chunks.push(all.slice(i, i + PAGE_SIZE))
 
   const index = indexBlock(chunks)
+  const stale = []
 
   chunks.forEach((chunk, i) => {
     const n = i + 1
@@ -375,10 +385,30 @@ function main() {
       chunk.map((p) => p.html).join('\n\n'),
       `${PAGER_BOT_START}\n${pager(n, chunks, all.length, 'bottom')}\n${PAGER_BOT_END}`,
     ].join('\n') + shell.tail
-    writeFileSync(join(root, pageFile(n)), html)
+    const target = join(root, pageFile(n))
+    if (CHECK) {
+      const current = existsSync(target) ? readFileSync(target, 'utf8') : null
+      if (current !== html) stale.push(pageFile(n))
+      return
+    }
+    writeFileSync(target, html)
     const kb = (Buffer.byteLength(html) / 1024).toFixed(0)
     console.log(`${pageFile(n).padEnd(13)} ${String(chunk.length).padStart(2)} entries  ${kb.padStart(4)}K  ${rangeLabel(chunk)}`)
   })
+
+  if (CHECK) {
+    for (let n = chunks.length + 1; n <= MAX_PAGE_FILES; n++) {
+      if (!existsSync(join(root, pageFile(n)))) break
+      stale.push(`${pageFile(n)} (should not exist)`)
+    }
+    if (stale.length) {
+      console.error(`Blog pages out of date: ${stale.join(', ')}`)
+      console.error('Run: node scripts/build-blog-pages.mjs')
+      process.exit(1)
+    }
+    console.log(`${all.length} entries across ${chunks.length} pages, all current.`)
+    return
+  }
 
   writeSitemap(chunks)
 
