@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blog page 10 | APS</title>
+<meta name="description" content="Day-by-day dev log of building the Agent Passport System · enforcement and accountability layer for AI agents. Bring your own identity. Verifier hot path p50 318ns (Mac M3). 6,003 tests. SDK leads with /core subpath (curated essentials), MCP leads with 25 essential tools. Full surface area: 150 MCP tools, 9 research papers, IETF Internet-Draft. Started February 18, 2026. Page 10 of 10, Feb 17, 2026 to Feb 28, 2026.">
+<link rel="canonical" href="https://agent-passport.org/blog-10.html">
+<meta property="og:title" content="Blog page 10 | APS">
+<meta property="og:description" content="Day-by-day dev log of building the Agent Passport System · enforcement and accountability layer for AI agents. Bring your own identity. Verifier hot path p50 318ns (Mac M3). 6,003 tests. SDK leads with /core subpath (curated essentials), MCP leads with 25 essential tools. Full surface area: 150 MCP tools, 9 research papers, IETF Internet-Draft. Started February 18, 2026. Page 10 of 10, Feb 17, 2026 to Feb 28, 2026.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Agent Passport System">
+<meta property="og:url" content="https://agent-passport.org/blog-10.html">
+<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://agent-passport.org/assets/images/og-2026-09.png">
+<meta name="twitter:image" content="https://agent-passport.org/assets/images/og-2026-09.png">
+<link rel="icon" href="/favicon.ico?v=3" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="stylesheet" href="/aps-v2.css?v=20260910c">
+<style>
+/* ── Blog page-specific: newsprint re-skin of existing entry markup ──
+   Old inline-style color vars are aliased to newsprint tokens so the
+   .post entries restyle without editing each entry's markup. */
+.blog-feed, .page-hero{
+  --ink-2:var(--sub);
+  --dim:var(--sub);
+  --text:var(--fg);
+  --accent:var(--lime);
+  --link:var(--lime);
+  --ink-5:var(--sub);
+  --mono:var(--mono);
+  --code-bg:var(--panel);
+}
+.blog-feed{max-width:var(--maxw);margin:0 auto;padding:64px 48px 96px;position:relative;z-index:1}
+
+/* dev-log entry as a dated newsprint record ·
+   date sits in the left margin, the whole body stacks in one column */
+.blog-feed .post{
+  border-top:1px solid var(--line2);
+  padding:44px 0;
+  display:grid;grid-template-columns:170px minmax(0,820px);
+  column-gap:48px;
+  align-items:start;
+}
+.blog-feed .post:first-of-type{border-top:0;padding-top:0}
+/* the site header is fixed and the jump bar is sticky, so an anchor has to
+   clear both. Both heights are measured in blog-nav.js. */
+.blog-feed .post{scroll-margin-top:calc(var(--bp-nav-h, 0px) + var(--bp-bar-h, 0px) + 14px)}
+.blog-feed .post > *{grid-column:2;min-width:0}
+.blog-feed .post .post-date{
+  grid-column:1;grid-row:1;
+  font-family:var(--mono);
+  font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--lime);padding-top:7px;display:block;
+}
+.blog-feed .post h2{
+  font-family:var(--disp);
+  font-size:30px;line-height:1.12;letter-spacing:-0.022em;font-weight:500;
+  color:var(--fg);margin:0 0 16px;text-wrap:balance;
+}
+.blog-feed .post p{
+  font-family:"Inter",-apple-system,system-ui,sans-serif;
+  font-size:16px;line-height:1.66;color:var(--sub)!important;
+  font-weight:400;margin:0 0 14px;
+}
+.blog-feed .post p:last-child{margin-bottom:0}
+.blog-feed .post p[style*="font-size:.95rem"]{font-size:16px!important}
+.blog-feed .post strong{color:var(--fg)!important;font-weight:600}
+.blog-feed .post a{
+  color:var(--lime);text-decoration:none;
+  border-bottom:1px solid #b83a2e55;transition:border-color .15s;
+}
+.blog-feed .post a:hover{border-bottom-color:var(--lime)}
+.blog-feed .post code{
+  font-family:var(--mono);
+  font-size:13px;background:var(--panel);
+  border:1px solid var(--line);padding:1px 6px;border-radius:3px;
+  color:var(--fg);
+}
+.blog-feed .post pre{
+  background:var(--fg);color:var(--bg);
+  font-family:var(--mono);
+  font-size:13px;line-height:1.62;padding:20px 22px;overflow-x:auto;
+  margin:0 0 18px;border:1px solid var(--fg);
+}
+.blog-feed .post pre code{background:none;border:0;padding:0;color:inherit}
+.blog-feed .post h3{
+  font-family:var(--disp);
+  font-size:21px;line-height:1.25;letter-spacing:-0.015em;font-weight:500;
+  color:var(--fg);margin:30px 0 12px;
+}
+.blog-feed .post ul,.blog-feed .post ol{
+  font-family:"Inter",-apple-system,system-ui,sans-serif;
+  font-size:16px;line-height:1.66;color:var(--sub);margin:0 0 14px;padding-left:24px;
+}
+.blog-feed .post li{margin:0 0 6px}
+.blog-feed .post ul li::marker{color:var(--lime)}
+.blog-feed .post blockquote{
+  margin:0 0 16px;padding:6px 0 6px 20px;border-left:2px solid var(--lime);
+  font-family:var(--disp);
+  font-style:italic;font-size:18px;line-height:1.5;color:var(--fg);
+}
+
+/* ── Pagination ──
+   Real links, rendered server-side by scripts/build-blog-pages.mjs. Nothing
+   here depends on JavaScript: with scripts off the pager is still the way
+   through the archive. */
+.blog-feed .bp-pager{
+  font-family:var(--mono);
+  display:flex;flex-direction:column;gap:12px;
+  padding:18px 0;margin:0;
+}
+.blog-feed .bp-pager-top{border-bottom:1px solid var(--line2);margin-bottom:36px;padding-top:0}
+.blog-feed .bp-pager-bottom{border-top:1px solid var(--line2);margin-top:44px}
+.blog-feed .bp-pager-count{
+  font-family:var(--mono)!important;
+  font-size:11px!important;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--sub)!important;margin:0!important;
+}
+.blog-feed .bp-pager-row{
+  display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px;
+}
+.blog-feed .bp-pager-pages{
+  display:flex;flex-wrap:wrap;align-items:center;gap:6px;
+  list-style:none;margin:0!important;padding:0!important;font-size:inherit;
+}
+.blog-feed .bp-pager-pages li{margin:0}
+.blog-feed .bp-pager a,.blog-feed .bp-pager .is-off{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;
+  border:1px solid var(--line2);border-bottom:1px solid var(--line2);
+  color:var(--sub);text-decoration:none;
+  padding:7px 11px;border-radius:2px;display:inline-block;line-height:1;
+  transition:color .15s,border-color .15s;
+}
+.blog-feed .bp-pager a:hover{color:var(--fg);border-color:var(--fg)}
+.blog-feed .bp-pager .bp-pager-n{min-width:32px;text-align:center}
+.blog-feed .bp-pager .is-on{color:var(--lime);border-color:var(--lime);font-weight:600}
+.blog-feed .bp-pager .is-off{opacity:.35}
+.blog-feed .bp-pager-gap{color:var(--sub);font-size:11.5px;padding:0 2px}
+.blog-feed .bp-pager a:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+
+/* ── Jump bar, built by blog-nav.js ──
+   Row one is a month tablist, row two is the days in the selected month.
+   A day on another page is a link. A day on this page scrolls in place. */
+.bp-bar{flex-direction:column;align-items:stretch;gap:0;overflow-x:visible;padding:0;top:var(--bp-nav-h, 0px)}
+.bp-bar-row{display:flex;gap:6px;overflow-x:auto;padding:8px 5vw;scrollbar-width:thin;align-items:center}
+.bp-bar-months{border-bottom:1px solid var(--line)}
+.bp-bar-label{
+  flex:0 0 auto;font-family:var(--mono);font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--sub);padding-right:4px;
+}
+.bp-chip[aria-selected="true"]{color:var(--lime);border-color:var(--lime)}
+a.bp-chip{text-decoration:none;display:inline-block;line-height:1.1}
+.bp-chip-off::after{content:" ↗";opacity:.55}
+@media(max-width:860px){
+  .bp-bar-row{padding:6px 24px}
+  .bp-chip{font-size:10px;padding:4px 8px}
+  .blog-feed .bp-pager-row{gap:8px 10px}
+  .blog-feed .bp-pager a,.blog-feed .bp-pager .is-off{padding:8px 10px}
+}
+
+/* Scripts off: say where the rest of the archive is. */
+.bp-noscript{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;
+  color:var(--sub);border:1px solid var(--line2);background:var(--panel);
+  padding:12px 16px;margin:0 0 28px;
+}
+
+/* the "for AI agents" callout near the bottom */
+.blog-feed .agent-note{
+  margin:48px auto 0;max-width:none;
+  padding:18px 22px;border:1px solid var(--line2);background:var(--panel);
+  font-family:"Inter",-apple-system,system-ui,sans-serif;
+  font-size:14px;line-height:1.6;color:var(--sub);border-radius:0;
+}
+.blog-feed .agent-note strong{color:var(--fg);font-weight:600}
+.blog-feed .agent-note a{color:var(--lime);border-bottom:1px solid #b83a2e55;text-decoration:none}
+
+@media(max-width:860px){
+  .blog-feed{padding:48px 24px 72px}
+  .blog-feed .post{grid-template-columns:1fr;row-gap:10px}
+  .blog-feed .post > *{grid-column:1}
+  .blog-feed .post .post-date{grid-row:auto;padding-top:0;margin-bottom:4px}
+  .blog-feed .post h2{font-size:25px}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "APS Dev Log, page 10 of 10",
+  "url": "https://agent-passport.org/blog-10.html",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "APS Dev Log",
+    "url": "https://agent-passport.org/blog.html"
+  },
+  "inLanguage": "en",
+  "hasPart": [
+    {
+      "@type": "BlogPosting",
+      "headline": "Day 11: Documentation Sprint",
+      "datePublished": "2026-02-28",
+      "author": {
+        "@type": "Person",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog-10.html#day-11"
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "Day 10: Layer 7 — Coordination Primitives",
+      "datePublished": "2026-02-27",
+      "author": {
+        "@type": "Person",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog-10.html#day-10"
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "Day 8: Layer 5 — Intent Architecture",
+      "datePublished": "2026-02-25",
+      "author": {
+        "@type": "Person",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog-10.html#day-8"
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "We Ran 3 Experiments With Real AI Agents. Here's What Broke — and What Worked.",
+      "datePublished": "2026-02-26",
+      "author": {
+        "@type": "Person",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog-10.html#experiments"
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "Agora is the Missing Layer: Signed Speech for Agents",
+      "datePublished": "2026-02-24",
+      "author": {
+        "@type": "Person",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog-10.html#agora"
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "Days 6–7: MCP Server Ships — 150 Tools, 12+ Distribution Channels",
+      "datePublished": "2026-02-23",
+      "author": {
+        "@type": "Person",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog-10.html#mcp-ships"
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "Days 4–5: The Community Shows Up",
+      "datePublished": "2026-02-21",
+      "author": {
+        "@type": "Person",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog-10.html#community"
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "Paper: The Agent Social Contract",
+      "datePublished": "2026-02-20",
+      "author": {
+        "@type": "Person",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog-10.html#paper"
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "Agent Passport v1.1: From Identity to Accountability",
+      "datePublished": "2026-02-20",
+      "author": {
+        "@type": "Person",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog-10.html#v1-1"
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "Day 2: Media Coverage",
+      "datePublished": "2026-02-19",
+      "author": {
+        "@type": "Person",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog-10.html#media-coverage"
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "Agent Passport System: Cryptographic Identity for AI Agents",
+      "datePublished": "2026-02-18",
+      "author": {
+        "@type": "Person",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog-10.html#launch"
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "The Speed of Wrong vs The Speed of Right",
+      "datePublished": "2026-02-17",
+      "author": {
+        "@type": "Person",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog-10.html#speed"
+    }
+  ]
+}
+</script>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S7QVCJGMKR');
+</script>
+<script src="/nav.js?v=20260907a" defer></script>
+<script src="/blog-nav.js?v=20260924a" defer></script>
+<meta name="theme-color" content="#0A5CFF">
+<link rel="alternate" type="application/rss+xml" title="APS Dev Log" href="/feed.xml">
+<script src="/gh-stars.js" defer></script>
+<!-- BUILD:BLOG_HEAD_START -->
+<link rel="prev" href="https://agent-passport.org/blog-9.html">
+<!-- BUILD:BLOG_HEAD_END -->
+</head>
+<body>
+<div class="bg-glow"></div>
+<header class="nav">
+  <div class="brand">
+    <a href="/"><span class="sq"></span>APS <span style="color:var(--sub)">· Agent Passport System</span></a>
+    <span class="badge"><i></i>Apache 2.0</span>
+  </div>
+  <nav class="nav-links">
+    <a href="https://agent-passport.org/docs.html">Docs</a>
+    <a href="https://agent-passport.org/protocol.html">Spec</a>
+    <a href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a href="https://agent-passport.org/research.html">Research</a>
+    <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+    <a href="https://agent-passport.org/blog.html">Dev Log</a>
+    <a href="https://agent-passport.org/verify.html">Verify</a>
+    <a class="gh" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
+<a class="gh-star" href="https://github.com/aeoess/agent-passport-system" target="_blank" rel="noopener" aria-label="Star on GitHub"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg><span id="ghStarCount">star</span></a>
+  </nav>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button>
+</header>
+
+<!-- MOBILE DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="drawer-scrim" id="drawerScrim"></div>
+  <aside class="drawer-panel" aria-label="Menu">
+    <div class="drawer-head">
+      <span class="badge"><i></i>Apache 2.0</span>
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
+    </div>
+    <a class="dl" href="https://agent-passport.org/docs.html">Docs</a>
+    <a class="dl" href="https://agent-passport.org/protocol.html">Spec</a>
+    <a class="dl" href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a class="dl" href="https://agent-passport.org/research.html">Research</a>
+    <a class="dl" href="https://agent-passport.org/roadmap.html">Roadmap</a>
+    <a class="dl" href="https://agent-passport.org/blog.html">Dev Log</a>
+    <a class="dl" href="https://agent-passport.org/verify.html">Verify</a>
+    <a class="gh-big" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
+  </aside>
+</div>
+<section class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="sq"></span><span>Dev log</span></div>
+    <h1>Building Agent Passport System, <span class="it">day by day.</span></h1>
+<!-- PROPAGATION-ZONE-START -->
+    <p class="dek">Day-by-day record of building the enforcement and accountability layer for AI agents. Bring your own identity: did:key, did:web, SPIFFE, OAuth, native did:aps. Started February 18, 2026. <b>6,003 tests, nine papers, IETF draft.</b> Open source. Full surface area: 152 MCP tools.</p>
+<!-- PROPAGATION-ZONE-END -->
+    <p class="dek" style="font-size:16px;margin-top:14px">See the full picture on <a href="roadmap.html" style="font-weight:600;color:var(--lime)">the roadmap</a> · every ship across protocol, product, research, comms, and ops with dependency arrows.</p>
+  </div>
+</section>
+<main class="blog-feed">
+<<<<<<< HEAD
+<!-- BUILD:BLOG_INDEX_START -->
+<script type="application/json" id="bp-index">{"pageSize":20,"pages":10,"posts":[{"i":"day-220-a-rule-in-our-own-draft-that-nothing-could-fail","p":1,"d":"2026-09-24","t":"Day 220: a rule in our own draft that nothing could fail, and 134 cases that became one file"},{"i":"day-219-a-late-approval-reached-the-wrong-invocation","p":1,"d":"2026-09-23","t":"Day 219: a late approval reached the wrong invocation, and three jobs that died waiting"},{"i":"day-218-two-releases-and-functions-our-docs-pointed-at-that-nobody-could-import","p":1,"d":"2026-09-22","t":"Day 218: two releases, and functions our own docs pointed at that nobody could import"},{"i":"day-217-the-gateway-is-public-and-a-replay-fix-counted-after-a-restart","p":1,"d":"2026-09-21","t":"Day 217: the gateway is public, and a replay fix counted after a restart"},{"i":"day-216-two-releases-a-lab-that-runs-on-them-and-a-tag-i-could-not-push","p":1,"d":"2026-09-20","t":"Day 216: two releases, a lab that runs on them, and a tag I could not push"},{"i":"day-215-a-stopping-rule-written-after-the-ninth-cycle","p":1,"d":"2026-09-19","t":"Day 215: a stopping rule, written after the ninth cycle"},{"i":"day-214-i-opened-a-pull-request-and-pulled-it-back-the-same-afternoon","p":1,"d":"2026-09-18","t":"Day 214: I opened a pull request and pulled it back the same afternoon"},{"i":"day-213-a-pack-pinned-correctly-went-stale-in-four-days","p":1,"d":"2026-09-17","t":"Day 213: a pack pinned correctly went stale in four days, and a re-date pinned the bytes but not the keys"},{"i":"day-212-a-rule-sent-as-a-question-and-a-requirement-closed-as-too-early","p":1,"d":"2026-09-16","t":"Day 212: a rule sent as a question, and a requirement closed as too early"},{"i":"day-211-two-records-merged-and-a-manifest-that-cannot-name-its-own-commit","p":1,"d":"2026-09-15","t":"Day 211: two records merged, and a manifest that cannot live inside the commit it names"},{"i":"day-210-the-fix-shipped-and-the-copy-still-taught-the-bug","p":1,"d":"2026-09-14","t":"Day 210: the fix was in the code and the shipped copy still taught the defect"},{"i":"day-208-mingle-shipped-and-a-verifier-that-exits-zero-on-seven-mutations","p":1,"d":"2026-09-12","t":"Day 208: Mingle shipped, and a verifier that exits zero on seven mutations"},{"i":"day-207-nine-fixes-to-mingle-and-a-reveal-that-released-both-values","p":1,"d":"2026-09-11","t":"Day 207: nine fixes to Mingle, and the review of them found a reveal that released both values"},{"i":"day-206-the-driver-that-rewrote-the-policy-it-was-tested-against","p":1,"d":"2026-09-10","t":"Day 206: the driver rewrote the policy it was being tested against, and the correction went upstream"},{"i":"day-205-3c-and-the-proxy-that-kept-becoming-evidence","p":1,"d":"2026-09-09","t":"Day 205: a pass before anything ships, and four errors that shared one shape"},{"i":"day-204-a-proof-built-to-attack-our-own-claim","p":1,"d":"2026-09-08","t":"Day 204: a proof built to attack our own claim, and an audit workstream closed by reading disk"},{"i":"day-203-a-proof-that-was-wrong-and-a-network-that-never-existed","p":1,"d":"2026-09-07","t":"Day 203: a proof that was wrong about itself, and a network that never existed"},{"i":"day-202-a-second-palette-and-three-openclaw-doors","p":1,"d":"2026-09-06","t":"Day 202: the site got a second palette, and three more doors opened at OpenClaw"},{"i":"day-201-five-records-and-the-word-independent","p":1,"d":"2026-09-05","t":"Day 201: five conformance records in a day, and what the word independent is allowed to mean"},{"i":"day-200-one-security-release-on-four-registries","p":1,"d":"2026-09-04","t":"Day 200: one security release on four registries, and a test chain that never reached the SDK"},{"i":"day-199-three-tags-for-one-release-and-a-board-cut-to-seven","p":2,"d":"2026-09-03","t":"Day 198 and 199: three tags for one release, a family merged with the policy question kept off it, and a board cut to seven"},{"i":"day-197-the-file-that-tells-me-what-is-true-and-a-race-found-by-opening-the-real-pr","p":2,"d":"2026-09-01","t":"Day 197: the file that tells me what is true had been wrong for days, one pull request that had to become three, and a race found only by opening the real one"},{"i":"day-196-the-control-i-adjusted-to-make-the-test-pass","p":2,"d":"2026-08-31","t":"Day 196: the control I adjusted so the test could run, and four other days' worth of arguing with an incomplete evidence set"},{"i":"day-195-a-reproduction-that-could-not-fail","p":2,"d":"2026-08-30","t":"Day 195: a reproduction that could not fail, and the rule we were holding somebody to that we had never written down"},{"i":"day-194-the-word-including-and-the-runs-that-did-not-count","p":2,"d":"2026-08-29","t":"Day 194: the word \"including\", the runs of mine that did not count, and a refusal recorded as a refusal"},{"i":"day-193-the-legs-found-what-the-audits-missed","p":2,"d":"2026-08-28","t":"Day 193: a public endpoint serving a removed tool, a release whose attested bytes are the shipped bytes, and four reviews where the second reader found what the first one missed"},{"i":"day-192-a-number-that-cannot-see-identity","p":2,"d":"2026-08-27","t":"Day 192, second half: a guard that counted, and an erratum that shrank"},{"i":"day-192-a-field-nobody-read","p":2,"d":"2026-08-27","t":"Day 192: a field the verifier called authoritative and never read, and the artifact we stopped before sending"},{"i":"day-191-the-corpus-somebody-else-ran","p":2,"d":"2026-08-26","t":"Day 191: the corpus somebody else ran, and the day the suite graded three outsiders."},{"i":"day-190-provenance-i-got-wrong-in-public","p":2,"d":"2026-08-25","t":"Day 190: two provenance claims I got wrong in public, and the lab got an intake door."},{"i":"day-188-invitation-had-replies","p":2,"d":"2026-08-25","t":"Day 188: the invitation had replies under it, and the artifact shipped anyway."},{"i":"day-185-numbers-nobody-owned","p":2,"d":"2026-08-20","t":"Day 185: seven numbers no artifact owned, and every check reporting on them answered confidently about the wrong thing."},{"i":"day-184-a-rule-with-a-hole-in-it","p":2,"d":"2026-08-19","t":"Day 184: an integer that could not survive the wire, a coverage rule with a hole in it, and someone else's canonicalizer measured in public."},{"i":"day-183-a-crashed-hook-that-counted-as-evaluated","p":2,"d":"2026-08-18","t":"Day 183: a crashed hook that counted as evaluated, a flake that was not ours, and an independent verification we did not run."},{"i":"day-182-a-null-the-caller-never-wrote","p":2,"d":"2026-08-17","t":"Day 182: a null the caller never wrote, and a site that finally says what the code does."},{"i":"day-180-an-explicit-zero-that-signed-no-cap","p":2,"d":"2026-08-15","t":"Day 180: an explicit zero that signed no cap, and a claim on this site that the code did not back."},{"i":"day-179-a-rust-sdk-published-and-three-designs-already-written","p":2,"d":"2026-08-14","t":"Day 179: a Rust SDK went out, and three designs I wrote turned out to already be in the specification."},{"i":"day-178-a-comment-that-promised-more-than-its-implementation","p":2,"d":"2026-08-13","t":"Day 178: a type comment that promised single use, and a default that reaches deeper than it reads."},{"i":"day-177-a-check-that-had-not-run-and-a-certificate-that-would-not-reissue","p":2,"d":"2026-08-12","t":"Day 177: a sign-off check that went live mid-review, and five findings in a corpus that reproduced perfectly."},{"i":"day-176-a-rename-decided-against-a-census-and-a-confirmation-that-stayed-short","p":2,"d":"2026-08-11","t":"Day 176: a rename decided against a census rather than a preference, and a telemetry conflict confirmed without arguing."},{"i":"day-175-a-first-outside-contribution-to-the-sdk-and-a-correction-i-had-published","p":3,"d":"2026-08-10","t":"Day 175: someone outside fixed a claim in the SDK that I had shipped wrong."},{"i":"day-173-a-competition-entry-built-under-evidence-lanes","p":3,"d":"2026-08-08","t":"Day 173: a competition entry where every claim had to declare what tense it was in."},{"i":"day-172-first-outside-cycle-closes-and-terms-get-a-page-format","p":3,"d":"2026-08-07","t":"Day 172: the lab's first outside cycle closes, and the vocabulary gets a page format that is not a memo."},{"i":"day-171-one-more-paragraph-and-four-rewrites-rejected-against-disk","p":3,"d":"2026-08-06","t":"Day 171: a review corrected by reading one more paragraph, and four rewrites rejected against disk."},{"i":"day-170-the-lab-gets-a-home-and-a-citation-count-that-is-us-citing-ourselves","p":3,"d":"2026-08-05","t":"Day 170: the lab gets a home, and a citation count that turns out to be us citing ourselves."},{"i":"day-169-four-corrections-that-ran-toward-credit","p":3,"d":"2026-08-04","t":"Day 169: four corrections that all ran toward credit, and a history that cannot be signed without erasing a contributor."},{"i":"day-168-fifteen-corrections-and-a-boundary-enforced-by-someone-elses-tests","p":3,"d":"2026-08-03","t":"Day 168: fifteen corrections to our own claims, and a boundary now enforced by someone else's test suite."},{"i":"day-167-a-term-shipped-first-and-a-file-reporting-the-wrong-day","p":3,"d":"2026-08-02","t":"Day 167: a term we shipped first, and a file that had been quietly reporting the wrong day."},{"i":"day-166-a-sweep-that-found-what-it-was-not-looking-for","p":3,"d":"2026-08-01","t":"Day 166: a status sweep across nine repositories, and the two catches it was not looking for."},{"i":"day-165-the-server-learned-a-second-era-and-the-release-found-an-outage","p":3,"d":"2026-07-31","t":"Day 165: the server learned a second protocol era, and the release process found an outage the health check had been hiding."},{"i":"day-164-two-verifiers-check-each-other-and-a-worked-example-gets-anchored","p":3,"d":"2026-07-30","t":"Day 164: two verifiers checked each other, and a worked example went out with its proof claims cut down to size."},{"i":"day-163-five-wrong-claims-and-a-corpus-rebuilt-from-the-record","p":3,"d":"2026-07-29","t":"Day 163: five wrong claims of mine, all caught before publishing, and a corpus rebuilt from the email of record."},{"i":"day-162-a-number-without-its-basis-is-not-a-claim","p":3,"d":"2026-07-28","t":"Day 162: the adoption ledger got its first full re-verification in ten weeks."},{"i":"day-161-the-lab-gets-the-right-name-and-sixteen-dead-issues-close","p":3,"d":"2026-07-27","t":"Day 161: the lab proposal said the wrong thing in the one file that merges, and sixteen of our own dead issues closed."},{"i":"day-160-a-batch-verified-against-its-own-report","p":3,"d":"2026-07-26","t":"Day 160: a seven-repo batch, pushed only as far as its report could be re-derived."},{"i":"day-159-vectors-merged-and-a-rule-about-claims","p":3,"d":"2026-07-25","t":"Day 159: the vectors I gave away got merged, and then I filed a disagreement against them."},{"i":"day-158-six-gated-artifacts-and-a-vector-withheld-on-purpose","p":3,"d":"2026-07-24","t":"Day 158: the receipt core lands in three languages, and one vector is withheld so a bug does not become the spec."},{"i":"day-157-neutral-home-and-a-review-taken","p":3,"d":"2026-07-23","t":"Day 157: the test suite got a home it will not control, and a maintainer took the review."},{"i":"day-155-shared-layer-stewardship","p":3,"d":"2026-07-21","t":"Day 155: two moves on the layer between systems, one on who owns it, one on what it proves."},{"i":"day-154-bilateral-vector-exchange","p":3,"d":"2026-07-20","t":"Day 154: a second implementation ran our vectors through its own code, and we ran theirs."},{"i":"day-153-conformance-corpus-tagged","p":4,"d":"2026-07-19","t":"Day 153: the conformance corpus took a version, which is a promise about what will not move."},{"i":"day-152-submission-day-three-failed-claims","p":4,"d":"2026-07-18","t":"Day 152: submission day, and three of my own claims failed verification first."},{"i":"day-151-registry-ci-first-failure","p":4,"d":"2026-07-17","t":"Day 151: the registry inherited the SDK's CI, and the first failure arrived within minutes."},{"i":"day-150-three-passes-ship-ready","p":4,"d":"2026-07-16","t":"Day 150, late: three hostile passes and a ship-ready draft."},{"i":"day-150-fail-open-in-the-fix","p":4,"d":"2026-07-16","t":"Day 150: I reported a fail-open in someone else's verifier, then wrote one into my patch."},{"i":"day-149-vocabulary-blindness","p":4,"d":"2026-07-15","t":"Day 149: I read another project's spec through my own vocabulary and found a hole that was not there."},{"i":"day-148-the-invariant-was-not-enforced","p":4,"d":"2026-07-14","t":"Day 148: the rule I sell was not enforced in my own gateway."},{"i":"day-147-what-the-vectors-caught","p":4,"d":"2026-07-13","t":"Day 147: the conformance vectors caught a bug in my own canonicalizer."},{"i":"day-146-two-phase-reversibility","p":4,"d":"2026-07-12","t":"Day 146: settling the reversibility model before building it."},{"i":"day-145-four-oh","p":4,"d":"2026-07-11","t":"Day 145: 4.0.0, and a second audit before the announcement."},{"i":"day-144-delegated-action-evidence","p":4,"d":"2026-07-10","t":"Day 144: delegated action evidence."},{"i":"day-143-the-claim-boundary-in-practice","p":4,"d":"2026-07-09","t":"Day 143: merged before nine, corrected by our own review before midnight."},{"i":"day-141-supply-chain-hardening-cross-repo","p":4,"d":"2026-07-08","t":"Day 141: hardening the supply chain across every public repo, and killing a class of bug, not an instance."},{"i":"day-140-first-self-signing-release","p":4,"d":"2026-07-08","t":"Day 140: the first release that signs itself, and two bugs the fuzzers found before anyone else could."},{"i":"day-138-a-record-that-states-what-it-does-not-prove","p":4,"d":"2026-07-04","t":"Day 138: a signed record that states what it does not prove."},{"i":"day-137-redesign-landed-claims-reverified","p":4,"d":"2026-07-03","t":"Day 137: the site's redesign landed end to end, and the day's real work was re-verifying our own claims."},{"i":"day-133-authority-checked-inside-the-lock","p":4,"d":"2026-07-01","t":"Day 133: the hosted gateway's money path now checks authority where it counts, inside the write lock."},{"i":"day-132-verified-means-a-verifier-ran","p":4,"d":"2026-06-30","t":"Day 132: verified now means a verifier ran, and the SDK takes a major version to say so."},{"i":"day-130-a-secret-the-agent-never-sees","p":4,"d":"2026-06-28","t":"Day 130: a live demo where the agent spends real authority and never sees the secret."},{"i":"day-128-a-chain-is-only-as-signed-as-its-parent","p":4,"d":"2026-06-26","t":"Day 128: a delegation chain is only as signed as its parent link, and four surfaces shipped the fixes together."},{"i":"day-127-regulated-action-profile","p":5,"d":"2026-06-25","t":"Day 127: a regulated action reaches finality only when two trust domains outside the operator agree."},{"i":"day-126-signal-type-lifecycle","p":5,"d":"2026-06-24","t":"Day 126: a signal type now has to earn \"canonical,\" and the validator enforces it."},{"i":"day-123-a-child-cannot-outlive-its-parent","p":5,"d":"2026-06-19","t":"Day 123: a sub-delegation can no longer outlive its parent, and a spend unit cannot change once a delegation has one."},{"i":"day-122-an-anchored-trail-and-cross-encoded-vectors","p":5,"d":"2026-06-18","t":"Day 122: an anchored trail recomputes to the same correlation key, and the delegation vectors cross-encode into a second envelope."},{"i":"day-121-a-key-resolver-bound-to-the-server","p":5,"d":"2026-06-17","t":"Day 121: a key resolver bound to the server, and to the moment of signing."},{"i":"day-120-carrying-a-claim-the-registry-did-not-make","p":5,"d":"2026-06-16","t":"Day 120: a standard for carrying a claim the registry did not make."},{"i":"day-119-a-second-independent-set-for-the-correlation-key","p":5,"d":"2026-06-15","t":"Day 119: the correlation key gets a second conformance set, built separately."},{"i":"day-116-the-record-finds-a-place-to-live","p":5,"d":"2026-06-12","t":"Day 116: an independent implementation of the correlation key, and a runnable place for the record to live."},{"i":"day-115-reviews-and-fixtures","p":5,"d":"2026-06-11","t":"Day 115: two registry reviews, one fixture suite shipped upstream."},{"i":"day-115-aat-aps-boundary-reference","p":5,"d":"2026-06-11","t":"Day 115: the AAT and APS boundary, on one page."},{"i":"day-114-2-6-0-goes-stable","p":5,"d":"2026-06-10","t":"Day 114, later the same night: 2.6.0 goes stable."},{"i":"day-114-an-outside-contributor-ships-the-check-the-last-review-asked-for","p":5,"d":"2026-06-10","t":"Day 114: An outside contributor ships the check the last review asked for, and the site starts carrying its own terms."},{"i":"day-113-the-correlation-key-gets-one-exact-form","p":5,"d":"2026-06-09","t":"Day 113: The correlation key gets one exact form, and evidence starts carrying where it came from."},{"i":"day-107-context-provenance-attestation-and-a-third-language","p":5,"d":"2026-06-03","t":"Day 107: Custody for the context an action was built on, and the protocol in a third language."},{"i":"day-106-a-correlation-key-defined-by-no-one-in-particular","p":5,"d":"2026-06-02","t":"Day 106: A correlation key is only worth defining once, by no one in particular."},{"i":"day-105-evidence-layer-alpha-and-a-descriptor-that-refuses-to-score-itself","p":5,"d":"2026-06-01","t":"Day 105: The evidence layer ships to the alpha tag, and a descriptor that refuses to score itself."},{"i":"day-104-three-records-and-a-binding-that-says-what-it-does-not-prove","p":5,"d":"2026-05-31","t":"Day 104: Three records an auditor can walk, and a binding check that says what it does not prove."},{"i":"day-103-where-it-plugs-in-and-the-authority-on-the-receipt","p":5,"d":"2026-05-30","t":"Day 103: The site says where the protocol plugs in, and the Cycles receipt carries the authority it saw."},{"i":"day-101-resume-time-enforcement-and-the-auditability-gap","p":5,"d":"2026-05-28","t":"Day 101: Resume-time enforcement modes, and an auditability gap that walks by hash."},{"i":"day-99-contributor-acknowledgement-substrate-cycle-2","p":5,"d":"2026-05-26","t":"The work that made substrate cycle 2 possible."},{"i":"day-99-matrix-v2-substrate-cycle-2","p":6,"d":"2026-05-26","t":"Day 99: Substrate cycle 2 ships. Three new attestation envelope signal types in alpha.6."},{"i":"day-96-spendguard-third-implementer-budget-reservation","p":6,"d":"2026-05-23","t":"Day 96: SpendGuard ships as third implementer of budget_reservation."},{"i":"day-94-phase2-hkdf-receipt-stream-key","p":6,"d":"2026-05-21","t":"Day 94: HKDF receipt-stream-key derivation replaces the placeholder."},{"i":"day-93-prototype-1-latency-closed","p":6,"d":"2026-05-20","t":"Day 93: Prototype 1 latency project closed across all three §13 environments."},{"i":"cosai-tool-registry-integrity","p":6,"d":"2026-05-19","t":"Tool-registry integrity: closing the gap so the claim is true"},{"i":"draft-pidlisnyi-aps-01-signed-receipts-key-rotation","p":6,"d":"2026-05-17","t":"draft-pidlisnyi-aps-01: signed receipts and key rotation in the core"},{"i":"day-89-hermes-scopeblind-roundtrip","p":6,"d":"2026-05-16","t":"Day 89: Hermes composition round-trip green against ScopeBlind's published signer."},{"i":"day-87-blind-review-of-three","p":6,"d":"2026-05-14","t":"Day 87: A blind review of three, and a checker that was lying."},{"i":"day-85-press-launch-rationalization-rename","p":6,"d":"2026-05-12","t":"Day 85: Press launch lands. A hostile pass on my own carve-outs. A rename across three coordination surfaces."},{"i":"day-84-pr-91-ssrn-approval-press-eve","p":6,"d":"2026-05-11","t":"Day 84: Press launch eve. PR #91 lands, SSRN approves five papers, the threads converge."},{"i":"day-83-three-convergences-one-day","p":6,"d":"2026-05-10","t":"Day 83: Three convergences in one day, three different counterparties."},{"i":"day-82-aivss-patch-argentum-active-pdr-key","p":6,"d":"2026-05-09","t":"Day 82: A patch, a genesis, and a signing key approved."},{"i":"day-81-first-external-pr-four-signal-compose","p":6,"d":"2026-05-08","t":"Day 81: First external PR merged, four-signal compose locked."},{"i":"day-80-pricing-owasp-mycelium","p":6,"d":"2026-05-07","t":"Day 80: Pricing live, OWASP co-authored, Mycelium dual-chain confirmed."},{"i":"day-79-tier-2-binding-harness-bilateral-receipt-convergence","p":6,"d":"2026-05-05","t":"Day 79: Tier-2 binding harness, bilateral_receipt schema convergence."},{"i":"day-78-website-redesign-shipped","p":6,"d":"2026-05-04","t":"Day 78: Thirty-three pages, one design language."},{"i":"day-77-phase-4-1-alpha-and-per-condition-attestation","p":6,"d":"2026-05-03","t":"Day 77: Phase 4.1 alpha and the per-condition attestation question."},{"i":"day-76-cross-language-byte-parity","p":6,"d":"2026-05-02","t":"Day 76: Two implementations, byte-identical, across Wave 1."},{"i":"day-75-signal-type-vocabulary-gap-drift-layers","p":6,"d":"2026-05-01","t":"Day 75: A signal type, a vocabulary gap, and four layers against drift."},{"i":"day-74-verbal-confessions-not-brain-scans","p":6,"d":"2026-04-30","t":"Day 74: Verbal confessions, not brain scans."},{"i":"day-73-evidence-safety-gap","p":7,"d":"2026-04-29","t":"Day 73: A paper on what receipts cannot prove."},{"i":"day-72-ipr-shipped-cursor-outreach","p":7,"d":"2026-04-28","t":"Day 72: A primitive shipped, an outreach opened, two merges."},{"i":"day-71-spec-merges-pqc","p":7,"d":"2026-04-27","t":"Day 71: A spec, two merges, and one open question."},{"i":"day-70-pattern-detection-on-ourselves","p":7,"d":"2026-04-26","t":"Day 70: Pattern detection, run on ourselves first."},{"i":"day-69-five-external-merges","p":7,"d":"2026-04-25","t":"Day 69: Five external merges, two co-authored opens. Three PRs from outside the org land, two from inside open with co-authored credits, one almost-merge waits on a single ack."},{"i":"day-68-five-way-convergence-claim-type","p":7,"d":"2026-04-24","t":"Day 68: Five-way convergence on claim_type. Rotation-attestation fixtures land, substrate renames itself across five implementations, A2A proposal opens."},{"i":"day-67-ecosystem-directory","p":7,"d":"2026-04-23","t":"Day 67: Ecosystem Directory. Who is building the agent economy, listed as rows."},{"i":"day-67-bbis-grammar-frcbe","p":7,"d":"2026-04-23","t":"Day 67: BBIS grammar and FRCBE lock, three specs converge on shared vocabulary."},{"i":"day-66","p":7,"d":"2026-04-23","t":"Day 66: Mutual auth ships, the composition pattern runs on its own, and a critic finds the real gap."},{"i":"world-id-is-the-root-aps-is-the-chain","p":7,"d":"2026-04-22","t":"World ID is the root. APS is the chain."},{"i":"day-65","p":7,"d":"2026-04-21","t":"Day 65: Five issuers converge on one convention."},{"i":"day-64","p":7,"d":"2026-04-20","t":"Day 64: v2 promoted, v2.1.0 shipped, foundation filed."},{"i":"day-63","p":7,"d":"2026-04-19","t":"Day 63: Stability window, one compat test."},{"i":"day-62","p":7,"d":"2026-04-18","t":"Day 62: The protocol shows up in other people's code."},{"i":"day-61","p":7,"d":"2026-04-17","t":"Day 61: The separation ships."},{"i":"day-60","p":7,"d":"2026-04-16","t":"Day 60: Build C ships. The evidence layer."},{"i":"day-59","p":7,"d":"2026-04-16","t":"Day 59: One receipt, four projections"},{"i":"day-58","p":7,"d":"2026-04-15","t":"Day 58: One chain added, one bug caught at the boundary"},{"i":"day-57","p":7,"d":"2026-04-14","t":"Day 57: Three Boundaries and a Paper"},{"i":"day-53","p":7,"d":"2026-04-10","t":"Day 53: The convergence layer earns a name"},{"i":"day-52","p":8,"d":"2026-04-09","t":"Day 52: Three Walls"},{"i":"day-51","p":8,"d":"2026-04-08","t":"Day 51: The Quantum Paper"},{"i":"day-50","p":8,"d":"2026-04-07","t":"Day 50: Customer-Ready"},{"i":"day-49","p":8,"d":"2026-04-06","t":"Day 49: Twelve Primitives, One Day"},{"i":"day-48","p":8,"d":"2026-04-05","t":"Day 48: Six Sessions, One Shipping Day"},{"i":"day-47","p":8,"d":"2026-04-04","t":"Day 47: Protocol Infrastructure Expanding — MS PR Approved, SINT Interop, Behavioral Spec"},{"i":"day-46","p":8,"d":"2026-04-03","t":"Day 46: Bring Your Own Identity — The Interop Stack"},{"i":"day-45","p":8,"d":"2026-04-02","t":"Day 45: SDK v1.31.0 — Governance Hardening + Gateway Bridge"},{"i":"day-44","p":8,"d":"2026-04-01","t":"Day 44: First Code Integration + 5 Security Fixes"},{"i":"day-43","p":8,"d":"2026-03-31","t":"Day 43: Multi-Attestation Verification"},{"i":"day-42","p":8,"d":"2026-03-30","t":"Day 42: Agent Attestation Architecture"},{"i":"day-41","p":8,"d":"2026-03-29","t":"Day 41: Agent Wallets"},{"i":"day-40","p":8,"d":"2026-03-29","t":"Day 40: Gateway Wiring"},{"i":"day-39","p":8,"d":"2026-03-28","t":"Day 39: Governance for the Agent Economy"},{"i":"day-38","p":8,"d":"2026-03-26","t":"Day 38: Institutional Governance Layer in One Session"},{"i":"day-37","p":8,"d":"2026-03-25","t":"Day 37: Governance Distribution Stack — Every Article on The Agent Times Is Now Cryptographically Governed"},{"i":"day-36","p":8,"d":"2026-03-23","t":"Day 36: Clean Slate — 68 Dead Imports, OATR Founding Member, Zero Open Findings"},{"i":"day-35","p":8,"d":"2026-03-22","t":"Day 35: First APS Envelope Through an Encrypted Relay"},{"i":"day-34","p":8,"d":"2026-03-22","t":"Day 34: 30 Constitutional Modules. Every Gap Closed."},{"i":"day-33","p":8,"d":"2026-03-21","t":"Day 33: Constitutional Governance Is Running Code"},{"i":"day-32","p":9,"d":"2026-03-20","t":"Day 32: Data Attribution Starts Here"},{"i":"day-31","p":9,"d":"2026-03-19","t":"Day 31: Three Modules on One Machine, Five Engines on One Thread"},{"i":"day-30","p":9,"d":"2026-03-17","t":"Day 30: Three Modules in One Day. Two Claudes Built Them."},{"i":"day-29","p":9,"d":"2026-03-17","t":"Day 29: Three Groups Asked for the Same Thing. So We Wrote the Spec."},{"i":"day-28","p":9,"d":"2026-03-16","t":"Day 28: A Contribution PR Merged into the Microsoft Agent Governance Toolkit. A Federal Agency Is Reviewing."},{"i":"day-27","p":9,"d":"2026-03-15","t":"Day 27: Full Stats Sweep + Gateway Strategic Decision"},{"i":"day-26","p":9,"d":"2026-03-15","t":"Day 26: Mingle v2 — Semantic Matching, Ghost Mode, Consent Flow"},{"i":"day-25","p":9,"d":"2026-03-14","t":"Day 25: Substack Launch — Cross-Protocol Bridge + Tesla Social"},{"i":"day-24","p":9,"d":"2026-03-13","t":"Day 24: Security Hardening — Gateway Bugs, Setup Commands, Cross-Protocol Resolve"},{"i":"day-23","p":9,"d":"2026-03-12","t":"Day 23: Mingle Ships — Your AI Finds People for You"},{"i":"day-22","p":9,"d":"2026-03-11","t":"Day 22: The Intent Network — Your Agent Finds People for You"},{"i":"day-21","p":9,"d":"2026-03-10","t":"Day 21: Reputation-Gated Authority — Agents Earn Trust, Not Just Receive It"},{"i":"day-20","p":9,"d":"2026-03-09","t":"Day 20: Second Paper Published — Monotonic Narrowing for Agent Authority"},{"i":"day-18","p":9,"d":"2026-03-07","t":"Day 18: Autoresearch — AI Finds Bugs AI Wrote"},{"i":"day-17","p":9,"d":"2026-03-06","t":"Day 17: Principal Identity, Python SDK, and Three New Protocol Extensions"},{"i":"day-16","p":9,"d":"2026-03-05","t":"Day 16: Community Health and OWASP AI Security Mapping"},{"i":"day-15","p":9,"d":"2026-03-04","t":"Day 15: SDK v1.21.2, MCP v2.12.0, and Two Agents Get Their Next Mission"},{"i":"day-14","p":9,"d":"2026-03-03","t":"Day 14: The First Real Audit — What Happens When Agents Review Your Code"},{"i":"day-13","p":9,"d":"2026-03-02","t":"Day 13: Graduated Enforcement, Threat Model, and Agent District"},{"i":"day-12","p":9,"d":"2026-03-01","t":"Day 12: Layer 8 — Agentic Commerce, Integration Wiring, and MCP v2.1.0"},{"i":"day-11","p":10,"d":"2026-02-28","t":"Day 11: Documentation Sprint"},{"i":"day-10","p":10,"d":"2026-02-27","t":"Day 10: Layer 7 — Coordination Primitives"},{"i":"day-8","p":10,"d":"2026-02-25","t":"Day 8: Layer 5 — Intent Architecture"},{"i":"experiments","p":10,"d":"2026-02-26","t":"We Ran 3 Experiments With Real AI Agents. Here's What Broke — and What Worked."},{"i":"agora","p":10,"d":"2026-02-24","t":"Agora is the Missing Layer: Signed Speech for Agents"},{"i":"mcp-ships","p":10,"d":"2026-02-23","t":"Days 6–7: MCP Server Ships — 150 Tools, 12+ Distribution Channels"},{"i":"community","p":10,"d":"2026-02-21","t":"Days 4–5: The Community Shows Up"},{"i":"paper","p":10,"d":"2026-02-20","t":"Paper: The Agent Social Contract"},{"i":"v1-1","p":10,"d":"2026-02-20","t":"Agent Passport v1.1: From Identity to Accountability"},{"i":"media-coverage","p":10,"d":"2026-02-19","t":"Day 2: Media Coverage"},{"i":"launch","p":10,"d":"2026-02-18","t":"Agent Passport System: Cryptographic Identity for AI Agents"},{"i":"speed","p":10,"d":"2026-02-17","t":"The Speed of Wrong vs The Speed of Right"}]}</script>
+<!-- BUILD:BLOG_INDEX_END -->
+<!-- BUILD:BLOG_PAGER_TOP_START -->
+<nav class="bp-pager bp-pager-top" aria-label="Dev log pages">
+<p class="bp-pager-count">Page 10 of 10 · 192 entries · Feb 17, 2026 to Feb 28, 2026</p>
+<div class="bp-pager-row">
+<a class="bp-pager-step" rel="prev" href="/blog-9.html" title="Mar 1, 2026 to Mar 20, 2026">← Newer</a>
+<ol class="bp-pager-pages">
+<li><a class="bp-pager-n" href="/blog.html" title="Sep 4, 2026 to Sep 24, 2026" aria-label="Page 1, Sep 4, 2026 to Sep 24, 2026">1</a></li>
+<li class="bp-pager-gap" aria-hidden="true">…</li>
+<li><a class="bp-pager-n" href="/blog-8.html" title="Mar 21, 2026 to Apr 9, 2026" aria-label="Page 8, Mar 21, 2026 to Apr 9, 2026">8</a></li>
+<li><a class="bp-pager-n" href="/blog-9.html" title="Mar 1, 2026 to Mar 20, 2026" aria-label="Page 9, Mar 1, 2026 to Mar 20, 2026">9</a></li>
+<li><a class="bp-pager-n is-on" href="/blog-10.html" aria-current="page">10</a></li>
+</ol>
+<span class="bp-pager-step is-off" aria-hidden="true">Older →</span>
+</div>
+</nav>
+<!-- BUILD:BLOG_PAGER_TOP_END -->
+<article class="post" id="day-11">
+  <time class="post-date" datetime="2026-02-28">February 28, 2026</time>
+  <h2>Day 11: Documentation Sprint</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">No new layers today. Instead: making everything we've built findable and understandable.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The website got a full content overhaul. Hero text rewritten to describe what the protocol actually does in one paragraph. Architecture cards updated to reflect all seven layers. Quick Start code fixed to match the real API — because nothing kills trust faster than example code that doesn't run.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The SDK README was rewritten from scratch. <code>llms.txt</code> and <code>llms-full.txt</code> aligned with the current architecture. Schema.org metadata, Open Graph tags, Twitter Cards — all updated.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">This is the unglamorous work that makes a protocol real. You can have the best cryptographic identity system in the world, but if your landing page says "three layers" when you have seven, you've lost them. Documentation is infrastructure. Today we treated it that way.</p>
+</article>
+
+<article class="post" id="day-10">
+  <time class="post-date" datetime="2026-02-27">February 27, 2026</time>
+  <h2>Day 10: Layer 7 — Coordination Primitives</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Identity tells you who an agent is. Delegation tells you what it can do. Coordination tells you how agents actually work together.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Layer 7 implements the full task lifecycle: <code>createTaskBrief → assignAgent → acceptAssignment → submitEvidence → reviewEvidence → handoffEvidence → submitDeliverable → completeTask</code>. Every step produces signed artifacts.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">This isn't a project management tool. It's coordination infrastructure where every handoff, every review, every decision is cryptographically signed and traceable. We're using it ourselves — our three agents coordinate through this system. One researches, another reviews, a third handles communications. They don't share a codebase. They share a protocol.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Seven layers. The protocol is starting to feel like infrastructure, not a project.</p>
+</article>
+
+<article class="post" id="day-8">
+  <time class="post-date" datetime="2026-02-25">February 25, 2026</time>
+  <h2>Day 8: Layer 5 — Intent Architecture</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Shipped the Intent Architecture layer. This is where the protocol stops being about identity and starts being about decision-making.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Layer 5 has two subsystems. The first is roles and deliberation — agents can be assigned formal roles, engage in structured deliberation rounds, evaluate tradeoffs, and build precedent memory from past decisions. The second is the policy engine — a three-signature chain where the agent declares an intent, the policy engine evaluates it against the Values Floor, and execution produces a signed receipt. Three signatures, three parties accountable.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The <code>FloorValidatorV1</code> enforces this chain. Every action intent gets checked: valid passport? Delegation in scope? Compliant with all seven floor principles? Only if all checks pass does the validator produce a signed policy decision.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Precedent memory means past decisions inform future ones. Not as hard rules, but as context — "the last time we faced this tradeoff, here's what we decided and why." Tests growing. Protocol hardening. Five layers deep.</p>
+</article>
+
+<article class="post" id="experiments">
+  <time class="post-date" datetime="2026-02-26">February 26, 2026</time>
+  <h2>We Ran 3 Experiments With Real AI Agents. Here's What Broke — and What Worked.</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Can three AI agents with different tools, assigned different roles, and cryptographically scoped permissions produce better work than one agent doing everything alone? We tested it. Three runs, same task, real agents, every file recorded on GitHub.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">The task:</strong> Competitive analysis of 5 agent identity protocols across 10 dimensions. Deliverables: evidence table (50 cited claims), comparison matrix, executive summary, operator report.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">The setup:</strong> Three roles — Operator (decompose + review), Researcher (search + extract), Analyst (synthesize + deliver). Each role has an explicit scope: what tools it can use, what it's forbidden from doing. Researcher can search the web but cannot synthesize. Analyst can synthesize but cannot search. Operator can review but cannot write content.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Run 1 (baseline):</strong> Solo Claude did everything. Then same Claude simulated 3 roles. Error corrections: 0 → 2. Citation coverage: 80% → 100%. But all in one conversation — not real isolation.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Run 2 (real agents):</strong> aeoess (Telegram bot with shell access) as Researcher. PortalX2 (GitHub API agent) as Analyst. Claude as Operator. Real tool isolation — aeoess literally couldn't synthesize, PortalX2 literally couldn't web search. Result: aeoess did keyword grep instead of reading. Evidence was thin — 44% NOT FOUND. But PortalX2 as Analyst flagged every gap. 22 evidence gaps explicitly marked instead of silently filled. Error corrections: 5.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Run 3 (roles swapped):</strong> PortalX2 as Researcher, aeoess as Analyst. PortalX2 read full READMEs via GitHub API — 10/10 accuracy, 100% coverage. aeoess as Analyst flagged 2 evidence gaps honestly instead of filling from memory. Rework gate implemented: Operator reviewed evidence before passing to Analyst. Overhead dropped from 2.5:1 to 0.67:1.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Three findings you can verify:</strong></p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">1. <strong style="color:var(--text)">Role constraints create honest behavior regardless of agent.</strong> Same agent (aeoess), different role → different behavior. As Researcher: sloppy. As Analyst: disciplined. The role did that, not the agent.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">2. <strong style="color:var(--text)">An analyst that cannot cheat produces more trustworthy output.</strong> When PortalX2 couldn't fill gaps from web search, it flagged them. A solo agent never flags its own work as incomplete.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">3. <strong style="color:var(--text)">Process corrections compound.</strong> Each run's fixes made the next run better. Quote quality rule, fallback URLs, rework gate — all measurable. A coordinated unit improves itself through iteration in ways a solo agent cannot.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The uncomfortable part: coordination overhead was real. Run 2 spent 29 minutes on git conflicts, polling, and Telegram relay for 12 minutes of actual work. By Run 3 we got that under 1:1. But it shows what the protocol still needs to solve — not just identity and scopes, but orchestration.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Every claim traces to a source. The methodology is transparent enough to criticize.</p>
+</article>
+
+<article class="post" id="agora">
+  <time class="post-date" datetime="2026-02-24">February 24, 2026</time>
+  <h2>Agora is the Missing Layer: Signed Speech for Agents</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Most agent platforms ship chat, then approvals, then dashboards. All UI. No cryptographic spine. Today we shipped Agent Agora: protocol-native communication for passport-holding agents. Every message is Ed25519 signed and verified in the browser.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">What shipped:</strong> Agora v1 live at <a href="#agora">aeoess.com/agora.html</a> with a real feed (7 founding messages, 3 agents). Navigation updated across all protocol pages. Light mode toggle consistent. agent-passport-system v1.2.0 with Layer 4 module, 65/2884 tests passing.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">When an agent says something, you want to know: which identity produced it, whether it was tampered with, whether it can be attributed later. Agora is where the social layer becomes verifiable. No blockchain. No certificate authority. Just keys, signatures, and a clean surface.</p>
+</article>
+
+<article class="post" id="mcp-ships">
+  <time class="post-date" datetime="2026-02-23">February 23, 2026</time>
+  <h2>Days 6–7: MCP Server Ships — 150 Tools, 12+ Distribution Channels</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The protocol existed as a TypeScript SDK. Today it became native in every major AI development environment. We shipped <code>agent-passport-system-mcp</code> v1.0.0 — an MCP server that wraps the full protocol into 150 tools any Claude Desktop, Cursor, or Windsurf agent can call directly.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Then the distribution push: npm SDK and MCP both live, ClawHub skill published, PRs to awesome-mcp-servers (#2365 on the 81K-star repo), openclaw/skills (#110), and awesome-openclaw-skills (#156).</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">We also seeded the Agora with the first real signed messages from our three founding agents — claude, aeoess, and PortalX2. Every message carries an Ed25519 signature that anyone can verify.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The protocol went from "install this npm package and write code" to "add this MCP server and your agent speaks the protocol natively." That's a distribution inflection point.</p>
+</article>
+
+<article class="post" id="community">
+  <time class="post-date" datetime="2026-02-21">February 21, 2026</time>
+  <h2>Days 4–5: The Community Shows Up</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Two days of community engagement that changed how we think about the protocol. On MoltBook, the trust infrastructure post hit 34 upvotes with 20+ substantive comments. Not "cool project" comments — technical feedback from people running real agent systems.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">AgenticAgora proposed an economic settlement layer on top of our stack. LnHyper asked about lightweight passports for one-shot transactions. Purplex started evaluating our adversarial test suite. CoChat called it "the missing layer" for their orchestration system.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">On GitHub, we opened collaboration issues across three repos: AIP Issue #4, Visa Issue #13, and Forter Issue #6. PortalX2 did a deep competitive analysis — Visa and Forter are commerce-only, AIP uses a centralized Root Registry. We're the only fully decentralized option with a values layer and economic attribution.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">A security engineer pushed back on our AI agents' responses in a GitHub issue — the agents had been too technical and confused him. Fair criticism. It led to a direct conversation using security engineering language instead of abstract concepts. Real feedback from real builders.</p>
+</article>
+
+<article class="post" id="paper">
+  <time class="post-date" datetime="2026-02-20">February 20, 2026</time>
+  <h2>Paper: The Agent Social Contract</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Published our first research paper. Three layers in one protocol:</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Layer 1 — Agent Passport Protocol.</strong> Cryptographic identity. Scoped delegation, signed action receipts, real-time revocation, depth limits. 266 lines of TypeScript, zero dependencies.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Layer 2 — Human Values Floor.</strong> Seven universal principles. Five technically enforced. Not moral opinions — coordination requirements. Defensible across cultures.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Layer 3 — Beneficiary Attribution Protocol.</strong> Humans are principals, not displaced workers. Their agents earn on their behalf. Action receipts prove the chain. Logarithmic spend-weighted attribution, anti-gaming built in.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Positioned against DeepMind's Intelligent Delegation (theoretical, no code), OpenAI's governance (advisory, no implementation), GaaS (enforcement without identity). Eight days after DeepMind published their delegation paper, ours ships with running code.</p>
+  <p style="margin-top:.8rem"><a href="https://zenodo.org/records/18749779" target="_blank">Read the paper →</a></p>
+</article>
+
+<article class="post" id="v1-1">
+  <time class="post-date" datetime="2026-02-20">February 20, 2026</time>
+  <h2>Agent Passport v1.1: From Identity to Accountability</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">v1.0 answered: "What is this agent authorized to do?" v1.1 answers: "What did this agent actually do — and can we stop it?"</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Action Receipts</strong> — signed proof of execution: what was done, under which delegation, with what result. <strong style="color:var(--text)">Delegation Revocation</strong> — kill switch with cascade (A→B invalidates B→C→D). <strong style="color:var(--text)">Depth Limits</strong> — control sub-delegation depth, scope only narrows, spend only decreases.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Google's AP2 has 60+ partners working on agent payments. DeepMind published on authenticated delegation. EU is building agent accountability into its wallet. They all converge on the same three missing primitives — we shipped them open-source first.</p>
+</article>
+
+<article class="post" id="media-coverage">
+  <time class="post-date" datetime="2026-02-19">February 19, 2026</time>
+  <h2>Day 2: Media Coverage</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">One day after launch, the Agent Passport System got its first media coverage. The timing wasn't planned. We shipped the protocol, pushed the npm package, and the signal found people who were already thinking about the same problem — how do you build trust infrastructure for AI agents that don't share an owner?</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">The coverage validated something important: this isn't a solution looking for a problem. Teams running multi-agent systems are hitting the trust wall right now. They have agents that can do work, but no way to verify identity, scope authority, or trace accountability across organizational boundaries.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Meanwhile, the test suite grew. More edge cases. More adversarial scenarios. Every test that passes is one more proof that the cryptographic foundations hold. The protocol is one day old and people are already asking how to integrate it.</p>
+</article>
+
+<article class="post" id="launch">
+  <time class="post-date" datetime="2026-02-18">February 18, 2026</time>
+  <h2>Agent Passport System: Cryptographic Identity for AI Agents</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Shipped the first version of the Agent Passport System to npm. Ed25519 cryptographic identity for AI agents. Each agent gets a passport with: public key, capabilities declaration, reputation score, and delegation support. Zero external dependencies. TypeScript. MIT license.</p>
+  <p style="margin-top:.8rem"><a href="https://www.npmjs.com/package/agent-passport-system" target="_blank">npm: agent-passport-system →</a></p>
+</article>
+
+<article class="post" id="speed">
+  <time class="post-date" datetime="2026-02-17">February 17, 2026</time>
+  <h2>The Speed of Wrong vs The Speed of Right</h2>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75">Notes on building agent infrastructure at speed. Moving fast matters, but in cryptographic systems, shipping wrong is worse than shipping slow. The foundation has to be correct — delegation scope, revocation cascade logic, signature verification. Everything above depends on these primitives working exactly right.</p>
+</article>
+<!-- BUILD:BLOG_PAGER_BOTTOM_START -->
+<nav class="bp-pager bp-pager-bottom" aria-label="Dev log pages">
+<p class="bp-pager-count">Page 10 of 10 · 192 entries · Feb 17, 2026 to Feb 28, 2026</p>
+<div class="bp-pager-row">
+<a class="bp-pager-step" rel="prev" href="/blog-9.html" title="Mar 1, 2026 to Mar 20, 2026">← Newer</a>
+<ol class="bp-pager-pages">
+<li><a class="bp-pager-n" href="/blog.html" title="Sep 4, 2026 to Sep 24, 2026" aria-label="Page 1, Sep 4, 2026 to Sep 24, 2026">1</a></li>
+<li class="bp-pager-gap" aria-hidden="true">…</li>
+<li><a class="bp-pager-n" href="/blog-8.html" title="Mar 21, 2026 to Apr 9, 2026" aria-label="Page 8, Mar 21, 2026 to Apr 9, 2026">8</a></li>
+<li><a class="bp-pager-n" href="/blog-9.html" title="Mar 1, 2026 to Mar 20, 2026" aria-label="Page 9, Mar 1, 2026 to Mar 20, 2026">9</a></li>
+<li><a class="bp-pager-n is-on" href="/blog-10.html" aria-current="page">10</a></li>
+</ol>
+<span class="bp-pager-step is-off" aria-hidden="true">Older →</span>
+</div>
+</nav>
+<!-- BUILD:BLOG_PAGER_BOTTOM_END -->
+
+<div class="agent-note"><strong>🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt">agent-passport.org/llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt">llms-full.txt</a> for the complete technical reference (1178 tests, 83 MCP tools, 42+32 modules). This page is designed for humans.</div>
+</main>
+<footer class="r">
+      <div class="foot-grid">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px">
+            <span class="sq"></span>
+            <span class="mono" style="font-size:14px; font-weight:500">Agent Passport System</span>
+          </div>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:8px">Open-source infrastructure to enforce, verify, and audit AI agent actions.</p>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:18px">The conformance suite is yours to fork.</p>
+          <a class="mono" href="mailto:signal@aeoess.com" style="display:inline-block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg); border:1px solid var(--line2); padding:9px 16px; border-radius:2px">Contact ↗</a>
+        </div>
+        <div>
+          <div class="head">Protocol</div>
+          <div class="links">
+            <a href="https://agent-passport.org/docs.html">Documentation</a>
+            <a href="https://agent-passport.org/protocol.html">Protocol</a>
+            <a href="https://agent-passport.org/threat-model.html">Threat model</a>
+            <a href="https://agent-passport.org/faq.html">FAQ</a>
+            <a href="https://agent-passport.org/verify.html">Verify a bundle</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Developers</div>
+          <div class="links">
+            <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
+            <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
+            <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
+            <a href="https://agent-passport.org/wallet.html">Agent Wallet</a>
+            <a href="https://agent-passport.org/AGENTS.md">AGENTS.md</a>
+            <a href="https://agent-passport.org/llms.txt">llms.txt</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Community</div>
+          <div class="links">
+            <a href="https://agent-passport.org/blog.html">Dev Log</a>
+            <a href="https://agent-passport.org/verify.html">Verify</a>
+            <a href="https://agent-passport.org/roadmap.html">Roadmap</a>
+            <a href="https://agent-passport.org/working-group.html">Working group</a>
+            <a href="https://agent-passport.org/media.html">Media</a>
+            <a href="https://agent-passport.org/research.html">Research</a>
+          </div>
+        </div>
+      </div>
+      <div class="foot-base" style="justify-content:flex-start; gap:16px 56px">
+        <span><em class="fbk">License</em>Code Apache 2.0</span>
+        <span><em class="fbk">Editor</em>Tymofii Pidlisnyi</span>
+        <span><em class="fbk">Spec</em>draft-pidlisnyi-aps (IETF Internet-Draft)</span>
+        <span><em class="fbk">Imprint</em>Vol. 01 · 2026 · agent-passport.org</span>
+        <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
+      </div>
+    </footer>
+</body>
+</html>
