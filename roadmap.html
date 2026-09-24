@@ -94,7 +94,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">664 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">669 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -182,7 +182,67 @@
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(605)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(610)</span></h2>
+<article class="rm-item rm-item-done" id="d220-authority-lifecycle-v0-3-0-draft">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Authority Lifecycle v0.3.0-draft, one catalog file, a semantic taxonomy and a verification model</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 220</span> 
+<span class="rm-item-ws">Research</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">cases.json is now the single source of truth for all 170 cases, CASES.md and BOUNDARY-CASES.md are generated from it, and CI fails on drift, on schema violations and on any unresolved internal link. Cases are grouped by the authority question each one asks, in 18 semantic families, rather than by the research leg that found them, and every id is unchanged. 134 lifecycle cases, 126 verified, 7 reviewed hypotheticals and 1 candidate, with 36 boundary cases kept apart under six named reasons. The model adds a verification model naming what a verifier may say about an artifact and what an enforcement point decides about one action. The precedent sources say nothing about AI agents and the repository says so.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-authority-lifecycle/releases/tag/v0.3.0-draft">v0.3.0-draft</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d220-lab-lifecycle-fixture-families">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Twenty-eight new lifecycle fixture families in the conformance lab, and what the SDK can decide of them</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 220</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Tracking issue #122, seven stacked pull requests #123 to #129 and three follow-ups through #132, all merged on green. Every family is labelled candidate against proposed text, so the vectors test wording in the lifecycle repository and not a published specification. Measured against the SDK across 29 families, 633 vectors and 635 decision units, an SDK call reproduced the expected result for 50 units under 7.1.0 and 161 under 7.2.0, a move of 111 units across 12 families with 0 fail and 0 regressions. The remaining 474 are not_supported, meaning no SDK API decides them and the family harness supplies the deciding step. That is not a coverage score for the suite.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/issues/122">lab#122</a></li><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pulls?q=is%3Apr+is%3Amerged">lab #123 to #132</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d220-sdk-7-2-0-chain-selection">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Chain selection ships as a draft-03 section 3.3 conformance fix in SDK 7.2.0 and Python 4.2.0</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 220</span> 
+<span class="rm-item-ws">Protocol</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Section 3.3 says an action selects one root-to-leaf authority chain and a verifier must not union scopes or budgets across chains. Every other authority entry point took one chain, so the rule had no surface and a pooling implementation was indistinguishable from a selecting one. The new module holds no union by construction. One private function judges one chain, a result names one chain id and never a set, and a held entry that is two chains concatenated into one array is refused by name before verification. An unknown revocation answer is undecided, never refused. 19 parity cases, run byte-identical in both SDKs. The fallback surface is marked proposed, not draft-03.</p>
+<ul class="rm-item-links"><li><a href="https://www.npmjs.com/package/agent-passport-system/v/7.2.0">npm 7.2.0</a></li><li><a href="https://pypi.org/project/agent-passport-system/4.2.0/">PyPI 4.2.0</a></li><li><a href="https://www.ietf.org/archive/id/draft-pidlisnyi-aps-03.txt">draft-pidlisnyi-aps-03</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d220-sdk-lifecycle-experimental-modules">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Seven opt-in lifecycle modules in both SDKs, marked proposed rather than specified</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 220</span> 
+<span class="rm-item-ws">sdk</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Lifecycle state, activation, bounds, capability binding, status coverage, authority state and suspension. None is required by draft-03. Each new record type carries a proposed namespace instead of aps, every reason code is module-local, and each module says in its own doc comment that implemented does not mean specified. The state vocabulary reports six artifact verdicts alongside chain verification and never merges into it, keeps what an enforcement point decides at one authorization boundary as three separate outcomes, and requires a not_established verdict to name which of source, freshness or coverage was missing. Existing behaviour is byte identical and the conformance suite output is unchanged under both builds.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-system/blob/main/CHANGELOG.md">SDK CHANGELOG 7.2.0</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d220-vocab-lifecycle-terms-and-outward-work">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Thirty-four lifecycle terms in the vocabulary, a merged delegation verifier, and a canonicalization gap between two A2A SDKs</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 220</span> 
+<span class="rm-item-ws">outward</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">vocabulary-lifecycle.yaml adds 34 authority-lifecycle concept terms as a separate maintainer-governed file, every definition a verbatim quote of 40 words or fewer from the concept document, filed apart from signal types because a verifier reasons about them rather than an issuer stamping them into an envelope. The AgenTrust delegation verifier merged. The A2A Go maintainers merged a canonicalization fix, which left a2a-python on the other side of the line. Its canonicalizer strips empty strings, lists and dicts before signing with no exception for fields the specification marks REQUIRED, so a card signed by one SDK recomputes to a different payload in the other. Filed as an issue, no patch offered. Two CoSAI WS4 comments went out on the decision-to-effect corpus and on descendant, in-flight and authority-definition questions.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/pull/174">vocab#174</a></li><li><a href="https://github.com/agentrust-io/integrations/pull/216">agentrust#216</a></li><li><a href="https://github.com/a2aproject/a2a-go/pull/441">a2a-go#441</a></li><li><a href="https://github.com/a2aproject/a2a-python/issues/1278">a2a-python#1278</a></li><li><a href="https://github.com/cosai-oasis/ws4-secure-design-agentic-systems/issues/205#issuecomment-5806504233">CoSAI WS4 #205</a></li></ul>
+</article>
 <article class="rm-item rm-item-done" id="d219-asa-wg-tool-revocation-questions">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Two questions on the App Defense Alliance tool provenance section, and a note that a refactor would drop it</h3>

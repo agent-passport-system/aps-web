@@ -1,7 +1,73 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-09-23 (Day 219). Adds Days 218 and 219. SDK 7.1.0 and Python 4.1.0, twelve lab pull requests, WIMSE, AuthZEN and AAIF contributions, the Goose and OpenClaw evidence, the ASA-WG questions and two lab mappings.
+# Last updated: 2026-09-24 (Day 220). Adds Day 220. SDK 7.2.0 and Python 4.2.0 with chain selection as a draft-03 section 3.3 fix and seven proposed lifecycle modules, Authority Lifecycle v0.3.0-draft, twenty-eight new lab fixture families, 34 lifecycle vocabulary terms, and the A2A canonicalization issue.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 220 - 2026-09-24 ═══
+
+- id: d220-sdk-7-2-0-chain-selection
+  title: "Chain selection ships as a draft-03 section 3.3 conformance fix in SDK 7.2.0 and Python 4.2.0"
+  description: "Section 3.3 says an action selects one root-to-leaf authority chain and a verifier must not union scopes or budgets across chains. Every other authority entry point took one chain, so the rule had no surface and a pooling implementation was indistinguishable from a selecting one. The new module holds no union by construction. One private function judges one chain, a result names one chain id and never a set, and a held entry that is two chains concatenated into one array is refused by name before verification. An unknown revocation answer is undecided, never refused. 19 parity cases, run byte-identical in both SDKs. The fallback surface is marked proposed, not draft-03."
+  status: done
+  day_start: 220
+  workstream: protocol
+  links:
+    - url: "https://www.npmjs.com/package/agent-passport-system/v/7.2.0"
+      label: "npm 7.2.0"
+    - url: "https://pypi.org/project/agent-passport-system/4.2.0/"
+      label: "PyPI 4.2.0"
+    - url: "https://www.ietf.org/archive/id/draft-pidlisnyi-aps-03.txt"
+      label: "draft-pidlisnyi-aps-03"
+
+- id: d220-sdk-lifecycle-experimental-modules
+  title: "Seven opt-in lifecycle modules in both SDKs, marked proposed rather than specified"
+  description: "Lifecycle state, activation, bounds, capability binding, status coverage, authority state and suspension. None is required by draft-03. Each new record type carries a proposed namespace instead of aps, every reason code is module-local, and each module says in its own doc comment that implemented does not mean specified. The state vocabulary reports six artifact verdicts alongside chain verification and never merges into it, keeps what an enforcement point decides at one authorization boundary as three separate outcomes, and requires a not_established verdict to name which of source, freshness or coverage was missing. Existing behaviour is byte identical and the conformance suite output is unchanged under both builds."
+  status: done
+  day_start: 220
+  workstream: sdk
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/blob/main/CHANGELOG.md"
+      label: "SDK CHANGELOG 7.2.0"
+
+- id: d220-authority-lifecycle-v0-3-0-draft
+  title: "Authority Lifecycle v0.3.0-draft, one catalog file, a semantic taxonomy and a verification model"
+  description: "cases.json is now the single source of truth for all 170 cases, CASES.md and BOUNDARY-CASES.md are generated from it, and CI fails on drift, on schema violations and on any unresolved internal link. Cases are grouped by the authority question each one asks, in 18 semantic families, rather than by the research leg that found them, and every id is unchanged. 134 lifecycle cases, 126 verified, 7 reviewed hypotheticals and 1 candidate, with 36 boundary cases kept apart under six named reasons. The model adds a verification model naming what a verifier may say about an artifact and what an enforcement point decides about one action. The precedent sources say nothing about AI agents and the repository says so."
+  status: done
+  day_start: 220
+  workstream: research
+  links:
+    - url: "https://github.com/aeoess/agent-authority-lifecycle/releases/tag/v0.3.0-draft"
+      label: "v0.3.0-draft"
+
+- id: d220-lab-lifecycle-fixture-families
+  title: "Twenty-eight new lifecycle fixture families in the conformance lab, and what the SDK can decide of them"
+  description: "Tracking issue #122, seven stacked pull requests #123 to #129 and three follow-ups through #132, all merged on green. Every family is labelled candidate against proposed text, so the vectors test wording in the lifecycle repository and not a published specification. Measured against the SDK across 29 families, 633 vectors and 635 decision units, an SDK call reproduced the expected result for 50 units under 7.1.0 and 161 under 7.2.0, a move of 111 units across 12 families with 0 fail and 0 regressions. The remaining 474 are not_supported, meaning no SDK API decides them and the family harness supplies the deciding step. That is not a coverage score for the suite."
+  status: done
+  day_start: 220
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/issues/122"
+      label: "lab#122"
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pulls?q=is%3Apr+is%3Amerged"
+      label: "lab #123 to #132"
+
+- id: d220-vocab-lifecycle-terms-and-outward-work
+  title: "Thirty-four lifecycle terms in the vocabulary, a merged delegation verifier, and a canonicalization gap between two A2A SDKs"
+  description: "vocabulary-lifecycle.yaml adds 34 authority-lifecycle concept terms as a separate maintainer-governed file, every definition a verbatim quote of 40 words or fewer from the concept document, filed apart from signal types because a verifier reasons about them rather than an issuer stamping them into an envelope. The AgenTrust delegation verifier merged. The A2A Go maintainers merged a canonicalization fix, which left a2a-python on the other side of the line. Its canonicalizer strips empty strings, lists and dicts before signing with no exception for fields the specification marks REQUIRED, so a card signed by one SDK recomputes to a different payload in the other. Filed as an issue, no patch offered. Two CoSAI WS4 comments went out on the decision-to-effect corpus and on descendant, in-flight and authority-definition questions."
+  status: done
+  day_start: 220
+  workstream: outward
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/174"
+      label: "vocab#174"
+    - url: "https://github.com/agentrust-io/integrations/pull/216"
+      label: "agentrust#216"
+    - url: "https://github.com/a2aproject/a2a-go/pull/441"
+      label: "a2a-go#441"
+    - url: "https://github.com/a2aproject/a2a-python/issues/1278"
+      label: "a2a-python#1278"
+    - url: "https://github.com/cosai-oasis/ws4-secure-design-agentic-systems/issues/205#issuecomment-5806504233"
+      label: "CoSAI WS4 #205"
 
 # ═══ DAY 219 - 2026-09-23 ═══
 
