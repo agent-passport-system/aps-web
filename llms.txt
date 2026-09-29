@@ -47,7 +47,7 @@ MCP server (agent-passport-system-mcp 6.1.0): 152 tools over stdio; supports MCP
 - [VeritasActa cross-verify](https://github.com/VeritasActa/verify/pull/7): APS DecisionLineageReceipt drops into VeritasActa Knowledge Unit bundles
 - [A2A composition contract](https://github.com/a2aproject/A2A/issues/1742): co-drafted key rotation and per-request signature verification
 - [Agent governance vocabulary](https://github.com/aeoess/agent-governance-vocabulary): shared term definitions across the agent-governance ecosystem
-- [IETF Internet-Draft](https://github.com/aeoess/agent-passport-system): draft-pidlisnyi-aps-03 protocol formalization
+- [IETF Internet-Draft](https://github.com/aeoess/agent-passport-system): draft-pidlisnyi-aps-04 protocol formalization
 
 ## Ecosystem services
 

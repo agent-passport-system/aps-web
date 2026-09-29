@@ -1,7 +1,113 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-09-24 (Day 220). Adds Day 220. SDK 7.2.0 and Python 4.2.0 with chain selection as a draft-03 section 3.3 fix and seven proposed lifecycle modules, Authority Lifecycle v0.3.0-draft, twenty-eight new lab fixture families, 34 lifecycle vocabulary terms, and the A2A canonicalization issue.
+# Last updated: 2026-09-28 (Day 224). Adds Days 222 to 224. The help-wanted lane, the Mycelium integration note, the RFC-189 rerun, draft-pidlisnyi-aps-04 posted, the PriorSeal payment-limit pair, the OpenShell revalidation proposal, the federation proposal, and the WIMSE Appendix B rerun.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 224 - 2026-09-28 ═══
+
+- id: d224-draft-04-posted
+  title: "draft-pidlisnyi-aps-04 posted, with the requirement matrix as the only authority on what is exercised"
+  description: "Revision 04 is on the datatracker. Every requirement carries an identifier, and Appendix D says which ones a vector exercises and which are specified but not exercised. Unexercised requirements were not demoted to make the draft look further along. Vector or demote is the gate for -05."
+  status: done
+  day_start: 224
+  workstream: standards
+  links:
+    - url: "https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/04/"
+      label: "datatracker -04"
+    - url: "https://www.ietf.org/archive/id/draft-pidlisnyi-aps-04.txt"
+      label: "draft-pidlisnyi-aps-04 text"
+
+- id: d224-priorseal-payment-limit-pair
+  title: "An APS decision against a PriorSeal execution that exceeds the signed call"
+  description: "imokokok built an offline pair in PriorSeal on unchanged APS fixtures. APS decides a 1e15 wei call under a 5e15 per-action cap, and PriorSeal binds that decision into a signed exact-call authorization. The within-limit observation is COMPLIANT. The 6e15 observation is NON_COMPLIANT with TRANSACTION_VALUE_MISMATCH while the decision and the authorization stay valid. Reproduced from a fresh clone and proposed to the lab as an interop record. Offline and synthetic, not chain execution."
+  status: in_progress
+  day_start: 224
+  workstream: conformance
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/issues/163"
+      label: "aps#163"
+    - url: "https://github.com/imokokok/PriorSeal/commit/d749d2691c3e6be139de4020e7b27cdafca2c428"
+      label: "PriorSeal d749d269"
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/issues/138"
+      label: "lab #138"
+
+- id: d224-openshell-subagent-revalidation
+  title: "Proposed to OpenShell: running subagents are rechecked when authority above them changes"
+  description: "OpenShell's spike on maximum policies for spawned agents checks containment when the child is created. The comment argues it has to hold while the child acts, with negative cases for a revoked ancestor, a narrowed parent, authority granted again, and revocation state that cannot be established. Issue #3808 proposes the revalidation. No maintainer reply yet."
+  status: in_progress
+  day_start: 224
+  workstream: outward
+  links:
+    - url: "https://github.com/NVIDIA/OpenShell/issues/2025#issuecomment-5880174282"
+      label: "OpenShell #2025 comment"
+    - url: "https://github.com/NVIDIA/OpenShell/issues/3808"
+      label: "OpenShell #3808"
+
+- id: d224-federation-proposal
+  title: "A proposal for a federation of independent open-source AI infrastructure projects"
+  description: "Opened on the vocabulary repo as a question to the projects already met through the vocabulary, shared vectors, conformance work and reviews. Each project keeps control of its own work. The shared part is boundaries that can be verified, attribution that travels with the work, and support between maintainers."
+  status: in_progress
+  day_start: 224
+  workstream: ecosystem
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/issues/177"
+      label: "vocabulary #177"
+
+- id: d224-wimse-appendix-b-rerun
+  title: "WIMSE audit-record vectors rerun with the published reference reader"
+  description: "Ran agent-evidence-vectors 0.14.1 over the 47 Appendix B members of draft-ietf-wimse-aims. The run gave 9 accept, 2 indeterminate and 36 reject, every member as its manifest declares, exit 0. This reproduces the corpus with its own reader. It is not an independent verification of the 47 rows."
+  status: done
+  day_start: 224
+  workstream: standards
+  links:
+    - url: "https://github.com/ietf-wg-wimse/draft-ietf-wimse-aims/issues/144"
+      label: "wimse-aims #144"
+
+# ═══ DAY 223 - 2026-09-27 ═══
+
+- id: d223-mycelium-integration-doc
+  title: "Mycelium added to the external anchoring section of INTEGRATION.md"
+  description: "PR #197 adds Mycelium to the External Anchoring section of INTEGRATION.md."
+  status: done
+  day_start: 223
+  workstream: outward
+  links:
+    - url: "https://github.com/aeoess/agent-passport-system/pull/197"
+      label: "aps PR #197"
+
+- id: d223-cosai-189-rerun
+  title: "CoSAI WS4 RFC-189 conformance branch rerun at a pinned commit"
+  description: "Reran the evidence sufficiency candidate cases for RFC-189 at 08edfc79. run.py passed 13 of 13 and test_checker 12 OK. The RFC path stays with the workstream. The cases are candidates against proposed text, not conformance to an adopted rule."
+  status: done
+  day_start: 223
+  workstream: standards
+  links:
+    - url: "https://github.com/cosai-oasis/ws4-secure-design-agentic-systems/issues/189#issuecomment-5863020543"
+      label: "CoSAI WS4 #189 comment"
+
+# ═══ DAY 222 - 2026-09-26 ═══
+
+- id: d222-help-wanted-lane
+  title: "A help-wanted lane across the vocabulary, lab, SDK and gateway"
+  description: "Five scoped issues carry help wanted and good first issue: enforcing the pairwise_composition crosswalk schema in the vocabulary validator, telling non-emission from byte divergence in lab run reports, a TypeScript cross-check for inference-session fixture bytes and signatures, deny-path tests for scope_restricted and key_retired in the gateway, and a PagerDuty Events API v2 connector. Two Python parity issues cover audience binding v1 and signed wallet bind and unbind. CONTRIBUTING and SECURITY landed in agent-authority-lifecycle and agent-passport-gateway."
+  status: done
+  day_start: 222
+  workstream: ecosystem
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/issues/107"
+      label: "vocabulary #107"
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/issues/15"
+      label: "lab #15"
+    - url: "https://github.com/aeoess/agent-passport-system/issues/196"
+      label: "aps #196"
+    - url: "https://github.com/aeoess/agent-passport-gateway/issues/1"
+      label: "gateway #1"
+    - url: "https://github.com/aeoess/agent-passport-gateway/issues/2"
+      label: "gateway #2"
+    - url: "https://github.com/aeoess/agent-passport-python/issues/19"
+      label: "python #19"
+    - url: "https://github.com/aeoess/agent-passport-python/issues/20"
+      label: "python #20"
 
 # ═══ DAY 220 - 2026-09-24 ═══
 
