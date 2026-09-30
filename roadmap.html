@@ -94,7 +94,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">677 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">682 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -110,7 +110,66 @@
 </article>
 </section>
 <section class="rm-group rm-group-in-progress">
-<h2 class="rm-group-title">In progress <span class="rm-group-count">(9)</span></h2>
+<h2 class="rm-group-title">In progress <span class="rm-group-count">(14)</span></h2>
+<article class="rm-item rm-item-in_progress" id="d225-action-ref-crosswalk-correction">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Crosswalk with argentum-core corrected for action_ref v1</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 225</span> 
+<span class="rm-item-ws">Ecosystem</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">The May crosswalk said the two action_ref digests could not be joined byte for byte. Since argentum moved v1 to JCS, both sides derive the same digest for inputs both accept. The mapping stays partial because argentum rejects non-ASCII values and empty scope and APS accepts both. Pending review by argentum's maintainer.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/pull/180">vocabulary PR #180</a></li><li><a href="https://github.com/giskard09/argentum-core/issues/35">argentum-core #35</a></li></ul>
+</article>
+<article class="rm-item rm-item-in_progress" id="d225-openshell-reference-middleware-gate">
+<header class="rm-item-h">
+<h3 class="rm-item-title">APS OpenShell reference enforcement middleware: first gate passed</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 225</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">A reference middleware on OpenShell's external supervisor middleware boundary for one case: deny before upstream dispatch when an ancestor delegation has been revoked. The first gate, 25 allowed and 25 denied requests through OpenShell's real relay code with zero request bytes reaching upstream on every denial, passed. Our code on their extension point, not an OpenShell integration, nothing sent to NVIDIA.</p>
+</article>
+<article class="rm-item rm-item-in_progress" id="d225-principles-and-boundary-map">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Shared principles and a boundary map for the projects in the federation thread</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 225</span> 
+<span class="rm-item-ws">Ecosystem</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">The ten principles from #177 as PRINCIPLES.md, and a map of the boundaries between the projects that answered: one node per project, one record per edge, with progress, provenance and claim results kept apart. AgentAvow's fixture ran unchanged through an APS-side consumer, 30 of 30, with the server-versus-tool subject and the aggregate manifest digest recorded as boundaries.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/pull/178">vocabulary PR #178</a></li><li><a href="https://github.com/aeoess/agent-governance-vocabulary/pull/179">vocabulary PR #179</a></li></ul>
+</article>
+<article class="rm-item rm-item-in_progress" id="d225-standards-threads">
+<header class="rm-item-h">
+<h3 class="rm-item-title">x402 identity cases, RFC-189 review and the PriorSeal lab record</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 225</span> 
+<span class="rm-item-ws">Standards</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">Lifecycle cases for the x402 identity working group on delegation at depth and signing key rotation. A clause-to-case review of CoSAI RFC-189's evidence sufficiency cases, ending in co-leading those conformance cases. The APS to PriorSeal payment pair recorded per claim in the lab, with a separate candidate independent runner record for one claim.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/x402-foundation/wg-identity/issues/24">x402 wg-identity #24</a></li><li><a href="https://github.com/x402-foundation/wg-identity/issues/32">x402 wg-identity #32</a></li><li><a href="https://github.com/cosai-oasis/ws4-secure-design-agentic-systems/pull/219">CoSAI WS4 #219</a></li><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/139">lab PR #139</a></li></ul>
+</article>
+<article class="rm-item rm-item-in_progress" id="d225-ucp-ap2-negotiation">
+<header class="rm-item-h">
+<h3 class="rm-item-title">UCP conformance: the AP2 tests run only when AP2 is actually negotiated</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 225</span> 
+<span class="rm-item-ws">outward</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">The suite's only AP2 test sent a placeholder mandate while the mock platform never declared AP2, so it passed against a business that ignores mandates. PR #115 adds an opt-in AP2 platform profile for the suite's 2026-04-08 release, computes the capability intersection, adds the missing negative case and skips the old positive case until a signed SD-JWT+kb mandate fixture exists. No AP2 cryptographic verification is added.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Universal-Commerce-Protocol/conformance/issues/114">UCP conformance #114</a></li><li><a href="https://github.com/Universal-Commerce-Protocol/conformance/pull/115">UCP conformance PR #115</a></li></ul>
+</article>
 <article class="rm-item rm-item-in_progress" id="d224-federation-proposal">
 <header class="rm-item-h">
 <h3 class="rm-item-title">A proposal for a federation of independent open-source AI infrastructure projects</h3>

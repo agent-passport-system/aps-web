@@ -1,7 +1,68 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-09-28 (Day 224). Adds Days 222 to 224. The help-wanted lane, the Mycelium integration note, the RFC-189 rerun, draft-pidlisnyi-aps-04 posted, the PriorSeal payment-limit pair, the OpenShell revalidation proposal, the federation proposal, and the WIMSE Appendix B rerun.
+# Last updated: 2026-09-29 (Day 225). Adds Day 225. UCP AP2 negotiation in the conformance suite, shared principles and the boundary map, the action_ref crosswalk correction, the first gate of the APS OpenShell reference enforcement middleware, and the x402, RFC-189 and PriorSeal lab threads.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 225 - 2026-09-29 ═══
+
+- id: d225-ucp-ap2-negotiation
+  title: "UCP conformance: the AP2 tests run only when AP2 is actually negotiated"
+  description: "The suite's only AP2 test sent a placeholder mandate while the mock platform never declared AP2, so it passed against a business that ignores mandates. PR #115 adds an opt-in AP2 platform profile for the suite's 2026-04-08 release, computes the capability intersection, adds the missing negative case and skips the old positive case until a signed SD-JWT+kb mandate fixture exists. No AP2 cryptographic verification is added."
+  status: in_progress
+  day_start: 225
+  workstream: outward
+  links:
+    - url: "https://github.com/Universal-Commerce-Protocol/conformance/issues/114"
+      label: "UCP conformance #114"
+    - url: "https://github.com/Universal-Commerce-Protocol/conformance/pull/115"
+      label: "UCP conformance PR #115"
+
+- id: d225-principles-and-boundary-map
+  title: "Shared principles and a boundary map for the projects in the federation thread"
+  description: "The ten principles from #177 as PRINCIPLES.md, and a map of the boundaries between the projects that answered: one node per project, one record per edge, with progress, provenance and claim results kept apart. AgentAvow's fixture ran unchanged through an APS-side consumer, 30 of 30, with the server-versus-tool subject and the aggregate manifest digest recorded as boundaries."
+  status: in_progress
+  day_start: 225
+  workstream: ecosystem
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/178"
+      label: "vocabulary PR #178"
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/179"
+      label: "vocabulary PR #179"
+
+- id: d225-action-ref-crosswalk-correction
+  title: "Crosswalk with argentum-core corrected for action_ref v1"
+  description: "The May crosswalk said the two action_ref digests could not be joined byte for byte. Since argentum moved v1 to JCS, both sides derive the same digest for inputs both accept. The mapping stays partial because argentum rejects non-ASCII values and empty scope and APS accepts both. Pending review by argentum's maintainer."
+  status: in_progress
+  day_start: 225
+  workstream: ecosystem
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/180"
+      label: "vocabulary PR #180"
+    - url: "https://github.com/giskard09/argentum-core/issues/35"
+      label: "argentum-core #35"
+
+- id: d225-openshell-reference-middleware-gate
+  title: "APS OpenShell reference enforcement middleware: first gate passed"
+  description: "A reference middleware on OpenShell's external supervisor middleware boundary for one case: deny before upstream dispatch when an ancestor delegation has been revoked. The first gate, 25 allowed and 25 denied requests through OpenShell's real relay code with zero request bytes reaching upstream on every denial, passed. Our code on their extension point, not an OpenShell integration, nothing sent to NVIDIA."
+  status: in_progress
+  day_start: 225
+  workstream: conformance
+
+- id: d225-standards-threads
+  title: "x402 identity cases, RFC-189 review and the PriorSeal lab record"
+  description: "Lifecycle cases for the x402 identity working group on delegation at depth and signing key rotation. A clause-to-case review of CoSAI RFC-189's evidence sufficiency cases, ending in co-leading those conformance cases. The APS to PriorSeal payment pair recorded per claim in the lab, with a separate candidate independent runner record for one claim."
+  status: in_progress
+  day_start: 225
+  workstream: standards
+  links:
+    - url: "https://github.com/x402-foundation/wg-identity/issues/24"
+      label: "x402 wg-identity #24"
+    - url: "https://github.com/x402-foundation/wg-identity/issues/32"
+      label: "x402 wg-identity #32"
+    - url: "https://github.com/cosai-oasis/ws4-secure-design-agentic-systems/pull/219"
+      label: "CoSAI WS4 #219"
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/139"
+      label: "lab PR #139"
 
 # ═══ DAY 224 - 2026-09-28 ═══
 
