@@ -1,7 +1,61 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-09-29 (Day 225). Adds Day 225. UCP AP2 negotiation in the conformance suite, shared principles and the boundary map, the action_ref crosswalk correction, the first gate of the APS OpenShell reference enforcement middleware, and the x402, RFC-189 and PriorSeal lab threads.
+# Last updated: 2026-09-30 (Day 226). Adds Day 226. The decision process issue for shared files, the gateway PagerDuty connector from an outside contributor, the AgentID crosswalk review, the third-party E2 run record with the pinned fixture tag, and RFC-189 candidate case 18.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 226 - 2026-09-30 ═══
+
+- id: d226-shared-file-decision-process
+  title: "How the group decides changes to shared files"
+  description: "The principles and the boundary map sit in a repository one person administers. Issue #185 asks how changes to shared files are decided, who has a say, and what being listed on the map means. Both files stay open while that is worked out, with a checkpoint on 2026-10-07."
+  status: in_progress
+  day_start: 226
+  workstream: governance
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/issues/185"
+      label: "vocabulary #185"
+
+- id: d226-gateway-pagerduty-connector
+  title: "Gateway PagerDuty connector merged from an outside contributor"
+  description: "zhipei-dev's Events API v2 adapter for the help wanted issue, merged after a rerun and CI. A follow-up test pins that only HTTP 202 counts as delivered, after a mutation that accepted any 2xx left the suite green."
+  status: done
+  day_start: 226
+  workstream: contribution
+  links:
+    - url: "https://github.com/aeoess/agent-passport-gateway/pull/3"
+      label: "gateway PR #3"
+
+- id: d226-signed-field-coverage
+  title: "signed_payload_fields means the fields the signature covers"
+  description: "Review of the AgentID crosswalk refresh against the registry's definition of signed_payload_fields. Changes requested, waiting on the contributor's reply."
+  status: in_progress
+  day_start: 226
+  workstream: vocabulary
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/181"
+      label: "vocabulary PR #181"
+
+- id: d226-third-party-e2-record
+  title: "A third-party implementation of the APS to PriorSeal pair, recorded as author-produced"
+  description: "astrogilda's own checker reproduced the producers' stated results on every claim it exercised. His outputs were rerun byte for byte. The lab record labels it Mode B and author-produced, since the runner wrote the checker, and fills no independent slot. The pinned fixture commit now has a signed tag, and the fixture README names the payload object."
+  status: in_progress
+  day_start: 226
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/141"
+      label: "lab PR #141"
+    - url: "https://github.com/aeoess/agent-passport-system/tree/fixtures/priorseal-decision-binding-v1/fixtures/priorseal-decision-binding"
+      label: "pinned fixtures (tag)"
+
+- id: d226-rfc189-case-18
+  title: "RFC-189 candidate case for write visibility narrower than the claim"
+  description: "With one C4 gate of the checker disabled, all seventeen candidate cases still matched. Case 18 makes that mutation observable. One fixture and one table row, proposed to the cases branch."
+  status: in_progress
+  day_start: 226
+  workstream: standards
+  links:
+    - url: "https://github.com/astrogilda/ws4-secure-design-agentic-systems/pull/1"
+      label: "cases PR #1"
 
 # ═══ DAY 225 - 2026-09-29 ═══
 

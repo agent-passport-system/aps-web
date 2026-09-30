@@ -94,7 +94,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">682 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">687 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -110,7 +110,55 @@
 </article>
 </section>
 <section class="rm-group rm-group-in-progress">
-<h2 class="rm-group-title">In progress <span class="rm-group-count">(14)</span></h2>
+<h2 class="rm-group-title">In progress <span class="rm-group-count">(18)</span></h2>
+<article class="rm-item rm-item-in_progress" id="d226-rfc189-case-18">
+<header class="rm-item-h">
+<h3 class="rm-item-title">RFC-189 candidate case for write visibility narrower than the claim</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 226</span> 
+<span class="rm-item-ws">Standards</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">With one C4 gate of the checker disabled, all seventeen candidate cases still matched. Case 18 makes that mutation observable. One fixture and one table row, proposed to the cases branch.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/astrogilda/ws4-secure-design-agentic-systems/pull/1">cases PR #1</a></li></ul>
+</article>
+<article class="rm-item rm-item-in_progress" id="d226-shared-file-decision-process">
+<header class="rm-item-h">
+<h3 class="rm-item-title">How the group decides changes to shared files</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 226</span> 
+<span class="rm-item-ws">governance</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">The principles and the boundary map sit in a repository one person administers. Issue #185 asks how changes to shared files are decided, who has a say, and what being listed on the map means. Both files stay open while that is worked out, with a checkpoint on 2026-10-07.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/issues/185">vocabulary #185</a></li></ul>
+</article>
+<article class="rm-item rm-item-in_progress" id="d226-signed-field-coverage">
+<header class="rm-item-h">
+<h3 class="rm-item-title">signed_payload_fields means the fields the signature covers</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 226</span> 
+<span class="rm-item-ws">vocabulary</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">Review of the AgentID crosswalk refresh against the registry's definition of signed_payload_fields. Changes requested, waiting on the contributor's reply.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/pull/181">vocabulary PR #181</a></li></ul>
+</article>
+<article class="rm-item rm-item-in_progress" id="d226-third-party-e2-record">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A third-party implementation of the APS to PriorSeal pair, recorded as author-produced</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 226</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">astrogilda's own checker reproduced the producers' stated results on every claim it exercised. His outputs were rerun byte for byte. The lab record labels it Mode B and author-produced, since the runner wrote the checker, and fills no independent slot. The pinned fixture commit now has a signed tag, and the fixture README names the payload object.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/pull/141">lab PR #141</a></li><li><a href="https://github.com/aeoess/agent-passport-system/tree/fixtures/priorseal-decision-binding-v1/fixtures/priorseal-decision-binding">pinned fixtures (tag)</a></li></ul>
+</article>
 <article class="rm-item rm-item-in_progress" id="d225-action-ref-crosswalk-correction">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Crosswalk with argentum-core corrected for action_ref v1</h3>
@@ -277,7 +325,19 @@
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(615)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(616)</span></h2>
+<article class="rm-item rm-item-done" id="d226-gateway-pagerduty-connector">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Gateway PagerDuty connector merged from an outside contributor</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 226</span> 
+<span class="rm-item-ws">contribution</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">zhipei-dev's Events API v2 adapter for the help wanted issue, merged after a rerun and CI. A follow-up test pins that only HTTP 202 counts as delivered, after a mutation that accepted any 2xx left the suite green.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-passport-gateway/pull/3">gateway PR #3</a></li></ul>
+</article>
 <article class="rm-item rm-item-done" id="d224-draft-04-posted">
 <header class="rm-item-h">
 <h3 class="rm-item-title">draft-pidlisnyi-aps-04 posted, with the requirement matrix as the only authority on what is exercised</h3>
