@@ -1,7 +1,41 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-09-30 (Day 226). Adds Day 226. The decision process issue for shared files, the gateway PagerDuty connector from an outside contributor, the AgentID crosswalk review, the third-party E2 run record with the pinned fixture tag, and RFC-189 candidate case 18.
+# Last updated: 2026-10-01 (Day 227). Adds Day 227. The A2A Python SDK fix for REQUIRED fields in agent card signatures, the three levels of federation participation, and the Mycelium crosswalk digest confirmed by its owner.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 227 - 2026-10-01 ═══
+
+- id: d227-a2a-python-required-fields
+  title: "A2A Python SDK: REQUIRED fields in agent card signature canonicalization"
+  description: "A two commit fix opened at a maintainer's invitation. The first commit walks the card by descriptor and changes no canonical bytes. The second keeps REQUIRED fields at their default value and is held separate for the open spec issue. Two other people measured both commits against a three SDK matrix and a signed corpus. The second commit also rejects cards that omit a REQUIRED field, which all three SDKs accept today."
+  status: in_progress
+  day_start: 227
+  workstream: contribution
+  links:
+    - url: "https://github.com/a2aproject/a2a-python/pull/1287"
+      label: "a2a-python PR #1287"
+    - url: "https://github.com/a2aproject/A2A/issues/2122"
+      label: "A2A #2122"
+
+- id: d227-federation-active-participation
+  title: "Three levels of taking part: listed, pilot, active participant"
+  description: "A clarification on the decision process issue. Being listed or joining one pilot creates no obligations. Active participation is a separate explicit choice that carries shared rules and attribution. The economic idea, value follows actual use, is stated as an idea. None of it exists yet."
+  status: in_progress
+  day_start: 227
+  workstream: governance
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/issues/185"
+      label: "vocabulary #185"
+
+- id: d227-action-ref-digest-confirmed
+  title: "Mycelium crosswalk correction: spot check digest reproduced by the owner"
+  description: "The crosswalk now carries the four field tuple and its 104 canonical bytes. giskard09 reproduced the digest two ways against argentum-core and approved the correction. The mapping stays partial and covers the external action-ref-v1 profile only."
+  status: in_progress
+  day_start: 227
+  workstream: vocabulary
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/pull/180"
+      label: "vocabulary PR #180"
 
 # ═══ DAY 226 - 2026-09-30 ═══
 

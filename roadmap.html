@@ -94,7 +94,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">687 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">690 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -110,7 +110,43 @@
 </article>
 </section>
 <section class="rm-group rm-group-in-progress">
-<h2 class="rm-group-title">In progress <span class="rm-group-count">(18)</span></h2>
+<h2 class="rm-group-title">In progress <span class="rm-group-count">(21)</span></h2>
+<article class="rm-item rm-item-in_progress" id="d227-a2a-python-required-fields">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A2A Python SDK: REQUIRED fields in agent card signature canonicalization</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 227</span> 
+<span class="rm-item-ws">contribution</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">A two commit fix opened at a maintainer's invitation. The first commit walks the card by descriptor and changes no canonical bytes. The second keeps REQUIRED fields at their default value and is held separate for the open spec issue. Two other people measured both commits against a three SDK matrix and a signed corpus. The second commit also rejects cards that omit a REQUIRED field, which all three SDKs accept today.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/a2aproject/a2a-python/pull/1287">a2a-python PR #1287</a></li><li><a href="https://github.com/a2aproject/A2A/issues/2122">A2A #2122</a></li></ul>
+</article>
+<article class="rm-item rm-item-in_progress" id="d227-action-ref-digest-confirmed">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Mycelium crosswalk correction: spot check digest reproduced by the owner</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 227</span> 
+<span class="rm-item-ws">vocabulary</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">The crosswalk now carries the four field tuple and its 104 canonical bytes. giskard09 reproduced the digest two ways against argentum-core and approved the correction. The mapping stays partial and covers the external action-ref-v1 profile only.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/pull/180">vocabulary PR #180</a></li></ul>
+</article>
+<article class="rm-item rm-item-in_progress" id="d227-federation-active-participation">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Three levels of taking part: listed, pilot, active participant</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 227</span> 
+<span class="rm-item-ws">governance</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">A clarification on the decision process issue. Being listed or joining one pilot creates no obligations. Active participation is a separate explicit choice that carries shared rules and attribution. The economic idea, value follows actual use, is stated as an idea. None of it exists yet.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/issues/185">vocabulary #185</a></li></ul>
+</article>
 <article class="rm-item rm-item-in_progress" id="d226-rfc189-case-18">
 <header class="rm-item-h">
 <h3 class="rm-item-title">RFC-189 candidate case for write visibility narrower than the claim</h3>
