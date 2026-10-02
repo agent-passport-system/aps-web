@@ -1,7 +1,63 @@
 # APS Roadmap: source of truth for agent-passport.org/roadmap
 # Edit this file and push. The page rebuilds automatically.
-# Last updated: 2026-10-01 (Day 227). Adds Day 227. The A2A Python SDK fix for REQUIRED fields in agent card signatures, the three levels of federation participation, and the Mycelium crosswalk digest confirmed by its owner.
+# Last updated: 2026-10-02 (Day 228). Adds Day 228. The APS repositories moved into the agent-passport-system organization, the A2A Python served scope candidate reproduced by a corpus maintainer, an outside verifier for the Case A vector, the AgentAvow v1 second implementation, and the OpenShell #3808 correction.
 # Day 1 = 2026-02-17 (project start)
+
+# ═══ DAY 228 - 2026-10-02 ═══
+
+- id: d228-org-transfer
+  title: "APS repositories moved into the agent-passport-system organization"
+  description: "Seventeen repositories, including the TypeScript, Python, MCP and Go packages, the remote MCP bridge and the gateway, now live in one organization. Repository ids and old links are unchanged. Release jobs check the authorized account id and the requester of each run attempt, the tag rule bypass is the organization admin role, and the two hosted services redeployed from the new repositories with their volumes intact. The first releases from the organization are still to come."
+  status: in_progress
+  day_start: 228
+  workstream: infrastructure
+  links:
+    - url: "https://github.com/agent-passport-system"
+      label: "agent-passport-system organization"
+    - url: "https://github.com/agent-passport-system/agent-passport-system/pull/203"
+      label: "SDK migration PR #203"
+
+- id: d228-a2a-served-scope-candidate
+  title: "A2A Python SDK: served scope candidate reproduced by a corpus maintainer"
+  description: "A candidate that canonicalizes an agent card from the received JSON and keeps fields outside the schema. ogasurfproject-jpg added it to the a2a-card-sign corpus and reproduced the results on all 37 vectors. A card carrying one field under two spellings is now refused, and a refusal rule is proposed for the profile. Not merged into the SDK, the specification has not ruled."
+  status: in_progress
+  day_start: 228
+  workstream: contribution
+  links:
+    - url: "https://github.com/a2aproject/A2A/issues/2122"
+      label: "A2A #2122"
+    - url: "https://github.com/aeoess/a2a-python/tree/candidate/served-scope-1278"
+      label: "candidate branch"
+
+- id: d228-case-a-outside-implementation
+  title: "Case A revocation vector: an outside verifier, reproduced"
+  description: "nutstrut published an independently written verifier for the ancestor revocation vector. Its output reproduces byte for byte from a clean clone. One vector, not the suite, and not a blinded run. A lab record awaits his confirmation."
+  status: in_progress
+  day_start: 228
+  workstream: conformance
+  links:
+    - url: "https://github.com/Agent-Authority-Conformance/aps-conformance-suite/issues/140"
+      label: "lab #140"
+
+- id: d228-agentavow-v1-second-implementation
+  title: "AgentAvow tool binding vectors: second implementation in the APS consumer"
+  description: "The APS consumer recomputed the per tool digests and all six cases of AgentAvow's v1 vectors. Its key encoding tests found the written rule disagreeing with the code, and the derivation now states the rule and the truncation for long names. 60 of 60 checks at 36426cf."
+  status: done
+  day_start: 228
+  workstream: interop
+  links:
+    - url: "https://github.com/aeoess/agent-governance-vocabulary/issues/177"
+      label: "vocabulary #177"
+
+- id: d228-openshell-3808-correction
+  title: "OpenShell #3808 corrected: a design requirement, not a defect"
+  description: "Inspecting OpenShell main showed no native parent to child delegation chain, so the issue now reads as a requirement for future delegation work rather than a bug in current code."
+  status: done
+  day_start: 228
+  workstream: contribution
+  links:
+    - url: "https://github.com/NVIDIA/OpenShell/issues/3808"
+      label: "OpenShell #3808"
 
 # ═══ DAY 227 - 2026-10-01 ═══
 

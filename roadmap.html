@@ -94,7 +94,7 @@
 <!-- BUILD:ROADMAP_START -->
 <noscript class="rm-noscript-hint"><div class="rm-noscript-msg">JavaScript is disabled — showing the full roadmap as a list. With JavaScript on, this page renders an interactive timeline above.</div></noscript>
 <div class="rm-static" id="rm-static" aria-label="Roadmap (static fallback)">
-<p class="rm-static-intro">690 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
+<p class="rm-static-intro">695 roadmap items, grouped by status. Updated from <a href="https://github.com/agent-passport-system/aps-web/blob/main/roadmap.yaml">roadmap.yaml</a>. Day 1 is 2026-02-17.</p>
 <section class="rm-group rm-group-active">
 <h2 class="rm-group-title">Active <span class="rm-group-count">(1)</span></h2>
 <article class="rm-item rm-item-active" id="d152-ship-the-disclosed-gaps-sprint">
@@ -110,7 +110,43 @@
 </article>
 </section>
 <section class="rm-group rm-group-in-progress">
-<h2 class="rm-group-title">In progress <span class="rm-group-count">(21)</span></h2>
+<h2 class="rm-group-title">In progress <span class="rm-group-count">(24)</span></h2>
+<article class="rm-item rm-item-in_progress" id="d228-a2a-served-scope-candidate">
+<header class="rm-item-h">
+<h3 class="rm-item-title">A2A Python SDK: served scope candidate reproduced by a corpus maintainer</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 228</span> 
+<span class="rm-item-ws">contribution</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">A candidate that canonicalizes an agent card from the received JSON and keeps fields outside the schema. ogasurfproject-jpg added it to the a2a-card-sign corpus and reproduced the results on all 37 vectors. A card carrying one field under two spellings is now refused, and a refusal rule is proposed for the profile. Not merged into the SDK, the specification has not ruled.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/a2aproject/A2A/issues/2122">A2A #2122</a></li><li><a href="https://github.com/aeoess/a2a-python/tree/candidate/served-scope-1278">candidate branch</a></li></ul>
+</article>
+<article class="rm-item rm-item-in_progress" id="d228-case-a-outside-implementation">
+<header class="rm-item-h">
+<h3 class="rm-item-title">Case A revocation vector: an outside verifier, reproduced</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 228</span> 
+<span class="rm-item-ws">conformance</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">nutstrut published an independently written verifier for the ancestor revocation vector. Its output reproduces byte for byte from a clean clone. One vector, not the suite, and not a blinded run. A lab record awaits his confirmation.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite/issues/140">lab #140</a></li></ul>
+</article>
+<article class="rm-item rm-item-in_progress" id="d228-org-transfer">
+<header class="rm-item-h">
+<h3 class="rm-item-title">APS repositories moved into the agent-passport-system organization</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 228</span> 
+<span class="rm-item-ws">infrastructure</span> 
+<span class="rm-item-status">in_progress</span>
+</p>
+</header>
+<p class="rm-item-desc">Seventeen repositories, including the TypeScript, Python, MCP and Go packages, the remote MCP bridge and the gateway, now live in one organization. Repository ids and old links are unchanged. Release jobs check the authorized account id and the requester of each run attempt, the tag rule bypass is the organization admin role, and the two hosted services redeployed from the new repositories with their volumes intact. The first releases from the organization are still to come.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/agent-passport-system">agent-passport-system organization</a></li><li><a href="https://github.com/agent-passport-system/agent-passport-system/pull/203">SDK migration PR #203</a></li></ul>
+</article>
 <article class="rm-item rm-item-in_progress" id="d227-a2a-python-required-fields">
 <header class="rm-item-h">
 <h3 class="rm-item-title">A2A Python SDK: REQUIRED fields in agent card signature canonicalization</h3>
@@ -361,7 +397,31 @@
 </article>
 </section>
 <section class="rm-group rm-group-shipped">
-<h2 class="rm-group-title">Shipped <span class="rm-group-count">(616)</span></h2>
+<h2 class="rm-group-title">Shipped <span class="rm-group-count">(618)</span></h2>
+<article class="rm-item rm-item-done" id="d228-agentavow-v1-second-implementation">
+<header class="rm-item-h">
+<h3 class="rm-item-title">AgentAvow tool binding vectors: second implementation in the APS consumer</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 228</span> 
+<span class="rm-item-ws">interop</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">The APS consumer recomputed the per tool digests and all six cases of AgentAvow's v1 vectors. Its key encoding tests found the written rule disagreeing with the code, and the derivation now states the rule and the truncation for long names. 60 of 60 checks at 36426cf.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/aeoess/agent-governance-vocabulary/issues/177">vocabulary #177</a></li></ul>
+</article>
+<article class="rm-item rm-item-done" id="d228-openshell-3808-correction">
+<header class="rm-item-h">
+<h3 class="rm-item-title">OpenShell #3808 corrected: a design requirement, not a defect</h3>
+<p class="rm-item-meta">
+<span class="rm-item-day">Day 228</span> 
+<span class="rm-item-ws">contribution</span> 
+<span class="rm-item-status">done</span>
+</p>
+</header>
+<p class="rm-item-desc">Inspecting OpenShell main showed no native parent to child delegation chain, so the issue now reads as a requirement for future delegation work rather than a bug in current code.</p>
+<ul class="rm-item-links"><li><a href="https://github.com/NVIDIA/OpenShell/issues/3808">OpenShell #3808</a></li></ul>
+</article>
 <article class="rm-item rm-item-done" id="d226-gateway-pagerduty-connector">
 <header class="rm-item-h">
 <h3 class="rm-item-title">Gateway PagerDuty connector merged from an outside contributor</h3>
