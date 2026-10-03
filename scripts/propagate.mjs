@@ -203,6 +203,10 @@ const ROADMAP_BUILD_SCRIPT = `${REPOS.web}/scripts/build-roadmap.mjs`;
 const ROADMAP_CACHE_PATH = `${REPOS.web}/scripts/.roadmap-build-cache.json`;
 
 function runRoadmapBuild({ force = false } = {}) {
+  // Archived 2026-10-02: roadmap.yaml is frozen and roadmap.html carries a hand-added
+  // archive notice that a rebuild would erase, so the rebuild never runs.
+  console.log('Roadmap: archived 2026-10-02, roadmap.yaml frozen. Skipping rebuild.');
+  return;
   if (!existsSync(ROADMAP_YAML_PATH)) {
     console.log('Roadmap: roadmap.yaml not found — skipping rebuild.');
     return;
