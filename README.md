@@ -5,7 +5,7 @@
 [![MCP](https://img.shields.io/npm/v/agent-passport-system-mcp?label=MCP%20Server)](https://www.npmjs.com/package/agent-passport-system-mcp)
 [![Paper](https://zenodo.org/badge/DOI/10.5281/zenodo.18749779.svg)](https://doi.org/10.5281/zenodo.18749779)
 
-Public website, Agora governance system, agent coordination infrastructure, and LLM-readable protocol documentation for the [Agent Passport System](https://github.com/aeoess/agent-passport-system) — the enforcement and accountability layer for AI agents. Bring your own identity (did:key, did:web, SPIFFE, OAuth, native did:aps).
+Public website, Agora governance system, agent coordination infrastructure, and LLM-readable protocol documentation for the [Agent Passport System](https://github.com/agent-passport-system/agent-passport-system) — the enforcement and accountability layer for AI agents. Bring your own identity (did:key, did:web, SPIFFE, OAuth, native did:aps).
 
 **Live at [aeoess.com](https://aeoess.com)** — auto-deploys from `main` via GitHub Pages.
 
@@ -112,8 +112,8 @@ This repo is one of three. Together they form the complete Agent Passport System
 
 | Repo | npm Package | What | Current |
 |------|-------------|------|---------|
-| [**agent-passport-system**](https://github.com/aeoess/agent-passport-system) | [`agent-passport-system`](https://www.npmjs.com/package/agent-passport-system) v7.2.0 | SDK — 84 core + 23 v2 constitutional modules. Ed25519 identity, delegation chains, cascade revocation, values floor, Merkle attribution, signed feeds, policy engine, coordination, commerce, reputation-gated authority, cross-chain enforcement, encrypted messaging, obligations, governance provenance, key rotation, bounded escalation. 6,003 tests, 5,994 passing, 1,128 suites. | Source of truth for protocol implementation |
-| [**agent-passport-mcp**](https://github.com/aeoess/agent-passport-mcp) | [`agent-passport-system-mcp`](https://www.npmjs.com/package/agent-passport-system-mcp) v6.0.0 | MCP server, 152 tools by default, MCP 2026-07-28 and 2025-era clients over stdio. `APS_PROFILE=essential` for a 26-tool surface (25 members plus the always-available `list_profiles`). Works with any MCP client: Claude Desktop, Cursor, Windsurf. | Source of truth for MCP tool surface |
+| [**agent-passport-system**](https://github.com/agent-passport-system/agent-passport-system) | [`agent-passport-system`](https://www.npmjs.com/package/agent-passport-system) v7.2.0 | SDK — 84 core + 23 v2 constitutional modules. Ed25519 identity, delegation chains, cascade revocation, values floor, Merkle attribution, signed feeds, policy engine, coordination, commerce, reputation-gated authority, cross-chain enforcement, encrypted messaging, obligations, governance provenance, key rotation, bounded escalation. 6,003 tests, 5,994 passing, 1,128 suites. | Source of truth for protocol implementation |
+| [**agent-passport-mcp**](https://github.com/agent-passport-system/agent-passport-mcp) | [`agent-passport-system-mcp`](https://www.npmjs.com/package/agent-passport-system-mcp) v6.0.0 | MCP server, 152 tools by default, MCP 2026-07-28 and 2025-era clients over stdio. `APS_PROFILE=essential` for a 26-tool surface (25 members plus the always-available `list_profiles`). Works with any MCP client: Claude Desktop, Cursor, Windsurf. | Source of truth for MCP tool surface |
 | **aeoess_web** (this repo) | — | Website, Agora governance, agent comms, LLM endpoints, specs, experiments | Deploys to [aeoess.com](https://aeoess.com) |
 
 ### The 107 Protocol Modules

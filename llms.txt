@@ -35,19 +35,19 @@ MCP server (agent-passport-system-mcp 6.1.0): 152 tools over stdio; supports MCP
 
 - [Module reference](https://agent-passport.org/llms-full.txt): full module reference with one-line descriptions
 - [Core SDK surface](https://www.npmjs.com/package/agent-passport-system): curated essentials for the most common integration paths
-- [MCP tool surface](https://github.com/aeoess/agent-passport-mcp): 152 tools across 17 layers, canonical list per layer in src/index.ts
-- [V2 constitutional framework](https://github.com/aeoess/agent-passport-system): attack defenses, structural safeguards, attestation
+- [MCP tool surface](https://github.com/agent-passport-system/agent-passport-mcp): 152 tools across 17 layers, canonical list per layer in src/index.ts
+- [V2 constitutional framework](https://github.com/agent-passport-system/agent-passport-system): attack defenses, structural safeguards, attestation
 
 ## Standards and interop
 
 - [AMCS — AI-Native Media Credentialing](https://agent-passport.org/amcs.html): open spec for credentialing AI-native publications
-- [AMCS full spec](https://github.com/aeoess/agent-passport-system/blob/main/docs/AMCS-SPEC.md): machine-readable specification
-- [Cross-Engine Signed Execution Envelope (RFC)](https://github.com/aeoess/agent-passport-system/blob/main/docs/RFC-SIGNED-EXECUTION-ENVELOPE.md): minimal cross-engine governance interop envelope
+- [AMCS full spec](https://github.com/agent-passport-system/agent-passport-system/blob/main/docs/AMCS-SPEC.md): machine-readable specification
+- [Cross-Engine Signed Execution Envelope (RFC)](https://github.com/agent-passport-system/agent-passport-system/blob/main/docs/RFC-SIGNED-EXECUTION-ENVELOPE.md): minimal cross-engine governance interop envelope
 - [Agent-DID composition crosswalk](https://github.com/aeoess/agent-governance-vocabulary/blob/main/crosswalk/agent-did.yaml): APS to Edison Munoz Duran's Agent-DID identity layer
 - [VeritasActa cross-verify](https://github.com/VeritasActa/verify/pull/7): APS DecisionLineageReceipt drops into VeritasActa Knowledge Unit bundles
 - [A2A composition contract](https://github.com/a2aproject/A2A/issues/1742): co-drafted key rotation and per-request signature verification
 - [Agent governance vocabulary](https://github.com/aeoess/agent-governance-vocabulary): shared term definitions across the agent-governance ecosystem
-- [IETF Internet-Draft](https://github.com/aeoess/agent-passport-system): draft-pidlisnyi-aps-04 protocol formalization
+- [IETF Internet-Draft](https://github.com/agent-passport-system/agent-passport-system): draft-pidlisnyi-aps-04 protocol formalization
 
 ## Ecosystem services
 

@@ -1,5 +1,5 @@
 Contact: mailto:signal@aeoess.com
-Policy: https://github.com/aeoess/agent-passport-system/blob/main/SECURITY.md
+Policy: https://github.com/agent-passport-system/agent-passport-system/blob/main/SECURITY.md
 Expires: 2027-09-03T23:59:59Z
 Canonical: https://agent-passport.org/.well-known/security.txt
 Preferred-Languages: en

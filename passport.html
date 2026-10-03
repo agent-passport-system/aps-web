@@ -47,8 +47,8 @@
     <a href="https://agent-passport.org/research.html">Research</a>
     <a href="https://agent-passport.org/blog.html">Dev Log</a>
     <a href="https://agent-passport.org/contact.html">Contact</a>
-    <a class="gh" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
-<a class="gh-star" href="https://github.com/aeoess/agent-passport-system" target="_blank" rel="noopener" aria-label="Star on GitHub"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg><span id="ghStarCount">star</span></a>
+    <a class="gh" href="https://github.com/agent-passport-system/agent-passport-system">GitHub ↗</a>
+<a class="gh-star" href="https://github.com/agent-passport-system/agent-passport-system" target="_blank" rel="noopener" aria-label="Star on GitHub"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg><span id="ghStarCount">star</span></a>
   </nav>
   <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button>
 </header>
@@ -67,7 +67,7 @@
     <a class="dl" href="https://agent-passport.org/research.html">Research</a>
     <a class="dl" href="https://agent-passport.org/blog.html">Dev Log</a>
     <a class="dl" href="https://agent-passport.org/contact.html">Contact</a>
-    <a class="gh-big" href="https://github.com/aeoess/agent-passport-system">GitHub ↗</a>
+    <a class="gh-big" href="https://github.com/agent-passport-system/agent-passport-system">GitHub ↗</a>
   </aside>
 </div>
 <main class="page">
@@ -80,7 +80,7 @@
 
   <section>
   <h2 class="no-rule">Quick Start</h2>
-  <p><a href="https://www.npmjs.com/package/agent-passport-system" target="_blank">npm install</a> · <a href="https://pypi.org/project/agent-passport-system/" target="_blank">pip install</a> · <a href="https://pkg.go.dev/github.com/aeoess/agent-passport-go" target="_blank">go get</a> · <a href="https://www.npmjs.com/package/agent-passport-system-mcp" target="_blank">MCP Server</a> · <a href="https://github.com/aeoess/agent-passport-system" target="_blank">GitHub</a> · <a href="llms/api.txt">API Docs</a></p>
+  <p><a href="https://www.npmjs.com/package/agent-passport-system" target="_blank">npm install</a> · <a href="https://pypi.org/project/agent-passport-system/" target="_blank">pip install</a> · <a href="https://pkg.go.dev/github.com/aeoess/agent-passport-go" target="_blank">go get</a> · <a href="https://www.npmjs.com/package/agent-passport-system-mcp" target="_blank">MCP Server</a> · <a href="https://github.com/agent-passport-system/agent-passport-system" target="_blank">GitHub</a> · <a href="llms/api.txt">API Docs</a></p>
   <pre>npm install agent-passport-system
 
 // import the curated essentials from /core (24-function surface)
@@ -334,12 +334,12 @@ result = create_passport(
     owner_alias="builder", mission="Assist",
     capabilities=["web_search"],
     runtime={"platform": "python", "models": [], "toolsCount": 1, "memoryType": "none"})</pre>
-  <p>PyPI: <a href="https://pypi.org/project/agent-passport-system/" target="_blank">agent-passport-system</a> · GitHub: <a href="https://github.com/aeoess/agent-passport-python" target="_blank">aeoess/agent-passport-python</a></p>
+  <p>PyPI: <a href="https://pypi.org/project/agent-passport-system/" target="_blank">agent-passport-system</a> · GitHub: <a href="https://github.com/agent-passport-system/agent-passport-python" target="_blank">aeoess/agent-passport-python</a></p>
   </section>
 
   <section>
   <h2>13. Cross-Engine Interoperability</h2>
-  <p>Three independent groups converged on the same idea: governance engines need a shared signed execution envelope for cross-framework audit. We formalized it as an <a href="https://github.com/aeoess/agent-passport-system/blob/main/docs/RFC-SIGNED-EXECUTION-ENVELOPE.md" target="_blank">RFC</a>.</p>
+  <p>Three independent groups converged on the same idea: governance engines need a shared signed execution envelope for cross-framework audit. We formalized it as an <a href="https://github.com/agent-passport-system/agent-passport-system/blob/main/docs/RFC-SIGNED-EXECUTION-ENVELOPE.md" target="_blank">RFC</a>.</p>
   <p>The envelope defines minimal fields any engine can emit and any verifier can check: agent identity, capability reference with revocation status, policy decision with evaluator signature, and an attestation chain. The critical innovation is the <code>evaluation_method</code> field (deterministic vs probabilistic), which tells a verifier whether the governance decision can be independently replayed or only signature-checked.</p>
   <p>The APS SDK already generates every field through its 3-signature chain (ActionIntent → PolicyDecision → PolicyReceipt). Mappings for CrewAI and Guardian are documented in the RFC.</p>
   </section>
@@ -443,9 +443,9 @@ const resolution = resolveObligation({ obligation, receipts: [...], gatewayId, g
     <li>npm SDK: <a href="https://www.npmjs.com/package/agent-passport-system" target="_blank">agent-passport-system</a></li>
     <li>Python SDK: <a href="https://pypi.org/project/agent-passport-system/" target="_blank">agent-passport-system (PyPI)</a></li>
     <li>npm MCP server: <a href="https://www.npmjs.com/package/agent-passport-system-mcp" target="_blank">agent-passport-system-mcp</a></li>
-    <li>GitHub SDK: <a href="https://github.com/aeoess/agent-passport-system" target="_blank">github.com/aeoess/agent-passport-system</a></li>
-    <li>GitHub Python: <a href="https://github.com/aeoess/agent-passport-python" target="_blank">github.com/aeoess/agent-passport-python</a></li>
-    <li>GitHub MCP: <a href="https://github.com/aeoess/agent-passport-mcp" target="_blank">github.com/aeoess/agent-passport-mcp</a></li>
+    <li>GitHub SDK: <a href="https://github.com/agent-passport-system/agent-passport-system" target="_blank">github.com/agent-passport-system/agent-passport-system</a></li>
+    <li>GitHub Python: <a href="https://github.com/agent-passport-system/agent-passport-python" target="_blank">github.com/agent-passport-system/agent-passport-python</a></li>
+    <li>GitHub MCP: <a href="https://github.com/agent-passport-system/agent-passport-mcp" target="_blank">github.com/agent-passport-system/agent-passport-mcp</a></li>
     <li>API docs: <a href="llms/api.txt">llms/api.txt</a></li>
     <li>CLI reference: <a href="llms/cli.txt">llms/cli.txt</a></li>
     <li>Paper: <a href="https://zenodo.org/records/18749779" target="_blank">The Agent Social Contract (Zenodo)</a></li>
@@ -483,7 +483,7 @@ const resolution = resolveObligation({ obligation, receipts: [...], gatewayId, g
         <div>
           <div class="head">Developers</div>
           <div class="links">
-            <a href="https://github.com/aeoess/agent-passport-system">GitHub</a>
+            <a href="https://github.com/agent-passport-system/agent-passport-system">GitHub</a>
             <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
             <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
             <a href="https://agent-passport.org/wallet.html">Agent Wallet</a>
