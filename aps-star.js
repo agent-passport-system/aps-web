@@ -2,7 +2,7 @@
    No third-party code, no tracking. State lives in localStorage under aps_star_v1. */
 (function () {
   'use strict';
-  var REPO = 'https://github.com/aeoess/agent-passport-system';
+  var REPO = 'https://github.com/agent-passport-system/agent-passport-system';
   var API = '/api/subscribe';
   var IMG = '/assets/star-aps.webp?v=1';
   var IMG_FALLBACK = '/assets/star-aps.jpg?v=1';
@@ -70,7 +70,7 @@
         '<h2 class="apsx-h">Be a legend. <em>Star APS.</em></h2>' +
         '<p class="apsx-p">One star helps the protocol get found by the next person who needs it. Small click. Big impact.</p>' +
         '<div class="apsx-row"><a class="apsx-btn pri" id="apsxStar" href="' + REPO + '" target="_blank" rel="noopener">&#9733; Star on GitHub &#8599;</a><button class="apsx-link" id="apsxSkip" type="button">Skip for now</button></div>' +
-        '<div class="apsx-note">github.com/aeoess/agent-passport-system</div>';
+        '<div class="apsx-note">github.com/agent-passport-system/agent-passport-system</div>';
       var star = body.querySelector('#apsxStar');
       // After the star, ask for email only if this browser has not subscribed yet.
       star.addEventListener('click', function () { st.starred = Date.now(); save(st); setTimeout(function () { if (st.subscribed) { minimize(); } else { step = 2; render(); } }, 250); });

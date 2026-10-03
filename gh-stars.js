@@ -9,7 +9,7 @@
     var cached = JSON.parse(localStorage.getItem(KEY) || 'null');
     if (cached && Date.now() - cached.t < TTL) { paint(cached.n); return; }
   } catch (e) {}
-  fetch('https://api.github.com/repos/aeoess/agent-passport-system')
+  fetch('https://api.github.com/repos/agent-passport-system/agent-passport-system')
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (d) {
       if (d && typeof d.stargazers_count === 'number') {
