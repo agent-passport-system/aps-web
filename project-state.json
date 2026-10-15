@@ -1,12 +1,12 @@
 {
   "$comment": "Single source of truth for site-wide propagation. Hand-edited; consumed by scripts/propagate.mjs. Bumping any value here propagates to every target file the propagator knows about.",
-  "updated": "2026-10-14",
+  "updated": "2026-10-15",
   "versions": {
     "sdk": "8.0.0",
     "sdk_dist_tag": "latest",
-    "mcp": "6.1.2",
+    "mcp": "7.0.0",
     "mcp_dist_tag": "latest",
-    "python": "4.2.1",
+    "python": "4.3.0",
     "python_dist_tag": "latest",
     "go": "v0.7.0",
     "go_dist_tag": "latest",
