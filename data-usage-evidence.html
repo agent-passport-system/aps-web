@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data usage evidence | Agent Passport System</title>
+<meta name="description" content="Signed records of which data an AI agent accessed, under whose authority and for which declared purpose, what it was refused, and where its output came from.">
+<link rel="canonical" href="https://agent-passport.org/data-usage-evidence.html">
+<meta property="og:title" content="Data usage evidence | Agent Passport System">
+<meta property="og:description" content="Signed records of which data an AI agent accessed, under whose authority and for which declared purpose, what it was refused, and where its output came from.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Agent Passport System">
+<meta property="og:url" content="https://agent-passport.org/data-usage-evidence.html">
+<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://agent-passport.org/assets/images/og-2026-10.png">
+<meta name="twitter:image" content="https://agent-passport.org/assets/images/og-2026-10.png">
+<link rel="icon" href="/favicon.ico?v=3" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="stylesheet" href="/aps-v2.css?v=20260910c">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id": "https://agent-passport.org/#tymofii-pidlisnyi", "name": "Tymofii Pidlisnyi"}, {"@type": "TechArticle", "headline": "Data usage evidence", "description": "Signed records of which data an AI agent accessed, under whose authority and for which declared purpose, what it was refused, and where its output came from.", "url": "https://agent-passport.org/data-usage-evidence.html", "author": {"@id": "https://agent-passport.org/#tymofii-pidlisnyi"}, "datePublished": "2026-10-16", "isPartOf": {"@id": "https://agent-passport.org/#website"}, "about": ["AI data provenance", "AI usage preferences", "attribution", "signed receipts"]}]}</script>
+<script src="/nav.js?v=20260907a" defer></script>
+<meta name="theme-color" content="#0A5CFF">
+<script src="/gh-stars.js" defer></script>
+</head>
+<body>
+<div class="bg-glow"></div>
+<header class="nav">
+  <div class="brand">
+    <a href="/"><span class="sq"></span>APS <span style="color:var(--sub)">· Agent Passport System</span></a>
+    <span class="badge"><i></i>Apache 2.0</span>
+  </div>
+  <nav class="nav-links">
+    <a href="https://agent-passport.org/docs.html">Docs</a>
+    <a href="https://agent-passport.org/protocol.html">Spec</a>
+    <a href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a href="https://agent-passport.org/research.html">Research</a>
+    <a href="https://agent-passport.org/blog.html">Dev Log</a>
+    <a href="https://agent-passport.org/contact.html">Contact</a>
+    <a class="gh" href="https://github.com/agent-passport-system/agent-passport-system">GitHub ↗</a>
+<a class="gh-star" href="https://github.com/agent-passport-system/agent-passport-system" target="_blank" rel="noopener" aria-label="Star on GitHub"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg><span id="ghStarCount">star</span></a>
+  </nav>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button>
+</header>
+
+<!-- MOBILE DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="drawer-scrim" id="drawerScrim"></div>
+  <aside class="drawer-panel" aria-label="Menu">
+    <div class="drawer-head">
+      <span class="badge"><i></i>Apache 2.0</span>
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
+    </div>
+    <a class="dl" href="https://agent-passport.org/docs.html">Docs</a>
+    <a class="dl" href="https://agent-passport.org/protocol.html">Spec</a>
+    <a class="dl" href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a class="dl" href="https://agent-passport.org/research.html">Research</a>
+    <a class="dl" href="https://agent-passport.org/blog.html">Dev Log</a>
+    <a class="dl" href="https://agent-passport.org/contact.html">Contact</a>
+    <a class="gh-big" href="https://github.com/agent-passport-system/agent-passport-system">GitHub ↗</a>
+  </aside>
+</div>
+<main class="page">
+  <section class="page-hero">
+    <div class="eyebrow"><span class="sq"></span><span>Data usage evidence</span></div>
+    <h1>What did the agent do with the work?</h1>
+    <p class="dek">Licenses and AI preference standards say how a work may be used. These records show what an agent actually did with it, signed so the creator can check. Every access, every refusal and every output links back to the work and the person behind it.</p>
+  </section>
+  <article class="prose">
+    <h2>What gets recorded</h2>
+    <ul>
+      <li><strong>Access.</strong> When a participating gateway lets an agent read a work, it signs an access receipt. The receipt names the agent, the delegation it acted under, the person or company at the root of that delegation, the hash of the data it read, the purpose it declared and the terms in force at that moment. The gateway signs it, not the agent.</li>
+      <li><strong>Refusal.</strong> When a request falls outside the terms, the gateway refuses before it loads the work and signs the refusal too, so a creator can see that a request was made and turned down.</li>
+      <li><strong>Attribution of output.</strong> When the agent produces something from the work, an attribution record binds the output's hash to the work, its creator, its license and how the output changes it.</li>
+      <li><strong>Proof a source can check alone.</strong> Access receipts are committed under a Merkle root, and an inclusion proof lets a source confirm that a receipt about its work is in the committed set without seeing the other receipts. Attribution reports for an output carry the same kind of root over the receipts behind them.</li>
+    </ul>
+    <h2>Run it</h2>
+    <p>The <a href="https://github.com/aeoess/noncommercial-access-demo">noncommercial access demo</a> shows the whole loop on a synthetic work marked CC BY-NC 4.0. The same agent asks twice, with two declared purposes. The commercial request is refused before retrieval. The noncommercial one is allowed, and its output carries attribution back to the work. A standalone verifier checks every signature and link, and seven tampered bundles each fail.</p>
+<pre><code>git clone https://github.com/aeoess/noncommercial-access-demo
+cd noncommercial-access-demo
+npm install
+npm start
+npm run verify</code></pre>
+    <h2>Where it fits</h2>
+    <p>Other efforts already name the work and state the terms. The <a href="https://datatracker.ietf.org/wg/aipref/about/">IETF AI Preferences</a> work defines how preferences for AI uses are expressed. <a href="https://rslstandard.org/">RSL</a> states licensing and compensation terms. Creative Commons licenses and <a href="https://creativecommons.org/2026/04/23/update-on-cc-signals-what-changed-and-why/">CC signals</a> set the conditions creators choose. ISCC gives a work a content-derived identifier that records can bind to. These records add the evidence of what happened, built to sit next to all of them.</p>
+    <p>The closest related proposal is <a href="https://datatracker.ietf.org/doc/draft-reilly-aipref-compliance/">draft-reilly-aipref-compliance</a>, which defines compliance records for retrievals, aggregated under a signed Merkle root so a publisher can audit only its own records. The records here add the agent's side of a request, which that draft does not address. They carry the delegation behind the request, a refusal made before retrieval, and attribution of what the agent produced.</p>
+    <h2>What it does not do</h2>
+    <ul>
+      <li>It does not interpret a license or decide whether a use is legally permitted.</li>
+      <li>A declared purpose is a declaration. A signature shows who declared it, not that it is true.</li>
+      <li>It covers requests that pass through a gateway that produces these records. It cannot see use that happens elsewhere.</li>
+      <li>It does not detect a work inside a trained model.</li>
+    </ul>
+    <h2>Code</h2>
+    <ul>
+      <li><a href="https://github.com/agent-passport-system/agent-passport-system/blob/main/src/types/data-source.ts">Access receipt and terms types</a> and <a href="https://github.com/agent-passport-system/agent-passport-system/blob/main/src/types/data-contribution.ts">contribution and attribution report types</a> in the SDK.</li>
+      <li><a href="https://github.com/agent-passport-system/agent-passport-system/blob/main/src/core/data-source.ts">Access receipts, Merkle commitment and inclusion proofs</a>, and <a href="https://github.com/agent-passport-system/agent-passport-system/blob/main/src/core/data-source-attribution.ts">attribution report computation and verification</a>.</li>
+      <li>Apache 2.0. For questions or a pilot, use the <a href="contact.html">contact page</a>.</li>
+    </ul>
+  </article>
+</main>
+<footer class="r">
+      <div class="foot-grid">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px">
+            <span class="sq"></span>
+            <span class="mono" style="font-size:14px; font-weight:500">Agent Passport System</span>
+          </div>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:8px">Open-source infrastructure to enforce, verify, and audit AI agent actions.</p>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:18px">The conformance suite is yours to fork.</p>
+          <a class="mono" href="mailto:signal@aeoess.com" style="display:inline-block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg); border:1px solid var(--line2); padding:9px 16px; border-radius:2px">Contact ↗</a>
+        </div>
+        <div>
+          <div class="head">Protocol</div>
+          <div class="links">
+            <a href="https://agent-passport.org/docs.html">Documentation</a>
+            <a href="https://agent-passport.org/protocol.html">Protocol</a>
+            <a href="https://agent-passport.org/threat-model.html">Threat model</a>
+            <a href="https://agent-passport.org/faq.html">FAQ</a>
+            <a href="https://agent-passport.org/verify.html">Verify a bundle</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Developers</div>
+          <div class="links">
+            <a href="https://github.com/agent-passport-system/agent-passport-system">GitHub</a>
+            <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
+            <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
+            <a href="https://agent-passport.org/wallet.html">Agent Wallet</a>
+            <a href="https://agent-passport.org/AGENTS.md">AGENTS.md</a>
+            <a href="https://agent-passport.org/llms.txt">llms.txt</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Community</div>
+          <div class="links">
+            <a href="https://agent-passport.org/blog.html">Dev Log</a>
+            <a href="https://agent-passport.org/verify.html">Verify</a>
+            <a href="https://agent-passport.org/working-group.html">Working group</a>
+            <a href="https://agent-passport.org/media.html">Media</a>
+            <a href="https://agent-passport.org/research.html">Research</a>
+          </div>
+        </div>
+      </div>
+      <div class="foot-base" style="justify-content:flex-start; gap:16px 56px">
+        <span><em class="fbk">License</em>Code Apache 2.0</span>
+        <span><em class="fbk">Editor</em>Tymofii Pidlisnyi</span>
+        <span><em class="fbk">Spec</em>draft-pidlisnyi-aps (IETF Internet-Draft)</span>
+        <span><em class="fbk">Imprint</em>Vol. 01 · 2026 · agent-passport.org</span>
+        <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
+      </div>
+    </footer>
+</body>
+</html>

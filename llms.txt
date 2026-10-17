@@ -27,6 +27,7 @@ MCP server (agent-passport-system-mcp 7.0.0): 152 tools over stdio; supports MCP
 - [Agent passport](https://agent-passport.org/passport.html): Ed25519 identity, delegation chains, trust verification
 - [Architecture](https://agent-passport.org/protocol-architecture.html): layer-by-layer breakdown
 - [Threat model](https://agent-passport.org/threat-model.html): security analysis and assumptions
+- [Data usage evidence](https://agent-passport.org/data-usage-evidence.html): signed access receipts, refusals before retrieval and output attribution for data an agent uses, with a runnable demo
 - [Compare](https://agent-passport.org/compare.html): how APS relates to adjacent agent-governance projects
 - [FAQ](https://agent-passport.org/faq.html): common questions
 - [Full reference](https://agent-passport.org/llms-full.txt): complete protocol surface in one document
