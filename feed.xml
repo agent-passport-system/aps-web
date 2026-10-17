@@ -5,7 +5,21 @@
   <atom:link href="https://agent-passport.org/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Day-by-day record of building the Agent Passport System, by Tymofii Pidlisnyi.</description>
   <language>en</language>
-  <lastBuildDate>Wed, 14 Oct 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Fri, 16 Oct 2026 12:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Day 242: a read-only setting the client could switch off, and a second implementation that matched 76 of 76</title>
+    <link>https://agent-passport.org/blog.html#day-242-the-database-refuses</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-242-the-database-refuses</guid>
+    <pubDate>Fri, 16 Oct 2026 12:00:00 GMT</pubDate>
+    <description>The label is policy, the database is the boundary. mcp-clickhouse v0.7.0 runs every SQL statement through one tool, run_query, so the APS ClickHouse example now reads the scope from the statement. SELECT, WITH, SHOW, DESCRIBE, EXPLAIN and EXISTS are reads, and everything else needs clickhouse:write. That check reads one keyword, so it cannot be the boundary. My first version leaned on...</description>
+  </item>
+  <item>
+    <title>Day 241: seven answers agreed, so the decision process became a pull request</title>
+    <link>https://agent-passport.org/blog.html#day-241-seven-answers-one-process</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-241-seven-answers-one-process</guid>
+    <pubDate>Thu, 15 Oct 2026 12:00:00 GMT</pubDate>
+    <description>Seven answers, one process. The consultation in #185 asked how changes to the vocabulary's shared files should be decided. It closed on October 14, and all seven responses supported the same process. Ordinary changes get seven days and one approval from a maintainer of another participating project. Changes to the principles or the process itself get fourteen days and approvals from two other...</description>
+  </item>
   <item>
     <title>Day 240: a matching hash and a valid signature, on the wrong envelope</title>
     <link>https://agent-passport.org/blog.html#day-240-wrong-envelope</link>
@@ -131,19 +145,5 @@
     <guid isPermaLink="false">https://agent-passport.org/blog#day-224-draft-04-is-out-with-its-untested-parts-named</guid>
     <pubDate>Mon, 28 Sep 2026 12:00:00 GMT</pubDate>
     <description>Revision 04 of the draft went to the datatracker on September 28. Every requirement in it now has an identifier, and Appendix D, the requirement matrix, is the only place that says which of them a test actually exercises. Most are specified and not exercised yet. I posted it that way on purpose. Waiting until every requirement had a vector, or demoting the ones without one, would have made the...</description>
-  </item>
-  <item>
-    <title>Day 220: a rule in our own draft that nothing could fail, and 134 cases that became one file</title>
-    <link>https://agent-passport.org/blog.html#day-220-a-rule-in-our-own-draft-that-nothing-could-fail</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-220-a-rule-in-our-own-draft-that-nothing-could-fail</guid>
-    <pubDate>Thu, 24 Sep 2026 12:00:00 GMT</pubDate>
-    <description>Section 3.3 of the draft says &quot;Each action selects one root-to-leaf authority chain. A verifier MUST NOT union scopes or budgets from multiple chains.&quot; Every authority entry point in the SDK already took one chain, so the rule had nothing to bind to. An implementation that pooled three held chains and one that selected a single chain looked identical through our API. 7.2.0 adds a selection...</description>
-  </item>
-  <item>
-    <title>Day 219: a late approval reached the wrong invocation, and three jobs that died waiting</title>
-    <link>https://agent-passport.org/blog.html#day-219-a-late-approval-reached-the-wrong-invocation</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-219-a-late-approval-reached-the-wrong-invocation</guid>
-    <pubDate>Wed, 23 Sep 2026 12:00:00 GMT</pubDate>
-    <description>Goose issue #11739 says a tool approval is matched only by the provider's request id, so a late answer to a cancelled prompt can land on a new invocation that reused the id. I reproduced it on current main in the generic confirmation router. A registers, its receiver is dropped, then B registers the same id. By that point the router has already pruned A's closed sender, and a late AllowOnce...</description>
   </item>
 </channel></rss>
