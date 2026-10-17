@@ -17,7 +17,7 @@ The SDK ships in two layers. Core is a curated essentials surface at `agent-pass
 - [Go SDK on pkg.go.dev](https://pkg.go.dev/github.com/aeoess/agent-passport-go): `go get github.com/aeoess/agent-passport-go@v0.7.0`
 - [MCP server on npm](https://www.npmjs.com/package/agent-passport-system-mcp): `npx agent-passport-system-mcp setup`
 - [Remote MCP via SSE](https://mcp.aeoess.com/sse): zero-install, any MCP client
-- [Source on GitHub](https://github.com/aeoess): all repos under @aeoess
+- [Source on GitHub](https://github.com/agent-passport-system/agent-passport-system): the main repository, with related repositories under [@agent-passport-system](https://github.com/agent-passport-system) and [@aeoess](https://github.com/aeoess)
 
 MCP server (agent-passport-system-mcp 7.0.0): 152 tools over stdio; supports MCP 2026-07-28 and 2025-era clients through era negotiation. The hosted bridge at mcp.aeoess.com serves the 2025-era flow over SSE.
 

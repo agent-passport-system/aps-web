@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>/* theme, before first paint. bright is the default; "light" from the retired toggle reads as bright. */(function(){var d=document.documentElement;try{var t=localStorage.getItem("aps-theme");d.setAttribute("data-theme",t==="dark"?"dark":"bright")}catch(e){d.setAttribute("data-theme","bright")}d.classList.add("js-on")})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>APS terms | Agent Passport System</title>
+<meta name="description" content="Canonical definitions of Agent Passport System terms, each with its own page, first published date and specification reference.">
+<link rel="canonical" href="https://agent-passport.org/terms/">
+<meta property="og:title" content="APS terms | Agent Passport System">
+<meta property="og:description" content="Canonical definitions of Agent Passport System terms, each with its own page, first published date and specification reference.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Agent Passport System">
+<meta property="og:url" content="https://agent-passport.org/terms/">
+<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://agent-passport.org/assets/images/og-2026-10.png">
+<meta name="twitter:image" content="https://agent-passport.org/assets/images/og-2026-10.png">
+<link rel="icon" href="/favicon.ico?v=3" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="stylesheet" href="/aps-v2.css?v=150">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Agent Passport System", "item": "https://agent-passport.org/"}, {"@type": "ListItem", "position": 2, "name": "Terms", "item": "https://agent-passport.org/terms/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "DefinedTermSet", "@id": "https://agent-passport.org/terms/", "name": "Agent Passport System terms", "url": "https://agent-passport.org/terms/", "hasDefinedTerm": [{"@type": "DefinedTerm", "name": "action_ref", "description": "Content commitment over a governed action's intent, recomputed at the enforcement boundary before dispatch.", "url": "https://agent-passport.org/terms/action_ref"}, {"@type": "DefinedTerm", "name": "Binding vs freshness", "description": "Binding identifies the exact values a decision committed to; freshness concerns whether relevant state still holds when the approval is used.", "url": "https://agent-passport.org/terms/binding-vs-freshness"}]}</script>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S7QVCJGMKR');
+</script>
+<script src="/theme.js" defer></script>
+<script src="/nav.js" defer></script>
+<meta name="theme-color" content="#0A5CFF">
+<script src="/gh-stars.js" defer></script>
+</head>
+<body>
+<div class="bg-glow"></div>
+<header class="nav">
+  <div class="brand">
+    <a href="#top"><span class="sq"></span>APS <span style="color:var(--sub)">· Agent Passport System</span></a>
+    <span class="badge"><i></i>Apache 2.0</span>
+  </div>
+  <nav class="nav-links">
+    <a href="https://agent-passport.org/docs.html">Docs</a>
+    <a href="https://agent-passport.org/protocol.html">Spec</a>
+    <a href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a href="https://agent-passport.org/research.html">Research</a>
+    <a href="https://agent-passport.org/blog.html">Dev Log</a>
+    <a href="https://agent-passport.org/contact.html">Contact</a>
+    <a class="gh" href="https://github.com/agent-passport-system/agent-passport-system">GitHub ↗</a>
+<a class="gh-star" href="https://github.com/agent-passport-system/agent-passport-system" target="_blank" rel="noopener" aria-label="Star on GitHub"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg><span id="ghStarCount">star</span></a>
+  </nav>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button>
+</header>
+
+<!-- MOBILE DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="drawer-scrim" id="drawerScrim"></div>
+  <aside class="drawer-panel" aria-label="Menu">
+    <div class="drawer-head">
+      <span class="badge"><i></i>Apache 2.0</span>
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
+    </div>
+    <a class="dl" href="https://agent-passport.org/docs.html">Docs</a>
+    <a class="dl" href="https://agent-passport.org/protocol.html">Spec</a>
+    <a class="dl" href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a class="dl" href="https://agent-passport.org/research.html">Research</a>
+    <a class="dl" href="https://agent-passport.org/blog.html">Dev Log</a>
+    <a class="dl" href="https://agent-passport.org/contact.html">Contact</a>
+    <a class="gh-big" href="https://github.com/agent-passport-system/agent-passport-system">GitHub ↗</a>
+  </aside>
+</div>
+<main class="page">
+<article class="term-page" style="max-width:720px;margin:0 auto;padding:48px 20px 64px">
+<h1>Terms</h1>
+<p>Each term below has a canonical page with its definition, the date it was first published and where the specification defines it.</p>
+<ul>
+<li><a href="https://agent-passport.org/terms/action_ref"><strong>action_ref</strong></a>: Content commitment over a governed action&#x27;s intent, recomputed at the enforcement boundary before dispatch.</li>
+<li><a href="https://agent-passport.org/terms/binding-vs-freshness"><strong>Binding vs freshness</strong></a>: Binding identifies the exact values a decision committed to; freshness concerns whether relevant state still holds when the approval is used.</li>
+</ul>
+<p>The same list is published for machines as <a href="/terms/terms.json">terms.json</a>.</p>
+</article>
+</main>
+<footer class="r">
+      <div class="foot-grid">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px">
+            <span class="sq"></span>
+            <span class="mono" style="font-size:14px; font-weight:500">Agent Passport System</span>
+          </div>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:8px">Open-source infrastructure to enforce, verify, and audit AI agent actions.</p>
+          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:18px">The conformance suite is yours to fork.</p>
+          <a class="mono" href="mailto:signal@aeoess.com" style="display:inline-block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg); border:1px solid var(--line2); padding:9px 16px; border-radius:2px">Contact ↗</a>
+        </div>
+        <div>
+          <div class="head">Protocol</div>
+          <div class="links">
+            <a href="https://agent-passport.org/docs.html">Documentation</a>
+            <a href="https://agent-passport.org/protocol.html">Protocol</a>
+            <a href="https://agent-passport.org/threat-model.html">Threat model</a>
+            <a href="https://agent-passport.org/faq.html">FAQ</a>
+            <a href="https://agent-passport.org/verify.html">Verify a bundle</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Developers</div>
+          <div class="links">
+            <a href="https://github.com/agent-passport-system/agent-passport-system">GitHub</a>
+            <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
+            <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
+            <a href="https://agent-passport.org/wallet.html">Agent Wallet</a>
+            <a href="https://agent-passport.org/AGENTS.md">AGENTS.md</a>
+            <a href="https://agent-passport.org/llms.txt">llms.txt</a>
+          </div>
+        </div>
+        <div>
+          <div class="head">Community</div>
+          <div class="links">
+            <a href="https://agent-passport.org/blog.html">Dev Log</a>
+            <a href="https://agent-passport.org/verify.html">Verify</a>
+            <a href="https://agent-passport.org/working-group.html">Working group</a>
+            <a href="https://agent-passport.org/media.html">Media</a>
+            <a href="https://agent-passport.org/research.html">Research</a>
+          </div>
+        </div>
+      </div>
+      <div class="foot-base" style="justify-content:flex-start; gap:16px 56px">
+        <span><em class="fbk">License</em>Code Apache 2.0</span>
+        <span><em class="fbk">Editor</em>Tymofii Pidlisnyi</span>
+        <span><em class="fbk">Spec</em>draft-pidlisnyi-aps (IETF Internet-Draft)</span>
+        <span><em class="fbk">Imprint</em>Vol. 01 · 2026 · agent-passport.org</span>
+        <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
+      </div>
+    </footer>
+</body>
+</html>

@@ -1,5 +1,8 @@
 /* aps-star.js: "Star APS" prompt with a second step for email updates.
-   No third-party code, no tracking. State lives in localStorage under aps_star_v1. */
+   No third-party code, no tracking. State lives in localStorage under aps_star_v1.
+   The prompt never opens on its own: a small pill sits at the edge of the page and the
+   dialog opens only when someone clicks it, so the content is never covered uninvited.
+   Skip closes the dialog. The email step follows only a click on the star button. */
 (function () {
   'use strict';
   var REPO = 'https://github.com/agent-passport-system/agent-passport-system';
@@ -43,13 +46,13 @@
   '.apsx-msg{font-size:15px;line-height:1.5;color:var(--x-acc);min-height:1.5em}' +
   '.apsx-msg.err{color:var(--x-err)}' +
   '.apsx-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}' +
-  '.apsx-pill{position:fixed;right:16px;bottom:33vh;z-index:9980;display:flex;align-items:center;gap:10px;padding:6px 10px 6px 6px;border-radius:999px;background:var(--x-bg);color:var(--x-fg);border:1px solid var(--x-line);box-shadow:0 10px 30px var(--shadow);font:600 13px Archivo,system-ui,sans-serif;cursor:pointer;transition:transform .2s}' +
+  '.apsx-pill{position:fixed;right:16px;bottom:16px;z-index:9980;display:flex;align-items:center;gap:10px;padding:6px 10px 6px 6px;border-radius:999px;background:var(--x-bg);color:var(--x-fg);border:1px solid var(--x-line);box-shadow:0 10px 30px var(--shadow);font:600 13px Archivo,system-ui,sans-serif;cursor:pointer;transition:transform .2s}' +
   '.apsx-pill:hover{transform:translateY(-2px);border-color:var(--x-acc)}' +
   '.apsx-pill img{width:36px;height:36px;border-radius:50%;object-fit:cover;display:block}' +
   '.apsx-pill b{color:var(--x-acc);font-weight:700}' +
-  '.apsx-pill .apsx-px{margin-left:4px;width:22px;height:22px;border-radius:50%;border:1px solid var(--x-line);background:transparent;color:var(--x-sub);font-size:13px;line-height:1;cursor:pointer}' +
+  '.apsx-pill .apsx-px{margin-left:4px;width:24px;height:24px;border-radius:50%;border:1px solid var(--x-line);background:transparent;color:var(--x-sub);font-size:13px;line-height:1;cursor:pointer}' +
   '.apsx-pill .apsx-px:hover{color:var(--x-fg);border-color:var(--x-acc)}' +
-  '@media (max-width:720px){.apsx-dlg{grid-template-columns:1fr;max-height:calc(100vh - 24px);align-items:start}.apsx-img{width:100%;max-width:100%;height:auto}.apsx-body{padding:22px 20px 20px}.apsx-h{font-size:32px}.apsx-pill{right:12px;bottom:33vh}.apsx-pill span.t{display:none}}' +
+  '@media (max-width:720px){.apsx-dlg{grid-template-columns:1fr;max-height:calc(100vh - 24px);align-items:start}.apsx-img{width:100%;max-width:100%;height:auto}.apsx-body{padding:22px 20px 20px}.apsx-h{font-size:32px}.apsx-pill{right:12px;bottom:12px}.apsx-pill span.t{display:none}}' +
   '@media (prefers-reduced-motion:reduce){.apsx-ov,.apsx-dlg,.apsx-pill{transition:none}}';
 
   var style = document.createElement('style'); style.textContent = css; document.head.appendChild(style);
@@ -74,7 +77,7 @@
       var star = body.querySelector('#apsxStar');
       // After the star, ask for email only if this browser has not subscribed yet.
       star.addEventListener('click', function () { st.starred = Date.now(); save(st); setTimeout(function () { if (st.subscribed) { minimize(); } else { step = 2; render(); } }, 250); });
-      body.querySelector('#apsxSkip').addEventListener('click', function () { if (st.subscribed) { minimize(); } else { step = 2; render(); } });
+      body.querySelector('#apsxSkip').addEventListener('click', minimize);
       setTimeout(function () { star.focus(); }, 30);
     } else if (step === 2) {
       body.innerHTML =
@@ -163,13 +166,9 @@
   }
 
   function boot() {
-    var shownThisVisit = false, pillHidden = false;
-    try { shownThisVisit = sessionStorage.getItem('aps_star_shown') === '1'; pillHidden = sessionStorage.getItem('aps_star_pill_hidden') === '1'; } catch (e) {}
-    if (!shownThisVisit) {
-      setTimeout(function () { try { sessionStorage.setItem('aps_star_shown', '1'); } catch (e) {} open(false); }, 5000);
-    } else if (!pillHidden) {
-      showPill();
-    }
+    var pillHidden = false;
+    try { pillHidden = sessionStorage.getItem('aps_star_pill_hidden') === '1'; } catch (e) {}
+    if (!pillHidden) showPill();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
