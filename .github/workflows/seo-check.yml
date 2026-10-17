@@ -1,0 +1,19 @@
+name: SEO metadata check
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # sitemap dates come from page history
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/seo-check.mjs
