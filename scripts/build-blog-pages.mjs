@@ -279,7 +279,7 @@ function headFor(head, current, chunks) {
   let out = head
 
   if (current > 1) {
-    const suffix = ` Page ${current} of ${total}, ${range}.`
+    const desc = esc(`Agent Passport System dev log, page ${current} of ${total}, with entries from ${range}.`)
     out = out.replace(/<title>[\s\S]*?<\/title>/, `<title>Blog page ${current} | APS</title>`)
     out = out.replace(
       /<link rel="canonical" href="[^"]*">/,
@@ -293,38 +293,47 @@ function headFor(head, current, chunks) {
       /<meta property="og:title" content="[^"]*">/,
       `<meta property="og:title" content="Blog page ${current} | APS">`
     )
-    out = out.replace(
-      /(<meta name="description" content=")([^"]*)(">)/,
-      (_m, a, b, c) => a + b + esc(suffix) + c
-    )
-    out = out.replace(
-      /(<meta property="og:description" content=")([^"]*)(">)/,
-      (_m, a, b, c) => a + b + esc(suffix) + c
-    )
-    // Page 1 keeps its hand-written blogPost descriptions. Every other page
-    // gets a plain list of what is actually on it.
-    out = out.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, ldFor(current, chunks))
+    out = out.replace(/(<meta name="description" content=")([^"]*)(">)/, (_m, a, _b, c) => a + desc + c)
+    out = out.replace(/(<meta property="og:description" content=")([^"]*)(">)/, (_m, a, _b, c) => a + desc + c)
   }
+  // Every page, page 1 included, describes exactly the posts it holds. A
+  // hand-written list on page 1 drifted to 65 anchors that had moved to other
+  // pages, so structured data is now always generated from the page itself.
+  out = out.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, ldFor(current, chunks))
 
   return out.replace('</head>', `${rel.join('\n')}\n</head>`)
 }
 
+const AUTHOR = { '@type': 'Person', '@id': `${SITE}/#tymofii-pidlisnyi`, name: 'Tymofii Pidlisnyi' }
+
 function ldFor(current, chunks) {
-  const ld = {
-    '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
-    name: `APS Dev Log, page ${current} of ${chunks.length}`,
-    url: `${SITE}${pageUrl(current)}`,
-    isPartOf: { '@type': 'Blog', name: 'APS Dev Log', url: `${SITE}/blog.html` },
-    inLanguage: 'en',
-    hasPart: chunks[current - 1].map((p) => ({
-      '@type': 'BlogPosting',
-      headline: p.title,
-      datePublished: p.date,
-      author: { '@type': 'Person', name: 'Tymofii Pidlisnyi' },
-      url: `${SITE}${pageUrl(current)}#${p.id}`,
-    })),
-  }
+  const posts = chunks[current - 1].map((p) => ({
+    '@type': 'BlogPosting',
+    headline: p.title,
+    datePublished: p.date,
+    author: AUTHOR,
+    url: `${SITE}${pageUrl(current)}#${p.id}`,
+  }))
+  const ld =
+    current === 1
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'Blog',
+          name: 'APS Dev Log',
+          url: `${SITE}/blog.html`,
+          inLanguage: 'en',
+          author: AUTHOR,
+          blogPost: posts,
+        }
+      : {
+          '@context': 'https://schema.org',
+          '@type': 'CollectionPage',
+          name: `APS Dev Log, page ${current} of ${chunks.length}`,
+          url: `${SITE}${pageUrl(current)}`,
+          isPartOf: { '@type': 'Blog', name: 'APS Dev Log', url: `${SITE}/blog.html` },
+          inLanguage: 'en',
+          hasPart: posts,
+        }
   return `<script type="application/ld+json">\n${JSON.stringify(ld, null, 2)}\n</script>`
 }
 
@@ -356,6 +365,62 @@ function writeSitemap(chunks) {
   if (out === xml) return
   writeFileSync(path, out)
   console.log(`sitemap.xml  ${chunks.length} blog page URLs`)
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// RSS feed
+// ─────────────────────────────────────────────────────────────────────────────
+// The feed used to be written by hand and stopped at Day 137. It is now built
+// from the same posts as the pages: the newest FEED_SIZE entries, each linking
+// to the page that actually holds it.
+
+const FEED_SIZE = 20
+const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
+function rfc822(iso) {
+  const d = new Date(`${iso}T12:00:00Z`)
+  const dd = String(d.getUTCDate()).padStart(2, '0')
+  return `${DOW[d.getUTCDay()]}, ${dd} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()} 12:00:00 GMT`
+}
+
+function summaryOf(postHtml) {
+  for (const m of postHtml.matchAll(/<p(?![^>]*class="post-date")[^>]*>([\s\S]*?)<\/p>/g)) {
+    const text = decode(m[1].replace(/<[^>]+>/g, '')).replace(/\s+/g, ' ').trim()
+    if (text) return text.length > 400 ? `${text.slice(0, 397).replace(/\s+\S*$/, '')}...` : text
+  }
+  return ''
+}
+
+function feedXml(chunks) {
+  const items = []
+  chunks.forEach((chunk, i) => {
+    for (const p of chunk) items.push({ ...p, page: i + 1 })
+  })
+  const rows = items.slice(0, FEED_SIZE).map((p) => {
+    const link = `${SITE}${pageUrl(p.page)}#${p.id}`
+    return [
+      '  <item>',
+      `    <title>${esc(p.title)}</title>`,
+      `    <link>${link}</link>`,
+      `    <guid isPermaLink="false">${SITE}/blog#${p.id}</guid>`,
+      `    <pubDate>${rfc822(p.date)}</pubDate>`,
+      `    <description>${esc(summaryOf(p.html))}</description>`,
+      '  </item>',
+    ].join('\n')
+  })
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>',
+    '  <title>Agent Passport System Dev Log</title>',
+    `  <link>${SITE}/blog.html</link>`,
+    `  <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml"/>`,
+    '  <description>Day-by-day record of building the Agent Passport System, by Tymofii Pidlisnyi.</description>',
+    '  <language>en</language>',
+    `  <lastBuildDate>${rfc822(items[0].date)}</lastBuildDate>`,
+    ...rows,
+    '</channel></rss>',
+    '',
+  ].join('\n')
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -411,6 +476,12 @@ function main() {
   }
 
   writeSitemap(chunks)
+  const feed = feedXml(chunks)
+  const feedPath = join(root, 'feed.xml')
+  if (!existsSync(feedPath) || readFileSync(feedPath, 'utf8') !== feed) {
+    writeFileSync(feedPath, feed)
+    console.log(`feed.xml     ${Math.min(FEED_SIZE, all.length)} newest entries`)
+  }
 
   // Drop page files left over from a shorter run.
   for (let n = chunks.length + 1; n <= MAX_PAGE_FILES; n++) {

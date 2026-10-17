@@ -5,10 +5,10 @@
 <script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blog | APS</title>
-<meta name="description" content="Day-by-day dev log of building the Agent Passport System · enforcement and accountability layer for AI agents. Bring your own identity. Verifier hot path p50 318ns (Mac M3). 6,289 tests. SDK leads with /core subpath (curated essentials), MCP leads with 25 essential tools. Full surface area: 150 MCP tools, 9 research papers, IETF Internet-Draft. Started February 18, 2026.">
+<meta name="description" content="Day-by-day engineering log of the Agent Passport System by Tymofii Pidlisnyi, covering protocol decisions, reviews, corrections and released work.">
 <link rel="canonical" href="https://agent-passport.org/blog.html">
 <meta property="og:title" content="Blog | APS">
-<meta property="og:description" content="Day-by-day dev log of building the Agent Passport System · enforcement and accountability layer for AI agents. Bring your own identity. Verifier hot path p50 318ns (Mac M3). 6,289 tests. SDK leads with /core subpath (curated essentials), MCP leads with 25 essential tools. Full surface area: 150 MCP tools, 9 research papers, IETF Internet-Draft. Started February 18, 2026.">
+<meta property="og:description" content="Day-by-day engineering log of the Agent Passport System by Tymofii Pidlisnyi, covering protocol decisions, reviews, corrections and released work.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Agent Passport System">
 <meta property="og:url" content="https://agent-passport.org/blog.html">
@@ -146,6 +146,8 @@
    Row one is a month tablist, row two is the days in the selected month.
    A day on another page is a link. A day on this page scrolls in place. */
 .bp-bar{flex-direction:column;align-items:stretch;gap:0;overflow-x:visible;padding:0;top:var(--bp-nav-h, 0px)}
+.js-on .bp-bar-slot{height:84px}
+@media (max-width:720px){.js-on .bp-bar-slot{height:72px}}
 .bp-bar-row{display:flex;gap:6px;overflow-x:auto;padding:8px 5vw;scrollbar-width:thin;align-items:center}
 .bp-bar-months{border-bottom:1px solid var(--line)}
 .bp-bar-label{
@@ -192,718 +194,233 @@ a.bp-chip{text-decoration:none;display:inline-block;line-height:1.1}
   "@context": "https://schema.org",
   "@type": "Blog",
   "name": "APS Dev Log",
-  "description": "Day-by-day development log of the Agent Passport System · an open-source protocol for AI agent identity, trust, governance, and commerce.",
   "url": "https://agent-passport.org/blog.html",
+  "inLanguage": "en",
   "author": {
     "@type": "Person",
-    "name": "Tymofii Pidlisnyi",
-    "url": "https://tymofii.me"
+    "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+    "name": "Tymofii Pidlisnyi"
   },
-  "publisher": {
-    "@type": "Organization",
-    "name": "APS",
-    "url": "https://agent-passport.org",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://agent-passport.org/assets/images/aeoess_logo.png"
-    }
-  },
-  "inLanguage": "en",
-  "about": [
-    {
-      "@type": "Thing",
-      "name": "AI Agent Identity"
-    },
-    {
-      "@type": "Thing",
-      "name": "Ed25519 Cryptographic Signatures"
-    },
-    {
-      "@type": "Thing",
-      "name": "Multi-Agent Coordination"
-    },
-    {
-      "@type": "Thing",
-      "name": "Model Context Protocol"
-    },
-    {
-      "@type": "Thing",
-      "name": "Agentic Commerce"
-    }
-  ],
   "blogPost": [
     {
       "@type": "BlogPosting",
-      "headline": "Day 150, late: three hostile passes and a ship-ready draft.",
-      "datePublished": "2026-07-16",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-150-three-passes-ship-ready",
-      "description": "The -03 revision became a rebuild: an action reference that commits to the target and a digest of the exact payload with a replay nonce under an explicit profile string, replacing a v1 form that could collide inside one second; receipt classes without a closed wire format removed, leaving an intent record and a decision record before dispatch and a result record after it on one envelope; did:key identity with the legacy form read-only; principal binding as its own signed record with verifier-reported claim levels; a Privacy Considerations section; and an Implementation Status appendix that states exact coverage and deviations. Three independent hostile review rounds each caught a real defect, a scripted battery closed the rest, and all eleven reference pins verified current. Submission when the tool reopens Saturday evening CEST."
+      "headline": "Day 240: a matching hash and a valid signature, on the wrong envelope",
+      "datePublished": "2026-10-14",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-240-wrong-envelope"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 150: I reported a fail-open in someone else's verifier, then wrote one into my patch.",
-      "datePublished": "2026-07-16",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-150-fail-open-in-the-fix",
-      "description": "The OpenA2A AIM TypeScript SDK (@opena2a/aim-sdk) verified a delegation's signature, key binding and scope narrowing but never read the signed expiry, so expired delegations verified as valid and a child could outlive its parent in a chain. Reported privately under their security policy with a patch and tests; fixed in 1.0.3, rated high severity (GHSA-m735-6r63-9h7q). While building the patch I wrote a fresh fail-open into it: a non-finite injected clock made the expiry comparison return false and an expired delegation verified as valid, caught only by running the case I expected to fail. The fix rejects non-finite timestamps and fails closed on missing, unparseable or inverted windows; the maintainer added a verify-at option and split out a signature-only check for auditors. The stricter child-no-later-than-parent rule is their tracked follow-up, correctly deferred rather than folded into a security fix. Scope: one npm package tested; their Go, Java and LocalVerifier credential verifiers already enforced expiry and were not affected."
+      "headline": "Day 239: I merged an outside pull request, and the review after it found six defects",
+      "datePublished": "2026-10-13",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-239-merged-then-found"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 149: I read another project's spec through my own vocabulary and found a hole that was not there.",
-      "datePublished": "2026-07-15",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-149-vocabulary-blindness",
-      "description": "Three misreads of one document family in six hours, each from searching another project's spec for APS's own words and reading absence as a gap. A reading rule now sits at the top of the competitor file: grep the function not the word, open every companion draft before characterizing a family, state a gap only if it can be quoted from their document, and check the claim against disk before offering anything. Also: the LF Decentralized Trust Labs proposal was approved and this year's TAC chair offered to sponsor it; charter text proposed for the IETF audit BOF after the chair asked; the reversibility join objection at CoSAI conceded and the reachability question raised in its place; a third independent citation."
+      "headline": "Day 238: single use held only because nothing waited between the check and the consume",
+      "datePublished": "2026-10-12",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-238-nothing-waited"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 75: A signal type, a vocabulary gap, and four layers against drift.",
-      "datePublished": "2026-05-01",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-75-signal-type-vocabulary-gap-drift-layers",
-      "description": "Vocab PR #72 proposes completion_ratio as a canonical signal type with three production issuers (AgentID 180d rolling, APS 90d configurable, RNWY 24h derived via peer_review) and a completion_ratio_method constraint with strict and quality-weighted modes. Issue #73 proposes self_enforced as a fifth canonical refusal_authority value to capture Nobulex's actor-enforcer collapse via Cedar-inspired covenant DSL. The vocabulary validator gained two improvements following issue #57: nested descriptor_dimensions walk under signal_types blocks, and a legacy whitelist for three pre-resolution descriptor uses. Drift prevention infrastructure installed across eight public repos: pre-commit hook, CI scan workflow, standardized .gitignore block, propagate.mjs final scan."
+      "headline": "Day 237: the same signed bytes got two verdicts from my two SDKs, and the reviewers found bugs in my fixes",
+      "datePublished": "2026-10-11",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-237-same-bytes-two-verdicts"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 74: Verbal confessions, not brain scans.",
-      "datePublished": "2026-04-30",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-74-verbal-confessions-not-brain-scans",
-      "description": "Wave 1 accountability shipped on SDK v2.5.0-alpha: five signed receipt primitives (action, authority-boundary, custody, contestability, bundle) with deterministic byte-match fixtures and 57 new tests. The design principle is that signed AI agent receipts are admissible evidence in the way verbal confessions are admissible: contemporaneous, attributable, contestable, and honestly scoped about what they prove and do not prove. They are not brain scans. Every receipt carries an explicit scope_of_claim field. Hiding evidentiary limits makes evidence easier to impeach in court, not stronger. APS receipts are the camera and the license plate, not the polygraph."
+      "headline": "Day 236: two people asked for frozen test vectors, and building them showed where my own document and my two SDKs disagreed",
+      "datePublished": "2026-10-10",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-236-vectors-showed-where-my-sdks-disagreed"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 69: Five external merges, two co-authored opens",
-      "datePublished": "2026-04-25",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-69-five-external-merges",
-      "description": "Three PRs from outside the org merged into aeoess repos in one day. madeinplutofabio's PIC Standard crosswalk landed as the 23rd entry in the vocabulary. piiiico's AgentLair crosswalk made AgentLair the third production issuer of behavioral_trust. lawcontinue's seven-vector CTEF inference-session fixture set merged with twenty-two minutes between revisions. Two more PRs opened co-authored with their original spec authors (QueBallSharken on invariant-survival.md, nanookclaw on the entity_continuity PDR validator with 32 passing tests). One almost-merge from MolTrust waiting on a single ack."
+      "headline": "Day 235: an outside report found a claim my SDK could not back, and the code behind a bug I reported had been deleted the day before",
+      "datePublished": "2026-10-09",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-235-a-claim-my-sdk-could-not-back"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Enforcement trust anchor v1.1: we found the floor.",
-      "datePublished": "2026-04-23",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-66-enforcement-trust-anchor-v1-1",
-      "description": "A compromised gateway can emit a cryptographically valid PolicyReceipt attesting to an enforcement decision that never occurred. Trust-anchor v1.1 reorganizes around the sink-awareness boundary and names a four-piece APS-aware closure stack (sink-authored challenge, consumable authority tokens, sink-signed effect receipt, typed epistemic receipts). Dumb Web2 sinks remain an architectural limit. The architectural claim: the gateway must stop being the component that both describes the action and originates the usable authority for it."
+      "headline": "Day 234: four checks passed together, and none of them checked where the refund went",
+      "datePublished": "2026-10-08",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-234-none-checked-where-the-refund-went"
     },
     {
       "@type": "BlogPosting",
-      "headline": "World ID is the root. APS is the chain.",
-      "datePublished": "2026-04-22",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#world-id-is-the-root-aps-is-the-chain",
-      "description": "World AgentKit proves a unique human is behind an agent. APS proves what that human authorized the agent to do, within what limits, and traces every action back to the delegation. World ID anchors the delegation root; APS narrows scope, enforces budget, and emits a signed CommerceActionReceipt at the merchant 4-gate preflight. Three trust layers in agentic commerce: payments, proof-of-human, scoped delegation. AgentKit is the root. APS is the chain."
+      "headline": "Day 233: four models reviewed my verifier, and the most confident fix was wrong",
+      "datePublished": "2026-10-07",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-233-the-most-confident-fix-was-wrong"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 66: Mutual auth ships, the composition pattern runs on its own, and a critic finds the real gap",
-      "datePublished": "2026-04-23",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-66",
-      "description": "SDK v2.2.0 ships mutual authentication as a protocol primitive (29 new tests, 2410 total). AgentID+APS+AgentGraph composed/v1 envelope picked up a fourth signal (JEP) within hours of merge. Microsoft AGT merged cognitive-attestation-governed as a community extension. EchoOfDawn accepted co-maintainer on aeoess/autogen-governance-adapter. Late in the day, a technical reader surfaced the single-gateway self-attestation gap; seven rounds of adversarial review produced ENFORCEMENT-TRUST-ANCHOR.md v1.1 (sink-awareness boundary, five-bucket taxonomy) and CAPABILITY-TOKEN-SPEC-DRAFT.md v0.1."
+      "headline": "Day 232: my commercial check refused exactly one spelling of commercial",
+      "datePublished": "2026-10-06",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-232-my-commercial-check-knew-one-spelling"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 65: Five issuers converge on one convention",
-      "datePublished": "2026-04-21",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-65",
-      "description": "Harold aligned AgentID's production signer to raw digest bytes after merging Step 1 of Interop Week 1, converging five production issuers on one signing convention. context_dimensions PR #34 merged with pshkv's resolution_source sharpening incorporated, four day-one entries in the canonical vocabulary. VeloGerber accepted APS's boundary on §3.3 naming; honest follow-up on independent reimplementation vs SDK-consumption as conformance evidence."
+      "headline": "Day 231: my approval routes believed the caller, and an outside run showed my green tally was wrong",
+      "datePublished": "2026-10-05",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-231-my-approval-routes-believed-the-caller"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 59: One receipt, four projections",
-      "datePublished": "2026-04-16",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-59",
-      "description": "Build A shipped · a unified four-axis attribution primitive that replaces four separate receipt types with one signed Merkle envelope. D (data), P (protocol), G (governance), C (compute). Each axis projection verifies independently; two projections of the same receipt cross-verify by shared action_ref and merkle_root. SDK v1.44.0, MCP v2.25.0, Python v0.13.0 all published. Build D2 also shipped: gateway trust profiles now return JWS-signed responses cross-verifiable against the public JWKS. And the coordination layer got simpler."
+      "headline": "Day 230: an outside run found my mislabel, and most of the fixes came back as contributions",
+      "datePublished": "2026-10-04",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-230-an-outside-run-found-my-mislabel"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 58: One chain added, one bug caught at the boundary",
-      "datePublished": "2026-04-15",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-58",
-      "description": "Solana joins the wallet_ref chain enum in SDK v1.43.0. The more interesting part is the gateway bug that surfaced · case-sensitivity normalization silently corrupting Solana addresses because APS was lowercasing the entire normalized wallet payload. Chain-aware normalization shipped as the fix. Four vocab PRs merged the same day, peer_review promoted to canonical."
+      "headline": "Day 229: an outside verifier could not reproduce my vector, and the fix was a pointer to the draft",
+      "datePublished": "2026-10-03",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-229-an-outside-verifier-could-not-reproduce-my-vector"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 57: Three Boundaries and a Paper",
-      "datePublished": "2026-04-14",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-57",
-      "description": "Three v2 constitutional primitives shipped (AttributionConsent, ProvisionalStatement + PromotionEvent, HumanEscalationFlag) closing representation, commitment, and escalation boundaries that were being crossed silently. Paper published on Zenodo: Governance in the Medium · argues the unit of agent governance is the population-with-medium, not the agent."
+      "headline": "Day 228, evening: the first releases from the organization, and a check that would have passed by mistake",
+      "datePublished": "2026-10-02",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-228-the-first-releases-from-the-organization"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 52: Three Walls",
-      "datePublished": "2026-04-09",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-52",
-      "description": "Three walls new users hit on APS: the MCP server flooding 132 tools, the SDK loading 925 exports from a single import, and the homepage leading with '103 modules.' All three fixed additively · new MCP essential profile (20 tools), new SDK /core subpath (curated essentials), reframed pitch surfaces. Nothing removed, full surface still available."
-    },{
-      "@type": "BlogPosting",
-      "headline": "Day 51: The Quantum Paper",
-      "datePublished": "2026-04-08",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-51"
+      "headline": "Day 228: moving the repositories cost a night of small traps, and other people measured the code again",
+      "datePublished": "2026-10-02",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-228-moving-the-repositories-cost-a-night-of-small-traps"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 50: The Audit That Ate the Day",
-      "datePublished": "2026-04-07",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-50"
+      "headline": "Day 227: three people measured my patch, and I had not offered the thing I wanted",
+      "datePublished": "2026-10-01",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-227-three-people-measured-my-patch"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 49: Twelve Primitives, One Day",
-      "datePublished": "2026-04-06",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-49"
+      "headline": "Day 226: a green build over stale checkouts, and a question I should not answer alone",
+      "datePublished": "2026-09-30",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-226-a-green-build-over-stale-checkouts"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 48: Six Sessions, One Shipping Day · Key Rotation to Governance Export",
-      "datePublished": "2026-04-05",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-48"
+      "headline": "Day 225: a conformance test that passed without the thing it tested, and eleven people writing down how their projects connect",
+      "datePublished": "2026-09-29",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-225-a-conformance-test-that-passed-without-the-thing-it-tested"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 47: Protocol Infrastructure Expanding · MS PR Approved, SINT Interop, Behavioral Spec",
-      "datePublished": "2026-04-04",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-47"
+      "headline": "Day 224: draft-04 is out with its untested parts named, and a payment that ran past what was signed",
+      "datePublished": "2026-09-28",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-224-draft-04-is-out-with-its-untested-parts-named"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 46: Bring Your Own Identity · The Interop Stack",
-      "datePublished": "2026-04-03",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-46"
+      "headline": "Day 220: a rule in our own draft that nothing could fail, and 134 cases that became one file",
+      "datePublished": "2026-09-24",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-220-a-rule-in-our-own-draft-that-nothing-could-fail"
     },
     {
       "@type": "BlogPosting",
-      "headline": "Day 45: SDK v1.31.0 · Governance Hardening + Gateway Bridge",
-      "datePublished": "2026-04-02",
-      "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"},
-      "url": "https://agent-passport.org/blog.html#day-45"
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 44: First Code Integration + 5 Security Fixes",
-      "datePublished": "2026-04-01",
-      "description": "Shipped infrastructure-signed execution attestation. Three-checkpoint authorization chain complete. Drift classification with pluggable rules. v2 test vectors for cross-protocol edge cases. Four GitHub replies across OWASP, qntm WG, A2A. 1987 tests, 503 suites, 96 modules.",
-      "url": "https://agent-passport.org/blog.html#day-44",
-      "keywords": ["execution attestation", "checkpoint 3", "drift classification", "test vectors", "cross-protocol", "OWASP"]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 43: Multi-Attestation Verification",
-      "datePublished": "2026-03-31",
-      "description": "Gateway Ed25519 identity + JWKS. APS verified as 5th issuer in multi-attestation spec. Policy hash chaining. Routing divergence detection. 9 new SDK functions from ecosystem conversations. 1987 tests, 38 gateway routes.",
-      "url": "https://agent-passport.org/blog.html#day-43",
-      "keywords": ["multi-attestation", "JWKS", "policy hash chaining", "routing divergence", "insumer", "cross-protocol"]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 42: Agent Attestation Architecture",
-      "datePublished": "2026-03-30",
-      "description": "3-round multi-model architectural review (Claude + GPT + Gemini + Portal). Four-tier attestation model. Passport grades 0-3. Sybil 4-gate pipeline. Presentation trust profile API. Behavioral sequence tracking. 1987 tests, 96 modules, 125 MCP tools, 36 gateway routes.",
-      "url": "https://agent-passport.org/blog.html#day-42",
-      "keywords": ["attestation", "sybil defense", "passport grade", "trust profile", "behavioral sequence"]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 41: Agent Wallets · Feeless Crypto for AI Agents",
-      "datePublished": "2026-03-29",
-      "description": "Built Nano payment rail adapter and agent wallet system. 1,430 new lines. Gateway went from 18 to 36 API routes. HD key derivation, 3-gate delegation pipeline, freeze/revoke cascade. Wallet page live at aeoess.com/wallet.html.",
-      "url": "https://agent-passport.org/blog.html#day-41",
-      "keywords": ["nano", "agent wallet", "payment rail", "feeless", "delegation pipeline", "HD key derivation"]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 40: Gateway Wiring · 79% Module Interconnection",
-      "datePublished": "2026-03-29",
-      "description": "Connected 13 remaining modules into gateway enforcement pipeline. Fidelity probe measurement protocol. Data cluster wiring. Gateway identity layer. 12 GitHub replies across ecosystem. SDK v1.29.1, 1987 tests, 96 modules.",
-      "url": "https://agent-passport.org/blog.html#day-40",
-      "keywords": ["gateway wiring", "fidelity probe", "module interconnection", "1987 tests", "96 modules", "ecosystem engagement"]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 39: Governance for the Agent Economy · The Rebrand",
-      "datePublished": "2026-03-28",
-      "description": "Complete website redesign. Academic typography (Crimson Pro serif). Enterprise positioning. 10-question FAQ. iOS frosted glass. Warm dark gray dark mode. 38-entry ship log. Unified design system across all 15 pages. H1: Governance for the Agent Economy.",
-      "url": "https://agent-passport.org/blog.html#day-39",
-      "keywords": ["rebrand", "academic design", "enterprise positioning", "Governance for the Agent Economy", "frosted glass", "dark mode", "FAQ"]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 38: Institutional Governance Layer in One Session",
-      "datePublished": "2026-03-26",
-      "description": "Built the full institutional governance layer in one session. Charter with 19 types, multi-class approval, Petri net (10 invariants), hybrid logical clocks, foreign counterparty envelopes, escrow-aware revocation, gateway identity, reserve attestations, federation receipt/reputation portability. 12 new MCP tools (125 total). 77 new tests. SDK v1.27.0 (1987 tests), MCP v2.19.0.",
-      "url": "https://agent-passport.org/blog.html#day-38",
-      "keywords": ["charter", "institutional governance", "multi-class approval", "Petri net", "hybrid logical clock", "federation", "reserve attestation", "1987 tests", "125 tools"]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 37: Governance Distribution Stack · Every Article on The Agent Times Is Now Cryptographically Governed",
-      "datePublished": "2026-03-25",
-      "description": "Shipped the full governance distribution stack: governance blocks (per-page signed terms), aps.txt (site-wide like robots.txt), HTTP headers, chained blocks for derivatives, and a 360 consumer loop with access receipts. The Agent Times is the first publication embedding Ed25519-signed content governance in every article. Framework adapters (CrewAI, ADK, LangChain, A2A), 21-invariant conformance suite, and hosted enforcement gateway. SDK v1.25.0 (1480 tests), MCP v2.15.1 (108 tools), Python v0.7.0.",
-      "url": "https://agent-passport.org/blog.html#day-37",
-      "keywords": ["governance blocks", "aps.txt", "content governance", "The Agent Times", "access receipts", "360 loop", "framework adapters", "conformance suite", "1480 tests", "108 tools"]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 36: Clean Slate · 68 Dead Imports, OATR Founding Member, Zero Open Findings",
-      "datePublished": "2026-03-23",
-      "description": "Full codebase audit: 68 unused imports removed across 34 files, tracked garbage cleaned (tarballs, one-time scripts). OATR issuer registration merged · 4 founding WG members all registered. Propagation script hardened with zone markers to protect historical blog entries. All Portal findings confirmed resolved. xsa520 published decision equivalence spec. 1178 tests, 0 failures.",
-      "url": "https://agent-passport.org/blog.html#day-36",
-      "keywords": ["codebase audit", "OATR", "trust registry", "unused imports", "propagation", "decision equivalence", "1178 tests"]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 35: First APS Envelope Through an Encrypted Relay",
-      "datePublished": "2026-03-22",
-      "description": "Built qntm relay bridge (369 lines, zero new deps). HKDF known-answer vectors: 3/3 match. XChaCha20-Poly1305 roundtrip proven. Live relay test: HTTP 201. Agora reframed as Signed Communication Protocol with per-instance isolation. MCP stats endpoint. 3 integration findings fixed. 1178 tests.",
-      "url": "https://agent-passport.org/blog.html#day-35",
-      "keywords": ["qntm", "E2E encryption", "relay", "XChaCha20-Poly1305", "HKDF", "interop", "vessenes", "1178 tests"]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 34: 30 Constitutional Modules. Every Gap Closed.",
-      "datePublished": "2026-03-22",
-      "description": "Constitutional Framework v2 complete. 32 v2 modules implementing 9 attack defenses, 6 structural failure primitives, emergence detection, separation of powers, circuit breakers. Cross-model adversarial review (Claude + GPT + Gemini attacking simultaneously) identified 16 gaps. All 16 closed with tested code. SDK v1.21.2 + MCP v2.12.0 + Python 0.5.1 published. 1178 tests.",
-      "url": "https://agent-passport.org/blog.html#day-34",
-      "keywords": ["constitutional framework", "v2", "adversarial review", "separation of powers", "circuit breakers", "emergence detection", "1178 tests"]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 30: Three Modules in One Day. Two Claudes Built Them.",
-      "datePublished": "2026-03-17",
-      "description": "Module 19 (E2E Encrypted Messaging) and Module 20 (Obligations Model) shipped in one session. Consensus spec from 3-model hostile review. Two-Claude build: one wrote tests, the other wrote implementation. Plus createExecutionEnvelope() turns the RFC into running code. Protocol: 20 modules, 609 tests.",
-      "url": "https://agent-passport.org/blog.html#day-30",
-      "keywords": ["encrypted messaging", "obligations", "two-claude", "duties", "penalties", "E2E", "libsodium"]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 31: Three Modules on One Machine, Five Engines on One Thread",
-      "datePublished": "2026-03-19",
-      "description": "Sprint Mini: Oracle Witness Diversity (M28), Encrypted Messaging Audit Bridge (M29), Policy Conflict Detection (M30). All built on Mac Mini via Desktop Commander. Meanwhile, 5 engines are now cross-verifying decision artifacts on kanoniv/agent-auth#2. First legitimate cross-engine disagreement captured.",
-      "url": "https://agent-passport.org/blog.html#day-31",
-      "keywords": ["oracle witness", "Shannon entropy", "messaging audit", "policy conflict", "DFS", "cross-engine", "interop", "decision semantics", "Network-AI", "AIP", "Kanoniv"]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 33: Constitutional Governance Is Running Code",
-      "datePublished": "2026-03-21",
-      "description": "V2 Constitutional Framework complete: 30 modules (9 attack defenses, 14 structural safeguards, 7 core governance). Module 37: Decision Semantics. Full codebase audit: 20,490 lines source, 18,397 lines tests. SDK v1.21.2 on npm. 1178 tests.",
-      "url": "https://agent-passport.org/blog.html#day-33",
-      "keywords": ["V2", "constitutional governance", "delegation versioning", "anomaly detection", "decision semantics", "codebase audit", "npm publish"]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 32: Data Attribution Starts Here",
-      "datePublished": "2026-03-20",
-      "description": "Module 36A: Data Source Registration & Access Receipts. Foundation for data attribution layer. Three attestation modes, machine-readable DataTerms, gateway-signed access receipts, hard vs advisory compliance. 10-round multi-model hostile review before code. 1178 tests, 42 modules.",
-      "url": "https://agent-passport.org/blog.html#day-32",
-      "keywords": ["data attribution", "data rights", "source receipt", "access receipt", "DataTerms", "cryptographic accountability", "gateway-signed", "Merkle proof"]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 29: Three Groups Asked for the Same Thing. So We Wrote the Spec.",
-      "datePublished": "2026-03-17",
-      "description": "CrewAI, Guardian/AutoGen, and DIF Trusted AI Agents independently converged on a shared signed execution envelope. We formalized it as an RFC. The APS SDK already generates every field. Cross-links posted to all three threads.",
-      "url": "https://agent-passport.org/blog.html#day-29",
-      "keywords": ["RFC", "execution envelope", "interop", "CrewAI", "Guardian", "DIF", "governance", "cross-engine"]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 28: A Contribution PR Merged into the Microsoft Agent Governance Toolkit. A Federal Agency Is Reviewing.",
-      "datePublished": "2026-03-16",
-      "description": "A contribution PR (#274) merged into the Microsoft Agent Governance Toolkit by a Microsoft maintainer. NIST NCCoE reviewing public comment. IETF DAAP author exploring collaboration. Drafts for 5 ecosystem discussions. Applied to Adaption Research Grant.",
-      "url": "https://agent-passport.org/blog.html#day-28",
-      "keywords": ["Microsoft", "NIST", "IETF", "DAAP", "ecosystem", "research grant", "Adaption"]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 27: Full Stats Sweep + Gateway Strategic Decision",
-      "datePublished": "2026-03-15",
-      "description": "Audited every page, README, GitHub description, and LLM file for stale references. Fixed 11 endpoints. Made the gateway decision: reference implementation now, product later. Protocol adoption first.",
-      "url": "https://agent-passport.org/blog.html#day-27",
-      "keywords": [
-        "ProxyGateway",
-        "reference implementation",
-        "stats sweep",
-        "protocol adoption",
-        "strategy"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 26: Mingle v2 · Semantic Matching, Ghost Mode, Consent Flow",
-      "datePublished": "2026-03-15",
-      "description": "Shipped Mingle v2 in one day: semantic matching (all-MiniLM-L6-v2), persistent Ed25519 identity, ghost mode browsing, consent-first publishing. 0 matches to 15. Published to npm, ClawHub, all platforms.",
-      "url": "https://agent-passport.org/blog.html#day-26",
-      "keywords": [
-        "Mingle",
-        "semantic matching",
-        "ghost mode",
-        "persistent identity",
-        "consent flow",
-        "embeddings",
-        "ClawHub",
-        "MCP"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 25: Substack Launch · Cross-Protocol Bridge + Tesla Social",
-      "datePublished": "2026-03-14",
-      "description": "Published two Substack articles: the first cross-protocol agent identity bridge (APS x AIP) and Tesla Social MVP. Social media launch across X and LinkedIn.",
-      "url": "https://agent-passport.org/blog.html#day-25",
-      "keywords": [
-        "cross-protocol",
-        "AIP bridge",
-        "Tesla Social",
-        "Substack",
-        "KYA",
-        "social media launch"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 24: Security Hardening · Gateway Bugs, Setup Commands, Cross-Protocol Resolve",
-      "datePublished": "2026-03-13",
-      "description": "Fixed 3 gateway bugs (memory leak, crash on unregistered agent, ownership bypass). SECURITY.md, prompt injection sanitization, npx setup command, cross-protocol resolve endpoint.",
-      "url": "https://agent-passport.org/blog.html#day-24",
-      "keywords": [
-        "security",
-        "gateway",
-        "bug fixes",
-        "setup command",
-        "cross-protocol resolve",
-        "SECURITY.md"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 23: Mingle Ships · Your AI Finds People for You",
-      "datePublished": "2026-03-12",
-      "description": "Mingle MCP v1.0.0 shipped. Standalone agent-to-agent networking plugin. 6 tools, landing page, live network stats. Published to ClawHub and npm.",
-      "url": "https://agent-passport.org/blog.html#day-23",
-      "keywords": [
-        "Mingle",
-        "agent networking",
-        "MCP plugin",
-        "ClawHub",
-        "npm",
-        "agent matching"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 22: The Intent Network · Your Agent Finds People for You",
-      "datePublished": "2026-03-11",
-      "description": "Shipped agent-mediated matching: IntentCards, relevance scoring, intro protocol, hosted API at api.aeoess.com. No app, no signup, your AI is the interface.",
-      "url": "https://agent-passport.org/blog.html#day-22",
-      "keywords": [
-        "intent network",
-        "agent matching",
-        "IntentCards",
-        "api.aeoess.com",
-        "MCP v2.12.0"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 21: Reputation-Gated Authority · Agents Earn Trust, Not Just Receive It",
-      "datePublished": "2026-03-10",
-      "description": "Bayesian reputation model, signed promotion reviews, cryptographic scarring, tier checking. SDK 1.11.0, MCP 2.5.0, 1178 tests, 83 tools.",
-      "url": "https://agent-passport.org/blog.html#day-21",
-      "keywords": [
-        "reputation",
-        "Bayesian trust",
-        "promotion reviews",
-        "tier authority",
-        "SDK 1.11.0",
-        "MCP 2.5.0"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 20: Second Paper Published · Monotonic Narrowing for Agent Authority",
-      "datePublished": "2026-03-09",
-      "description": "Published formal invariants paper on Zenodo. 8 delegation chain invariants, property-based adversarial testing, competitive landscape analysis.",
-      "url": "https://agent-passport.org/blog.html#day-20",
-      "keywords": [
-        "monotonic narrowing",
-        "Zenodo",
-        "formal invariants",
-        "adversarial testing",
-        "research paper"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 18: Autoresearch · AI Finds Bugs AI Wrote",
-      "datePublished": "2026-03-07",
-      "description": "Adapted Karpathy's autoresearch for adversarial protocol hardening. 200 randomized property tests, 10 paper scenarios, F-008 Epistemic Security.",
-      "url": "https://agent-passport.org/blog.html#day-18",
-      "keywords": [
-        "autoresearch",
-        "adversarial testing",
-        "property-based testing",
-        "cascade revocation",
-        "Karpathy"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 17: Principal Identity, Python SDK, and Three New Protocol Extensions",
-      "datePublished": "2026-03-06",
-      "description": "Principal Identity with selective disclosure, Python SDK v0.4.0, DID/VC/A2A/EU AI Act modules, remote MCP endpoint.",
-      "url": "https://agent-passport.org/blog.html#day-17",
-      "keywords": [
-        "principal identity",
-        "Python SDK",
-        "DID",
-        "verifiable credentials",
-        "EU AI Act",
-        "A2A protocol"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 16: Community Health and OWASP AI Security Mapping",
-      "datePublished": "2026-03-05",
-      "description": "CONTRIBUTING.md, CODE_OF_CONDUCT.md, AIVSS page mapping 10 OWASP risks against the protocol.",
-      "url": "https://agent-passport.org/blog.html#day-16",
-      "keywords": [
-        "OWASP",
-        "AIVSS",
-        "community health",
-        "contributing guide",
-        "code of conduct"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 15: SDK v1.21.2, MCP v2.12.0, and Two Agents Get Their Next Mission",
-      "datePublished": "2026-03-04",
-      "description": "Five npm publishes. Task Routing Protocol, Agent Context enforcement, 7 audit fixes, 4 MCP comms tools. 1178 tests, 83 MCP tools. Autonomous peer audit assigned.",
-      "url": "https://agent-passport.org/blog.html#day-15",
-      "keywords": [
-        "SDK v1.21.2",
-        "MCP v2.12.0",
-        "task routing",
-        "agent context",
-        "peer audit",
-        "npm publish"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 14: The First Real Audit · What Happens When Agents Review Your Code",
-      "datePublished": "2026-03-03",
-      "description": "PortalX2 ran a forensic audit of the SDK. 10 findings including a high-severity canonicalization bug. All accepted fixes shipped in v1.21.2.",
-      "url": "https://agent-passport.org/blog.html#day-14",
-      "keywords": [
-        "code audit",
-        "peer review",
-        "canonicalization bug",
-        "multi-agent coordination",
-        "AUDIT-001"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 13: Graduated Enforcement, Threat Model, and Agent District",
-      "datePublished": "2026-03-02",
-      "description": "Values Floor graduated enforcement (inline/audit/warn modes), 38-scenario threat model published, Ed25519 typo fix across 3 repos, pixel-art Agent District visualization.",
-      "url": "https://agent-passport.org/blog.html#day-13",
-      "keywords": [
-        "graduated enforcement",
-        "threat model",
-        "values floor",
-        "agent district",
-        "Ed25519"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 12: Layer 8 · Agentic Commerce, Integration Wiring, and MCP v2.1.0",
-      "datePublished": "2026-03-01",
-      "description": "Shipped agentic commerce (OpenAI+Stripe ACP), cross-layer integration bridges, MCP server expanded to 30 tools. SDK v1.7.0, 214 tests.",
-      "url": "https://agent-passport.org/blog.html#day-12",
-      "keywords": [
-        "agentic commerce",
-        "ACP",
-        "MCP server",
-        "integration wiring",
-        "OpenAI Stripe"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 11: Documentation Sprint",
-      "datePublished": "2026-02-28",
-      "description": "Website content overhaul, SDK README rewrite, llms.txt alignment, Schema.org and Open Graph metadata updates.",
-      "url": "https://agent-passport.org/blog.html#day-11",
-      "keywords": [
-        "documentation",
-        "llms.txt",
-        "Schema.org",
-        "developer experience"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 10: Layer 7 · Coordination Primitives",
-      "datePublished": "2026-02-27",
-      "description": "Full task lifecycle: briefs, evidence, review gates, handoffs, deliverables. Cryptographically signed coordination for multi-agent workflows.",
-      "url": "https://agent-passport.org/blog.html#day-10",
-      "keywords": [
-        "coordination primitives",
-        "task lifecycle",
-        "multi-agent workflow",
-        "evidence review"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 8: Layer 5 · Intent Architecture",
-      "datePublished": "2026-02-25",
-      "description": "Intent Architecture with roles, deliberation, 3-signature policy chain, FloorValidatorV1, and precedent memory for multi-agent decision-making.",
-      "url": "https://agent-passport.org/blog.html#day-8",
-      "keywords": [
-        "intent architecture",
-        "policy engine",
-        "FloorValidator",
-        "deliberation",
-        "3-signature chain"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Days 4–5: The Community Shows Up",
-      "datePublished": "2026-02-21",
-      "description": "Community engagement on MoltBook (34 upvotes), GitHub collaboration issues with AIP, Visa, Forter. Competitive analysis of agent identity protocols.",
-      "url": "https://agent-passport.org/blog.html#community",
-      "keywords": [
-        "community engagement",
-        "agent identity",
-        "competitive analysis",
-        "open source community"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Day 2: Media Coverage",
-      "datePublished": "2026-02-19",
-      "description": "First media coverage one day after launch. Multi-agent trust infrastructure resonating with teams building real agent systems.",
-      "url": "https://agent-passport.org/blog.html#media-coverage",
-      "keywords": [
-        "media coverage",
-        "agent trust",
-        "multi-agent systems",
-        "launch"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "We Ran 3 Experiments With Real AI Agents",
-      "datePublished": "2026-02-26",
-      "description": "Three controlled experiments with real AI agents. Key finding: swapping an agent's role changes its behavior. The role creates the discipline, not the model.",
-      "url": "https://agent-passport.org/blog.html#experiments",
-      "keywords": [
-        "AI agent experiments",
-        "role constraints",
-        "multi-agent coordination",
-        "agent behavior"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Agora is the Missing Layer: Signed Speech for Agents",
-      "datePublished": "2026-02-24",
-      "description": "Agent Agora shipped: protocol-native Ed25519 signed communication for AI agents. Every message verifiable in browser.",
-      "url": "https://agent-passport.org/blog.html#agora",
-      "keywords": [
-        "agent agora",
-        "signed communication",
-        "Ed25519 messages",
-        "agent protocol"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "MCP Server Ships · 11 Tools, 12+ Distribution Channels",
-      "datePublished": "2026-02-23",
-      "description": "agent-passport-system-mcp v1.0.0 published. MCP server with 11 tools for Claude Desktop, Cursor, Windsurf. Distributed across 12+ channels.",
-      "url": "https://agent-passport.org/blog.html#mcp-ships",
-      "keywords": [
-        "MCP server",
-        "Claude Desktop",
-        "Cursor",
-        "agent tools",
-        "npm publish"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Paper: The Agent Social Contract",
-      "datePublished": "2026-02-20",
-      "description": "Research paper published on Zenodo. Cryptographic identity, ethical governance, and beneficiary economics for autonomous AI agents.",
-      "url": "https://agent-passport.org/blog.html#paper",
-      "keywords": [
-        "research paper",
-        "Zenodo",
-        "agent social contract",
-        "AI governance",
-        "beneficiary attribution"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Agent Passport v1.1: From Identity to Accountability",
-      "datePublished": "2026-02-20",
-      "description": "Action receipts, delegation revocation with cascade, depth limits. From identity verification to full accountability.",
-      "url": "https://agent-passport.org/blog.html#v1-1",
-      "keywords": [
-        "action receipts",
-        "delegation revocation",
-        "cascade revocation",
-        "accountability"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "Agent Passport System: Cryptographic Identity for AI Agents",
-      "datePublished": "2026-02-18",
-      "description": "First npm publish. Ed25519 cryptographic identity for AI agents with passports, capabilities, reputation, and delegation.",
-      "url": "https://agent-passport.org/blog.html#launch",
-      "keywords": [
-        "npm launch",
-        "Ed25519",
-        "cryptographic identity",
-        "AI agent passport"
-      ]
-    },
-    {
-      "@type": "BlogPosting",
-      "headline": "The Speed of Wrong vs The Speed of Right",
-      "datePublished": "2026-02-17",
-      "description": "Notes on building cryptographic agent infrastructure at speed. Why shipping wrong is worse than shipping slow.",
-      "url": "https://agent-passport.org/blog.html#speed",
-      "keywords": [
-        "build in public",
-        "cryptographic systems",
-        "engineering speed"
-      ]
+      "headline": "Day 219: a late approval reached the wrong invocation, and three jobs that died waiting",
+      "datePublished": "2026-09-23",
+      "author": {
+        "@type": "Person",
+        "@id": "https://agent-passport.org/#tymofii-pidlisnyi",
+        "name": "Tymofii Pidlisnyi"
+      },
+      "url": "https://agent-passport.org/blog.html#day-219-a-late-approval-reached-the-wrong-invocation"
     }
   ]
 }
@@ -917,7 +434,7 @@ a.bp-chip{text-decoration:none;display:inline-block;line-height:1.1}
   gtag('config', 'G-S7QVCJGMKR');
 </script>
 <script src="/nav.js?v=20260907a" defer></script>
-<script src="/blog-nav.js?v=20260924a" defer></script>
+<script src="/blog-nav.js?v=20261016a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
 <link rel="alternate" type="application/rss+xml" title="APS Dev Log" href="/feed.xml">
 <script src="/gh-stars.js" defer></script>
@@ -971,6 +488,7 @@ a.bp-chip{text-decoration:none;display:inline-block;line-height:1.1}
 <!-- PROPAGATION-ZONE-END -->
   </div>
 </section>
+<div class="bp-bar-slot" aria-hidden="true"></div>
 <main class="blog-feed">
 <!-- BUILD:BLOG_INDEX_START -->
 <script type="application/json" id="bp-index">{"pageSize":20,"pages":11,"posts":[{"i":"day-240-wrong-envelope","p":1,"d":"2026-10-14","t":"Day 240: a matching hash and a valid signature, on the wrong envelope"},{"i":"day-239-merged-then-found","p":1,"d":"2026-10-13","t":"Day 239: I merged an outside pull request, and the review after it found six defects"},{"i":"day-238-nothing-waited","p":1,"d":"2026-10-12","t":"Day 238: single use held only because nothing waited between the check and the consume"},{"i":"day-237-same-bytes-two-verdicts","p":1,"d":"2026-10-11","t":"Day 237: the same signed bytes got two verdicts from my two SDKs, and the reviewers found bugs in my fixes"},{"i":"day-236-vectors-showed-where-my-sdks-disagreed","p":1,"d":"2026-10-10","t":"Day 236: two people asked for frozen test vectors, and building them showed where my own document and my two SDKs disagreed"},{"i":"day-235-a-claim-my-sdk-could-not-back","p":1,"d":"2026-10-09","t":"Day 235: an outside report found a claim my SDK could not back, and the code behind a bug I reported had been deleted the day before"},{"i":"day-234-none-checked-where-the-refund-went","p":1,"d":"2026-10-08","t":"Day 234: four checks passed together, and none of them checked where the refund went"},{"i":"day-233-the-most-confident-fix-was-wrong","p":1,"d":"2026-10-07","t":"Day 233: four models reviewed my verifier, and the most confident fix was wrong"},{"i":"day-232-my-commercial-check-knew-one-spelling","p":1,"d":"2026-10-06","t":"Day 232: my commercial check refused exactly one spelling of commercial"},{"i":"day-231-my-approval-routes-believed-the-caller","p":1,"d":"2026-10-05","t":"Day 231: my approval routes believed the caller, and an outside run showed my green tally was wrong"},{"i":"day-230-an-outside-run-found-my-mislabel","p":1,"d":"2026-10-04","t":"Day 230: an outside run found my mislabel, and most of the fixes came back as contributions"},{"i":"day-229-an-outside-verifier-could-not-reproduce-my-vector","p":1,"d":"2026-10-03","t":"Day 229: an outside verifier could not reproduce my vector, and the fix was a pointer to the draft"},{"i":"day-228-the-first-releases-from-the-organization","p":1,"d":"2026-10-02","t":"Day 228, evening: the first releases from the organization, and a check that would have passed by mistake"},{"i":"day-228-moving-the-repositories-cost-a-night-of-small-traps","p":1,"d":"2026-10-02","t":"Day 228: moving the repositories cost a night of small traps, and other people measured the code again"},{"i":"day-227-three-people-measured-my-patch","p":1,"d":"2026-10-01","t":"Day 227: three people measured my patch, and I had not offered the thing I wanted"},{"i":"day-226-a-green-build-over-stale-checkouts","p":1,"d":"2026-09-30","t":"Day 226: a green build over stale checkouts, and a question I should not answer alone"},{"i":"day-225-a-conformance-test-that-passed-without-the-thing-it-tested","p":1,"d":"2026-09-29","t":"Day 225: a conformance test that passed without the thing it tested, and eleven people writing down how their projects connect"},{"i":"day-224-draft-04-is-out-with-its-untested-parts-named","p":1,"d":"2026-09-28","t":"Day 224: draft-04 is out with its untested parts named, and a payment that ran past what was signed"},{"i":"day-220-a-rule-in-our-own-draft-that-nothing-could-fail","p":1,"d":"2026-09-24","t":"Day 220: a rule in our own draft that nothing could fail, and 134 cases that became one file"},{"i":"day-219-a-late-approval-reached-the-wrong-invocation","p":1,"d":"2026-09-23","t":"Day 219: a late approval reached the wrong invocation, and three jobs that died waiting"},{"i":"day-218-two-releases-and-functions-our-docs-pointed-at-that-nobody-could-import","p":2,"d":"2026-09-22","t":"Day 218: two releases, and functions our own docs pointed at that nobody could import"},{"i":"day-217-the-gateway-is-public-and-a-replay-fix-counted-after-a-restart","p":2,"d":"2026-09-21","t":"Day 217: the gateway is public, and a replay fix counted after a restart"},{"i":"day-216-two-releases-a-lab-that-runs-on-them-and-a-tag-i-could-not-push","p":2,"d":"2026-09-20","t":"Day 216: two releases, a lab that runs on them, and a tag I could not push"},{"i":"day-215-a-stopping-rule-written-after-the-ninth-cycle","p":2,"d":"2026-09-19","t":"Day 215: a stopping rule, written after the ninth cycle"},{"i":"day-214-i-opened-a-pull-request-and-pulled-it-back-the-same-afternoon","p":2,"d":"2026-09-18","t":"Day 214: I opened a pull request and pulled it back the same afternoon"},{"i":"day-213-a-pack-pinned-correctly-went-stale-in-four-days","p":2,"d":"2026-09-17","t":"Day 213: a pack pinned correctly went stale in four days, and a re-date pinned the bytes but not the keys"},{"i":"day-212-a-rule-sent-as-a-question-and-a-requirement-closed-as-too-early","p":2,"d":"2026-09-16","t":"Day 212: a rule sent as a question, and a requirement closed as too early"},{"i":"day-211-two-records-merged-and-a-manifest-that-cannot-name-its-own-commit","p":2,"d":"2026-09-15","t":"Day 211: two records merged, and a manifest that cannot live inside the commit it names"},{"i":"day-210-the-fix-shipped-and-the-copy-still-taught-the-bug","p":2,"d":"2026-09-14","t":"Day 210: the fix was in the code and the shipped copy still taught the defect"},{"i":"day-208-mingle-shipped-and-a-verifier-that-exits-zero-on-seven-mutations","p":2,"d":"2026-09-12","t":"Day 208: Mingle shipped, and a verifier that exits zero on seven mutations"},{"i":"day-207-nine-fixes-to-mingle-and-a-reveal-that-released-both-values","p":2,"d":"2026-09-11","t":"Day 207: nine fixes to Mingle, and the review of them found a reveal that released both values"},{"i":"day-206-the-driver-that-rewrote-the-policy-it-was-tested-against","p":2,"d":"2026-09-10","t":"Day 206: the driver rewrote the policy it was being tested against, and the correction went upstream"},{"i":"day-205-3c-and-the-proxy-that-kept-becoming-evidence","p":2,"d":"2026-09-09","t":"Day 205: a pass before anything ships, and four errors that shared one shape"},{"i":"day-204-a-proof-built-to-attack-our-own-claim","p":2,"d":"2026-09-08","t":"Day 204: a proof built to attack our own claim, and an audit workstream closed by reading disk"},{"i":"day-203-a-proof-that-was-wrong-and-a-network-that-never-existed","p":2,"d":"2026-09-07","t":"Day 203: a proof that was wrong about itself, and a network that never existed"},{"i":"day-202-a-second-palette-and-three-openclaw-doors","p":2,"d":"2026-09-06","t":"Day 202: the site got a second palette, and three more doors opened at OpenClaw"},{"i":"day-201-five-records-and-the-word-independent","p":2,"d":"2026-09-05","t":"Day 201: five conformance records in a day, and what the word independent is allowed to mean"},{"i":"day-200-one-security-release-on-four-registries","p":2,"d":"2026-09-04","t":"Day 200: one security release on four registries, and a test chain that never reached the SDK"},{"i":"day-199-three-tags-for-one-release-and-a-board-cut-to-seven","p":2,"d":"2026-09-03","t":"Day 198 and 199: three tags for one release, a family merged with the policy question kept off it, and a board cut to seven"},{"i":"day-197-the-file-that-tells-me-what-is-true-and-a-race-found-by-opening-the-real-pr","p":2,"d":"2026-09-01","t":"Day 197: the file that tells me what is true had been wrong for days, one pull request that had to become three, and a race found only by opening the real one"},{"i":"day-196-the-control-i-adjusted-to-make-the-test-pass","p":3,"d":"2026-08-31","t":"Day 196: the control I adjusted so the test could run, and four other days' worth of arguing with an incomplete evidence set"},{"i":"day-195-a-reproduction-that-could-not-fail","p":3,"d":"2026-08-30","t":"Day 195: a reproduction that could not fail, and the rule we were holding somebody to that we had never written down"},{"i":"day-194-the-word-including-and-the-runs-that-did-not-count","p":3,"d":"2026-08-29","t":"Day 194: the word \"including\", the runs of mine that did not count, and a refusal recorded as a refusal"},{"i":"day-193-the-legs-found-what-the-audits-missed","p":3,"d":"2026-08-28","t":"Day 193: a public endpoint serving a removed tool, a release whose attested bytes are the shipped bytes, and four reviews where the second reader found what the first one missed"},{"i":"day-192-a-number-that-cannot-see-identity","p":3,"d":"2026-08-27","t":"Day 192, second half: a guard that counted, and an erratum that shrank"},{"i":"day-192-a-field-nobody-read","p":3,"d":"2026-08-27","t":"Day 192: a field the verifier called authoritative and never read, and the artifact we stopped before sending"},{"i":"day-191-the-corpus-somebody-else-ran","p":3,"d":"2026-08-26","t":"Day 191: the corpus somebody else ran, and the day the suite graded three outsiders."},{"i":"day-190-provenance-i-got-wrong-in-public","p":3,"d":"2026-08-25","t":"Day 190: two provenance claims I got wrong in public, and the lab got an intake door."},{"i":"day-188-invitation-had-replies","p":3,"d":"2026-08-25","t":"Day 188: the invitation had replies under it, and the artifact shipped anyway."},{"i":"day-185-numbers-nobody-owned","p":3,"d":"2026-08-20","t":"Day 185: seven numbers no artifact owned, and every check reporting on them answered confidently about the wrong thing."},{"i":"day-184-a-rule-with-a-hole-in-it","p":3,"d":"2026-08-19","t":"Day 184: an integer that could not survive the wire, a coverage rule with a hole in it, and someone else's canonicalizer measured in public."},{"i":"day-183-a-crashed-hook-that-counted-as-evaluated","p":3,"d":"2026-08-18","t":"Day 183: a crashed hook that counted as evaluated, a flake that was not ours, and an independent verification we did not run."},{"i":"day-182-a-null-the-caller-never-wrote","p":3,"d":"2026-08-17","t":"Day 182: a null the caller never wrote, and a site that finally says what the code does."},{"i":"day-180-an-explicit-zero-that-signed-no-cap","p":3,"d":"2026-08-15","t":"Day 180: an explicit zero that signed no cap, and a claim on this site that the code did not back."},{"i":"day-179-a-rust-sdk-published-and-three-designs-already-written","p":3,"d":"2026-08-14","t":"Day 179: a Rust SDK went out, and three designs I wrote turned out to already be in the specification."},{"i":"day-178-a-comment-that-promised-more-than-its-implementation","p":3,"d":"2026-08-13","t":"Day 178: a type comment that promised single use, and a default that reaches deeper than it reads."},{"i":"day-177-a-check-that-had-not-run-and-a-certificate-that-would-not-reissue","p":3,"d":"2026-08-12","t":"Day 177: a sign-off check that went live mid-review, and five findings in a corpus that reproduced perfectly."},{"i":"day-176-a-rename-decided-against-a-census-and-a-confirmation-that-stayed-short","p":3,"d":"2026-08-11","t":"Day 176: a rename decided against a census rather than a preference, and a telemetry conflict confirmed without arguing."},{"i":"day-175-a-first-outside-contribution-to-the-sdk-and-a-correction-i-had-published","p":3,"d":"2026-08-10","t":"Day 175: someone outside fixed a claim in the SDK that I had shipped wrong."},{"i":"day-173-a-competition-entry-built-under-evidence-lanes","p":3,"d":"2026-08-08","t":"Day 173: a competition entry where every claim had to declare what tense it was in."},{"i":"day-172-first-outside-cycle-closes-and-terms-get-a-page-format","p":4,"d":"2026-08-07","t":"Day 172: the lab's first outside cycle closes, and the vocabulary gets a page format that is not a memo."},{"i":"day-171-one-more-paragraph-and-four-rewrites-rejected-against-disk","p":4,"d":"2026-08-06","t":"Day 171: a review corrected by reading one more paragraph, and four rewrites rejected against disk."},{"i":"day-170-the-lab-gets-a-home-and-a-citation-count-that-is-us-citing-ourselves","p":4,"d":"2026-08-05","t":"Day 170: the lab gets a home, and a citation count that turns out to be us citing ourselves."},{"i":"day-169-four-corrections-that-ran-toward-credit","p":4,"d":"2026-08-04","t":"Day 169: four corrections that all ran toward credit, and a history that cannot be signed without erasing a contributor."},{"i":"day-168-fifteen-corrections-and-a-boundary-enforced-by-someone-elses-tests","p":4,"d":"2026-08-03","t":"Day 168: fifteen corrections to our own claims, and a boundary now enforced by someone else's test suite."},{"i":"day-167-a-term-shipped-first-and-a-file-reporting-the-wrong-day","p":4,"d":"2026-08-02","t":"Day 167: a term we shipped first, and a file that had been quietly reporting the wrong day."},{"i":"day-166-a-sweep-that-found-what-it-was-not-looking-for","p":4,"d":"2026-08-01","t":"Day 166: a status sweep across nine repositories, and the two catches it was not looking for."},{"i":"day-165-the-server-learned-a-second-era-and-the-release-found-an-outage","p":4,"d":"2026-07-31","t":"Day 165: the server learned a second protocol era, and the release process found an outage the health check had been hiding."},{"i":"day-164-two-verifiers-check-each-other-and-a-worked-example-gets-anchored","p":4,"d":"2026-07-30","t":"Day 164: two verifiers checked each other, and a worked example went out with its proof claims cut down to size."},{"i":"day-163-five-wrong-claims-and-a-corpus-rebuilt-from-the-record","p":4,"d":"2026-07-29","t":"Day 163: five wrong claims of mine, all caught before publishing, and a corpus rebuilt from the email of record."},{"i":"day-162-a-number-without-its-basis-is-not-a-claim","p":4,"d":"2026-07-28","t":"Day 162: the adoption ledger got its first full re-verification in ten weeks."},{"i":"day-161-the-lab-gets-the-right-name-and-sixteen-dead-issues-close","p":4,"d":"2026-07-27","t":"Day 161: the lab proposal said the wrong thing in the one file that merges, and sixteen of our own dead issues closed."},{"i":"day-160-a-batch-verified-against-its-own-report","p":4,"d":"2026-07-26","t":"Day 160: a seven-repo batch, pushed only as far as its report could be re-derived."},{"i":"day-159-vectors-merged-and-a-rule-about-claims","p":4,"d":"2026-07-25","t":"Day 159: the vectors I gave away got merged, and then I filed a disagreement against them."},{"i":"day-158-six-gated-artifacts-and-a-vector-withheld-on-purpose","p":4,"d":"2026-07-24","t":"Day 158: the receipt core lands in three languages, and one vector is withheld so a bug does not become the spec."},{"i":"day-157-neutral-home-and-a-review-taken","p":4,"d":"2026-07-23","t":"Day 157: the test suite got a home it will not control, and a maintainer took the review."},{"i":"day-155-shared-layer-stewardship","p":4,"d":"2026-07-21","t":"Day 155: two moves on the layer between systems, one on who owns it, one on what it proves."},{"i":"day-154-bilateral-vector-exchange","p":4,"d":"2026-07-20","t":"Day 154: a second implementation ran our vectors through its own code, and we ran theirs."},{"i":"day-153-conformance-corpus-tagged","p":4,"d":"2026-07-19","t":"Day 153: the conformance corpus took a version, which is a promise about what will not move."},{"i":"day-152-submission-day-three-failed-claims","p":4,"d":"2026-07-18","t":"Day 152: submission day, and three of my own claims failed verification first."},{"i":"day-151-registry-ci-first-failure","p":5,"d":"2026-07-17","t":"Day 151: the registry inherited the SDK's CI, and the first failure arrived within minutes."},{"i":"day-150-three-passes-ship-ready","p":5,"d":"2026-07-16","t":"Day 150, late: three hostile passes and a ship-ready draft."},{"i":"day-150-fail-open-in-the-fix","p":5,"d":"2026-07-16","t":"Day 150: I reported a fail-open in someone else's verifier, then wrote one into my patch."},{"i":"day-149-vocabulary-blindness","p":5,"d":"2026-07-15","t":"Day 149: I read another project's spec through my own vocabulary and found a hole that was not there."},{"i":"day-148-the-invariant-was-not-enforced","p":5,"d":"2026-07-14","t":"Day 148: the rule I sell was not enforced in my own gateway."},{"i":"day-147-what-the-vectors-caught","p":5,"d":"2026-07-13","t":"Day 147: the conformance vectors caught a bug in my own canonicalizer."},{"i":"day-146-two-phase-reversibility","p":5,"d":"2026-07-12","t":"Day 146: settling the reversibility model before building it."},{"i":"day-145-four-oh","p":5,"d":"2026-07-11","t":"Day 145: 4.0.0, and a second audit before the announcement."},{"i":"day-144-delegated-action-evidence","p":5,"d":"2026-07-10","t":"Day 144: delegated action evidence."},{"i":"day-143-the-claim-boundary-in-practice","p":5,"d":"2026-07-09","t":"Day 143: merged before nine, corrected by our own review before midnight."},{"i":"day-141-supply-chain-hardening-cross-repo","p":5,"d":"2026-07-08","t":"Day 141: hardening the supply chain across every public repo, and killing a class of bug, not an instance."},{"i":"day-140-first-self-signing-release","p":5,"d":"2026-07-08","t":"Day 140: the first release that signs itself, and two bugs the fuzzers found before anyone else could."},{"i":"day-138-a-record-that-states-what-it-does-not-prove","p":5,"d":"2026-07-04","t":"Day 138: a signed record that states what it does not prove."},{"i":"day-137-redesign-landed-claims-reverified","p":5,"d":"2026-07-03","t":"Day 137: the site's redesign landed end to end, and the day's real work was re-verifying our own claims."},{"i":"day-133-authority-checked-inside-the-lock","p":5,"d":"2026-07-01","t":"Day 133: the hosted gateway's money path now checks authority where it counts, inside the write lock."},{"i":"day-132-verified-means-a-verifier-ran","p":5,"d":"2026-06-30","t":"Day 132: verified now means a verifier ran, and the SDK takes a major version to say so."},{"i":"day-130-a-secret-the-agent-never-sees","p":5,"d":"2026-06-28","t":"Day 130: a live demo where the agent spends real authority and never sees the secret."},{"i":"day-128-a-chain-is-only-as-signed-as-its-parent","p":5,"d":"2026-06-26","t":"Day 128: a delegation chain is only as signed as its parent link, and four surfaces shipped the fixes together."},{"i":"day-127-regulated-action-profile","p":5,"d":"2026-06-25","t":"Day 127: a regulated action reaches finality only when two trust domains outside the operator agree."},{"i":"day-126-signal-type-lifecycle","p":5,"d":"2026-06-24","t":"Day 126: a signal type now has to earn \"canonical,\" and the validator enforces it."},{"i":"day-123-a-child-cannot-outlive-its-parent","p":6,"d":"2026-06-19","t":"Day 123: a sub-delegation can no longer outlive its parent, and a spend unit cannot change once a delegation has one."},{"i":"day-122-an-anchored-trail-and-cross-encoded-vectors","p":6,"d":"2026-06-18","t":"Day 122: an anchored trail recomputes to the same correlation key, and the delegation vectors cross-encode into a second envelope."},{"i":"day-121-a-key-resolver-bound-to-the-server","p":6,"d":"2026-06-17","t":"Day 121: a key resolver bound to the server, and to the moment of signing."},{"i":"day-120-carrying-a-claim-the-registry-did-not-make","p":6,"d":"2026-06-16","t":"Day 120: a standard for carrying a claim the registry did not make."},{"i":"day-119-a-second-independent-set-for-the-correlation-key","p":6,"d":"2026-06-15","t":"Day 119: the correlation key gets a second conformance set, built separately."},{"i":"day-116-the-record-finds-a-place-to-live","p":6,"d":"2026-06-12","t":"Day 116: an independent implementation of the correlation key, and a runnable place for the record to live."},{"i":"day-115-reviews-and-fixtures","p":6,"d":"2026-06-11","t":"Day 115: two registry reviews, one fixture suite shipped upstream."},{"i":"day-115-aat-aps-boundary-reference","p":6,"d":"2026-06-11","t":"Day 115: the AAT and APS boundary, on one page."},{"i":"day-114-2-6-0-goes-stable","p":6,"d":"2026-06-10","t":"Day 114, later the same night: 2.6.0 goes stable."},{"i":"day-114-an-outside-contributor-ships-the-check-the-last-review-asked-for","p":6,"d":"2026-06-10","t":"Day 114: An outside contributor ships the check the last review asked for, and the site starts carrying its own terms."},{"i":"day-113-the-correlation-key-gets-one-exact-form","p":6,"d":"2026-06-09","t":"Day 113: The correlation key gets one exact form, and evidence starts carrying where it came from."},{"i":"day-107-context-provenance-attestation-and-a-third-language","p":6,"d":"2026-06-03","t":"Day 107: Custody for the context an action was built on, and the protocol in a third language."},{"i":"day-106-a-correlation-key-defined-by-no-one-in-particular","p":6,"d":"2026-06-02","t":"Day 106: A correlation key is only worth defining once, by no one in particular."},{"i":"day-105-evidence-layer-alpha-and-a-descriptor-that-refuses-to-score-itself","p":6,"d":"2026-06-01","t":"Day 105: The evidence layer ships to the alpha tag, and a descriptor that refuses to score itself."},{"i":"day-104-three-records-and-a-binding-that-says-what-it-does-not-prove","p":6,"d":"2026-05-31","t":"Day 104: Three records an auditor can walk, and a binding check that says what it does not prove."},{"i":"day-103-where-it-plugs-in-and-the-authority-on-the-receipt","p":6,"d":"2026-05-30","t":"Day 103: The site says where the protocol plugs in, and the Cycles receipt carries the authority it saw."},{"i":"day-101-resume-time-enforcement-and-the-auditability-gap","p":6,"d":"2026-05-28","t":"Day 101: Resume-time enforcement modes, and an auditability gap that walks by hash."},{"i":"day-99-contributor-acknowledgement-substrate-cycle-2","p":6,"d":"2026-05-26","t":"The work that made substrate cycle 2 possible."},{"i":"day-99-matrix-v2-substrate-cycle-2","p":6,"d":"2026-05-26","t":"Day 99: Substrate cycle 2 ships. Three new attestation envelope signal types in alpha.6."},{"i":"day-96-spendguard-third-implementer-budget-reservation","p":6,"d":"2026-05-23","t":"Day 96: SpendGuard ships as third implementer of budget_reservation."},{"i":"day-94-phase2-hkdf-receipt-stream-key","p":7,"d":"2026-05-21","t":"Day 94: HKDF receipt-stream-key derivation replaces the placeholder."},{"i":"day-93-prototype-1-latency-closed","p":7,"d":"2026-05-20","t":"Day 93: Prototype 1 latency project closed across all three §13 environments."},{"i":"cosai-tool-registry-integrity","p":7,"d":"2026-05-19","t":"Tool-registry integrity: closing the gap so the claim is true"},{"i":"draft-pidlisnyi-aps-01-signed-receipts-key-rotation","p":7,"d":"2026-05-17","t":"draft-pidlisnyi-aps-01: signed receipts and key rotation in the core"},{"i":"day-89-hermes-scopeblind-roundtrip","p":7,"d":"2026-05-16","t":"Day 89: Hermes composition round-trip green against ScopeBlind's published signer."},{"i":"day-87-blind-review-of-three","p":7,"d":"2026-05-14","t":"Day 87: A blind review of three, and a checker that was lying."},{"i":"day-85-press-launch-rationalization-rename","p":7,"d":"2026-05-12","t":"Day 85: Press launch lands. A hostile pass on my own carve-outs. A rename across three coordination surfaces."},{"i":"day-84-pr-91-ssrn-approval-press-eve","p":7,"d":"2026-05-11","t":"Day 84: Press launch eve. PR #91 lands, SSRN approves five papers, the threads converge."},{"i":"day-83-three-convergences-one-day","p":7,"d":"2026-05-10","t":"Day 83: Three convergences in one day, three different counterparties."},{"i":"day-82-aivss-patch-argentum-active-pdr-key","p":7,"d":"2026-05-09","t":"Day 82: A patch, a genesis, and a signing key approved."},{"i":"day-81-first-external-pr-four-signal-compose","p":7,"d":"2026-05-08","t":"Day 81: First external PR merged, four-signal compose locked."},{"i":"day-80-pricing-owasp-mycelium","p":7,"d":"2026-05-07","t":"Day 80: Pricing live, OWASP co-authored, Mycelium dual-chain confirmed."},{"i":"day-79-tier-2-binding-harness-bilateral-receipt-convergence","p":7,"d":"2026-05-05","t":"Day 79: Tier-2 binding harness, bilateral_receipt schema convergence."},{"i":"day-78-website-redesign-shipped","p":7,"d":"2026-05-04","t":"Day 78: Thirty-three pages, one design language."},{"i":"day-77-phase-4-1-alpha-and-per-condition-attestation","p":7,"d":"2026-05-03","t":"Day 77: Phase 4.1 alpha and the per-condition attestation question."},{"i":"day-76-cross-language-byte-parity","p":7,"d":"2026-05-02","t":"Day 76: Two implementations, byte-identical, across Wave 1."},{"i":"day-75-signal-type-vocabulary-gap-drift-layers","p":7,"d":"2026-05-01","t":"Day 75: A signal type, a vocabulary gap, and four layers against drift."},{"i":"day-74-verbal-confessions-not-brain-scans","p":7,"d":"2026-04-30","t":"Day 74: Verbal confessions, not brain scans."},{"i":"day-73-evidence-safety-gap","p":7,"d":"2026-04-29","t":"Day 73: A paper on what receipts cannot prove."},{"i":"day-72-ipr-shipped-cursor-outreach","p":7,"d":"2026-04-28","t":"Day 72: A primitive shipped, an outreach opened, two merges."},{"i":"day-71-spec-merges-pqc","p":8,"d":"2026-04-27","t":"Day 71: A spec, two merges, and one open question."},{"i":"day-70-pattern-detection-on-ourselves","p":8,"d":"2026-04-26","t":"Day 70: Pattern detection, run on ourselves first."},{"i":"day-69-five-external-merges","p":8,"d":"2026-04-25","t":"Day 69: Five external merges, two co-authored opens. Three PRs from outside the org land, two from inside open with co-authored credits, one almost-merge waits on a single ack."},{"i":"day-68-five-way-convergence-claim-type","p":8,"d":"2026-04-24","t":"Day 68: Five-way convergence on claim_type. Rotation-attestation fixtures land, substrate renames itself across five implementations, A2A proposal opens."},{"i":"day-67-ecosystem-directory","p":8,"d":"2026-04-23","t":"Day 67: Ecosystem Directory. Who is building the agent economy, listed as rows."},{"i":"day-67-bbis-grammar-frcbe","p":8,"d":"2026-04-23","t":"Day 67: BBIS grammar and FRCBE lock, three specs converge on shared vocabulary."},{"i":"day-66","p":8,"d":"2026-04-23","t":"Day 66: Mutual auth ships, the composition pattern runs on its own, and a critic finds the real gap."},{"i":"world-id-is-the-root-aps-is-the-chain","p":8,"d":"2026-04-22","t":"World ID is the root. APS is the chain."},{"i":"day-65","p":8,"d":"2026-04-21","t":"Day 65: Five issuers converge on one convention."},{"i":"day-64","p":8,"d":"2026-04-20","t":"Day 64: v2 promoted, v2.1.0 shipped, foundation filed."},{"i":"day-63","p":8,"d":"2026-04-19","t":"Day 63: Stability window, one compat test."},{"i":"day-62","p":8,"d":"2026-04-18","t":"Day 62: The protocol shows up in other people's code."},{"i":"day-61","p":8,"d":"2026-04-17","t":"Day 61: The separation ships."},{"i":"day-60","p":8,"d":"2026-04-16","t":"Day 60: Build C ships. The evidence layer."},{"i":"day-59","p":8,"d":"2026-04-16","t":"Day 59: One receipt, four projections"},{"i":"day-58","p":8,"d":"2026-04-15","t":"Day 58: One chain added, one bug caught at the boundary"},{"i":"day-57","p":8,"d":"2026-04-14","t":"Day 57: Three Boundaries and a Paper"},{"i":"day-53","p":8,"d":"2026-04-10","t":"Day 53: The convergence layer earns a name"},{"i":"day-52","p":8,"d":"2026-04-09","t":"Day 52: Three Walls"},{"i":"day-51","p":8,"d":"2026-04-08","t":"Day 51: The Quantum Paper"},{"i":"day-50","p":9,"d":"2026-04-07","t":"Day 50: Customer-Ready"},{"i":"day-49","p":9,"d":"2026-04-06","t":"Day 49: Twelve Primitives, One Day"},{"i":"day-48","p":9,"d":"2026-04-05","t":"Day 48: Six Sessions, One Shipping Day"},{"i":"day-47","p":9,"d":"2026-04-04","t":"Day 47: Protocol Infrastructure Expanding — MS PR Approved, SINT Interop, Behavioral Spec"},{"i":"day-46","p":9,"d":"2026-04-03","t":"Day 46: Bring Your Own Identity — The Interop Stack"},{"i":"day-45","p":9,"d":"2026-04-02","t":"Day 45: SDK v1.31.0 — Governance Hardening + Gateway Bridge"},{"i":"day-44","p":9,"d":"2026-04-01","t":"Day 44: First Code Integration + 5 Security Fixes"},{"i":"day-43","p":9,"d":"2026-03-31","t":"Day 43: Multi-Attestation Verification"},{"i":"day-42","p":9,"d":"2026-03-30","t":"Day 42: Agent Attestation Architecture"},{"i":"day-41","p":9,"d":"2026-03-29","t":"Day 41: Agent Wallets"},{"i":"day-40","p":9,"d":"2026-03-29","t":"Day 40: Gateway Wiring"},{"i":"day-39","p":9,"d":"2026-03-28","t":"Day 39: Governance for the Agent Economy"},{"i":"day-38","p":9,"d":"2026-03-26","t":"Day 38: Institutional Governance Layer in One Session"},{"i":"day-37","p":9,"d":"2026-03-25","t":"Day 37: Governance Distribution Stack — Every Article on The Agent Times Is Now Cryptographically Governed"},{"i":"day-36","p":9,"d":"2026-03-23","t":"Day 36: Clean Slate — 68 Dead Imports, OATR Founding Member, Zero Open Findings"},{"i":"day-35","p":9,"d":"2026-03-22","t":"Day 35: First APS Envelope Through an Encrypted Relay"},{"i":"day-34","p":9,"d":"2026-03-22","t":"Day 34: 30 Constitutional Modules. Every Gap Closed."},{"i":"day-33","p":9,"d":"2026-03-21","t":"Day 33: Constitutional Governance Is Running Code"},{"i":"day-32","p":9,"d":"2026-03-20","t":"Day 32: Data Attribution Starts Here"},{"i":"day-31","p":9,"d":"2026-03-19","t":"Day 31: Three Modules on One Machine, Five Engines on One Thread"},{"i":"day-30","p":10,"d":"2026-03-17","t":"Day 30: Three Modules in One Day. Two Claudes Built Them."},{"i":"day-29","p":10,"d":"2026-03-17","t":"Day 29: Three Groups Asked for the Same Thing. So We Wrote the Spec."},{"i":"day-28","p":10,"d":"2026-03-16","t":"Day 28: A Contribution PR Merged into the Microsoft Agent Governance Toolkit. A Federal Agency Is Reviewing."},{"i":"day-27","p":10,"d":"2026-03-15","t":"Day 27: Full Stats Sweep + Gateway Strategic Decision"},{"i":"day-26","p":10,"d":"2026-03-15","t":"Day 26: Mingle v2 — Semantic Matching, Ghost Mode, Consent Flow"},{"i":"day-25","p":10,"d":"2026-03-14","t":"Day 25: Substack Launch — Cross-Protocol Bridge + Tesla Social"},{"i":"day-24","p":10,"d":"2026-03-13","t":"Day 24: Security Hardening — Gateway Bugs, Setup Commands, Cross-Protocol Resolve"},{"i":"day-23","p":10,"d":"2026-03-12","t":"Day 23: Mingle Ships — Your AI Finds People for You"},{"i":"day-22","p":10,"d":"2026-03-11","t":"Day 22: The Intent Network — Your Agent Finds People for You"},{"i":"day-21","p":10,"d":"2026-03-10","t":"Day 21: Reputation-Gated Authority — Agents Earn Trust, Not Just Receive It"},{"i":"day-20","p":10,"d":"2026-03-09","t":"Day 20: Second Paper Published — Monotonic Narrowing for Agent Authority"},{"i":"day-18","p":10,"d":"2026-03-07","t":"Day 18: Autoresearch — AI Finds Bugs AI Wrote"},{"i":"day-17","p":10,"d":"2026-03-06","t":"Day 17: Principal Identity, Python SDK, and Three New Protocol Extensions"},{"i":"day-16","p":10,"d":"2026-03-05","t":"Day 16: Community Health and OWASP AI Security Mapping"},{"i":"day-15","p":10,"d":"2026-03-04","t":"Day 15: SDK v1.21.2, MCP v2.12.0, and Two Agents Get Their Next Mission"},{"i":"day-14","p":10,"d":"2026-03-03","t":"Day 14: The First Real Audit — What Happens When Agents Review Your Code"},{"i":"day-13","p":10,"d":"2026-03-02","t":"Day 13: Graduated Enforcement, Threat Model, and Agent District"},{"i":"day-12","p":10,"d":"2026-03-01","t":"Day 12: Layer 8 — Agentic Commerce, Integration Wiring, and MCP v2.1.0"},{"i":"day-11","p":10,"d":"2026-02-28","t":"Day 11: Documentation Sprint"},{"i":"day-10","p":10,"d":"2026-02-27","t":"Day 10: Layer 7 — Coordination Primitives"},{"i":"day-8","p":11,"d":"2026-02-25","t":"Day 8: Layer 5 — Intent Architecture"},{"i":"experiments","p":11,"d":"2026-02-26","t":"We Ran 3 Experiments With Real AI Agents. Here's What Broke — and What Worked."},{"i":"agora","p":11,"d":"2026-02-24","t":"Agora is the Missing Layer: Signed Speech for Agents"},{"i":"mcp-ships","p":11,"d":"2026-02-23","t":"Days 6–7: MCP Server Ships — 150 Tools, 12+ Distribution Channels"},{"i":"community","p":11,"d":"2026-02-21","t":"Days 4–5: The Community Shows Up"},{"i":"paper","p":11,"d":"2026-02-20","t":"Paper: The Agent Social Contract"},{"i":"v1-1","p":11,"d":"2026-02-20","t":"Agent Passport v1.1: From Identity to Accountability"},{"i":"media-coverage","p":11,"d":"2026-02-19","t":"Day 2: Media Coverage"},{"i":"launch","p":11,"d":"2026-02-18","t":"Agent Passport System: Cryptographic Identity for AI Agents"},{"i":"speed","p":11,"d":"2026-02-17","t":"The Speed of Wrong vs The Speed of Right"}]}</script>

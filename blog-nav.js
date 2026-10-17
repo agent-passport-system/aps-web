@@ -208,7 +208,10 @@
 
     var feed = document.querySelector('main.blog-feed') || (first && first.parentElement);
     if (!feed) return;
-    feed.parentElement.insertBefore(bar, feed);
+    // A reserved slot in the page holds the bar's place before this script
+    // runs, so inserting the bar does not push the feed down after first paint.
+    var slot = document.querySelector('.bp-bar-slot');
+    if (slot) slot.replaceWith(bar); else feed.parentElement.insertBefore(bar, feed);
 
     // The site header is fixed and the bar sticks under it. Publish both
     // heights so the bar sits clear of the header and an anchor lands clear
