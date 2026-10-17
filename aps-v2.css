@@ -937,3 +937,121 @@ article.prose a.btn.ghost{color:var(--fg)}
 .hr-dark{display:none !important}
 [data-theme="dark"] .hr-bright{display:none !important}
 [data-theme="dark"] .hr-dark{display:block !important}
+
+/* ==========================================================================
+   PAPER INTERIOR PAGES (2026-10-17)
+   Pages built on main.page or main.blog-feed get a white surface, navy
+   reading text, blue headings and links, Pixelify Sans headings, larger
+   text and a wider column. The landing, contact and other pages without
+   those mains keep the blue theme. The header menu and the footer keep the
+   blue theme everywhere. Yellow on white appears only as a fill with black
+   ink and a black outline, because yellow text is illegible on white.
+   ========================================================================== */
+@font-face{font-family:'Pixelify Sans'; font-style:normal; font-weight:400 700; font-display:swap;
+  src:url("fonts/pixelify-sans-cyrillic.woff2") format('woff2');
+  unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116}
+@font-face{font-family:'Pixelify Sans'; font-style:normal; font-weight:400 700; font-display:swap;
+  src:url("fonts/pixelify-sans-latin-ext.woff2") format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Pixelify Sans'; font-style:normal; font-weight:400 700; font-display:swap;
+  src:url("fonts/pixelify-sans-latin.woff2") format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+
+html[data-theme="bright"]:has(main.page, main.blog-feed){
+  --bg:#FFFFFF; --panel:#F2F6FF; --panel2:#F2F6FF;
+  --line:#C9DBFF; --line2:#C9DBFF; --codeline:#C9DBFF;
+  /* blue for headings, bold and links; navy for reading text.
+     #0A5CFF on white 4.9:1, #13203F 15.6:1, #3A4B73 8.4:1 */
+  --fg:#0A5CFF; --ink:#13203F; --sub:#3A4B73; --dim:#3A4B73; --faint:#3A4B73;
+  --lime:#0A5CFF; --acc:#0A5CFF; --on-acc:#FFFFFF;
+  --dots:rgba(10,92,255,.05); --glow:rgba(10,92,255,.04);
+  --wash1:rgba(10,92,255,.02); --wash2:rgba(10,92,255,.03); --wash3:rgba(10,92,255,.08);
+  --err:#C0281C; --ok:#127A3A; --ok2:#127A3A; --ok3:#127A3A; --ok4:#127A3A;
+  --caution:#7A5C00; --caution2:#7A5C00; --partial:#9A4A00; --alert:#B3261E;
+  --info:#0A5CFF; --neutral:#4A4A4A; --warn:#7A5C00;
+  --a-red-ink:#B3261E; --b-red-ink:#B3261E;
+  --pixel:'Pixelify Sans','Space Grotesk',sans-serif;
+}
+html[data-theme="bright"]:has(main.page, main.blog-feed) body{background:#FFFFFF; color:var(--ink)}
+
+/* header menu and footer keep the blue theme */
+html[data-theme="bright"]:has(main.page, main.blog-feed) header.nav,
+html[data-theme="bright"]:has(main.page, main.blog-feed) footer.r{
+  --bg:#0A5CFF; --panel:#0745D9; --panel2:#0745D9;
+  --line:#8DB6FF; --line2:#8DB6FF; --codeline:#8DB6FF;
+  --fg:#FFFFFF; --ink:#FFFFFF; --sub:#E4EEFF; --dim:#E4EEFF; --faint:#E4EEFF;
+  --lime:#FFF200; --acc:#FFF200; --on-acc:#0A5CFF;
+  --wash3:rgba(255,255,255,.06);
+  color:#FFFFFF; background:#0A5CFF;
+}
+
+/* blog hero sat outside any padded container, so its title ran under the
+   fixed header and against the left edge. Give it the feed's frame. */
+html[data-theme="bright"] body > section.page-hero{
+  max-width:1480px; margin:0 auto; padding:150px 4vw 44px; box-sizing:border-box;
+}
+@media (max-width:700px){html[data-theme="bright"] body > section.page-hero{padding-top:120px}}
+
+/* wider column */
+html[data-theme="bright"]:has(main.page, main.blog-feed) main.page{max-width:1280px; padding-left:4vw; padding-right:4vw}
+html[data-theme="bright"]:has(main.page, main.blog-feed) article.prose p,
+html[data-theme="bright"]:has(main.page, main.blog-feed) article.prose ul,
+html[data-theme="bright"]:has(main.page, main.blog-feed) article.prose ol{max-width:none}
+html[data-theme="bright"]:has(main.page, main.blog-feed) .page-hero .dek{max-width:72ch}
+html[data-theme="bright"]:has(main.page, main.blog-feed) .blog-feed{max-width:1480px; padding-left:4vw; padding-right:4vw}
+html[data-theme="bright"]:has(main.page, main.blog-feed) .blog-feed .post{grid-template-columns:190px minmax(0,1100px); column-gap:56px}
+@media (max-width:860px){
+  html[data-theme="bright"]:has(main.page, main.blog-feed) .blog-feed .post{grid-template-columns:1fr}
+  html[data-theme="bright"]:has(main.page, main.blog-feed) .blog-feed .post > *{grid-column:1}
+  html[data-theme="bright"]:has(main.page, main.blog-feed) .blog-feed .post .post-date{grid-column:1; grid-row:auto}
+}
+
+/* pixel type for headings, dates and labels */
+html[data-theme="bright"]:has(main.page, main.blog-feed) main h1,
+html[data-theme="bright"]:has(main.page, main.blog-feed) .page-hero h1{font-family:var(--pixel)!important; font-weight:600; letter-spacing:0; color:var(--fg)}
+html[data-theme="bright"]:has(main.page, main.blog-feed) main h2{font-family:var(--pixel)!important; font-weight:500; font-size:44px!important; line-height:1.12; letter-spacing:0; color:var(--fg)}
+html[data-theme="bright"]:has(main.page, main.blog-feed) .blog-feed .post h2{font-size:46px!important; line-height:1.1}
+html[data-theme="bright"]:has(main.page, main.blog-feed) main h3{font-family:var(--pixel)!important; font-weight:500; font-size:30px!important; letter-spacing:0; color:var(--fg)}
+html[data-theme="bright"]:has(main.page, main.blog-feed) .blog-feed .post .post-date,
+html[data-theme="bright"]:has(main.page, main.blog-feed) .page-hero .eyebrow{font-family:var(--pixel); font-size:19px; letter-spacing:.04em; color:var(--fg)}
+
+/* larger, navy reading text; bold stays blue */
+html[data-theme="bright"]:has(main.page, main.blog-feed) main p:not(.bp-pager-count),
+html[data-theme="bright"]:has(main.page, main.blog-feed) main li,
+html[data-theme="bright"]:has(main.page, main.blog-feed) .page-hero p{font-size:22px!important; line-height:1.6; color:var(--ink)!important}
+html[data-theme="bright"]:has(main.page, main.blog-feed) main p strong,
+html[data-theme="bright"]:has(main.page, main.blog-feed) main li strong,
+html[data-theme="bright"]:has(main.page, main.blog-feed) .page-hero p b{color:var(--fg)!important}
+html[data-theme="bright"]:has(main.page, main.blog-feed) main code{font-size:17px; color:var(--ink)}
+
+/* links: blue with a visible underline */
+html[data-theme="bright"]:has(main.page, main.blog-feed) main a:not(.btn):not(.bp-pager-n):not(.bp-pager-step):not(.bp-chip){color:var(--fg); border-bottom:1px solid #8DB6FF; text-decoration:none}
+html[data-theme="bright"]:has(main.page, main.blog-feed) main a:not(.btn):not(.bp-pager-n):not(.bp-pager-step):not(.bp-chip):hover{border-bottom-color:var(--fg)}
+
+/* code panels stay deep blue with white ink */
+html[data-theme="bright"]:has(main.page, main.blog-feed) main pre,
+html[data-theme="bright"]:has(main.page, main.blog-feed) main .code-card{background:#0745D9!important; color:#FFFFFF!important; border-color:#0745D9!important}
+html[data-theme="bright"]:has(main.page, main.blog-feed) main pre code{color:inherit}
+
+/* yellow on the page body only as a fill, with black ink and a black outline */
+html[data-theme="bright"]:has(main.page, main.blog-feed) main .btn,
+html[data-theme="bright"]:has(main.page, main.blog-feed) main .chip.fill,
+html[data-theme="bright"]:has(main.page, main.blog-feed) main .pip.v,
+html[data-theme="bright"]:has(main.page, main.blog-feed) main .tabs button.on,
+html[data-theme="bright"]:has(main.page, main.blog-feed) .bp-pager-n.is-on,
+html[data-theme="bright"]:has(main.page, main.blog-feed) .page-hero .sq,
+html[data-theme="bright"]:has(main.page, main.blog-feed) main .sq{
+  background:#FFF200!important; color:#000!important; box-shadow:0 0 0 1.5px #000;
+}
+html[data-theme="bright"]:has(main.page, main.blog-feed) ::selection{background:#FFF200; color:#000}
+/* phones: keep the pixel type, scale it to the screen */
+@media (max-width:700px){
+  html[data-theme="bright"]:has(main.page, main.blog-feed) main h2,
+  html[data-theme="bright"]:has(main.page, main.blog-feed) .blog-feed .post h2{font-size:30px!important}
+  html[data-theme="bright"]:has(main.page, main.blog-feed) main h3{font-size:23px!important}
+  html[data-theme="bright"]:has(main.page, main.blog-feed) main p:not(.bp-pager-count),
+  html[data-theme="bright"]:has(main.page, main.blog-feed) main li,
+  html[data-theme="bright"]:has(main.page, main.blog-feed) .page-hero p{font-size:18px!important}
+  html[data-theme="bright"]:has(main.page, main.blog-feed) .page-hero h1{font-size:34px}
+  html[data-theme="bright"] body > section.page-hero{padding-left:20px; padding-right:20px}
+}
