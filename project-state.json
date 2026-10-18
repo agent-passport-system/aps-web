@@ -4,7 +4,7 @@
   "versions": {
     "sdk": "8.0.1",
     "sdk_dist_tag": "latest",
-    "mcp": "8.0.0",
+    "mcp": "8.1.0",
     "mcp_dist_tag": "latest",
     "python": "4.3.0",
     "python_dist_tag": "latest",
@@ -23,7 +23,7 @@
     "modules_core": 84,
     "modules_v2": 23,
     "modules_total": 107,
-    "mcp_tools": 152,
+    "mcp_tools": 154,
     "mcp_essential_tools": 25,
     "core_surface_functions": 24,
     "extended_surface_exports": 925,

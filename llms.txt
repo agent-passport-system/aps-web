@@ -2,7 +2,7 @@
 
 > Enforcement and accountability layer for AI agents. Bring your own identity. We govern what it can do.
 
-Updated 2026-10-17 · SDK 8.0.1 · MCP 8.0.0 (152 tools) · Python 4.3.0 · Rust 0.3.0 · Go v0.7.0 · License Apache-2.0 · 6,280 passing tests · 9 papers · © 2026 Tymofii Pidlisnyi
+Updated 2026-10-18 · SDK 8.0.1 · MCP 8.1.0 (154 tools) · Python 4.3.0 · Rust 0.3.0 · Go v0.7.0 · License Apache-2.0 · 6,280 passing tests · 9 papers · © 2026 Tymofii Pidlisnyi
 
 APS is the enforcement layer that sits on top of whatever identity an agent already has. Accepts did:key, did:web, SPIFFE SVID, OAuth, and native did:aps. Identity is the input. Enforcement is the product. The gateway is both judge and executor. Authority can only decrease at each transfer point.
 
@@ -19,7 +19,7 @@ The SDK ships in two layers. Core is a curated essentials surface at `agent-pass
 - [Remote MCP via SSE](https://mcp.aeoess.com/sse): zero-install, any MCP client
 - [Source on GitHub](https://github.com/agent-passport-system/agent-passport-system): the main repository, with related repositories under [@agent-passport-system](https://github.com/agent-passport-system) and [@aeoess](https://github.com/aeoess)
 
-MCP server (agent-passport-system-mcp 8.0.0): 152 tools over stdio; supports MCP 2026-07-28 and 2025-era clients through era negotiation. The hosted bridge at mcp.aeoess.com serves the 2025-era flow over SSE.
+MCP server (agent-passport-system-mcp 8.1.0): 154 tools over stdio; supports MCP 2026-07-28 and 2025-era clients through era negotiation. The hosted bridge at mcp.aeoess.com serves the 2025-era flow over SSE.
 
 ## Documentation
 
@@ -36,7 +36,7 @@ MCP server (agent-passport-system-mcp 8.0.0): 152 tools over stdio; supports MCP
 
 - [Module reference](https://agent-passport.org/llms-full.txt): full module reference with one-line descriptions
 - [Core SDK surface](https://www.npmjs.com/package/agent-passport-system): curated essentials for the most common integration paths
-- [MCP tool surface](https://github.com/agent-passport-system/agent-passport-mcp): 152 tools across 17 layers, canonical list per layer in src/index.ts
+- [MCP tool surface](https://github.com/agent-passport-system/agent-passport-mcp): 154 tools across 17 layers, canonical list per layer in src/index.ts
 - [V2 constitutional framework](https://github.com/agent-passport-system/agent-passport-system): attack defenses, structural safeguards, attestation
 
 ## Standards and interop
