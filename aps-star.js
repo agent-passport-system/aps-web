@@ -59,13 +59,13 @@
   '.apsm:hover video,.apsm:hover img.apsm-still{transform:translateY(-3px)}' +
   '.apsm-x{position:absolute;top:2px;right:-2px;width:22px;height:22px;border-radius:50%;border:1px solid rgba(19,32,63,.25);background:#fff;color:#13203F;font:13px/1 Archivo,system-ui,sans-serif;cursor:pointer;opacity:0;transition:opacity .2s}' +
   '.apsm:hover .apsm-x,.apsm:focus-within .apsm-x{opacity:1}' +
-  '.apsm-b{position:absolute;z-index:2;right:104px;max-width:190px;width:max-content;padding:9px 13px;background:#fff;color:#13203F;border:2px solid #13203F;border-radius:18px 16px 19px 15px;font:600 14px/1.3 Archivo,system-ui,sans-serif;text-align:left;box-shadow:0 6px 18px rgba(0,0,0,.14);opacity:0;transform:translateY(6px) scale(.96);transform-origin:100% 100%;transition:opacity .22s,transform .22s;pointer-events:none}' +
+  '.apsm-b{position:absolute;z-index:2;right:104px;max-width:190px;width:max-content;padding:9px 13px;background:#FFFDF6;color:#0A0A0A;border:2.5px solid #0A0A0A;border-radius:16px 14px 17px 13px;font:700 14px/1.3 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Archivo,sans-serif;text-align:left;box-shadow:4px 4px 0 #0A0A0A;opacity:0;transform:translateY(6px) scale(.96);transform-origin:100% 100%;transition:opacity .22s,transform .22s;pointer-events:none}' +
   '.apsm-b.on{opacity:1;transform:none}' +
-  '.apsm-b:after{content:"";position:absolute;right:-9px;bottom:12px;width:14px;height:14px;background:#fff;border-right:2px solid #13203F;border-bottom:2px solid #13203F;transform:rotate(-45deg) skew(8deg,8deg)}' +
-  '.apsm-b.star{top:84px}' +
-  '.apsm-b.cat{top:auto;bottom:calc(100% - 6px);right:-4px;transform-origin:85% 100%;border-radius:16px 19px 15px 18px}' +
+  '.apsm-b:after{content:"";position:absolute;right:-9px;bottom:12px;width:14px;height:14px;background:inherit;border-right:2.5px solid #0A0A0A;border-bottom:2.5px solid #0A0A0A;transform:rotate(-45deg) skew(8deg,8deg)}' +
+  '.apsm-b.star{top:84px;background:#C7FF00}' +
+  '.apsm-b.cat{background:#FF2AA8;top:auto;bottom:calc(100% - 6px);right:-4px;transform-origin:85% 100%;border-radius:16px 19px 15px 18px}' +
   '.apsm-b.cat:after{right:auto;left:auto;right:30px;bottom:-9px;transform:rotate(45deg) skew(8deg,8deg)}' +
-  '.apsm-b .who{display:block;font:600 10px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#0A5CFF;margin-bottom:4px}' +
+  '.apsm-b .who{display:table;font:600 10px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#FFFDF6;background:#0A0A0A;padding:2px 5px;border-radius:3px;margin-bottom:5px}' +
   '.apsm-e{position:absolute;z-index:3;font:800 22px/1 Archivo,system-ui,sans-serif;color:#FFC400;-webkit-text-stroke:1.5px #13203F;opacity:0;pointer-events:none}' +
   '.apsm-e.on{animation:apsmPop 1.4s ease-out forwards}' +
   '.apsm.apsm-pop{animation:apsmIn .35s cubic-bezier(.2,1.4,.5,1)}' +
@@ -288,31 +288,39 @@
   var chat = null, chatLog = null, chatIn = null, chatForm = null, chips = null;
   var flow = null, data = {}, askedStar = false;
   var CONTACT = '/api/contact';
+  // Palette from the Mingle page: cream paper, ink black, lime and hot pink, hard offset shadows.
+  var INK = '#0A0A0A', PAPER = '#FFFDF6', LIME = '#C7FF00', PINK = '#FF2AA8';
   var chatCss = '' +
-  '.apsc{position:fixed;right:14px;bottom:200px;z-index:9985;width:min(360px,calc(100vw - 24px));height:min(520px,calc(100vh - 230px));min-height:320px;display:flex;flex-direction:column;background:#fff;color:#13203F;border:2px solid #13203F;border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,.25);font:15px/1.45 Archivo,system-ui,sans-serif;opacity:0;transform:translateY(14px) scale(.97);transform-origin:100% 100%;transition:opacity .2s,transform .2s;overflow:hidden}' +
+  '.apsc{position:fixed;right:14px;bottom:200px;z-index:9985;width:min(370px,calc(100vw - 24px));height:min(540px,calc(100vh - 230px));min-height:320px;display:flex;flex-direction:column;background:' + PAPER + ';color:' + INK + ';border:2.5px solid ' + INK + ';border-radius:16px;box-shadow:7px 7px 0 ' + INK + ';font:500 15px/1.45 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Archivo,sans-serif;opacity:0;transform:translateY(16px) rotate(.6deg) scale(.97);transform-origin:100% 100%;transition:opacity .22s,transform .25s cubic-bezier(.2,1.3,.5,1);overflow:hidden}' +
   '.apsc.on{opacity:1;transform:none}' +
-  '.apsc-h{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid #DCE4F5;background:#F4F7FF}' +
-  '.apsc-h img{width:34px;height:52px;object-fit:contain}' +
-  '.apsc-h b{display:block;font-size:15px}.apsc-h small{display:block;font-size:12px;color:#5A6680}' +
-  '.apsc-x{margin-left:auto;width:30px;height:30px;border-radius:50%;border:1px solid #C8D3EA;background:#fff;color:#13203F;font-size:16px;line-height:1;cursor:pointer}' +
-  '.apsc-log{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}' +
-  '.apsc-m{max-width:86%;padding:8px 11px;border-radius:14px;white-space:pre-wrap;word-break:break-word}' +
-  '.apsc-m .who{display:block;font:600 10px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px;color:#0A5CFF}' +
-  '.apsc-m.star{align-self:flex-start;background:#FFF6C7;border:1px solid #F2D35B;border-bottom-left-radius:4px}' +
-  '.apsc-m.cat{align-self:flex-start;background:#FFEBDD;border:1px solid #F2B98F;border-bottom-left-radius:4px}' +
-  '.apsc-m.me{align-self:flex-end;background:#0A5CFF;color:#fff;border-bottom-right-radius:4px}' +
-  '.apsc-m a{color:inherit;font-weight:600}' +
-  '.apsc-chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px 8px}' +
-  '.apsc-chip{border:1.5px solid #0A5CFF;background:#fff;color:#0A5CFF;border-radius:999px;padding:6px 11px;font:600 13px/1 Archivo,system-ui,sans-serif;cursor:pointer;text-decoration:none}' +
-  '.apsc-chip:hover{background:#0A5CFF;color:#fff}' +
-  '.apsc-chip.gh{border-color:#13203F;color:#13203F}.apsc-chip.gh:hover{background:#13203F;color:#FFF200}' +
-  '.apsc-f{display:flex;gap:6px;padding:10px 12px;border-top:1px solid #DCE4F5}' +
-  '.apsc-f input{flex:1;min-width:0;padding:9px 11px;border:1.5px solid #C8D3EA;border-radius:10px;font:15px Archivo,system-ui,sans-serif;color:#13203F;outline:none}' +
-  '.apsc-f input:focus{border-color:#0A5CFF}' +
-  '.apsc-f button{padding:0 14px;border:0;border-radius:10px;background:#0A5CFF;color:#fff;font:600 14px Archivo,system-ui,sans-serif;cursor:pointer}' +
-  '.apsc-note{padding:0 12px 8px;font-size:11.5px;color:#6A7590}' +
+  '.apsc-h{position:relative;display:flex;align-items:center;gap:10px;padding:10px 12px;background:' + LIME + ';border-bottom:2.5px solid ' + INK + '}' +
+  '.apsc-h img{width:36px;height:54px;object-fit:contain;filter:drop-shadow(2px 2px 0 rgba(10,10,10,.25))}' +
+  '.apsc-h b{display:block;font:900 22px/1 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Archivo,sans-serif;letter-spacing:-.02em;text-transform:uppercase}' +
+  '.apsc-h small{display:inline-block;margin-top:5px;padding:2px 7px;background:' + PINK + ';color:' + INK + ';border:1.5px solid ' + INK + ';border-radius:4px;font:700 10.5px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.06em;transform:rotate(-2deg)}' +
+  '.apsc-x{margin-left:auto;width:32px;height:32px;border-radius:50%;border:2px solid ' + INK + ';background:' + PAPER + ';color:' + INK + ';font:700 16px/1 ui-sans-serif,sans-serif;cursor:pointer;box-shadow:2px 2px 0 ' + INK + '}' +
+  '.apsc-x:hover{background:' + INK + ';color:' + LIME + '}' +
+  '.apsc-log{flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:10px}' +
+  '.apsc-m{max-width:86%;padding:9px 12px;border:2px solid ' + INK + ';border-radius:14px;white-space:pre-wrap;word-break:break-word;box-shadow:3px 3px 0 ' + INK + '}' +
+  '.apsc-m .who{display:table;font:800 10px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px;padding:2px 5px;border-radius:3px;background:' + INK + ';color:' + PAPER + '}' +
+  '.apsc-m.star{align-self:flex-start;background:' + LIME + ';border-bottom-left-radius:3px;transform:rotate(-.4deg)}' +
+  '.apsc-m.cat{align-self:flex-start;background:' + PINK + ';color:' + INK + ';border-bottom-left-radius:3px;transform:rotate(.4deg)}' +
+  '.apsc-m.me{align-self:flex-end;background:' + INK + ';color:' + PAPER + ';border-bottom-right-radius:3px;box-shadow:3px 3px 0 ' + PINK + '}' +
+  '.apsc-m a{color:inherit;font-weight:800}' +
+  '.apsc-chips{display:flex;flex-wrap:wrap;gap:7px;padding:2px 12px 10px}' +
+  '.apsc-chip{border:2px solid ' + INK + ';background:' + PAPER + ';color:' + INK + ';border-radius:999px;padding:7px 12px;font:700 13px/1 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer;text-decoration:none;box-shadow:2px 2px 0 ' + INK + ';transition:transform .12s,box-shadow .12s,background .12s}' +
+  '.apsc-chip:hover{background:' + LIME + ';transform:translate(-1px,-1px);box-shadow:3px 3px 0 ' + INK + '}' +
+  '.apsc-chip:active{transform:translate(2px,2px);box-shadow:0 0 0 ' + INK + '}' +
+  '.apsc-chip.gh{background:' + INK + ';color:' + LIME + '}.apsc-chip.gh:hover{background:' + PINK + ';color:' + INK + '}' +
+  '.apsc a.apsc-chip,.apsc a.apsc-chip:hover,.apsc a.apsc-chip:visited{color:' + INK + ' !important;text-decoration:none !important}' +
+  '.apsc a.apsc-chip.gh,.apsc a.apsc-chip.gh:visited{color:' + LIME + ' !important}.apsc a.apsc-chip.gh:hover{color:' + INK + ' !important}' +
+  '.apsc-f{display:flex;gap:7px;padding:10px 12px;border-top:2.5px solid ' + INK + ';background:#fff}' +
+  '.apsc-f input{flex:1;min-width:0;padding:10px 12px;border:2px solid ' + INK + ';border-radius:10px;background:' + PAPER + ';font:500 15px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:' + INK + ';outline:none}' +
+  '.apsc-f input:focus{box-shadow:0 0 0 3px ' + LIME + '}' +
+  '.apsc-f button{padding:0 15px;border:2px solid ' + INK + ';border-radius:10px;background:' + PINK + ';color:' + INK + ';font:800 14px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer;box-shadow:2px 2px 0 ' + INK + '}' +
+  '.apsc-f button:hover{background:' + LIME + '}' +
+  '.apsc-note{padding:0 12px 9px;background:#fff;font:500 11.5px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;color:#555}' +
   '@media (max-width:720px){.apsc{right:8px;bottom:150px;height:min(480px,calc(100vh - 170px))}}' +
-  '@media (prefers-reduced-motion:reduce){.apsc{transition:none}}';
+  '@media (prefers-reduced-motion:reduce){.apsc,.apsc-chip{transition:none}.apsc-m{transform:none}}';
   var chatStyle = document.createElement('style'); chatStyle.textContent = chatCss; document.head.appendChild(chatStyle);
 
   function cMsg(who, html) {
@@ -464,9 +472,9 @@
     clearTimers();
     if (pill) pill.querySelector('.apsm-b').classList.remove('on');
     chat = document.createElement('div');
-    chat.className = 'apsc'; chat.setAttribute('role', 'dialog'); chat.setAttribute('aria-label', 'Chat with the APS cat and star');
+    chat.className = 'apsc'; chat.setAttribute('role', 'dialog'); chat.setAttribute('aria-label', 'Chat with the APS star and cat');
     chat.innerHTML =
-      '<div class="apsc-h"><img src="' + M + '.webp' + MV + '" alt=""><div><b>Cat &amp; Star</b><small>Agent Passport System</small></div>' +
+      '<div class="apsc-h"><img src="' + M + '.webp' + MV + '" alt=""><div><b>Star &amp; Cat</b><small>Agent Passport System</small></div>' +
       '<button class="apsc-x" type="button" aria-label="Close chat">&#215;</button></div>' +
       '<div class="apsc-log" aria-live="polite"></div><div class="apsc-chips"></div>' +
       '<form class="apsc-f"><input type="text" autocomplete="off" aria-label="Your message" placeholder="Ask about APS or type a message"><button type="submit">Send</button></form>' +
