@@ -57,7 +57,8 @@
   '@media (max-width:720px){.apsx-dlg{grid-template-columns:1fr;max-height:calc(100vh - 24px);align-items:start}.apsx-img{width:100%;max-width:100%;height:auto}.apsx-body{padding:22px 20px 20px}.apsx-h{font-size:32px}.apsx-pill{right:12px;bottom:12px}.apsx-pill span.t{display:none}}' +
   '.apsm{position:fixed;right:14px;bottom:10px;z-index:9980;width:118px;height:182px;cursor:pointer;background:none;border:0;padding:0;-webkit-tap-highlight-color:transparent}' +
   '.apsm:focus-visible{outline:3px solid var(--x-acc);outline-offset:4px;border-radius:12px}' +
-  '.apsm video,.apsm img.apsm-still{display:block;width:118px;height:182px;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(0,0,0,.18));transition:transform .2s}' +
+  '.apsm video,.apsm img.apsm-still{display:block;position:relative;z-index:1;width:118px;height:182px;object-fit:contain;transition:transform .2s}' +
+  '.apsm:before{content:"";position:absolute;left:18%;right:18%;bottom:2px;height:10px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.22),rgba(0,0,0,0));pointer-events:none}' +
   '.apsm:hover video,.apsm:hover img.apsm-still{transform:translateY(-3px)}' +
   '.apsm-x{position:absolute;top:2px;right:-2px;width:22px;height:22px;border-radius:50%;border:1px solid rgba(19,32,63,.25);background:#fff;color:#13203F;font:13px/1 Archivo,system-ui,sans-serif;cursor:pointer;opacity:0;transition:opacity .2s}' +
   '.apsm:hover .apsm-x,.apsm:focus-within .apsm-x{opacity:1}' +
