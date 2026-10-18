@@ -195,7 +195,7 @@
   // The corner mascot: the cat with the star, a silent transparent loop, and a short scripted
   // exchange in speech bubbles built in HTML so the lines stay editable. Click opens the dialog.
   var M = '/assets/mascot/aps-mascot';
-  var MV = '?v=3';
+  var MV = '?v=4';
   var SCRIPT = [
     ['star', 'Hey! Wanna talk?', '!'],
     ['cat', 'What?', '?'],
