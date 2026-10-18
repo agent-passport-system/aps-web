@@ -8,6 +8,10 @@
  *      permalink no matter which page Day 59 has drifted onto.
  *   2. The bar groups by month rather than showing one chip per entry, which
  *      stopped being usable somewhere past the fiftieth entry.
+ *   3. Stories are a different kind of post from the dev log. Their chips are
+ *      coloured, and a Show switch narrows the bar and the page to all posts,
+ *      dev log only, or stories only. The choice is kept in ?show= and, where
+ *      storage works, in localStorage, so it follows the reader across pages.
  *
  * Nothing here is load-bearing. With scripts off the pager links in the page
  * are the whole navigation, and every entry is still served as plain HTML.
@@ -28,6 +32,62 @@
 
   function pageHref(n) {
     return n === 1 ? '/blog.html' : '/blog-' + n + '.html';
+  }
+
+  /* Show mode: all, devlog or stories. */
+  var MODES = [['all', 'All'], ['devlog', 'Dev log'], ['stories', 'Stories']];
+
+  function readMode() {
+    var m = (location.search.match(/[?&]show=(all|devlog|stories)\b/) || [])[1];
+    if (m) return m;
+    try {
+      m = localStorage.getItem('bp-show');
+    } catch (e) {
+      m = null;
+    }
+    return m === 'devlog' || m === 'stories' ? m : 'all';
+  }
+
+  function saveMode(mode) {
+    try {
+      localStorage.setItem('bp-show', mode);
+    } catch (e) {}
+    try {
+      var url = location.pathname + (mode === 'all' ? '' : '?show=' + mode) + location.hash;
+      history.replaceState(null, '', url);
+    } catch (e) {}
+  }
+
+  function isStory(p) {
+    return p.k === 's';
+  }
+
+  function keep(p, mode) {
+    if (mode === 'stories') return isStory(p);
+    if (mode === 'devlog') return !isStory(p);
+    return true;
+  }
+
+  function applyMode(mode) {
+    var root = document.documentElement;
+    root.classList.toggle('bp-only-stories', mode === 'stories');
+    root.classList.toggle('bp-only-devlog', mode === 'devlog');
+    var feed = document.querySelector('main.blog-feed');
+    var note = document.querySelector('.bp-empty');
+    if (note) note.remove();
+    if (!feed || mode === 'all') return;
+    var shown = Array.prototype.some.call(document.querySelectorAll('article.post'), function (a) {
+      var story = a.getAttribute('data-kind') === 'story';
+      return mode === 'stories' ? story : !story;
+    });
+    if (shown) return;
+    note = document.createElement('p');
+    note.className = 'bp-empty';
+    note.textContent =
+      mode === 'stories'
+        ? 'No stories on this page. Pick one from the bar above, or show all posts.'
+        : 'Only stories on this page. Pick a day from the bar above, or show all posts.';
+    feed.insertBefore(note, feed.querySelector('article.post'));
   }
 
   function currentPage(index) {
@@ -79,11 +139,15 @@
     return MONTHS[Number(parts[1]) - 1] + ' ' + Number(parts[2]);
   }
 
-  function build(index, page) {
+  function build(index, page, mode) {
     var years = {};
     var order = [];
     var byMonth = {};
-    index.posts.forEach(function (p) {
+    var posts = index.posts.filter(function (p) {
+      return keep(p, mode);
+    });
+    if (!posts.length) posts = index.posts;
+    posts.forEach(function (p) {
       years[p.d.slice(0, 4)] = 1;
       var k = monthKey(p.d);
       if (!byMonth[k]) {
@@ -139,9 +203,10 @@
       byMonth[key].forEach(function (p) {
         var here = p.p === page;
         var chip = document.createElement(here ? 'button' : 'a');
-        chip.className = 'bp-chip' + (here ? '' : ' bp-chip-off');
+        chip.className = 'bp-chip' + (here ? '' : ' bp-chip-off') + (isStory(p) ? ' bp-chip-story' : '');
         chip.textContent = chipLabel(p);
-        chip.title = here ? p.t : p.t + ' (page ' + p.p + ')';
+        var kind = isStory(p) ? 'Story: ' : '';
+        chip.title = kind + (here ? p.t : p.t + ' (page ' + p.p + ')');
         if (here) {
           chip.type = 'button';
           chip.addEventListener('click', function () {
@@ -154,8 +219,8 @@
             });
           });
         } else {
-          chip.href = pageHref(p.p) + '#' + encodeURIComponent(p.i);
-          chip.setAttribute('aria-label', p.t + ', on page ' + p.p);
+          chip.href = pageHref(p.p) + (mode === 'all' ? '' : '?show=' + mode) + '#' + encodeURIComponent(p.i);
+          chip.setAttribute('aria-label', kind + p.t + ', on page ' + p.p);
         }
         dayRow.appendChild(chip);
       });
@@ -172,7 +237,10 @@
       t.setAttribute('aria-selected', 'false');
       t.tabIndex = -1;
       t.textContent = monthLabel(key, multiYear);
-      t.title = byMonth[key].length + (byMonth[key].length === 1 ? ' entry' : ' entries');
+      var stories = byMonth[key].filter(isStory).length;
+      t.title = byMonth[key].length + (byMonth[key].length === 1 ? ' entry' : ' entries') +
+        (stories && mode === 'all' ? ', ' + stories + (stories === 1 ? ' story' : ' stories') : '');
+      if (stories && mode === 'all') t.classList.add('bp-month-story');
       t.addEventListener('click', function () {
         select(key, false);
       });
@@ -191,26 +259,58 @@
       monthRow.appendChild(t);
     });
 
+    var show = document.createElement('div');
+    show.className = 'bp-show';
+    show.setAttribute('role', 'group');
+    show.setAttribute('aria-label', 'Show');
+    var showTag = document.createElement('span');
+    showTag.className = 'bp-bar-label';
+    showTag.textContent = 'Show';
+    show.appendChild(showTag);
+    MODES.forEach(function (m) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'bp-chip' + (m[0] === 'stories' ? ' bp-chip-story' : '');
+      b.textContent = m[1];
+      b.setAttribute('aria-pressed', m[0] === mode ? 'true' : 'false');
+      b.addEventListener('click', function () {
+        if (m[0] === mode) return;
+        saveMode(m[0]);
+        rebuild(index, page, m[0]);
+      });
+      show.appendChild(b);
+    });
+    monthRow.appendChild(show);
+
     bar.appendChild(monthRow);
     bar.appendChild(dayRow);
 
-    var first = document.querySelector('article.post');
+    // Open the month of the first visible post on this page, else the newest month in view.
     var openKey = order[0];
-    if (first) {
-      for (var i = 0; i < index.posts.length; i++) {
-        if (index.posts[i].i === first.id) {
-          openKey = monthKey(index.posts[i].d);
-          break;
+    var arts = document.querySelectorAll('article.post');
+    outer: for (var a = 0; a < arts.length; a++) {
+      for (var i = 0; i < posts.length; i++) {
+        if (posts[i].i === arts[a].id) {
+          openKey = monthKey(posts[i].d);
+          break outer;
         }
       }
     }
     select(openKey, false);
+    applyMode(mode);
 
+    var first = document.querySelector('article.post');
     var feed = document.querySelector('main.blog-feed') || (first && first.parentElement);
     if (!feed) return;
     // A reserved slot in the page holds the bar's place before this script
     // runs, so inserting the bar does not push the feed down after first paint.
+    var old = document.querySelector('nav.bp-bar');
     var slot = document.querySelector('.bp-bar-slot');
+    if (old) {
+      old.replaceWith(bar);
+      document.documentElement.style.setProperty('--bp-bar-h', bar.offsetHeight + 'px');
+      return;
+    }
     if (slot) slot.replaceWith(bar); else feed.parentElement.insertBefore(bar, feed);
 
     // The site header is fixed and the bar sticks under it. Publish both
@@ -230,6 +330,10 @@
     } else {
       window.addEventListener('resize', setH);
     }
+  }
+
+  function rebuild(index, page, mode) {
+    build(index, page, mode);
   }
 
   /* Fallback: a page with no index still gets the old one-chip-per-entry bar. */
@@ -298,7 +402,7 @@
     window.addEventListener('hashchange', function () {
       resolveHash(index, page);
     });
-    build(index, page);
+    build(index, page, readMode());
     settle();
   }
 

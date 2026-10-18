@@ -328,7 +328,7 @@ function pager(current, chunks, totalPosts, place) {
 function indexBlock(chunks) {
   const posts = []
   chunks.forEach((chunk, i) => {
-    for (const p of chunk) posts.push({ i: p.id, p: i + 1, d: p.date, t: p.title })
+    for (const p of chunk) posts.push(p.kind === 'story' ? { i: p.id, p: i + 1, d: p.date, t: p.title, k: 's' } : { i: p.id, p: i + 1, d: p.date, t: p.title })
   })
   const payload = { pageSize: PAGE_SIZE, pages: chunks.length, posts }
   return `<script type="application/json" id="bp-index">${JSON.stringify(payload).replace(/</g, '\\u003c')}</script>`
