@@ -553,15 +553,23 @@
   function boot() {
     var pillHidden = false;
     try { pillHidden = sessionStorage.getItem('aps_star_pill_hidden') === '1'; } catch (e) {}
-    // First visit in this browser: the star popup opens once by itself. Closing it wraps it into the mascot.
-    if (MOBILE) {
-      // On a phone the popup would cover the whole pitch, so it never opens by itself there.
-      // The mascot slides in only once the visitor is engaged.
-      if (!pillHidden) onEngaged(function () { showPill(true); });
+    // The mascot always starts from the star popup. Once per visit, after the visitor is engaged
+    // (30 s on a computer, 40 s on a phone, or reading into the page), the popup opens by itself,
+    // and closing it wraps it into the mascot. The engagement wait keeps it off the pitch for
+    // visitors who leave in the first seconds, on phones included.
+    var introDone = false;
+    try { introDone = sessionStorage.getItem('aps_star_intro') === '1'; } catch (e) {}
+    if (pillHidden) return;
+    if (!introDone) {
+      onEngaged(function () {
+        try { sessionStorage.setItem('aps_star_intro', '1'); } catch (e) {}
+        st.introAt = Date.now(); save(st);
+        open(false);
+      });
       return;
     }
-    if (!st.introAt) { onEngaged(function () { st.introAt = Date.now(); save(st); open(false); }); return; }
-    if (!pillHidden) showPill();
+    // Later in the same visit the mascot is already there, silent until engaged.
+    if (MOBILE) onEngaged(function () { showPill(true); }); else showPill();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
