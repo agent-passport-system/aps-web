@@ -1,7 +1,9 @@
 /* aps-star.js: "Star APS" prompt with a second step for email updates.
    No third-party code, no tracking. State lives in localStorage under aps_star_v1.
-   On the first visit in a browser the prompt opens once by itself. Closing it shrinks it into
-   the corner mascot, which opens a guided chat when clicked.
+   On a desktop first visit the prompt opens once by itself, after the visitor has stayed 30 seconds
+   or moved past the first scenes. Closing it shrinks it into the corner mascot, which opens a guided
+   chat. On phones the prompt never opens by itself and the mascot appears only after 40 seconds or
+   the same scroll signal.
    Skip closes the dialog. The email step follows only a click on the star button. */
 (function () {
   'use strict';
@@ -230,22 +232,52 @@
     if (then) later(then, lines.length * gap);
   }
 
+  // Engagement gate. Nothing asks for attention until the visitor has spent ENGAGE_MS with the tab
+  // visible, or has moved past the first two scenes of the homepage and stayed a few seconds.
+  // People who bounce in the first seconds never see the popup or hear the mascot.
+  var MOBILE = !!(window.matchMedia && window.matchMedia('(max-width:720px)').matches);
+  var ENGAGE_MS = MOBILE ? 40000 : 30000;
+  var engaged = false, engageWaiters = [], engageStarted = false;
+  function onEngaged(fn) { if (engaged) { fn(); return; } engageWaiters.push(fn); startEngagement(); }
+  function markEngaged() { if (engaged) return; engaged = true; var w = engageWaiters; engageWaiters = []; w.forEach(function (f) { try { f(); } catch (e) {} }); }
+  function startEngagement() {
+    if (engageStarted) return; engageStarted = true;
+    var active = 0, last = Date.now();
+    var iv = setInterval(function () {
+      var now = Date.now(); if (!document.hidden) active += now - last; last = now;
+      if (active >= ENGAGE_MS) { clearInterval(iv); markEngaged(); }
+    }, 1000);
+    var deep = document.getElementById('scene-2');
+    var dwell = MOBILE ? 8000 : 4000;
+    if (deep && 'IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) {
+        if (es.some(function (e) { return e.isIntersecting; })) { io.disconnect(); setTimeout(markEngaged, dwell); }
+      }, { threshold: 0.4 });
+      io.observe(deep);
+    } else {
+      window.addEventListener('scroll', function sc() {
+        if (window.scrollY > window.innerHeight * 1.5) { window.removeEventListener('scroll', sc); setTimeout(markEngaged, dwell); }
+      }, { passive: true });
+    }
+  }
+
   function schedule() {
-    // One exchange shortly after load, then a single line now and then. Never more than every 45 seconds.
+    // One exchange once the visitor is engaged, then a single line now and then. Never more than every 45 seconds.
     clearTimers();
     if (reduce) { later(function () { say('star', 'Hey! Wanna talk?', ''); }, 2500); return; }
-    var lines = firstRun ? SCRIPT : []; firstRun = false;
-    later(function () {
+    var lines = firstRun ? (MOBILE ? [SCRIPT[0], SCRIPT[4]] : SCRIPT) : []; firstRun = false;
+    var gap = MOBILE ? 90000 : 45000;
+    onEngaged(function () { later(function () {
       play(lines, 3200, function () {
         (function next() {
           later(function () {
             if (document.hidden) { next(); return; }
             say.apply(null, LATER[laterIdx++ % LATER.length]);
             next();
-          }, 45000 + Math.random() * 30000);
+          }, gap + Math.random() * 30000);
         })();
       });
-    }, 3500);
+    }, 1500); });
   }
 
   function showPill(pop) {
@@ -521,7 +553,13 @@
     var pillHidden = false;
     try { pillHidden = sessionStorage.getItem('aps_star_pill_hidden') === '1'; } catch (e) {}
     // First visit in this browser: the star popup opens once by itself. Closing it wraps it into the mascot.
-    if (!st.introAt) { st.introAt = Date.now(); save(st); setTimeout(function () { open(false); }, 1200); return; }
+    if (MOBILE) {
+      // On a phone the popup would cover the whole pitch, so it never opens by itself there.
+      // The mascot slides in only once the visitor is engaged.
+      if (!pillHidden) onEngaged(function () { showPill(true); });
+      return;
+    }
+    if (!st.introAt) { onEngaged(function () { st.introAt = Date.now(); save(st); open(false); }); return; }
     if (!pillHidden) showPill();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
