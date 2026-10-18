@@ -178,6 +178,7 @@
   // The corner mascot: the cat with the star, a silent transparent loop, and a short scripted
   // exchange in speech bubbles built in HTML so the lines stay editable. Click opens the dialog.
   var M = '/assets/mascot/aps-mascot';
+  var MV = '?v=2';
   var SCRIPT = [
     ['star', 'Hey! Wanna talk?', '!'],
     ['cat', 'What?', '?'],
@@ -240,10 +241,10 @@
     pill.setAttribute('aria-label', 'Talk to us: star APS, ask a question or ask about a pilot');
     var media;
     if (reduce) {
-      media = '<img class="apsm-still" src="' + M + '.webp" alt="" width="118" height="182">';
+      media = '<img class="apsm-still" src="' + M + '.webp' + MV + '" alt="" width="118" height="182">';
     } else {
-      media = '<video muted loop playsinline autoplay preload="auto" poster="' + M + '.png" aria-hidden="true" width="118" height="182">' +
-        (isSafari() ? '<source src="' + M + '.mov" type=\'video/quicktime; codecs="hvc1"\'>' : '<source src="' + M + '.webm" type="video/webm">') +
+      media = '<video muted loop playsinline autoplay preload="auto" poster="' + M + '.png' + MV + '" aria-hidden="true" width="118" height="182">' +
+        (isSafari() ? '<source src="' + M + '.mov' + MV + '" type=\'video/quicktime; codecs="hvc1"\'>' : '<source src="' + M + '.webm' + MV + '" type="video/webm">') +
         '</video>';
     }
     pill.innerHTML = '<div class="apsm-b" aria-live="polite"></div><span class="apsm-e" aria-hidden="true"></span>' + media +
