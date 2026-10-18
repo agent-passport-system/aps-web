@@ -1,7 +1,7 @@
 /* aps-star.js: "Star APS" prompt with a second step for email updates.
    No third-party code, no tracking. State lives in localStorage under aps_star_v1.
-   The prompt never opens on its own: a small pill sits at the edge of the page and the
-   dialog opens only when someone clicks it, so the content is never covered uninvited.
+   On the first visit in a browser the prompt opens once by itself. Closing it shrinks it into
+   the corner mascot, which opens a guided chat when clicked.
    Skip closes the dialog. The email step follows only a click on the star button. */
 (function () {
   'use strict';
@@ -68,6 +68,8 @@
   '.apsm-b .who{display:block;font:600 10px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#0A5CFF;margin-bottom:4px}' +
   '.apsm-e{position:absolute;z-index:3;font:800 22px/1 Archivo,system-ui,sans-serif;color:#FFC400;-webkit-text-stroke:1.5px #13203F;opacity:0;pointer-events:none}' +
   '.apsm-e.on{animation:apsmPop 1.4s ease-out forwards}' +
+  '.apsm.apsm-pop{animation:apsmIn .35s cubic-bezier(.2,1.4,.5,1)}' +
+  '@keyframes apsmIn{0%{opacity:0;transform:scale(.3)}100%{opacity:1;transform:none}}' +
   '.apsm-e.cat{top:22px;right:-4px}' +
   '.apsm-e.star{top:58px;right:76px}' +
   '@keyframes apsmPop{0%{opacity:0;transform:translateY(6px) scale(.6)}20%{opacity:1;transform:translateY(0) scale(1.1)}70%{opacity:1;transform:translateY(-4px) scale(1)}100%{opacity:0;transform:translateY(-10px) scale(1)}}' +
@@ -172,13 +174,25 @@
   }
   function minimize() {
     st.minimizedAt = Date.now(); save(st);
+    var d = dlg, o = ov;
+    if (d && o && !reduce) {
+      // The dialog shrinks toward the corner, and the mascot appears where it lands.
+      var r = d.getBoundingClientRect();
+      var tx = (window.innerWidth - 73) - (r.left + r.width / 2), ty = (window.innerHeight - 101) - (r.top + r.height / 2);
+      d.style.transition = 'transform .45s cubic-bezier(.55,0,.8,.2), opacity .45s';
+      d.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(.1)';
+      d.style.opacity = '0';
+      o.style.transition = 'background .45s'; o.style.background = 'transparent';
+      setTimeout(function () { closeDialog(); showPill(true); }, 430);
+      return;
+    }
     closeDialog();
     showPill();
   }
   // The corner mascot: the cat with the star, a silent transparent loop, and a short scripted
   // exchange in speech bubbles built in HTML so the lines stay editable. Click opens the dialog.
   var M = '/assets/mascot/aps-mascot';
-  var MV = '?v=2';
+  var MV = '?v=3';
   var SCRIPT = [
     ['star', 'Hey! Wanna talk?', '!'],
     ['cat', 'What?', '?'],
@@ -234,8 +248,8 @@
     }, 3500);
   }
 
-  function showPill() {
-    if (pill) { pill.style.display = 'block'; if (vid) try { vid.play(); } catch (e) {} schedule(); return; }
+  function showPill(pop) {
+    if (pill) { if (pop) { pill.classList.remove('apsm-pop'); void pill.offsetWidth; pill.classList.add('apsm-pop'); } pill.style.display = 'block'; if (vid) try { vid.play(); } catch (e) {} schedule(); return; }
     pill = document.createElement('div');
     pill.className = 'apsm'; pill.setAttribute('role', 'button'); pill.setAttribute('tabindex', '0');
     pill.setAttribute('aria-label', 'Talk to us: star APS, ask a question or ask about a pilot');
@@ -252,10 +266,11 @@
     vid = pill.querySelector('video');
     pill.addEventListener('click', function (e) {
       if (e.target.closest('.apsm-x')) { try { sessionStorage.setItem('aps_star_pill_hidden', '1'); } catch (x) {} clearTimers(); pill.remove(); pill = null; return; }
-      clearTimers(); open(true);
+      clearTimers(); openChat();
     });
-    pill.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); clearTimers(); open(true); } });
+    pill.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); clearTimers(); openChat(); } });
     document.addEventListener('visibilitychange', function () { if (!vid) return; if (document.hidden) vid.pause(); else try { vid.play(); } catch (x) {} });
+    if (pop) pill.classList.add('apsm-pop');
     document.body.appendChild(pill);
     // The homepage has fixed previous and next buttons in the bottom right corner. Sit above them.
     var bn = document.querySelector('.bottom-nav');
@@ -264,9 +279,241 @@
     schedule();
   }
 
+  // ---------------------------------------------------------------------------
+  // The chat the mascot opens. A guided conversation, no AI model behind it yet:
+  // it answers what APS is from approved copy, takes a free pilot request or a
+  // message, sends both through /api/contact, offers email updates through
+  // /api/subscribe, and asks for a GitHub star. A free question is passed on to
+  // a person by email, and the chat says so.
+  var chat = null, chatLog = null, chatIn = null, chatForm = null, chips = null;
+  var flow = null, data = {}, askedStar = false;
+  var CONTACT = '/api/contact';
+  var chatCss = '' +
+  '.apsc{position:fixed;right:14px;bottom:200px;z-index:9985;width:min(360px,calc(100vw - 24px));height:min(520px,calc(100vh - 230px));min-height:320px;display:flex;flex-direction:column;background:#fff;color:#13203F;border:2px solid #13203F;border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,.25);font:15px/1.45 Archivo,system-ui,sans-serif;opacity:0;transform:translateY(14px) scale(.97);transform-origin:100% 100%;transition:opacity .2s,transform .2s;overflow:hidden}' +
+  '.apsc.on{opacity:1;transform:none}' +
+  '.apsc-h{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid #DCE4F5;background:#F4F7FF}' +
+  '.apsc-h img{width:34px;height:52px;object-fit:contain}' +
+  '.apsc-h b{display:block;font-size:15px}.apsc-h small{display:block;font-size:12px;color:#5A6680}' +
+  '.apsc-x{margin-left:auto;width:30px;height:30px;border-radius:50%;border:1px solid #C8D3EA;background:#fff;color:#13203F;font-size:16px;line-height:1;cursor:pointer}' +
+  '.apsc-log{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}' +
+  '.apsc-m{max-width:86%;padding:8px 11px;border-radius:14px;white-space:pre-wrap;word-break:break-word}' +
+  '.apsc-m .who{display:block;font:600 10px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px;color:#0A5CFF}' +
+  '.apsc-m.star{align-self:flex-start;background:#FFF6C7;border:1px solid #F2D35B;border-bottom-left-radius:4px}' +
+  '.apsc-m.cat{align-self:flex-start;background:#FFEBDD;border:1px solid #F2B98F;border-bottom-left-radius:4px}' +
+  '.apsc-m.me{align-self:flex-end;background:#0A5CFF;color:#fff;border-bottom-right-radius:4px}' +
+  '.apsc-m a{color:inherit;font-weight:600}' +
+  '.apsc-chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px 8px}' +
+  '.apsc-chip{border:1.5px solid #0A5CFF;background:#fff;color:#0A5CFF;border-radius:999px;padding:6px 11px;font:600 13px/1 Archivo,system-ui,sans-serif;cursor:pointer;text-decoration:none}' +
+  '.apsc-chip:hover{background:#0A5CFF;color:#fff}' +
+  '.apsc-chip.gh{border-color:#13203F;color:#13203F}.apsc-chip.gh:hover{background:#13203F;color:#FFF200}' +
+  '.apsc-f{display:flex;gap:6px;padding:10px 12px;border-top:1px solid #DCE4F5}' +
+  '.apsc-f input{flex:1;min-width:0;padding:9px 11px;border:1.5px solid #C8D3EA;border-radius:10px;font:15px Archivo,system-ui,sans-serif;color:#13203F;outline:none}' +
+  '.apsc-f input:focus{border-color:#0A5CFF}' +
+  '.apsc-f button{padding:0 14px;border:0;border-radius:10px;background:#0A5CFF;color:#fff;font:600 14px Archivo,system-ui,sans-serif;cursor:pointer}' +
+  '.apsc-note{padding:0 12px 8px;font-size:11.5px;color:#6A7590}' +
+  '@media (max-width:720px){.apsc{right:8px;bottom:150px;height:min(480px,calc(100vh - 170px))}}' +
+  '@media (prefers-reduced-motion:reduce){.apsc{transition:none}}';
+  var chatStyle = document.createElement('style'); chatStyle.textContent = chatCss; document.head.appendChild(chatStyle);
+
+  function cMsg(who, html) {
+    var d = document.createElement('div');
+    d.className = 'apsc-m ' + who;
+    d.innerHTML = (who === 'me' ? '' : '<span class="who">' + (who === 'cat' ? 'Cat' : 'Star') + '</span>') + html;
+    chatLog.appendChild(d); chatLog.scrollTop = chatLog.scrollHeight;
+  }
+  function cSay(lines, then) {
+    // lines: [[who, html], ...] shown one by one so it reads like a conversation
+    var i = 0;
+    (function next() {
+      if (!chat) return;
+      if (i >= lines.length) { if (then) then(); return; }
+      cMsg(lines[i][0], lines[i][1]); i++;
+      setTimeout(next, reduce ? 0 : 450);
+    })();
+  }
+  function cChips(list) {
+    chips.innerHTML = '';
+    list.forEach(function (c) {
+      var b;
+      if (c.href) { b = document.createElement('a'); b.href = c.href; b.target = '_blank'; b.rel = 'noopener'; }
+      else { b = document.createElement('button'); b.type = 'button'; }
+      b.className = 'apsc-chip' + (c.gh ? ' gh' : '');
+      b.textContent = c.label;
+      b.addEventListener('click', function () { if (!c.href) cMsg('me', esc(c.label)); chips.innerHTML = ''; if (c.go) c.go(); });
+      chips.appendChild(b);
+    });
+    chatLog.scrollTop = chatLog.scrollHeight;
+  }
+  var MENU = function () {
+    return [
+      { label: 'What is APS?', go: whatIs },
+      { label: 'Free pilot', go: pilot },
+      { label: 'Contact us', go: contact },
+      { label: '★ Star on GitHub', go: starAsk },
+      { label: 'Email updates', go: updates }
+    ];
+  };
+  function menu(text) { cSay([['cat', text || 'Anything else?']], function () { cChips(MENU()); }); }
+
+  function whatIs() {
+    cSay([
+      ['star', 'Agent Passport System is an open protocol, Apache 2.0. It gives an AI agent a verifiable identity, ties it to the person or company it acts for, and enforces the scope, budget and conditions of its authority.'],
+      ['cat', 'Every permitted action gets a signed receipt, and every refused action leaves evidence. So afterwards you can check who authorized what, and what happened.']
+    ], function () {
+      cChips([
+        { label: 'Read the docs ↗', href: '/docs.html' },
+        { label: 'Free pilot', go: pilot },
+        { label: '★ Star on GitHub', go: starAsk },
+        { label: 'Something else', go: function () { menu('Sure. What else?'); } }
+      ]);
+    });
+  }
+
+  // A small form spread over the conversation: each step asks, the input box answers.
+  function ask(field, question, opts) {
+    flow = { field: field, opts: opts || {} };
+    cSay([[opts && opts.who || 'star', question]], function () {
+      chatIn.type = field === 'email' ? 'email' : 'text';
+      chatIn.placeholder = (opts && opts.ph) || '';
+      if (opts && opts.skip) cChips([{ label: 'Skip', go: function () { answer(''); } }]);
+      chatIn.focus();
+    });
+  }
+  function answer(v) {
+    var f = flow; if (!f) return;
+    if (f.field === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) { cSay([['cat', 'That email does not look right. Try again?']]); return; }
+    if (!v && !f.opts.skip) { chatIn.focus(); return; }
+    data[f.field] = v; flow = null; chips.innerHTML = '';
+    chatIn.type = 'text'; chatIn.placeholder = 'Ask about APS or type a message';
+    if (f.opts.next) f.opts.next();
+  }
+
+  function pilot() {
+    data = { topic: 'Pilot request (chat)' };
+    cSay([
+      ['cat', 'A pilot means we take one workflow where your agents act, run it under APS with a check before each action and signed receipts, and look at the result together. No fees either way.'],
+    ], function () {
+      ask('name', 'Great. What is your name?', { ph: 'Your name', next: function () {
+        ask('email', 'Where should Tymofii reply?', { ph: 'you@company.com', next: function () {
+          ask('org', 'Company or project?', { ph: 'Optional', skip: true, next: function () {
+            ask('message', 'What do your agents do today, or what do you want them to do?', { who: 'cat', ph: 'One or two sentences', next: send });
+          } });
+        } });
+      } });
+    });
+  }
+  function contact() {
+    data = { topic: 'Message (chat)' };
+    ask('name', 'Sure. What is your name?', { ph: 'Your name', next: function () {
+      ask('email', 'Where should the reply go?', { ph: 'you@company.com', next: function () {
+        ask('message', 'What would you like to say?', { who: 'cat', ph: 'Your message', next: send });
+      } });
+    } });
+  }
+  function freeQuestion(q) {
+    data = { topic: 'Question (chat)', message: q };
+    cSay([['star', 'Good question. I can only answer a few things myself so far, so I will pass it to Tymofii, who built APS, and he will get back to you by email.']], function () {
+      ask('name', 'What is your name?', { ph: 'Your name', next: function () {
+        ask('email', 'And your email?', { ph: 'you@company.com', next: send });
+      } });
+    });
+  }
+  function send() {
+    cSay([['cat', 'Sending…']]);
+    var body = { name: data.name || '', email: data.email || '', org: data.org || '', topic: data.topic, message: data.message || '', content_sha256: '', website: '' };
+    var p = window.fetch ? fetch(CONTACT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().catch(function () { return {}; }); }) : Promise.resolve({});
+    p.catch(function () { return {}; }).then(function (j) {
+      if (j && j.ok) {
+        cSay([['star', 'Sent. Tymofii will get back to you by email.']], afterAction);
+      } else {
+        cSay([['cat', 'That did not go through. You can write to <a href="mailto:signal@aeoess.com">signal@aeoess.com</a> instead, a person reads it.']], function () { cChips(MENU()); });
+      }
+    });
+  }
+  function afterAction() {
+    if (!askedStar && !st.starred) { askedStar = true; setTimeout(starAsk, reduce ? 0 : 600); return; }
+    menu();
+  }
+  function starAsk() {
+    askedStar = true;
+    cSay([
+      ['cat', 'One more thing. A GitHub star helps the next person who needs this find it. It takes one click.'],
+      ['star', 'And it makes me shine ★']
+    ], function () {
+      cChips([
+        { label: '★ Star APS on GitHub ↗', href: REPO, gh: true, go: function () { st.starred = Date.now(); save(st); setTimeout(function () { cSay([['star', 'Thank you! That means a lot.']], function () { menu(); }); }, 400); } },
+        { label: 'Maybe later', go: function () { menu('No problem.'); } }
+      ]);
+    });
+  }
+  function updates() {
+    if (st.subscribed) { menu('You are already on the list. Anything else?'); return; }
+    ask('email', 'Releases, spec changes and dev log highlights, a few emails a month at most. Your email?', { ph: 'you@company.com', next: function () {
+      fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: data.email, hp: '', source: 'mascot-chat' }) })
+        .then(function (r) { return r.json().catch(function () { return {}; }); }).catch(function () { return {}; })
+        .then(function (j) {
+          if (j && j.ok) { st.subscribed = Date.now(); save(st); cSay([['star', 'Check your inbox for a confirmation link. Nothing is stored until you open it.']], afterAction); }
+          else cSay([['cat', 'Could not subscribe right now. Try again later, or mail signal@aeoess.com.']], function () { cChips(MENU()); });
+        });
+    } });
+  }
+
+  function openChat() {
+    if (chat) { chatIn.focus(); return; }
+    clearTimers();
+    if (pill) pill.querySelector('.apsm-b').classList.remove('on');
+    chat = document.createElement('div');
+    chat.className = 'apsc'; chat.setAttribute('role', 'dialog'); chat.setAttribute('aria-label', 'Chat with the APS cat and star');
+    chat.innerHTML =
+      '<div class="apsc-h"><img src="' + M + '.webp' + MV + '" alt=""><div><b>Cat &amp; Star</b><small>Agent Passport System</small></div>' +
+      '<button class="apsc-x" type="button" aria-label="Close chat">&#215;</button></div>' +
+      '<div class="apsc-log" aria-live="polite"></div><div class="apsc-chips"></div>' +
+      '<form class="apsc-f"><input type="text" autocomplete="off" aria-label="Your message" placeholder="Ask about APS or type a message"><button type="submit">Send</button></form>' +
+      '<div class="apsc-note">A guided chat, not an AI. Messages go to a person by email.</div>';
+    document.body.appendChild(chat);
+    var bn = pill && pill.style.bottom ? parseInt(pill.style.bottom, 10) : 10;
+    chat.style.bottom = (bn + (window.innerWidth <= 720 ? 140 : 188)) + 'px';
+    chatLog = chat.querySelector('.apsc-log'); chips = chat.querySelector('.apsc-chips');
+    chatForm = chat.querySelector('.apsc-f'); chatIn = chatForm.querySelector('input');
+    chat.querySelector('.apsc-x').addEventListener('click', closeChat);
+    chatForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = (chatIn.value || '').trim(); chatIn.value = '';
+      if (flow) { cMsg('me', esc(v)); answer(v); return; }
+      if (!v) return;
+      cMsg('me', esc(v)); chips.innerHTML = '';
+      var q = v.toLowerCase();
+      if (/pilot/.test(q)) pilot();
+      else if (/star|github/.test(q)) starAsk();
+      else if (/what is|what's|explain|how does|aps\b|passport/.test(q)) whatIs();
+      else if (/contact|email you|talk to|human|person/.test(q)) contact();
+      else if (/update|newsletter|subscribe/.test(q)) updates();
+      else freeQuestion(v);
+    });
+    document.addEventListener('keydown', chatKey);
+    requestAnimationFrame(function () { chat.classList.add('on'); });
+    flow = null; data = {};
+    cSay([
+      ['star', 'Hi! I am the star, and this is the cat. We look after Agent Passport System.'],
+      ['cat', 'Ask us about APS, start a free pilot, or leave a message for Tymofii.']
+    ], function () { cChips(MENU()); chatIn.focus(); });
+  }
+  function chatKey(e) { if (e.key === 'Escape') closeChat(); }
+  function closeChat() {
+    if (!chat) return;
+    document.removeEventListener('keydown', chatKey);
+    var c = chat; chat = null; flow = null;
+    c.classList.remove('on');
+    setTimeout(function () { if (c.parentNode) c.parentNode.removeChild(c); }, reduce ? 0 : 220);
+    schedule();
+  }
+
   function boot() {
     var pillHidden = false;
     try { pillHidden = sessionStorage.getItem('aps_star_pill_hidden') === '1'; } catch (e) {}
+    // First visit in this browser: the star popup opens once by itself. Closing it wraps it into the mascot.
+    if (!st.introAt) { st.introAt = Date.now(); save(st); setTimeout(function () { open(false); }, 1200); return; }
     if (!pillHidden) showPill();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
