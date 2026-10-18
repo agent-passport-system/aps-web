@@ -53,6 +53,23 @@
   '.apsx-pill .apsx-px{margin-left:4px;width:24px;height:24px;border-radius:50%;border:1px solid var(--x-line);background:transparent;color:var(--x-sub);font-size:13px;line-height:1;cursor:pointer}' +
   '.apsx-pill .apsx-px:hover{color:var(--x-fg);border-color:var(--x-acc)}' +
   '@media (max-width:720px){.apsx-dlg{grid-template-columns:1fr;max-height:calc(100vh - 24px);align-items:start}.apsx-img{width:100%;max-width:100%;height:auto}.apsx-body{padding:22px 20px 20px}.apsx-h{font-size:32px}.apsx-pill{right:12px;bottom:12px}.apsx-pill span.t{display:none}}' +
+  '.apsm{position:fixed;right:14px;bottom:10px;z-index:9980;width:118px;height:182px;cursor:pointer;background:none;border:0;padding:0;-webkit-tap-highlight-color:transparent}' +
+  '.apsm:focus-visible{outline:3px solid var(--x-acc);outline-offset:4px;border-radius:12px}' +
+  '.apsm video,.apsm img.apsm-still{display:block;width:118px;height:182px;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(0,0,0,.18));transition:transform .2s}' +
+  '.apsm:hover video,.apsm:hover img.apsm-still{transform:translateY(-3px)}' +
+  '.apsm-x{position:absolute;top:2px;right:-2px;width:22px;height:22px;border-radius:50%;border:1px solid rgba(19,32,63,.25);background:#fff;color:#13203F;font:13px/1 Archivo,system-ui,sans-serif;cursor:pointer;opacity:0;transition:opacity .2s}' +
+  '.apsm:hover .apsm-x,.apsm:focus-within .apsm-x{opacity:1}' +
+  '.apsm-b{position:absolute;right:104px;max-width:190px;width:max-content;padding:9px 13px;background:#fff;color:#13203F;border:2px solid #13203F;border-radius:18px 16px 19px 15px;font:600 14px/1.3 Archivo,system-ui,sans-serif;text-align:left;box-shadow:0 6px 18px rgba(0,0,0,.14);opacity:0;transform:translateY(6px) scale(.96);transform-origin:100% 100%;transition:opacity .22s,transform .22s;pointer-events:none}' +
+  '.apsm-b.on{opacity:1;transform:none}' +
+  '.apsm-b:after{content:"";position:absolute;right:-9px;bottom:12px;width:14px;height:14px;background:#fff;border-right:2px solid #13203F;border-bottom:2px solid #13203F;transform:rotate(-45deg) skew(8deg,8deg)}' +
+  '.apsm-b.cat{top:10px}' +
+  '.apsm-b.star{top:84px}' +
+  '.apsm-b .who{display:block;font:600 10px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#0A5CFF;margin-bottom:4px}' +
+  '.apsm-e{position:absolute;font:800 22px/1 Archivo,system-ui,sans-serif;color:#FFC400;-webkit-text-stroke:1.5px #13203F;opacity:0;pointer-events:none}' +
+  '.apsm-e.on{animation:apsmPop 1.4s ease-out forwards}' +
+  '@keyframes apsmPop{0%{opacity:0;transform:translateY(6px) scale(.6)}20%{opacity:1;transform:translateY(0) scale(1.1)}70%{opacity:1;transform:translateY(-4px) scale(1)}100%{opacity:0;transform:translateY(-10px) scale(1)}}' +
+  '@media (max-width:720px){.apsm{right:8px;bottom:6px;width:88px;height:136px}.apsm video,.apsm img.apsm-still{width:88px;height:136px}.apsm-b{right:80px;max-width:160px;font-size:13px}.apsm-b.star{top:62px}}' +
+  '@media (prefers-reduced-motion:reduce){.apsm-b,.apsm video,.apsm img.apsm-still{transition:none}.apsm-e{display:none}}' +
   '@media (prefers-reduced-motion:reduce){.apsx-ov,.apsx-dlg,.apsx-pill{transition:none}}';
 
   var style = document.createElement('style'); style.textContent = css; document.head.appendChild(style);
@@ -72,7 +89,7 @@
         '<div class="apsx-eyebrow"><i></i>Open protocol · Apache 2.0</div>' +
         '<h2 class="apsx-h">Be a legend. <em>Star APS.</em></h2>' +
         '<p class="apsx-p">One star helps the protocol get found by the next person who needs it. Small click. Big impact.</p>' +
-        '<div class="apsx-row"><a class="apsx-btn pri" id="apsxStar" href="' + REPO + '" target="_blank" rel="noopener">&#9733; Star on GitHub &#8599;</a><button class="apsx-link" id="apsxSkip" type="button">Skip for now</button></div>' +
+        '<div class="apsx-row"><a class="apsx-btn pri" id="apsxStar" href="' + REPO + '" target="_blank" rel="noopener">&#9733; Star on GitHub &#8599;</a><a class="apsx-link" href="/contact.html">Ask about a pilot</a><button class="apsx-link" id="apsxSkip" type="button">Skip for now</button></div>' +
         '<div class="apsx-note">github.com/agent-passport-system/agent-passport-system</div>';
       var star = body.querySelector('#apsxStar');
       // After the star, ask for email only if this browser has not subscribed yet.
@@ -134,7 +151,7 @@
     ov.addEventListener('click', function (e) { if (e.target === ov) minimize(); });
     document.addEventListener('keydown', onKey);
     document.body.appendChild(ov);
-    if (pill) pill.style.display = 'none';
+    if (pill) { pill.style.display = 'none'; clearTimers(); if (vid) try { vid.pause(); } catch (e) {} }
     // The star ask always comes first, whatever happened on earlier visits.
     step = 1;
     render();
@@ -155,14 +172,94 @@
     closeDialog();
     showPill();
   }
+  // The corner mascot: the cat with the star, a silent transparent loop, and a short scripted
+  // exchange in speech bubbles built in HTML so the lines stay editable. Click opens the dialog.
+  var M = '/assets/mascot/aps-mascot';
+  var SCRIPT = [
+    ['star', 'Hey! Wanna talk?', '!'],
+    ['cat', 'What?', '?'],
+    ['star', 'With them!', ''],
+    ['cat', 'Yeah, go ahead.', ''],
+    ['star', 'Hey, you! Click me!', '!']
+  ];
+  var LATER = [
+    ['star', 'Need something explained?', '?'],
+    ['cat', 'Give us a star.', '★'],
+    ['star', 'We’re open source on GitHub!', '★'],
+    ['cat', 'Running agents? Ask about a pilot.', '!']
+  ];
+  var timers = [], laterIdx = 0, vid = null, firstRun = true;
+  function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+  function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function isSafari() { var ua = navigator.userAgent; return /safari/i.test(ua) && !/chrome|chromium|crios|android|edg/i.test(ua); }
+
+  function say(who, text, sign) {
+    if (!pill || !document.body.contains(pill)) return;
+    var b = pill.querySelector('.apsm-b');
+    b.className = 'apsm-b ' + who;
+    b.innerHTML = '<span class="who">' + (who === 'cat' ? 'Cat' : 'Star') + '</span>' + esc(text);
+    requestAnimationFrame(function () { b.classList.add('on'); });
+    if (sign && !reduce) {
+      var e = pill.querySelector('.apsm-e');
+      e.textContent = sign;
+      e.style.top = who === 'cat' ? '-6px' : '70px';
+      e.style.right = who === 'cat' ? '10px' : '84px';
+      e.classList.remove('on'); void e.offsetWidth; e.classList.add('on');
+    }
+    later(function () { b.classList.remove('on'); }, 2600);
+  }
+
+  function play(lines, gap, then) {
+    lines.forEach(function (l, i) { later(function () { say(l[0], l[1], l[2]); }, i * gap); });
+    if (then) later(then, lines.length * gap);
+  }
+
+  function schedule() {
+    // One exchange shortly after load, then a single line now and then. Never more than every 45 seconds.
+    clearTimers();
+    if (reduce) { later(function () { say('star', 'Hey! Wanna talk?', ''); }, 2500); return; }
+    var lines = firstRun ? SCRIPT : []; firstRun = false;
+    later(function () {
+      play(lines, 3200, function () {
+        (function next() {
+          later(function () {
+            if (document.hidden) { next(); return; }
+            say.apply(null, LATER[laterIdx++ % LATER.length]);
+            next();
+          }, 45000 + Math.random() * 30000);
+        })();
+      });
+    }, 3500);
+  }
+
   function showPill() {
-    if (pill) { pill.style.display = 'flex'; return; }
+    if (pill) { pill.style.display = 'block'; if (vid) try { vid.play(); } catch (e) {} schedule(); return; }
     pill = document.createElement('div');
-    pill.className = 'apsx-pill'; pill.setAttribute('role', 'button'); pill.setAttribute('tabindex', '0'); pill.setAttribute('aria-label', 'Star APS on GitHub');
-    pill.innerHTML = '<img src="' + IMG_FALLBACK + '" alt="" width="36" height="36"><span class="t"><b>&#9733;</b> Star APS</span><button class="apsx-px" type="button" aria-label="Hide until next visit">&#215;</button>';
-    pill.addEventListener('click', function (e) { if (e.target.closest('.apsx-px')) { try { sessionStorage.setItem('aps_star_pill_hidden', '1'); } catch (x) {} pill.remove(); pill = null; return; } open(true); });
-    pill.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(true); } });
+    pill.className = 'apsm'; pill.setAttribute('role', 'button'); pill.setAttribute('tabindex', '0');
+    pill.setAttribute('aria-label', 'Talk to us: star APS, ask a question or ask about a pilot');
+    var media;
+    if (reduce) {
+      media = '<img class="apsm-still" src="' + M + '.webp" alt="" width="118" height="182">';
+    } else {
+      media = '<video muted loop playsinline autoplay preload="auto" poster="' + M + '.png" aria-hidden="true" width="118" height="182">' +
+        (isSafari() ? '<source src="' + M + '.mov" type=\'video/quicktime; codecs="hvc1"\'>' : '<source src="' + M + '.webm" type="video/webm">') +
+        '</video>';
+    }
+    pill.innerHTML = '<div class="apsm-b" aria-live="polite"></div><span class="apsm-e" aria-hidden="true"></span>' + media +
+      '<button class="apsm-x" type="button" aria-label="Hide until next visit">&#215;</button>';
+    vid = pill.querySelector('video');
+    pill.addEventListener('click', function (e) {
+      if (e.target.closest('.apsm-x')) { try { sessionStorage.setItem('aps_star_pill_hidden', '1'); } catch (x) {} clearTimers(); pill.remove(); pill = null; return; }
+      clearTimers(); open(true);
+    });
+    pill.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); clearTimers(); open(true); } });
+    document.addEventListener('visibilitychange', function () { if (!vid) return; if (document.hidden) vid.pause(); else try { vid.play(); } catch (x) {} });
     document.body.appendChild(pill);
+    // The homepage has fixed previous and next buttons in the bottom right corner. Sit above them.
+    var bn = document.querySelector('.bottom-nav');
+    function lift() { if (!pill || !bn) return; var r = bn.getBoundingClientRect(); var h = window.innerHeight - r.top; pill.style.bottom = (h > 0 && h < 200 ? h + 4 : 10) + 'px'; }
+    if (bn) { lift(); window.addEventListener('resize', lift); }
+    schedule();
   }
 
   function boot() {
