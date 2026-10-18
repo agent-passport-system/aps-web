@@ -1,0 +1,20 @@
+---
+id: "day-67-bbis-grammar-frcbe"
+title: "Day 67: BBIS grammar and FRCBE lock, three specs converge on shared vocabulary."
+date: "2026-04-23"
+kind: "devlog"
+source: "html"
+author: "Tymofii Pidlisnyi"
+---
+
+# Day 67: BBIS grammar and FRCBE lock, three specs converge on shared vocabulary.
+
+Overnight the critic who forced v1.1 of the enforcement-trust-anchor doc posted the answer to the open question that doc left on the table. If a Web2 target cannot verify delegation-bound authorization natively, and the architecture honestly labels the residual as unresolved at the wire format level, does BBIS treat the deployment as admissible? The answer is no. Honest declaration is a claim-grammar discipline, not an admissibility upgrade. Typed epistemic receipts narrow what APS can truthfully say about a path. They do not convert a non-refusal-capable path into a refusal-capable one. That correction matters because v1.1 was still softening the Class B framing more than the structural honesty allowed.
+
+The same reply proposed a classification grammar that maps cleanly onto the five-bucket taxonomy v1.1 had been using. Closed paths where the invariant survives refusal-capably to the true irreversible authority. Bounded paths where the same claim holds but only within an explicitly scoped primitive. Partial paths where some refusal boundaries still exist but do not survive all the way. Detectable-only paths where the evidence is strong but invalidity is still expressible at the true sink. And governance theater for non-closure claimed as closure. The grammar is sharper than what APS had on its own because it centers the invariant survival question rather than the cryptographic construction that attempts to establish the property. The construction is an implementation detail of the claim. The invariant survival is the claim itself. v1.2 of the trust-anchor doc adopts the BBIS vocabulary directly and credits Hensley's OWASP#817 as the source.
+
+The parallel move landed on qntm#7. The primitive that the capability-token spec had been calling the sink-signed effect receipt got a name: Final Refusal-Capable Boundary Event, FRCBE, coined in the same thread by the same author. v0.2 of the capability-token spec adopts the name, which also resolved an asymmetry the earlier draft had been carrying. M4 in v0.1 was doing double duty as both the boundary event and the post-execution record. v0.2 splits that. M4 is the FRCBE emission, the moment where authority either enables or refuses the specific mutation attempt and the sink signs the outcome. M5, new and optional, is a post-effect forensic record for deployments that want a separate trail after the fact. Most deployments omit M5. The boundary event is what matters for closure.
+
+Same morning, kenneives at AgentGraph posted on qntm#7 with concrete deliverables. CTEF v0.3 will accept `delegation_chain_root` as a composition field. A `/.well-known/cte-test-vectors.json` endpoint will publish byte-for-byte inputs with expected verdicts. Cross-test with APS plus AgentID plus AgentNexus by Apr 30. Kenne adopted FRCBE in the same comment: AgentGraph's `EnforcementVerdict` family is the verdict-shape taken at the FRCBE event, not a replacement for it. Three specs, three authors, three vocabularies locking onto the same architectural invariant within eighteen hours. That is what convergence actually looks like when the primitive is real.
+
+v1.2 of [ENFORCEMENT-TRUST-ANCHOR.md](https://github.com/aeoess/agent-passport-system/blob/feat/v1.2-bbis-grammar/docs/ENFORCEMENT-TRUST-ANCHOR.md) and v0.2 of [CAPABILITY-TOKEN-SPEC-DRAFT.md](https://github.com/aeoess/agent-passport-system/blob/feat/v1.2-bbis-grammar/docs/CAPABILITY-TOKEN-SPEC-DRAFT.md) are on the `feat/v1.2-bbis-grammar` branch, review before merge to main. Convergence posts live at [qntm#7](https://github.com/corpollc/qntm/issues/7#issuecomment-4306557584) and [OWASP#817](https://github.com/OWASP/www-project-top-10-for-large-language-model-applications/issues/817#issuecomment-4306557692). Vocabulary is converging across BBIS, APS, and AgentGraph. The shared words mean the shared primitive.

@@ -1,0 +1,16 @@
+---
+id: "day-104-three-records-and-a-binding-that-says-what-it-does-not-prove"
+title: "Day 104: Three records an auditor can walk, and a binding check that says what it does not prove."
+date: "2026-05-31"
+kind: "devlog"
+source: "html"
+author: "Tymofii Pidlisnyi"
+---
+
+# Day 104: Three records an auditor can walk, and a binding check that says what it does not prove.
+
+The W3C accountability-gap thread ([#34](https://github.com/w3c-cg/ai-agent-protocol/issues/34)) converged on a shape, so the subsection proposal went in. It builds an accountability record from three parts along the life of an action. A commitment says who was authorized to do what, and under which delegation chain. A decision says what authority and context were evaluated at the moment of action. A receipt says what actually happened, signed after the fact. Each part references the next by content hash, and none embeds the other, so every part stays independently verifiable and an auditor can ask for only the layer it needs. The serialization rides on plain W3C verifiable credentials linked by digest, with no new envelope format to adopt. The reasoning the agent applied binds inside the decision record. Whether the underlying claim was true stays in a separate belief layer, referenced and not inlined, because these records carry admissibility evidence and do not assert truth.
+
+A second thread ([A2A #1463](https://github.com/a2aproject/A2A/issues/1463)) asked a neighboring question, in-task authorization through an OID4VP extension. OID4VP proves who an agent is and that it presented a qualifying credential. It does not prove that the action the agent then took sat inside a sound authorization policy. In APS that second question is the scoped delegation chain, where each hop can only narrow authority, so the envelope a verifier checks against is the intersection along the chain, and a gateway evaluates the concrete call against it before execution. The credential and the delegation envelope reference each other by content hash. OID4VP answers who, and qualified. Scoped delegation and enforcement answer whether the action was allowed. The contributor confirmed the same attenuation model from their side.
+
+On the Cycles payment rail, a contributed verification check ([#42](https://github.com/aeoess/agent-passport-system/pull/42)) earned a careful review. It binds an APS receipt to the specific Cycles evidence envelope the receipt points at, by recomputing the envelope's content hash and confirming it matches both the envelope's own id and the hash the signed receipt committed to. That recompute reproduces the Cycles server's identifier byte for byte, so the binding is real and tampering with the envelope is caught. The honest part is the boundary. The check proves the receipt is bound to this envelope, and that the envelope is internally consistent. It does not verify the envelope's own signature against a Cycles signing key, which is a separate step now tracked for the next cut as issue [#43](https://github.com/aeoess/agent-passport-system/issues/43). A passing check means bound. It does not yet mean authentic, and the review asked the result to say so plainly rather than let a reader infer more.

@@ -78,6 +78,7 @@ MCP server (agent-passport-system-mcp 8.0.0): 152 tools over stdio; supports MCP
 ## Optional
 
 - [Dev log](https://agent-passport.org/blog.html): day-by-day build record from Feb 18 to present
+- [Blog as Markdown](https://agent-passport.org/blog/index.md): every dev log entry and story as its own Markdown file, newest first
 - [Storage SQLite package](https://www.npmjs.com/package/@aeoess/storage-sqlite): production single-gateway persistence with WAL mode
 - [Mingle MCP package](https://www.npmjs.com/package/mingle-mcp): standalone MCP server for the matching service
 - [Author homepage](https://tymofii.me): Tymofii Pidlisnyi

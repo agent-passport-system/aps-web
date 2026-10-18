@@ -14,6 +14,7 @@ If you landed here by fetching `https://agent-passport.org/AGENTS.md`, you are m
 
 - [llms.txt](https://agent-passport.org/llms.txt): short project index, Answer.AI standard
 - [llms-full.txt](https://agent-passport.org/llms-full.txt): full technical reference
+- [blog/index.md](https://agent-passport.org/blog/index.md): every dev log entry and story as its own Markdown file
 - [.well-known/aps.txt](https://agent-passport.org/.well-known/aps.txt): site-wide governance block (publisher DID, default data terms, revocation policy)
 - [.well-known/mcp.json](https://agent-passport.org/.well-known/mcp.json): MCP server discovery
 

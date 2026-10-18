@@ -747,6 +747,7 @@ This is not a replacement for either spec, not a prescription that all agents ne
 - Cited by: "PDR in Production" (University of British Columbia, 2026) — Section 7.6 validates APS earned reputation model, sigma dynamics, structuralVerdict/trustVerdict. DOI: https://doi.org/10.5281/zenodo.19323172
 - Protocol page: https://agent-passport.org/protocol.html
 - Dev log: https://agent-passport.org/blog.html
+- Blog as Markdown, one file per post: https://agent-passport.org/blog/index.md
 - Threat model: https://agent-passport.org/threat-model.html
 - Comparison: https://agent-passport.org/compare.html
 - Author: Tymofii Pidlisnyi (https://aeoess.com)

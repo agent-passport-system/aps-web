@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 // Split the dev log across numbered pages.
 //
-// blog.html is page 1 and stays the hand-edited file: a new post goes in
-// immediately after the <main class="blog-feed"> line, newest first, the same
-// way it always has. Running this script afterwards re-chunks every post
+// A new post is written as blog/<id>.md with source "md" in its front matter
+// (see scripts/blog-md.mjs). The build renders it into the pages next to the
+// posts of its date. Older posts were written in HTML inside blog.html and the
+// other pages, newest first, and they stay that way because dated posts are
+// never rewritten. Every post, either kind, is also published as
+// blog/<id>.md, and blog/index.md lists them all. Running this script afterwards re-chunks every post
 // across blog.html and blog-2.html .. blog-N.html, rewrites the pagers, and
 // re-inlines the post index that blog-nav.js reads.
 //
@@ -20,7 +23,8 @@
 // them behind until this script runs again. --check exits 1 when that has
 // happened, which is what a pre-push or self-check pass wants.
 
-import { readFileSync, writeFileSync, existsSync, unlinkSync } from 'node:fs'
+import { readFileSync, writeFileSync, existsSync, unlinkSync, readdirSync, mkdirSync } from 'node:fs'
+import { parseFrontMatter, articleHtml, htmlPostToMd } from './blog-md.mjs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -130,6 +134,8 @@ function collect() {
     }
     const html = readFileSync(p, 'utf8')
     for (const post of splitPosts(html)) {
+      // Posts rendered from blog/<id>.md are rebuilt from their source every run.
+      if (/^<article [^>]*data-source="md"/.test(post)) continue
       const meta = postMeta(post)
       if (seen.has(meta.id)) throw new Error(`duplicate post id across pages: ${meta.id}`)
       seen.add(meta.id)
@@ -137,6 +143,70 @@ function collect() {
     }
   }
   return all
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Posts written in Markdown
+// ─────────────────────────────────────────────────────────────────────────────
+// blog/<id>.md with source "md" is the source of that post. Each one is placed
+// above the first HTML post that is not newer than it, so a story dated to an
+// old day sits next to that day's dev log.
+
+const MD_DIR = join(root, 'blog')
+
+function mdPosts() {
+  if (!existsSync(MD_DIR)) return []
+  const out = []
+  for (const f of readdirSync(MD_DIR).filter((f) => f.endsWith('.md') && f !== 'index.md')) {
+    const { meta, body } = parseFrontMatter(readFileSync(join(MD_DIR, f), 'utf8'))
+    if (meta.source !== 'md') continue
+    if (`${meta.id}.md` !== f) throw new Error(`${f}: id in front matter is ${meta.id}`)
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(meta.date || '')) throw new Error(`${f}: no ISO date`)
+    if (!meta.title) throw new Error(`${f}: no title`)
+    // Strip the leading "# title" line, the page shows the title from front matter.
+    const text = body.replace(/^# [^\n]*\n+/, '')
+    out.push({ id: meta.id, date: meta.date, title: meta.title, day: null, kind: meta.kind || 'story', md: true, html: articleHtml(meta, text) })
+  }
+  return out.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.id < b.id ? -1 : 1))
+}
+
+function merge(htmlPosts, md) {
+  const all = [...htmlPosts]
+  const ids = new Set(all.map((p) => p.id))
+  // Oldest first, so posts sharing a date keep the newest-first order of the sort above.
+  for (const p of [...md].reverse()) {
+    if (ids.has(p.id)) throw new Error(`post id ${p.id} exists as both HTML and Markdown`)
+    ids.add(p.id)
+    let at = all.findIndex((q) => !q.md && q.date <= p.date)
+    if (at < 0) at = all.length
+    all.splice(at, 0, p)
+  }
+  return all
+}
+
+function kindOf(p) {
+  if (p.kind) return p.kind
+  return /^day-\d/.test(p.id) ? 'devlog' : 'article'
+}
+
+// Every post is published as /blog/<id>.md. Markdown sources are already
+// there, HTML posts get a derived copy, and blog/index.md lists them all.
+function markdownFiles(all) {
+  const files = new Map()
+  for (const p of all) {
+    if (p.md) continue
+    const html = p.html.replace(/^<!--[^\n]*-->\n/, '')
+    files.set(join(MD_DIR, `${p.id}.md`), htmlPostToMd(html, { id: p.id, title: p.title, date: p.date, kind: kindOf(p), canonical: '' }))
+  }
+  const lines = [
+    '# Agent Passport System blog',
+    '',
+    'Every post by Tymofii Pidlisnyi, newest first. Dev log posts are named by day and record what changed. Stories tell what happened around the work. Each link is the post as Markdown.',
+    '',
+  ]
+  for (const p of all) lines.push(`- ${p.date} [${p.title}](${SITE}/blog/${p.id}.md) (${kindOf(p)})`)
+  files.set(join(MD_DIR, 'index.md'), lines.join('\n') + '\n')
+  return files
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -273,6 +343,7 @@ function headFor(head, current, chunks) {
   const range = rangeLabel(chunks[current - 1])
   const rel = []
   rel.push(HEAD_START)
+  rel.push(`<link rel="alternate" type="text/markdown" href="${SITE}/blog/index.md" title="All posts as Markdown">`)
   if (current > 1) rel.push(`<link rel="prev" href="${SITE}${pageUrl(current - 1)}">`)
   if (current < total) rel.push(`<link rel="next" href="${SITE}${pageUrl(current + 1)}">`)
   rel.push(HEAD_END)
@@ -432,8 +503,9 @@ const CHECK = process.argv.includes('--check')
 function main() {
   const blogPath = join(root, 'blog.html')
   const shell = shellOf(readFileSync(blogPath, 'utf8'))
-  const all = collect()
+  const all = merge(collect(), mdPosts())
   if (!all.length) throw new Error('no posts found')
+  const mdFiles = markdownFiles(all)
 
   const chunks = []
   for (let i = 0; i < all.length; i += PAGE_SIZE) chunks.push(all.slice(i, i + PAGE_SIZE))
@@ -466,6 +538,9 @@ function main() {
       if (!existsSync(join(root, pageFile(n)))) break
       stale.push(`${pageFile(n)} (should not exist)`)
     }
+    for (const [p, text] of mdFiles) {
+      if (!existsSync(p) || readFileSync(p, 'utf8') !== text) stale.push(p.slice(root.length + 1))
+    }
     if (stale.length) {
       console.error(`Blog pages out of date: ${stale.join(', ')}`)
       console.error('Run: node scripts/build-blog-pages.mjs')
@@ -482,6 +557,22 @@ function main() {
     writeFileSync(feedPath, feed)
     console.log(`feed.xml     ${Math.min(FEED_SIZE, all.length)} newest entries`)
   }
+
+  if (!existsSync(MD_DIR)) mkdirSync(MD_DIR)
+  let wrote = 0
+  for (const [p, text] of mdFiles) {
+    if (existsSync(p) && readFileSync(p, 'utf8') === text) continue
+    writeFileSync(p, text)
+    wrote++
+  }
+  // A derived copy whose post no longer exists goes too. Markdown sources are never removed here.
+  for (const f of readdirSync(MD_DIR).filter((f) => f.endsWith('.md'))) {
+    const p = join(MD_DIR, f)
+    if (mdFiles.has(p)) continue
+    const head = readFileSync(p, 'utf8').slice(0, 400)
+    if (/\nsource: "html"/.test(head)) { unlinkSync(p); console.log(`removed stale blog/${f}`) }
+  }
+  if (wrote) console.log(`blog/*.md     ${wrote} Markdown files written`)
 
   // Drop page files left over from a shorter run.
   for (let n = chunks.length + 1; n <= MAX_PAGE_FILES; n++) {
