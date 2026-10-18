@@ -4,7 +4,7 @@
 
 Updated: 2026-10-15
 SDK version: agent-passport-system@8.0.1 (latest)
-MCP version: agent-passport-system-mcp@7.0.0 (152 tools)
+MCP version: agent-passport-system-mcp@8.0.0 (152 tools)
 Python SDK: agent-passport-system==4.3.0
 Rust SDK: agent-passport-system 0.3.0 on crates.io (library crate agent_passport)
 Go SDK: github.com/aeoess/agent-passport-go@v0.7.0
@@ -446,7 +446,7 @@ Layer 5 adds organizational intent to the agent stack. Key functions:
 - `resolveDeliberation(deliberation, decision, votes)` — produce signed outcome + create precedent
 - `getPrecedentsByTopic(precedents, topic)` — find prior decisions by topic
 
-## MCP Server — agent-passport-system-mcp v7.0.0
+## MCP Server — agent-passport-system-mcp v8.0.0
 
 A full-stack MCP server that any MCP client (Claude Desktop, Cursor, etc.) can connect to. Default profile is `full` (all 152 tools). Set `APS_PROFILE=essential` for a 25-tool slim profile covering identity, delegation, enforcement, commerce, reputation. Nine other profiles available: identity, governance, coordination, commerce, data, gateway, comms, minimal, full. Role-scoped access control throughout.
 
