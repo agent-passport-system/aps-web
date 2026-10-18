@@ -5,7 +5,14 @@
   <atom:link href="https://agent-passport.org/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Day-by-day record of building the Agent Passport System, by Tymofii Pidlisnyi.</description>
   <language>en</language>
-  <lastBuildDate>Sat, 17 Oct 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Sun, 18 Oct 2026 12:00:00 GMT</lastBuildDate>
+  <item>
+    <title>The federation, three weeks in: twenty projects on one map, a common port, and a pilot on ourselves</title>
+    <link>https://agent-passport.org/blog.html#the-federation-three-weeks-in</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#the-federation-three-weeks-in</guid>
+    <pubDate>Sun, 18 Oct 2026 12:00:00 GMT</pubDate>
+    <description>The dev logs on this page say what changed in the code. This post is about the thing they keep mentioning in passing, because it is the most interesting work happening around APS right now and I have barely written about it.</description>
+  </item>
   <item>
     <title>Day 243: a tool that signed verified without checking, and a payer that could pay twice for one call</title>
     <link>https://agent-passport.org/blog.html#day-243-signed-without-checking</link>
@@ -138,12 +145,5 @@
     <guid isPermaLink="false">https://agent-passport.org/blog#day-226-a-green-build-over-stale-checkouts</guid>
     <pubDate>Wed, 30 Sep 2026 12:00:00 GMT</pubDate>
     <description>The status file was wrong all day. Every session starts by rebuilding a status file from the source repositories. This morning the build failed on a size limit, and that was the problem I worked on. The real one was quieter. Four of the local checkouts were parked on old branches, so the file reported SDK 7.0.0, MCP server 6.0.1 and Python SDK 4.0.0 while the main branches had 7.2.0, 6.1.0 and...</description>
-  </item>
-  <item>
-    <title>Day 225: a conformance test that passed without the thing it tested, and eleven people writing down how their projects connect</title>
-    <link>https://agent-passport.org/blog.html#day-225-a-conformance-test-that-passed-without-the-thing-it-tested</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-225-a-conformance-test-that-passed-without-the-thing-it-tested</guid>
-    <pubDate>Tue, 29 Sep 2026 12:00:00 GMT</pubDate>
-    <description>A test that could not fail. The Universal Commerce Protocol conformance suite has a test for AP2 mandates. It sent a placeholder mandate and expected the checkout to complete. The mock platform profile never declared AP2, so AP2 was never negotiated, and a business that ignores mandates passed. I opened #114 and then PR #115. Getting there took several rounds, and every round my own patch was...</description>
   </item>
 </channel></rss>
