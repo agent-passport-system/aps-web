@@ -4,7 +4,7 @@
    or moved past the first scenes. Closing it shrinks it into the corner mascot, which opens a guided
    chat. On phones the prompt never opens by itself and the mascot appears only after 40 seconds or
    the same scroll signal.
-   Skip closes the dialog. The email step follows only a click on the star button. */
+   The close button closes the dialog. The email step follows only a click on the star button. */
 (function () {
   'use strict';
   var REPO = 'https://github.com/agent-passport-system/agent-passport-system';
@@ -94,15 +94,12 @@
     if (!body) return;
     if (step === 1) {
       body.innerHTML =
-        '<div class="apsx-eyebrow"><i></i>Open protocol · Apache 2.0</div>' +
         '<h2 class="apsx-h">Be a legend. <em>Star APS.</em></h2>' +
         '<p class="apsx-p">One star helps the protocol get found by the next person who needs it. Small click. Big impact.</p>' +
-        '<div class="apsx-row"><a class="apsx-btn pri" id="apsxStar" href="' + REPO + '" target="_blank" rel="noopener">&#9733; Star on GitHub &#8599;</a><a class="apsx-link" href="/contact.html">Ask about a pilot</a><button class="apsx-link" id="apsxSkip" type="button">Skip for now</button></div>' +
-        '<div class="apsx-note">github.com/agent-passport-system/agent-passport-system</div>';
+        '<div class="apsx-row"><a class="apsx-btn pri" id="apsxStar" href="' + REPO + '" target="_blank" rel="noopener">&#9733; Star on GitHub &#8599;</a></div>';
       var star = body.querySelector('#apsxStar');
       // After the star, ask for email only if this browser has not subscribed yet.
       star.addEventListener('click', function () { st.starred = Date.now(); save(st); setTimeout(function () { if (st.subscribed) { minimize(); } else { step = 2; render(); } }, 250); });
-      body.querySelector('#apsxSkip').addEventListener('click', minimize);
       setTimeout(function () { star.focus(); }, 30);
     } else if (step === 2) {
       body.innerHTML =
