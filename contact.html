@@ -65,7 +65,7 @@ a:hover{color:var(--lime)}
 .pf-err{min-height:1.4em;margin:22px 0 0;font-family:'Archivo',system-ui,sans-serif;font-weight:700;font-size:clamp(18px,1.7vw,22px);color:#b00020}
 .pf-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .pf-sub{margin:0;font-family:'Archivo',system-ui,sans-serif;font-weight:800;font-size:clamp(28px,3.6vw,50px);line-height:1.15}
-.pf-alt{margin:70px 0 0;font-family:'Archivo',system-ui,sans-serif;font-size:17px}
+.pf-story{display:inline-flex;flex-direction:column;align-items:flex-start;gap:12px;margin-top:56px;max-width:100%;padding:34px 48px;background:#0a5cff;border-color:#10213d;box-shadow:12px 12px 0 #10213d;text-decoration:none;color:#fff!important}.pf-story span{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:clamp(34px,5vw,72px);line-height:1;text-transform:uppercase}.pf-story small{font-size:clamp(16px,1.6vw,22px);font-weight:700;color:#fff200}.pf-story:hover,.pf-story:focus-visible{transform:translate(-4px,-4px);box-shadow:16px 16px 0 #10213d}.pf-alt{margin:70px 0 0;font-family:'Archivo',system-ui,sans-serif;font-size:17px}
 .pf-modal{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:20px;background:#10213d99}
 .pf-modal[hidden]{display:none}
 .pf-card{max-width:780px;padding:46px 50px;border:4px solid #10213d;background:#fff;color:#10213d;box-shadow:14px 14px 0 #0a5cff;animation:pfIn .25s ease-out}
@@ -137,6 +137,7 @@ a:hover{color:var(--lime)}
   <div class="pf-done" id="pfDone" hidden>
     <p class="pf-q">Thanks, <span id="pfWho"></span>.</p>
     <p class="pf-sub">We'll send you access.</p>
+    <a class="pf-go pf-story" href="blog.html"><span>In the meantime, read how APS was built</span><small>The dev log, day by day &#8594;</small></a>
   </div>
   <p class="pf-alt">Something else? Write to <a href="mailto:signal@aeoess.com">signal@aeoess.com</a>, a person reads it.</p>
 </main>
