@@ -5,9 +5,9 @@
 <script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Contact — Agent Passport System</title>
-<meta name="description" content="Get in touch with the Agent Passport System project: integrations, spec review, research, adversarial testing.">
+<meta name="description" content="Sign up for an Agent Passport System pilot. Three questions, and we'll send you access.">
 <meta property="og:title" content="Contact — Agent Passport System">
-<meta property="og:description" content="Integrations, spec review, research, adversarial testing. Five prompts, one message.">
+<meta property="og:description" content="Sign up for an Agent Passport System pilot. Three questions, and we'll send you access.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Agent Passport System">
 <meta property="og:url" content="https://agent-passport.org/contact.html">
@@ -45,7 +45,36 @@ a:hover{color:var(--lime)}
 </style>
 <script src="nav.js?v=20260907a" defer></script>
 <script src="gh-stars.js" defer></script>
-<script src="aps-contact.js?v=20260907a" defer></script>
+<script src="pilot-signup.js?v=20261018a" defer></script>
+<style>
+.pf{min-height:calc(100vh - 64px);box-sizing:border-box;padding:130px 6vw 60px;background:#fff200;color:#10213d;display:flex;flex-direction:column;justify-content:center}
+.pf a{color:#10213d}
+.pf-h{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.pf form,.pf-done{max-width:1040px;width:100%}
+.pf-count{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:15px;letter-spacing:.22em;margin:0 0 18px}
+.pf-q{display:block;margin:0 0 30px;font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(50px,8vw,124px);line-height:1;letter-spacing:.004em;color:#10213d}
+.pf-step{display:none}.pf-step.is-on{display:block;animation:pfIn .25s ease-out}
+.pf-in{display:block;width:100%;box-sizing:border-box;margin:0;padding:22px 28px;border:4px solid #10213d;border-radius:0;background:#fff;color:#10213d;font-family:'Archivo',system-ui,sans-serif;font-weight:700;font-size:clamp(28px,4.4vw,60px);line-height:1.15;box-shadow:10px 10px 0 #10213d;outline:none;transition:transform .12s,box-shadow .12s;-webkit-appearance:none;appearance:none}
+.pf-in:focus{transform:translate(-3px,-3px);box-shadow:14px 14px 0 #0a5cff}
+.pf-in::placeholder{color:#10213d4d}
+.pf-row{display:flex;flex-wrap:wrap;align-items:center;gap:22px;margin-top:40px}
+.pf-go{padding:22px 42px;border:4px solid #10213d;border-radius:0;background:#10213d;color:#fff;font-family:'Archivo',system-ui,sans-serif;font-weight:800;font-size:clamp(22px,2.4vw,34px);line-height:1.1;box-shadow:8px 8px 0 #0a5cff;cursor:pointer;transition:transform .12s,box-shadow .12s}
+.pf-go:hover,.pf-go:focus-visible{transform:translate(-3px,-3px);box-shadow:11px 11px 0 #0a5cff}
+.pf-go:disabled{opacity:.7;cursor:progress}
+.pf-back{padding:10px 4px;border:0;background:none;color:#10213d;font-family:'Archivo',system-ui,sans-serif;font-weight:700;font-size:clamp(18px,1.8vw,24px);text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.pf-err{min-height:1.4em;margin:22px 0 0;font-family:'Archivo',system-ui,sans-serif;font-weight:700;font-size:clamp(18px,1.7vw,22px);color:#b00020}
+.pf-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.pf-sub{margin:0;font-family:'Archivo',system-ui,sans-serif;font-weight:800;font-size:clamp(28px,3.6vw,50px);line-height:1.15}
+.pf-alt{margin:70px 0 0;font-family:'Archivo',system-ui,sans-serif;font-size:17px}
+.pf-modal{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:20px;background:#10213d99}
+.pf-modal[hidden]{display:none}
+.pf-card{max-width:780px;padding:46px 50px;border:4px solid #10213d;background:#fff;color:#10213d;box-shadow:14px 14px 0 #0a5cff;animation:pfIn .25s ease-out}
+.pf-mq{margin:0 0 16px;font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(40px,5.6vw,74px);line-height:1.02}
+.pf-msub{margin:0;font-family:'Archivo',system-ui,sans-serif;font-size:clamp(18px,1.9vw,23px);line-height:1.45}
+@keyframes pfIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.pf-step.is-on,.pf-card{animation:none}.pf-in,.pf-go{transition:none}}
+@media(max-width:650px){.pf{padding:100px 22px 40px}.pf-in{padding:16px 18px;box-shadow:6px 6px 0 #10213d}.pf-go{padding:18px 26px;box-shadow:6px 6px 0 #0a5cff}.pf-card{padding:30px 24px}}
+</style>
 </head>
 <body>
 <div style="min-height:100vh;background:var(--bg)">
@@ -85,48 +114,39 @@ a:hover{color:var(--lime)}
   </aside>
 </div>
 
-<main data-screen-label="Contact terminal" style="max-width:1100px;margin:0 auto;padding:132px 5vw 80px;box-sizing:border-box">
-
-  <div style="display:flex;align-items:center;gap:11px;margin-bottom:26px">
-    <span style="width:10px;height:10px;background:var(--lime)"></span>
-    <span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:var(--sub)">Contact</span>
-  </div>
-
-  <h1 style="margin:0 0 14px;font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(40px,6vw,76px);line-height:1.02;letter-spacing:.004em;color:var(--fg)">Tell us what you<br>want to build.</h1>
-  <p style="margin:0 0 40px;max-width:56ch;font-family:'Archivo',system-ui,sans-serif;font-size:19px;line-height:1.55;color:var(--sub)">Integrations, spec review, research, adversarial testing. Answer five prompts and the message is sent, with a receipt of what went out.</p>
-
-  <div style="border:1px solid var(--line);background:var(--panel2);position:relative;overflow:hidden">
-    <div class="term-bar" style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 18px;border-bottom:1px solid var(--line);background:var(--panel);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px;letter-spacing:.1em;color:var(--sub)">
-      <span style="display:flex;align-items:center;gap:10px"><span style="width:7px;height:7px;background:var(--lime)"></span>aps · contact-form v1.0.0</span>
-      <span style="display:flex;align-items:center;gap:18px;white-space:nowrap">
-        <button id="termSound" type="button" style="background:transparent;border:1px solid var(--line2);border-radius:2px;padding:3px 9px;font:inherit;letter-spacing:.1em;color:var(--sub);cursor:pointer">[♪ off]</button>
-        <span class="term-esc">ESC to exit</span>
-        <span id="termProgress" style="color:var(--faint)">01 / 05</span>
-      </span>
+<main class="pf" data-screen-label="Pilot signup">
+  <h1 class="pf-h">Sign up for an APS pilot</h1>
+  <form id="pf" novalidate>
+    <div class="pf-count"><span id="pfN">1</span> / 3</div>
+    <div class="pf-step is-on">
+      <label class="pf-q" for="pfName">What's your name?</label>
+      <input class="pf-in" id="pfName" name="name" autocomplete="name" maxlength="200" placeholder="Your name">
     </div>
-
-    <div class="term-log" id="termLog" style="height:min(52vh,460px);overflow-y:auto;padding:24px 22px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;line-height:1.85;cursor:text">
-      
+    <div class="pf-step">
+      <label class="pf-q" for="pfEmail">What's your email?</label>
+      <input class="pf-in" id="pfEmail" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" placeholder="you@company.com">
     </div>
-
-    <div class="term-input" style="display:flex;align-items:center;gap:12px;padding:16px 22px;border-top:1px solid var(--line);background:var(--panel);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px">
-      <span id="termPrompt" style="color:var(--lime);white-space:nowrap">aps:~$</span>
-      <input id="termInput" aria-label="Terminal input" autocomplete="off" spellcheck="false" style="flex:1;min-width:0;background:transparent;border:0;outline:none;font:inherit;color:var(--fg);caret-color:var(--lime)">
-      <span style="width:9px;height:17px;background:var(--lime);animation:apsCaret 1s step-end infinite"></span>
+    <div class="pf-step">
+      <label class="pf-q" for="pfOrg">What's your company name?</label>
+      <input class="pf-in" id="pfOrg" name="org" autocomplete="organization" maxlength="300" placeholder="Company or project">
     </div>
+    <input class="pf-hp" id="pfHp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <p class="pf-err" id="pfErr" role="alert"></p>
+    <div class="pf-row"><button type="submit" class="pf-go" id="pfGo">Next &#8594;</button><button type="button" class="pf-back" id="pfBack" hidden>&#8592; Back</button></div>
+  </form>
+  <div class="pf-done" id="pfDone" hidden>
+    <p class="pf-q">Thanks, <span id="pfWho"></span>.</p>
+    <p class="pf-sub">We'll send you access.</p>
   </div>
-
-  <div class="term-hints" style="display:flex;flex-wrap:wrap;gap:14px 40px;margin-top:26px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.06em;color:var(--faint)">
-    <span>Enter to submit · ESC to leave</span>
-    <span>Prefer plain email? <a href="mailto:signal@aeoess.com" style="color:var(--sub);text-decoration:underline">signal@aeoess.com</a></span>
-    <span>Or open an issue on <a href="https://github.com/agent-passport-system/agent-passport-system/issues" style="color:var(--sub);text-decoration:underline">GitHub</a></span>
-  </div>
-
-  <div class="term-cta" style="display:flex;flex-wrap:wrap;gap:13px;margin-top:44px">
-    <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;padding:14px 24px;font-family:'Archivo',system-ui,sans-serif;font-size:15px;font-weight:500;border-radius:2px;border:1px solid var(--line2);color:var(--fg)">← Back to overview</a>
-    <a href="protocol.html" style="display:inline-flex;align-items:center;gap:8px;padding:14px 24px;font-family:'Archivo',system-ui,sans-serif;font-size:15px;font-weight:600;border-radius:2px;background:var(--lime);color:var(--on-acc)">Read the protocol →</a>
-  </div>
+  <p class="pf-alt">Something else? Write to <a href="mailto:signal@aeoess.com">signal@aeoess.com</a>, a person reads it.</p>
 </main>
+<div class="pf-modal" id="pfModal" role="dialog" aria-modal="true" aria-labelledby="pfMq" hidden>
+  <div class="pf-card">
+    <h2 class="pf-mq" id="pfMq">Want to get on the mailing list?</h2>
+    <p class="pf-msub" id="pfMsub">Occasional updates on APS. We'll email you a link to confirm.</p>
+    <div class="pf-row"><button type="button" class="pf-go" id="pfYes">Yes, sign me up</button><button type="button" class="pf-back" id="pfNo">No thanks</button></div>
+  </div>
+</div>
 
 <footer class="r" style="position:relative;z-index:1">
   <div class="foot-grid">
