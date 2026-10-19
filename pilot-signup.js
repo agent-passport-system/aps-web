@@ -1,5 +1,7 @@
-/* pilot-signup.js: the contact page as a three question pilot signup.
-   Name, email, company, one question at a time. Sends to /api/contact (the aeoess-subscribe worker,
+/* pilot-signup.js: three question signup forms, one question at a time.
+   Used by contact.html (pilot: name, email, company) and careers.html (build with us: name, email,
+   résumé or GitHub link). The form's data-topic, data-source, data-third and data-page attributes
+   set what is sent; data-list="0" skips the mailing list prompt. Sends to /api/contact (the aeoess-subscribe worker,
    delivered by Resend to signal@aeoess.com), then offers the double opt in mailing list through
    /api/subscribe. No third-party code, no tracking. */
 (function () {
@@ -16,6 +18,13 @@
   var hp = document.getElementById('pfHp');
   var done = document.getElementById('pfDone');
   var modal = document.getElementById('pfModal');
+  var cfg = {
+    topic: form.getAttribute('data-topic') || 'Pilot request',
+    source: form.getAttribute('data-source') || 'contact-pilot',
+    third: form.getAttribute('data-third') || 'Company',
+    page: form.getAttribute('data-page') || 'contact.html',
+    list: form.getAttribute('data-list') !== '0'
+  };
   var i = 0, busy = false;
 
   function show(n) {
@@ -45,9 +54,10 @@
   function send() {
     var name = inputs[0].value.trim(), email = inputs[1].value.trim(), org = inputs[2].value.trim();
     busy = true; go.disabled = true; go.textContent = 'Sending…';
+    var isCompany = cfg.third === 'Company';
     post('/api/contact', {
-      name: name, email: email, org: org, topic: 'Pilot request',
-      message: 'Pilot signup from agent-passport.org/contact.html. Company: ' + (org || 'not given') + '.',
+      name: name, email: email, org: isCompany ? org : '', topic: cfg.topic,
+      message: cfg.topic + ' from agent-passport.org/' + cfg.page + '. ' + cfg.third + ': ' + (org || 'not given') + '.',
       content_sha256: '', website: hp.value
     }).then(function (j) {
       busy = false; go.disabled = false;
@@ -55,7 +65,7 @@
         form.hidden = true;
         document.getElementById('pfWho').textContent = name;
         done.hidden = false;
-        setTimeout(function () { openModal(email); }, 700);
+        if (cfg.list) setTimeout(function () { openModal(email); }, 700);
       } else {
         go.textContent = 'Send →';
         err.innerHTML = 'That did not go through. Write to <a href="mailto:signal@aeoess.com">signal@aeoess.com</a>, a person reads it.';
@@ -72,7 +82,7 @@
     no.onclick = close;
     yes.onclick = function () {
       yes.disabled = true; no.disabled = true; yes.textContent = 'Signing you up…';
-      post('/api/subscribe', { email: email, hp: '', source: 'contact-pilot' }).then(function (j) {
+      post('/api/subscribe', { email: email, hp: '', source: cfg.source }).then(function (j) {
         if (j && (j.ok || j.queued)) {
           msg.textContent = 'Check your inbox and click the link to confirm.';
           yes.hidden = true; no.disabled = false; no.textContent = 'Close';
