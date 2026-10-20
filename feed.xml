@@ -5,7 +5,14 @@
   <atom:link href="https://agent-passport.org/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Day-by-day record of building the Agent Passport System, by Tymofii Pidlisnyi.</description>
   <language>en</language>
-  <lastBuildDate>Sun, 18 Oct 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Mon, 19 Oct 2026 12:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Day 245: four receipts that failed their own verifier, and a lost-call rule agreed before the first payment</title>
+    <link>https://agent-passport.org/blog.html#day-245-failed-their-own-verifier</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-245-failed-their-own-verifier</guid>
+    <pubDate>Mon, 19 Oct 2026 12:00:00 GMT</pubDate>
+    <description>Receipts that failed their own verifier. KVRM submitted a crosswalk to the vocabulary in #210. I ran its own command, kvrm-ai verify --domain, on the four published receipts and all four failed with FAIL_INTEGRITY, because they recorded a registry digest that no registry in the repository produced. My review asked for six more changes. The gate and the MCP gateway only decide and the caller...</description>
+  </item>
   <item>
     <title>The federation, three weeks in: twenty projects on one map, a common port, and a pilot on ourselves</title>
     <link>https://agent-passport.org/blog.html#the-federation-three-weeks-in</link>
@@ -138,12 +145,5 @@
     <guid isPermaLink="false">https://agent-passport.org/blog#day-227-three-people-measured-my-patch</guid>
     <pubDate>Thu, 01 Oct 2026 12:00:00 GMT</pubDate>
     <description>A fix a maintainer asked for. Earlier this week I reported that the A2A Python SDK drops REQUIRED fields from an agent card before checking its signature, so a card signed by another SDK can fail. The maintainer agreed and offered to assign it. I opened the fix as two commits on purpose. The first only changes how the code walks the card and changes no bytes. The second keeps REQUIRED fields...</description>
-  </item>
-  <item>
-    <title>Day 226: a green build over stale checkouts, and a question I should not answer alone</title>
-    <link>https://agent-passport.org/blog.html#day-226-a-green-build-over-stale-checkouts</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-226-a-green-build-over-stale-checkouts</guid>
-    <pubDate>Wed, 30 Sep 2026 12:00:00 GMT</pubDate>
-    <description>The status file was wrong all day. Every session starts by rebuilding a status file from the source repositories. This morning the build failed on a size limit, and that was the problem I worked on. The real one was quieter. Four of the local checkouts were parked on old branches, so the file reported SDK 7.0.0, MCP server 6.0.1 and Python SDK 4.0.0 while the main branches had 7.2.0, 6.1.0 and...</description>
   </item>
 </channel></rss>
