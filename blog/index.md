@@ -2,6 +2,7 @@
 
 Every post by Tymofii Pidlisnyi, newest first. Dev log posts are named by day and record what changed. Stories tell what happened around the work. Each link is the post as Markdown.
 
+- 2026-10-20 [Day 246: a non-execution statement that could be followed by a receipt, fixed before the first payment](https://agent-passport.org/blog/day-246-statement-then-receipt.md) (devlog)
 - 2026-10-19 [Day 245: four receipts that failed their own verifier, and a lost-call rule agreed before the first payment](https://agent-passport.org/blog/day-245-failed-their-own-verifier.md) (devlog)
 - 2026-10-18 [The federation, three weeks in: twenty projects on one map, a common port, and a pilot on ourselves](https://agent-passport.org/blog/the-federation-three-weeks-in.md) (story)
 - 2026-10-17 [Day 243: a tool that signed verified without checking, and a payer that could pay twice for one call](https://agent-passport.org/blog/day-243-signed-without-checking.md) (devlog)

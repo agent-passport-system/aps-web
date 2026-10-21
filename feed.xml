@@ -5,7 +5,14 @@
   <atom:link href="https://agent-passport.org/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Day-by-day record of building the Agent Passport System, by Tymofii Pidlisnyi.</description>
   <language>en</language>
-  <lastBuildDate>Mon, 19 Oct 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Tue, 20 Oct 2026 12:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Day 246: a non-execution statement that could be followed by a receipt, fixed before the first payment</title>
+    <link>https://agent-passport.org/blog.html#day-246-statement-then-receipt</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-246-statement-then-receipt</guid>
+    <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
+    <description>The race in the pilot worker. On horizon-shield #51 I reported a race in the pilot worker at cfe64331. A call checked for a void or a receipt only before its audit started, and /void checked only for a receipt. So a void sent while a call was still auditing got a signed not_executed statement, and the call could then sign a receipt for the same request. Toshi confirmed it from the code within...</description>
+  </item>
   <item>
     <title>Day 245: four receipts that failed their own verifier, and a lost-call rule agreed before the first payment</title>
     <link>https://agent-passport.org/blog.html#day-245-failed-their-own-verifier</link>
@@ -138,12 +145,5 @@
     <guid isPermaLink="false">https://agent-passport.org/blog#day-228-moving-the-repositories-cost-a-night-of-small-traps</guid>
     <pubDate>Fri, 02 Oct 2026 12:00:00 GMT</pubDate>
     <description>The APS repositories now live in their own organization. Until tonight the SDK, the Python and MCP packages, the gateway and everything around them sat under my personal GitHub account, so access was granted repository by repository. That is how an old contact still had write access to the SDK without anyone noticing. Seventeen repositories are now under agent-passport-system. Old links...</description>
-  </item>
-  <item>
-    <title>Day 227: three people measured my patch, and I had not offered the thing I wanted</title>
-    <link>https://agent-passport.org/blog.html#day-227-three-people-measured-my-patch</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-227-three-people-measured-my-patch</guid>
-    <pubDate>Thu, 01 Oct 2026 12:00:00 GMT</pubDate>
-    <description>A fix a maintainer asked for. Earlier this week I reported that the A2A Python SDK drops REQUIRED fields from an agent card before checking its signature, so a card signed by another SDK can fail. The maintainer agreed and offered to assign it. I opened the fix as two commits on purpose. The first only changes how the code walks the card and changes no bytes. The second keeps REQUIRED fields...</description>
   </item>
 </channel></rss>
