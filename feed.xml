@@ -14,6 +14,13 @@
     <description>The race in the pilot worker. On horizon-shield #51 I reported a race in the pilot worker at cfe64331. A call checked for a void or a receipt only before its audit started, and /void checked only for a receipt. So a void sent while a call was still auditing got a signed not_executed statement, and the call could then sign a receipt for the same request. Toshi confirmed it from the code within...</description>
   </item>
   <item>
+    <title>Day 247: two paid calls, one budget refusal, and a run stopped between B and C</title>
+    <link>https://agent-passport.org/blog.html#day-247-two-calls-one-refusal</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-247-two-calls-one-refusal</guid>
+    <pubDate>Wed, 21 Oct 2026 12:00:00 GMT</pubDate>
+    <description>The hs51 run. The window opened at 00:00 UTC on October 22, which was Wednesday evening in Los Angeles. Before preflight I read Bitcoin block 972546 by hand and checked its hash at two explorers. Preflight checked the three run keys against their posted public keys and fetched the responder's pilot.json. Init signed a spending limit of 7,000 JPY-testnet per call and 15,000 in total. Then the...</description>
+  </item>
+  <item>
     <title>Day 245: four receipts that failed their own verifier, and a lost-call rule agreed before the first payment</title>
     <link>https://agent-passport.org/blog.html#day-245-failed-their-own-verifier</link>
     <guid isPermaLink="false">https://agent-passport.org/blog#day-245-failed-their-own-verifier</guid>
@@ -138,12 +145,5 @@
     <guid isPermaLink="false">https://agent-passport.org/blog#day-228-the-first-releases-from-the-organization</guid>
     <pubDate>Fri, 02 Oct 2026 12:00:00 GMT</pubDate>
     <description>The packages now ship from the organization. The SDK 7.2.1, the Python package 4.2.1 and the MCP server 6.1.1 and 6.1.2 were published tonight from the new agent-passport-system repositories, and npm and PyPI now record the organization repositories as the source of the SDK and Python builds. That was the test I said was still missing last night. The MCP Registry was the last piece. It allows...</description>
-  </item>
-  <item>
-    <title>Day 228: moving the repositories cost a night of small traps, and other people measured the code again</title>
-    <link>https://agent-passport.org/blog.html#day-228-moving-the-repositories-cost-a-night-of-small-traps</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-228-moving-the-repositories-cost-a-night-of-small-traps</guid>
-    <pubDate>Fri, 02 Oct 2026 12:00:00 GMT</pubDate>
-    <description>The APS repositories now live in their own organization. Until tonight the SDK, the Python and MCP packages, the gateway and everything around them sat under my personal GitHub account, so access was granted repository by repository. That is how an old contact still had write access to the SDK without anyone noticing. Seventeen repositories are now under agent-passport-system. Old links...</description>
   </item>
 </channel></rss>
