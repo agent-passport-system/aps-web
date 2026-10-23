@@ -173,8 +173,10 @@ function mdPosts() {
 function merge(htmlPosts, md) {
   const all = [...htmlPosts]
   const ids = new Set(all.map((p) => p.id))
-  // Oldest first, so posts sharing a date keep the newest-first order of the sort above.
-  for (const p of [...md].reverse()) {
+  // Newest date first, so each post lands below the newer Markdown posts already placed
+  // above the same HTML post. Posts sharing a date keep id descending, as before.
+  const order = [...md].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.id < b.id ? 1 : -1))
+  for (const p of order) {
     if (ids.has(p.id)) throw new Error(`post id ${p.id} exists as both HTML and Markdown`)
     ids.add(p.id)
     let at = all.findIndex((q) => !q.md && q.date <= p.date)
