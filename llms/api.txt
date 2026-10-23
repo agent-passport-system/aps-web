@@ -230,7 +230,7 @@ Returns IntentPassportExtension with role, autonomy, deliberation/precedent coun
 
 ---
 
-## V2 Constitutional Framework API (30 modules)
+## V2 Constitutional Framework API (23 modules)
 
 Source: `src/v2/` | All exports via `import { ... } from 'agent-passport-system'`
 

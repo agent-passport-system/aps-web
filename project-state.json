@@ -1,6 +1,6 @@
 {
   "$comment": "Single source of truth for site-wide propagation. Hand-edited; consumed by scripts/propagate.mjs. Bumping any value here propagates to every target file the propagator knows about.",
-  "updated": "2026-10-17",
+  "updated": "2026-10-23",
   "versions": {
     "sdk": "8.0.1",
     "sdk_dist_tag": "latest",
@@ -24,7 +24,7 @@
     "modules_v2": 23,
     "modules_total": 107,
     "mcp_tools": 154,
-    "mcp_essential_tools": 25,
+    "mcp_essential_tools": 28,
     "core_surface_functions": 24,
     "extended_surface_exports": 925,
     "conformance_vectors": 97

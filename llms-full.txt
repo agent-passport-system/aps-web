@@ -57,7 +57,7 @@ import {
 import { /* anything from the full surface */ } from 'agent-passport-system'
 ```
 
-**MCP server** mirrors the same tiering. Default profile is `essential` (20 core tools). Set `APS_PROFILE=full` for all 150. Other profiles: identity, governance, coordination, commerce, data, gateway, comms, minimal, full. The complete tool list is in the MCP Server section below.
+**MCP server** mirrors the same tiering. Default profile is `full` (154 tools). Set `APS_PROFILE=essential` for the 28-tool profile. Other profiles: identity, governance, coordination, commerce, data, gateway, comms, minimal, full. The complete tool list is in the MCP Server section below.
 
 **Recommended path for an agent reading this doc:** start with the Core surface, evaluate against your use case, then opt into specific Extended modules by name. You do not need to walk the full surface up front.
 
@@ -475,7 +475,7 @@ Connect (local, via npx):
 }
 ```
 
-Tools (152 total; 25 in the optional essential profile):
+Tools (154 total, 28 in the optional essential profile):
 Essential profile covers identity, delegation, enforcement, commerce, reputation. Set `APS_PROFILE=full` for the full 150-tool surface, or use a focused profile: identity, governance, coordination, commerce, data, gateway, comms, minimal. Canonical tool list per layer: https://github.com/agent-passport-system/agent-passport-mcp/blob/main/src/index.ts
 
 Role auto-detected from task assignments. Role-specific prompts served via MCP prompts API. File-backed persistence at ~/.agent-passport-tasks.json. Every operation Ed25519 signed.
@@ -575,7 +575,7 @@ Q: What are tradeoff rules?
 A: Machine-readable expressions like "when quality and speed conflict, prefer quality until 2× time cost, then prefer speed." They make organizational priorities queryable at runtime instead of locked in prose documents.
 
 Q: How does it compare to other agent identity approaches?
-A: Most alternatives (DeepMind, GaaS, OpenAI, LOKA) are papers or proposals. The Agent Passport System is running code with 6,280 passing tests. It is the enforcement and accountability layer for AI agents: bring your own identity (did:key, did:web, SPIFFE SVID, OAuth, native did:aps) and the gateway enforces scoped delegation, monotonic narrowing, cascade revocation, 3-signature action chains, Merkle proof attribution, values floor, agentic commerce (ACP by OpenAI + Stripe), reputation-gated authority with Bayesian trust, principal identity with selective disclosure, W3C DID and Verifiable Credentials, Google A2A bridge, and EU AI Act mapping support. The coordination-native MCP server exposes 154 tools under `APS_PROFILE=full` (the default profile; APS_PROFILE=essential presents 26 tools).
+A: Most alternatives (DeepMind, GaaS, OpenAI, LOKA) are papers or proposals. The Agent Passport System is running code with 6,280 passing tests. It is the enforcement and accountability layer for AI agents: bring your own identity (did:key, did:web, SPIFFE SVID, OAuth, native did:aps) and the gateway enforces scoped delegation, monotonic narrowing, cascade revocation, 3-signature action chains, Merkle proof attribution, values floor, agentic commerce (ACP by OpenAI + Stripe), reputation-gated authority with Bayesian trust, principal identity with selective disclosure, W3C DID and Verifiable Credentials, Google A2A bridge, and EU AI Act mapping support. The coordination-native MCP server exposes 154 tools under `APS_PROFILE=full` (the default profile; APS_PROFILE=essential presents 28 tools).
 
 Q: How does the Signed Execution Envelope work?
 A: The RFC defines a minimal signed envelope for cross-engine governance interop. Any governance engine (CrewAI, Guardian, APS, etc.) can emit it, and any verifier can check it without depending on a specific trust backend. The critical field is evaluation_method (deterministic vs probabilistic), which tells a verifier whether the governance decision can be independently replayed or only signature-checked. The APS SDK already generates every field in the envelope through its 3-signature chain. See: https://github.com/agent-passport-system/agent-passport-system/blob/main/docs/RFC-SIGNED-EXECUTION-ENVELOPE.md
