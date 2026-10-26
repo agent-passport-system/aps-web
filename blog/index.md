@@ -2,6 +2,8 @@
 
 Every post by Tymofii Pidlisnyi, newest first. Dev log posts are named by day and record what changed. Stories tell what happened around the work. Each link is the post as Markdown.
 
+- 2026-10-25 [Day 251: revision 3 separates a source we could not reach from a grant that was revoked](https://agent-passport.org/blog/day-251-could-not-reach-is-not-revoked.md) (devlog)
+- 2026-10-24 [Day 250: a cold run that reproduced the revocation family, and a refusal that had no reason to give](https://agent-passport.org/blog/day-250-cold-run-and-a-refusal-reason.md) (devlog)
 - 2026-10-22 [Day 248: a revocation test family that a reviewer held back until four scoring flaws were fixed](https://agent-passport.org/blog/day-248-revocation-family-held-back.md) (devlog)
 - 2026-10-21 [Day 247: two paid calls, one budget refusal, and a run stopped between B and C](https://agent-passport.org/blog/day-247-two-calls-one-refusal.md) (devlog)
 - 2026-10-20 [Day 246: a non-execution statement that could be followed by a receipt, fixed before the first payment](https://agent-passport.org/blog/day-246-statement-then-receipt.md) (devlog)
