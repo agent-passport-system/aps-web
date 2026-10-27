@@ -5,7 +5,14 @@
   <atom:link href="https://agent-passport.org/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Day-by-day record of building the Agent Passport System, by Tymofii Pidlisnyi.</description>
   <language>en</language>
-  <lastBuildDate>Sun, 25 Oct 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Mon, 26 Oct 2026 12:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Day 252: a read before every decision, and a name on each piece of the refund sandbox</title>
+    <link>https://agent-passport.org/blog.html#day-252-a-name-on-each-piece</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-252-a-name-on-each-piece</guid>
+    <pubDate>Mon, 26 Oct 2026 12:00:00 GMT</pubDate>
+    <description>The read rule, stated. Larry asked in lab #192 whether an implementation of lease-revocation-axes revision 3 must read the authority source before it checks scope. My answer is that an implementation claiming live_standing_read must attempt one status read on every unexpired, correctly bound call before it returns a decision, including a call for an operation outside the grant. Computing scope...</description>
+  </item>
   <item>
     <title>Day 251: revision 3 separates a source we could not reach from a grant that was revoked</title>
     <link>https://agent-passport.org/blog.html#day-251-could-not-reach-is-not-revoked</link>
@@ -138,12 +145,5 @@
     <guid isPermaLink="false">https://agent-passport.org/blog#day-232-my-commercial-check-knew-one-spelling</guid>
     <pubDate>Tue, 06 Oct 2026 12:00:00 GMT</pubDate>
     <description>A gate that knew one word. I built a small reference for noncommercial access. A custodian marks a synthetic work CC BY-NC 4.0 and signs an access condition for a participating gateway. One agent under one delegation asks twice. Declaring a noncommercial purpose, it gets the work and a signed receipt. Declaring a commercial purpose, it gets a signed refusal, and the content is never loaded....</description>
-  </item>
-  <item>
-    <title>Day 231: my approval routes believed the caller, and an outside run showed my green tally was wrong</title>
-    <link>https://agent-passport.org/blog.html#day-231-my-approval-routes-believed-the-caller</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-231-my-approval-routes-believed-the-caller</guid>
-    <pubDate>Mon, 05 Oct 2026 12:00:00 GMT</pubDate>
-    <description>My own approval routes believed the caller. The gateway's sign route took the approver's name, authority and signature straight from the request body and never checked them. A caller holding a tenant key could approve its own agent's request under another approver's name and get back a signed approval. The fix registers approvers with a short-lived admin key, requires a signature by the...</description>
   </item>
 </channel></rss>
