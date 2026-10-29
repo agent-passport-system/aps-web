@@ -144,7 +144,7 @@ const r1 = submitConsensusRound(delib, {
 delib = r1.deliberation
 
 // Check consensus
-const eval = evaluateConsensus(delib)
+const consensus = evaluateConsensus(delib)
 // → { converged: true, standardDeviation: 4.2, recommendation: 'converged' }
 ```
 
