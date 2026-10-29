@@ -46,4 +46,23 @@
     <loc>https://agent-passport.org/terms/action_ref</loc>
     <lastmod>2026-08-23</lastmod>
   </url>
+  <url><loc>https://agent-passport.org/docs/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://agent-passport.org/docs/api/</loc><lastmod>2026-10-29</lastmod></url>
+  <url><loc>https://agent-passport.org/docs/authority/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://agent-passport.org/docs/cli/</loc><lastmod>2026-10-29</lastmod></url>
+  <url><loc>https://agent-passport.org/docs/compatibility/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://agent-passport.org/docs/concepts/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://agent-passport.org/docs/evidence/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://agent-passport.org/docs/federation/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://agent-passport.org/docs/gateway/</loc><lastmod>2026-10-29</lastmod></url>
+  <url><loc>https://agent-passport.org/docs/identity/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://agent-passport.org/docs/install/</loc><lastmod>2026-10-29</lastmod></url>
+  <url><loc>https://agent-passport.org/docs/languages/</loc><lastmod>2026-10-29</lastmod></url>
+  <url><loc>https://agent-passport.org/docs/mcp-server/</loc><lastmod>2026-10-29</lastmod></url>
+  <url><loc>https://agent-passport.org/docs/quickstart/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://agent-passport.org/docs/receipt-verification/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://agent-passport.org/docs/receipts/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://agent-passport.org/docs/signed-bytes/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://agent-passport.org/docs/specs/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://agent-passport.org/docs/status/</loc><lastmod>2026-10-28</lastmod></url>
 </urlset>

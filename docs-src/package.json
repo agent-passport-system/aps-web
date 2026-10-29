@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "check": "astro build && node scripts/check-links.mjs && node scripts/check-routes.mjs && node scripts/build-llms.mjs --check && node scripts/run-example.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "7.3.5",
