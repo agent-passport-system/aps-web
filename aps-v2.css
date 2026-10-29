@@ -1063,3 +1063,19 @@ html[data-theme="bright"]:has(main.page, main.blog-feed) ::selection{background:
   html[data-theme="bright"]:has(main.page, main.blog-feed) .page-hero h1{font-size:34px}
   html[data-theme="bright"] body > section.page-hero{padding-left:20px; padding-right:20px}
 }
+
+/* standards strip (footer top) 2026-10-28 */
+.bodies{display:flex;align-items:center;gap:28px 40px;flex-wrap:wrap;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 0 36px}
+.bodies-label{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--sub);white-space:nowrap;display:flex;align-items:center;gap:10px}
+.bodies-label:before{content:'';display:inline-block;width:8px;height:8px;background:var(--yellow)}
+.bodies-list{list-style:none;margin:0;padding:0;display:flex;align-items:flex-start;gap:16px 36px;flex:1;justify-content:space-between;flex-wrap:wrap}
+.bodies-list li{display:flex}
+.bodies-list a{display:flex;flex-direction:column;align-items:flex-start;gap:8px;text-decoration:none;color:var(--fg);opacity:.86;transition:opacity .2s;padding:2px 0}
+.bodies-list a:hover{opacity:1}
+.bodies-list a:hover .role{color:var(--yellow)}
+.bodies .mark{height:34px;display:flex;align-items:center;font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:-.01em;line-height:1;white-space:nowrap;color:#fff}
+.bodies .mark img{height:28px;width:auto;display:block}
+.bodies .mark img.w3c{height:34px}.bodies .mark img.owasp{height:27px}.bodies .mark img.cosai{height:28px}.bodies .mark img.lfdt{height:17px}
+.bodies .role{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);white-space:nowrap}
+@media(max-width:900px){.bodies{gap:18px 28px}.bodies-list{justify-content:flex-start;gap:18px 32px}}
+@media(max-width:650px){.bodies{padding:18px 0}.bodies-list a{gap:4px}.bodies .mark{height:30px}}
