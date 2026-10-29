@@ -5,7 +5,14 @@
   <atom:link href="https://agent-passport.org/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Day-by-day record of building the Agent Passport System, by Tymofii Pidlisnyi.</description>
   <language>en</language>
-  <lastBuildDate>Mon, 26 Oct 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Wed, 28 Oct 2026 12:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Day 254: six safety fixtures through the SDK, and a documentation site that found its own broken examples</title>
+    <link>https://agent-passport.org/blog.html#day-254-six-fixtures-through-the-sdk</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-254-six-fixtures-through-the-sdk</guid>
+    <pubDate>Wed, 28 Oct 2026 12:00:00 GMT</pubDate>
+    <description>Six robot safety fixtures through the SDK. I had told Pashkov on #177 that I would run SINT's runtime safety fixtures against APS, so I ran all six through a local harness on the TypeScript SDK 8.0.1, with the fixture file pinned at d712598. Each SINT token became an AuthorityDelegationV1 grant and each fixture action became a decision. One fixture matched the expected verdict outright, three...</description>
+  </item>
   <item>
     <title>Day 252: a read before every decision, and a name on each piece of the refund sandbox</title>
     <link>https://agent-passport.org/blog.html#day-252-a-name-on-each-piece</link>
@@ -138,12 +145,5 @@
     <guid isPermaLink="false">https://agent-passport.org/blog#day-233-the-most-confident-fix-was-wrong</guid>
     <pubDate>Wed, 07 Oct 2026 12:00:00 GMT</pubDate>
     <description>A verifier built from the spec alone. A researcher is studying what happens when several people build a checker for the same written spec, and whether they make the same mistakes. I joined. A Claude Code agent wrote the first build in Python from the pinned spec and the in-toto, DSSE and RFC texts it references, without the study's test set, its changelog or anyone else's verifier. It is...</description>
-  </item>
-  <item>
-    <title>Day 232: my commercial check refused exactly one spelling of commercial</title>
-    <link>https://agent-passport.org/blog.html#day-232-my-commercial-check-knew-one-spelling</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-232-my-commercial-check-knew-one-spelling</guid>
-    <pubDate>Tue, 06 Oct 2026 12:00:00 GMT</pubDate>
-    <description>A gate that knew one word. I built a small reference for noncommercial access. A custodian marks a synthetic work CC BY-NC 4.0 and signs an access condition for a participating gateway. One agent under one delegation asks twice. Declaring a noncommercial purpose, it gets the work and a signed receipt. Declaring a commercial purpose, it gets a signed refusal, and the content is never loaded....</description>
   </item>
 </channel></rss>
