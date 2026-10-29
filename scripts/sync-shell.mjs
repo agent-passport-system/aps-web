@@ -22,7 +22,11 @@
 //   - Files in the per-repo skip list (see SKIP below)
 //
 // Edge cases handled:
-//   - File with zero <nav> tags        → insert canonical after <body>
+//   - Only <nav> elements that share the canonical nav's identity (its
+//     id, or its class tokens, as in index.html's first <nav>) count as
+//     the site nav. Any other <nav> (blog bp-pager, in-page tables of
+//     contents) is left untouched.
+//   - File with no site nav            → insert canonical after <body>
 //   - File with zero <footer> tags     → insert canonical before </body>
 //   - File with multiple <footer> tags → remove all, insert canonical
 //     before </body> (the "duplicate footer disease" this fixes)
@@ -40,7 +44,13 @@ const REPOS = {
   aps_web: {
     root: `${process.env.HOME}/aps-web`,
     recursive: false,
-    skip: new Set(['board.html', 'docs.html']),
+    // arch-*.html are noindex iframe frames of protocol-architecture.html;
+    // opensource.html is a meta-refresh redirect. None carry a shell.
+    skip: new Set([
+      'board.html', 'docs.html', 'opensource.html',
+      'arch-action.html', 'arch-delegation.html', 'arch-gateway.html',
+      'arch-interop.html', 'arch-mesh.html', 'arch-payments.html',
+    ]),
     skipDirs: new Set([]),
   },
   tymofii: {
@@ -131,10 +141,32 @@ function findAllTagRanges(html, tagName) {
     const c = closeRe.exec(after)
     if (!c) break
     const end = start + m[0].length + c.index + c[0].length
-    ranges.push({ start, end })
+    ranges.push({ start, end, open: m[0] })
     openRe.lastIndex = end
   }
   return ranges
+}
+
+// Identity of a nav element: its id and class tokens, read from the
+// opening tag. A nav is a site nav when it has the canonical id, or
+// (when the canonical has no id) carries every canonical class token.
+
+function attrValue(openTag, name) {
+  const m = new RegExp(`\\s${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s>]+))`, 'i').exec(openTag)
+  return m ? (m[1] ?? m[2] ?? m[3]) : null
+}
+
+function navIdentity(openTag) {
+  const id = attrValue(openTag, 'id')
+  const cls = attrValue(openTag, 'class')
+  return { id, classes: cls ? cls.split(/\s+/).filter(Boolean) : [] }
+}
+
+function matchesIdentity(openTag, identity) {
+  const own = navIdentity(openTag)
+  if (identity.id) return own.id === identity.id
+  if (identity.classes.length === 0) return own.id === null && own.classes.length === 0
+  return identity.classes.every(c => own.classes.includes(c))
 }
 
 // ── File discovery ─────────────────────────────────────────
@@ -164,9 +196,12 @@ function applyCanonical(html, canonicalNav, canonicalFooter) {
 
   // 1. Nav handling. If the file has exactly one nav and it matches
   // canonical, skip. If it has a drifted nav, replace it in place.
-  // If it has multiple nav tags, collapse to one (replace the first,
-  // remove the rest). If none, insert after <body>.
-  const navRanges = findAllTagRanges(html, 'nav')
+  // If it has multiple site navs, collapse to one (replace the first,
+  // remove the rest). If none, insert after <body>. Non-site navs
+  // (bp-pager, tables of contents) are never touched.
+  const canonicalOpen = /<nav\b[^>]*>/i.exec(canonicalNav)[0]
+  const identity = navIdentity(canonicalOpen)
+  const navRanges = findAllTagRanges(html, 'nav').filter(r => matchesIdentity(r.open, identity))
   if (navRanges.length === 0) {
     // No nav; insert after <body> open tag.
     const bodyOpen = /<body\b[^>]*>/i.exec(sanitizeForTagSearch(html))
@@ -325,6 +360,8 @@ function main() {
 }
 
 // Only run main if invoked as the script entry point.
+export { applyCanonical, extractBlock, navIdentity, matchesIdentity }
+
 const __filename = fileURLToPath(import.meta.url)
 if (process.argv[1] === __filename) {
   main()

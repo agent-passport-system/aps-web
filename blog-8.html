@@ -470,13 +470,13 @@ html.bp-only-stories .blog-feed .post[data-kind="story"]{border-top:0}
   </div>
   <nav class="nav-links">
     <a href="/docs/">Docs</a>
-    <a href="https://agent-passport.org/protocol.html">Spec</a>
-    <a href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
-    <a href="https://agent-passport.org/research.html">Research</a>
-    <a href="https://agent-passport.org/blog.html">Dev Log</a>
-    <a href="https://agent-passport.org/contact.html">Contact</a>
+    <a href="protocol.html">Spec</a>
+    <a href="benchmarks.html">Benchmarks</a>
+    <a href="research.html">Research</a>
+    <a href="blog.html">Dev Log</a>
+    <a href="contact.html">Contact</a>
     <a class="gh" href="https://github.com/agent-passport-system/agent-passport-system">GitHub ↗</a>
-<a class="gh-star" href="https://github.com/agent-passport-system/agent-passport-system" target="_blank" rel="noopener" aria-label="Star on GitHub"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg><span id="ghStarCount">star</span></a>
+    <a class="gh-star" href="https://github.com/agent-passport-system/agent-passport-system" target="_blank" rel="noopener" aria-label="Star on GitHub"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"></path></svg><span id="ghStarCount">star</span></a>
   </nav>
   <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button>
 </header>
@@ -748,57 +748,82 @@ html.bp-only-stories .blog-feed .post[data-kind="story"]{border-top:0}
 
 <div class="agent-note"><strong>🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt">agent-passport.org/llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt">llms-full.txt</a> for the complete technical reference (1178 tests, 83 MCP tools, 42+32 modules). This page is designed for humans.</div>
 </main>
-<footer class="r">
-      <div class="foot-grid">
-        <div>
-          <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px">
-            <span class="sq"></span>
-            <span class="mono" style="font-size:14px; font-weight:500">Agent Passport System</span>
-          </div>
-          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:8px">Open-source infrastructure to enforce, verify, and audit AI agent actions.</p>
-          <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:18px">The conformance suite is yours to fork.</p>
-          <a class="mono" href="mailto:signal@aeoess.com" style="display:inline-block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg); border:1px solid var(--line2); padding:9px 16px; border-radius:2px">Contact ↗</a>
-        </div>
-        <div>
-          <div class="head">Protocol</div>
-          <div class="links">
-            <a href="/docs/">Documentation</a>
-            <a href="https://agent-passport.org/protocol.html">Protocol</a>
-            <a href="https://agent-passport.org/threat-model.html">Threat model</a>
-            <a href="https://agent-passport.org/faq.html">FAQ</a>
-            <a href="https://agent-passport.org/verify.html">Verify a bundle</a>
-            <a href="https://agent-passport.org/research.html">Research</a>
-          </div>
-        </div>
-        <div>
-          <div class="head">Developers</div>
-          <div class="links">
-            <a href="https://github.com/agent-passport-system/agent-passport-system">GitHub</a>
-            <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
-            <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
-            <a href="https://agent-passport.org/wallet.html">Agent Wallet</a>
-            <a href="https://agent-passport.org/AGENTS.md">AGENTS.md</a>
-            <a href="https://agent-passport.org/llms.txt">llms.txt</a>
-          </div>
-        </div>
-        <div>
-          <div class="head">Community</div>
-          <div class="links">
-            <a href="https://agent-passport.org/working-group.html">Agent Federation</a>
-            <a href="https://agent-passport.org/blog.html">Dev Log</a>
-            <a href="https://agent-passport.org/media.html">Media</a>
-            <a href="https://agent-passport.org/team.html">Team</a>
-            <a href="https://agent-passport.org/careers.html">Careers</a>
-          </div>
-        </div>
+<footer class="r" style="scroll-snap-align:start;position:relative;z-index:1">
+  <section class="bodies" aria-label="Standards and open source work">
+    <span class="bodies-label">Work in progress at</span>
+    <ul class="bodies-list">
+      <li><a href="https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/" target="_blank" rel="noopener"><span class="mark">IETF</span><span class="role">Individual Internet-Draft</span></a></li>
+      <li><a href="https://www.w3.org/" target="_blank" rel="noopener"><span class="mark"><img class="w3c" src="assets/logos/w3c-white.svg" alt="W3C" width="34" height="34"></span><span class="role">AI Agent Protocol CG</span></a></li>
+      <li><a href="https://owasp.org/www-project-agentic-skills-top-10/" target="_blank" rel="noopener"><span class="mark"><img class="owasp" src="assets/logos/owasp-footer.svg" alt="OWASP" width="90" height="27"></span><span class="role">Agentic Skills Top 10</span></a></li>
+      <li><a href="https://github.com/cosai-oasis/ws4-secure-design-agentic-systems" target="_blank" rel="noopener"><span class="mark"><img class="cosai" src="assets/logos/cosai-white.png" alt="CoSAI" width="67" height="28"></span><span class="role">Workstream 4</span></a></li>
+      <li><a href="https://github.com/Agent-Authority-Conformance" target="_blank" rel="noopener"><span class="mark"><img class="lfdt" src="assets/logos/lfdt-horizontal-white.png" alt="LF Decentralized Trust" width="301" height="17"></span><span class="role">Conformance lab</span></a></li>
+    </ul>
+  </section>
+  <section class="about-aps" aria-labelledby="about-aps-title">
+    <div class="about-head"><span class="sq"></span><h2 id="about-aps-title">What APS is</h2></div>
+    <div class="about-text about-crawl"><div class="crawl">
+      <p>AI agents act for people and companies, but the systems around them often cannot show who authorized an action, what the agent was allowed to do, and what actually happened.</p>
+      <p>The Agent Passport System is an Apache 2.0 open protocol that gives an agent a verifiable identity, ties it to the person or company it represents, and checks the scope, budget and conditions of its authority before it acts.</p>
+      <p>Every permitted action gets a signed receipt, and every denied action leaves evidence.</p>
+      <p>Each receipt also records who the agent acted for, so the work, value and outcomes it produces stay attributed to the person or company behind it.</p>
+    </div></div>
+    <nav class="about-links" aria-label="Start here">
+      <a href="verify.html">Verify a receipt in your browser</a>
+      <a href="protocol.html">How the protocol works</a>
+      <a href="/docs/">Docs</a>
+      <a href="research.html">Research</a>
+    </nav>
+  </section>
+  <div class="foot-grid">
+    <div>
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px">
+        <span class="sq"></span>
+        <span class="mono" style="font-size:14px; font-weight:500">Agent Passport System</span>
       </div>
-      <div class="foot-base" style="justify-content:flex-start; gap:16px 56px">
-        <span><em class="fbk">License</em>Code Apache 2.0</span>
-        <span><em class="fbk">Editor</em>Tymofii Pidlisnyi</span>
-        <span><em class="fbk">Spec</em>draft-pidlisnyi-aps (IETF Internet-Draft)</span>
-        <span><em class="fbk">Imprint</em>Vol. 01 · 2026 · agent-passport.org</span>
-        <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
+      <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:8px">Open-source infrastructure to enforce, verify, and audit AI agent actions.</p>
+      <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:18px">The conformance suite is yours to fork.</p>
+      <a class="mono" href="mailto:signal@aeoess.com" style="display:inline-block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg); border:1px solid var(--line2); padding:9px 16px; border-radius:2px">Contact ↗</a>
+    </div>
+    <div>
+      <div class="head">Protocol</div>
+      <div class="links">
+        <a href="/docs/">Documentation</a>
+        <a href="protocol.html">Protocol</a>
+        <a href="threat-model.html">Threat model</a>
+        <a href="faq.html">FAQ</a>
+        <a href="verify.html">Verify a bundle</a>
+        <a href="research.html">Research</a>
       </div>
-    </footer>
+    </div>
+    <div>
+      <div class="head">Developers</div>
+      <div class="links">
+        <a href="https://github.com/agent-passport-system/agent-passport-system">GitHub</a>
+        <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
+        <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
+        <a href="wallet.html">Agent Wallet</a>
+        <a href="https://agent-passport.org/AGENTS.md">AGENTS.md</a>
+        <a href="llms.txt">llms.txt</a>
+      </div>
+    </div>
+    <div>
+      <div class="head">Community</div>
+      <div class="links">
+        <a href="working-group.html">Agent Federation</a>
+        <a href="blog.html">Dev Log</a>
+        <a href="media.html">Media</a>
+        <a href="team.html">Team</a>
+        <a href="careers.html">Careers</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-base" style="justify-content:flex-start; gap:16px 56px">
+    <span><em class="fbk">License</em>Code Apache 2.0</span>
+    <span><em class="fbk">Editor</em>Tymofii Pidlisnyi</span>
+    <span><em class="fbk">Spec</em>draft-pidlisnyi-aps (IETF Internet-Draft)</span>
+    <span><em class="fbk">Imprint</em>Vol. 01 · 2026 · agent-passport.org</span>
+    <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
+  </div>
+</footer>
 </body>
 </html>
