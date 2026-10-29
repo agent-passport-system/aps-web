@@ -17,7 +17,7 @@ The longest session yet. Started with a 4-pass security audit (30 findings, all 
 
 **Portal redesign.** The old hero said "Your agents are doing things. Can you prove it?" It read like an accusation. New copy: "Governance infrastructure for AI agents." Plans are now clickable with CTAs. Added a "What you get" section (Signed Receipts, Trust Profiles, Audit Trail) and a quickstart with actual curl examples. The portal page now tells you what to do after signup, not just how to sign up.
 
-**API docs.** Full reference at [aeoess.com/docs.html](https://aeoess.com/docs.html). Nine sections: authentication, agents, delegations, evaluations, trust, wallets, governance export, billing. Every endpoint with curl examples and response formats. The gateway 404 handler now points here instead of a dead /docs path.
+**API docs.** Full reference at [agent-passport.org/docs](https://agent-passport.org/docs/). Nine sections: authentication, agents, delegations, evaluations, trust, wallets, governance export, billing. Every endpoint with curl examples and response formats. The gateway 404 handler now points here instead of a dead /docs path.
 
 **New protocol primitives.** Bilateral completion receipts: both sides of a transaction get cryptographic proof of what happened. `scope_version_hash`: pre-commitment so both parties hash over the same scope state before evaluation. `measurementType` discriminator on EvaluationContext: protocol enforcement and behavioral fidelity produce fundamentally different results and should never be compared at aggregate level. Per-task-class trust profiles with temporal windowing. Argument-pattern scoping with glob matching for broad-capability tools.
 

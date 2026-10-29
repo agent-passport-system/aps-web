@@ -469,7 +469,7 @@ html.bp-only-stories .blog-feed .post[data-kind="story"]{border-top:0}
     <span class="badge"><i></i>Apache 2.0</span>
   </div>
   <nav class="nav-links">
-    <a href="https://agent-passport.org/docs.html">Docs</a>
+    <a href="/docs/">Docs</a>
     <a href="https://agent-passport.org/protocol.html">Spec</a>
     <a href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
     <a href="https://agent-passport.org/research.html">Research</a>
@@ -489,7 +489,7 @@ html.bp-only-stories .blog-feed .post[data-kind="story"]{border-top:0}
       <span class="badge"><i></i>Apache 2.0</span>
       <button class="drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
     </div>
-    <a class="dl" href="https://agent-passport.org/docs.html">Docs</a>
+    <a class="dl" href="/docs/">Docs</a>
     <a class="dl" href="https://agent-passport.org/protocol.html">Spec</a>
     <a class="dl" href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
     <a class="dl" href="https://agent-passport.org/research.html">Research</a>
@@ -551,7 +551,7 @@ html.bp-only-stories .blog-feed .post[data-kind="story"]{border-top:0}
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">The audit.</strong> Four passes, different methodology each. Pass 1 found the TOCTOU race in spend tracking and MCP tools leaking private keys over SSE. Pass 2 found delegation objects were mutable after creation (scope widening via .push()). Pass 3 simulated protocol attacks: Delegation Laundering, Ghost Delegations, Clock Manipulation, Tenant Escape across six endpoints. Pass 4 verified all 30 fixes. The protocol is harder to break today than yesterday.</p>
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Email infrastructure.</strong> Integrated Resend. Domain verified (DKIM + SPF). Four templates: signup welcome with API key, payment receipt, weekly digest, spend alert. Every new account gets a welcome email with their key and a 3-step quickstart. Spend alerts fire automatically at 80% and 95% of delegation budgets.</p>
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Portal redesign.</strong> The old hero said "Your agents are doing things. Can you prove it?" It read like an accusation. New copy: "Governance infrastructure for AI agents." Plans are now clickable with CTAs. Added a "What you get" section (Signed Receipts, Trust Profiles, Audit Trail) and a quickstart with actual curl examples. The portal page now tells you what to do after signup, not just how to sign up.</p>
-  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">API docs.</strong> Full reference at <a href="https://aeoess.com/docs.html" style="color:var(--link)">aeoess.com/docs.html</a>. Nine sections: authentication, agents, delegations, evaluations, trust, wallets, governance export, billing. Every endpoint with curl examples and response formats. The gateway 404 handler now points here instead of a dead /docs path.</p>
+  <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">API docs.</strong> Full reference at <a href="https://agent-passport.org/docs/" style="color:var(--link)">agent-passport.org/docs</a>. Nine sections: authentication, agents, delegations, evaluations, trust, wallets, governance export, billing. Every endpoint with curl examples and response formats. The gateway 404 handler now points here instead of a dead /docs path.</p>
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">New protocol primitives.</strong> Bilateral completion receipts: both sides of a transaction get cryptographic proof of what happened. <code>scope_version_hash</code>: pre-commitment so both parties hash over the same scope state before evaluation. <code>measurementType</code> discriminator on EvaluationContext: protocol enforcement and behavioral fidelity produce fundamentally different results and should never be compared at aggregate level. Per-task-class trust profiles with temporal windowing. Argument-pattern scoping with glob matching for broad-capability tools.</p>
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Operational infrastructure.</strong> Admin tenant management (list, soft-delete, enterprise only). API key regeneration with email notification. <code>GET /health</code> and <code>GET /api/v1/status</code> for public uptime monitoring. Live status page at <a href="https://aeoess.com/status.html" style="color:var(--link)">aeoess.com/status.html</a>. Weekly digest trigger. Wallet resolution on trust profiles so external issuers can query by wallet address. Eight test accounts cleaned up. Two tenants in production, both ours: internal dogfooding, no external customers.</p>
   <p style="color:rgb(176, 176, 176);font-size:.95rem;line-height:1.75"><strong style="color:var(--text)">Ecosystem.</strong> 25+ thread replies across A2A, OWASP, MITRE, crewAI, HuggingFace, ToolJet, insumer-examples, and our own repos. RNWY adopted our <code>verifiedAt</code> vs <code>issuedAt</code> split. lowkey-divine is converging their Fidelity Measurement Spec with our <code>BehavioralAttestationResult</code> type. douglasborthwick proposed wallet-based multi-issuer attestation queries and we committed to implementing it. Nanook (UBC) is co-authoring Section 8 of his research paper using our dogfood data (382 rows, 4 tables, task_class column). WTRMRK on Base L2 offered cross-protocol trust profile integration. vessenes confirmed entity binding endpoints are live.</p>
@@ -813,7 +813,7 @@ html.bp-only-stories .blog-feed .post[data-kind="story"]{border-top:0}
         <div>
           <div class="head">Protocol</div>
           <div class="links">
-            <a href="https://agent-passport.org/docs.html">Documentation</a>
+            <a href="/docs/">Documentation</a>
             <a href="https://agent-passport.org/protocol.html">Protocol</a>
             <a href="https://agent-passport.org/threat-model.html">Threat model</a>
             <a href="https://agent-passport.org/faq.html">FAQ</a>

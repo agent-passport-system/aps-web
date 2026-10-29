@@ -40,7 +40,7 @@ const REPOS = {
   aps_web: {
     root: `${process.env.HOME}/aps-web`,
     recursive: false,
-    skip: new Set(['board.html']),
+    skip: new Set(['board.html', 'docs.html']),
     skipDirs: new Set([]),
   },
   tymofii: {

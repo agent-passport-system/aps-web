@@ -399,7 +399,7 @@
       ['cat', 'Every permitted action gets a signed receipt, and every refused action leaves evidence. So afterwards you can check who authorized what, and what happened.']
     ], function () {
       cChips([
-        { label: 'Read the docs ↗', href: '/docs.html' },
+        { label: 'Read the docs ↗', href: '/docs/' },
         { label: 'Free pilot', go: pilot },
         { label: '★ Star on GitHub', go: starAsk },
         { label: 'Something else', go: function () { menu('Sure. What else?'); } }
