@@ -1,0 +1,17 @@
+{
+  "name": "aps-docs",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/markdown-remark": "7.3.5",
+    "@astrojs/starlight": "0.42.7",
+    "astro": "7.4.4",
+    "sharp": "0.35.5"
+  }
+}

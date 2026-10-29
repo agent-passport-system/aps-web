@@ -1,0 +1,31 @@
+---
+title: Introduction
+description: What APS is, what these docs cover, and where each package is published.
+---
+
+APS gives an AI agent a verifiable identity, ties it to the person or company it represents, scopes what it is allowed to do, and signs every action so the proof travels with the action instead of living in a log you check after something breaks.
+
+APS is the enforcement layer that sits on top of whatever identity an agent already has. Accepts did:key, did:web, SPIFFE SVID, OAuth, and native did:aps. Identity is the input. Enforcement is the product. The gateway is both judge and executor. Authority can only decrease at each transfer point.
+
+## What these docs cover
+
+These docs get you from install to a working governed action, then explain the core primitives and, plainly, what the receipts do and do not prove. Everything here is open source under Apache 2.0, with the spec submitted as an Individual Internet-Draft.
+
+- [Install](/docs/install/) and [Quickstart](/docs/quickstart/)
+- [Core concepts](/docs/concepts/) and [Receipts: what they prove and what they do not](/docs/receipts/)
+- [The gateway](/docs/gateway/) and the [MCP server](/docs/mcp-server/)
+- [CLI reference](/docs/cli/) and [API reference](/docs/api/)
+- [Compliance evidence and status labels](/docs/evidence/)
+- [Specifications](/docs/specs/) and [Related work](/docs/federation/)
+
+## Two SDK layers
+
+The SDK ships in two layers. Core is a curated essentials surface at `agent-passport-system/core` covering identity, delegation, enforcement, commerce, reputation. Extended is the full API surface at `agent-passport-system` covering specialized modules including the constitutional v2 framework. Start with Core. Pull from Extended only when needed.
+
+## Packages
+
+- [SDK on npm](https://www.npmjs.com/package/agent-passport-system): `npm install agent-passport-system`
+- [Python SDK on PyPI](https://pypi.org/project/agent-passport-system/): `pip install agent-passport-system`
+- [Rust SDK on crates.io](https://crates.io/crates/agent-passport-system): `cargo add agent-passport-system`
+- [Go SDK on pkg.go.dev](https://pkg.go.dev/github.com/aeoess/agent-passport-go): `go get github.com/aeoess/agent-passport-go@v0.7.0`
+- [MCP server on npm](https://www.npmjs.com/package/agent-passport-system-mcp): `npx agent-passport-system-mcp setup`

@@ -103,3 +103,9 @@ specs/ERIK-NEWTON*
 # Python bytecode cache (scripts/*.py)
 __pycache__/
 *.pyc
+
+# Docs site source (Astro + Starlight). Build output lands in docs/ and is committed.
+docs-src/node_modules/
+docs-src/.astro/
+!docs-src/package.json
+!docs-src/package-lock.json

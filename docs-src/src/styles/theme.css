@@ -1,0 +1,94 @@
+/* APS docs theme. Tokens from the main site: blue #0A5CFF, white, yellow #FFF200, ink #0A0B08, lines #8DB6FF. */
+
+:root {
+  --aps-blue: #0a5cff;
+  --aps-yellow: #fff200;
+  --aps-ink: #0a0b08;
+  --aps-line: #8db6ff;
+
+  --sl-font: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --sl-font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --aps-font-display: 'Space Grotesk', 'Archivo', system-ui, sans-serif;
+
+  /* Dark mode: the blue is the page background. */
+  --sl-color-accent-low: var(--aps-ink);
+  --sl-color-accent: var(--aps-yellow);
+  --sl-color-accent-high: var(--aps-yellow);
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #ffffff;
+  --sl-color-gray-2: #f2f6ff;
+  --sl-color-gray-3: #d6e4ff;
+  --sl-color-gray-4: var(--aps-line);
+  --sl-color-gray-5: #3b7bff;
+  --sl-color-gray-6: #0850e0;
+  --sl-color-black: var(--aps-blue);
+  --sl-color-hairline-light: var(--aps-line);
+  --sl-color-hairline: #3b7bff;
+  --sl-color-hairline-shade: #0646c4;
+  --sl-color-bg-inline-code: #0646c4;
+}
+
+:root[data-theme='light'] {
+  --sl-color-accent-low: #dce8ff;
+  --sl-color-accent: var(--aps-blue);
+  --sl-color-accent-high: #0640b8;
+  --sl-color-white: var(--aps-ink);
+  --sl-color-gray-1: #1c1e19;
+  --sl-color-gray-2: #2e302b;
+  --sl-color-gray-3: #4c4f48;
+  --sl-color-gray-4: #7a7d76;
+  --sl-color-gray-5: #c9d9f7;
+  --sl-color-gray-6: #eef4ff;
+  --sl-color-gray-7: #f7faff;
+  --sl-color-black: #ffffff;
+  --sl-color-hairline-light: #e3ecfc;
+  --sl-color-hairline: #c9d9f7;
+  --sl-color-hairline-shade: var(--aps-line);
+  --sl-color-bg-inline-code: #eef4ff;
+}
+
+h1,
+h2,
+h3,
+h4,
+.site-title,
+.sl-markdown-content :is(h1, h2, h3, h4) {
+  font-family: var(--aps-font-display);
+  letter-spacing: -0.01em;
+}
+
+.site-title {
+  font-weight: 700;
+  color: var(--sl-color-white);
+}
+
+::selection {
+  background: var(--aps-yellow);
+  color: var(--aps-ink);
+}
+
+/* Links in body copy keep the accent and an underline. */
+.sl-markdown-content a:not(:where(.not-content *)) {
+  color: var(--sl-color-text-accent);
+  text-underline-offset: 0.18em;
+}
+
+:root[data-theme='light'] .sl-markdown-content a:not(:where(.not-content *)):hover {
+  background: var(--aps-yellow);
+  color: var(--aps-ink);
+}
+
+/* Active sidebar entry: yellow marker in light, yellow fill in dark. */
+:root[data-theme='light'] .sidebar-content a[aria-current='page'] {
+  box-shadow: inset 3px 0 0 var(--aps-yellow);
+}
+
+/* Inline code. */
+.sl-markdown-content code:not(:where(.not-content *, pre *)) {
+  border-radius: 2px;
+}
+
+/* Header rule uses the line token. */
+header.header {
+  border-bottom-color: var(--sl-color-hairline-shade);
+}
