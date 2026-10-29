@@ -1,0 +1,76 @@
+grant (AuthorityDelegationV1):
+{
+  "record_type": "aps:authority-delegation:v1",
+  "version": "1.0",
+  "parent_delegation_id": null,
+  "issuer": "did:example:principal",
+  "subject": "did:example:agent",
+  "verification_method": "did:example:principal#key-1",
+  "issued_at": "2026-10-28T09:00:00.000Z",
+  "nonce": "00000000000000000000000000000001",
+  "authority": {
+    "scope": {
+      "profile": "aps-hierarchical-v1",
+      "grants": [
+        "notes:read:*"
+      ]
+    },
+    "spend": {
+      "mode": "bounded",
+      "unit": "example:credit",
+      "per_action": "5",
+      "cumulative": "10"
+    },
+    "depth": {
+      "remaining": 0
+    },
+    "time": {
+      "not_before": "2026-10-28T09:00:00.000Z",
+      "not_after": "2026-10-28T17:00:00.000Z"
+    },
+    "reputation": {
+      "profile": "aps-score-0-100-v1",
+      "ceiling": 100
+    },
+    "values": {
+      "profile": "aps-values-identifiers-v1",
+      "required": []
+    },
+    "reversibility": {
+      "profile": "aps-tci-v1",
+      "ceiling": "compensable"
+    }
+  },
+  "delegation_id": "sha256:7123e7d656ef4ed367c27f49e089d7c64df307c6780bd9577014f7426ae1529f",
+  "signature": "4deea9077d843259694a1e19d64c38688f51fc2f9d717b87710b278047a1e1e43f828c4ecf7f5dc0039ecf9a0022a7037207bec52cb6e15d3d7583ac157b910a"
+}
+
+{"case":"allowed","outcome":"dispatched","reason":null,"chain_state":"valid","resource_called":true,"receipts":["aps:policy-decision:v1","aps:action-result:v1"],"audit":{"decision":"valid","decision_ref_bound":true,"boundary":"verified","result":"valid","predecessor_bound":true}}
+{"case":"out_of_scope","outcome":"refused","reason":"SCOPE_NOT_GRANTED","chain_state":"valid","resource_called":false,"receipts":["aps:policy-decision:v1"],"audit":{"decision":"valid","decision_ref_bound":true,"boundary":"verified"}}
+{"case":"over_budget","outcome":"refused","reason":"PER_ACTION_EXCEEDED","chain_state":"valid","resource_called":false,"receipts":["aps:policy-decision:v1"],"audit":{"decision":"valid","decision_ref_bound":true,"boundary":"verified"}}
+{"case":"replay","outcome":"refused","reason":"REPLAYED","chain_state":"not_evaluated","resource_called":false,"receipts":[],"audit":null}
+{"case":"unknown_status","outcome":"refused","reason":"REVOCATION_UNKNOWN","chain_state":"indeterminate","resource_called":false,"receipts":["aps:policy-decision:v1"],"audit":{"decision":"valid","decision_ref_bound":true,"boundary":"verified"}}
+{"case":"revoked","outcome":"refused","reason":"REVOKED","chain_state":"invalid","resource_called":false,"receipts":["aps:policy-decision:v1"],"audit":{"decision":"valid","decision_ref_bound":true,"boundary":"verified"}}
+
+revocation (AuthorityRevocationV1):
+{
+  "revocation": {
+    "record_type": "aps:authority-revocation:v1",
+    "version": "1.0",
+    "delegation_id": "sha256:7123e7d656ef4ed367c27f49e089d7c64df307c6780bd9577014f7426ae1529f",
+    "revoker": "did:example:principal",
+    "verification_method": "did:example:principal#key-1",
+    "revoked_at": "2026-10-28T10:05:00.000Z",
+    "reason_code": "task_complete",
+    "nonce": "000000000000000000000000000000aa",
+    "cascade_transaction_id": "sha256:0259b1d6c580eb5a456dc519ce9d49dd464278bb92640ea764913060351cf519",
+    "revocation_id": "sha256:f38896bfce5f378fd2711ee77a73d023960b8f1139b2e2289e733505613c3581",
+    "signature": "eb486a329334ee511e97eb35711374cda534f63fbc70791fe54c63862352fbf0f695db83d18031c657dca343f1684b2628a45c0333fe4bd18d0681320ee0cf0f"
+  },
+  "recorded": true,
+  "inserted": true,
+  "state": "valid"
+}
+
+ledger counter for the grant: {"reserved":"0","committed":"3"}
+resource calls: 1

@@ -20,6 +20,7 @@ export default defineConfig({
         { label: 'Introduction', slug: 'index' },
         { label: 'Install', slug: 'install' },
         { label: 'Quickstart', slug: 'quickstart' },
+        { label: 'Compatibility: social contract API', slug: 'compatibility' },
         { label: 'Core concepts', slug: 'concepts' },
         { label: 'Receipts', slug: 'receipts' },
         { label: 'The gateway', slug: 'gateway' },

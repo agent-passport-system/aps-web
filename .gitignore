@@ -111,3 +111,5 @@ docs-src/node_modules/
 docs-src/.astro/
 !docs-src/package.json
 !docs-src/package-lock.json
+!docs-src/examples/governed-action/package.json
+!docs-src/examples/governed-action/package-lock.json

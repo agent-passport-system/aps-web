@@ -9,7 +9,7 @@ What a valid signature establishes: the signer's key signed these exact bytes, a
 
 APS has more than one receipt family, each with its own fields and verifier:
 
-- The draft-native `ReceiptV1`, with `profile` `aps-receipt-v1` and a `receipt_type` such as `aps:policy-decision:v1` or `aps:action-result:v1`. It has a closed set of fields and no top-level `scope_of_claim`.
+- The draft-native `ReceiptV1`, with `profile` `aps-receipt-v1` and a `receipt_type` such as `aps:policy-decision:v1` or `aps:action-result:v1`. It has a closed set of fields and no top-level `scope_of_claim`. The [Quickstart](/docs/quickstart/) emits and verifies these.
 - The accountability receipts identified by `claim_type`, such as `aps:action:v1`, described in the sections below. These carry `scope_of_claim`.
 - The compatibility camelCase `ActionReceipt` returned by `recordWork`.
 

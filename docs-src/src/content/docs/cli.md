@@ -9,7 +9,7 @@ The command line tool is the `agent-passport` binary of the npm package `agent-p
 npm exec --package=agent-passport-system@8.0.1 -- agent-passport help
 ```
 
-The CLI works with the social contract API and its compatibility formats: the legacy `Delegation` and the camelCase `ActionReceipt`. It does not issue `AuthorityDelegationV1` records.
+The CLI works with the [social contract API](/docs/compatibility/) and its compatibility formats: the legacy `Delegation` and the camelCase `ActionReceipt`. It does not issue `AuthorityDelegationV1` records.
 
 ## Local state
 

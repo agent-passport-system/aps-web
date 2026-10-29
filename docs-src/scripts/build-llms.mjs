@@ -11,6 +11,7 @@ const pages = [
   ['quickstart.md', 'llms/quickstart.txt'],
   ['api.md', 'llms/api.txt'],
   ['cli.md', 'llms/cli.txt'],
+  ['compatibility.md', 'llms/compatibility.txt'],
 ]
 const check = process.argv.includes('--check')
 let stale = 0
