@@ -1,15 +1,17 @@
 ---
 title: Introduction
-description: What APS is, what these docs cover, and where each package is published.
+description: What APS is, which wire format these docs teach, and where each package is published.
 ---
 
-APS gives an AI agent a verifiable identity, ties it to the person or company it represents, scopes what it is allowed to do, and signs every action so the proof travels with the action instead of living in a log you check after something breaks.
+APS gives an AI agent a key-based identity, records the authority a principal grants it as a signed delegation, and signs records of what an enforcement boundary decided and did. A verifier can check those records later without trusting the agent that produced them.
 
-APS is the enforcement layer that sits on top of whatever identity an agent already has. Accepts did:key, did:web, SPIFFE SVID, OAuth, and native did:aps. Identity is the input. Enforcement is the product. The gateway is both judge and executor. Authority can only decrease at each transfer point.
+A delegation narrows at each step: a sub-delegation can hold less authority than its parent, never more. Whether an action is actually stopped depends on where the check runs. Only calls that pass through an enforcement boundary are gated, and the boundary must hold the credentials the resource needs, so that a call it refuses cannot reach the resource another way.
 
 ## What these docs cover
 
-These docs get you from install to a working governed action, then explain the core primitives and, plainly, what the receipts do and do not prove. Everything here is open source under Apache 2.0, with the spec submitted as an Individual Internet-Draft.
+The current wire format is `AuthorityDelegationV1` (`record_type` `aps:authority-delegation:v1`) with signed `ReceiptV1` records, as published in `agent-passport-system` 8.0.1. The [Quickstart](/docs/quickstart/) on this revision still teaches the older social contract API and its compatibility `Delegation` format, with every sample tested against 8.0.1.
+
+Everything here is open source under Apache 2.0. The protocol is submitted as an individual Internet-Draft, `draft-pidlisnyi-aps-04`.
 
 - [Install](/docs/install/) and [Quickstart](/docs/quickstart/)
 - [Core concepts](/docs/concepts/) and [Receipts: what they prove and what they do not](/docs/receipts/)
@@ -18,9 +20,9 @@ These docs get you from install to a working governed action, then explain the c
 - [Compliance evidence and status labels](/docs/evidence/)
 - [Specifications](/docs/specs/) and [Related work](/docs/federation/)
 
-## Two SDK layers
+## Two import paths
 
-The SDK ships in two layers. Core is a curated essentials surface at `agent-passport-system/core` covering identity, delegation, enforcement, commerce, reputation. Extended is the full API surface at `agent-passport-system` covering specialized modules including the constitutional v2 framework. Start with Core. Pull from Extended only when needed.
+The npm package has two entry points. The root import, `agent-passport-system`, carries the full surface, including every current authority, revocation and receipt function. `agent-passport-system/core` is a curated set of 25 older functions built around the compatibility `Delegation` format. Three of them, `commercePreflight`, `revokeDelegation` and `cascadeRevoke`, throw a migration error in 8.0.1. New integrations import from the root.
 
 ## Packages
 
@@ -29,3 +31,5 @@ The SDK ships in two layers. Core is a curated essentials surface at `agent-pass
 - [Rust SDK on crates.io](https://crates.io/crates/agent-passport-system): `cargo add agent-passport-system`
 - [Go SDK on pkg.go.dev](https://pkg.go.dev/github.com/aeoess/agent-passport-go): `go get github.com/aeoess/agent-passport-go@v0.7.0`
 - [MCP server on npm](https://www.npmjs.com/package/agent-passport-system-mcp): `npx agent-passport-system-mcp setup`
+
+The four SDKs do not expose the same features. See [Install](/docs/install/) for what each one can do.

@@ -3,30 +3,20 @@ title: MCP server
 description: Install and configure the APS MCP server locally or over SSE, choose a tool profile, and see what it reads, writes and contacts.
 ---
 
-Enforcement and accountability layer for AI agents. Bring your own identity. 154 tools by default across identity, delegation, enforcement, commerce, reputation, governance, coordination, and data.
+The MCP server exposes APS functions as MCP tools. With the default profile, `tools/list` returns 154 tools. The current release is agent-passport-system-mcp 8.1.0 on [npm](https://www.npmjs.com/package/agent-passport-system-mcp), which runs on Node.js 20 or later and depends on agent-passport-system 8.0.1. The source is at [agent-passport-system/agent-passport-mcp](https://github.com/agent-passport-system/agent-passport-mcp).
 
-The current release is agent-passport-system-mcp 8.1.0 on [npm](https://www.npmjs.com/package/agent-passport-system-mcp). The source is at [agent-passport-system/agent-passport-mcp](https://github.com/agent-passport-system/agent-passport-mcp).
-
-```bash
-npx agent-passport-system-mcp
-```
-
-## Remote, no install needed
-
-```bash
-npx agent-passport-system-mcp setup --remote
-```
-
-Connects via SSE to `mcp.aeoess.com/sse`. Zero dependencies. Restart your AI client.
+Exposing a tool to an agent does not place a check in front of other tools the agent can call. To gate calls to an MCP server you do not control, the host has to check authority before it dispatches `tools/call`. See [Host pre-dispatch authorization](#host-pre-dispatch-authorization).
 
 ## Local install
 
+The local server runs over stdio on your machine.
+
 ```bash
-npm install -g agent-passport-system-mcp
+npm install agent-passport-system-mcp@8.1.0
 npx agent-passport-system-mcp setup
 ```
 
-Auto-configures Claude Desktop and Cursor. Restart your AI client.
+`setup` adds an `agent-passport` entry to the Claude Desktop and Cursor configuration files in your home directory. Restart the client afterwards.
 
 ## Manual config
 
@@ -43,24 +33,65 @@ If setup does not detect your client, add this to your MCP config file:
 }
 ```
 
-Or for remote SSE:
+## Hosted endpoint
 
-```json
-{
-  "mcpServers": {
-    "agent-passport": {
-      "type": "sse",
-      "url": "https://mcp.aeoess.com/sse"
-    }
-  }
-}
-```
+`npx agent-passport-system-mcp setup --remote` writes `"type": "sse"` and `"url": "https://mcp.aeoess.com/sse"` into the client configuration, with no credentials. The [remote server README](https://github.com/agent-passport-system/agent-passport-remote-mcp/blob/b0cfb7f055fa9e6f65c18c51fb121ff1b326bbc7/README.md) at commit `b0cfb7f` says the hosted endpoint is temporarily restricted while the deployment is updated, that anonymous connections return HTTP 401, and that self-hosting is unaffected. Its self-hosted server takes an optional `API_KEY`. Use the local server.
 
 ## Profiles
 
-The default profile is `full`, all 154 tools. Set `APS_PROFILE=essential` for a slim profile covering the primitives most integrations need (identity, delegation, enforcement, commerce, reputation). The count is what `tools/list` returns and includes `list_profiles`, which every profile exposes.
+The default profile is `full`, all 154 tools. `APS_PROFILE=essential` registers 28 tools. The counts are what `tools/list` returned for each profile, and both include `list_profiles`.
 
 Available profiles: full (default), essential, identity, governance, coordination, commerce, data, gateway, comms, minimal.
+
+A profile decides which tools the server registers. `list_tools_for_scope` returns the tools that match the scope strings you pass it. Both choose what a client sees. Neither one authorizes a call.
+
+The 154 includes tools that only return a migration notice. `commerce_preflight` returns `isError: true` with `"error": "commerce_preflight_moved_to_gateway"`, and the Gateway group below is removed and returns migration notices too.
+
+## Current authority: issue, check, revoke, check
+
+`create_delegation` and `verify_delegation` work on the legacy `Delegation` format. `verify_delegation` does not consult revocation, and `revoke_delegation` refuses a legacy record. To get a revocable record, use `issue_authority_delegation`, which signs an `AuthorityDelegationV1` with the server's key.
+
+The sequence below ran against agent-passport-system-mcp 8.1.0 over stdio, with tool calls sent from an MCP client.
+
+1. `identify` with `public_key` and `private_key`. The server holds that key pair for the session and uses it as the issuer key.
+2. `issue_authority_delegation`:
+
+```json
+{ "subject": "did:example:agent", "grants": ["notes:read:*"], "spend_unit": "example:credit", "spend_per_action": 5, "spend_cumulative": 10 }
+```
+
+The response carries the signed record under `delegation`. Its `issuer` is `aps:ed25519:<the server's public key>`, its validity window is one hour by default (`ttl_hours`), and the server tracks its ID in an in-memory revocation store. Keep the record. The server stores only its revocation status.
+
+3. `check_authority_delegation` with `{ "delegation": <the record> }`, response excerpt:
+
+```text
+"issued_by_this_server": true,
+"state": "valid",
+"valid": true,
+"failures": []
+```
+
+4. `revoke_delegation` with `{ "delegation": <the record>, "reason_code": "task_complete" }` returns a signed `AuthorityRevocationV1` under `revocation`, with `"inserted": true` and `"verification": "valid"`.
+5. `check_authority_delegation` again, response excerpt:
+
+```text
+"state": "invalid",
+"valid": false,
+"failures": [
+  {
+    "code": "REVOKED",
+```
+
+Observed limits of this route:
+
+- `issue_authority_delegation` runs only on a local server. With `MCP_REMOTE=1` or `MCP_TRANSPORT=sse` it returns `Refused: issue_authority_delegation runs only on a local (stdio) server.`
+- The revocation store is process memory. After a restart, checking the same record with the same key gave `"state": "indeterminate"` with `REVOCATION_UNKNOWN`. A restart never turns an unknown status into `valid`.
+- `revoke_delegation` on a legacy ID (`del_...`) from `create_delegation` returns `Refused: this is a legacy delegation`.
+- The process store is not shared. Another verifier learns of a revocation only if you give it the `AuthorityRevocationV1` record.
+
+## Host pre-dispatch authorization
+
+The SDK's `aps-mcp-1` profile describes how a host checks an APS authorization before it dispatches an MCP `tools/call`. The profile is specified in [`MCP-AUTHORIZATION-PROFILE.md`](https://github.com/agent-passport-system/agent-passport-system/blob/f95c9168187cbac0493099fe4a7cddaff653bf39/docs/MCP-AUTHORIZATION-PROFILE.md). Installing this MCP server or choosing a tool profile does not put that check in front of other servers' tools.
 
 ## Tools
 
@@ -74,7 +105,7 @@ The full tool list, grouped by layer with a description of each tool, is in the 
 - Coordination and provisional statements
 - Agora and agent messaging
 - Governance, charters, provenance, attribution
-- Commerce
+- Commerce (`commerce_preflight` returns a migration notice)
 - Data governance
 - Gateway (removed, stubs return a migration notice)
 - Intent Network
@@ -96,7 +127,7 @@ The server makes outbound requests only from the tools below. Every other tool w
 | `api.github.com` | `register_agora_public` | Opens an issue in `aeoess/aeoess_web` with the agent ID, name, public key and the optional owner, runtime and capabilities. The token comes from the `token` argument, or from the `GITHUB_TOKEN` environment variable when the argument is absent. With no token the tool makes no request and returns a `github.com` URL to open by hand |
 | `AEOESS_GATEWAY_URL` (for example `gateway.aeoess.com`) | `issue_passport` | Only when both `AEOESS_GATEWAY_URL` and `AEOESS_GATEWAY_KEY` are set: a fire and forget POST of the issuance record (passport ID, public key hash, grade, observed signals) to `/api/v1/issuance-dossier`. Off by default |
 
-`gateway.aeoess.com` and `aeoess.com` also appear as plain URLs inside some tool responses (the removed gateway stubs and the `latest.json` the Agora writes). The server does not fetch them. `npx agent-passport-system-mcp setup --remote` writes `https://mcp.aeoess.com/sse` into the client config, and the client then connects to that hosted server instead of running this one locally.
+`gateway.aeoess.com` and `aeoess.com` also appear as plain URLs inside some tool responses (the removed gateway stubs and the `latest.json` the Agora writes). The server does not fetch them. `npx agent-passport-system-mcp setup --remote` writes `https://mcp.aeoess.com/sse` into the client config, and the client then tries to connect to that hosted server instead of running this one locally. See [Hosted endpoint](#hosted-endpoint) for its access status.
 
 Local files the server reads or writes, all under the user's home directory unless overridden:
 

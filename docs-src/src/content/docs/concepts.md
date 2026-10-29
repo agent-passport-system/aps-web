@@ -1,38 +1,46 @@
 ---
 title: Core concepts
-description: Identity, delegation, enforcement, commerce and reputation in APS, with the status label of each.
+description: Identity, delegation, enforcement, commerce and reputation in APS, what each one establishes, and the status label of each.
 ---
 
-The protocol rests on a single rule: authority can only decrease at each transfer point. A login authorizes a session. APS authorizes a specific action, at a specific time, under a specific policy, for a specific principal.
-
-The gateway is both judge and executor. Authority can only decrease at each transfer point.
+A login authorizes a session. APS records a grant of authority for specific actions, under explicit limits, from a named principal to a named agent, and records what a boundary decided about each action. Authority can only narrow when it is passed on.
 
 ## Identity
 
 Status: [Canonical](/docs/evidence/#status-labels).
 
-Ed25519 passports with grades 0 to 3, key rotation, and did:aps identifiers. APS also accepts did:key, did:web, SPIFFE SVIDs, and OAuth tokens, including a verifier-first binding for the IETF ID-JAG draft, the grant layer under Okta's Cross-App Access, so an agent can carry the identity your stack already issues.
+An agent identity is an Ed25519 key pair. A passport is a document the agent signs with that key. A self-signed passport shows that its holder has the key, and nothing more. A verifier that needs more checks for a countersignature from an issuer it already trusts.
+
+A passport names an owner, but that name is the agent's own statement. Tying an agent to a person or company takes separate evidence from the principal, checked against the principal's key.
+
+The SDK also carries identifiers in other schemes, including `did:key`, `did:web`, SPIFFE SVIDs and OAuth identity assertions, through adapters. Parsing or carrying such an identifier is a separate step from resolving its key and deciding to trust it for a given authorization.
 
 ## Delegation
 
 Status: [Canonical](/docs/evidence/#status-labels).
 
-Scoped authority with monotonic narrowing. Sub-delegation can only reduce scope, never add to it. Cascade revocation propagates through the full chain, so revoking a parent authority invalidates everything derived from it.
+The current delegation record is `AuthorityDelegationV1` (`record_type` `aps:authority-delegation:v1`). It carries seven facets: scope, spend, depth, time, reputation, values and reversibility. A child grant must be equal to or narrower than its parent on every facet, its issuer must be the parent's subject, and it names its parent by content address. A verifier checks the full chain with an explicit clock, a key resolver, a root trust policy and a revocation resolver, and returns `valid`, `invalid`, `indeterminate` or `unsupported`. A revocation status it cannot establish gives `indeterminate`, never `valid`.
+
+Revoking a grant makes every chain that contains it fail verification, including the chains of its descendants. A verifier sees that only if its revocation source holds the revocation record.
+
+The older `Delegation` format, produced by `createDelegation` and the social contract `delegate` function, is a pre-draft compatibility format. Its scope matching differs from the current record: a bare legacy grant `p` covers `p:x`, while the current profile requires `p:*` for that.
 
 ## Enforcement
 
 Status: [Canonical](/docs/evidence/#status-labels).
 
-A three signature action chain: the agent signs the intent, the policy engine signs the evaluation, the agent signs the execution receipt. Because the evaluation sits between intent and execution, the agent cannot act without being checked.
+`evaluateIntent` returns a signed policy decision for a signed action intent. The agent signs the intent, the policy engine signs the decision, and the result is signed as a receipt. That sequence records what was checked. It does not stop a call that never goes through it.
+
+An action is gated only when it is routed through an enforcement boundary that holds the credentials the resource needs, checks the authority before dispatch, and refuses to call the resource when the check fails. An agent that holds its own credentials for the resource can call it directly, and no signature ordering prevents that. Placing the boundary, and keeping resource credentials away from the agent, is a deployment decision.
 
 ## Commerce
 
 Status: [Production-Extension](/docs/evidence/#status-labels).
 
-A five gate preflight for payments: valid passport, scope check, spend limit, merchant allowlist, and idempotency, with configurable human approval thresholds above a value you set.
+The SDK exports gate predicates for payments: `checkPassportGate`, `checkScopeGate`, `checkSpendGate`, `checkMerchantGate` and `checkWalletGate`, with `signCommerceReceipt`. The combined `commercePreflight` orchestrator throws a migration error in 8.0.1.
 
 ## Reputation
 
 Status: [Production-Extension](/docs/evidence/#status-labels).
 
-Bayesian trust scoring across five tiers. Authority is earned per scope, not globally, and passport grades compound with behavioral history.
+Bayesian trust scoring across five tiers. Reputation is tracked per scope, and a reputation ceiling is one of the seven delegation facets.

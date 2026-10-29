@@ -3,6 +3,8 @@ title: API reference
 description: Parameters and return types for the social contract functions and the intent architecture functions of the TypeScript SDK.
 ---
 
+This page covers the social contract and intent functions of `agent-passport-system` 8.0.1. They produce the compatibility `Delegation` and camelCase `ActionReceipt` formats. `proveContributions` is listed for completeness and throws in 8.0.1.
+
 ## Exports
 
 ```typescript
@@ -44,20 +46,27 @@ Returns `SocialContractAgent`:
 
 ## verifySocialContract
 
-`verifySocialContract(passport, attestation?)` returns `TrustVerification`.
+`verifySocialContract(passport, attestation?, opts?)` returns `TrustVerification`.
 
-Verifies another agent's identity and values standing.
+Checks a passport's signature and validity window, an optional values attestation, and optionally an issuer countersignature.
 
 Parameters:
 
 - `passport: SignedPassport`: the agent's signed passport
 - `attestation?: FloorAttestation | null`: optional values attestation
+- `opts?: { trustedIssuers?: string[] }`: issuer public keys the caller trusts. Without it no issuer check runs
 
 Returns `TrustVerification`:
 
-- `identity: { valid: boolean, errors: string[] }`
+- `structurallyValid: boolean`: the passport signature, its validity window and the attestation (when supplied) check out. A self-signed passport passes
+- `issuerChecked: boolean`: a usable `trustedIssuers` list was supplied, so an issuer check ran
+- `issuerTrusted: boolean`: one of the supplied issuers countersigned the passport. Always false when no issuer check ran
+- `issuerErrors: string[]`: why the issuer check failed, when one ran
+- `identity: { valid: boolean, errors: string[], warnings: string[] }`
 - `values: { attested: boolean, valid: boolean, errors: string[] } | null`
-- `overall: boolean`: true if identity is valid AND values are valid (if provided)
+- `overall: boolean`: deprecated, and reading it prints a `DeprecationWarning`. It equals `structurallyValid && (!issuerChecked || issuerTrusted)`, so without `trustedIssuers` it only means the bytes check out
+
+None of these fields authorizes an action. An issuer countersignature is added with `countersignPassport(signedPassport, issuerPrivateKey, issuerId?)`.
 
 ## delegate
 
@@ -67,7 +76,7 @@ Creates a scoped delegation granting authority to another agent.
 
 Parameters:
 
-- `from: SocialContractAgent`: the delegator
+- `from: SocialContractAgent`: the delegator, an object returned by `joinSocialContract`
 - `toPublicKey: string`: public key of the delegate
 - `scope: string[]`: what capabilities to delegate
 - `spendLimit?: number`: maximum spend allowed
@@ -108,11 +117,9 @@ Returns `ActionReceipt`:
 
 ## proveContributions
 
-`proveContributions(agent, receipts, delegations, beneficiary, beneficiaryMap?)` returns `ContributionProof`.
+`proveContributions(agent, receipts, delegations, beneficiary, beneficiaryMap?)` is declared to return `ContributionProof`.
 
-Generates cryptographic proof of an agent's contributions with Merkle trees.
-
-Returns `ContributionProof`:
+Throws in 8.0.1 with `Moved to @aeoess/gateway. See MIGRATION.md#attribution-reports`. The signature is kept, so a typecheck passes and the call fails at run time. The declared return type is:
 
 - `attribution: AttributionReport`: weighted attribution across scopes
 - `merkleRoot: string`: 32-byte SHA-256 commitment to all receipts
@@ -121,9 +128,17 @@ Returns `ContributionProof`:
 
 ## auditCompliance
 
-`auditCompliance(agentId, receipts, floor, delegations, verifierKeys)` returns `ComplianceReport`.
+`auditCompliance(agentId, receipts, floor, delegations, verifierKeyPair)` returns `ComplianceReport`.
 
 Audits an agent's compliance against the Values Floor. The auditor signs the report.
+
+Parameters:
+
+- `agentId: string`
+- `receipts: ActionReceipt[]`
+- `floor: ValuesFloor`: for example `loadFloor(yamlText)`
+- `delegations: Map<string, { scope: string[], revoked: boolean }>`: keyed by delegation ID
+- `verifierKeyPair: KeyPair`: the auditor's keys, used to sign the report
 
 Returns `ComplianceReport` with principle-by-principle enforcement status and overall compliance percentage.
 
@@ -133,7 +148,7 @@ Returns `ComplianceReport` with principle-by-principle enforcement status and ov
 
 `assignRole(options)` returns `RoleAssignment`.
 
-Assigns a role to a passport-verified agent. Throws if passport verification fails.
+Assigns a role to a passport-verified agent. Throws if passport verification fails, and it fails for a self-signed passport unless one of the two trust options below is set.
 
 Parameters:
 
@@ -142,8 +157,10 @@ Parameters:
 - `autonomyLevel`: 1 to 5 (1 is fully supervised, 5 is fully autonomous)
 - `department?: string`: organizational department
 - `scope: string[]`: what the agent can do in this role
-- `assignerPrivateKey: string`: key of the human or agent assigning the role
+- `assignerPrivateKey: string`: key of the human or agent assigning the role. For a `SocialContractAgent` this is `keyPair.privateKey`
 - `assignerPublicKey: string`
+- `trustedIssuers?: string[]`: issuer keys whose countersignature authorizes the assignment
+- `allowSelfSigned?: boolean`: accept a passport nobody countersigned. Off by default. The role then rests on the agent's own claim
 
 Returns `RoleAssignment` with `agentId`, `role`, `autonomyLevel`, `scope`, and Ed25519 signature.
 
@@ -188,7 +205,7 @@ Parameters:
 - `authorPublicKey: string`
 - `authorPrivateKey: string`
 - `department?: string`
-- `goals: IntentGoal[]`: array of `{ goal, priority, measuredBy }`
+- `goals: IntentGoal[]`: array of `{ goalId: string, description: string, priority: number, metrics?: string[], constraints?: string[] }`. Priority 1 is highest
 - `tradeoffHierarchy: TradeoffRule[]`: must be non-empty
 - `expiresAt?: string`
 
@@ -205,7 +222,7 @@ Parameters:
 - `subject: string`
 - `description: string`
 - `initiatedBy: string`: agentId of initiator
-- `convergenceThreshold?: number`: std dev threshold (default: 15)
+- `convergenceThreshold?: number`: standard deviation threshold (default: 8)
 - `maxRounds?: number`: max rounds before escalation (default: 5)
 - `reversibilityScore: number`: 0 to 1, how reversible is this decision
 
@@ -233,7 +250,7 @@ Returns updated deliberation and the signed `ConsensusRound`.
 
 `evaluateConsensus(deliberation)` returns `ConsensusEvaluation`.
 
-Checks if agents have converged on a decision.
+Checks if agents have converged on a decision. With fewer than two assessments in the latest round it returns `converged: false` and `recommendation: 'continue'`.
 
 Returns: `{ converged: boolean, standardDeviation: number, roundNumber: number, agentCount: number, recommendation: 'continue' | 'converged' | 'escalate' }`
 
@@ -284,4 +301,4 @@ Returns `IntentPassportExtension` with role, autonomy, deliberation and preceden
 
 ## Full reference
 
-The complete protocol surface is in [llms-full.txt](https://agent-passport.org/llms-full.txt).
+[llms-full.txt](https://agent-passport.org/llms-full.txt) describes the wider module surface in prose. It is not a typed reference, and the package's own declarations under `dist/src/index.d.ts` are the source of truth for signatures.
