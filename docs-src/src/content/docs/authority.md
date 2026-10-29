@@ -64,7 +64,7 @@ The checks run phase by phase over the whole chain, in this order: closed schema
 | `indeterminate` | A fact could not be established: unknown revocation status, a key that could not be resolved, or a trust policy that could not decide | `REVOCATION_UNKNOWN`, `KEY_NOT_FOUND`, `KEY_UNREACHABLE`, `KEY_AMBIGUOUS`, `ROOT_UNTRUSTED` |
 | `unsupported` | A version, record type or facet profile this verifier does not implement, or a key scheme it cannot use | `UNSUPPORTED_VERSION`, `UNSUPPORTED_PROFILE`, `KEY_SCHEME_UNSUPPORTED` |
 
-A caller must not treat `indeterminate` or `unsupported` as `valid`. The draft defines the four results and no failure code vocabulary. The codes in the table are this SDK's own. `ROOT_UNTRUSTED` appears twice because a policy that returns `false` gives `invalid`, while a policy that is missing, throws or returns a non-boolean gives `indeterminate`.
+A caller must not treat `indeterminate` or `unsupported` as `valid`. The draft defines the four results. For key resolution it also names five failure outcomes, `KEY_NOT_FOUND`, `KEY_AMBIGUOUS`, `KEY_MATERIAL_MALFORMED`, `KEY_UNREACHABLE` and `KEY_SCHEME_UNSUPPORTED` (section 3.5), and the SDK uses those names. The other codes in the table are this SDK's own. `ROOT_UNTRUSTED` appears twice because a policy that returns `false` gives `invalid`, while a policy that is missing, throws or returns a non-boolean gives `indeterminate`.
 
 A `valid` chain is admissible authority at `now`. The verifier does not check that the chain covers a particular action, and it reserves no spend. The [Quickstart](/docs/quickstart/) shows the boundary steps that do.
 

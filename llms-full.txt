@@ -13,13 +13,13 @@ Canonical: https://agent-passport.org/llms-full.txt
 License: Apache-2.0
 Copyright: 2024-2026 Tymofii Pidlisnyi
 > Gateway policy evaluation p50 0.14ms, 7,100 ops/sec burst, full enforcement path, single process on Apple M3 with SDK 4.4.0. Measured 2026-08-20, three runs, conservative end of the range. Artifacts: benchmarks/gateway/2026-08-20/ in the SDK repo.
-> Accepts did:key, did:web, SPIFFE SVIDs, OAuth tokens, native did:aps. Identity is the input. Enforcement is the product.
+> Accepts did:key, did:web, SPIFFE SVIDs, OAuth tokens, native did:aps. Identity is the input to an authority decision.
 > TypeScript SDK + Python SDK + Rust SDK + Go SDK + MCP server. Zero heavy dependencies. Apache-2.0 license.
 > Independently cited: PDR in Production (University of British Columbia). DOI: 10.5281/zenodo.19323172
 
 ## What It Is
 
-The Agent Passport System is the enforcement and accountability layer for the agent economy. It sits on top of whatever identity the agent already has: did:key, did:web, SPIFFE SVIDs, OAuth tokens, or native did:aps. The gateway is both judge and executor. Authority can only decrease at each transfer point. Monotonic narrowing, cascade revocation, data lifecycle, Merkle attribution, signed coordination. Ed25519 cryptography throughout. No blockchain required for the core protocol. Multi-chain wallet binding when commerce needs settle to an external chain.
+The Agent Passport System is the enforcement and accountability layer for the agent economy. It sits on top of whatever identity the agent already has: did:key, did:web, SPIFFE SVIDs, OAuth tokens, or native did:aps. A decision is enforced only where the code that obeys it is the only path to the resource. Authority can only decrease at each transfer point. Monotonic narrowing, cascade revocation, data lifecycle, Merkle attribution, signed coordination. Ed25519 cryptography throughout. No blockchain required for the core protocol. Multi-chain wallet binding when commerce needs settle to an external chain.
 
 Erratum 2026-08-17: spend, depth and validity-window narrowing are specified but the shipped verifiers compare only when both hops carry the field. Scope narrowing is enforced. Details: https://agent-passport.org/protocol.html#erratum-2026-08-17
 
@@ -80,7 +80,7 @@ Layer 6, Revocation. The registry for the legacy Delegation format moved out of 
 
 Layer 7, Coordination: Protocol-native multi-agent task orchestration. Operator creates signed task brief with roles, deliverables, acceptance criteria. Agents assigned to roles sign acceptance. Researchers submit signed evidence packets with citations. Operator reviews evidence against quality threshold (cannot approve below). Approved evidence handed off between roles (requires approved review). Analysts submit deliverables citing evidence. Operator closes task with metrics (overhead ratio, gap rate, rework count). TaskUnit container validates integrity.
 
-Layer 8, Agentic Commerce: ACP integration (OpenAI + Stripe). 4-gate preflight pipeline: passport gate (valid identity), delegation gate (commerce scope + spend limit), merchant gate (approved list), spend gate (cumulative tracking). Human approval for high-value purchases. Every purchase produces a signed CommerceActionReceipt with beneficiary attribution tracing the spend back to its human principal.
+Layer 8, Agentic Commerce: ACP integration (OpenAI + Stripe). 4-gate preflight pipeline: passport gate (valid identity), delegation gate (commerce scope + spend limit), merchant gate (approved list), spend gate (cumulative tracking). Human approval for high-value purchases. Every purchase produces a signed CommerceActionReceipt with beneficiary attribution tracing the spend back to its human principal. In 8.0.1 commercePreflight and the checkout functions (createCheckout, updateCheckout, completeCheckout, cancelCheckout) throw a migration error. The gate predicates checkPassportGate, checkScopeGate, checkSpendGate, checkMerchantGate and checkWalletGate and signCommerceReceipt remain.
 
 Layer 9, Principal Identity: Cryptographic chain from human principal to agent. Selective disclosure of principal attributes. Fleet management (endorse, revoke, list agents). Endorsement verification. Human principals create identities, agents are endorsed under them.
 
@@ -108,7 +108,7 @@ Layer 14, Google A2A Bridge: Protocol bridge to Google's Agent-to-Agent protocol
 
 Layer 15, EU AI Act Mapping: article-level mapping of APS protocol properties to EU AI Act obligations. Risk classification, transparency obligations, human oversight provisions, and technical documentation generation.
 
-Layer 16, ProxyGateway Enforcement (not exported in 8.0.1, gateway orchestration moved out of the SDK): Reference implementation of the enforcement boundary. Six minimum viable properties: exact tool/params/target/spend bound at approval, live revocation recheck at execution, receipt generation in enforcement layer (not agent), atomic multi-tool operations. Replay protection via TTL-based nonce pruning. The gateway is both judge and executor.
+Layer 16, ProxyGateway Enforcement (not exported in 8.0.1, gateway orchestration moved out of the SDK): Reference implementation of the enforcement boundary. Six minimum viable properties: exact tool/params/target/spend bound at approval, live revocation recheck at execution, receipt generation in enforcement layer (not agent), atomic multi-tool operations. Replay protection via TTL-based nonce pruning.
 
 Layer 17, Intent Network: Opt-in ecosystem service (not required for core protocol). Agent-mediated matching service. Agents publish IntentCards (what they need, what they offer), the network finds semantic matches across all published cards. Consent-first introductions: nothing personal crosses until both sides agree. No core protocol functionality depends on this layer. Live at api.aeoess.com.
 
@@ -195,7 +195,7 @@ Structural safeguards: Separation of Powers (legislative/executive/judicial bran
 
 **Cross-Engine Interop:** [RFC: Signed Execution Envelope](https://github.com/agent-passport-system/agent-passport-system/blob/main/docs/RFC-SIGNED-EXECUTION-ENVELOPE.md): a minimal signed envelope that any governance engine can emit and any verifier can check. Fields: agent_did, run_id, action_id, capability_ref (scope + revocation status), decision (policy_ref, evaluation_method, verdict, evaluator_signature), attestation (receipt chain). Key innovation: `evaluation_method` field distinguishes deterministic (replayable) from probabilistic (LLM-based) decisions. Developed from independent convergence by CrewAI, Guardian/ADK, and DIF Trusted AI Agents contributors.
 
-**AMCS, AI-Native Media Credentialing Standard** (v0.1.0): Open specification for credentialing AI-native publications as trustworthy agent-consumable news sources. Published by the project. Two layers: Layer A (cryptographic, binary pass/fail) requires Ed25519 article provenance, journalist agent passports with delegation chains, and a public MCP server. Layer B (editorial, public audit) requires machine-readable confidence labels on every article, a published Code of Conduct citing SPJ/NPC/Scripps, and an automated ethics verification system scoring every article against stated standards. Certification is self-attestation verified by script (Layer A) and public evidence (Layer B). No subjective editorial gatekeeping. Does NOT integrate with trust scoring. The badge is informational only. Any publication can apply. Full spec: https://github.com/agent-passport-system/agent-passport-system/blob/main/docs/AMCS-SPEC.md | Page: https://agent-passport.org/amcs.html
+**AMCS, AI-Native Media Credentialing Standard** (v0.1.0): Open specification for credentialing AI-native publications as agent-consumable news sources. Published by the project. Two layers: Layer A (cryptographic, binary pass/fail) requires Ed25519 article provenance, journalist agent passports with delegation chains, and a public MCP server. Layer B (editorial, public audit) requires machine-readable confidence labels on every article, a published Code of Conduct citing SPJ/NPC/Scripps, and an automated ethics verification system scoring every article against stated standards. Certification is self-attestation verified by script (Layer A) and public evidence (Layer B). No subjective editorial gatekeeping. Does NOT integrate with trust scoring. The badge is informational only. Any publication can apply. Full spec: https://github.com/agent-passport-system/agent-passport-system/blob/main/docs/AMCS-SPEC.md | Page: https://agent-passport.org/amcs.html
 
 **v8.0.1, 6,289 tests, 6,280 passing, 9 skipped (1,134 suites). 287 test files in the npm test run, including adversarial scenario suites.**
 
@@ -307,7 +307,7 @@ The principal signs one `AuthorityDelegationV1` that covers every note under `no
   },
   "delegation_id": "sha256:7123e7d656ef4ed367c27f49e089d7c64df307c6780bd9577014f7426ae1529f",
   "signature": "4deea9077d843259694a1e19d64c38688f51fc2f9d717b87710b278047a1e1e43f828c4ecf7f5dc0039ecf9a0022a7037207bec52cb6e15d3d7583ac157b910a"
-
+}
 ```
 
 `delegation_id` is a content address over the body. The signature is Ed25519 over the record without its signature. All seven facets are present in every record: scope, spend, depth, time, reputation, values and reversibility.
@@ -416,7 +416,7 @@ The principal signs an `AuthorityRevocationV1` naming the grant. `recordAuthorit
   "recorded": true,
   "inserted": true,
   "state": "valid"
-
+}
 ```
 
 After that, every chain that contains the grant verifies `invalid` with `REVOKED`, at any boundary whose status source holds this record. A boundary whose source has not seen it gets `REVOCATION_UNKNOWN` and must refuse, as in the `unknown_status` case.
@@ -525,7 +525,7 @@ Authorization model docs: https://github.com/agent-passport-system/aps-web/blob/
 APS Issuer Public Key: e11f46f5831432d17852189d5df10ed21d5774797ae9ee52dbab8c650fec16ae
 Published at: https://aeoess.com/.well-known/aeoess-issuer.json
 
-Passports issued through official APS infrastructure (mcp.aeoess.com or gateway.aeoess.com) are countersigned with the APS issuer key. The issuerSignature field on SignedPassport proves official issuance. Verify with verifyIssuerSignature(passport, issuerPublicKey). Self-signed passports (generated locally) are valid cryptographically but will not pass issuer verification. Services requiring trust should check issuer signatures, not just agent signatures.
+A passport is self-signed until an issuer countersigns it with countersignPassport(signedPassport, issuerPrivateKey, issuerId). The issuerSignature field on SignedPassport carries that countersignature. Verify with verifyIssuerSignature(passport, issuerPublicKey). Self-signed passports (generated locally) are valid cryptographically but will not pass issuer verification. Services requiring trust should check issuer signatures, not just agent signatures.
 
 SDK: countersignPassport(), verifyIssuerSignature(), isIssuerVerified()
 MCP tool: verify_issuer

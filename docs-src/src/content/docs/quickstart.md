@@ -108,7 +108,7 @@ The principal signs one `AuthorityDelegationV1` that covers every note under `no
   },
   "delegation_id": "sha256:7123e7d656ef4ed367c27f49e089d7c64df307c6780bd9577014f7426ae1529f",
   "signature": "4deea9077d843259694a1e19d64c38688f51fc2f9d717b87710b278047a1e1e43f828c4ecf7f5dc0039ecf9a0022a7037207bec52cb6e15d3d7583ac157b910a"
-
+}
 ```
 
 `delegation_id` is a content address over the body. The signature is Ed25519 over the record without its signature. All seven facets are present in every record: scope, spend, depth, time, reputation, values and reversibility.
@@ -217,7 +217,7 @@ The principal signs an `AuthorityRevocationV1` naming the grant. `recordAuthorit
   "recorded": true,
   "inserted": true,
   "state": "valid"
-
+}
 ```
 
 After that, every chain that contains the grant verifies `invalid` with `REVOKED`, at any boundary whose status source holds this record. A boundary whose source has not seen it gets `REVOCATION_UNKNOWN` and must refuse, as in the `unknown_status` case.

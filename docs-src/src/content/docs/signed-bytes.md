@@ -70,10 +70,10 @@ Three different digests can identify an action. They are not interchangeable.
 
 - `computeActionRefV2(input)` is the draft-native reference used in `ReceiptV1.action_ref`. Build the input with `createActionReferenceInputV2({ agent_id, action_type, target, payload_ref, scope_required, issued_at, nonce })`. `payload_ref` comes from `computePayloadRefV1(payload)`, which binds the arguments. `scope_required` is NFC normalized, sorted and de-duplicated. The [Quickstart](/docs/quickstart/) boundary recomputes this from the presented action and compares it with the intent receipt.
 - `computeExternalActionRefV1`, in `agent-passport-system/core`, is the legacy external correlation form of draft section 5.2, for correlating with systems outside APS.
-- `computeActionRef`, also in core, is the pre-draft digest over an action intent, from `draft-pidlisnyi-aps-01` section 4.1. It uses JCS too, and its preimage is not the v2 input.
+- `computeActionRef`, also in core, is the pre-draft digest over an action intent. Its JCS canonicalization follows `draft-pidlisnyi-aps-01` section 4.1, and it normalizes `scope_required` as `draft-pidlisnyi-aps-03` section 4.1 defines. Its preimage is not the v2 input.
 
 A digest from one form never matches a digest from another for the same action. A verifier checks the `action_ref` it receives against the form that artifact's profile names.
 
 ## Vectors
 
-Known-answer vectors for RFC 8785 behavior, including key ordering, number serialization and string escaping, are in the `canonical-bytes` family of the [conformance corpus](https://github.com/Agent-Authority-Conformance). The [Status and conformance](/docs/status/) page describes how to run it.
+Known-answer vectors for RFC 8785 behavior, including key ordering, number serialization and string escaping, are in the `canonical-bytes` family of the [conformance corpus](https://github.com/Agent-Authority-Conformance/aps-conformance-suite). The [Status and conformance](/docs/status/) page describes how to run it.
