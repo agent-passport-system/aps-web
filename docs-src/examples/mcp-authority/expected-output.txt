@@ -1,0 +1,12 @@
+tools/list, default profile: 154
+tools/list, APS_PROFILE=essential: 28
+commerce_preflight: {"isError":true,"error":"commerce_preflight_moved_to_gateway"}
+issue_authority_delegation arguments: {"subject":"did:example:agent","grants":["notes:read:*"],"spend_unit":"example:credit","spend_per_action":5,"spend_cumulative":10}
+issued: {"record_type":"aps:authority-delegation:v1","issuer_is_server_key":true,"delegation_id_form":true,"validity_ms":3600000,"spend":{"mode":"bounded","unit":"example:credit","per_action":"5","cumulative":"10"}}
+check before revoke: {"issued_by_this_server":true,"state":"valid","valid":true,"failures":[]}
+revoke_delegation: {"record_type":"aps:authority-revocation:v1","inserted":true,"verification":"valid"}
+check after revoke: {"issued_by_this_server":true,"state":"invalid","valid":false,"failures":["REVOKED"]}
+revoke_delegation on a legacy id: {"isError":true,"text":"Refused: this is a legacy delegation (create_delegation / sub_delegate, id del_...)"}
+check in the issuing process: {"issued_by_this_server":true,"state":"valid","valid":true,"failures":[]}
+check after a restart, same key: {"issued_by_this_server":true,"state":"indeterminate","valid":false,"failures":["REVOCATION_UNKNOWN"]}
+issue with MCP_REMOTE=1: {"isError":true,"text":"Refused: issue_authority_delegation runs only on a local (stdio) server"}

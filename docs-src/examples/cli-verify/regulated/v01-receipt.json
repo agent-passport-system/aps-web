@@ -1,0 +1,10 @@
+{
+  "profile": "aps-regulated-action-v0",
+  "receipt_id": "r-V01",
+  "action_class": "financial_movement",
+  "actor_signature": {
+    "alg": "ed25519",
+    "key_id": "agent-key-1",
+    "sig": "3ba55b6b7e2b94334ca85ca83356f8431a395d016518cc44229f6929abc3319807ddddf669d9136d2758d960ede61df6163161e31af5c231d01d886973e41708"
+  }
+}

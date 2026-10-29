@@ -51,7 +51,7 @@ The 154 includes tools that only return a migration notice. `commerce_preflight`
 
 `create_delegation` and `verify_delegation` work on the legacy `Delegation` format. `verify_delegation` does not consult revocation, and `revoke_delegation` refuses a legacy record. To get a revocable record, use `issue_authority_delegation`, which signs an `AuthorityDelegationV1` with the server's key.
 
-The sequence below ran against agent-passport-system-mcp 8.1.0 over stdio, with tool calls sent from an MCP client.
+The sequence:
 
 1. `identify` with `public_key` and `private_key`. The server holds that key pair for the session and uses it as the issuer key.
 2. `issue_authority_delegation`:
@@ -62,36 +62,163 @@ The sequence below ran against agent-passport-system-mcp 8.1.0 over stdio, with 
 
 The response carries the signed record under `delegation`. Its `issuer` is `aps:ed25519:<the server's public key>`, its validity window is one hour by default (`ttl_hours`), and the server tracks its ID in an in-memory revocation store. Keep the record. The server stores only its revocation status.
 
-3. `check_authority_delegation` with `{ "delegation": <the record> }`, response excerpt:
+3. `check_authority_delegation` with `{ "delegation": <the record> }`.
+4. `revoke_delegation` with `{ "delegation": <the record>, "reason_code": "task_complete" }`. It returns a signed `AuthorityRevocationV1` under `revocation`.
+5. `check_authority_delegation` again.
+
+The program `recipe.mjs` in [`docs-src/examples/mcp-authority/`](https://github.com/agent-passport-system/aps-web/tree/main/docs-src/examples/mcp-authority) runs these calls from an MCP client against agent-passport-system-mcp 8.1.0 over stdio, then a legacy revoke, a restart and an issue in remote mode. It prints only the fields that do not change between runs. Its output:
 
 ```text
-"issued_by_this_server": true,
-"state": "valid",
-"valid": true,
-"failures": []
+tools/list, default profile: 154
+tools/list, APS_PROFILE=essential: 28
+commerce_preflight: {"isError":true,"error":"commerce_preflight_moved_to_gateway"}
+issue_authority_delegation arguments: {"subject":"did:example:agent","grants":["notes:read:*"],"spend_unit":"example:credit","spend_per_action":5,"spend_cumulative":10}
+issued: {"record_type":"aps:authority-delegation:v1","issuer_is_server_key":true,"delegation_id_form":true,"validity_ms":3600000,"spend":{"mode":"bounded","unit":"example:credit","per_action":"5","cumulative":"10"}}
+check before revoke: {"issued_by_this_server":true,"state":"valid","valid":true,"failures":[]}
+revoke_delegation: {"record_type":"aps:authority-revocation:v1","inserted":true,"verification":"valid"}
+check after revoke: {"issued_by_this_server":true,"state":"invalid","valid":false,"failures":["REVOKED"]}
+revoke_delegation on a legacy id: {"isError":true,"text":"Refused: this is a legacy delegation (create_delegation / sub_delegate, id del_...)"}
+check in the issuing process: {"issued_by_this_server":true,"state":"valid","valid":true,"failures":[]}
+check after a restart, same key: {"issued_by_this_server":true,"state":"indeterminate","valid":false,"failures":["REVOCATION_UNKNOWN"]}
+issue with MCP_REMOTE=1: {"isError":true,"text":"Refused: issue_authority_delegation runs only on a local (stdio) server"}
 ```
 
-4. `revoke_delegation` with `{ "delegation": <the record>, "reason_code": "task_complete" }` returns a signed `AuthorityRevocationV1` under `revocation`, with `"inserted": true` and `"verification": "valid"`.
-5. `check_authority_delegation` again, response excerpt:
+What the output shows:
 
-```text
-"state": "invalid",
-"valid": false,
-"failures": [
-  {
-    "code": "REVOKED",
-```
-
-Observed limits of this route:
-
-- `issue_authority_delegation` runs only on a local server. With `MCP_REMOTE=1` or `MCP_TRANSPORT=sse` it returns `Refused: issue_authority_delegation runs only on a local (stdio) server.`
-- The revocation store is process memory. After a restart, checking the same record with the same key gave `"state": "indeterminate"` with `REVOCATION_UNKNOWN`. A restart never turns an unknown status into `valid`.
-- `revoke_delegation` on a legacy ID (`del_...`) from `create_delegation` returns `Refused: this is a legacy delegation`.
+- `issue_authority_delegation` runs only on a local server. With `MCP_REMOTE=1` or `MCP_TRANSPORT=sse` it refuses.
+- The revocation store is process memory. After a restart, checking the same record with the same key gives `indeterminate` with `REVOCATION_UNKNOWN`. A restart never turns an unknown status into `valid`.
+- `revoke_delegation` on a legacy ID (`del_...`) from `create_delegation` is refused.
 - The process store is not shared. Another verifier learns of a revocation only if you give it the `AuthorityRevocationV1` record.
 
 ## Host pre-dispatch authorization
 
-The SDK's `aps-mcp-1` profile describes how a host checks an APS authorization before it dispatches an MCP `tools/call`. The profile is specified in [`MCP-AUTHORIZATION-PROFILE.md`](https://github.com/agent-passport-system/agent-passport-system/blob/f95c9168187cbac0493099fe4a7cddaff653bf39/docs/MCP-AUTHORIZATION-PROFILE.md). Installing this MCP server or choosing a tool profile does not put that check in front of other servers' tools.
+The SDK's `aps-mcp-1` profile is how a host checks an APS authorization before it dispatches an MCP `tools/call`. It is specified in [`MCP-AUTHORIZATION-PROFILE.md`](https://github.com/agent-passport-system/agent-passport-system/blob/f95c9168187cbac0493099fe4a7cddaff653bf39/docs/MCP-AUTHORIZATION-PROFILE.md). The agent signs an `ApsMcpAuthorizationV1` with `issueApsMcpAuthorizationV1`, bound to the server URI, the tool name, a hash of the arguments, the required scope, a nonce and a validity window, and sends it in the request's `_meta` under `org.agent-passport/authorization`. The host wraps its dispatch in `createApsMcpToolCallMiddleware`, which in 8.0.1 runs these steps in order and throws an `ApsMcpAuthorizationError` with a `code` at the first failure:
+
+1. The transport is authenticated. The host says so through `context.transport_authenticated`.
+2. The method is `tools/call`.
+3. The authorization verifies: shape, signature through the host's `resolve_key` at the authorization's `issued_at`, server, tool, arguments hash, and the time window against the system clock. The middleware takes no clock option.
+4. `consume_action_ref` records the authorization's `action_ref`. Returning `false` refuses a replay.
+5. `evaluate_authority` makes the host's own authority decision and returns `permit`, `deny` or `indeterminate`. The middleware does not check the delegation chain itself.
+6. Only then does it call `dispatch`, and afterwards `emit_receipt`.
+
+The action reference is consumed in step 4, before the authority decision, so an authorization that `evaluate_authority` denies cannot be sent again. The value `emit_receipt` returns is attached to the tool result under the `_meta` key `org.agent-passport/receipt`.
+
+The host owns the replay store, the authority decision and the receipt. Installing this MCP server or choosing a tool profile does not place this check in front of any other server's tools.
+
+This program is `host-dispatch.mjs` in `docs-src/examples/governed-action/`. It uses the Quickstart grant, and its `evaluate_authority` verifies the chain and checks scope:
+
+```js
+// Copyright (c) 2026 Tymofii Pidlisnyi
+// SPDX-License-Identifier: Apache-2.0
+// The aps-mcp-1 host pre-dispatch profile: an MCP host checks an APS authorization
+// before it dispatches tools/call. The tool runs only when every check passes.
+
+import {
+  APS_MCP_AUTHORIZATION_META, issueApsMcpAuthorizationV1, createApsMcpToolCallMiddleware,
+  verifyAuthorityDelegationChain, scopeGrantCovers, InMemoryAuthorityRevocationStore,
+  createAuthorityRevocationResolver,
+} from 'agent-passport-system'
+import { agent, grant, resolveKey } from './governed-action.mjs'
+
+const MCP_SERVER = 'https://notes.example'
+const issuedAt = new Date().toISOString()
+
+/** @type {import('agent-passport-system').HistoricalKeyResolver} */
+const resolveHistoricalKey = ({ controller, verification_method, at }) => {
+  const key = resolveKey(controller, verification_method, at)
+  return typeof key === 'string' ? { state: 'resolved', public_key_hex: key } : { state: 'not_found' }
+}
+
+const store = new InMemoryAuthorityRevocationStore()
+store.track(grant.delegation_id)
+const resolveRevocation = createAuthorityRevocationResolver(store, { resolveVerificationKey: resolveKey })
+
+// Host-owned state: consumed action references and emitted receipts.
+const consumed = new Set()
+/** @type {unknown[]} */
+const receipts = []
+let toolCalls = 0
+
+const guard = createApsMcpToolCallMiddleware({
+  mcp_server: MCP_SERVER,
+  resolve_key: resolveHistoricalKey,
+  // Single use: the host records the action reference before dispatch.
+  consume_action_ref: actionRef => {
+    if (consumed.has(actionRef)) return false
+    consumed.add(actionRef)
+    return true
+  },
+  // The host's own authority decision: the delegation chain and its scope.
+  evaluate_authority: authorization => {
+    const chain = authorization.delegation_ref === grant.delegation_id ? [grant] : []
+    if (chain.length === 0) return { state: 'deny', code: 'DELEGATION_NOT_HELD' }
+    const result = verifyAuthorityDelegationChain(chain, {
+      now: '2026-10-28T10:00:00.000Z', resolveVerificationKey: resolveKey,
+      trustRoot: root => root.issuer === 'did:example:principal', resolveRevocation,
+    })
+    if (result.state === 'indeterminate') return { state: 'indeterminate', code: result.failures[0].code }
+    if (result.state !== 'valid') return { state: 'deny', code: result.failures[0].code }
+    const covered = authorization.scope_required.every(s => grant.authority.scope.grants.some(g => scopeGrantCovers(g, s)))
+    return covered ? { state: 'permit', code: 'OK' } : { state: 'deny', code: 'SCOPE_NOT_GRANTED' }
+  },
+  emit_receipt: (authorization, authority) => { receipts.push({ action_ref: authorization.action_ref, authority: authority.state }) },
+})
+
+// The MCP server's tool. Only `guard` calls it.
+const dispatch = async (/** @type {import('agent-passport-system').McpToolCallRequest} */ request) => {
+  toolCalls += 1
+  return { content: [{ type: 'text', text: `note ${request.params.arguments?.id}` }] }
+}
+
+/** @param {string} tool @param {Record<string, unknown>} args @param {string} scope @param {string} nonce */
+const authorize = (tool, args, scope, nonce) => issueApsMcpAuthorizationV1({
+  agent_id: agent.id, verification_method: agent.vm, delegation_ref: grant.delegation_id,
+  mcp_server: MCP_SERVER, tool_name: tool, arguments: args, scope_required: [scope], nonce,
+  // The middleware checks this window against the system clock and takes no clock option.
+  issued_at: issuedAt, expires_at: new Date(Date.parse(issuedAt) + 5 * 60_000).toISOString(),
+  private_key_hex: agent.privateKey,
+})
+/** @param {string} tool @param {Record<string, unknown>} args @param {unknown} authorization */
+const request = (tool, args, authorization) => /** @type {import('agent-passport-system').McpToolCallRequest} */ ({
+  method: 'tools/call',
+  params: { name: tool, arguments: args, ...(authorization ? { _meta: { [APS_MCP_AUTHORIZATION_META]: authorization } } : {}) },
+})
+
+/** @param {string} label @param {import('agent-passport-system').McpToolCallRequest} req @param {boolean} authenticated */
+async function attempt(label, req, authenticated = true) {
+  const before = toolCalls
+  try {
+    const result = await guard(req, { transport_authenticated: authenticated }, dispatch)
+    console.log(label.padEnd(24), JSON.stringify({ outcome: 'dispatched', tool_called: toolCalls > before, text: /** @type {any} */ (result).content[0].text }))
+  } catch (e) {
+    console.log(label.padEnd(24), JSON.stringify({ outcome: 'refused', code: /** @type {any} */ (e).code ?? /** @type {Error} */ (e).message, tool_called: toolCalls > before }))
+  }
+}
+
+const args = { id: 'project-x' }
+const auth = authorize('notes_read', args, 'notes:read:project-x', '20000000000000000000000000000001')
+await attempt('allowed', request('notes_read', args, auth))
+await attempt('replay', request('notes_read', args, auth))
+await attempt('changed arguments', request('notes_read', { id: 'project-y' }, authorize('notes_read', args, 'notes:read:project-x', '20000000000000000000000000000002')))
+await attempt('no authorization', request('notes_read', args, null))
+await attempt('unauthenticated', request('notes_read', args, authorize('notes_read', args, 'notes:read:project-x', '20000000000000000000000000000003')), false)
+await attempt('out of scope', request('notes_write', args, authorize('notes_write', args, 'notes:write:project-x', '20000000000000000000000000000004')))
+console.log('tool calls:', toolCalls, 'receipts emitted:', JSON.stringify(receipts.map(r => /** @type {any} */ (r).authority)))
+```
+
+Its output with agent-passport-system 8.0.1:
+
+```text
+allowed                  {"outcome":"dispatched","tool_called":true,"text":"note project-x"}
+replay                   {"outcome":"refused","code":"MCP_ACTION_REPLAY","tool_called":false}
+changed arguments        {"outcome":"refused","code":"MCP_ARGUMENTS_MISMATCH","tool_called":false}
+no authorization         {"outcome":"refused","code":"MCP_AUTHORIZATION_MALFORMED","tool_called":false}
+unauthenticated          {"outcome":"refused","code":"MCP_TRANSPORT_UNAUTHENTICATED","tool_called":false}
+out of scope             {"outcome":"refused","code":"SCOPE_NOT_GRANTED","tool_called":false}
+tool calls: 1 receipts emitted: ["permit"]
+```
+
+The tool ran once. Every refused call threw before `dispatch`, and only the permitted call produced a receipt.
 
 ## Tools
 

@@ -1,0 +1,19 @@
+issueAuthorityDelegation, signed record as body  threw Error: authority delegation body must carry neither delegation_id nor signature (SCHEMA_INVALID)
+issueAuthorityDelegation, bad nonce              threw Error: authority delegation body invalid: nonce must be 32 lowercase hex characters (NONCANONICAL_VALUE)
+verifyAuthorityDelegationChain, not a chain      returned {"state":"invalid","codes":["SCHEMA_INVALID"]}
+verifyAuthorityDelegationChain, wrong record     returned {"state":"invalid","codes":["SCHEMA_INVALID"]}
+verifyAuthorityDelegationChain, key unreachable  returned {"state":"indeterminate","codes":["KEY_UNREACHABLE"]}
+verifyAuthorityDelegationChain, root untrusted   returned {"state":"invalid","codes":["ROOT_UNTRUSTED"]}
+verifyAuthorityDelegationChain, after not_after  returned {"state":"invalid","codes":["EXPIRED"]}
+issueAuthorityRevocation, revoker not issuer     threw Error: authority revocation revoker is not the target delegation issuer (REVOKER_NOT_ISSUER)
+recordAuthorityRevocation, junk candidate        returned {"recorded":false,"state":"unsupported","codes":["UNSUPPORTED_RECORD_TYPE"]}
+ledger.reserve, wrong unit                       returned {"ok":false,"code":"UNIT_MISMATCH"}
+ledger.reserve, above per_action                 returned {"ok":false,"code":"PER_ACTION_EXCEEDED"}
+ledger.commit, unknown action                    returned {"ok":false,"code":"NOT_FOUND"}
+createReceiptV1, bad issued_at                   threw TypeError: ReceiptV1: issued_at
+verifyReceiptV1, key not found                   returned {"status":"indeterminate","signer_authority":"not_established","errors":1}
+verifyReceiptV1, resolver unreachable            returned {"status":"indeterminate","signer_authority":"not_established"}
+verifyReceiptV1Serialized, duplicate member      returned {"status":"invalid","errors":["parse_error"]}
+verifyApsMcpAuthorizationV1, junk                returned {"state":"invalid","code":"MCP_AUTHORIZATION_MALFORMED"}
+proveContributions                               threw Error: Moved to @aeoess/gateway. See MIGRATION.md#attribution-reports
+commercePreflight                                threw Error: commerce orchestration moved to @aeoess/gateway src/sdk-migrated/core/commerce-preflight.ts. Use the gate pred

@@ -1,0 +1,13 @@
+{
+  "name": "aps-cli-verify-example",
+  "private": true,
+  "type": "module",
+  "description": "The agent-passport CLI of agent-passport-system 8.0.1: a local session, verify-bundle and verify-regulated, with exit codes.",
+  "scripts": {
+    "start": "node run.mjs",
+    "test": "node test.mjs"
+  },
+  "dependencies": {
+    "agent-passport-system": "8.0.1"
+  }
+}

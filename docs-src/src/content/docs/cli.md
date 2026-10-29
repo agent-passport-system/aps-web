@@ -9,6 +9,8 @@ The command line tool is the `agent-passport` binary of the npm package `agent-p
 npm exec --package=agent-passport-system@8.0.1 -- agent-passport help
 ```
 
+Run from an empty directory, that command exits 0 and prints the help. The help text writes commands as `passport <command>`. The installed binary is `agent-passport`.
+
 The CLI works with the [social contract API](/docs/compatibility/) and its compatibility formats: the legacy `Delegation` and the camelCase `ActionReceipt`. It does not issue `AuthorityDelegationV1` records.
 
 ## Local state
@@ -31,13 +33,15 @@ npx agent-passport status
 npx agent-passport verify .passport/agent.json
 npx agent-passport delegate --to "$(node -p "require('./.passport/agent.json').publicKey")" --scope code_execution --limit 500
 npx agent-passport work --scope code_execution --type implementation --summary "Built it"
-npx agent-passport work --scope web_search --summary "Searched"
+npx agent-passport work --scope web_search --summary Searched
 npx agent-passport audit --floor node_modules/agent-passport-system/values/floor.yaml
 ```
 
-Every command above exits 0 except the second `work`, which exits 1 because no stored delegation covers `web_search`:
+The program `run.mjs` in [`docs-src/examples/cli-verify/`](https://github.com/agent-passport-system/aps-web/tree/main/docs-src/examples/cli-verify) runs these commands with agent-passport-system 8.0.1 in a fresh directory. Every one exits 0 except the second `work`, which exits 1 because no stored delegation covers `web_search`:
 
 ```text
+$ npx agent-passport work --scope web_search --summary Searched
+exit 1
 ❌ No valid delegation found for scope: web_search
    Create one with: passport delegate --to <key> --scope web_search
 ```
@@ -89,6 +93,14 @@ agent-passport verify <passport.json | agent.json> [--trusted-issuer <hex> ...]
 ```
 
 Synopsis. The file is a positional argument. `--trusted-issuer` may repeat or take a comma separated list. Without it the report says SELF-SIGNED. With it, the report says TRUSTED only when one of the named issuers countersigned the passport, and NOT TRUSTED otherwise. A valid signature on a self-signed passport shows the holder has the key, not that anyone vouches for it.
+
+With an issuer key that never countersigned the passport, the report says NOT TRUSTED and the command still exits 0:
+
+```text
+$ npx agent-passport verify .passport/agent.json --trusted-issuer 7777777777777777777777777777777777777777777777777777777777777777
+exit 0
+  Issuer:   ✗ NOT TRUSTED
+```
 
 ### inspect
 
@@ -144,6 +156,54 @@ agent-passport verify-bundle <bundle.json> [--json] [--strict]
 
 Synopsis. Verifies an evidence bundle (`aps:evidence-bundle:v1`): manifest signature, Merkle root, member digests and inclusion proofs. It prints one claim state per axis, authority, action, revocation and evidence. A state that cannot be computed from the members present is reported `MISSING` or `UNKNOWN`. `--json` prints `{axes, overall, exit_reason}`. `--strict` treats `MISSING` authority or evidence as a failure. A missing file prints a report with every axis `UNKNOWN` and exits 3.
 
+`verify-bundle` checks the bundle, not its members. A `delegation` member is reported `ASSERTED` with "chain verification is not performed by verify-bundle", and a passport member is checked with self-signed passports accepted. The manifest signature is checked under the `signer_public_key` the bundle carries, which proves integrity under that key, not who holds it.
+
+These runs use three bundles that `make-bundle.mjs` in the same example writes: a signed bundle with a passport and a delegation member, a copy with one member payload changed after signing, and a copy with `signer_public_key` replaced:
+
+```text
+$ npx agent-passport verify-bundle bundle.json --json
+exit 0
+{
+  "axes": {
+    "authority": "ASSERTED",
+    "action": "MISSING",
+    "revocation": "MISSING",
+    "evidence": "EVALUATED"
+  },
+  "overall": "MISSING",
+  "exit_reason": "ok"
+}
+
+$ npx agent-passport verify-bundle tampered.json --json
+exit 2
+{
+  "axes": {
+    "authority": "ASSERTED",
+    "action": "MISSING",
+    "revocation": "MISSING",
+    "evidence": "INVALID"
+  },
+  "overall": "INVALID",
+  "exit_reason": "axis_invalid"
+}
+
+$ npx agent-passport verify-bundle wrong-key.json --json
+exit 3
+{
+  "axes": {
+    "authority": "UNKNOWN",
+    "action": "UNKNOWN",
+    "revocation": "UNKNOWN",
+    "evidence": "UNKNOWN"
+  },
+  "overall": "UNKNOWN",
+  "exit_reason": "manifest_signature_failed"
+}
+❌ Manifest signature failed under the stated signer_public_key
+```
+
+`--strict` on the signed bundle also exits 0 with `Overall: MISSING`, because only a `MISSING` authority or evidence axis fails under `--strict`, and here the missing axes are action and revocation.
+
 The browser page at [agent-passport.org/verify.html](https://agent-passport.org/verify.html) runs the same kind of check locally.
 
 ### verify-regulated
@@ -153,6 +213,20 @@ agent-passport verify-regulated --receipt <receipt.json> --context <context.json
 ```
 
 Synopsis. Runs the stateless disposition verifier over a `RegulatedActionReceiptV0` and a caller supplied verification context, and prints the result as JSON. The context comes from the relying party. The verifier reads nothing else.
+
+Two runs on vectors V06 and V01 of the SDK's `aps-regulated-action-v0` conformance set ([`vectors.json`](https://github.com/agent-passport-system/agent-passport-system/blob/f95c9168187cbac0493099fe4a7cddaff653bf39/conformance/regulated-action/v0/vectors.json)), output reduced to three fields of the JSON result:
+
+```text
+$ npx agent-passport verify-regulated --receipt regulated/v06-receipt.json --context regulated/v06-context.json
+exit 0
+{"disposition":"reconciled","violations":[],"judgment_correctness":"not_claimed"}
+
+$ npx agent-passport verify-regulated --receipt regulated/v01-receipt.json --context regulated/v01-context.json
+exit 2
+{"disposition":"self_attested","violations":["self_attested"],"judgment_correctness":"not_claimed"}
+```
+
+`judgment_correctness` is always `not_claimed`. A `reconciled` disposition says the receipt's anchors agree under the supplied context. It says nothing about whether the decision was right.
 
 ## Agora commands
 

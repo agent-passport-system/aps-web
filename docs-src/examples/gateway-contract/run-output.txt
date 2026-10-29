@@ -1,0 +1,60 @@
+## GET /healthz
+response 200: {"status":"ok","service":"aeoess-gateway","version":"0.4.1"}
+
+## POST /api/v1/signup
+request: {"name":"Docs operator","email":"operator@example.com"}
+response 201: {"tenant_id":"de86f323-c0e6-4671-a5e3-2e6d8a76b3e4","plan":"free","api_key":"aps_live...(redacted)"}
+
+## POST /api/v1/evaluate without an API key
+request: {"agent_id":"docs-agent","action_type":"read:note","action_target":"project-x","scope_required":"notes:read"}
+response 401: {"error":"Missing API key. Use: Authorization: Bearer aps_live_..."}
+
+## POST /api/v1/agents (principal)
+request: {"agent_id":"docs-principal","public_key":"1111111111111111111111111111111111111111111111111111111111111111","name":"Principal"}
+response 201: {"id":"dcd331ee-1047-4e68-9547-d913ae5568a9","agent_id":"docs-principal","status":"active"}
+
+## POST /api/v1/agents (agent)
+request: {"agent_id":"docs-agent","public_key":"2222222222222222222222222222222222222222222222222222222222222222","name":"Agent"}
+response 201: {"id":"ad582b16-b005-43cb-b6ff-2058e10eb66c","agent_id":"docs-agent","status":"active"}
+
+## POST /api/v1/delegations from an agent that is not a root
+request: {"parent_agent_id":"docs-agent","child_agent_id":"docs-principal","scope":["notes:read"]}
+response 403: {"error":"Delegation rejected: the parent has no inbound delegation and is not a designated root. Only a designated root (agents.is_root=1) may grant a fresh-budget delegation."}
+
+## POST /api/v1/root-designations
+request: {"agent_id":"docs-principal"}
+response 200: {"tenant_id":"de86f323-c0e6-4671-a5e3-2e6d8a76b3e4","agent_id":"docs-principal","is_root":true,"designated_by":"de86f323-c0e6-4671-a5e3-2e6d8a76b3e4","designated_at":"2026-10-29T06:40:28.643Z","re_root":false,"reason":null}
+
+## POST /api/v1/delegations
+request: {"parent_agent_id":"docs-principal","child_agent_id":"docs-agent","scope":["notes:read"],"spend_limit":10,"max_depth":1}
+response 201: {"id":"f59b89f5-fe56-49ef-8bcd-7b8c67a899fb","status":"active"}
+
+## GET /api/v1/modes
+response 200: {"active_mode":"observe","configured":[],"workflow_id":null}
+
+## POST /api/v1/evaluate, in scope
+request: {"agent_id":"docs-agent","action_type":"read:note","action_target":"project-x","scope_required":"notes:read"}
+response 200: {"evaluation_id":"3acf5b66-3fc5-427b-b19e-c0aecab84331","verdict":"permit","reason":"Permitted: scope \"notes:read\" authorized","recovery":null,"freshness":{"risk_tier":0,"outcome":"allow","fresh":null,"observed_age_seconds":null,"reason_code":"freshness_tier0_no_evidence","revocation_mode":"on-accept"},"duration_ms":1,"agent_id":"docs-agent","action":{"type":"read:note","target":"project-x","scope_required":"notes:read"},"mode":"observe","effective_verdict":"permit","enforced":false,"mode_effect":"permit","would_have_been_denied":false,"risk":"low"}
+
+## POST /api/v1/evaluate, out of scope, observe mode
+request: {"agent_id":"docs-agent","action_type":"read:note","action_target":"project-x","scope_required":"notes:write"}
+response 200: {"evaluation_id":"3a69ea6a-f82d-46fb-a4ad-d46be716d99f","verdict":"deny","reason":"Denied: Scope \"notes:write\" not in [notes:read]","violations":["Scope \"notes:write\" not in [notes:read]"],"recovery":null,"freshness":{"risk_tier":0,"outcome":"allow","fresh":null,"observed_age_seconds":null,"reason_code":"freshness_tier0_no_evidence","revocation_mode":"on-accept"},"duration_ms":0,"agent_id":"docs-agent","action":{"type":"read:note","target":"project-x","scope_required":"notes:write"},"mode":"observe","effective_verdict":"permit","enforced":false,"mode_effect":"warn","would_have_been_denied":true,"risk":"medium"}
+
+## PUT /api/v1/modes
+request: {"mode":"enforce"}
+response 200: {"ok":true,"tenantId":"de86f323-c0e6-4671-a5e3-2e6d8a76b3e4","workflowId":"","mode":"enforce"}
+
+## POST /api/v1/evaluate, out of scope, enforce mode
+request: {"agent_id":"docs-agent","action_type":"read:note","action_target":"project-x","scope_required":"notes:write"}
+response 200: {"evaluation_id":"9a10a6a4-b878-43ad-a73c-8da7af8eedc8","verdict":"deny","reason":"Denied: Scope \"notes:write\" not in [notes:read]","violations":["Scope \"notes:write\" not in [notes:read]"],"recovery":null,"freshness":{"risk_tier":0,"outcome":"allow","fresh":null,"observed_age_seconds":null,"reason_code":"freshness_tier0_no_evidence","revocation_mode":"on-accept"},"duration_ms":0,"agent_id":"docs-agent","action":{"type":"read:note","target":"project-x","scope_required":"notes:write"},"mode":"enforce","effective_verdict":"deny","enforced":true,"mode_effect":"block","would_have_been_denied":false,"risk":"medium"}
+
+## GET /api/v1/receipts/recent, one line per receipt, in the order returned
+{"verdict":"permit","event_type":"authorization_permit","reason_code":null,"delegation_id":"set","receipt_hash":"set","gateway_signature":null}
+{"verdict":"deny","event_type":"authorization_deny","reason_code":"Denied: Scope \"notes:write\" not in [notes:read]","delegation_id":"set","receipt_hash":"set","gateway_signature":"3-part JWS"}
+{"verdict":"deny","event_type":"authorization_deny","reason_code":"Denied: Scope \"notes:write\" not in [notes:read]","delegation_id":"set","receipt_hash":"set","gateway_signature":"3-part JWS"}
+
+## deny receipt JWS
+header: {"alg":"EdDSA","kid":"gateway-v1","typ":"JWT"}
+payload keys: action_type,agent_id,decision_stage,delegation_id,evaluation_id,event_type,policy_hash,reason_code,receipt_hash,schema_version,scope_requested_json,tenant_id,verdict
+payload receipt_hash equals stored receipt_hash: true
+signature verifies under jwks.json key gateway-v1: true

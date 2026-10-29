@@ -1,0 +1,7 @@
+allowed                  {"outcome":"dispatched","tool_called":true,"text":"note project-x"}
+replay                   {"outcome":"refused","code":"MCP_ACTION_REPLAY","tool_called":false}
+changed arguments        {"outcome":"refused","code":"MCP_ARGUMENTS_MISMATCH","tool_called":false}
+no authorization         {"outcome":"refused","code":"MCP_AUTHORIZATION_MALFORMED","tool_called":false}
+unauthenticated          {"outcome":"refused","code":"MCP_TRANSPORT_UNAUTHENTICATED","tool_called":false}
+out of scope             {"outcome":"refused","code":"SCOPE_NOT_GRANTED","tool_called":false}
+tool calls: 1 receipts emitted: ["permit"]

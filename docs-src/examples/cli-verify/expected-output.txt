@@ -1,0 +1,90 @@
+$ npx agent-passport join --name my-agent --owner alice --no-register
+exit 0
+🤝 Joined the Agent Social Contract
+
+$ npx agent-passport status
+exit 0
+
+$ npx agent-passport verify .passport/agent.json
+exit 0
+    ! Self-signed passport accepted: no trust root was consulted
+
+$ npx agent-passport verify .passport/agent.json --trusted-issuer 7777777777777777777777777777777777777777777777777777777777777777
+exit 0
+  Issuer:   ✗ NOT TRUSTED
+
+$ npx agent-passport delegate --to "$(node -p "require('./.passport/agent.json').publicKey")" --scope code_execution --limit 500
+exit 0
+
+$ npx agent-passport work --scope code_execution --type implementation --summary "Built it"
+exit 0
+
+$ npx agent-passport work --scope web_search --summary Searched
+exit 1
+❌ No valid delegation found for scope: web_search
+   Create one with: passport delegate --to <key> --scope web_search
+
+$ npx agent-passport audit --floor node_modules/agent-passport-system/values/floor.yaml
+exit 0
+
+$ npx agent-passport verify-bundle bundle.json --json
+exit 0
+{
+  "axes": {
+    "authority": "ASSERTED",
+    "action": "MISSING",
+    "revocation": "MISSING",
+    "evidence": "EVALUATED"
+  },
+  "overall": "MISSING",
+  "exit_reason": "ok"
+}
+
+$ npx agent-passport verify-bundle bundle.json --strict
+exit 0
+📦 Evidence Bundle Claim Report
+  authority   ASSERTED
+     member "passport-1" signature passes; self-signed accepted, no trust anchors supplied
+  action      MISSING
+     no action_ref and no pair verdict present in the bundle
+  revocation  MISSING
+     no revocation_observation member; no revocation check ran
+  evidence    EVALUATED
+     bundle root recomputed and matches; all member digests match the manifest
+  Overall: MISSING
+
+$ npx agent-passport verify-bundle tampered.json --json
+exit 2
+{
+  "axes": {
+    "authority": "ASSERTED",
+    "action": "MISSING",
+    "revocation": "MISSING",
+    "evidence": "INVALID"
+  },
+  "overall": "INVALID",
+  "exit_reason": "axis_invalid"
+}
+
+$ npx agent-passport verify-bundle wrong-key.json --json
+exit 3
+{
+  "axes": {
+    "authority": "UNKNOWN",
+    "action": "UNKNOWN",
+    "revocation": "UNKNOWN",
+    "evidence": "UNKNOWN"
+  },
+  "overall": "UNKNOWN",
+  "exit_reason": "manifest_signature_failed"
+}
+❌ Manifest signature failed under the stated signer_public_key
+
+$ npx agent-passport verify-regulated --receipt regulated/v06-receipt.json --context regulated/v06-context.json
+exit 0
+{"disposition":"reconciled","violations":[],"judgment_correctness":"not_claimed"}
+
+$ npx agent-passport verify-regulated --receipt regulated/v01-receipt.json --context regulated/v01-context.json
+exit 2
+{"disposition":"self_attested","violations":["self_attested"],"judgment_correctness":"not_claimed"}
+

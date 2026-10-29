@@ -11,7 +11,7 @@ description: Install commands, runtime requirements and a smoke check for the Ty
 | [Go SDK on pkg.go.dev](https://pkg.go.dev/github.com/aeoess/agent-passport-go) | v0.7.0 | `go 1.22` in `go.mod` | `go get github.com/aeoess/agent-passport-go@v0.7.0` |
 | [MCP server on npm](https://www.npmjs.com/package/agent-passport-system-mcp) | 8.1.0 | Node.js 20 or later | `npm install agent-passport-system-mcp@8.1.0` |
 
-The four SDKs do different jobs. TypeScript and Python issue and verify the current `AuthorityDelegationV1` record and its revocation record. The Rust crate only verifies, it creates no artifacts. The Go module signs and verifies its own chain shape. Check that the SDK you pick can produce or verify the artifact your peer sends before you build on it.
+The four SDKs do different jobs. TypeScript and Python issue and verify the current `AuthorityDelegationV1` record and its revocation record. The Rust crate only verifies, it creates no artifacts. The Go module signs and verifies its own chain shape. Check that the SDK you pick can produce or verify the artifact your peer sends before you build on it. [Languages and artifacts](/docs/languages/) has the table by artifact and operation.
 
 ## TypeScript
 

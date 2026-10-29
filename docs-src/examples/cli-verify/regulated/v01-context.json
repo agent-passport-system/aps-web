@@ -1,0 +1,39 @@
+{
+  "idp_keyset": {
+    "https://idp.example.com": "e035f9e28d89b43aa032ef33ec60fb7f11c74f06fb0827c5bf3710624eab3058"
+  },
+  "operator_anchored_idp_copy": {
+    "https://idp.example.com": "1c61049fad5238ee23d9dacbaccdd1c026e9e658fd7b7851553942c077ffc7c9"
+  },
+  "registered_resource_keys": {
+    "res-bank-1": {
+      "publicKey": "3ffa4aa275e27ece22135f0933c6e83e79ecfdab2a15546491726dbe7b42a142",
+      "registered_by_operator": false
+    },
+    "res-gw-1": {
+      "publicKey": "53f9cc8f2c8b0ed9a9d7a0afdb0aad59ccee370a8b0cfee0fc0915ebf9b6e25e",
+      "registered_by_operator": true
+    }
+  },
+  "operator_domain_registry": {
+    "agent-key-1": {
+      "publicKey": "92fd0ae28362180fc6f8c6d06d3da9a3045b9943b5064b4da8965670ff0c860d",
+      "identity": "op-1"
+    },
+    "gw-key-1": {
+      "publicKey": "c3b25641a27b0e31bbb388308f2c3e30c35292e37b1f52294317fbea5e6f1ad4",
+      "identity": "op-1"
+    },
+    "op2-key-1": {
+      "publicKey": "f7c4d0cf9ae62bdb90d0b0048aa2566b753a213ab42cebffbbd637cc3a2b66bf",
+      "identity": "op-2"
+    }
+  },
+  "operator_identity_id": "op-1",
+  "gateway_key_id": "gw-key-1",
+  "registered_log_roots": {},
+  "allowed_clock_skew_ms": 5000,
+  "reserved_ts": 1700000000000,
+  "submitted_ts": 1700000060000,
+  "max_authority_execution_window_ms": 900000
+}

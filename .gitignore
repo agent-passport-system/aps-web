@@ -113,3 +113,7 @@ docs-src/.astro/
 !docs-src/package-lock.json
 !docs-src/examples/governed-action/package.json
 !docs-src/examples/governed-action/package-lock.json
+!docs-src/examples/mcp-authority/package.json
+!docs-src/examples/mcp-authority/package-lock.json
+!docs-src/examples/cli-verify/package.json
+!docs-src/examples/cli-verify/package-lock.json

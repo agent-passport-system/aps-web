@@ -40,6 +40,7 @@ export default defineConfig({
             { label: 'MCP server', slug: 'mcp-server' },
             { label: 'CLI reference', slug: 'cli' },
             { label: 'API reference', slug: 'api' },
+            { label: 'Languages and artifacts', slug: 'languages' },
           ],
         },
         { label: 'Compliance evidence', slug: 'evidence' },
