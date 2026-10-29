@@ -1,0 +1,3 @@
+widening child refused: authority delegation does not narrow (SCOPE_WIDENING)
+chain at 10:00: {"state":"valid","failures":[]}
+chain at 10:10, root revoked: {"state":"invalid","failures":[{"code":"REVOKED","index":0}]}

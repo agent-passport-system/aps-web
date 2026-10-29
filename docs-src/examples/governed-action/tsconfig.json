@@ -10,5 +10,5 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "files": ["governed-action.mjs", "run.mjs"]
+  "files": ["governed-action.mjs", "run.mjs", "chain.mjs", "canonicalizers.mjs", "receipt-axes.mjs"]
 }

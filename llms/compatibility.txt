@@ -8,6 +8,16 @@ Compatibility material. This page uses the social contract API, which produces t
 
 Both programs below were typechecked against the 8.0.1 declarations and run with Node.js. Their output is printed under each one.
 
+## The compatibility formats
+
+| Format | Produced by | Canonical form | Verified by | Revocation in 8.0.1 |
+| --- | --- | --- | --- | --- |
+| Legacy passport (`SignedPassport`) | `joinSocialContract`, `createPassport` | Legacy `canonicalize`, nulls dropped | `verifySocialContract`, `verifyPassport` | Not applicable |
+| Legacy `Delegation` (`delegationId`, `delegatedTo`, `scope`) | `delegate`, `createDelegation`, `subDelegate` | Legacy `canonicalize` | `verifyDelegation` | `revokeDelegation` and `cascadeRevoke` throw a migration error. The MCP server's `revoke_delegation` refuses these records |
+| camelCase `ActionReceipt` (`receiptId`, `delegationId`) | `recordWork`, `createReceipt` | Legacy `canonicalize` | `verifyReceipt(receipt, agentPublicKey)` | Not applicable |
+
+The legacy scope rule lets a bare grant `p` cover `p:x`. The current `aps-hierarchical-v1` profile needs `p:*` for that. The [Authority](https://agent-passport.org/docs/authority/) page covers the current record, and [Signed bytes](https://agent-passport.org/docs/signed-bytes/) shows how the two canonical forms give different identifiers for the same content.
+
 ## Install
 
 ```bash

@@ -13,7 +13,7 @@ An agent identity is an Ed25519 key pair. A passport is a document the agent sig
 
 A passport names an owner, but that name is the agent's own statement. Tying an agent to a person or company takes separate evidence from the principal, checked against the principal's key.
 
-The SDK also carries identifiers in other schemes, including `did:key`, `did:web`, SPIFFE SVIDs and OAuth identity assertions, through adapters. Parsing or carrying such an identifier is a separate step from resolving its key and deciding to trust it for a given authorization.
+The SDK also carries identifiers in other schemes, including `did:key`, `did:web`, SPIFFE SVIDs and OAuth identity assertions, through adapters. Parsing or carrying such an identifier is a separate step from resolving its key and deciding to trust it for a given authorization. See [Identity and principal binding](/docs/identity/).
 
 ## Delegation
 
@@ -21,7 +21,7 @@ Status: [Canonical](/docs/evidence/#status-labels).
 
 The current delegation record is `AuthorityDelegationV1` (`record_type` `aps:authority-delegation:v1`). It carries seven facets: scope, spend, depth, time, reputation, values and reversibility. A child grant must be equal to or narrower than its parent on every facet, its issuer must be the parent's subject, and it names its parent by content address. A verifier checks the full chain with an explicit clock, a key resolver, a root trust policy and a revocation resolver, and returns `valid`, `invalid`, `indeterminate` or `unsupported`. A revocation status it cannot establish gives `indeterminate`, never `valid`.
 
-Revoking a grant makes every chain that contains it fail verification, including the chains of its descendants. A verifier sees that only if its revocation source holds the revocation record.
+Revoking a grant makes every chain that contains it fail verification, including the chains of its descendants. A verifier sees that only if its revocation source holds the revocation record. See [Authority and revocation](/docs/authority/).
 
 The older `Delegation` format, produced by `createDelegation` and the social contract `delegate` function, is a pre-draft compatibility format. Its scope matching differs from the current record: a bare legacy grant `p` covers `p:x`, while the current profile requires `p:*` for that.
 
