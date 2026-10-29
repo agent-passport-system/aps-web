@@ -37,6 +37,8 @@ specs/**/email-to-*.md
 # specs/ is local working scratch space. Nothing in specs/ goes public.
 # To make a single file public, move it OUT of specs/ to a sibling location.
 specs/
+# the built docs site has a public specs page; the rule above is for the private scratch dir
+!docs/specs/
 
 # ── Tier 2: internal process artifacts ─────────────────────
 specs/CC-PROMPT-*
