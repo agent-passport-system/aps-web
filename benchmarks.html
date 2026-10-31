@@ -151,8 +151,8 @@ html[data-theme="bright"]:has(main.page) main .bx .bx-limits p{margin:0 0 14px!i
   <div class="bx">
 
   <section class="bx-sec" aria-labelledby="bx-cost">
-    <div class="bx-head"><h2 id="bx-cost">The cost of checking authority</h2><span class="bx-hint">AMD EPYC 7313P, one thread</span></div>
-    <p class="bx-lead">Checking an action against authority already loaded into memory takes less work than receiving a request over HTTP or waiting for an audit record to reach disk. The measurements below show those costs separately.</p>
+    <div class="bx-head"><h2 id="bx-cost">How long each check takes</h2><span class="bx-hint">AMD EPYC 7313P, one thread</span></div>
+    <p class="bx-lead">Checking an action against authority already loaded into memory is faster than receiving a request over HTTP or waiting for an audit record to reach disk. The measurements below show those costs separately.</p>
     <p class="bx-lead">These are recorded results from the Runtime Passport prototype on an AMD EPYC 7313P running Ubuntu 22.04. Each benchmark runs sequentially on one thread. They describe the measured prototype revision, not the current TypeScript SDK or a production deployment.</p>
     <p class="bx-units">µs = microseconds. 1 ms = 1,000 µs. 1 sec = 1,000,000 µs.</p>
     <div class="bx-axis" aria-hidden="true"><span style="--w:1.5%">0.1 µs</span><span style="--w:20.0%">1 µs</span><span style="--w:40.0%">10 µs</span><span style="--w:60.0%">100 µs</span><span style="--w:80.0%">1 ms</span><span style="--w:100.0%">10 ms</span></div>
