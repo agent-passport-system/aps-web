@@ -5,10 +5,10 @@
 <script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Benchmarks | Agent Passport System</title>
-<meta name="description" content="APS benchmarks: verifier check median 420 ns and gateway round trip 822 µs on bare metal AMD EPYC, the public TypeScript harness rerun on SDK 8.0.1, and runs against test suites written by other projects.">
+<meta name="description" content="How long APS authority checks take, what each measurement includes, and how APS behaves on tests written by other projects. Recorded results from the Runtime Passport prototype on AMD EPYC, AWS c7i and Apple M3.">
 <link rel="canonical" href="https://agent-passport.org/benchmarks.html">
 <meta property="og:title" content="Benchmarks | Agent Passport System">
-<meta property="og:description" content="APS benchmarks: verifier check median 420 ns and gateway round trip 822 µs on bare metal AMD EPYC, the public TypeScript harness rerun on SDK 8.0.1, and runs against test suites written by other projects.">
+<meta property="og:description" content="How long APS authority checks take, what each measurement includes, and how APS behaves on tests written by other projects. Recorded results from the Runtime Passport prototype on AMD EPYC, AWS c7i and Apple M3.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Agent Passport System">
 <meta property="og:url" content="https://agent-passport.org/benchmarks.html">
@@ -21,7 +21,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
 <link rel="stylesheet" href="/aps-v2.css?v=20261030a">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-10-31","name":"Agent Passport System Benchmarks","description":"Performance benchmarks for the Agent Passport System verifier. Hot path p50 292ns (Mac M3) / 347ns (AWS c7i.2xlarge) / 420ns (bare-metal EPYC 7313P). L4 gateway-loopback p50 305µs / 1.07ms / 822µs across the same three environments.","url":"https://agent-passport.org/benchmarks.html","isPartOf":{"@type":"WebSite","name":"Agent Passport System","url":"https://agent-passport.org/"}}
+{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-10-31","name":"Agent Passport System Benchmarks","description":"How long APS authority checks take, what each measurement includes, and how APS behaves on tests written by other projects.","url":"https://agent-passport.org/benchmarks.html","isPartOf":{"@type":"WebSite","name":"Agent Passport System","url":"https://agent-passport.org/"}}
 </script>
 <script src="/nav.js?v=20260907a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
@@ -58,7 +58,6 @@ html[data-theme="bright"]:has(main.page) main .bx .bx-layer p{font-size:14.5px!i
 .bx-table th{background:var(--b); color:#fff; font-family:var(--mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase; text-align:left; padding:10px 14px}
 .bx-table td{padding:11px 14px; border-top:2px solid #C9DBFF; color:var(--ink)}
 .bx-table td:nth-child(n+2){font-family:var(--pixel); font-size:24px; color:var(--b)}
-.bx-table tr:last-child td:nth-child(2){font-family:var(--body); font-size:16px; color:var(--ink)}
 .bx-runs{display:grid; gap:18px; grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
 .bx-run{position:relative; border:3px solid var(--b); border-radius:4px; padding:16px 16px 14px; background:#fff; box-shadow:5px 5px 0 0 var(--b); display:flex; flex-direction:column; gap:4px; transition:transform .16s cubic-bezier(.3,1.6,.5,1), box-shadow .16s}
 .bx-run:hover{transform:translate(-3px,-3px) rotate(-.4deg); box-shadow:8px 8px 0 0 var(--y), 8px 8px 0 3px var(--b)}
@@ -80,6 +79,29 @@ html[data-theme="bright"]:has(main.page) main .bx .bx-con span:last-child{font-s
 .bx-limits li::before{content:""; position:absolute; left:0; top:.45em; width:12px; height:12px; background:var(--y); border:2px solid var(--b)}
 @media (max-width:620px){.bx-lh{flex-wrap:wrap}.bx-val{font-size:24px}.bx-lh strong{font-size:22px}}
 @media (prefers-reduced-motion:reduce){.bx-bar{animation:none}.bx-run{transition:none}}
+
+.bx-axis{position:relative; height:18px; margin:6px 0 6px; font-family:var(--mono); font-size:11px; color:var(--sub)}
+.bx-axis span{position:absolute; left:var(--w); transform:translateX(-50%); white-space:nowrap}
+.bx-axis span:first-child{transform:none}
+.bx-axis span:last-child{transform:translateX(-100%)}
+.bx-ops{display:grid; gap:12px}
+.bx-op{border:3px solid var(--b); border-radius:4px; padding:12px 16px; background:#fff; transition:transform .16s cubic-bezier(.3,1.6,.5,1), box-shadow .16s}
+.bx-op:hover{transform:translate(-3px,-3px); box-shadow:6px 6px 0 0 var(--y), 6px 6px 0 3px var(--b)}
+.bx-oh{display:flex; align-items:baseline; gap:14px; margin-bottom:9px}
+.bx-oh strong{font-family:var(--body); font-weight:600; font-size:17px; color:var(--ink); flex:1}
+html[data-theme="bright"]:has(main.page) main .bx .bx-op p{font-size:13.5px!important; color:var(--sub)!important; margin:0; font-family:var(--mono)}
+.bx-track{background:repeating-linear-gradient(90deg,var(--pale) 0 calc(20% - 2px),#C9DBFF calc(20% - 2px) 20%)}
+html[data-theme="bright"]:has(main.page) main .bx p.bx-key{font-family:var(--mono); font-size:12px!important; color:var(--sub)!important; display:flex; align-items:center; gap:8px; margin:12px 0 0}
+.bx-key i{display:inline-block}
+.bx-key .k-bar{width:26px; height:12px; background:var(--b)}
+.bx-key .k-tick{width:4px; height:16px; background:var(--y); border:1px solid var(--b); margin-left:10px}
+.bx-tablewrap{overflow-x:auto}
+.bx-table{max-width:none}
+.bx-table td:first-child{font-family:var(--body)}
+.bx-run a{font-family:var(--mono); font-size:12px}
+.bx-score{font-size:34px}
+@media (max-width:620px){.bx-oh{flex-direction:column; gap:2px}.bx-oh strong{font-size:15px}.bx-axis{font-size:9px}.bx-table td:nth-child(n+2){font-size:18px}}
+html[data-theme="bright"]:has(main.page) main .bx .bx-limits p{margin:0 0 14px!important; max-width:90ch}
 </style>
 </head>
 <body>
@@ -122,102 +144,79 @@ html[data-theme="bright"]:has(main.page) main .bx .bx-con span:last-child{font-s
 <main class="page">
   <section class="page-hero">
     <div class="eyebrow"><span class="sq"></span><span>Benchmarks</span></div>
-    <h1>Benchmarks</h1>
-    <p class="dek">How fast APS decides whether an agent may act, and how those decisions hold up against tests other people wrote. Every number names its machine, its version and the file you can rerun.</p>
+    <h1>Performance and test results</h1>
+    <p class="dek">See how long APS authority checks take, what each measurement includes, and how APS behaves on tests written by other projects.</p>
   </section>
   <div class="bx">
-  <ul class="bx-stats">
-    <li><b>420&nbsp;ns</b><span>verifier check, median</span><em>Rust reference verifier, bare metal AMD EPYC</em></li>
-    <li><b>822&nbsp;µs</b><span>gateway round trip, median</span><em>same machine, full authorization request</em></li>
-    <li><b>0.37&nbsp;ms</b><span>policy evaluation, median</span><em>SDK 8.0.1, public harness, Apple M3, rerun 2026-10-31</em></li>
-    <li><b>6,303</b><span>tests in the TypeScript SDK</span><em>8.0.1, passing in CI on main</em></li>
-  </ul>
 
-  <section class="bx-sec" aria-labelledby="bx-speed">
-    <div class="bx-head"><h2 id="bx-speed">Speed, layer by layer</h2><span class="bx-hint">Median on bare metal Linux. The tick marks p99.</span></div>
-    <p class="bx-lead">APS is measured at four layers, from the bare verifier to a full trip through the gateway, on three machines: bare metal Linux on an AMD EPYC 7313P as the reference, AWS c7i on Intel Xeon 8488C, and an Apple M3. The core layers run single threaded over 1,000,000 iterations, the round trip over 1,000. The scale is logarithmic, because the slowest layer is about 2,000 times the fastest.</p>
-    <ol class="bx-layers">
-      <li class="bx-layer">
-        <div class="bx-lh"><span class="bx-code">L0</span><strong>Verifier core</strong><span class="bx-val">420&nbsp;ns</span></div>
+  <section class="bx-sec" aria-labelledby="bx-cost">
+    <div class="bx-head"><h2 id="bx-cost">The cost of checking authority</h2><span class="bx-hint">AMD EPYC 7313P, one thread</span></div>
+    <p class="bx-lead">Checking an action against authority already loaded into memory takes less work than receiving a request over HTTP or waiting for an audit record to reach disk. The measurements below show those costs separately.</p>
+    <p class="bx-lead">These are recorded results from the Runtime Passport prototype on an AMD EPYC 7313P running Ubuntu 22.04. Each benchmark runs sequentially on one thread. They describe the measured prototype revision, not the current TypeScript SDK or a production deployment.</p>
+    <div class="bx-axis" aria-hidden="true"><span style="--w:1.5%">0.1 µs</span><span style="--w:20.0%">1 µs</span><span style="--w:40.0%">10 µs</span><span style="--w:60.0%">100 µs</span><span style="--w:80.0%">1 ms</span><span style="--w:100.0%">10 ms</span></div>
+    <ol class="bx-ops">
+      <li class="bx-op">
+        <div class="bx-oh"><strong>Rust authority check, with compiled authority already in memory</strong><span class="bx-val">0.42&nbsp;µs</span></div>
         <div class="bx-track" aria-hidden="true"><i class="bx-bar" style="--w:12.5%"></i><i class="bx-tick" style="--w:13.4%"></i></div>
-        <p>Signature and delegation chain check in the Rust reference verifier, warm cache. p99 470&nbsp;ns. Apple M3 292&nbsp;ns, AWS c7i 347&nbsp;ns.</p>
+        <p>Median 0.42&nbsp;µs, p99 0.47&nbsp;µs, 1,000,000 timed calls.</p>
       </li>
-      <li class="bx-layer">
-        <div class="bx-lh"><span class="bx-code">L2</span><strong>SDK call</strong><span class="bx-val">6.5&nbsp;µs</span></div>
+      <li class="bx-op">
+        <div class="bx-oh"><strong>Check called from TypeScript through the native binding</strong><span class="bx-val">6.54&nbsp;µs</span></div>
         <div class="bx-track" aria-hidden="true"><i class="bx-bar" style="--w:36.3%"></i><i class="bx-tick" style="--w:38.2%"></i></div>
-        <p>The same check called from TypeScript through the native binding. p99 8.1&nbsp;µs. Apple M3 3.9&nbsp;µs, AWS c7i 5.7&nbsp;µs.</p>
+        <p>Median 6.54&nbsp;µs, p99 8.11&nbsp;µs, 100,000 timed calls.</p>
       </li>
-      <li class="bx-layer">
-        <div class="bx-lh"><span class="bx-code">L3</span><strong>Durable record</strong><span class="bx-val">7.6&nbsp;µs</span></div>
+      <li class="bx-op">
+        <div class="bx-oh"><strong>Native binding check with the audit record queued for writing</strong><span class="bx-val">7.64&nbsp;µs</span></div>
         <div class="bx-track" aria-hidden="true"><i class="bx-bar" style="--w:37.7%"></i><i class="bx-tick" style="--w:42.4%"></i></div>
-        <p>The call plus an audit record written to disk through a queued commit. p99 13.2&nbsp;µs. Apple M3 4.0&nbsp;µs, AWS c7i 6.7&nbsp;µs.</p>
+        <p>Median 7.64&nbsp;µs, p99 13.2&nbsp;µs, 50,000 timed calls.</p>
       </li>
-      <li class="bx-layer">
-        <div class="bx-lh"><span class="bx-code">L4</span><strong>Gateway round trip</strong><span class="bx-val">822&nbsp;µs</span></div>
+      <li class="bx-op">
+        <div class="bx-oh"><strong>Native binding check that waits for the audit commit</strong><span class="bx-val">1.31&nbsp;ms</span></div>
+        <div class="bx-track" aria-hidden="true"><i class="bx-bar" style="--w:82.3%"></i><i class="bx-tick" style="--w:83.5%"></i></div>
+        <p>Median 1.31&nbsp;ms, p99 1.5&nbsp;ms, 5,000 timed calls.</p>
+      </li>
+      <li class="bx-op">
+        <div class="bx-oh"><strong>HTTP authorization request to a gateway on the same machine</strong><span class="bx-val">822&nbsp;µs</span></div>
         <div class="bx-track" aria-hidden="true"><i class="bx-bar" style="--w:78.3%"></i><i class="bx-tick" style="--w:95.6%"></i></div>
-        <p>A full authorization request across the enforcement boundary and back. p99 6.01&nbsp;ms. Apple M3 305&nbsp;µs, AWS c7i 1.07&nbsp;ms.</p>
+        <p>Median 822&nbsp;µs, p99 6.01&nbsp;ms, 1,000 timed calls.</p>
       </li>
     </ol>
-    <p class="bx-note">The deny path of the verifier matches L0 within noise, so a refusal costs no more than an approval. Writing each record with its own fsync instead of a queued commit is bound by the disk: about 1.3&nbsp;ms on server NVMe and 4&nbsp;ms on the Mac. Calling through the TypeScript binding costs about 13 to 16 times the bare Rust check on all three machines. Results and the captured environment of each machine are in <a href="https://github.com/agent-passport-system/agent-passport-system/tree/main/benchmarks/prototype-1/results">benchmarks/prototype-1/results</a>.</p>
+    <p class="bx-key" aria-hidden="true"><i class="k-bar"></i>median <i class="k-tick"></i>p99, on a logarithmic scale</p>
+    <p class="bx-note">The Rust measurement starts with prepared authority and action inputs. It does not include loading a passport, verifying its signature or fetching revocation information. The queued record measurement returns before the background writer completes the disk commit. The blocking measurement waits for that commit.</p>
+    <p class="bx-note">The HTTP measurement includes the local request and response, a recorded policy evaluation and creation of an evaluation receipt. It excludes a remote network trip and the business operation being authorized.</p>
+    <p class="bx-note"><a href="https://github.com/agent-passport-system/agent-passport-system/tree/f95c9168187cbac0493099fe4a7cddaff653bf39/benchmarks/prototype-1/results/bare-metal-linux">Read the result files and environment record</a>. Each file identifies the measured code revision. Median is the middle recorded latency. p99 is the latency at the 99th percentile.</p>
   </section>
 
-  <section class="bx-sec" aria-labelledby="bx-harness">
-    <div class="bx-head"><h2 id="bx-harness">The public harness, rerun</h2><span class="bx-hint">SDK 8.0.1, 2026-10-31</span></div>
-    <p class="bx-lead">A second suite runs the whole authorization path in TypeScript in one process: signature, scope, reputation, clock and every constraint. It uses a public test gateway, not the hosted one, so anyone can run it with <code>npx tsx tests/benchmark-gateway.ts</code>. Three runs, 500 calls per scenario. The figures below are the slowest median and the lowest throughput of the three, never the best run.</p>
-    <table class="bx-table">
-      <thead><tr><th>Scenario</th><th>p50</th><th>p99</th></tr></thead>
+  <section class="bx-sec" aria-labelledby="bx-machines">
+    <div class="bx-head"><h2 id="bx-machines">Measurements on other machines</h2><span class="bx-hint">Median</span></div>
+    <div class="bx-tablewrap"><table class="bx-table">
+      <thead><tr><th>Operation</th><th>Apple M3</th><th>AWS c7i, Xeon 8488C</th><th>AMD EPYC 7313P</th></tr></thead>
       <tbody>
-        <tr><td>Signature and scope only</td><td>0.38&nbsp;ms</td><td>0.45&nbsp;ms</td></tr>
-        <tr><td>Every constraint</td><td>0.37&nbsp;ms</td><td>0.95&nbsp;ms</td></tr>
-        <tr><td>Refused, spend exceeded</td><td>0.31&nbsp;ms</td><td>0.39&nbsp;ms</td></tr>
-        <tr><td>100 calls back to back</td><td colspan="2">2,600 calls per second, one process</td></tr>
+        <tr><td>Rust authority check</td><td>0.292&nbsp;µs</td><td>0.347&nbsp;µs</td><td>0.420&nbsp;µs</td></tr>
+        <tr><td>Check through the native binding</td><td>3.92&nbsp;µs</td><td>5.71&nbsp;µs</td><td>6.54&nbsp;µs</td></tr>
+        <tr><td>Check with audit commit completed before return</td><td>4.04&nbsp;ms</td><td>1.35&nbsp;ms</td><td>1.31&nbsp;ms</td></tr>
+        <tr><td>HTTP authorization on the same machine</td><td>0.305&nbsp;ms</td><td>1.07&nbsp;ms</td><td>0.822&nbsp;ms</td></tr>
       </tbody>
-    </table>
-    <p class="bx-note">Measured on an Apple M3 laptop, which is a developer machine and not one of the three reference machines. Checking every constraint costs no more than checking the signature and scope alone, so the constraints are not where the time goes. The same harness on SDK 4.4.0 in August measured 0.14&nbsp;ms on the same machine, and rerun tonight on that version it still does. 8.0.1 is slower on this path, and I have not yet profiled why.</p>
+    </table></div>
+    <p class="bx-note">These are separate recorded runs, with different code revisions in their metadata. Use them to inspect each setup, not to isolate the effect of a CPU or operating system. <a href="https://github.com/agent-passport-system/agent-passport-system/tree/f95c9168187cbac0493099fe4a7cddaff653bf39/benchmarks/prototype-1/results">Compare the recorded environments</a>.</p>
   </section>
 
   <section class="bx-sec" aria-labelledby="bx-tests">
-    <div class="bx-head"><h2 id="bx-tests">Against other people's tests</h2><span class="bx-hint">Their fixtures, our implementation</span></div>
-    <p class="bx-lead">Speed matters less than being right. These are runs of APS against test suites written by other projects, with the results as they came out, including the misses.</p>
+    <div class="bx-head"><h2 id="bx-tests">Tests from other projects</h2><span class="bx-hint">Their tests, run by the APS project</span></div>
+    <p class="bx-lead">These reports show where APS agrees with another project's tests and where an adapter or a separate control is needed. The reported runs were performed by the APS project. External test authorship is identified separately from who ran the tests.</p>
     <ul class="bx-runs">
-      <li class="bx-run is-pass"><span class="bx-score">5/5</span><strong>REMORA testbed</strong><span class="bx-by">Stian's operational technology harness</span><p>The APS verifier, shipped as a pinned container image, passes all five cases on each of the six things his strict harness scores. Binding one case's work order to another case's delegation fails that case, and only that case.</p><a href="https://github.com/darklordVirtual/autonomous-ot-control/pull/38#issuecomment-6501108734">the run ↗</a></li>
-      <li class="bx-run is-part"><span class="bx-score">5/8</span><strong>Authority Relations v0.1</strong><span class="bx-by">Santhosh's agent trust benchmark</span><p>Development run of SDK 8.0.1 through an adapter: five cases pass and three are reported as unsupported by the adapter. The expected results were read before the adapter was written, so it is a development run, not a blind one.</p><a href="https://github.com/Silentpartnercoding/agent-trust-benchmark/pull/13#issuecomment-6534649273">the run ↗</a></li>
-      <li class="bx-run is-part"><span class="bx-score">1/6</span><strong>SINT runtime safety fixtures</strong><span class="bx-by">six fixtures for robots and machines</span><p>One matched outright, three in part, two could not be evaluated. A numeric bound such as a maximum velocity has no place in an APS grant today, and an authority only check passes an emergency stop case that should refuse.</p><a href="https://github.com/aeoess/agent-governance-vocabulary/issues/177#issuecomment-6485573568">the run ↗</a></li>
-      <li class="bx-run is-pass"><span class="bx-score">3/3</span><strong>Refund sandbox adapter</strong><span class="bx-by">Toshi's aps-receipt adapter</span><p>His adapter, pinned to SDK 8.0.1, passes its 70 self checks and agrees with a direct call to the SDK on the positive case and both negative ones.</p><a href="https://github.com/aeoess/agent-governance-vocabulary/issues/193#issuecomment-6475610388">the check ↗</a></li>
-    </ul>
-    <p class="bx-note">More outside test sets live in the <a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite">Agent Authority Conformance lab</a> at LF Decentralized Trust, each run labeled by who wrote the tests and who ran them.</p>
-  </section>
-
-  <section class="bx-sec" aria-labelledby="bx-cons">
-    <div class="bx-head"><h2 id="bx-cons">What the gateway checks</h2><span class="bx-hint">15 kinds of constraint</span></div>
-    <p class="bx-lead">Every action is checked against each constraint that applies, and the gateway stops at the first one that fails. Authority itself travels as seven facets (scope, spend, depth, time, reputation, values and reversibility), and each can only narrow as it is delegated.</p>
-    <ul class="bx-cons">
-      <li class="bx-con"><span class="bx-con-n">01</span><strong>Time</strong><span>approval TTL and delegation expiry</span></li>
-      <li class="bx-con"><span class="bx-con-n">02</span><strong>Spend</strong><span>per action and cumulative limits</span></li>
-      <li class="bx-con"><span class="bx-con-n">03</span><strong>Scope</strong><span>tool, parameters and target</span></li>
-      <li class="bx-con"><span class="bx-con-n">04</span><strong>Reputation</strong><span>tier threshold and evidence count</span></li>
-      <li class="bx-con"><span class="bx-con-n">05</span><strong>Values</strong><span>values floor, graduated</span></li>
-      <li class="bx-con"><span class="bx-con-n">06</span><strong>Revocation</strong><span>revoked delegation and its cascade</span></li>
-      <li class="bx-con"><span class="bx-con-n">07</span><strong>Reversibility</strong><span>tentative, compensable or irreversible</span></li>
-      <li class="bx-con"><span class="bx-con-n">08</span><strong>Governance</strong><span>artifact version, stale attestation</span></li>
-      <li class="bx-con"><span class="bx-con-n">09</span><strong>Identity</strong><span>passport and signature</span></li>
-      <li class="bx-con"><span class="bx-con-n">10</span><strong>Replay</strong><span>request ID reuse</span></li>
-      <li class="bx-con"><span class="bx-con-n">11</span><strong>Cross chain</strong><span>taint and confused deputy</span></li>
-      <li class="bx-con"><span class="bx-con-n">12</span><strong>Audience</strong><span>proof bound to one recipient</span></li>
-      <li class="bx-con"><span class="bx-con-n">13</span><strong>Escalation</strong><span>bounded escalation grants</span></li>
-      <li class="bx-con"><span class="bx-con-n">14</span><strong>Fidelity</strong><span>agent still behaving as itself</span></li>
-      <li class="bx-con"><span class="bx-con-n">15</span><strong>Data</strong><span>data access terms</span></li>
+      <li class="bx-run is-pass"><span class="bx-score">5/5</span><strong>REMORA operational technology testbed</strong><span class="bx-by">Five cases passed the reported authority and identity binding checks</span><p>The cases include valid authority, widened scope, expired authority and a request outside the delegated scope. The report records both a host run and a container run in APS CI. It checks delegation decisions and signed bindings, not whether a machine safely executes the command.</p><a href="https://github.com/darklordVirtual/autonomous-ot-control/pull/38#issuecomment-6501108734">Read the run report ↗</a></li>
+      <li class="bx-run is-part"><span class="bx-score">5 + 3</span><strong>Authority Relations v0.1</strong><span class="bx-by">Five cases passed. Three were reported as unsupported.</span><p>The development run used an adapter with APS SDK 8.0.1. Its passes depend on translating APS reason codes, and two cases are decided by the adapter. The expected answers were available during development, so this was not a blind evaluation.</p><a href="https://github.com/Silentpartnercoding/agent-trust-benchmark/pull/13#issuecomment-6534649273">Read the results and adapter changes ↗</a></li>
+      <li class="bx-run is-part"><span class="bx-score">scope</span><strong>SINT runtime safety fixtures</strong><span class="bx-by">The scope denial decision matched. Physical safety remains a separate check.</span><p>The run mapped SINT resources and actions into APS scope grants. It rejected the out of scope request. It did not evaluate velocity or force limits, escalation, transport enforcement or emergency stop behavior. The emergency stop case received a scope permit in this mapping. That result does not authorize physical actuation. The safety system still needs to block the command when the emergency stop applies.</p><a href="https://github.com/aeoess/agent-governance-vocabulary/issues/177#issuecomment-6485573568">Read the six case report ↗</a></li>
+      <li class="bx-run is-pass"><span class="bx-score">3/3</span><strong>Refund sandbox receipt adapter</strong><span class="bx-by">The adapter and direct SDK verification agreed on three checked inputs</span><p>Toshi's adapter was checked against a valid receipt, an altered signature and changed decision context. Its self test also reported 70 passing checks. This tests receipt inputs. It does not establish that the refund executor enforces the decision.</p><a href="https://github.com/aeoess/agent-governance-vocabulary/issues/193#issuecomment-6475610388">Read the adapter check ↗</a></li>
     </ul>
   </section>
 
-  <section class="bx-sec bx-limits" aria-labelledby="bx-limits">
-    <div class="bx-head"><h2 id="bx-limits">What these numbers do not show</h2></div>
-    <ul>
-      <li>None of them were measured by a third party.</li>
-      <li>There is no head to head comparison with another agent authorization system, so none of this says APS is faster than anything else.</li>
-      <li>The layer measurements come from the Rust reference verifier, while the public harness measures the TypeScript SDK. They are different code paths and different numbers.</li>
-      <li>The runs against outside tests were made by me. The tests came from the other projects, and Toshi also wrote the adapter I checked.</li>
-    </ul>
+  <section class="bx-sec bx-limits" aria-labelledby="bx-repro">
+    <div class="bx-head"><h2 id="bx-repro">Inspect and reproduce</h2></div>
+    <p>The <a href="https://github.com/agent-passport-system/agent-passport-system/tree/f95c9168187cbac0493099fe4a7cddaff653bf39/benchmarks/prototype-1/results">performance records</a> identify the code revisions, hardware, workloads and sampling methods behind the measurements. The <a href="https://github.com/agent-passport-system/agent-passport-system/blob/e0c3cb230d31fec924be441da9c1021bb129c638/benchmarks/prototype-1/src/main.rs">Rust runner</a> measures the local check. Separate <a href="https://github.com/agent-passport-system/agent-passport-system/tree/e0c3cb230d31fec924be441da9c1021bb129c638/packages/aps-sdk-runtime/benchmarks">TypeScript runners</a> measure the native binding, audit modes and HTTP request.</p>
+    <p>For additional fixtures and implementation reports, see the <a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite">Agent Authority Conformance lab</a>. Read each record's scope and provenance before treating it as independent evidence.</p>
+    <p>These results describe specific implementations and test conditions. They do not establish production capacity or an independent security audit. An authorization receipt records a decision. Evidence from the protected resource is needed to establish whether the authorized operation completed.</p>
     <p>For AI agents: <a href="/llms-full.txt">llms-full.txt</a> · <a href="/.well-known/mcp.json">MCP descriptor</a></p>
   </section>
   </div>
