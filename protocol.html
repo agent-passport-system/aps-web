@@ -149,6 +149,10 @@ html[data-theme="bright"]:has(main.page) main .pr .pr-impls a{color:#fff!importa
 .pr-dd .pr-two{margin-top:0}
 @media (max-width:760px){.lt-lanes{grid-template-columns:1fr}.lt-lanes::before{display:none}.lt-chain{grid-template-columns:1fr 1fr}.lt-chain li::after{display:none}.lt-rules{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.lt-pic .lt-lane{animation:none; opacity:1; transform:none}}
+.lt-cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:18px!important}
+html[data-theme="bright"]:has(main.page) main .pr .lt-cta a{display:inline-block; font-family:var(--mono); font-size:13px!important; letter-spacing:.08em; text-transform:uppercase; padding:10px 16px; border:3px solid var(--b); background:var(--y); color:var(--b)!important; text-decoration:none; box-shadow:4px 4px 0 0 var(--b)}
+html[data-theme="bright"]:has(main.page) main .pr .lt-cta a:last-child{background:#fff}
+html[data-theme="bright"]:has(main.page) main .pr .lt-cta a:hover{transform:translate(-2px,-2px); box-shadow:6px 6px 0 0 var(--b)}
 </style>
 </head>
 <body>
@@ -191,29 +195,30 @@ html[data-theme="bright"]:has(main.page) main .pr .pr-impls a{color:#fff!importa
 <main class="page">
   <section class="page-hero">
     <div class="eyebrow"><span class="sq"></span><span>Protocol</span></div>
-    <h1>How APS works</h1>
-    <p class="dek">An agent can only do what someone allowed it to do. APS checks that before the action happens and signs the answer.</p>
+    <h1>Who gave this agent permission?</h1>
+    <p class="dek">Knowing which agent is acting does not tell you what it may do. APS gives an agent signed, limited permission, checks it before the action runs, and signs every answer.</p>
   </section>
   <div class="pr">
 
   <section class="pr-sec-block" aria-labelledby="pr-pic">
     <div class="pr-head"><h2 id="pr-pic">One check, two answers</h2><span class="pr-hint">Example</span></div>
     <div class="lt-pic">
-      <div class="lt-grant"><span class="lt-tag">You allow</span><strong>Pay the electric bill, up to $200</strong></div>
+      <div class="lt-grant"><span class="lt-tag">You allow</span><strong>Pay invoice #123, up to $200, before Friday</strong></div>
       <div class="lt-lanes">
         <div class="lt-lane is-yes">
           <div class="lt-box"><span class="lt-tag">Agent asks</span><strong>Pay $150</strong></div>
-          <div class="lt-box lt-gw"><span class="lt-tag">Gateway checks</span><strong>$150 is inside $200</strong></div>
+          <div class="lt-box lt-gw"><span class="lt-tag">Gateway checks</span><strong>$150 is inside the limit</strong></div>
           <div class="lt-out"><b>Allowed</b><span>signed decision</span></div>
         </div>
         <div class="lt-lane is-no">
           <div class="lt-box"><span class="lt-tag">Agent asks</span><strong>Pay $250</strong></div>
-          <div class="lt-box lt-gw"><span class="lt-tag">Gateway checks</span><strong>$250 is over $200</strong></div>
+          <div class="lt-box lt-gw"><span class="lt-tag">Gateway checks</span><strong>$250 is over the limit</strong></div>
           <div class="lt-out"><b>Refused</b><span>signed decision</span></div>
         </div>
       </div>
     </div>
-    <p class="pr-note">The gateway decides before the payment runs, so a refused payment never starts. Both answers are signed, so anyone with the record can check what was decided and which permission it used. A signed "allowed" shows the decision, not that the bill was actually paid.</p>
+    <p class="pr-note">The gateway decides before the payment runs, so a refused payment never starts. The $150 goes through only if the other checks pass too, such as the Friday deadline. Both answers are signed, so anyone with the record can check what was decided. A signed "allowed" shows the decision, not that the payment settled.</p>
+    <p class="lt-cta"><a href="/verify.html">Verify a receipt</a><a href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04">Read the specification</a></p>
   </section>
 
   <section class="pr-sec-block" aria-labelledby="pr-pass">
@@ -225,7 +230,7 @@ html[data-theme="bright"]:has(main.page) main .pr .pr-impls a{color:#fff!importa
       <li class="is-ok"><span class="lt-tag">Agent B</span><strong>up to $50</strong><em>valid, it is less</em></li>
       <li class="is-bad"><span class="lt-tag">Agent B</span><strong>up to $500</strong><em>invalid, A never had $500</em></li>
     </ol>
-    <p class="pr-note">If you cancel what you gave Agent A, everything A passed on is cancelled with it.</p>
+    <p class="pr-note">If you cancel what you gave Agent A, it can no longer be used, and everything A passed on is cancelled with it.</p>
   </section>
 
   <section class="pr-sec-block" aria-labelledby="pr-rules">
@@ -250,7 +255,7 @@ html[data-theme="bright"]:has(main.page) main .pr .pr-impls a{color:#fff!importa
   </section>
 
   <section class="pr-sec-block" aria-labelledby="pr-deep">
-    <div class="pr-head"><h2 id="pr-deep">For implementers</h2><span class="pr-hint">Open what you need</span></div>
+    <div class="pr-head"><h2 id="pr-deep">Technical reference</h2><span class="pr-hint">For implementers, closed by default</span></div>
     <div class="pr-dd-list">
 
     <details class="pr-dd"><summary>The seven limits on every permission <a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-4.1">§4.1</a></summary>
