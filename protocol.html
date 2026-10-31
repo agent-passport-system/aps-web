@@ -5,10 +5,10 @@
 <script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Protocol | Agent Passport System</title>
-<meta name="description" content="The Agent Passport System protocol: verifiable identity, authority with seven facets that only narrow when delegated, a check before execution, and signed records of intent, decision and result.">
+<meta name="description" content="How the Agent Passport System works: an agent can only do what someone allowed, permission only shrinks when passed on, the gateway checks before the action runs, and every answer is signed.">
 <link rel="canonical" href="https://agent-passport.org/protocol.html">
 <meta property="og:title" content="Protocol overview: Agent Passport System">
-<meta property="og:description" content="The Agent Passport System protocol: verifiable identity, authority with seven facets that only narrow when delegated, a check before execution, and signed records of intent, decision and result.">
+<meta property="og:description" content="How the Agent Passport System works: an agent can only do what someone allowed, permission only shrinks when passed on, the gateway checks before the action runs, and every answer is signed.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Agent Passport System">
 <meta property="og:url" content="https://agent-passport.org/protocol.html">
@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
 <link rel="stylesheet" href="/aps-v2.css?v=20261030a">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","dateModified":"2026-10-31","headline":"Agent Passport System protocol overview","description":"The Agent Passport System protocol: verifiable identity, authority with seven facets that only narrow when delegated, a check before execution, and signed records of intent, decision and result.","author":{"@type":"Person","name":"Tymofii Pidlisnyi","url":"https://tymofii.me"},"url":"https://agent-passport.org/protocol.html","publisher":{"@type":"Organization","name":"Agent Passport System"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://agent-passport.org/protocol.html"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","dateModified":"2026-10-31","headline":"Agent Passport System protocol overview","description":"How the Agent Passport System works: an agent can only do what someone allowed, permission only shrinks when passed on, the gateway checks before the action runs, and every answer is signed.","author":{"@type":"Person","name":"Tymofii Pidlisnyi","url":"https://tymofii.me"},"url":"https://agent-passport.org/protocol.html","publisher":{"@type":"Organization","name":"Agent Passport System"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://agent-passport.org/protocol.html"}}</script>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
 <script>
@@ -111,6 +111,44 @@ html[data-theme="bright"]:has(main.page) main .pr .pr-exts p{font-size:14.5px!im
 html[data-theme="bright"]:has(main.page) main .pr .pr-steps strong{color:#fff!important}
 html[data-theme="bright"]:has(main.page) main .pr .pr-impls strong{color:#E4EEFF!important}
 html[data-theme="bright"]:has(main.page) main .pr .pr-impls a{color:#fff!important}
+/* light version */
+.lt-tag{display:inline-block; font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--sub)}
+.lt-pic{border:3px solid var(--b); border-radius:4px; padding:22px; background:var(--pale); box-shadow:8px 8px 0 0 var(--y), 8px 8px 0 3px var(--b)}
+.lt-grant{background:var(--y); border:3px solid var(--b); padding:14px 18px; text-align:center}
+.lt-grant strong,.lt-box strong{display:block; font-family:var(--pixel); font-weight:400; font-size:30px; line-height:1.05; color:var(--b)}
+.lt-lanes{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:22px; position:relative}
+.lt-lanes::before{content:""; position:absolute; left:50%; top:-22px; width:3px; height:22px; background:var(--b)}
+.lt-lane{display:flex; flex-direction:column; gap:22px; position:relative}
+.lt-box{background:#fff; border:3px solid var(--b); padding:12px 16px; text-align:center; position:relative}
+.lt-box strong{font-size:26px}
+.lt-lane > *:not(:last-child)::after{content:"\2193"; position:absolute; left:50%; bottom:-23px; transform:translateX(-50%); font-family:var(--pixel); font-size:22px; color:var(--b); line-height:1}
+.lt-out{text-align:center; padding:14px; border:3px solid var(--b); display:flex; flex-direction:column; align-items:center; gap:2px}
+.lt-out b{font-family:var(--pixel); font-weight:400; font-size:44px; line-height:1}
+.lt-out span{font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase}
+.is-yes .lt-out{background:var(--b)} .is-yes .lt-out b{color:var(--y)} .is-yes .lt-out span{color:#E4EEFF}
+.is-no .lt-out{background:#fff; border-color:#D93A3A} .is-no .lt-out b{color:#D93A3A} .is-no .lt-out span{color:#D93A3A}
+.lt-pic .lt-lane{opacity:0; transform:translateY(10px); animation:ltIn .5s cubic-bezier(.3,1.4,.5,1) forwards}
+.lt-pic .is-yes{animation-delay:.2s} .lt-pic .is-no{animation-delay:.55s}
+@keyframes ltIn{to{opacity:1; transform:none}}
+.lt-chain{display:grid; grid-template-columns:repeat(4,1fr); gap:28px; margin-top:6px!important}
+.lt-chain li{position:relative; border:3px solid var(--b); padding:14px; background:#fff; display:flex; flex-direction:column; gap:2px}
+.lt-chain li:not(:last-child):not(:nth-child(3))::after{content:"\2192"; position:absolute; right:-24px; top:50%; transform:translateY(-50%); font-family:var(--pixel); font-size:24px; color:var(--b)}
+.lt-chain strong{font-family:var(--pixel); font-weight:400; font-size:30px; color:var(--b); line-height:1}
+.lt-chain em{font-style:normal; font-family:var(--mono); font-size:11.5px; letter-spacing:.04em; margin-top:6px}
+.lt-chain .is-ok{background:var(--y)} .lt-chain .is-ok em{color:var(--b)}
+.lt-chain .is-bad{border-style:dashed; border-color:#D93A3A} .lt-chain .is-bad strong{color:#D93A3A; text-decoration:line-through; text-decoration-thickness:3px} .lt-chain .is-bad em{color:#D93A3A}
+.lt-rules{grid-template-columns:repeat(3,1fr)}
+.pr-dd-list{display:grid; gap:10px}
+.pr-dd{border:3px solid var(--b); border-radius:4px; background:#fff}
+.pr-dd > summary{cursor:pointer; list-style:none; padding:14px 18px; font-family:var(--pixel); font-size:24px; color:var(--b); display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.pr-dd > summary::-webkit-details-marker{display:none}
+.pr-dd > summary::before{content:"+"; display:inline-grid; place-items:center; width:28px; height:28px; background:var(--y); border:2px solid var(--b); font-size:22px; flex:none}
+.pr-dd[open] > summary::before{content:"\2212"}
+.pr-dd[open] > summary{border-bottom:3px solid var(--b); background:var(--pale)}
+.pr-dd > *:not(summary){margin:18px!important}
+.pr-dd .pr-two{margin-top:0}
+@media (max-width:760px){.lt-lanes{grid-template-columns:1fr}.lt-lanes::before{display:none}.lt-chain{grid-template-columns:1fr 1fr}.lt-chain li::after{display:none}.lt-rules{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.lt-pic .lt-lane{animation:none; opacity:1; transform:none}}
 </style>
 </head>
 <body>
@@ -153,52 +191,71 @@ html[data-theme="bright"]:has(main.page) main .pr .pr-impls a{color:#fff!importa
 <main class="page">
   <section class="page-hero">
     <div class="eyebrow"><span class="sq"></span><span>Protocol</span></div>
-    <h1>Agent Passport System protocol</h1>
-    <p class="dek"><b>Verifiable identity. Scoped authority. Enforcement before execution. Signed evidence.</b></p>
+    <h1>How APS works</h1>
+    <p class="dek">An agent can only do what someone allowed it to do. APS checks that before the action happens and signs the answer.</p>
   </section>
   <div class="pr">
 
-  <section class="pr-sec-block pr-intro">
-    <p>AI agents increasingly act on behalf of people and organizations. They call tools, make purchases, read sensitive data and hand work to other agents. A valid identity tells a system who is making a request. It does not establish whether that agent has the authority to do what it asks.</p>
-    <p>The Agent Passport System (APS) gives that authority a signed, verifiable form, lets it pass from agent to agent without growing, and checks it at the point where an action is admitted. The record formats and verification rules are specified in an <a href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04">individual IETF Internet-Draft</a>, which is not an IETF standard. The code is Apache 2.0.</p>
+  <section class="pr-sec-block" aria-labelledby="pr-pic">
+    <div class="pr-head"><h2 id="pr-pic">One check, two answers</h2><span class="pr-hint">Example</span></div>
+    <div class="lt-pic">
+      <div class="lt-grant"><span class="lt-tag">You allow</span><strong>Pay the electric bill, up to $200</strong></div>
+      <div class="lt-lanes">
+        <div class="lt-lane is-yes">
+          <div class="lt-box"><span class="lt-tag">Agent asks</span><strong>Pay $150</strong></div>
+          <div class="lt-box lt-gw"><span class="lt-tag">Gateway checks</span><strong>$150 is inside $200</strong></div>
+          <div class="lt-out"><b>Allowed</b><span>signed decision</span></div>
+        </div>
+        <div class="lt-lane is-no">
+          <div class="lt-box"><span class="lt-tag">Agent asks</span><strong>Pay $250</strong></div>
+          <div class="lt-box lt-gw"><span class="lt-tag">Gateway checks</span><strong>$250 is over $200</strong></div>
+          <div class="lt-out"><b>Refused</b><span>signed decision</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="pr-note">The gateway decides before the payment runs, so a refused payment never starts. Both answers are signed, so anyone with the record can check what was decided and which permission it used. A signed "allowed" shows the decision, not that the bill was actually paid.</p>
   </section>
 
-  <section class="pr-sec-block" aria-labelledby="pr-how">
-    <div class="pr-head"><h2 id="pr-how">How it works</h2></div>
-    <ol class="pr-steps">
-      <li><span class="pr-n">1</span><strong>Establish identity and authority</strong><p>An agent has a cryptographic identity. A person or organization binds that identity to itself with a separate signed record, and issues a signed delegation that sets the agent's scope, spending limits, validity window and other constraints.</p></li>
-      <li><span class="pr-n">2</span><strong>Delegate without widening</strong><p>An agent can delegate work to another agent, but the recipient never gets more authority than its parent held. A verifier checks the chain and every limit in it, including whether an ancestor has expired or been revoked.</p></li>
-      <li><span class="pr-n">3</span><strong>Check before execution</strong><p>The enforcement boundary evaluates one delegation chain and the applicable policy before the action is dispatched. A request outside the authority is denied, and evidence that is missing or unavailable never becomes permission.</p></li>
-      <li><span class="pr-n">4</span><strong>Leave verifiable records</strong><p>The agent signs its intent. The boundary signs its decision and, when the action is dispatched, the result it observed. Anyone can check those signatures against their own trust policy. A signed decision does not, by itself, show that an outside action completed.</p></li>
+  <section class="pr-sec-block" aria-labelledby="pr-pass">
+    <div class="pr-head"><h2 id="pr-pass">Passing it on</h2></div>
+    <p class="pr-lead">An agent can hand part of its work to another agent, but it can only hand over less or the same, never more than it holds.</p>
+    <ol class="lt-chain">
+      <li><span class="lt-tag">You</span><strong>up to $200</strong></li>
+      <li><span class="lt-tag">Agent A</span><strong>up to $200</strong></li>
+      <li class="is-ok"><span class="lt-tag">Agent B</span><strong>up to $50</strong><em>valid, it is less</em></li>
+      <li class="is-bad"><span class="lt-tag">Agent B</span><strong>up to $500</strong><em>invalid, A never had $500</em></li>
     </ol>
+    <p class="pr-note">If you cancel what you gave Agent A, everything A passed on is cancelled with it.</p>
   </section>
 
-  <section class="pr-sec-block" aria-labelledby="pr-example">
-    <div class="pr-head"><h2 id="pr-example">One purchase, step by step</h2><span class="pr-hint">The draft's own worked example, <a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-9.11.1">§9.11.1</a></span></div>
-    <p class="pr-lead">A principal gives a procurement agent authority to buy. The procurement agent hands one supplier to a subagent. Each line below is one facet of the authority, and the subagent's copy is always narrower.</p>
-    <div class="pr-tablewrap"><table class="pr-table pr-chain">
-      <thead><tr><th>Facet</th><th>Principal to procurement agent</th><th>Procurement agent to subagent</th></tr></thead>
-      <tbody>
-        <tr><td>Scope</td><td>checkout</td><td>checkout from one supplier's catalogue <i>narrower</i></td></tr>
-        <tr><td>Spend per action</td><td>a set limit</td><td>a lower limit <i>narrower</i></td></tr>
-        <tr><td>Spend cumulative</td><td>a set limit</td><td>at or below the parent's <i>same or narrower</i></td></tr>
-        <tr><td>Depth</td><td>2 hops left</td><td>1 hop left <i>narrower</i></td></tr>
-        <tr><td>Time</td><td>until the end of the quarter</td><td>inside that window <i>same or narrower</i></td></tr>
-      </tbody>
-    </table></div>
-    <ol class="pr-flow">
-      <li><strong>Intent</strong><span>The subagent signs an action intent that names the child delegation and commits to the exact purchase.</span></li>
-      <li><strong>Decision</strong><span>The boundary checks the chain from root to leaf, issues a policy decision with the verdict permit, and reserves the amount against the running total.</span></li>
-      <li><strong>Dispatch</strong><span>Just before dispatch the boundary checks time and revocation again and consumes the decision, so it cannot be used twice.</span></li>
-      <li><strong>Result</strong><span>The boundary records the result it observed, here succeeded, with a reference to the effect.</span></li>
+  <section class="pr-sec-block" aria-labelledby="pr-rules">
+    <div class="pr-head"><h2 id="pr-rules">Three rules</h2></div>
+    <ol class="pr-steps lt-rules">
+      <li><span class="pr-n">1</span><strong>Permission only shrinks</strong><p>Each handoff can keep a limit or cut it, never raise it. This holds for money, time, what the agent may touch and how many more times it can pass work on.</p></li>
+      <li><span class="pr-n">2</span><strong>Checked before it happens</strong><p>The gateway decides before the action runs. If it cannot confirm the permission, for example because a record is missing, the answer is no.</p></li>
+      <li><span class="pr-n">3</span><strong>Every answer is signed</strong><p>The agent signs what it asked for. The gateway signs what it decided and what it saw happen. Anyone can check those signatures later.</p></li>
     </ol>
-    <p class="pr-note">If the subagent's grant had been wider than its parent's, the chain would be invalid with <code>scope_not_covered</code>. If the subagent also held a second chain from an unrelated principal, the two would never be combined: each action uses one chain.</p>
+    <p class="pr-note">The gateway can only check actions that go through it. If an agent has another way into a system, APS does not see that path.</p>
   </section>
 
-  <section class="pr-sec-block" aria-labelledby="pr-authority">
-    <div class="pr-head"><h2 id="pr-authority">The authority model</h2><span class="pr-hint">Seven facets, <a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-4.1">§4.1</a></span></div>
-    <p class="pr-lead">Authority is a record with exactly seven facets. A missing facet makes the record invalid, it never means unlimited. A child is valid only when every facet is no wider than its parent's.</p>
-    <ul class="pr-facets">
+  <section class="pr-sec-block" aria-labelledby="pr-impl">
+    <div class="pr-head"><h2 id="pr-impl">Use it</h2><span class="pr-hint">Apache 2.0</span></div>
+    <ul class="pr-impls">
+      <li><strong>TypeScript SDK</strong><span>8.0.1</span><a href="https://www.npmjs.com/package/agent-passport-system">npm</a></li>
+      <li><strong>Python SDK</strong><span>4.3.0</span><a href="https://pypi.org/project/agent-passport-system/">PyPI</a></li>
+      <li><strong>Go SDK</strong><span>v0.7.0</span><a href="https://github.com/agent-passport-system/agent-passport-go">GitHub</a></li>
+      <li><strong>MCP server</strong><span>8.1.0</span><a href="https://www.npmjs.com/package/agent-passport-system-mcp">npm</a></li>
+    </ul>
+    <p class="pr-lead">The full rules are in an <a href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04">individual IETF Internet-Draft</a>, which is a published proposal, not an IETF standard. Shared tests live in the <a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite">Agent Authority Conformance lab</a>. Speed and outside test results are on the <a href="/benchmarks.html">benchmarks page</a>.</p>
+  </section>
+
+  <section class="pr-sec-block" aria-labelledby="pr-deep">
+    <div class="pr-head"><h2 id="pr-deep">For implementers</h2><span class="pr-hint">Open what you need</span></div>
+    <div class="pr-dd-list">
+
+    <details class="pr-dd"><summary>The seven limits on every permission <a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-4.1">§4.1</a></summary>
+      <p class="pr-lead">Every permission record carries exactly seven limits. A missing limit makes the record invalid, it never means unlimited. A handoff is valid only when every limit is no wider than its parent's.</p>
+      <ul class="pr-facets">
       <li class="pr-facet"><span class="pr-fn">1</span><strong>Scope</strong><span class="pr-fwhat">what the agent may do</span><p>Every grant in the child must be covered by a grant in the parent.</p></li>
       <li class="pr-facet"><span class="pr-fn">2</span><strong>Spend</strong><span class="pr-fwhat">per action and cumulative limits, in one unit</span><p>Limits can only go down, the unit cannot change, and a bounded parent cannot produce an unbounded child.</p></li>
       <li class="pr-facet"><span class="pr-fn">3</span><strong>Depth</strong><span class="pr-fwhat">how many more hops it may delegate</span><p>Each hop uses up at least one. A parent with none left cannot delegate.</p></li>
@@ -206,8 +263,8 @@ html[data-theme="bright"]:has(main.page) main .pr .pr-impls a{color:#fff!importa
       <li class="pr-facet"><span class="pr-fn">5</span><strong>Reputation</strong><span class="pr-fwhat">the reputation ceiling</span><p>The ceiling cannot rise.</p></li>
       <li class="pr-facet"><span class="pr-fn">6</span><strong>Values</strong><span class="pr-fwhat">value identifiers the agent must hold to</span><p>The child keeps every identifier its ancestors required.</p></li>
       <li class="pr-facet"><span class="pr-fn">7</span><strong>Reversibility</strong><span class="pr-fwhat">how irreversible an action may be</span><p>The ceiling cannot move toward less reversible.</p></li>
-    </ul>
-    <details class="pr-code"><summary>See an AuthorityDelegationV1 record</summary>
+      </ul>
+      <details class="pr-code"><summary>See an AuthorityDelegationV1 record</summary>
 <pre><code>{
   "record_type": "aps:authority-delegation:v1",
   "version": "1.0",
@@ -234,24 +291,54 @@ html[data-theme="bright"]:has(main.page) main .pr .pr-impls a{color:#fff!importa
   },
   "signature": "&lt;128-lowercase-hex&gt;"
 }</code></pre>
+      </details>
     </details>
-    <div class="pr-two">
-      <div>
-        <h3>Six verdicts <a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-2.3">§2.3</a></h3>
-        <p>A verifier reports one of exactly six verdicts about an authority record, each with a reason code. It describes what the verifier can conclude from what it holds, not what happened in the world.</p>
-        <ul class="pr-verdicts">
+
+    <details class="pr-dd"><summary>A full purchase from the draft <a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-9.11.1">§9.11.1</a></summary>
+      <p class="pr-lead">A principal gives a procurement agent authority to buy. The procurement agent hands one supplier to a subagent, and each limit in the subagent's copy is the same or narrower.</p>
+      <div class="pr-tablewrap"><table class="pr-table pr-chain">
+        <thead><tr><th>Limit</th><th>Principal to procurement agent</th><th>Procurement agent to subagent</th></tr></thead>
+        <tbody>
+          <tr><td>Scope</td><td>checkout</td><td>checkout from one supplier's catalogue <i>narrower</i></td></tr>
+          <tr><td>Spend per action</td><td>a set limit</td><td>a lower limit <i>narrower</i></td></tr>
+          <tr><td>Spend cumulative</td><td>a set limit</td><td>at or below the parent's <i>same or narrower</i></td></tr>
+          <tr><td>Depth</td><td>2 hops left</td><td>1 hop left <i>narrower</i></td></tr>
+          <tr><td>Time</td><td>until the end of the quarter</td><td>inside that window <i>same or narrower</i></td></tr>
+        </tbody>
+      </table></div>
+      <ol class="pr-flow">
+        <li><strong>Intent</strong><span>The subagent signs an action intent that names its delegation and commits to the exact purchase.</span></li>
+        <li><strong>Decision</strong><span>The boundary checks the chain from root to leaf, issues a permit and reserves the amount against the running total.</span></li>
+        <li><strong>Dispatch</strong><span>Just before dispatch the boundary checks time and revocation again and consumes the decision, so it cannot be used twice.</span></li>
+        <li><strong>Result</strong><span>The boundary records the result it observed, with a reference to the effect.</span></li>
+      </ol>
+    </details>
+
+    <details class="pr-dd"><summary>The three signed records <a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-5">§5</a></summary>
+      <ol class="pr-three">
+        <li><span class="pr-who">signed by the agent</span><strong>Action intent</strong><p>What the agent wants to do, under which delegation, committed by digest.</p></li>
+        <li><span class="pr-who">issued by the boundary</span><strong>Policy decision</strong><p>Permit, deny or narrow. A narrow carries the reduced authority and the constraints applied.</p></li>
+        <li><span class="pr-who">issued by the boundary</span><strong>Action result</strong><p>The execution result the boundary observed, when the action was dispatched.</p></li>
+      </ol>
+      <p>The decision and the dispatch are two steps. A permit is checked again and consumed when it admits the action, so it cannot be replayed or used after its authority has ended. A valid signature or chain is not proof that an outside event happened <a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-2.2">§2.2</a>, and APS does not establish that no other credential reached the target outside the governed path <a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-2.5">§2.5</a>.</p>
+    </details>
+
+    <details class="pr-dd"><summary>Six verdicts and eight invariants <a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-2.3">§2.3</a> <a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-4.6">§4.6</a></summary>
+      <div class="pr-two">
+        <div>
+          <p>A verifier reports one of six verdicts about a permission record, each with a reason code. It describes what the verifier can conclude from what it holds, not what happened in the world.</p>
+          <ul class="pr-verdicts">
       <li><code>valid</code><span>the artifact currently confers the authority claimed</span></li>
       <li><code>invalid</code><span>it does not, or no longer does: revoked, expired, exhausted, or under an invalid ancestor</span></li>
       <li><code>not established</code><span>the verifier cannot reach a conclusion, which is never a finding about the world</span></li>
       <li><code>not yet effective</code><span>validly issued, and an enabling condition has not happened yet</span></li>
       <li><code>suspended</code><span>use is paused by one or more live causes</span></li>
       <li><code>restricted</code><span>authority continues in reduced form under a live constraint</span></li>
-        </ul>
-      </div>
-      <div>
-        <h3>Eight invariants <a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-4.6">§4.6</a></h3>
-        <p>Narrowing, spend and signature integrity are enforced when a delegation is issued, not only when it is verified, so an issuer refuses to sign under an expired or revoked parent.</p>
-        <ul class="pr-inv">
+          </ul>
+        </div>
+        <div>
+          <p>Narrowing, spend and signature integrity are enforced when a delegation is issued as well as when it is verified, so an issuer refuses to sign under an expired or revoked parent.</p>
+          <ul class="pr-inv">
       <li><span>INV-1</span>Identity verifiability</li>
       <li><span>INV-2</span>Scope monotonic narrowing</li>
       <li><span>INV-3</span>Spend limit narrowing</li>
@@ -260,34 +347,15 @@ html[data-theme="bright"]:has(main.page) main .pr .pr-impls a{color:#fff!importa
       <li><span>INV-6</span>Intent and receipt binding</li>
       <li><span>INV-7</span>Authority attribution completeness</li>
       <li><span>INV-8</span>Signature integrity</li>
-        </ul>
+          </ul>
+        </div>
       </div>
-    </div>
-  </section>
+    </details>
 
-  <section class="pr-sec-block" aria-labelledby="pr-records">
-    <div class="pr-head"><h2 id="pr-records">Enforcement and records</h2><span class="pr-hint">Policy chain <a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-5">§5</a>, records <a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-7">§7</a></span></div>
-    <ol class="pr-three">
-      <li><span class="pr-who">signed by the agent</span><strong>Action intent</strong><p>What the agent wants to do, under which delegation, committed by digest.</p></li>
-      <li><span class="pr-who">issued by the boundary</span><strong>Policy decision</strong><p>Permit, deny or narrow. A narrow carries the reduced authority and the constraints applied.</p></li>
-      <li><span class="pr-who">issued by the boundary</span><strong>Action result</strong><p>The execution result the boundary observed, when the action was dispatched.</p></li>
-    </ol>
-    <p class="pr-lead">The decision and the dispatch are two steps. A permit is checked again and consumed at the moment it admits the action, so an approval cannot be replayed or used after its authority has ended.</p>
-    <div class="pr-limits">
-      <h3>What the records do not establish</h3>
-      <ul>
-        <li>A valid signature, receipt or delegation chain is not proof that an outside event happened or that a signed claim is true <a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-2.2">§2.2</a>.</li>
-        <li>APS establishes that a governed path was valid. It does not establish that no other credential reached the target system outside that path <a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-2.5">§2.5</a>. A missing record of an ungoverned path is not evidence that none was used.</li>
-        <li>The boundary can enforce only what is routed through it.</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="pr-sec-block" aria-labelledby="pr-formats">
-    <div class="pr-head"><h2 id="pr-formats">Wire formats</h2><span class="pr-hint">Canonical JSON, Ed25519</span></div>
-    <div class="pr-tablewrap"><table class="pr-table">
-      <thead><tr><th>Record</th><th>What it is</th><th>Draft</th></tr></thead>
-      <tbody>
+    <details class="pr-dd"><summary>Wire formats</summary>
+      <div class="pr-tablewrap"><table class="pr-table">
+        <thead><tr><th>Record</th><th>What it is</th><th>Draft</th></tr></thead>
+        <tbody>
         <tr><td><code>Agent passport</code></td><td>The agent's own signed identity. It does not name who the agent acts for.</td><td><a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-3.1">§3.1</a></td></tr>
         <tr><td><code>PrincipalBindingV1</code></td><td>A separate record, signed by the principal, that ties an agent to the person or organization it acts for.</td><td><a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-3.3">§3.3</a></td></tr>
         <tr><td><code>AuthorityDelegationV1</code></td><td>The signed authority record with its seven facets.</td><td><a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-4.1">§4.1</a></td></tr>
@@ -295,43 +363,33 @@ html[data-theme="bright"]:has(main.page) main .pr .pr-impls a{color:#fff!importa
         <tr><td><code>action_ref</code></td><td>A digest that commits to the exact action input.</td><td><a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-5.1">§5.1</a></td></tr>
         <tr><td><code>ReceiptV1</code></td><td>The envelope for action intent, policy decision and action result records.</td><td><a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-7.1">§7.1</a></td></tr>
         <tr><td><code>DecisionRefV1</code></td><td>Commits a policy decision to the action, the authority state, the policy input and the output by digest, without embedding them.</td><td><a class="pr-sec" href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04#section-7.4">§7.4</a></td></tr>
-      </tbody>
-    </table></div>
-    <div class="pr-status">
-      <h3>The older Delegation API</h3>
-      <p>The SDKs still ship an older <code>Delegation</code> record for compatibility, and it is not the same as <code>AuthorityDelegationV1</code>. An erratum of 2026-08-17 noted that the verifiers compared spend and depth only when both parent and child carried the field. For <code>AuthorityDelegationV1</code> that gap is closed: all seven facets are required and every one is compared, including containment of the validity window. The older <code>Delegation</code> API still compares an optional field only when it is present, so new integrations should use <code>AuthorityDelegationV1</code>. The <a href="/docs/authority/">authority documentation</a> describes <code>AuthorityDelegationV1</code> and how its scope rule differs from the older format.</p>
+        </tbody>
+      </table></div>
+      <p>Records are canonical JSON signed with Ed25519.</p>
+    </details>
+
+    <details class="pr-dd"><summary>The older Delegation API</summary>
+      <p>The SDKs still ship an older <code>Delegation</code> record for compatibility, and it is not the same as <code>AuthorityDelegationV1</code>. An erratum of 2026-08-17 noted that the verifiers compared spend and depth only when both parent and child carried the field. <code>AuthorityDelegationV1</code> closes that gap because all seven limits are required and every one is compared, including containment of the validity window. The older <code>Delegation</code> API still compares an optional field only when it is present, so new integrations should use <code>AuthorityDelegationV1</code>. The <a href="/docs/authority/">authority documentation</a> describes both.</p>
+    </details>
+
+    <details class="pr-dd"><summary>Extensions outside the draft</summary>
+      <ul class="pr-exts">
+        <li><strong>Commerce preflight</strong><p>Payment checks for passport, scope, spend limit, merchant allowlist and idempotency, with a human approval threshold.</p></li>
+        <li><strong>Reputation</strong><p>Scoring that a deployment can use for the reputation limit.</p></li>
+        <li><strong>Beneficiary attribution</strong><p>Crediting work back to the person or organization an agent acts for. This is companion work, and its API has moved to the gateway package.</p></li>
+        <li><strong>OAuth ID-JAG</strong><p>The TypeScript SDK can take an already verified ID-JAG grant as the root of an APS delegation. It is pinned to ID-JAG draft -04 and does not verify the grant itself.</p></li>
+      </ul>
+      <p>Cross-engine receipt interop has been demonstrated with VeritasActa and protect-mcp. Known limits are in the <a href="https://github.com/agent-passport-system/agent-passport-system/blob/main/THREAT_MODEL.md">threat model</a>.</p>
+    </details>
+
     </div>
-  </section>
-
-  <section class="pr-sec-block" aria-labelledby="pr-impl">
-    <div class="pr-head"><h2 id="pr-impl">Implementations and evidence</h2></div>
-    <ul class="pr-impls">
-      <li><strong>TypeScript SDK</strong><span>8.0.1</span><a href="https://www.npmjs.com/package/agent-passport-system">npm</a></li>
-      <li><strong>Python SDK</strong><span>4.3.0</span><a href="https://pypi.org/project/agent-passport-system/">PyPI</a></li>
-      <li><strong>Go SDK</strong><span>v0.7.0</span><a href="https://github.com/agent-passport-system/agent-passport-go">GitHub</a></li>
-      <li><strong>MCP server</strong><span>8.1.0</span><a href="https://www.npmjs.com/package/agent-passport-system-mcp">npm</a></li>
-    </ul>
-    <p class="pr-lead">Test fixtures that other projects can run, and the runs they have made, live in the <a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite">Agent Authority Conformance lab</a> at LF Decentralized Trust, each labeled by who wrote the tests and who ran them. Cross-engine receipt interop has been demonstrated with VeritasActa and protect-mcp. Timing measurements, and runs against other projects' tests, are on the <a href="/benchmarks.html">benchmarks page</a>. Known limits are in the <a href="https://github.com/agent-passport-system/agent-passport-system/blob/main/THREAT_MODEL.md">threat model</a>.</p>
-  </section>
-
-  <section class="pr-sec-block" aria-labelledby="pr-ext">
-    <div class="pr-head"><h2 id="pr-ext">Extensions and related work</h2><span class="pr-hint">Outside the core of the draft</span></div>
-    <ul class="pr-exts">
-      <li><strong>Commerce preflight</strong><p>Payment checks for passport, scope, spend limit, merchant allowlist and idempotency, with a human approval threshold.</p></li>
-      <li><strong>Reputation</strong><p>Scoring that a deployment can use for the reputation facet.</p></li>
-      <li><strong>Beneficiary attribution</strong><p>Crediting work back to the person or organization an agent acts for. This is companion work, outside the draft, and its API has moved to the gateway package.</p></li>
-      <li><strong>OAuth ID-JAG</strong><p>The TypeScript SDK can take an already verified ID-JAG grant as the root of an APS delegation. It is pinned to ID-JAG draft -04 and does not verify the grant itself.</p></li>
-      <li><strong>MCP</strong><p>The MCP server exposes the protocol to MCP clients.</p></li>
-    </ul>
   </section>
 
   <section class="pr-sec-block pr-refs" aria-labelledby="pr-refs">
     <div class="pr-head"><h2 id="pr-refs">Read further</h2></div>
     <ul>
       <li><a href="https://datatracker.ietf.org/doc/html/draft-pidlisnyi-aps-04">draft-pidlisnyi-aps-04</a>, the individual Internet-Draft</li>
-      <li><a href="/docs/">Developer documentation</a></li>
-      <li><a href="/verify.html">Verify a receipt in your browser</a></li>
-      <li><a href="https://doi.org/10.5281/zenodo.18749779">The Agent Social Contract</a>, the first paper, and the rest on the <a href="/research.html">research page</a></li>
+      <li><a href="/docs/">Developer documentation</a> · <a href="/verify.html">Verify a receipt in your browser</a> · <a href="/research.html">Research</a></li>
       <li>For AI agents: <a href="/llms-full.txt">llms-full.txt</a> · <a href="/.well-known/mcp.json">MCP descriptor</a></li>
     </ul>
   </section>
