@@ -137,7 +137,91 @@
   }
  ]
 }</script>
+<style>
+/* research grid: one square per paper, small squares per citation */
+.rg-wrap{--rg-blue:#0A5CFF; --rg-deep:#0745D9; --rg-yel:#FFF200; --rg-pale:#E4EEFF; --rg-ink:#13203F; --rg-sub:#3A4B73}
+.rg{margin:56px 0 0}
+.rg-head{display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 20px; margin:0 0 22px}
+.rg-head h2{font-family:var(--pixel,var(--disp)); font-weight:400; font-size:clamp(30px,3.6vw,46px); line-height:1; letter-spacing:.01em; color:var(--rg-blue); margin:0}
+.rg-hint{font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--rg-sub)}
+
+/* papers */
+.rg-grid{list-style:none; margin:0; padding:0; display:grid; gap:18px; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); grid-auto-flow:dense}
+.rg-tile{position:relative; min-width:0}
+.rg-btn{all:unset; box-sizing:border-box; cursor:pointer; position:relative; display:block; width:100%; aspect-ratio:1/1; background:var(--rg-blue); border:3px solid var(--rg-blue); border-radius:4px; overflow:hidden; box-shadow:0 0 0 0 var(--rg-yel); transition:transform .18s cubic-bezier(.3,1.6,.5,1), box-shadow .18s}
+.rg-btn:hover,.rg-btn:focus-visible{transform:translate(-4px,-4px) rotate(-.6deg); box-shadow:7px 7px 0 0 var(--rg-yel), 7px 7px 0 3px var(--rg-blue)}
+.rg-btn:focus-visible{outline:3px dashed var(--rg-yel); outline-offset:-9px}
+.rg-btn:active{transform:translate(0,0) scale(.98); box-shadow:0 0 0 0 var(--rg-yel)}
+.rg-cv{position:absolute; inset:0; width:100%; height:100%; image-rendering:pixelated; display:block}
+.rg-num{position:absolute; top:10px; left:12px; font-family:var(--pixel,var(--mono)); font-size:22px; line-height:1; color:var(--rg-yel); text-shadow:2px 2px 0 var(--rg-deep)}
+.rg-title{position:absolute; left:0; right:0; bottom:0; padding:28px 12px 11px; font-family:var(--pixel,var(--disp)); font-size:clamp(20px,1.9vw,25px); line-height:1.02; color:#fff; text-shadow:2px 2px 0 var(--rg-deep); background:linear-gradient(to top, rgba(7,69,217,.96) 55%, rgba(7,69,217,0))}
+.rg-detail{padding:14px 2px 4px}
+.rg-wrap .rg-detail p{margin:0 0 10px; font-size:15px; line-height:1.55; color:var(--rg-ink)}
+.rg-doi{font-family:var(--mono); font-size:12px; letter-spacing:.04em; color:var(--rg-blue); text-decoration:none; border-bottom:2px solid var(--rg-yel); padding-bottom:1px}
+.rg-doi:hover{background:var(--rg-yel)}
+
+/* enhanced: details hidden until a square opens, and the open square grows */
+.rg-js .rg-detail{display:none}
+.rg-js .rg-tile.is-open{grid-column:span 2; display:grid; grid-template-columns:1fr 1fr; gap:0; animation:rg-pop .32s cubic-bezier(.3,1.5,.5,1)}
+.rg-js .rg-tile.is-open .rg-btn{box-shadow:9px 9px 0 0 var(--rg-yel), 9px 9px 0 3px var(--rg-blue); transform:translate(-4px,-4px); border-radius:4px 0 0 4px}
+.rg-js .rg-tile.is-open .rg-detail{display:flex; flex-direction:column; justify-content:flex-end; gap:14px; padding:20px 20px 18px; background:var(--rg-pale); border:3px solid var(--rg-blue); border-left:0; border-radius:0 4px 4px 0; transform:translate(-4px,-4px); box-shadow:9px 9px 0 0 var(--rg-yel), 9px 9px 0 3px var(--rg-blue); overflow:auto}
+.rg-wrap .rg-tile.is-open .rg-detail p{margin:0; font-size:16px; line-height:1.5}
+@keyframes rg-pop{0%{transform:scale(.94) rotate(-1deg)}100%{transform:none}}
+@media (max-width:620px){.rg-grid{grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}.rg-js .rg-tile.is-open{grid-column:1/-1; grid-template-columns:1fr}.rg-js .rg-tile.is-open .rg-btn{border-radius:4px 4px 0 0}.rg-js .rg-tile.is-open .rg-detail{border-left:3px solid var(--rg-blue); border-top:0; border-radius:0 0 4px 4px}.rg-title{font-size:19px; padding:22px 9px 9px}.rg-num{font-size:18px}}
+
+/* citations */
+.rg-wrap .rg-legend{list-style:none; margin:0 0 16px; padding:0; display:flex; flex-wrap:wrap; gap:8px 18px; font-family:var(--mono); font-size:12px; color:var(--rg-sub)}
+.rg-wrap .rg-legend li{display:flex; align-items:center; gap:7px; font-family:var(--mono); font-size:12px; line-height:1.4; margin:0; padding:0}
+.rg-legend i{width:13px; height:13px; display:inline-block; border:2px solid var(--rg-blue)}
+.k-ietf{--k-bg:#FFF200; --k-fg:#0A5CFF}
+.k-arxiv{--k-bg:#0A5CFF; --k-fg:#FFFFFF}
+.k-doi{--k-bg:#8DB6FF; --k-fg:#0745D9}
+.k-web{--k-bg:#FFFFFF; --k-fg:#0A5CFF}
+.rg-legend i.k-ietf,.rg-legend i.k-arxiv,.rg-legend i.k-doi,.rg-legend i.k-web{background:var(--k-bg)}
+.rg-mini{list-style:none; margin:0; padding:0; display:grid; gap:12px; grid-template-columns:repeat(auto-fill,minmax(118px,1fr))}
+.rg-cite{min-width:0}
+.rg-sq{all:unset; box-sizing:border-box; cursor:pointer; display:flex; flex-direction:column; justify-content:space-between; width:100%; aspect-ratio:1/1; padding:9px 10px; background:var(--k-bg); color:var(--k-fg); border:3px solid var(--rg-blue); border-radius:3px; transition:transform .16s cubic-bezier(.3,1.6,.5,1), box-shadow .16s; overflow:hidden}
+.rg-sq:hover,.rg-sq:focus-visible{transform:translate(-3px,-3px) rotate(.8deg); box-shadow:5px 5px 0 0 var(--rg-blue)}
+.rg-sq:focus-visible{outline:2px dashed currentColor; outline-offset:-7px}
+.rg-sq[aria-expanded="true"]{transform:translate(-3px,-3px); box-shadow:5px 5px 0 0 var(--rg-yel), 5px 5px 0 3px var(--rg-blue)}
+.rg-sq-k{font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; opacity:.85}
+.rg-sq-n{font-family:var(--pixel,var(--mono)); font-size:30px; line-height:.9}
+.rg-sq-t{font-family:var(--body,sans-serif); font-size:12px; line-height:1.2; font-weight:600; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden}
+.rg-wrap .rg-cite-detail p{margin:6px 0 0; font-size:14px; line-height:1.5; color:var(--rg-ink)}
+.rg-js .rg-cite-detail{display:none}
+.rg-panel{display:none}
+.rg-js .rg-panel{display:block; margin-top:18px; min-height:0}
+.rg-panel .rg-card{position:relative; background:var(--rg-pale); border:3px solid var(--rg-blue); border-radius:4px; padding:18px 20px 18px 74px; box-shadow:6px 6px 0 0 var(--rg-yel), 6px 6px 0 3px var(--rg-blue); animation:rg-pop .28s cubic-bezier(.3,1.5,.5,1)}
+.rg-wrap .rg-panel .rg-card p{margin:0; font-size:16px; line-height:1.55; color:var(--rg-ink)}
+.rg-panel .rg-card strong{color:var(--rg-blue)}
+.rg-panel .rg-card a{color:var(--rg-blue); text-decoration:underline; text-decoration-color:var(--rg-blue); text-underline-offset:3px; word-break:break-word}
+.rg-panel .rg-card .rg-card-n{position:absolute; left:16px; top:14px; width:42px; height:42px; display:grid; place-items:center; font-family:var(--pixel,var(--mono)); font-size:24px; background:var(--k-bg); color:var(--k-fg); border:3px solid var(--rg-blue)}
+
+/* federal */
+.rg-fedgrid{list-style:none; margin:0; padding:0; display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.rg-fedcard{position:relative; background:#fff; border:3px solid var(--rg-blue); border-radius:4px; padding:44px 16px 16px; box-shadow:5px 5px 0 0 var(--rg-blue)}
+.rg-wrap .rg-fedcard strong{display:block; font-family:var(--pixel,var(--disp)); font-weight:400; font-size:26px; line-height:1; color:var(--rg-blue); margin-bottom:8px}
+.rg-wrap .rg-fedcard p{margin:0; font-size:14.5px; line-height:1.5; color:var(--rg-ink)}
+.rg-fed-mark{position:absolute; top:14px; left:16px; width:18px; height:18px; background:var(--rg-yel); border:3px solid var(--rg-blue); animation:rg-blink 2.4s steps(2) infinite}
+@keyframes rg-blink{50%{background:var(--rg-blue)}}
+.rg-facts{margin-top:56px}
+@media (prefers-reduced-motion:reduce){.rg-btn,.rg-sq,.rg-js .rg-tile.is-open,.rg-panel .rg-card{transition:none; animation:none}.rg-fed-mark{animation:none}}
+/* the bright page theme sets main p and li to 22px with !important; scope this grid back down */
+html[data-theme="bright"]:has(main.page) main .rg-wrap li{font-size:16px!important; line-height:1.4; color:var(--rg-ink)!important; margin:0}
+html[data-theme="bright"]:has(main.page) main .rg-wrap p{font-size:16px!important; line-height:1.5!important; color:var(--rg-ink)!important}
+html[data-theme="bright"]:has(main.page) main .rg-wrap .rg-fedcard p{font-size:15px!important}
+html[data-theme="bright"]:has(main.page) main .rg-wrap .rg-legend li{font-size:12px!important; color:var(--rg-sub)!important}
+html[data-theme="bright"]:has(main.page) main .rg-wrap h2{font-size:clamp(30px,3.6vw,46px)!important; line-height:1!important}
+html[data-theme="bright"]:has(main.page) main .rg-wrap li strong{color:var(--rg-blue)!important}
+html[data-theme="bright"]:has(main.page) main .rg-wrap a.rg-doi{border-bottom:2px solid var(--rg-yel)}
+@media (max-width:620px){.rg-mini{grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px}.rg-sq{padding:7px 8px}.rg-sq-n{font-size:24px}.rg-sq-t{font-size:11px}}
+.rg-js .rg-tile.is-open{align-items:stretch}
+.rg-js .rg-tile.is-open .rg-btn{aspect-ratio:auto; height:100%; min-height:0}
+.rg-js .rg-tile.is-open .rg-btn::before{content:""; display:block; padding-top:100%}
+@media (max-width:620px){.rg-js .rg-tile.is-open .rg-btn{height:auto}}
+</style>
 <script src="/nav.js?v=20260907a" defer></script>
+<script src="/research-grid.js?v=20261031a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
 </head>
@@ -181,51 +265,207 @@
 <main class="page">
   <section class="page-hero">
     <div class="eyebrow"><span class="sq"></span><span>Research</span></div>
-    <h1>Papers</h1>
+    <h1>Research</h1>
     <p class="dek">The research behind the protocol. Open access, Apache 2.0, cite freely. Full bibliography on <a href="https://orcid.org/0009-0002-4700-3594" target="_blank" rel="noopener">ORCID</a>.</p>
   </section>
-  <article class="prose">
-    <h2>Papers</h2>
-    <ul>
-      <li><strong>The Agent Social Contract</strong> (<a href="https://doi.org/10.5281/zenodo.18749779">10.5281/zenodo.18749779</a>): the foundational paper. Defines the contract between agents, owners and observers, and why governance is a substrate problem rather than a policy problem.</li>
-      <li><strong>Monotonic Narrowing</strong> (<a href="https://doi.org/10.5281/zenodo.18932404">10.5281/zenodo.18932404</a>): the invariant that makes delegation chains safe. Authority can narrow as it descends, never widen. Mirrored at SSRN abstract 6415678.</li>
-      <li><strong>Faceted Authority Attenuation</strong> (<a href="https://doi.org/10.5281/zenodo.19260073">10.5281/zenodo.19260073</a>): multi-facet authority decay across delegation hops, with closed-form attenuation per facet.</li>
-      <li><strong>Physics-Enforced Delegation</strong> (<a href="https://doi.org/10.5281/zenodo.19478584">10.5281/zenodo.19478584</a>): cryptographic primitives that make scope violation physically impossible rather than merely policy-prohibited.</li>
-      <li><strong>Governance in the Medium</strong> (<a href="https://doi.org/10.5281/zenodo.19582550">10.5281/zenodo.19582550</a>): governance lives in the substrate that carries actions, not in the policies layered on top. This is why the gateway exists.</li>
-      <li><strong>Cognitive Attestation</strong> (<a href="https://doi.org/10.5281/zenodo.19646276">10.5281/zenodo.19646276</a>): signed declarations of feature-level model computation. Accountability for AI decisions without exposing model internals.</li>
-      <li><strong>Behavioral Derivation Rights</strong> (<a href="https://doi.org/10.5281/zenodo.19476002">10.5281/zenodo.19476002</a>): how an agent earns the right to act based on observed behaviour. Derivation, not declaration.</li>
-      <li><strong>The Evidence-Safety Gap</strong> (<a href="https://doi.org/10.5281/zenodo.19914628">10.5281/zenodo.19914628</a>): why standard ML safety arguments do not transfer to agentic systems, and what evidentiary structures are needed instead.</li>
-      <li><strong>Plausibly Wrong</strong> (<a href="https://doi.org/10.5281/zenodo.21208555">10.5281/zenodo.21208555</a>): a controlled isolation of the retention rule in short-lived LLM agent populations. Peer-voted retention kept a worse shared memory than random selection in 4 of 5 replicates. Pre-registered, with kill conditions and an artifact record.</li>
-    </ul>
-    <h2>Cited and referenced in independent work</h2>
-    <ul>
-      <li><strong>The rttp and iqa URI Schemes</strong> (S. Li, IETF Internet-Draft, October 2026): cites draft-pidlisnyi-aps-04 as a normative reference. <a href="https://datatracker.ietf.org/doc/draft-li-rttp-iqa-addressing/" target="_blank" rel="noopener">draft-li-rttp-iqa-addressing</a></li>
-      <li><strong>Agent Delegation Receipts</strong> (R. Nelson, IETF Internet-Draft, October 2026): references Action Receipts v1.1 and disclaims verified wire-format interoperability with it. <a href="https://datatracker.ietf.org/doc/draft-nelson-agent-delegation-receipts/" target="_blank" rel="noopener">draft-nelson-agent-delegation-receipts</a></li>
-      <li><strong>Action Reference</strong> (P. Etcheverry and K. Ives, IETF Internet-Draft, October 2026): lists the APS SDK's external action-ref helper as an implementation, covering that helper only. <a href="https://datatracker.ietf.org/doc/draft-etcheverry-action-ref/" target="_blank" rel="noopener">draft-etcheverry-action-ref</a></li>
-      <li><strong>MUSUBI Settlement</strong> (T. Oga, IETF Internet-Draft, October 2026): lists the APS settle core checker as an implementation by others, not counted as independent. <a href="https://datatracker.ietf.org/doc/draft-oga-musubi-settlement/" target="_blank" rel="noopener">draft-oga-musubi-settlement</a></li>
-      <li><strong>Canonical Payload Binding</strong> (S. Mih and A. Sokolov, IETF Internet-Draft): credits Tymofii Pidlisnyi (Agent Passport System) as a contributor for the action reference pattern. <a href="https://datatracker.ietf.org/doc/draft-mih-sokolov-scitt-payload-binding/" target="_blank" rel="noopener">draft-mih-sokolov-scitt-payload-binding</a></li>
-      <li><strong>Agent Execution Evidence: A SCITT Profile</strong> (S. Thaha and S. Shamsudeen, IETF Internet-Draft, October 2026): cites draft-pidlisnyi-aps-04 and says the profile could serve as its evidence layer. <a href="https://datatracker.ietf.org/doc/draft-thaha-scitt-agent-execution-evidence/" target="_blank" rel="noopener">draft-thaha-scitt-agent-execution-evidence</a></li>
-      <li><strong>Authoritative Resolution of Persistent Digital Agent Identities</strong> (E. Tănase, AIDAXIA, IETF Internet-Draft): cites draft-pidlisnyi-aps-04 in its sections on delegator authority and unresolved verification, and in related work. <a href="https://datatracker.ietf.org/doc/draft-tanase-ain-authoritative-resolution/" target="_blank" rel="noopener">draft-tanase-ain-authoritative-resolution</a></li>
-      <li><strong>An External Verifier Contract for Agent Authorization Decisions</strong> (V. P. Kondoju, Bolyra, IETF Internet-Draft, September 2026): cites draft-pidlisnyi-aps-03 and describes wrapping an APS decision engine as a verifier. <a href="https://datatracker.ietf.org/doc/draft-kondoju-evc/" target="_blank" rel="noopener">draft-kondoju-evc</a></li>
-      <li><strong>The Linked-Witness Mechanism</strong> (P. Le Fol du Taillis, SPOC, preprint, September 2026): cites APS among the passport proposals whose signed envelope pattern it follows. <a href="https://spoc.com/papers/spoc-linked-witness-mechanism.pdf" target="_blank" rel="noopener">spoc-linked-witness-mechanism.pdf</a></li>
-      <li><strong>Emilia Protocol</strong> interoperability survey: records draft-pidlisnyi-aps-03 as one of two of 25 drafts complete on fields. <a href="https://github.com/emiliaprotocol/emilia-protocol" target="_blank" rel="noopener">emilia-protocol</a></li>
-      <li><strong>Notarized Agents</strong> (J. Figuera, <a href="https://arxiv.org/abs/2606.04193">arXiv:2606.04193</a>): references APS.</li>
-      <li><strong>The Civilization Framework</strong> (G. Liu, <a href="https://arxiv.org/abs/2609.03425">arXiv:2609.03425</a>): cites draft-pidlisnyi-aps-03 for authority attenuation.</li>
-      <li><strong>Revocation Is Not Complete at Receipt</strong> (L. Liu, H. Yu and D. Zhang, <a href="https://arxiv.org/abs/2610.15991">arXiv:2610.15991</a>): cites draft-pidlisnyi-aps-02 in related work.</li>
-      <li><strong>VERA: Authority-Preserving Edge Revocation</strong> (L. Liu, H. Yu and X. Jiang, <a href="https://arxiv.org/abs/2608.30091">arXiv:2608.30091</a>): uses APS as a baseline and reports that its subtree cascade over-revokes agents with a second authorizing parent.</li>
-      <li><strong>Composable Trust Infrastructure for the Agent Internet</strong> (F. Moore, <a href="https://doi.org/10.5281/zenodo.19263547">10.5281/zenodo.19263547</a>): names APS delegation governance as one of four layers.</li>
-      <li><strong>Verifiable Agent Trust Envelope</strong> (Poke-nushi, <a href="https://doi.org/10.5281/zenodo.19839769">10.5281/zenodo.19839769</a>): lists APS among its closest adjacent work, with a comparison document.</li>
-      <li><strong>The Governability Gap in Agentic AI</strong> (M. Agnihotri, <a href="https://doi.org/10.5281/zenodo.21376745">10.5281/zenodo.21376745</a>): cites the APS draft for its reversibility scheme.</li>
-      <li><strong>PDR in Production</strong>, section 7.6 (<a href="https://doi.org/10.5281/zenodo.19323172">10.5281/zenodo.19323172</a>): references the APS reputation model and verdict separation.</li>
-      <li><strong>Íñigo Medina</strong> (Instituto Tramontana, April 2026): catalogued <a href="https://inigomedina.co/library/work/pidlisnyi-governance-medium" target="_blank" rel="noopener">"Governance in the Medium"</a> with a summary and critique.</li>
-    </ul>
-    <h2>Federal submissions</h2>
-    <p>Filed as public comment. Filing is not endorsement.</p>
-    <ul>
-      <li><strong>NIST CAISI</strong>: comment filed with the NIST Center for AI Standards and Innovation. Acknowledged by Drew Keller.</li>
-      <li><strong>NIST AI 800-2</strong>: comment on the framework, covering agent identity and delegation primitives.</li>
-      <li><strong>NCCoE</strong>: concept paper submitted to the National Cybersecurity Center of Excellence.</li>
-    </ul>
+  <div class="rg-wrap">
+<section class="rg" aria-labelledby="rg-papers">
+  <div class="rg-head"><h2 id="rg-papers">Papers</h2><span class="rg-hint">9 papers, each with a DOI. Pick a square.</span></div>
+  <ol class="rg-grid">
+    <li class="rg-tile" data-viz="contract">
+      <button class="rg-btn" type="button" aria-expanded="false" aria-controls="paper-01">
+        <canvas class="rg-cv" aria-hidden="true"></canvas>
+        <span class="rg-num">01</span>
+        <span class="rg-title">The Agent Social Contract</span>
+      </button>
+      <div class="rg-detail" id="paper-01">
+        <p>The foundational paper. Defines the contract between agents, owners and observers, and why governance is a substrate problem rather than a policy problem.</p>
+        <a class="rg-doi" href="https://doi.org/10.5281/zenodo.18749779" target="_blank" rel="noopener">DOI 10.5281/zenodo.18749779 <span aria-hidden="true">↗</span></a>
+      </div>
+    </li>
+    <li class="rg-tile" data-viz="narrowing">
+      <button class="rg-btn" type="button" aria-expanded="false" aria-controls="paper-02">
+        <canvas class="rg-cv" aria-hidden="true"></canvas>
+        <span class="rg-num">02</span>
+        <span class="rg-title">Monotonic Narrowing</span>
+      </button>
+      <div class="rg-detail" id="paper-02">
+        <p>The invariant that makes delegation chains safe. Authority can narrow as it descends, never widen. Mirrored at SSRN abstract 6415678.</p>
+        <a class="rg-doi" href="https://doi.org/10.5281/zenodo.18932404" target="_blank" rel="noopener">DOI 10.5281/zenodo.18932404 <span aria-hidden="true">↗</span></a>
+      </div>
+    </li>
+    <li class="rg-tile" data-viz="facets">
+      <button class="rg-btn" type="button" aria-expanded="false" aria-controls="paper-03">
+        <canvas class="rg-cv" aria-hidden="true"></canvas>
+        <span class="rg-num">03</span>
+        <span class="rg-title">Faceted Authority Attenuation</span>
+      </button>
+      <div class="rg-detail" id="paper-03">
+        <p>Multi-facet authority decay across delegation hops, with closed-form attenuation per facet.</p>
+        <a class="rg-doi" href="https://doi.org/10.5281/zenodo.19260073" target="_blank" rel="noopener">DOI 10.5281/zenodo.19260073 <span aria-hidden="true">↗</span></a>
+      </div>
+    </li>
+    <li class="rg-tile" data-viz="physics">
+      <button class="rg-btn" type="button" aria-expanded="false" aria-controls="paper-04">
+        <canvas class="rg-cv" aria-hidden="true"></canvas>
+        <span class="rg-num">04</span>
+        <span class="rg-title">Physics-Enforced Delegation</span>
+      </button>
+      <div class="rg-detail" id="paper-04">
+        <p>Cryptographic primitives that make scope violation physically impossible rather than merely policy-prohibited.</p>
+        <a class="rg-doi" href="https://doi.org/10.5281/zenodo.19478584" target="_blank" rel="noopener">DOI 10.5281/zenodo.19478584 <span aria-hidden="true">↗</span></a>
+      </div>
+    </li>
+    <li class="rg-tile" data-viz="medium">
+      <button class="rg-btn" type="button" aria-expanded="false" aria-controls="paper-05">
+        <canvas class="rg-cv" aria-hidden="true"></canvas>
+        <span class="rg-num">05</span>
+        <span class="rg-title">Governance in the Medium</span>
+      </button>
+      <div class="rg-detail" id="paper-05">
+        <p>Governance lives in the substrate that carries actions, not in the policies layered on top. This is why the gateway exists.</p>
+        <a class="rg-doi" href="https://doi.org/10.5281/zenodo.19582550" target="_blank" rel="noopener">DOI 10.5281/zenodo.19582550 <span aria-hidden="true">↗</span></a>
+      </div>
+    </li>
+    <li class="rg-tile" data-viz="cognitive">
+      <button class="rg-btn" type="button" aria-expanded="false" aria-controls="paper-06">
+        <canvas class="rg-cv" aria-hidden="true"></canvas>
+        <span class="rg-num">06</span>
+        <span class="rg-title">Cognitive Attestation</span>
+      </button>
+      <div class="rg-detail" id="paper-06">
+        <p>Signed declarations of feature-level model computation. Accountability for AI decisions without exposing model internals.</p>
+        <a class="rg-doi" href="https://doi.org/10.5281/zenodo.19646276" target="_blank" rel="noopener">DOI 10.5281/zenodo.19646276 <span aria-hidden="true">↗</span></a>
+      </div>
+    </li>
+    <li class="rg-tile" data-viz="derivation">
+      <button class="rg-btn" type="button" aria-expanded="false" aria-controls="paper-07">
+        <canvas class="rg-cv" aria-hidden="true"></canvas>
+        <span class="rg-num">07</span>
+        <span class="rg-title">Behavioral Derivation Rights</span>
+      </button>
+      <div class="rg-detail" id="paper-07">
+        <p>How an agent earns the right to act based on observed behaviour. Derivation, not declaration.</p>
+        <a class="rg-doi" href="https://doi.org/10.5281/zenodo.19476002" target="_blank" rel="noopener">DOI 10.5281/zenodo.19476002 <span aria-hidden="true">↗</span></a>
+      </div>
+    </li>
+    <li class="rg-tile" data-viz="gap">
+      <button class="rg-btn" type="button" aria-expanded="false" aria-controls="paper-08">
+        <canvas class="rg-cv" aria-hidden="true"></canvas>
+        <span class="rg-num">08</span>
+        <span class="rg-title">The Evidence-Safety Gap</span>
+      </button>
+      <div class="rg-detail" id="paper-08">
+        <p>Why standard ML safety arguments do not transfer to agentic systems, and what evidentiary structures are needed instead.</p>
+        <a class="rg-doi" href="https://doi.org/10.5281/zenodo.19914628" target="_blank" rel="noopener">DOI 10.5281/zenodo.19914628 <span aria-hidden="true">↗</span></a>
+      </div>
+    </li>
+    <li class="rg-tile" data-viz="plausibly">
+      <button class="rg-btn" type="button" aria-expanded="false" aria-controls="paper-09">
+        <canvas class="rg-cv" aria-hidden="true"></canvas>
+        <span class="rg-num">09</span>
+        <span class="rg-title">Plausibly Wrong</span>
+      </button>
+      <div class="rg-detail" id="paper-09">
+        <p>A controlled isolation of the retention rule in short-lived LLM agent populations. Peer-voted retention kept a worse shared memory than random selection in 4 of 5 replicates. Pre-registered, with kill conditions and an artifact record.</p>
+        <a class="rg-doi" href="https://doi.org/10.5281/zenodo.21208555" target="_blank" rel="noopener">DOI 10.5281/zenodo.21208555 <span aria-hidden="true">↗</span></a>
+      </div>
+    </li>
+  </ol>
+</section>
+<section class="rg rg-cites" aria-labelledby="rg-cites">
+  <div class="rg-head"><h2 id="rg-cites">Cited and referenced in independent work</h2><span class="rg-hint">19 works by other authors.</span></div>
+  <ul class="rg-legend" aria-label="Legend"><li><i class="k-ietf"></i>IETF Internet-Draft</li><li><i class="k-arxiv"></i>arXiv</li><li><i class="k-doi"></i>Zenodo</li><li><i class="k-web"></i>Other</li></ul>
+  <ol class="rg-mini">
+    <li class="rg-cite k-ietf">
+      <button class="rg-sq" type="button" aria-expanded="false" aria-controls="cite-01" title="The rttp and iqa URI Schemes"><span class="rg-sq-k">IETF</span><span class="rg-sq-n">01</span><span class="rg-sq-t">The rttp and iqa URI Schemes</span></button>
+      <div class="rg-cite-detail" id="cite-01"><p><strong>The rttp and iqa URI Schemes</strong> (S. Li, IETF Internet-Draft, October 2026): cites draft-pidlisnyi-aps-04 as a normative reference. <a href="https://datatracker.ietf.org/doc/draft-li-rttp-iqa-addressing/" target="_blank" rel="noopener">draft-li-rttp-iqa-addressing</a></p></div>
+    </li>
+    <li class="rg-cite k-ietf">
+      <button class="rg-sq" type="button" aria-expanded="false" aria-controls="cite-02" title="Agent Delegation Receipts"><span class="rg-sq-k">IETF</span><span class="rg-sq-n">02</span><span class="rg-sq-t">Agent Delegation Receipts</span></button>
+      <div class="rg-cite-detail" id="cite-02"><p><strong>Agent Delegation Receipts</strong> (R. Nelson, IETF Internet-Draft, October 2026): references Action Receipts v1.1 and disclaims verified wire-format interoperability with it. <a href="https://datatracker.ietf.org/doc/draft-nelson-agent-delegation-receipts/" target="_blank" rel="noopener">draft-nelson-agent-delegation-receipts</a></p></div>
+    </li>
+    <li class="rg-cite k-ietf">
+      <button class="rg-sq" type="button" aria-expanded="false" aria-controls="cite-03" title="Action Reference"><span class="rg-sq-k">IETF</span><span class="rg-sq-n">03</span><span class="rg-sq-t">Action Reference</span></button>
+      <div class="rg-cite-detail" id="cite-03"><p><strong>Action Reference</strong> (P. Etcheverry and K. Ives, IETF Internet-Draft, October 2026): lists the APS SDK's external action-ref helper as an implementation, covering that helper only. <a href="https://datatracker.ietf.org/doc/draft-etcheverry-action-ref/" target="_blank" rel="noopener">draft-etcheverry-action-ref</a></p></div>
+    </li>
+    <li class="rg-cite k-ietf">
+      <button class="rg-sq" type="button" aria-expanded="false" aria-controls="cite-04" title="MUSUBI Settlement"><span class="rg-sq-k">IETF</span><span class="rg-sq-n">04</span><span class="rg-sq-t">MUSUBI Settlement</span></button>
+      <div class="rg-cite-detail" id="cite-04"><p><strong>MUSUBI Settlement</strong> (T. Oga, IETF Internet-Draft, October 2026): lists the APS settle core checker as an implementation by others, not counted as independent. <a href="https://datatracker.ietf.org/doc/draft-oga-musubi-settlement/" target="_blank" rel="noopener">draft-oga-musubi-settlement</a></p></div>
+    </li>
+    <li class="rg-cite k-ietf">
+      <button class="rg-sq" type="button" aria-expanded="false" aria-controls="cite-05" title="Canonical Payload Binding"><span class="rg-sq-k">IETF</span><span class="rg-sq-n">05</span><span class="rg-sq-t">Canonical Payload Binding</span></button>
+      <div class="rg-cite-detail" id="cite-05"><p><strong>Canonical Payload Binding</strong> (S. Mih and A. Sokolov, IETF Internet-Draft): credits Tymofii Pidlisnyi (Agent Passport System) as a contributor for the action reference pattern. <a href="https://datatracker.ietf.org/doc/draft-mih-sokolov-scitt-payload-binding/" target="_blank" rel="noopener">draft-mih-sokolov-scitt-payload-binding</a></p></div>
+    </li>
+    <li class="rg-cite k-ietf">
+      <button class="rg-sq" type="button" aria-expanded="false" aria-controls="cite-06" title="Agent Execution Evidence: A SCITT Profile"><span class="rg-sq-k">IETF</span><span class="rg-sq-n">06</span><span class="rg-sq-t">Agent Execution Evidence: A SCITT Profile</span></button>
+      <div class="rg-cite-detail" id="cite-06"><p><strong>Agent Execution Evidence: A SCITT Profile</strong> (S. Thaha and S. Shamsudeen, IETF Internet-Draft, October 2026): cites draft-pidlisnyi-aps-04 and says the profile could serve as its evidence layer. <a href="https://datatracker.ietf.org/doc/draft-thaha-scitt-agent-execution-evidence/" target="_blank" rel="noopener">draft-thaha-scitt-agent-execution-evidence</a></p></div>
+    </li>
+    <li class="rg-cite k-ietf">
+      <button class="rg-sq" type="button" aria-expanded="false" aria-controls="cite-07" title="Authoritative Resolution of Persistent Digital Agent Identities"><span class="rg-sq-k">IETF</span><span class="rg-sq-n">07</span><span class="rg-sq-t">Authoritative Resolution of Persistent Digital Agent Identities</span></button>
+      <div class="rg-cite-detail" id="cite-07"><p><strong>Authoritative Resolution of Persistent Digital Agent Identities</strong> (E. Tănase, AIDAXIA, IETF Internet-Draft): cites draft-pidlisnyi-aps-04 in its sections on delegator authority and unresolved verification, and in related work. <a href="https://datatracker.ietf.org/doc/draft-tanase-ain-authoritative-resolution/" target="_blank" rel="noopener">draft-tanase-ain-authoritative-resolution</a></p></div>
+    </li>
+    <li class="rg-cite k-ietf">
+      <button class="rg-sq" type="button" aria-expanded="false" aria-controls="cite-08" title="An External Verifier Contract for Agent Authorization Decisions"><span class="rg-sq-k">IETF</span><span class="rg-sq-n">08</span><span class="rg-sq-t">An External Verifier Contract for Agent Authorization Decisions</span></button>
+      <div class="rg-cite-detail" id="cite-08"><p><strong>An External Verifier Contract for Agent Authorization Decisions</strong> (V. P. Kondoju, Bolyra, IETF Internet-Draft, September 2026): cites draft-pidlisnyi-aps-03 and describes wrapping an APS decision engine as a verifier. <a href="https://datatracker.ietf.org/doc/draft-kondoju-evc/" target="_blank" rel="noopener">draft-kondoju-evc</a></p></div>
+    </li>
+    <li class="rg-cite k-web">
+      <button class="rg-sq" type="button" aria-expanded="false" aria-controls="cite-09" title="The Linked-Witness Mechanism"><span class="rg-sq-k">Other</span><span class="rg-sq-n">09</span><span class="rg-sq-t">The Linked-Witness Mechanism</span></button>
+      <div class="rg-cite-detail" id="cite-09"><p><strong>The Linked-Witness Mechanism</strong> (P. Le Fol du Taillis, SPOC, preprint, September 2026): cites APS among the passport proposals whose signed envelope pattern it follows. <a href="https://spoc.com/papers/spoc-linked-witness-mechanism.pdf" target="_blank" rel="noopener">spoc-linked-witness-mechanism.pdf</a></p></div>
+    </li>
+    <li class="rg-cite k-web">
+      <button class="rg-sq" type="button" aria-expanded="false" aria-controls="cite-10" title="Emilia Protocol"><span class="rg-sq-k">Other</span><span class="rg-sq-n">10</span><span class="rg-sq-t">Emilia Protocol</span></button>
+      <div class="rg-cite-detail" id="cite-10"><p><strong>Emilia Protocol</strong> interoperability survey: records draft-pidlisnyi-aps-03 as one of two of 25 drafts complete on fields. <a href="https://github.com/emiliaprotocol/emilia-protocol" target="_blank" rel="noopener">emilia-protocol</a></p></div>
+    </li>
+    <li class="rg-cite k-arxiv">
+      <button class="rg-sq" type="button" aria-expanded="false" aria-controls="cite-11" title="Notarized Agents"><span class="rg-sq-k">arXiv</span><span class="rg-sq-n">11</span><span class="rg-sq-t">Notarized Agents</span></button>
+      <div class="rg-cite-detail" id="cite-11"><p><strong>Notarized Agents</strong> (J. Figuera, <a href="https://arxiv.org/abs/2606.04193">arXiv:2606.04193</a>): references APS.</p></div>
+    </li>
+    <li class="rg-cite k-arxiv">
+      <button class="rg-sq" type="button" aria-expanded="false" aria-controls="cite-12" title="The Civilization Framework"><span class="rg-sq-k">arXiv</span><span class="rg-sq-n">12</span><span class="rg-sq-t">The Civilization Framework</span></button>
+      <div class="rg-cite-detail" id="cite-12"><p><strong>The Civilization Framework</strong> (G. Liu, <a href="https://arxiv.org/abs/2609.03425">arXiv:2609.03425</a>): cites draft-pidlisnyi-aps-03 for authority attenuation.</p></div>
+    </li>
+    <li class="rg-cite k-arxiv">
+      <button class="rg-sq" type="button" aria-expanded="false" aria-controls="cite-13" title="Revocation Is Not Complete at Receipt"><span class="rg-sq-k">arXiv</span><span class="rg-sq-n">13</span><span class="rg-sq-t">Revocation Is Not Complete at Receipt</span></button>
+      <div class="rg-cite-detail" id="cite-13"><p><strong>Revocation Is Not Complete at Receipt</strong> (L. Liu, H. Yu and D. Zhang, <a href="https://arxiv.org/abs/2610.15991">arXiv:2610.15991</a>): cites draft-pidlisnyi-aps-02 in related work.</p></div>
+    </li>
+    <li class="rg-cite k-arxiv">
+      <button class="rg-sq" type="button" aria-expanded="false" aria-controls="cite-14" title="VERA: Authority-Preserving Edge Revocation"><span class="rg-sq-k">arXiv</span><span class="rg-sq-n">14</span><span class="rg-sq-t">VERA: Authority-Preserving Edge Revocation</span></button>
+      <div class="rg-cite-detail" id="cite-14"><p><strong>VERA: Authority-Preserving Edge Revocation</strong> (L. Liu, H. Yu and X. Jiang, <a href="https://arxiv.org/abs/2608.30091">arXiv:2608.30091</a>): uses APS as a baseline and reports that its subtree cascade over-revokes agents with a second authorizing parent.</p></div>
+    </li>
+    <li class="rg-cite k-doi">
+      <button class="rg-sq" type="button" aria-expanded="false" aria-controls="cite-15" title="Composable Trust Infrastructure for the Agent Internet"><span class="rg-sq-k">Zenodo</span><span class="rg-sq-n">15</span><span class="rg-sq-t">Composable Trust Infrastructure for the Agent Internet</span></button>
+      <div class="rg-cite-detail" id="cite-15"><p><strong>Composable Trust Infrastructure for the Agent Internet</strong> (F. Moore, <a href="https://doi.org/10.5281/zenodo.19263547">10.5281/zenodo.19263547</a>): names APS delegation governance as one of four layers.</p></div>
+    </li>
+    <li class="rg-cite k-doi">
+      <button class="rg-sq" type="button" aria-expanded="false" aria-controls="cite-16" title="Verifiable Agent Trust Envelope"><span class="rg-sq-k">Zenodo</span><span class="rg-sq-n">16</span><span class="rg-sq-t">Verifiable Agent Trust Envelope</span></button>
+      <div class="rg-cite-detail" id="cite-16"><p><strong>Verifiable Agent Trust Envelope</strong> (Poke-nushi, <a href="https://doi.org/10.5281/zenodo.19839769">10.5281/zenodo.19839769</a>): lists APS among its closest adjacent work, with a comparison document.</p></div>
+    </li>
+    <li class="rg-cite k-doi">
+      <button class="rg-sq" type="button" aria-expanded="false" aria-controls="cite-17" title="The Governability Gap in Agentic AI"><span class="rg-sq-k">Zenodo</span><span class="rg-sq-n">17</span><span class="rg-sq-t">The Governability Gap in Agentic AI</span></button>
+      <div class="rg-cite-detail" id="cite-17"><p><strong>The Governability Gap in Agentic AI</strong> (M. Agnihotri, <a href="https://doi.org/10.5281/zenodo.21376745">10.5281/zenodo.21376745</a>): cites the APS draft for its reversibility scheme.</p></div>
+    </li>
+    <li class="rg-cite k-doi">
+      <button class="rg-sq" type="button" aria-expanded="false" aria-controls="cite-18" title="PDR in Production"><span class="rg-sq-k">Zenodo</span><span class="rg-sq-n">18</span><span class="rg-sq-t">PDR in Production</span></button>
+      <div class="rg-cite-detail" id="cite-18"><p><strong>PDR in Production</strong>, section 7.6 (<a href="https://doi.org/10.5281/zenodo.19323172">10.5281/zenodo.19323172</a>): references the APS reputation model and verdict separation.</p></div>
+    </li>
+    <li class="rg-cite k-web">
+      <button class="rg-sq" type="button" aria-expanded="false" aria-controls="cite-19" title="Íñigo Medina"><span class="rg-sq-k">Other</span><span class="rg-sq-n">19</span><span class="rg-sq-t">Íñigo Medina</span></button>
+      <div class="rg-cite-detail" id="cite-19"><p><strong>Íñigo Medina</strong> (Instituto Tramontana, April 2026): catalogued <a href="https://inigomedina.co/library/work/pidlisnyi-governance-medium" target="_blank" rel="noopener">"Governance in the Medium"</a> with a summary and critique.</p></div>
+    </li>
+  </ol>
+  <div class="rg-panel" id="rg-panel" aria-live="polite"></div>
+</section>
+<section class="rg rg-fed" aria-labelledby="rg-fed">
+  <div class="rg-head"><h2 id="rg-fed">Federal submissions</h2><span class="rg-hint">Filed as public comment. Filing is not endorsement.</span></div>
+  <ul class="rg-fedgrid">
+    <li class="rg-fedcard"><span class="rg-fed-mark" aria-hidden="true"></span><strong>NIST CAISI</strong><p>Comment filed with the NIST Center for AI Standards and Innovation. Acknowledged by Drew Keller.</p></li>
+    <li class="rg-fedcard"><span class="rg-fed-mark" aria-hidden="true"></span><strong>NIST AI 800-2</strong><p>Comment on the framework, covering agent identity and delegation primitives.</p></li>
+    <li class="rg-fedcard"><span class="rg-fed-mark" aria-hidden="true"></span><strong>NCCoE</strong><p>Concept paper submitted to the National Cybersecurity Center of Excellence.</p></li>
+  </ul>
+</section>
+</div>
+  <article class="prose rg-facts">
     <h2>Facts</h2>
     <table>
       <tr><td>Papers</td><td>9, each with a DOI, open access</td></tr>
