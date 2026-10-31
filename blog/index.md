@@ -2,6 +2,8 @@
 
 Every post by Tymofii Pidlisnyi, newest first. Dev log posts are named by day and record what changed. Stories tell what happened around the work. Each link is the post as Markdown.
 
+- 2026-10-30 [Day 256: tests that passed without checking, starting with mine](https://agent-passport.org/blog/day-256-green-that-checked-nothing.md) (devlog)
+- 2026-10-29 [Day 255: reading other people's work from the text alone, and a room for the federation](https://agent-passport.org/blog/day-255-reading-from-the-text-alone.md) (devlog)
 - 2026-10-28 [Day 254: six safety fixtures through the SDK, and a documentation site that found its own broken examples](https://agent-passport.org/blog/day-254-six-fixtures-through-the-sdk.md) (devlog)
 - 2026-10-26 [Day 252: a read before every decision, and a name on each piece of the refund sandbox](https://agent-passport.org/blog/day-252-a-name-on-each-piece.md) (devlog)
 - 2026-10-25 [Day 251: revision 3 separates a source we could not reach from a grant that was revoked](https://agent-passport.org/blog/day-251-could-not-reach-is-not-revoked.md) (devlog)

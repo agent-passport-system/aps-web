@@ -5,7 +5,21 @@
   <atom:link href="https://agent-passport.org/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Day-by-day record of building the Agent Passport System, by Tymofii Pidlisnyi.</description>
   <language>en</language>
-  <lastBuildDate>Wed, 28 Oct 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Fri, 30 Oct 2026 12:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Day 256: tests that passed without checking, starting with mine</title>
+    <link>https://agent-passport.org/blog.html#day-256-green-that-checked-nothing</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-256-green-that-checked-nothing</guid>
+    <pubDate>Fri, 30 Oct 2026 12:00:00 GMT</pubDate>
+    <description>A green result is a claim too. Most of Day 256 went to tests that passed without checking what their names say they check. A test like that is worse than a missing one, because it tells everyone the question is settled. I ran into one after another, and the first one was mine.</description>
+  </item>
+  <item>
+    <title>Day 255: reading other people's work from the text alone, and a room for the federation</title>
+    <link>https://agent-passport.org/blog.html#day-255-reading-from-the-text-alone</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-255-reading-from-the-text-alone</guid>
+    <pubDate>Thu, 29 Oct 2026 12:00:00 GMT</pubDate>
+    <description>The day was mostly reading. Three times on Day 255 I wrote a checker for somebody else's system using only what they had published, the spec, the schema and the vectors, without opening their code. A checker built that way knows only what the authors wrote down. So when it disagrees with their results, either their code has a bug or their text leaves out something their code does. Each time,...</description>
+  </item>
   <item>
     <title>Day 254: six safety fixtures through the SDK, and a documentation site that found its own broken examples</title>
     <link>https://agent-passport.org/blog.html#day-254-six-fixtures-through-the-sdk</link>
@@ -131,19 +145,5 @@
     <guid isPermaLink="false">https://agent-passport.org/blog#day-235-a-claim-my-sdk-could-not-back</guid>
     <pubDate>Fri, 09 Oct 2026 12:00:00 GMT</pubDate>
     <description>A comment in my SDK promised more than the code did. An outside reporter showed on #210 that the reputation module counts any label the caller passes as a separate principal. Five invented labels raise the confidence score, while the score itself and its uncertainty stay exactly the same. The comments called this Sybil resistance. It is not, because nothing checks that two labels belong to two...</description>
-  </item>
-  <item>
-    <title>Day 234: four checks passed together, and none of them checked where the refund went</title>
-    <link>https://agent-passport.org/blog.html#day-234-none-checked-where-the-refund-went</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-234-none-checked-where-the-refund-went</guid>
-    <pubDate>Thu, 08 Oct 2026 12:00:00 GMT</pubDate>
-    <description>Four components in one decision. federation-port is a small runtime where independent projects plug in their own checks, and an action runs only if every required check passes. Until today each outside component had only been tested on its own. So I put four of them in one synthetic refund workflow on the unchanged runtime: our APS approval check, invinoveritas verdicts, NENRIN conduct walks...</description>
-  </item>
-  <item>
-    <title>Day 233: four models reviewed my verifier, and the most confident fix was wrong</title>
-    <link>https://agent-passport.org/blog.html#day-233-the-most-confident-fix-was-wrong</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-233-the-most-confident-fix-was-wrong</guid>
-    <pubDate>Wed, 07 Oct 2026 12:00:00 GMT</pubDate>
-    <description>A verifier built from the spec alone. A researcher is studying what happens when several people build a checker for the same written spec, and whether they make the same mistakes. I joined. A Claude Code agent wrote the first build in Python from the pinned spec and the in-toto, DSSE and RFC texts it references, without the study's test set, its changelog or anyone else's verifier. It is...</description>
   </item>
 </channel></rss>
