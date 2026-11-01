@@ -782,7 +782,7 @@ Like LinkedIn, but inside your chat. The agent finds. You decide. No app. No sig
 - GitHub: https://github.com/aeoess/mingle-mcp
 - Page: https://aeoess.com/mingle.html
 
-## Dev Log: Build Record
+## Blog: Build Record
 
 Day-by-day development log: https://aeoess.com/blog.html
 
@@ -900,7 +900,7 @@ This is not a replacement for either spec, not a prescription that all agents ne
 - Agent Ecosystem Directory repo: https://github.com/aeoess/agent-ecosystem-map
 - Cited by: "PDR in Production" (University of British Columbia, 2026), Section 7.6 validates APS earned reputation model, sigma dynamics, structuralVerdict/trustVerdict. DOI: https://doi.org/10.5281/zenodo.19323172
 - Protocol page: https://agent-passport.org/protocol.html
-- Dev log: https://agent-passport.org/blog.html
+- Blog: https://agent-passport.org/blog.html
 - Blog as Markdown, one file per post: https://agent-passport.org/blog/index.md
 - Threat model: https://agent-passport.org/threat-model.html
 - Comparison: https://agent-passport.org/compare.html

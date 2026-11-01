@@ -105,7 +105,7 @@
       body.innerHTML =
         '<div class="apsx-eyebrow"><i></i>Updates</div>' +
         '<h2 class="apsx-h">' + (st.starred ? 'Thank you. ' : '') + 'Get updates <em>by email.</em></h2>' +
-        '<p class="apsx-p">Releases, spec changes, and dev log highlights. A few emails a month at most.</p>' +
+        '<p class="apsx-p">Releases, spec changes, and blog highlights. A few emails a month at most.</p>' +
         '<form class="apsx-form" id="apsxForm" novalidate>' +
         '<input class="apsx-in" id="apsxEmail" type="email" name="email" placeholder="you@company.com" autocomplete="email" inputmode="email" required aria-label="Email address">' +
         '<input class="apsx-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">' +
@@ -487,7 +487,7 @@
   }
   function updates() {
     if (st.subscribed) { menu('You are already on the list. Anything else?'); return; }
-    ask('email', 'Releases, spec changes and dev log highlights, a few emails a month at most. Your email?', { ph: 'you@company.com', next: function () {
+    ask('email', 'Releases, spec changes and blog highlights, a few emails a month at most. Your email?', { ph: 'you@company.com', next: function () {
       fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: data.email, hp: '', source: 'mascot-chat' }) })
         .then(function (r) { return r.json().catch(function () { return {}; }); }).catch(function () { return {}; })
         .then(function (j) {

@@ -1,4 +1,4 @@
-/* Dev log jump bar and deep-link resolver.
+/* Blog jump bar and deep-link resolver.
  *
  * The feed is paginated by scripts/build-blog-pages.mjs, which inlines a
  * #bp-index listing every entry on every page. Two jobs here:
@@ -8,10 +8,10 @@
  *      permalink no matter which page Day 59 has drifted onto.
  *   2. The bar groups by month rather than showing one chip per entry, which
  *      stopped being usable somewhere past the fiftieth entry.
- *   3. Stories are a different kind of post from the dev log. Their chips are
- *      coloured, and a Show switch narrows the bar and the page to all posts,
- *      dev log only, or stories only. The choice is kept in ?show= and, where
- *      storage works, in localStorage, so it follows the reader across pages.
+ *   3. Stories are a different kind of post from the day posts. Their chips
+ *      are coloured, and a Show switch narrows the bar and the page to all
+ *      posts, days only, or stories only. The choice is kept only in ?show=,
+ *      so a new visit always opens on all posts.
  *
  * Nothing here is load-bearing. With scripts off the pager links in the page
  * are the whole navigation, and every entry is still served as plain HTML.
@@ -35,23 +35,21 @@
   }
 
   /* Show mode: all, devlog or stories. */
-  var MODES = [['all', 'All'], ['devlog', 'Dev log'], ['stories', 'Stories']];
+  var MODES = [['all', 'All'], ['devlog', 'Days'], ['stories', 'Stories']];
 
   function readMode() {
     var m = (location.search.match(/[?&]show=(all|devlog|stories)\b/) || [])[1];
     if (m) return m;
+    // Every visit without ?show= opens on all posts. Earlier builds kept the
+    // last choice in localStorage, so a reader who once picked Stories never
+    // saw a new day post again. That stored value is cleared here.
     try {
-      m = localStorage.getItem('bp-show');
-    } catch (e) {
-      m = null;
-    }
-    return m === 'devlog' || m === 'stories' ? m : 'all';
+      localStorage.removeItem('bp-show');
+    } catch (e) {}
+    return 'all';
   }
 
   function saveMode(mode) {
-    try {
-      localStorage.setItem('bp-show', mode);
-    } catch (e) {}
     try {
       var url = location.pathname + (mode === 'all' ? '' : '?show=' + mode) + location.hash;
       history.replaceState(null, '', url);

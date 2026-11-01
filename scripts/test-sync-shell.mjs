@@ -10,8 +10,8 @@ import { applyCanonical } from './sync-shell.mjs'
 const canonicalNav = '<nav class="nav-links">\n  <a href="/docs/">Docs</a>\n  <a href="blog.html">Dev Log</a>\n</nav>'
 const canonicalFooter = '<footer class="footer-wrap" role="contentinfo"><section class="bodies">IETF</section></footer>'
 
-const pagerTop = '<nav class="bp-pager bp-pager-top" aria-label="Dev log pages"><a href="blog-2.html">2</a></nav>'
-const pagerBottom = '<nav class="bp-pager bp-pager-bottom" aria-label="Dev log pages"><a href="blog-2.html">2</a></nav>'
+const pagerTop = '<nav class="bp-pager bp-pager-top" aria-label="Blog pages"><a href="blog-2.html">2</a></nav>'
+const pagerBottom = '<nav class="bp-pager bp-pager-bottom" aria-label="Blog pages"><a href="blog-2.html">2</a></nav>'
 const toc = '<nav class="toc" aria-label="On this page"><a href="#a">A</a></nav>'
 
 const page = `<!doctype html>

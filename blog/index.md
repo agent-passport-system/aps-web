@@ -1,6 +1,6 @@
 # Agent Passport System blog
 
-Every post by Tymofii Pidlisnyi, newest first. Dev log posts are named by day and record what changed. Stories tell what happened around the work. Each link is the post as Markdown.
+Every post by Tymofii Pidlisnyi, newest first. Day posts are named by day and record what changed. Stories tell what happened around the work. Each link is the post as Markdown.
 
 - 2026-10-31 [Day 257: an automated tester on Mingle, fixed while it ran](https://agent-passport.org/blog/day-257-a-tester-on-mingle.md) (devlog)
 - 2026-10-30 [Day 256: tests that passed without checking, starting with mine](https://agent-passport.org/blog/day-256-green-that-checked-nothing.md) (devlog)

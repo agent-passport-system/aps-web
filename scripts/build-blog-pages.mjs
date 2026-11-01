@@ -203,7 +203,7 @@ function markdownFiles(all) {
   const lines = [
     '# Agent Passport System blog',
     '',
-    'Every post by Tymofii Pidlisnyi, newest first. Dev log posts are named by day and record what changed. Stories tell what happened around the work. Each link is the post as Markdown.',
+    'Every post by Tymofii Pidlisnyi, newest first. Day posts are named by day and record what changed. Stories tell what happened around the work. Each link is the post as Markdown.',
     '',
   ]
   for (const p of all) lines.push(`- ${p.date} [${p.title}](${SITE}/blog/${p.id}.md) (${kindOf(p)})`)
@@ -280,7 +280,7 @@ function human(iso) {
 function pager(current, chunks, totalPosts, place) {
   const total = chunks.length
   const bits = []
-  bits.push(`<nav class="bp-pager bp-pager-${place}" aria-label="Dev log pages">`)
+  bits.push(`<nav class="bp-pager bp-pager-${place}" aria-label="Blog pages">`)
   bits.push(
     `<p class="bp-pager-count">Page ${current} of ${total} · ${totalPosts} entries · ${esc(rangeLabel(chunks[current - 1]))}</p>`
   )
@@ -352,7 +352,7 @@ function headFor(head, current, chunks) {
   let out = head
 
   if (current > 1) {
-    const desc = esc(`Agent Passport System dev log, page ${current} of ${total}, with entries from ${range}.`)
+    const desc = esc(`Agent Passport System blog, page ${current} of ${total}, with entries from ${range}.`)
     out = out.replace(/<title>[\s\S]*?<\/title>/, `<title>Blog page ${current} | APS</title>`)
     out = out.replace(
       /<link rel="canonical" href="[^"]*">/,
@@ -392,7 +392,7 @@ function ldFor(current, chunks) {
       ? {
           '@context': 'https://schema.org',
           '@type': 'Blog',
-          name: 'APS Dev Log',
+          name: 'APS Blog',
           url: `${SITE}/blog.html`,
           inLanguage: 'en',
           author: AUTHOR,
@@ -401,9 +401,9 @@ function ldFor(current, chunks) {
       : {
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
-          name: `APS Dev Log, page ${current} of ${chunks.length}`,
+          name: `APS Blog, page ${current} of ${chunks.length}`,
           url: `${SITE}${pageUrl(current)}`,
-          isPartOf: { '@type': 'Blog', name: 'APS Dev Log', url: `${SITE}/blog.html` },
+          isPartOf: { '@type': 'Blog', name: 'APS Blog', url: `${SITE}/blog.html` },
           inLanguage: 'en',
           hasPart: posts,
         }
@@ -484,7 +484,7 @@ function feedXml(chunks) {
   return [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>',
-    '  <title>Agent Passport System Dev Log</title>',
+    '  <title>Agent Passport System Blog</title>',
     `  <link>${SITE}/blog.html</link>`,
     `  <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml"/>`,
     '  <description>Day-by-day record of building the Agent Passport System, by Tymofii Pidlisnyi.</description>',
