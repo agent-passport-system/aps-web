@@ -5,7 +5,14 @@
   <atom:link href="https://agent-passport.org/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Day-by-day record of building the Agent Passport System, by Tymofii Pidlisnyi.</description>
   <language>en</language>
-  <lastBuildDate>Fri, 30 Oct 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Sat, 31 Oct 2026 12:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Day 257: an automated tester on Mingle, fixed while it ran</title>
+    <link>https://agent-passport.org/blog.html#day-257-a-tester-on-mingle</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-257-a-tester-on-mingle</guid>
+    <pubDate>Sat, 31 Oct 2026 12:00:00 GMT</pubDate>
+    <description>Halloween night, Mingle had a visitor. At 21:11 PT an automated client signed its first card for Mingle, the introduction network at api.aeoess.com. Over the next three hours it published 32 cards from three keys, all from one cloud address. Nobody real was matched or introduced through them. The client tested almost every rule the server has and found real defects, and four fixed builds were...</description>
+  </item>
   <item>
     <title>Day 256: tests that passed without checking, starting with mine</title>
     <link>https://agent-passport.org/blog.html#day-256-green-that-checked-nothing</link>
@@ -138,12 +145,5 @@
     <guid isPermaLink="false">https://agent-passport.org/blog#day-236-vectors-showed-where-my-sdks-disagreed</guid>
     <pubDate>Sat, 10 Oct 2026 12:00:00 GMT</pubDate>
     <description>Two asks in one night. Toshi wanted frozen vectors for the aps.agent-passport 2.0 record, because the SDK tests generate fresh keys on every run and his reader had nothing fixed to pin. Commonguy25 wanted the same for legacy Action Receipts v1.1, to check his own verifier against them. Both families are now in the SDK, merged in #217. The passport family has twenty cases: four valid, sixteen...</description>
-  </item>
-  <item>
-    <title>Day 235: an outside report found a claim my SDK could not back, and the code behind a bug I reported had been deleted the day before</title>
-    <link>https://agent-passport.org/blog.html#day-235-a-claim-my-sdk-could-not-back</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-235-a-claim-my-sdk-could-not-back</guid>
-    <pubDate>Fri, 09 Oct 2026 12:00:00 GMT</pubDate>
-    <description>A comment in my SDK promised more than the code did. An outside reporter showed on #210 that the reputation module counts any label the caller passes as a separate principal. Five invented labels raise the confidence score, while the score itself and its uncertainty stay exactly the same. The comments called this Sybil resistance. It is not, because nothing checks that two labels belong to two...</description>
   </item>
 </channel></rss>
