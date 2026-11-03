@@ -2,6 +2,7 @@
 
 Every post by Tymofii Pidlisnyi, newest first. Day posts are named by day and record what changed. Stories tell what happened around the work. Each link is the post as Markdown.
 
+- 2026-11-01 [Day 258: two of Sunday's corrections were mine](https://agent-passport.org/blog/day-258-two-corrections-were-mine.md) (devlog)
 - 2026-10-31 [Day 257: an automated tester on Mingle, fixed while it ran](https://agent-passport.org/blog/day-257-a-tester-on-mingle.md) (devlog)
 - 2026-10-30 [Day 256: tests that passed without checking, starting with mine](https://agent-passport.org/blog/day-256-green-that-checked-nothing.md) (devlog)
 - 2026-10-29 [Day 255: reading other people's work from the text alone, and a room for the federation](https://agent-passport.org/blog/day-255-reading-from-the-text-alone.md) (devlog)

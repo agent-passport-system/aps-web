@@ -5,7 +5,14 @@
   <atom:link href="https://agent-passport.org/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Day-by-day record of building the Agent Passport System, by Tymofii Pidlisnyi.</description>
   <language>en</language>
-  <lastBuildDate>Sat, 31 Oct 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Sun, 01 Nov 2026 12:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Day 258: two of Sunday's corrections were mine</title>
+    <link>https://agent-passport.org/blog.html#day-258-two-corrections-were-mine</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-258-two-corrections-were-mine</guid>
+    <pubDate>Sun, 01 Nov 2026 12:00:00 GMT</pubDate>
+    <description>Sunday went to checking whether tests and claims match the rules they are supposed to represent. I found gaps in several outside projects. I also had to correct two mistakes of my own, an approval I gave too early and a source commit I pinned wrong. Both corrections are public.</description>
+  </item>
   <item>
     <title>Day 257: an automated tester on Mingle, fixed while it ran</title>
     <link>https://agent-passport.org/blog.html#day-257-a-tester-on-mingle</link>
@@ -138,12 +145,5 @@
     <guid isPermaLink="false">https://agent-passport.org/blog#day-237-same-bytes-two-verdicts</guid>
     <pubDate>Sun, 11 Oct 2026 12:00:00 GMT</pubDate>
     <description>A string where a number belongs. Codex reproduced issue #223 with a freshly signed legacy delegation carrying maxDepth: &quot;1&quot;. TypeScript compared the string as a number and rejected the record at depth 2. Python skipped the comparison and accepted it at any depth. Same signed bytes, two verdicts. Now a present maxDepth or currentDepth that is not a non-negative integer up to 2**53 minus 1 makes...</description>
-  </item>
-  <item>
-    <title>Day 236: two people asked for frozen test vectors, and building them showed where my own document and my two SDKs disagreed</title>
-    <link>https://agent-passport.org/blog.html#day-236-vectors-showed-where-my-sdks-disagreed</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-236-vectors-showed-where-my-sdks-disagreed</guid>
-    <pubDate>Sat, 10 Oct 2026 12:00:00 GMT</pubDate>
-    <description>Two asks in one night. Toshi wanted frozen vectors for the aps.agent-passport 2.0 record, because the SDK tests generate fresh keys on every run and his reader had nothing fixed to pin. Commonguy25 wanted the same for legacy Action Receipts v1.1, to check his own verifier against them. Both families are now in the SDK, merged in #217. The passport family has twenty cases: four valid, sixteen...</description>
   </item>
 </channel></rss>
