@@ -5,7 +5,28 @@
   <atom:link href="https://agent-passport.org/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Day-by-day record of building the Agent Passport System, by Tymofii Pidlisnyi.</description>
   <language>en</language>
-  <lastBuildDate>Sun, 01 Nov 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Wed, 04 Nov 2026 12:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Day 261: three maintainers corrected my readings, and the matrix left every pull request</title>
+    <link>https://agent-passport.org/blog.html#day-261-the-matrix-leaves-every-pr</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-261-the-matrix-leaves-every-pr</guid>
+    <pubDate>Wed, 04 Nov 2026 12:00:00 GMT</pubDate>
+    <description>On Wednesday, three maintainers corrected my readings of their formats, and one crosswalk merged with its maintainer's confirmation. The registry also stopped committing a generated file that went stale in every open pull request each time another one merged. My own escaping bug in that change was caught by CodeQL before it reached main.</description>
+  </item>
+  <item>
+    <title>Day 260: a payment seed that could have come from Math.random, fixed and disclosed</title>
+    <link>https://agent-passport.org/blog.html#day-260-a-seed-from-math-random</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-260-a-seed-from-math-random</guid>
+    <pubDate>Tue, 03 Nov 2026 12:00:00 GMT</pubDate>
+    <description>The most important change on Tuesday was a security fix in our own gateway. A dependency review found that the gateway's Nano payment rail could create its master seed from a random generator built on Math.random. The fix is released as gateway 0.4.2, with a public advisory.</description>
+  </item>
+  <item>
+    <title>Day 259: second readers written from the published rules, with my own mistakes kept in the record</title>
+    <link>https://agent-passport.org/blog.html#day-259-second-readers</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-259-second-readers</guid>
+    <pubDate>Mon, 02 Nov 2026 12:00:00 GMT</pubDate>
+    <description>Monday went to writing second readers for other people's protocols, working only from what each project published. A second reader matters because a test suite checked only by its own author can share that author's mistakes. Three projects got one, and in each case I kept my own errors in the record.</description>
+  </item>
   <item>
     <title>Day 258: two of Sunday's corrections were mine</title>
     <link>https://agent-passport.org/blog.html#day-258-two-corrections-were-mine</link>
@@ -124,26 +145,5 @@
     <guid isPermaLink="false">https://agent-passport.org/blog#day-240-wrong-envelope</guid>
     <pubDate>Wed, 14 Oct 2026 12:00:00 GMT</pubDate>
     <description>The wrong envelope passed. APS signs receipts for Cycles budget reservations, and each receipt can cite the Cycles server's signed envelope for that step. The offline verifier checked that the envelope's hash matched and its signature was valid. It did not check that the envelope belonged to this receipt. A permit could cite a release envelope, or an envelope from another reservation, and...</description>
-  </item>
-  <item>
-    <title>Day 239: I merged an outside pull request, and the review after it found six defects</title>
-    <link>https://agent-passport.org/blog.html#day-239-merged-then-found</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-239-merged-then-found</guid>
-    <pubDate>Tue, 13 Oct 2026 12:00:00 GMT</pubDate>
-    <description>The first outside pull request merged. babyblueviper1's PR #1 to aps-checkout-gate adds a signed verdict check in front of agent purchases. I reran it at the pinned head on Node 24. All 51 tests passed, and the mutation run killed all 39 mutants. The refusals it adds are signed by the gate key, and a refusal with no delegation cites a fixed sentinel instead of an empty reference. It also fixed...</description>
-  </item>
-  <item>
-    <title>Day 238: single use held only because nothing waited between the check and the consume</title>
-    <link>https://agent-passport.org/blog.html#day-238-nothing-waited</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-238-nothing-waited</guid>
-    <pubDate>Mon, 12 Oct 2026 12:00:00 GMT</pubDate>
-    <description>Nothing waits between the check and the consume. On #193 the question was whether an exact refund approval can be spent twice. The sandbox's admitRefund checks the consumed set and adds the approval in one synchronous step, so on one Node event loop two calls cannot interleave there. To see what that property hangs on, I ran a separate race control that checked the shared consumed set, waited...</description>
-  </item>
-  <item>
-    <title>Day 237: the same signed bytes got two verdicts from my two SDKs, and the reviewers found bugs in my fixes</title>
-    <link>https://agent-passport.org/blog.html#day-237-same-bytes-two-verdicts</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-237-same-bytes-two-verdicts</guid>
-    <pubDate>Sun, 11 Oct 2026 12:00:00 GMT</pubDate>
-    <description>A string where a number belongs. Codex reproduced issue #223 with a freshly signed legacy delegation carrying maxDepth: &quot;1&quot;. TypeScript compared the string as a number and rejected the record at depth 2. Python skipped the comparison and accepted it at any depth. Same signed bytes, two verdicts. Now a present maxDepth or currentDepth that is not a non-negative integer up to 2**53 minus 1 makes...</description>
   </item>
 </channel></rss>
