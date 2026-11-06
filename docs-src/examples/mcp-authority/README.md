@@ -1,6 +1,6 @@
 # MCP authority example
 
-Drives `agent-passport-system-mcp` 8.1.0 over stdio from an MCP client: tool counts for the default and `essential` profiles, the `commerce_preflight` migration notice, then `identify`, `issue_authority_delegation`, `check_authority_delegation`, `revoke_delegation`, `check_authority_delegation`, a refused revoke of a legacy delegation, a check after a restart, and a refused issue in remote mode.
+Drives `agent-passport-system-mcp` 8.1.1 over stdio from an MCP client: tool counts for the default and `essential` profiles, the `commerce_preflight` migration notice, then `identify`, `issue_authority_delegation`, `check_authority_delegation`, `revoke_delegation`, `check_authority_delegation`, a refused revoke of a legacy delegation, a check after a restart, and a refused issue in remote mode.
 
 ```bash
 npm install

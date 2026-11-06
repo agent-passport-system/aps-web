@@ -1,7 +1,7 @@
 // Copyright (c) 2026 Tymofii Pidlisnyi
 // SPDX-License-Identifier: Apache-2.0
 //
-// Drives agent-passport-system-mcp 8.1.0 over stdio from an MCP client: tool counts per
+// Drives agent-passport-system-mcp 8.1.1 over stdio from an MCP client: tool counts per
 // profile, the commerce_preflight migration notice, then the current authority sequence
 // identify, issue_authority_delegation, check_authority_delegation, revoke_delegation,
 // check_authority_delegation, then a legacy revoke, a restart and a remote-mode issue.
