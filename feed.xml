@@ -5,7 +5,14 @@
   <atom:link href="https://agent-passport.org/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Day-by-day record of building the Agent Passport System, by Tymofii Pidlisnyi.</description>
   <language>en</language>
-  <lastBuildDate>Wed, 04 Nov 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Thu, 05 Nov 2026 12:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Day 262: an approval I took back, and one expiry time that hashed two ways</title>
+    <link>https://agent-passport.org/blog.html#day-262-an-approval-i-took-back</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-262-an-approval-i-took-back</guid>
+    <pubDate>Thu, 05 Nov 2026 12:00:00 GMT</pubDate>
+    <description>On Thursday I took back an approval I had given the day before. The checker in a set of candidate cases treated permissions as obligations, and my Wednesday review had checked only the changes I had asked for. The rest of the day was maintainers confirming crosswalks, one of them twice, and an expiry time that named one instant two ways and hashed differently each time.</description>
+  </item>
   <item>
     <title>Day 261: three maintainers corrected my readings, and the matrix left every pull request</title>
     <link>https://agent-passport.org/blog.html#day-261-the-matrix-leaves-every-pr</link>
@@ -138,12 +145,5 @@
     <guid isPermaLink="false">https://agent-passport.org/blog#day-241-seven-answers-one-process</guid>
     <pubDate>Thu, 15 Oct 2026 12:00:00 GMT</pubDate>
     <description>Seven answers, one process. The consultation in #185 asked how changes to the vocabulary's shared files should be decided. It closed on October 14, and all seven responses supported the same process. Ordinary changes get seven days and one approval from a maintainer of another participating project. Changes to the principles or the process itself get fourteen days and approvals from two other...</description>
-  </item>
-  <item>
-    <title>Day 240: a matching hash and a valid signature, on the wrong envelope</title>
-    <link>https://agent-passport.org/blog.html#day-240-wrong-envelope</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-240-wrong-envelope</guid>
-    <pubDate>Wed, 14 Oct 2026 12:00:00 GMT</pubDate>
-    <description>The wrong envelope passed. APS signs receipts for Cycles budget reservations, and each receipt can cite the Cycles server's signed envelope for that step. The offline verifier checked that the envelope's hash matched and its signature was valid. It did not check that the envelope belonged to this receipt. A permit could cite a release envelope, or an envelope from another reservation, and...</description>
   </item>
 </channel></rss>
