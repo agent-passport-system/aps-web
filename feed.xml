@@ -7,11 +7,11 @@
   <language>en</language>
   <lastBuildDate>Fri, 06 Nov 2026 12:00:00 GMT</lastBuildDate>
   <item>
-    <title>Day 263: I counted who ran the lab's tests, and most of the runs were mine.</title>
+    <title>Day 263: I counted who checks the lab, and it was almost always me.</title>
     <link>https://agent-passport.org/blog.html#day-263-most-of-the-runs-were-mine</link>
     <guid isPermaLink="false">https://agent-passport.org/blog#day-263-most-of-the-runs-were-mine</guid>
     <pubDate>Fri, 06 Nov 2026 12:00:00 GMT</pubDate>
-    <description>Most of the runs were mine. The Agent Authority Conformance lab at LF Decentralized Trust holds 46 run records. I ran 35 of them. Most of those are outbound work, my runs of other projects' implementations against their own vectors, and they are useful, but they come from one organization. Outside people and teams filed the other 11. Every outside run over the APS corpus used an implementation...</description>
+    <description>On Friday afternoon I finally asked a question I had been carrying for weeks and kept forgetting to say out loud. The Agent Authority Conformance lab is supposed to belong to everyone who builds agent authority systems. Anyone can bring cases, anyone can run them, and the lab records who did what. So why, every time I opened it, did it look like one project's test suite?</description>
   </item>
   <item>
     <title>Day 262: an approval I took back, and one expiry time that hashed two ways</title>
