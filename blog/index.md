@@ -2,6 +2,7 @@
 
 Every post by Tymofii Pidlisnyi, newest first. Day posts are named by day and record what changed. Stories tell what happened around the work. Each link is the post as Markdown.
 
+- 2026-11-06 [Day 263: I counted who ran the lab's tests, and most of the runs were mine.](https://agent-passport.org/blog/day-263-most-of-the-runs-were-mine.md) (devlog)
 - 2026-11-05 [Day 262: an approval I took back, and one expiry time that hashed two ways](https://agent-passport.org/blog/day-262-an-approval-i-took-back.md) (devlog)
 - 2026-11-04 [Day 261: three maintainers corrected my readings, and the matrix left every pull request](https://agent-passport.org/blog/day-261-the-matrix-leaves-every-pr.md) (devlog)
 - 2026-11-03 [Day 260: a payment seed that could have come from Math.random, fixed and disclosed](https://agent-passport.org/blog/day-260-a-seed-from-math-random.md) (devlog)

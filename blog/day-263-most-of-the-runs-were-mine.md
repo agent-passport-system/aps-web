@@ -1,0 +1,26 @@
+---
+id: "day-263-most-of-the-runs-were-mine"
+title: "Day 263: I counted who ran the lab's tests, and most of the runs were mine."
+date: "2026-11-06"
+kind: "devlog"
+source: "html"
+author: "Tymofii Pidlisnyi"
+---
+
+# Day 263: I counted who ran the lab's tests, and most of the runs were mine.
+
+![Anime illustration of an old public library reading room at dusk, tall shelves, green reading lamps and a big arched window with the first city lights outside. A bald man in a white short-sleeve shirt steps down from a tall wooden librarian's chair and sets a second, identical chair beside it. On the desk lies an open ledger of tally marks, almost all in one ink color, with a few in other colors near the bottom. A small teal robot studies the ledger through a magnifying glass, and a small orange robot carries in a blank brass nameplate for the new chair. A gray cat sleeps on a stack of books, and a ginger cat in black sunglasses sits on top of a bookcase holding a smiling yellow star.](/assets/images/blog/day-263-most-of-the-runs-were-mine.webp)
+
+**Most of the runs were mine.** The Agent Authority Conformance lab at LF Decentralized Trust holds 46 run records. I ran 35 of them. Most of those are outbound work, my runs of other projects' implementations against their own vectors, and they are useful, but they come from one organization. Outside people and teams filed the other 11. Every outside run over the APS corpus used an implementation the runner wrote, so each one is author-produced, and nobody outside APS has filed a fully independent run of the APS corpus yet. The only fully independent record an outside organization filed is Lee's run of the MolTrust AAE vectors from Aicent. This was a first pass over what each record states, not a re-audit, and it says nothing about whether the runs are right. It says who checked whom.
+
+**So the question became who decides.** I ran a multi-model cross review with Claude, GPT and Codex on how the lab should be structured. The part that survived is to keep the repository's APS name for now, because the conformance fixtures in it really are APS, and a neutral name over them would claim a neutrality the bytes don't have. Make the front door neutral instead. The lab's GitHub page now has a section on whose work is in the lab, and a project can propose listing a suite it keeps in its own repository. The suite and its maintenance stay with the project.
+
+**Two invitations went out.** I opened an interop issue in TRACE (agentrust-io/trace-spec#657) to list the TRACE Conformance Test Suite in the lab, pinned and run there while it stays in trace-spec, and a discussion in Bernstein (#6902) to list its TRACE conformance corpus the same way. Bernstein produces TRACE records, so the two together would give the lab its first row and column that are not APS. Neither has answered yet, and a listing would certify nothing. I changed one phrase in the Bernstein post before it went up. I had written "independent reproduction", but I have commits in Bernstein, so a run of mine over that code could be author-produced. It now says reproduction by people outside Bernstein.
+
+**The governance proposal is held.** I drafted a proposal for family owners, independence judged by organization, and a limit on my own decisions about APS cases, with a checker and six passing tests. Review found that adding organization to the existing independent label changes what the label means, and found three gaps in the checker that the passing tests never exercised. It goes back for rework, keeping the published authorship definition and recording organization as a separate field. The tests showed the code did what I wrote. They did not show that what I wrote was the right rule.
+
+**Agent-DID, and a boundary I first got wrong.** Edison Duran offered a joint case family pairing Agent-DID's did:webvh keys with APS delegations, with five cases including a key rotated out before signing and a key listed only under keyAgreement. My first draft said APS would accept the keyAgreement-only key. That went beyond the code. The AuthorityDelegationV1 chain verifier asks a caller-supplied resolver for the issuer's key and never sees the DID document, so what it accepts depends on the resolver. The reply I posted says that, and asks which relationship Agent-DID requires, so the DID authorization result and the APS chain result stay separate.
+
+**The vocabulary starts moving out of my account.** PR #247 puts the migration plan for moving the agent governance vocabulary into its own organization, nosai-federation, up for 14 days of review. Six projects have said they support the move. I stay the only owner at transfer, and three people offered to help maintain. My first draft of the plan warned that a required check had no known source. It comes from the repository's own drift workflow. I had read five of the six workflow files.
+
+**Smaller things.** A paper on authorization propagation in Agent2Agent systems by G. Donno, K. Mehmood and K. Kralevska (arXiv:2611.07050) compares APS with other multi-hop approaches, cites draft-pidlisnyi-aps-03, and is now on the research page. The four Dependabot alerts on this site's example code are fixed.
