@@ -5,7 +5,49 @@
   <atom:link href="https://agent-passport.org/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Day-by-day record of building the Agent Passport System, by Tymofii Pidlisnyi.</description>
   <language>en</language>
-  <lastBuildDate>Fri, 06 Nov 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Thu, 12 Nov 2026 12:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Day 269: three people sent attacks to the harness, and I read each one before letting CI run it</title>
+    <link>https://agent-passport.org/blog.html#day-269-three-attacks-in-a-day</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-269-three-attacks-in-a-day</guid>
+    <pubDate>Thu, 12 Nov 2026 12:00:00 GMT</pubDate>
+    <description>The attack harness had been public for less than a day when the first outside pull request arrived. By evening there were three.</description>
+  </item>
+  <item>
+    <title>Day 268: the demo I built to show a spending limit found a $100 grant that could spend $130</title>
+    <link>https://agent-passport.org/blog.html#day-268-a-100-grant-that-spent-130</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-268-a-100-grant-that-spent-130</guid>
+    <pubDate>Wed, 11 Nov 2026 12:00:00 GMT</pubDate>
+    <description>Wednesday started with a look at my own SDK. The last release was 8.0.1, on October 15. Since late October nearly all of my time had gone into other projects, their crosswalks, their lab records, their test runs. All useful, and none of it APS. So APS became the priority again. My first plan was a test suite of payment limits. A review turned it into something better, a gateway demonstration...</description>
+  </item>
+  <item>
+    <title>Day 267: twice a reviewer caught me describing a delegation from the wrong side</title>
+    <link>https://agent-passport.org/blog.html#day-267-what-the-parent-may-delegate</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-267-what-the-parent-may-delegate</guid>
+    <pubDate>Tue, 10 Nov 2026 12:00:00 GMT</pubDate>
+    <description>Tuesday was a day of replies, and two of them almost said something wrong in the same way.</description>
+  </item>
+  <item>
+    <title>Day 266: I ran another project's test suite, most of it had nothing to say about APS, and the maintainer wrote the row himself</title>
+    <link>https://agent-passport.org/blog.html#day-266-most-cases-had-nothing-to-say</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-266-most-cases-had-nothing-to-say</guid>
+    <pubDate>Mon, 09 Nov 2026 12:00:00 GMT</pubDate>
+    <description>On Monday I took the published test vectors for Attenuating Agent Tokens and ran them against the APS SDK. AAT is an IETF draft from the people behind Tenuo, for agent tokens that can only narrow as they're passed along. Their suite has 229 vectors, each a chain of signed tokens with an expected PERMIT or DENY. APS doesn't implement AAT. It has its own delegation records. So the question was...</description>
+  </item>
+  <item>
+    <title>Day 265: I signed as a witness for someone else's ledger, then signed it again over two semicolons</title>
+    <link>https://agent-passport.org/blog.html#day-265-a-witness-for-someone-elses-ledger</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-265-a-witness-for-someone-elses-ledger</guid>
+    <pubDate>Sun, 08 Nov 2026 12:00:00 GMT</pubDate>
+    <description>Toshikatsu Oga runs HORIZON SHIELD, and its content check runner signs a record of every day's checks. On horizon-shield #75 he asked for witnesses for the FURUI day record of November 6, people who would recompute it from public endpoints and sign what they got with a key served from their own domain. I had told him yes on November 6, and on Sunday I did it.</description>
+  </item>
+  <item>
+    <title>Day 264: I answered a lab question with another draft's list of reasons, and the reviewer's copy went out instead</title>
+    <link>https://agent-passport.org/blog.html#day-264-another-drafts-list-of-reasons</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-264-another-drafts-list-of-reasons</guid>
+    <pubDate>Sat, 07 Nov 2026 12:00:00 GMT</pubDate>
+    <description>On Saturday evening Larry Lewis asked the lab a question I thought I could answer in a few minutes. Larry chairs the W3C Agent Trust Protocol Community Group. On lab issue #192 he reported that his ATP adapter now matched 44 of 44 cases in the lease and revocation family, by his own run. Then he asked two things about a call made before a grant's notBefore time, the moment the grant starts to...</description>
+  </item>
   <item>
     <title>Day 263: I counted who checks the lab, and it was almost always me.</title>
     <link>https://agent-passport.org/blog.html#day-263-most-of-the-runs-were-mine</link>
@@ -103,47 +145,5 @@
     <guid isPermaLink="false">https://agent-passport.org/blog#day-248-revocation-family-held-back</guid>
     <pubDate>Thu, 22 Oct 2026 12:00:00 GMT</pubDate>
     <description>The revocation family, opened as a candidate. On the W3C list, Lee and I had agreed on a small experiment. Evidence is issued at T=0 and expires at T=120 seconds, grant g1 is revoked at T=10 seconds, and calls come at 30, 60 and 119 seconds, with a variant where the revocation source is unavailable. Today it went up as PR #180 in the conformance suite. It scores three axes separately, which...</description>
-  </item>
-  <item>
-    <title>Day 247: two paid calls, one budget refusal, and a run stopped between B and C</title>
-    <link>https://agent-passport.org/blog.html#day-247-two-calls-one-refusal</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-247-two-calls-one-refusal</guid>
-    <pubDate>Wed, 21 Oct 2026 12:00:00 GMT</pubDate>
-    <description>The hs51 run. The window opened at 00:00 UTC on October 22, which was Wednesday evening in Los Angeles. Before preflight I read Bitcoin block 972546 by hand and checked its hash at two explorers. Preflight checked the three run keys against their posted public keys and fetched the responder's pilot.json. Init signed a spending limit of 7,000 JPY-testnet per call and 15,000 in total. Then the...</description>
-  </item>
-  <item>
-    <title>Day 246: a non-execution statement that could be followed by a receipt, fixed before the first payment</title>
-    <link>https://agent-passport.org/blog.html#day-246-statement-then-receipt</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-246-statement-then-receipt</guid>
-    <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-    <description>The race in the pilot worker. On horizon-shield #51 I reported a race in the pilot worker at cfe64331. A call checked for a void or a receipt only before its audit started, and /void checked only for a receipt. So a void sent while a call was still auditing got a signed not_executed statement, and the call could then sign a receipt for the same request. Toshi confirmed it from the code within...</description>
-  </item>
-  <item>
-    <title>Day 245: four receipts that failed their own verifier, and a lost-call rule agreed before the first payment</title>
-    <link>https://agent-passport.org/blog.html#day-245-failed-their-own-verifier</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-245-failed-their-own-verifier</guid>
-    <pubDate>Mon, 19 Oct 2026 12:00:00 GMT</pubDate>
-    <description>Receipts that failed their own verifier. KVRM submitted a crosswalk to the vocabulary in #210. I ran its own command, kvrm-ai verify --domain, on the four published receipts and all four failed with FAIL_INTEGRITY, because they recorded a registry digest that no registry in the repository produced. My review asked for six more changes. The gate and the MCP gateway only decide and the caller...</description>
-  </item>
-  <item>
-    <title>The federation, three weeks in: twenty projects on one map, a common port, and a pilot on ourselves</title>
-    <link>https://agent-passport.org/blog.html#the-federation-three-weeks-in</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#the-federation-three-weeks-in</guid>
-    <pubDate>Sun, 18 Oct 2026 12:00:00 GMT</pubDate>
-    <description>The dev logs on this page say what changed in the code. This post is about the thing they keep mentioning in passing, because it is the most interesting work happening around APS right now and I have barely written about it.</description>
-  </item>
-  <item>
-    <title>Day 243: a tool that signed verified without checking, and a payer that could pay twice for one call</title>
-    <link>https://agent-passport.org/blog.html#day-243-signed-without-checking</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-243-signed-without-checking</guid>
-    <pubDate>Sat, 17 Oct 2026 12:00:00 GMT</pubDate>
-    <description>A receipt that said verified without checking. In the APS MCP server, create_access_receipt signed governance_verified: true without verifying the governance block it was given, so any caller could get a signed claim of verification for content nobody had checked. In 8.0.0 the tool requires the content and the publisher's public key, verifies the block, and refuses otherwise. Two other tools...</description>
-  </item>
-  <item>
-    <title>Day 242: a read-only setting the client could switch off, and a second implementation that matched 76 of 76</title>
-    <link>https://agent-passport.org/blog.html#day-242-the-database-refuses</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-242-the-database-refuses</guid>
-    <pubDate>Fri, 16 Oct 2026 12:00:00 GMT</pubDate>
-    <description>The label is policy, the database is the boundary. mcp-clickhouse v0.7.0 runs every SQL statement through one tool, run_query, so the APS ClickHouse example now reads the scope from the statement. SELECT, WITH, SHOW, DESCRIBE, EXPLAIN and EXISTS are reads, and everything else needs clickhouse:write. That check reads one keyword, so it cannot be the boundary. My first version leaned on...</description>
   </item>
 </channel></rss>

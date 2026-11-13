@@ -2,6 +2,12 @@
 
 Every post by Tymofii Pidlisnyi, newest first. Day posts are named by day and record what changed. Stories tell what happened around the work. Each link is the post as Markdown.
 
+- 2026-11-12 [Day 269: three people sent attacks to the harness, and I read each one before letting CI run it](https://agent-passport.org/blog/day-269-three-attacks-in-a-day.md) (devlog)
+- 2026-11-11 [Day 268: the demo I built to show a spending limit found a $100 grant that could spend $130](https://agent-passport.org/blog/day-268-a-100-grant-that-spent-130.md) (devlog)
+- 2026-11-10 [Day 267: twice a reviewer caught me describing a delegation from the wrong side](https://agent-passport.org/blog/day-267-what-the-parent-may-delegate.md) (devlog)
+- 2026-11-09 [Day 266: I ran another project's test suite, most of it had nothing to say about APS, and the maintainer wrote the row himself](https://agent-passport.org/blog/day-266-most-cases-had-nothing-to-say.md) (devlog)
+- 2026-11-08 [Day 265: I signed as a witness for someone else's ledger, then signed it again over two semicolons](https://agent-passport.org/blog/day-265-a-witness-for-someone-elses-ledger.md) (devlog)
+- 2026-11-07 [Day 264: I answered a lab question with another draft's list of reasons, and the reviewer's copy went out instead](https://agent-passport.org/blog/day-264-another-drafts-list-of-reasons.md) (devlog)
 - 2026-11-06 [Day 263: I counted who checks the lab, and it was almost always me.](https://agent-passport.org/blog/day-263-most-of-the-runs-were-mine.md) (devlog)
 - 2026-11-05 [Day 262: an approval I took back, and one expiry time that hashed two ways](https://agent-passport.org/blog/day-262-an-approval-i-took-back.md) (devlog)
 - 2026-11-04 [Day 261: three maintainers corrected my readings, and the matrix left every pull request](https://agent-passport.org/blog/day-261-the-matrix-leaves-every-pr.md) (devlog)
