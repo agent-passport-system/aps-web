@@ -373,7 +373,7 @@ html[data-theme="bright"]:has(main.page) main .pr .lt-cta a:hover{transform:tran
       <p>Records are canonical JSON signed with Ed25519.</p>
     </details>
 
-    <details class="pr-dd"><summary>The older Delegation API</summary>
+    <details class="pr-dd" id="erratum-2026-08-17"><summary>The older Delegation API</summary>
       <p>The SDKs still ship an older <code>Delegation</code> record for compatibility, and it is not the same as <code>AuthorityDelegationV1</code>. An erratum of 2026-08-17 noted that the verifiers compared spend and depth only when both parent and child carried the field. <code>AuthorityDelegationV1</code> closes that gap because all seven limits are required and every one is compared, including containment of the validity window. The older <code>Delegation</code> API still compares an optional field only when it is present, so new integrations should use <code>AuthorityDelegationV1</code>. The <a href="/docs/authority/">authority documentation</a> describes both.</p>
     </details>
 
