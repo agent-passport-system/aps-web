@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Agent Compliance Evidence Mapping | Agent Passport System</title>
+<meta name="description" content="Which signed records APS produces for audit questions about AI agents, mapped to the EU AI Act, NIST AI RMF, ISO/IEC 42001 and SOC 2. Evidence, not certification.">
+<link rel="canonical" href="https://agent-passport.org/compliance.html">
+<meta property="og:title" content="AI Agent Compliance Evidence Mapping | Agent Passport System">
+<meta property="og:description" content="Which signed records APS produces for audit questions about AI agents, mapped to the EU AI Act, NIST AI RMF, ISO/IEC 42001 and SOC 2. Evidence, not certification.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Agent Passport System">
+<meta property="og:url" content="https://agent-passport.org/compliance.html">
+<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://agent-passport.org/assets/images/og-2026-10.png">
+<meta name="twitter:image" content="https://agent-passport.org/assets/images/og-2026-10.png">
+<link rel="icon" href="/favicon.ico?v=3" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="stylesheet" href="/aps-v2.css?v=20261030a">
+<style>
+.av-summary{display:flex;gap:18px;flex-wrap:wrap;margin:0 0 26px}
+.av-badge{border:1px solid var(--fg);background:var(--panel);padding:16px 28px;display:flex;flex-direction:column;align-items:center;min-width:130px}
+.av-badge .count{font-family:var(--disp);font-size:42px;line-height:1;font-weight:500}
+.av-badge .label{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--sub);margin-top:6px}
+.av-badge.strong .count{color:var(--ok3)}
+.av-badge.partial .count{color:var(--warn)}
+.av-badge.weak .count{color:var(--lime)}
+.av-disclaimer{border-left:2px solid var(--lime);background:var(--panel);padding:16px 22px;margin:0 0 30px}
+.av-disclaimer p{margin:0}
+.av-card-h{font-family:var(--disp);font-size:20px;font-weight:600;letter-spacing:-0.01em;margin:0 0 8px;display:flex;align-items:baseline;gap:10px}
+.av-num{font-family:var(--mono);font-size:12px;color:var(--lime);font-weight:500}
+.av-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.av-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:0.04em;padding:3px 9px;border:1px solid var(--line);background:var(--panel2)}
+.av-tag.inv{color:var(--warn);border-color:var(--warn)}
+.av-gap{margin-top:12px;padding:10px 14px;font-family:"Inter",sans-serif;font-size:13.5px;line-height:1.5;border:1px solid var(--line)}
+.av-gap.partial{background:var(--tint-warn)}
+.av-gap.weak{background:var(--tint-alert)}
+.av-paperlink{border:1px solid var(--fg);padding:24px;text-align:center;margin:36px 0 0}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Compliance evidence for AI agents", "description": "Which signed records APS produces for audit questions about AI agents, mapped to the EU AI Act, NIST AI RMF, ISO/IEC 42001 and SOC 2. Evidence, not certification.", "dateModified": "2026-11-13", "author": {"@type": "Person", "name": "Tymofii Pidlisnyi"}, "publisher": {"@type": "Organization", "name": "Agent Passport System", "url": "https://agent-passport.org/"}, "mainEntityOfPage": "https://agent-passport.org/compliance.html"}</script>
+<script src="/nav.js?v=20260907a" defer></script>
+<meta name="theme-color" content="#0A5CFF">
+<script src="/gh-stars.js" defer></script>
+</head>
+<body>
+<div class="bg-glow"></div>
+<header class="nav">
+  <div class="brand">
+    <a href="/"><span class="sq"></span>APS <span style="color:var(--sub)">· Agent Passport System</span></a>
+    <span class="badge"><i></i>Apache 2.0</span>
+  </div>
+  <nav class="nav-links">
+    <a href="/docs/">Docs</a>
+    <a href="protocol.html">Protocol</a>
+    <a href="benchmarks.html">Benchmarks</a>
+    <a href="research.html">Research</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+    <a class="gh" href="https://github.com/agent-passport-system/agent-passport-system">GitHub ↗</a>
+    <a class="gh-star" href="https://github.com/agent-passport-system/agent-passport-system" target="_blank" rel="noopener" aria-label="Star on GitHub"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"></path></svg><span id="ghStarCount">star</span></a>
+  </nav>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button>
+</header>
+
+<!-- MOBILE DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="drawer-scrim" id="drawerScrim"></div>
+  <aside class="drawer-panel" aria-label="Menu">
+    <div class="drawer-head">
+      <span class="badge"><i></i>Apache 2.0</span>
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
+    </div>
+    <a class="dl" href="/docs/">Docs</a>
+    <a class="dl" href="https://agent-passport.org/protocol.html">Protocol</a>
+    <a class="dl" href="https://agent-passport.org/benchmarks.html">Benchmarks</a>
+    <a class="dl" href="https://agent-passport.org/research.html">Research</a>
+    <a class="dl" href="https://agent-passport.org/blog.html">Blog</a>
+    <a class="dl" href="https://agent-passport.org/contact.html">Contact</a>
+    <a class="gh-big" href="https://github.com/agent-passport-system/agent-passport-system">GitHub ↗</a>
+  </aside>
+</div>
+<main class="page">
+  <section class="page-hero">
+    <div class="eyebrow"><span class="sq"></span><span>Compliance Mapping</span></div>
+    <h1>Compliance evidence for AI agents</h1>
+    <p class="dek">Enterprise teams evaluating AI agents need evidence of authorization, policy enforcement and recorded decisions. This page maps what an auditor asks to the signed records APS produces, and says what each record does not show.</p>
+  </section>
+  <article class="prose">
+
+    <div class="av-disclaimer">
+      <p><strong>What this page is and is not.</strong> The Agent Passport System (APS) does not make a system compliant and does not certify anything. Compliance belongs to the organization and its auditors. APS produces signed records that an organization can use as evidence. Whether a rule applies to a given system is a legal question for that organization. Nothing here is legal advice.</p>
+    </div>
+
+    <h2 class="no-rule">What an auditor asks, and what APS produces</h2>
+    <div class="aps-card">
+      <div class="av-card-h">Who is this agent, and who answers for it?</div>
+      <p>An agent passport is a self-signed identity record for one agent. A separately signed principal binding names the person or organization the agent acts for.</p>
+      <p><strong>What it does not show.</strong> That the named principal is a verified legal entity. The deployment has to check that itself.</p>
+    </div>
+    <div class="aps-card">
+      <div class="av-card-h">What was the agent allowed to do?</div>
+      <p>A delegation chain records the scope, the spending limit and the time window the agent received. Authority can only narrow each time it is passed on. A verifier rejects a chain in which a sub-agent holds more than its parent.</p>
+      <p><strong>What it does not show.</strong> Whether the grant itself was a good decision. That is the organization's policy.</p>
+    </div>
+    <div class="aps-card">
+      <div class="av-card-h">Was the action checked before it ran?</div>
+      <p>The gateway checks the agent's delegated authority before the action runs and signs its decision, whether it permits or refuses.</p>
+      <p><strong>What it does not show.</strong> Anything about actions that never pass through the gateway. A decision is enforced only where the gateway sits in the path of the action.</p>
+    </div>
+    <div class="aps-card">
+      <div class="av-card-h">What did the agent do, and can the record be changed afterwards?</div>
+      <p>Each decision produces a signed receipt. Changing a receipt after the fact breaks its signature, and anyone can check that with the published verifier or in the <a href="/verify.html">browser inspector</a>.</p>
+      <p><strong>What it does not show.</strong> That the outside effect happened. A receipt records the request and the decision. Evidence of the real outcome comes from the system that carried out the action.</p>
+    </div>
+    <div class="aps-card">
+      <div class="av-card-h">Can a person stop it?</div>
+      <p>Revoking a delegation also revokes every delegation derived from it, and the revocation is itself a signed record. Once the gateway has the revocation, its next check refuses the agent.</p>
+      <p><strong>What it does not show.</strong> The quality of human review, an action that already ran before the revocation, or a gateway that has not yet received it.</p>
+    </div>
+    <div class="aps-card">
+      <div class="av-card-h">What data did the agent use?</div>
+      <p>Data access receipts record which data an agent accessed, under whose authority and for which declared purpose, and what it was refused. See <a href="/data-usage-evidence.html">data usage evidence</a>.</p>
+      <p><strong>What it does not show.</strong> What a model did with the data internally.</p>
+    </div>
+    <div class="aps-card">
+      <div class="av-card-h">Can an outside party verify this without trusting the vendor?</div>
+      <p>The record formats, the specification and the test vectors are public under Apache 2.0. Verification runs offline with open source code.</p>
+      <p><strong>What it does not show.</strong> Who operated the gateway honestly. The signature shows which key signed, and the organization has to protect that key.</p>
+    </div>
+
+    <h2>Where these records fit in common frameworks</h2>
+    <p>Each framework below covers much more than agent actions. The mapping is illustrative and is not a compliance determination. The second column names the area, the third names the records that can support it, and the last names what stays with the organization.</p>
+    <table>
+      <thead><tr><th>Framework</th><th>What it asks for in this area</th><th>APS records that can serve as evidence</th><th>Outside APS</th></tr></thead>
+      <tbody>
+        <tr><td>EU AI Act<br>Regulation (EU) 2024/1689</td><td>EU rules for high-risk AI systems, as amended by Regulation (EU) 2026/1744, include logging and traceability. Which obligations apply depends on the system and on the organization's role. The amendment changed application dates, so check the current text.</td><td>Signed receipts for each decision, delegation chains and revocation records may support evidence collection for the obligations that apply.</td><td>Deciding whether a system is high-risk, the organization's risk and documentation duties, and any assessment by a third party.</td></tr>
+        <tr><td>NIST AI Risk Management Framework</td><td>A voluntary framework built around four functions: Govern, Map, Measure and Manage.</td><td>Records of who authorized an agent, what it was allowed to do and what was decided, as inputs to the accountability and traceability outcomes an organization selects.</td><td>The organization's governance, and measuring how well a model performs.</td></tr>
+        <tr><td>ISO/IEC 42001</td><td>A management system standard for AI. Certification assesses an AI management system within a defined scope. Check the certification body's accreditation and that scope.</td><td>Operational records an auditor can sample: decisions, authority and revocations for agent actions.</td><td>The management system itself and its certification.</td></tr>
+        <tr><td>SOC 2</td><td>An independent auditor's examination of controls for a described system. Evidence has to relate to that system, the criteria in scope and the period examined.</td><td>Evidence for access control and activity logging on agent actions.</td><td>The audit, and controls over the rest of the infrastructure.</td></tr>
+        <tr><td>OWASP AIVSS</td><td>A risk taxonomy for AI systems.</td><td>See the <a href="/aivss.html">AIVSS risk mapping</a>, with strong, partial and weak coverage marked.</td><td>The risks rated weak on that page.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>What stays with the team that deploys it</h2>
+    <p>A valid signature shows that a record was not changed. It does not show that the set of records is complete. These points decide how much the records are worth as evidence.</p>
+    <table>
+      <thead><tr><th>Responsibility</th><th>Why it matters</th></tr></thead>
+      <tbody>
+        <tr><td>Every action goes through the gateway</td><td>An action that bypasses the gateway is neither checked nor recorded.</td></tr>
+        <tr><td>Revocations reach the gateway quickly</td><td>The gateway can only refuse on a revocation it has received.</td></tr>
+        <tr><td>Signing keys are protected and the trusted keys are known</td><td>A verifier trusts a record only as far as it trusts the key that signed it.</td></tr>
+        <tr><td>Records are stored completely and kept as long as required</td><td>Retention periods and storage are the organization's own, and APS does not set them.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Who uses these records</h2>
+    <p>Security teams set and withdraw what each agent may do. Risk and compliance teams collect the signed records as evidence. Internal audit verifies them with open source code, without access to the system that produced them. Platform engineers add APS on top of the identity an agent already has: it accepts did:key, did:web, SPIFFE SVID and OAuth identities, and it binds to Model Context Protocol tool calls.</p>
+
+    <h2>Check one record yourself</h2>
+    <p>The <a href="/docs/quickstart/">quickstart</a> produces a signed receipt for an allowed action. The <a href="/docs/receipt-verification/">receipt verification</a> page shows how each part of that receipt is checked and what a pass on each part establishes. The <a href="/verify.html">browser inspector</a> reads an evidence bundle offline.</p>
+
+    <h2>Status</h2>
+    <p>APS is an open protocol with reference implementations under Apache 2.0. APS holds no certification under any framework on this page and has had no formal security audit by a third party. The mapping above is the author's reading and is open to correction.</p>
+
+    <h2>Go deeper</h2>
+    <p>Read how <a href="/docs/receipts/">receipts</a> and <a href="/docs/evidence/">evidence bundles</a> work, or read the <a href="/threat-model.html">threat model</a>. To evaluate APS inside your organization, <a href="/contact.html">sign up for a pilot</a>.</p>
+
+    <h2>Sources</h2>
+    <p>Regulation (EU) 2024/1689 and its amendment, <a href="https://eur-lex.europa.eu/eli/reg/2026/1744/oj">Regulation (EU) 2026/1744</a>, on EUR-Lex. This page gives no article numbers and no application dates. Last reviewed 13 November 2026.</p>
+
+  </article>
+</main>
+<footer class="r" style="scroll-snap-align:start;position:relative;z-index:1">
+  <section class="bodies" aria-label="Standards and open source work">
+    <span class="bodies-label">Work in progress at</span>
+    <ul class="bodies-list">
+      <li><a href="https://datatracker.ietf.org/doc/draft-pidlisnyi-aps/" target="_blank" rel="noopener"><span class="mark">IETF</span><span class="role">Individual Internet-Draft</span></a></li>
+      <li><a href="https://www.w3.org/" target="_blank" rel="noopener"><span class="mark"><img class="w3c" src="assets/logos/w3c-white.svg" alt="W3C" width="34" height="34"></span><span class="role">AI Agent Protocol CG</span></a></li>
+      <li><a href="https://owasp.org/www-project-agentic-skills-top-10/" target="_blank" rel="noopener"><span class="mark"><img class="owasp" src="assets/logos/owasp-footer.svg" alt="OWASP" width="90" height="27"></span><span class="role">Agentic Skills Top 10</span></a></li>
+      <li><a href="https://github.com/cosai-oasis/ws4-secure-design-agentic-systems" target="_blank" rel="noopener"><span class="mark"><img class="cosai" src="assets/logos/cosai-white.png" alt="CoSAI" width="67" height="28"></span><span class="role">Workstream 4</span></a></li>
+      <li><a href="https://github.com/Agent-Authority-Conformance" target="_blank" rel="noopener"><span class="mark"><img class="lfdt" src="assets/logos/lfdt-horizontal-white.png" alt="LF Decentralized Trust" width="301" height="17"></span><span class="role">Conformance lab</span></a></li>
+    </ul>
+  </section>
+  <section class="about-aps" aria-labelledby="about-aps-title">
+    <div class="about-head"><span class="sq"></span><h2 id="about-aps-title">What APS is</h2></div>
+    <div class="about-text about-crawl"><div class="crawl">
+      <p>AI agents act for people and companies, but the systems around them often cannot show who authorized an action and what the agent was allowed to do.</p>
+      <p>The Agent Passport System is an Apache 2.0 open protocol that gives an agent a verifiable identity, ties it to the person or company it acts for, and checks the scope, budget and conditions of its authority before it acts.</p>
+      <p>Every action that goes through the gateway gets a signed decision, whether it is permitted or denied.</p>
+      <p>A receipt shows what was decided and under whose permission. It does not by itself show that the action succeeded outside the gateway.</p>
+    </div></div>
+    <nav class="about-links" aria-label="Start here">
+      <a href="verify.html">Verify a receipt in your browser</a>
+      <a href="protocol.html">How the protocol works</a>
+      <a href="/docs/">Docs</a>
+      <a href="research.html">Research</a>
+    </nav>
+  </section>
+  <div class="foot-grid">
+    <div>
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px">
+        <span class="sq"></span>
+        <span class="mono" style="font-size:14px; font-weight:500">Agent Passport System</span>
+      </div>
+      <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:8px">Open-source infrastructure to enforce, verify, and audit AI agent actions.</p>
+      <p class="subtle" style="font-size:14px; line-height:1.6; max-width:36ch; margin-bottom:18px">The conformance suite is yours to fork.</p>
+      <a class="mono" href="mailto:signal@aeoess.com" style="display:inline-block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg); border:1px solid var(--line2); padding:9px 16px; border-radius:2px">Contact ↗</a>
+    </div>
+    <div>
+      <div class="head">Protocol</div>
+      <div class="links">
+        <a href="/docs/">Documentation</a>
+        <a href="protocol.html">Protocol</a>
+        <a href="threat-model.html">Threat model</a>
+        <a href="faq.html">FAQ</a>
+        <a href="verify.html">Verify a bundle</a>
+        <a href="research.html">Research</a>
+      </div>
+    </div>
+    <div>
+      <div class="head">Developers</div>
+      <div class="links">
+        <a href="https://github.com/agent-passport-system/agent-passport-system">GitHub</a>
+        <a href="https://www.npmjs.com/package/agent-passport-system">npm</a>
+        <a href="https://pypi.org/project/agent-passport-system/">PyPI</a>
+        <a href="wallet.html">Agent Wallet</a>
+        <a href="https://agent-passport.org/AGENTS.md">AGENTS.md</a>
+        <a href="llms.txt">llms.txt</a>
+      </div>
+    </div>
+    <div>
+      <div class="head">Community</div>
+      <div class="links">
+        <a href="working-group.html">Agent Federation</a>
+        <a href="blog.html">Blog</a>
+        <a href="media.html">Media</a>
+        <a href="team.html">Team</a>
+        <a href="careers.html">Careers</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-base" style="justify-content:flex-start; gap:16px 56px">
+    <span><em class="fbk">License</em>Code Apache 2.0</span>
+    <span><em class="fbk">Editor</em>Tymofii Pidlisnyi</span>
+    <span><em class="fbk">Spec</em>draft-pidlisnyi-aps (IETF Internet-Draft)</span>
+    <span><em class="fbk">Imprint</em>Vol. 01 · 2026 · agent-passport.org</span>
+    <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
+  </div>
+</footer>
+</body>
+</html>

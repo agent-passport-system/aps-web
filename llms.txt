@@ -29,6 +29,7 @@ MCP server (agent-passport-system-mcp 8.1.0): 154 tools over stdio. It supports 
 - [Threat model](https://agent-passport.org/threat-model.html): security analysis and assumptions
 - [Data usage evidence](https://agent-passport.org/data-usage-evidence.html): signed access receipts, refusals before retrieval and output attribution for data an agent uses, with a runnable demo
 - [Compare](https://agent-passport.org/compare.html): how APS relates to adjacent agent-governance projects
+- [Compliance evidence mapping](https://agent-passport.org/compliance.html): which signed records APS produces for audit questions about AI agents, what each record does not show, and where the records fit in the EU AI Act, NIST AI RMF, ISO/IEC 42001 and SOC 2. Evidence, not certification
 - [FAQ](https://agent-passport.org/faq.html): common questions
 - [Full reference](https://agent-passport.org/llms-full.txt): complete protocol surface in one document
 
