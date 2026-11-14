@@ -24,6 +24,24 @@
 <script src="/nav.js?v=20260907a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
+<style>
+/* FAQ list. Scoped to .faq so no other page is affected. */
+.faq{border-bottom:1px solid var(--line)}
+.faq details{border-top:1px solid var(--line)}
+.faq details:first-child{border-top:0}
+.faq summary .q,.faq .ans{min-width:0;overflow-wrap:anywhere}
+.faq summary{display:grid;grid-template-columns:44px 1fr 24px;gap:12px;align-items:baseline;padding:20px 4px;cursor:pointer;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .n{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--sub)}
+.faq summary .q{font-size:clamp(17px,1.6vw,20px);font-weight:600;line-height:1.35;color:var(--fg)}
+.faq summary .pm{font-family:var(--mono);font-size:20px;line-height:1;text-align:right;color:var(--sub);transition:transform .15s}
+.faq details[open] summary .pm{transform:rotate(45deg)}
+.faq summary:hover .q{text-decoration:underline;text-underline-offset:4px}
+.faq summary:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+.faq .ans{padding:0 28px 26px 60px;max-width:78ch;font-size:16.5px;line-height:1.7;color:var(--fg)}
+.faq .ans code{font-size:.88em}
+@media (max-width:640px){.faq summary{grid-template-columns:32px 1fr 20px;padding:16px 0}.faq .ans{padding:0 0 22px 44px;font-size:16px}}
+</style>
 </head>
 <body>
 <div class="bg-glow"></div>
