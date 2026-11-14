@@ -2,6 +2,7 @@
 
 Every post by Tymofii Pidlisnyi, newest first. Day posts are named by day and record what changed. Stories tell what happened around the work. Each link is the post as Markdown.
 
+- 2026-11-13 [Day 270: rain on the hill in Woodside, and a day spent fixing other people's bugs](https://agent-passport.org/blog/day-270-rain-on-the-hill.md) (devlog)
 - 2026-11-12 [Day 269: three people sent attacks to the harness, and I read each one before letting CI run it](https://agent-passport.org/blog/day-269-three-attacks-in-a-day.md) (devlog)
 - 2026-11-11 [Day 268: the demo I built to show a spending limit found a $100 grant that could spend $130](https://agent-passport.org/blog/day-268-a-100-grant-that-spent-130.md) (devlog)
 - 2026-11-10 [Day 267: twice a reviewer caught me describing a delegation from the wrong side](https://agent-passport.org/blog/day-267-what-the-parent-may-delegate.md) (devlog)
