@@ -5,10 +5,10 @@
 <script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Comparison | Agent Passport System</title>
-<meta name="description" content="Agent Passport System vs LangChain, AutoGen, CrewAI. Identity, scoped delegation, cascade revocation, signed receipts, cross-vendor audit. Where overlaps end and APS extends.">
+<meta name="description" content="How the Agent Passport System fits next to agent frameworks such as LangChain, AutoGen and CrewAI. A framework runs the agent. APS records and checks the authority the agent acts under.">
 <link rel="canonical" href="https://agent-passport.org/compare.html">
 <meta property="og:title" content="Comparison | Agent Passport System">
-<meta property="og:description" content="Agent Passport System vs LangChain, AutoGen, CrewAI. Identity, scoped delegation, cascade revocation, signed receipts, cross-vendor audit. Where overlaps end and APS extends.">
+<meta property="og:description" content="How the Agent Passport System fits next to agent frameworks such as LangChain, AutoGen and CrewAI. A framework runs the agent. APS records and checks the authority the agent acts under.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Agent Passport System">
 <meta property="og:url" content="https://agent-passport.org/compare.html">
@@ -30,10 +30,11 @@
 </script>
 <script src="/nav.js?v=20260907a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Comparison | Agent Passport System", "description": "Agent Passport System vs LangChain, AutoGen, CrewAI. Identity, scoped delegation, cascade revocation, signed receipts, cross-vendor audit. Where overlaps end and APS extends.", "url": "https://agent-passport.org/compare.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Comparison | Agent Passport System", "description": "How the Agent Passport System fits next to agent frameworks such as LangChain, AutoGen and CrewAI. A framework runs the agent. APS records and checks the authority the agent acts under.", "url": "https://agent-passport.org/compare.html"}</script>
 <script src="/gh-stars.js" defer></script>
+<link rel="stylesheet" href="/reading.css?v=20261114d">
 </head>
-<body>
+<body class="read">
 <div class="bg-glow"></div>
 <header class="nav">
   <div class="brand">
@@ -72,48 +73,31 @@
 </div>
 <main class="page">
   <section class="page-hero">
-    <div class="eyebrow"><span class="sq"></span><span>Compare</span></div>
-    <h1>Most frameworks orchestrate. APS enforces.</h1>
-    <p class="dek">Agent frameworks help you build agents. APS handles what happens when those agents act in production: who they are, what they're allowed to do, and what the audit trail looks like when they violate a constraint.</p>
+    <div class="eyebrow"><span class="sq"></span><span>Comparison</span></div>
+    <h1>Keep your agent framework and add authority you can check</h1>
+    <p class="dek">Agent frameworks such as LangChain, AutoGen and CrewAI run the agent. APS describes the authority a verifier can check when an agent asks a system to act.</p>
   </section>
   <article class="prose">
-
-  
-
-  <div class="prose"><div class="wrap"><div class="col">
-    <section id="architecture">
-      <h4 class="no-rule">Cross-Impl Interop</h4>
-      <h2 class="no-rule">Same fixture, byte-match.</h2>
-      <p>Six independent implementations. One reference fixture set. SHA-256 byte-match across all of them.</p>
-      <iframe src="arch-interop.html" title="Cross-Impl Interop" loading="lazy" style="width:100%;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);aspect-ratio:16/9;min-height:480px;display:block"></iframe>
-    </section>
-
-    <h4>The mesh, animated</h4>
-    <h2 class="no-rule">Where the protocol lives.</h2>
-    <p>Frameworks orchestrate; the protocol binds. Agents, humans, services connected by signed delegations and receipts that any auditor can verify without APS in the loop.</p>
-    <iframe src="arch-mesh.html" title="Trust Mesh, visualization" loading="lazy" style="display:block;width:100%;height:560px;border:1px solid var(--line);border-radius:var(--radius)"></iframe>
-
-    <h2>Capability comparison</h2>
+    <h2>Where APS fits</h2>
     <table>
-      <thead>
-        <tr><th>Capability</th><th>APS</th><th>LangChain</th><th>AutoGen</th><th>CrewAI</th></tr>
-      </thead>
+      <thead><tr><th>Layer</th><th>What it is responsible for</th></tr></thead>
       <tbody>
-        <tr><td>Cryptographic identity</td><td><b>Ed25519, BYO DID</b></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td></tr>
-        <tr><td>Scoped delegation</td><td><b>Narrow-only chains</b></td><td>Manual</td><td>Manual</td><td>Manual</td></tr>
-        <tr><td>Cascade revocation</td><td><b>Tree-wide</b></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td></tr>
-        <tr><td>Signed action receipts</td><td><b>RFC 8785 envelopes</b></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td></tr>
-        <tr><td>Commerce pre-flight</td><td><b>4-gate spending control</b></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td></tr>
-        <tr><td>Cross-vendor audit</td><td><b>Verify without aeoess</b></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td></tr>
-        <tr><td>Framework lock-in</td><td><b>None, works alongside any</b></td><td>Tight</td><td>Tight</td><td>Tight</td></tr>
-        <tr><td>Open governance</td><td><b>Apache-2.0 + IETF draft</b></td><td>MIT</td><td>MIT</td><td>MIT</td></tr>
-        <tr><td>Production gateway</td><td><b>Hosted + self-host</b></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td></tr>
-        <tr><td>Independently cited</td><td><b>UBC PDR, Microsoft</b></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td><td><span class="dim">–</span></td></tr>
+        <tr><td>Agent framework</td><td>Runs the agent and coordinates its work</td></tr>
+        <tr><td>Identity provider</td><td>Supplies identities and authentication</td></tr>
+        <tr><td>APS authority records</td><td>Describe delegated permissions so that a verifier can check them</td></tr>
+        <tr><td>Enforcement boundary</td><td>Checks permission before a request reaches a protected resource</td></tr>
+        <tr><td>Signed evidence</td><td>Records the decision so that it can be checked later</td></tr>
       </tbody>
     </table>
-    <p><em>Comparison reflects published OSS surface as of May 2026. Frameworks ship orchestration; APS ships enforcement. They compose.</em></p>
-  </div></div></div>
+    <p>These layers work together. APS does not replace a framework, an identity provider or the security controls of the resource.</p>
 
+    <h2>The difference in one example</h2>
+    <p>A person authorizes an agent to buy supplies for up to $200. The framework decides how the agent completes the task. APS records the $200 limit in a signed delegation, and a verifier can check it. An enforcement boundary that sits in front of the payment can refuse a $250 request before it is sent.</p>
+    <p>That protects only the purchase path where the boundary is in place. An agent with another route to the payment system is not checked.</p>
+
+    <h2>Tests written by other projects</h2>
+    <p>The benchmarks page reports how APS behaves on tests written by other projects. Each report covers specific cases and revisions and is not a certification.</p>
+    <p class="r-next"><a href="/protocol.html">Read the protocol</a> <a href="/benchmarks.html">See the test reports</a></p>
   </article>
 </main>
 <footer class="r" style="scroll-snap-align:start;position:relative;z-index:1">
@@ -194,5 +178,6 @@
     <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
   </div>
 </footer>
+<script src="/reading.js?v=20261114c"></script>
 </body>
 </html>

@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
 <link rel="stylesheet" href="/aps-v2.css?v=20261030a">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What does the protocol do?", "acceptedAnswer": {"@type": "Answer", "text": "Agent Passport System checks an AI agent's delegated authority before it acts and records each decision. Every agent gets a cryptographic identity (Ed25519). Scope can only narrow, never expand. Trust is earned through performance. Revoking one delegation revokes everything delegated beneath it."}}, {"@type": "Question", "name": "How is it different from agent frameworks?", "acceptedAnswer": {"@type": "Answer", "text": "Most frameworks handle orchestration. Agent Passport System handles enforcement: what can this agent do, and what happens when it violates a constraint? Bring your own identity. The gateway is both judge and executor. Works with any framework."}}, {"@type": "Question", "name": "Is this production-ready?", "acceptedAnswer": {"@type": "Answer", "text": "APS ships versioned SDKs for TypeScript, Python, Rust and Go, an MCP server, conformance test vectors and an IETF Internet-Draft, all under Apache 2.0. Whether it is ready for your production use depends on your deployment. The threat model states what the protocol protects against and what it does not."}}, {"@type": "Question", "name": "How does delegation work?", "acceptedAnswer": {"@type": "Answer", "text": "A human delegates authority to an agent with explicit scope: tools, money, services. The agent can sub-delegate, but scope can only narrow, never expand. Revoke the root and every delegation beneath it is revoked."}}, {"@type": "Question", "name": "Can an action bypass the gateway?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, if it has another path to the resource. The gateway checks and records only the requests that reach it. An agent that holds its own credentials for the resource can act without the gateway, and that action is neither checked nor recorded. Keeping resource credentials behind the gateway is part of the deployment. A signed receipt shows what the gateway decided. It does not show that every action went through the gateway or that an outside system completed the action. On the open source gateway a new tenant starts in observe mode, where a request outside the delegation is reported as a denial but comes back with an effective verdict of permit until the mode is set to enforce. The gateway documentation shows both modes."}}, {"@type": "Question", "name": "What happens if the gateway is unavailable?", "acceptedAnswer": {"@type": "Answer", "text": "The evaluate route of the gateway returns a decision and calls no resource. Your calling code has to read effective_verdict and run the action only on a permit. When no usable decision arrives, the error handling in that calling code decides whether the action runs, and APS does not decide it. To keep enforcement during an outage, refuse to run an action that has no permit. Uptime of a gateway you host depends on how you run it, and this site makes no availability commitment for a hosted deployment."}}, {"@type": "Question", "name": "When does revocation take effect?", "acceptedAnswer": {"@type": "Answer", "text": "At a gateway, once that gateway has the revocation and is set to enforce. A revoked delegation gives no authority to the delegations derived from it. On the open source gateway the revoke route marks that one delegation as revoked in its database, and the delegations beneath it lose authority when their chain is checked at the next evaluation. In observe mode that evaluation reports the denial without blocking, so blocking needs enforce mode and calling code that obeys the decision. The SDK has a separate signed revocation record. An action that ran before the revocation is not undone. How quickly a revocation reaches every gateway depends on how revocation state is distributed in your deployment. A verifier that works from a cached copy can accept a revoked delegation until the cache is refreshed, and short delegation lifetimes and frequent checks shorten that window. The threat model describes this limit."}}, {"@type": "Question", "name": "Who holds the signing keys?", "acceptedAnswer": {"@type": "Answer", "text": "In a deployment you host, you do. The open source gateway generates its Ed25519 signing key on first start, stores the private key as plain hex in its own SQLite database and publishes the public key at /.well-known/jwks.json. The SDK has separate helpers for key storage, key rotation and remote signing, and they do not protect the signing key of the gateway on their own. Protecting the gateway database and choosing which keys a verifier trusts are the job of whoever runs the deployment."}}, {"@type": "Question", "name": "What identity systems are supported?", "acceptedAnswer": {"@type": "Answer", "text": "Bring your own: did:key, did:web, SPIFFE SVID, OAuth. Cross-language: signatures round-trip TS ↔ Python byte-identically across 27 fixtures."}}, {"@type": "Question", "name": "Can I self-host?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The gateway source is public under Apache 2.0 at agent-passport-system/agent-passport-gateway. It includes a Dockerfile and Terraform, Helm, Docker and air gapped variants for your own infrastructure, and you build it from source. You hold your keys, your records and your enforcement decisions. The gateway documentation lists which commands were run and which were not."}}, {"@type": "Question", "name": "Where is APS used or cited?", "acceptedAnswer": {"@type": "Answer", "text": "Independent papers and Internet-Drafts that cite or reference APS are listed on the research page. Three contribution PRs were merged into Microsoft's Agent Governance Toolkit in March and April 2026, and their files were later removed upstream. The APS MCP server is listed in awesome-mcp-servers. A crosswalk to Edison Munoz Duran's Agent-DID identity layer lives in the agent governance vocabulary. None of these is an endorsement of APS."}}, {"@type": "Question", "name": "How do I contribute?", "acceptedAnswer": {"@type": "Answer", "text": "Open an issue or a pull request on GitHub. The reference SDK is at agent-passport-system/agent-passport-system. Shared terms and crosswalks live in the Agent Governance Vocabulary. Conformance fixtures go to the conformance suite at the Agent Authority Conformance lab."}}, {"@type": "Question", "name": "Is it open source?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apache-2.0 licensed. The protocol, the SDKs, the MCP server and the gateway source are on GitHub. Nine research papers published on Zenodo. TypeScript SDK on npm, Python SDK on PyPI, Rust SDK on crates.io, Go SDK on pkg.go.dev."}}, {"@type": "Question", "name": "What is the Values Floor?", "acceptedAnswer": {"@type": "Answer", "text": "Seven non-negotiable principles (F-001 through F-007): traceability, honest identity, scoped authority, revocability, auditability, non-deception, proportionality. Agents sign cryptographic attestations. Compliance is checked through graduated enforcement: inline (blocks execution), audit (logs violations), warn (advisory)."}}, {"@type": "Question", "name": "What is V2 Constitutional Framework?", "acceptedAnswer": {"@type": "Answer", "text": "A set of governance modules addressing what happens when compliant agents still cause systemic failures, designed through cross-model adversarial review. They cover approval fatigue detection, effect enforcement, semantic drift, governance drift tracking, emergence detection, separation of powers, constitutional amendment, circuit breakers and affected-party standing. Several of these moved out of the SDK. Their files in src/v2/ now throw an error that says the module moved to the gateway. Check a module in the source before you build on it."}}, {"@type": "Question", "name": "What is Data Lifecycle Governance?", "acceptedAnswer": {"@type": "Answer", "text": "These modules record and check what happens to data after access: through transformation, across system boundaries, after consent revocation, into decisions, and under dispute. Key primitives: Extended Derivation Continuity (multi-hop chains with break markers and lineage confidence), Post-Revocation Obligations (a signed record that names the obligation for each artifact type, for example delete if cached for retrieved chunks, retraining required for model weights and ledger exempt for settlement records. The record names the obligation, and the system that holds the data has to carry it out), Decision Lineage Receipt (links a decision to the data sources recorded for it), Purpose Taxonomy (hierarchical with wildcard matching), Retention TTL (ephemeral vs persistent access), Terms Version Pinning (freezes terms at access time for settlement). Phase 2 adds aggregation controls, jurisdiction envelopes (jurisdiction metadata checked against transfer restrictions you configure), governance taint propagation, dispute state, combination constraints (checks against forbidden source IDs or classes you supply), access snapshots (anti-rug-pull), rights propagation semantics, purpose drift detection, and re-identification risk declarations. These helpers carry context and do not decide legal compliance."}}, {"@type": "Question", "name": "What is the Decision Lineage Receipt?", "acceptedAnswer": {"@type": "Answer", "text": "The bridge between decision provenance (Module 37) and data provenance (Modules 38-42). When an agent makes a decision that affects a human (loan denied, content moderated, insurance claim rejected), the human should be able to ask: \"what data influenced this decision?\" The Decision Lineage Receipt is a signed record that links the decision to the data sources recorded for it, with derivation depth, transform path, terms version at access, lineage confidence and compensation status. It covers the sources the system recorded, so a source that was never recorded does not appear. The issuer states how complete the lineage is, and a receipt for a model trained elsewhere can say that the lineage is incomplete."}}, {"@type": "Question", "name": "What MCP tools are available?", "acceptedAnswer": {"@type": "Answer", "text": "With the default profile the local MCP server lists 154 tools, and that count includes tools that only return a migration notice. Other profiles register fewer. The tools cover identity, delegation, values and policy, signed communication, coordination, commerce and reputation-gated authority. See the MCP server documentation."}}, {"@type": "Question", "name": "Which parts of the protocol are required vs optional?", "acceptedAnswer": {"@type": "Answer", "text": "Core protocol: Agent identity (Ed25519), delegation chains, cascade revocation, Values Floor, policy engine, ProxyGateway enforcement. In draft -04 a Core requirement binds an implementation that claims the conformance class it applies to, so what you must implement depends on the classes you claim. The status page lists them. Extended modules (pick what you need): Coordination, commerce, DID/VC, E2E encrypted messaging, task routing, reputation-gated authority, governance provenance, and the v2 governance modules. Ecosystem services such as agent matching and professional networking can be built on top of these primitives, but are not part of the open protocol and not required for any core functionality."}}, {"@type": "Question", "name": "How do I get started?", "acceptedAnswer": {"@type": "Answer", "text": "Start with the Quickstart. It builds one governed action on your machine with a grant, a revocation and receipts, and its test asserts every outcome shown on the page. The Install page gives the install command and the current version for the TypeScript, Python, Rust and Go SDKs and for the MCP server. It also says what each SDK can issue and verify, because the four SDKs do different jobs. The hosted MCP endpoint is restricted for now, so use the local server."}}, {"@type": "Question", "name": "How does GDPR work with an append-only receipt chain?", "acceptedAnswer": {"@type": "Answer", "text": "In the in-memory storage backend of the SDK, tombstoneReceipt() marks a receipt as tombstoned with a reason and replaces its action and result with reduced objects whose type, target and summary read [REDACTED]. The storage interface describes the intent as redacting the payload while keeping the hash chain and the signature. Other storage backends have to be checked separately. Redaction does not reach copies, backups or logs held elsewhere. Whether this satisfies an erasure request under GDPR is a legal question for your deployment, and APS does not answer it."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What does APS do?", "acceptedAnswer": {"@type": "Answer", "text": "APS records which agent is acting, who authorized it and what it may do. A gateway can check that authority before an action and sign its decision."}}, {"@type": "Question", "name": "Do I need to replace my agent framework?", "acceptedAnswer": {"@type": "Answer", "text": "No. A framework runs the agent. APS adds signed authority records and tools to check them. Enforcement depends on how you connect the gateway to the resources your agents use."}}, {"@type": "Question", "name": "Do I have to use APS identities?", "acceptedAnswer": {"@type": "Answer", "text": "No. The delegation record takes any identifier scheme, and the verifier gets keys through a resolver you supply. SDK 8.0.1 has helpers for did:key and did:web, and helpers that carry a SPIFFE identity or an OAuth token you already verified. If an agent has no identity, the SDK can create a passport for it. The identity reference has the details."}}, {"@type": "Question", "name": "Which parts are required?", "acceptedAnswer": {"@type": "Answer", "text": "The current wire format defines signed records for delegation, revocation and receipts. Your conformance claim names the roles your implementation performs, such as issuing authority or verifying receipts. Draft -04 requires the Core requirements that apply to those roles. The SDK modules for coordination, commerce, reputation and governance are optional. The status page lists the roles."}}, {"@type": "Question", "name": "Where do I start?", "acceptedAnswer": {"@type": "Answer", "text": "Run the quickstart. It builds one governed action on your machine with a grant, a revocation and receipts, and its test asserts every outcome."}}, {"@type": "Question", "name": "Can an agent give another agent permission?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. An agent can pass on part of its authority and cannot give more than it received. The verifier checks the whole chain and its limits."}}, {"@type": "Question", "name": "When does revocation take effect?", "acceptedAnswer": {"@type": "Answer", "text": "At a gateway, once that gateway has the revocation and is set to enforce. A revoked delegation gives no authority to the delegations derived from it. An action that ran before the revocation is not undone. A verifier that works from a cached copy can accept a revoked delegation until the cache is refreshed, so short delegation lifetimes and frequent checks shorten that window."}}, {"@type": "Question", "name": "Can an agent bypass the gateway?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, if it has another path to the resource. The gateway checks and records only the requests that reach it. Keeping the resource credentials behind the gateway is part of the deployment."}}, {"@type": "Question", "name": "Does the gateway block actions by default?", "acceptedAnswer": {"@type": "Answer", "text": "No. On the open source gateway a new tenant starts in observe mode. A request outside the delegation is reported as a denial and still comes back with an effective verdict of permit. Blocking needs enforce mode and calling code that obeys the decision. The gateway documentation shows both modes."}}, {"@type": "Question", "name": "What happens if the gateway is unavailable?", "acceptedAnswer": {"@type": "Answer", "text": "The calling code decides. The evaluate route returns a decision and calls no resource, so your code has to read effective_verdict and run the action only on a permit. To keep enforcement during an outage, refuse to run an action that has no permit."}}, {"@type": "Question", "name": "Does a valid receipt show that an action succeeded?", "acceptedAnswer": {"@type": "Answer", "text": "No. It shows that the record was not changed and what its signer reported. Evidence that the action happened comes from the system that carried it out."}}, {"@type": "Question", "name": "Who holds the signing keys?", "acceptedAnswer": {"@type": "Answer", "text": "In a deployment you host, you do. The open source gateway generates its Ed25519 signing key on first start, stores the private key as plain hex in its own SQLite database and publishes the public key at /.well-known/jwks.json. Protecting that database and choosing which keys a verifier trusts are the job of whoever runs the deployment."}}, {"@type": "Question", "name": "Is APS production ready?", "acceptedAnswer": {"@type": "Answer", "text": "APS ships versioned SDKs for TypeScript, Python, Rust and Go, an MCP server and conformance test vectors under Apache 2.0. The protocol is also described in an individual IETF Internet-Draft. Whether it is ready for your production use depends on your deployment, and individual features differ in maturity. The threat model states what APS protects against and what it does not."}}, {"@type": "Question", "name": "Is APS an IETF standard?", "acceptedAnswer": {"@type": "Answer", "text": "No. APS is described in an individual Internet-Draft. Publishing an Internet-Draft is not endorsement or approval by the IETF."}}, {"@type": "Question", "name": "Can I self-host?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The gateway source is public under Apache 2.0 at agent-passport-system/agent-passport-gateway, and you build it from source. You hold your keys, your records and your enforcement decisions. The gateway documentation lists which commands were run and which were not."}}, {"@type": "Question", "name": "How does GDPR work with an append-only receipt chain?", "acceptedAnswer": {"@type": "Answer", "text": "In the in-memory storage backend of the SDK, tombstoneReceipt() marks a receipt as tombstoned with a reason and replaces its action and result with reduced objects whose type, target and summary read [REDACTED]. The storage interface describes the intent as redacting the payload while keeping the hash chain and the signature. Other storage backends have to be checked separately. Redaction does not reach copies, backups or logs held elsewhere. Whether this satisfies an erasure request under GDPR is a legal question for your deployment, and APS does not answer it."}}, {"@type": "Question", "name": "Where is APS used or cited?", "acceptedAnswer": {"@type": "Answer", "text": "Independent papers and Internet-Drafts that cite or reference APS are listed on the research page. Three contribution PRs were merged into Microsoft's Agent Governance Toolkit in March and April 2026, and their files were later removed upstream. The APS MCP server is listed in awesome-mcp-servers. A crosswalk to Edison Munoz Duran's Agent-DID identity layer lives in the agent governance vocabulary. None of these is an endorsement of APS."}}, {"@type": "Question", "name": "How do I contribute?", "acceptedAnswer": {"@type": "Answer", "text": "Open an issue or a pull request on GitHub. The reference SDK is at agent-passport-system/agent-passport-system. Shared terms and crosswalks live in the Agent Governance Vocabulary. Conformance fixtures go to the conformance suite at the Agent Authority Conformance lab."}}, {"@type": "Question", "name": "Is it open source?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The protocol, the SDKs, the MCP server and the gateway source are on GitHub under Apache 2.0."}}]}</script>
 <script src="/nav.js?v=20260907a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
@@ -42,8 +42,9 @@
 .faq .ans code{font-size:.88em}
 @media (max-width:640px){.faq summary{grid-template-columns:32px 1fr 20px;padding:16px 0}.faq .ans{padding:0 0 22px 44px;font-size:16px}}
 </style>
+<link rel="stylesheet" href="/reading.css?v=20261114d">
 </head>
-<body>
+<body class="read">
 <div class="bg-glow"></div>
 <header class="nav">
   <div class="brand">
@@ -82,126 +83,102 @@
 </div>
 <main class="page">
   <section class="page-hero">
-    <div class="eyebrow"><span class="sq"></span><span>Faq</span></div>
-    <h1>Frequently asked questions.</h1>
-    <p class="dek">Common questions about the Agent Passport System.</p>
+    <div class="eyebrow"><span class="sq"></span><span>FAQ</span></div>
+    <h1>Frequently asked questions</h1>
+    <p class="dek">Short answers about what APS does, how authority and revocation work, what the gateway enforces and how to run it yourself.</p>
   </section>
   <article class="prose">
-
-  <div class="faq">
-
-    <details>
-      <summary><span class="n">01</span><span class="q">What does the protocol do?</span><span class="pm">+</span></summary>
-      <div class="ans">Agent Passport System checks an AI agent's delegated authority before it acts and records each decision. Every agent gets a cryptographic identity (Ed25519). Scope can only narrow, never expand. Trust is earned through performance. Revoking one delegation revokes everything delegated beneath it.</div>
-    </details>
-
-    <details>
-      <summary><span class="n">02</span><span class="q">How is it different from agent frameworks?</span><span class="pm">+</span></summary>
-      <div class="ans">Most frameworks handle orchestration. Agent Passport System handles enforcement: what can this agent do, and what happens when it violates a constraint? Bring your own identity. The gateway is both judge and executor. Works with any framework.</div>
-    </details>
-
-    <details>
-      <summary><span class="n">03</span><span class="q">Is this production-ready?</span><span class="pm">+</span></summary>
-      <div class="ans">APS ships versioned SDKs for TypeScript, Python, Rust and Go, an MCP server, conformance test vectors and an IETF Internet-Draft, all under Apache 2.0. Whether it is ready for your production use depends on your deployment. The <a href="threat-model.html">threat model</a> states what the protocol protects against and what it does not.</div>
-    </details>
-
-    <details>
-      <summary><span class="n">04</span><span class="q">How does delegation work?</span><span class="pm">+</span></summary>
-      <div class="ans">A human delegates authority to an agent with explicit scope: tools, money, services. The agent can sub-delegate, but scope can only narrow, never expand. Revoke the root and every delegation beneath it is revoked.</div>
-    </details>
-
-    <details>
-      <summary><span class="n">05</span><span class="q">Can an action bypass the gateway?</span><span class="pm">+</span></summary>
-      <div class="ans">Yes, if it has another path to the resource. The gateway checks and records only the requests that reach it. An agent that holds its own credentials for the resource can act without the gateway, and that action is neither checked nor recorded. Keeping resource credentials behind the gateway is part of the deployment. A signed receipt shows what the gateway decided. It does not show that every action went through the gateway or that an outside system completed the action. On the open source gateway a new tenant starts in observe mode, where a request outside the delegation is reported as a denial but comes back with an effective verdict of permit until the mode is set to enforce. The <a href="/docs/gateway/">gateway documentation</a> shows both modes.</div>
-    </details>
-
-    <details>
-      <summary><span class="n">06</span><span class="q">What happens if the gateway is unavailable?</span><span class="pm">+</span></summary>
-      <div class="ans">The evaluate route of the gateway returns a decision and calls no resource. Your calling code has to read <code>effective_verdict</code> and run the action only on a permit. When no usable decision arrives, the error handling in that calling code decides whether the action runs, and APS does not decide it. To keep enforcement during an outage, refuse to run an action that has no permit. Uptime of a gateway you host depends on how you run it, and this site makes no availability commitment for a hosted deployment.</div>
-    </details>
-
-    <details>
-      <summary><span class="n">07</span><span class="q">When does revocation take effect?</span><span class="pm">+</span></summary>
-      <div class="ans">At a gateway, once that gateway has the revocation and is set to enforce. A revoked delegation gives no authority to the delegations derived from it. On the open source gateway the revoke route marks that one delegation as revoked in its database, and the delegations beneath it lose authority when their chain is checked at the next evaluation. In observe mode that evaluation reports the denial without blocking, so blocking needs enforce mode and calling code that obeys the decision. The SDK has a separate signed revocation record. An action that ran before the revocation is not undone. How quickly a revocation reaches every gateway depends on how revocation state is distributed in your deployment. A verifier that works from a cached copy can accept a revoked delegation until the cache is refreshed, and short delegation lifetimes and frequent checks shorten that window. The <a href="threat-model.html">threat model</a> describes this limit.</div>
-    </details>
-
-    <details>
-      <summary><span class="n">08</span><span class="q">Who holds the signing keys?</span><span class="pm">+</span></summary>
-      <div class="ans">In a deployment you host, you do. The open source gateway generates its Ed25519 signing key on first start, stores the private key as plain hex in its own SQLite database and publishes the public key at <code>/.well-known/jwks.json</code>. The SDK has separate helpers for key storage, key rotation and remote signing, and they do not protect the signing key of the gateway on their own. Protecting the gateway database and choosing which keys a verifier trusts are the job of whoever runs the deployment.</div>
-    </details>
-
-    <details>
-      <summary><span class="n">09</span><span class="q">What identity systems are supported?</span><span class="pm">+</span></summary>
-      <div class="ans">Bring your own: did:key, did:web, SPIFFE SVID, OAuth. Cross-language: signatures round-trip TS ↔ Python byte-identically across 27 fixtures.</div>
-    </details>
-
-    <details>
-      <summary><span class="n">10</span><span class="q">Can I self-host?</span><span class="pm">+</span></summary>
-      <div class="ans">Yes. The gateway source is public under Apache 2.0 at <a href="https://github.com/agent-passport-system/agent-passport-gateway">agent-passport-system/agent-passport-gateway</a>. It includes a Dockerfile and Terraform, Helm, Docker and air gapped variants for your own infrastructure, and you build it from source. You hold your keys, your records and your enforcement decisions. The <a href="/docs/gateway/">gateway documentation</a> lists which commands were run and which were not.</div>
-    </details>
-
-    <details>
-      <summary><span class="n">11</span><span class="q">Where is APS used or cited?</span><span class="pm">+</span></summary>
-      <div class="ans">Independent papers and Internet-Drafts that cite or reference APS are listed on the <a href="research.html">research page</a>. Three contribution PRs were merged into Microsoft's Agent Governance Toolkit in March and April 2026, and their files were later removed upstream. The APS MCP server is listed in awesome-mcp-servers. A crosswalk to Edison Munoz Duran's Agent-DID identity layer lives in the agent governance vocabulary. None of these is an endorsement of APS.</div>
-    </details>
-
-    <details>
-      <summary><span class="n">12</span><span class="q">How do I contribute?</span><span class="pm">+</span></summary>
-      <div class="ans">Open an issue or a pull request on GitHub. The reference SDK is at <a href="https://github.com/agent-passport-system/agent-passport-system">agent-passport-system/agent-passport-system</a>. Shared terms and crosswalks live in the <a href="https://github.com/aeoess/agent-governance-vocabulary">Agent Governance Vocabulary</a>. Conformance fixtures go to the <a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite">conformance suite</a> at the Agent Authority Conformance lab.</div>
-    </details>
-
-    <details>
-      <summary><span class="n">13</span><span class="q">Is it open source?</span><span class="pm">+</span></summary>
-      <div class="ans">Yes. Apache-2.0 licensed. The protocol, the SDKs, the MCP server and the gateway source are on <a href="https://github.com/agent-passport-system">GitHub</a>. Nine research papers published on Zenodo. TypeScript SDK on npm, Python SDK on PyPI, Rust SDK on crates.io, Go SDK on pkg.go.dev.</div>
-    </details>
-
-    <details>
-      <summary><span class="n">14</span><span class="q">What is the Values Floor?</span><span class="pm">+</span></summary>
-      <div class="ans">Seven non-negotiable principles (F-001 through F-007): traceability, honest identity, scoped authority, revocability, auditability, non-deception, proportionality. Agents sign cryptographic attestations. Compliance is checked through graduated enforcement: inline (blocks execution), audit (logs violations), warn (advisory).</div>
-    </details>
-
-    <details>
-      <summary><span class="n">15</span><span class="q">What is V2 Constitutional Framework?</span><span class="pm">+</span></summary>
-      <div class="ans">A set of governance modules addressing what happens when compliant agents still cause systemic failures, designed through cross-model adversarial review. They cover approval fatigue detection, effect enforcement, semantic drift, governance drift tracking, emergence detection, separation of powers, constitutional amendment, circuit breakers and affected-party standing. Several of these moved out of the SDK. Their files in <code>src/v2/</code> now throw an error that says the module moved to the gateway. Check a module in the source before you build on it.</div>
-    </details>
-
-    <details>
-      <summary><span class="n">16</span><span class="q">What is Data Lifecycle Governance?</span><span class="pm">+</span></summary>
-      <div class="ans">These modules record and check what happens to data <em>after</em> access: through transformation, across system boundaries, after consent revocation, into decisions, and under dispute. Key primitives: <b>Extended Derivation Continuity</b> (multi-hop chains with break markers and lineage confidence), <b>Post-Revocation Obligations</b> (a signed record that names the obligation for each artifact type, for example delete if cached for retrieved chunks, retraining required for model weights and ledger exempt for settlement records. The record names the obligation, and the system that holds the data has to carry it out), <b>Decision Lineage Receipt</b> (links a decision to the data sources recorded for it), <b>Purpose Taxonomy</b> (hierarchical with wildcard matching), <b>Retention TTL</b> (ephemeral vs persistent access), <b>Terms Version Pinning</b> (freezes terms at access time for settlement). Phase 2 adds aggregation controls, jurisdiction envelopes (jurisdiction metadata checked against transfer restrictions you configure), governance taint propagation, dispute state, combination constraints (checks against forbidden source IDs or classes you supply), access snapshots (anti-rug-pull), rights propagation semantics, purpose drift detection, and re-identification risk declarations. These helpers carry context and do not decide legal compliance.</div>
-    </details>
-
-    <details>
-      <summary><span class="n">17</span><span class="q">What is the Decision Lineage Receipt?</span><span class="pm">+</span></summary>
-      <div class="ans">The bridge between decision provenance (Module 37) and data provenance (Modules 38-42). When an agent makes a decision that affects a human (loan denied, content moderated, insurance claim rejected), the human should be able to ask: "what data influenced this decision?" The Decision Lineage Receipt is a signed record that links the decision to the data sources recorded for it, with derivation depth, transform path, terms version at access, lineage confidence and compensation status. It covers the sources the system recorded, so a source that was never recorded does not appear. The issuer states how complete the lineage is, and a receipt for a model trained elsewhere can say that the lineage is incomplete.</div>
-    </details>
-
-    <details>
-      <summary><span class="n">18</span><span class="q">What MCP tools are available?</span><span class="pm">+</span></summary>
-      <div class="ans">With the default profile the local MCP server lists 154 tools, and that count includes tools that only return a migration notice. Other profiles register fewer. The tools cover identity, delegation, values and policy, signed communication, coordination, commerce and reputation-gated authority. See the <a href="/docs/mcp-server/">MCP server documentation</a>.</div>
-    </details>
-
-    <details>
-      <summary><span class="n">19</span><span class="q">Which parts of the protocol are required vs optional?</span><span class="pm">+</span></summary>
-      <div class="ans"><b>Core protocol:</b> Agent identity (Ed25519), delegation chains, cascade revocation, Values Floor, policy engine, ProxyGateway enforcement. In draft -04 a Core requirement binds an implementation that claims the conformance class it applies to, so what you must implement depends on the classes you claim. The <a href="/docs/status/">status page</a> lists them.<br><br><b>Extended modules (pick what you need):</b> Coordination, commerce, DID/VC, E2E encrypted messaging, task routing, reputation-gated authority, governance provenance, and the v2 governance modules.<br><br><em>Ecosystem services such as agent matching and professional networking can be built on top of these primitives, but are not part of the open protocol and not required for any core functionality.</em></div>
-    </details>
-
-    <details>
-      <summary><span class="n">20</span><span class="q">How do I get started?</span><span class="pm">+</span></summary>
-      <div class="ans">Start with the <a href="/docs/quickstart/">Quickstart</a>. It builds one governed action on your machine with a grant, a revocation and receipts, and its test asserts every outcome shown on the page. The <a href="/docs/install/">Install page</a> gives the install command and the current version for the TypeScript, Python, Rust and Go SDKs and for the MCP server. It also says what each SDK can issue and verify, because the four SDKs do different jobs. The hosted MCP endpoint is restricted for now, so use the local server.</div>
-    </details>
-
-    <details>
-      <summary><span class="n">21</span><span class="q">How does GDPR work with an append-only receipt chain?</span><span class="pm">+</span></summary>
-      <div class="ans">In the in-memory storage backend of the SDK, <code>tombstoneReceipt()</code> marks a receipt as tombstoned with a reason and replaces its action and result with reduced objects whose type, target and summary read <code>[REDACTED]</code>. The storage interface describes the intent as redacting the payload while keeping the hash chain and the signature. Other storage backends have to be checked separately. Redaction does not reach copies, backups or logs held elsewhere. Whether this satisfies an erasure request under GDPR is a legal question for your deployment, and APS does not answer it.</div>
-    </details>
-
-  </div>
-
-  <div class="aps-card" style="margin-top:32px">
-  <p><strong>🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt">llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt">llms-full.txt</a> for the complete technical reference. This page is designed for humans.</p>
-  </div>
-
-  
+    <h2>Getting started</h2>
+    <div class="faq">
+      <details>
+        <summary><span class="n">01</span><span class="q">What does APS do?</span><span class="pm">+</span></summary>
+        <div class="ans">APS records which agent is acting, who authorized it and what it may do. A gateway can check that authority before an action and sign its decision.</div>
+      </details>
+      <details>
+        <summary><span class="n">02</span><span class="q">Do I need to replace my agent framework?</span><span class="pm">+</span></summary>
+        <div class="ans">No. A framework runs the agent. APS adds signed authority records and tools to check them. Enforcement depends on how you connect the gateway to the resources your agents use.</div>
+      </details>
+      <details>
+        <summary><span class="n">03</span><span class="q">Do I have to use APS identities?</span><span class="pm">+</span></summary>
+        <div class="ans">No. The delegation record takes any identifier scheme, and the verifier gets keys through a resolver you supply. SDK 8.0.1 has helpers for <code>did:key</code> and <code>did:web</code>, and helpers that carry a SPIFFE identity or an OAuth token you already verified. If an agent has no identity, the SDK can create a passport for it. The <a href="/docs/identity/">identity reference</a> has the details.</div>
+      </details>
+      <details>
+        <summary><span class="n">04</span><span class="q">Which parts are required?</span><span class="pm">+</span></summary>
+        <div class="ans">The current wire format defines signed records for delegation, revocation and receipts. Your conformance claim names the roles your implementation performs, such as issuing authority or verifying receipts. Draft -04 requires the Core requirements that apply to those roles. The SDK modules for coordination, commerce, reputation and governance are optional. The <a href="/docs/status/">status page</a> lists the roles.</div>
+      </details>
+      <details>
+        <summary><span class="n">05</span><span class="q">Where do I start?</span><span class="pm">+</span></summary>
+        <div class="ans">Run the <a href="/docs/quickstart/">quickstart</a>. It builds one governed action on your machine with a grant, a revocation and receipts, and its test asserts every outcome.</div>
+      </details>
+    </div>
+    <h2>Authority</h2>
+    <div class="faq">
+      <details>
+        <summary><span class="n">06</span><span class="q">Can an agent give another agent permission?</span><span class="pm">+</span></summary>
+        <div class="ans">Yes. An agent can pass on part of its authority and cannot give more than it received. The verifier checks the whole chain and its limits.</div>
+      </details>
+      <details>
+        <summary><span class="n">07</span><span class="q">When does revocation take effect?</span><span class="pm">+</span></summary>
+        <div class="ans">At a gateway, once that gateway has the revocation and is set to enforce. A revoked delegation gives no authority to the delegations derived from it. An action that ran before the revocation is not undone. A verifier that works from a cached copy can accept a revoked delegation until the cache is refreshed, so short delegation lifetimes and frequent checks shorten that window.</div>
+      </details>
+    </div>
+    <h2>Security</h2>
+    <div class="faq">
+      <details>
+        <summary><span class="n">08</span><span class="q">Can an agent bypass the gateway?</span><span class="pm">+</span></summary>
+        <div class="ans">Yes, if it has another path to the resource. The gateway checks and records only the requests that reach it. Keeping the resource credentials behind the gateway is part of the deployment.</div>
+      </details>
+      <details>
+        <summary><span class="n">09</span><span class="q">Does the gateway block actions by default?</span><span class="pm">+</span></summary>
+        <div class="ans">No. On the open source gateway a new tenant starts in observe mode. A request outside the delegation is reported as a denial and still comes back with an effective verdict of permit. Blocking needs enforce mode and calling code that obeys the decision. The <a href="/docs/gateway/">gateway documentation</a> shows both modes.</div>
+      </details>
+      <details>
+        <summary><span class="n">10</span><span class="q">What happens if the gateway is unavailable?</span><span class="pm">+</span></summary>
+        <div class="ans">The calling code decides. The evaluate route returns a decision and calls no resource, so your code has to read <code>effective_verdict</code> and run the action only on a permit. To keep enforcement during an outage, refuse to run an action that has no permit.</div>
+      </details>
+      <details>
+        <summary><span class="n">11</span><span class="q">Does a valid receipt show that an action succeeded?</span><span class="pm">+</span></summary>
+        <div class="ans">No. It shows that the record was not changed and what its signer reported. Evidence that the action happened comes from the system that carried it out.</div>
+      </details>
+      <details>
+        <summary><span class="n">12</span><span class="q">Who holds the signing keys?</span><span class="pm">+</span></summary>
+        <div class="ans">In a deployment you host, you do. The open source gateway generates its Ed25519 signing key on first start, stores the private key as plain hex in its own SQLite database and publishes the public key at <code>/.well-known/jwks.json</code>. Protecting that database and choosing which keys a verifier trusts are the job of whoever runs the deployment.</div>
+      </details>
+    </div>
+    <h2>Deployment</h2>
+    <div class="faq">
+      <details>
+        <summary><span class="n">13</span><span class="q">Is APS production ready?</span><span class="pm">+</span></summary>
+        <div class="ans">APS ships versioned SDKs for TypeScript, Python, Rust and Go, an MCP server and conformance test vectors under Apache 2.0. The protocol is also described in an individual IETF Internet-Draft. Whether it is ready for your production use depends on your deployment, and individual features differ in maturity. The <a href="/threat-model.html">threat model</a> states what APS protects against and what it does not.</div>
+      </details>
+      <details>
+        <summary><span class="n">14</span><span class="q">Is APS an IETF standard?</span><span class="pm">+</span></summary>
+        <div class="ans">No. APS is described in an individual Internet-Draft. Publishing an Internet-Draft is not endorsement or approval by the IETF.</div>
+      </details>
+      <details>
+        <summary><span class="n">15</span><span class="q">Can I self-host?</span><span class="pm">+</span></summary>
+        <div class="ans">Yes. The gateway source is public under Apache 2.0 at <a href="https://github.com/agent-passport-system/agent-passport-gateway">agent-passport-system/agent-passport-gateway</a>, and you build it from source. You hold your keys, your records and your enforcement decisions. The gateway documentation lists which commands were run and which were not.</div>
+      </details>
+      <details>
+        <summary><span class="n">16</span><span class="q">How does GDPR work with an append-only receipt chain?</span><span class="pm">+</span></summary>
+        <div class="ans">In the in-memory storage backend of the SDK, <code>tombstoneReceipt()</code> marks a receipt as tombstoned with a reason and replaces its action and result with reduced objects whose type, target and summary read <code>[REDACTED]</code>. The storage interface describes the intent as redacting the payload while keeping the hash chain and the signature. Other storage backends have to be checked separately. Redaction does not reach copies, backups or logs held elsewhere. Whether this satisfies an erasure request under GDPR is a legal question for your deployment, and APS does not answer it.</div>
+      </details>
+    </div>
+    <h2>Project</h2>
+    <div class="faq">
+      <details>
+        <summary><span class="n">17</span><span class="q">Where is APS used or cited?</span><span class="pm">+</span></summary>
+        <div class="ans">Independent papers and Internet-Drafts that cite or reference APS are listed on the <a href="research.html">research page</a>. Three contribution PRs were merged into Microsoft's Agent Governance Toolkit in March and April 2026, and their files were later removed upstream. The APS MCP server is listed in awesome-mcp-servers. A crosswalk to Edison Munoz Duran's Agent-DID identity layer lives in the agent governance vocabulary. None of these is an endorsement of APS.</div>
+      </details>
+      <details>
+        <summary><span class="n">18</span><span class="q">How do I contribute?</span><span class="pm">+</span></summary>
+        <div class="ans">Open an issue or a pull request on GitHub. The reference SDK is at <a href="https://github.com/agent-passport-system/agent-passport-system">agent-passport-system/agent-passport-system</a>. Shared terms and crosswalks live in the <a href="https://github.com/aeoess/agent-governance-vocabulary">Agent Governance Vocabulary</a>. Conformance fixtures go to the <a href="https://github.com/Agent-Authority-Conformance/aps-conformance-suite">conformance suite</a> at the Agent Authority Conformance lab.</div>
+      </details>
+      <details>
+        <summary><span class="n">19</span><span class="q">Is it open source?</span><span class="pm">+</span></summary>
+        <div class="ans">Yes. The protocol, the SDKs, the MCP server and the gateway source are on GitHub under Apache 2.0.</div>
+      </details>
+    </div>
   </article>
 </main>
 <footer class="r" style="scroll-snap-align:start;position:relative;z-index:1">
@@ -282,5 +259,6 @@
     <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
   </div>
 </footer>
+<script src="/reading.js?v=20261114c"></script>
 </body>
 </html>

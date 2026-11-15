@@ -1,0 +1,212 @@
+/* Reading layer for long text pages. Used by the long text pages only.
+   Opt in with <body class="read">. Header and footer are not touched. */
+html[data-theme="bright"]:has(main.page) body.read{
+  --r-ink:#1b1b1d; --r-ink2:#55595f; --r-rule:#d8d8d4; --r-link:#0A4BD1; --r-code:#f3f3ef;
+  --r-serif:Charter,'Bitstream Charter','Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;
+  --r-sans:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+html[data-theme="bright"]:has(main.page) body.read main.page{max-width:1120px; display:grid; grid-template-columns:minmax(0,43rem) 15rem; column-gap:4.5rem; justify-content:center; align-items:start}
+html[data-theme="bright"]:has(main.page) body.read main.page > *{grid-column:1; min-width:0}
+html[data-theme="bright"]:has(main.page) body.read main.page > .read-toc{grid-column:2; grid-row:2; position:sticky; top:110px; font-family:var(--r-sans); font-size:13.5px; line-height:1.4; border-left:1px solid var(--r-rule); padding:2px 0 2px 18px; max-height:calc(100vh - 150px); overflow:auto}
+html[data-theme="bright"]:has(main.page) body.read .read-toc b{display:block; font-weight:600; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--r-ink2); margin-bottom:10px}
+html[data-theme="bright"]:has(main.page) body.read .read-toc a{display:block; color:var(--r-ink2); padding:5px 0; border:0; text-decoration:none}
+html[data-theme="bright"]:has(main.page) body.read .read-toc a:hover{color:var(--r-link)}
+@media(max-width:1100px){html[data-theme="bright"]:has(main.page) body.read main.page{display:block; max-width:43rem} html[data-theme="bright"]:has(main.page) body.read .read-toc{display:none}}
+
+html[data-theme="bright"]:has(main.page) body.read .page-hero{border-bottom:1px solid var(--r-ink); padding-bottom:26px; margin-bottom:8px}
+html[data-theme="bright"]:has(main.page) body.read .page-hero h1{font-family:var(--r-serif); font-weight:600; font-size:clamp(34px,4.4vw,46px); line-height:1.12; letter-spacing:-.012em; color:var(--r-ink); text-transform:none}
+html[data-theme="bright"]:has(main.page) body.read .page-hero .dek, html[data-theme="bright"]:has(main.page) body.read .page-hero p{font-family:var(--r-serif); font-style:italic; font-size:20px; line-height:1.5; color:var(--r-ink2); max-width:none}
+
+html[data-theme="bright"]:has(main.page) body.read article.prose{font-family:var(--r-serif); color:var(--r-ink)}
+html[data-theme="bright"]:has(main.page) body.read article.prose section{border-bottom:0; padding:18px 0 0}
+html[data-theme="bright"]:has(main.page) body.read article.prose h2, html[data-theme="bright"]:has(main.page) body.read article.prose > h2{font-family:var(--r-serif); font-weight:600; font-size:27px; line-height:1.2; letter-spacing:-.005em; color:var(--r-ink); text-transform:none; border-top:0; margin:44px 0 14px; padding-top:0}
+html[data-theme="bright"]:has(main.page) body.read article.prose h3{font-family:var(--r-serif); font-style:italic; font-weight:500; font-size:20.5px; line-height:1.3; letter-spacing:0; text-transform:none; color:var(--r-ink); margin:30px 0 10px}
+html[data-theme="bright"]:has(main.page) body.read article.prose p, html[data-theme="bright"]:has(main.page) body.read article.prose ul, html[data-theme="bright"]:has(main.page) body.read article.prose ol{font-family:var(--r-serif); font-size:18.5px; line-height:1.62; color:var(--r-ink); max-width:none; margin:0 0 16px}
+html[data-theme="bright"]:has(main.page) body.read article.prose li{margin-bottom:8px}
+html[data-theme="bright"]:has(main.page) body.read article.prose strong, html[data-theme="bright"]:has(main.page) body.read article.prose li strong{color:var(--r-ink); font-weight:600}
+html[data-theme="bright"]:has(main.page) body.read article.prose em{color:inherit}
+html[data-theme="bright"]:has(main.page) body.read article.prose a{color:var(--r-link); font-weight:inherit; border-bottom:0; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:3px}
+html[data-theme="bright"]:has(main.page) body.read article.prose a strong{color:inherit; font-weight:inherit}
+
+html[data-theme="bright"]:has(main.page) body.read article.prose table{font-family:var(--r-sans); font-size:14.5px; line-height:1.45; border-collapse:collapse; width:100%; margin:10px 0 30px; border-top:1.5px solid var(--r-ink); border-bottom:1.5px solid var(--r-ink)}
+html[data-theme="bright"]:has(main.page) body.read article.prose th{font-family:var(--r-sans); font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--r-ink2); background:none; padding:9px 14px 9px 0; border-bottom:1px solid var(--r-ink); text-align:left}
+html[data-theme="bright"]:has(main.page) body.read article.prose td{font-family:var(--r-sans); padding:10px 14px 10px 0; border-bottom:1px solid var(--r-rule); vertical-align:top; color:var(--r-ink); background:none}
+html[data-theme="bright"]:has(main.page) body.read article.prose tr:last-child td{border-bottom:0}
+html[data-theme="bright"]:has(main.page) body.read article.prose td:first-child{font-weight:600; white-space:normal}
+
+html[data-theme="bright"]:has(main.page) body.read article.prose code{font-size:.86em; background:var(--r-code); border:0; padding:1px 5px; border-radius:3px; color:var(--r-ink)}
+html[data-theme="bright"]:has(main.page) body.read article.prose pre{background:var(--r-code); border:0; border-radius:4px; padding:16px 18px}
+html[data-theme="bright"]:has(main.page) body.read article.prose pre code{font-size:13.5px; color:var(--r-ink); background:none}
+html[data-theme="bright"]:has(main.page) body.read article.prose .note, html[data-theme="bright"]:has(main.page) body.read article.prose blockquote{background:none; border-left:3px solid var(--r-link); border-radius:0; padding:2px 0 2px 18px; margin:22px 0}
+html[data-theme="bright"]:has(main.page) body.read article.prose .note p{font-size:17px}
+html[data-theme="bright"]:has(main.page) body.read article.prose .toc{display:none}
+
+/* The white page rules in aps-v2.css are written with a long selector, so the
+   preview needs these four to win. In the real change they move into aps-v2.css. */
+html[data-theme="bright"]:has(main.page) body.read .page-hero h1,
+html[data-theme="bright"]:has(main.page) body.read article.prose h2,
+html[data-theme="bright"]:has(main.page) body.read article.prose h3{font-family:var(--r-serif) !important; color:var(--r-ink) !important; font-synthesis:weight style; font-variant-ligatures:normal}
+html[data-theme="bright"]:has(main.page) body.read article.prose h3{font-style:italic !important; font-weight:500 !important; text-transform:none !important; letter-spacing:0 !important; font-size:20.5px !important}
+html[data-theme="bright"]:has(main.page) body.read article.prose a:not(.btn):not(.bp-pager-n):not(.bp-pager-step):not(.bp-chip){color:var(--r-link) !important; border-bottom:0 !important; text-decoration:underline !important; text-decoration-thickness:1px !important; text-underline-offset:3px; font-weight:inherit !important}
+html[data-theme="bright"]:has(main.page) body.read main .read-toc a:not(.btn):not(.bp-pager-n):not(.bp-pager-step):not(.bp-chip){color:var(--r-ink2) !important; border-bottom:0 !important; text-decoration:none !important}
+html[data-theme="bright"]:has(main.page) body.read main .read-toc a:not(.btn):not(.bp-pager-n):not(.bp-pager-step):not(.bp-chip):hover{color:var(--r-link) !important}
+html[data-theme="bright"]:has(main.page) body.read .page-hero h1{font-size:clamp(34px,4.4vw,46px) !important; font-weight:600 !important; letter-spacing:-.012em !important}
+html[data-theme="bright"]:has(main.page) body.read article.prose h2{font-size:27px !important; font-weight:600 !important; line-height:1.2 !important}
+html[data-theme="bright"]:has(main.page) body.read article.prose p,
+html[data-theme="bright"]:has(main.page) body.read article.prose li{font-size:18.5px !important; line-height:1.62 !important; color:var(--r-ink) !important}
+html[data-theme="bright"]:has(main.page) body.read .page-hero p{font-size:20px !important; line-height:1.5 !important; color:var(--r-ink2) !important}
+html[data-theme="bright"]:has(main.page) body.read article.prose p strong,
+html[data-theme="bright"]:has(main.page) body.read article.prose li strong{color:var(--r-ink) !important; font-weight:600}
+html[data-theme="bright"]:has(main.page) body.read article.prose a strong{color:inherit !important}
+html[data-theme="bright"]:has(main.page) body.read article.prose code{font-size:.86em !important; color:var(--r-ink) !important}
+html[data-theme="bright"]:has(main.page) body.read article.prose .note p{font-size:17px !important}
+html[data-theme="bright"]:has(main.page) body.read article.prose td, html[data-theme="bright"]:has(main.page) body.read article.prose th{color:var(--r-ink)}
+
+/* Page furniture used by the reworked pages */
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-status{border:1px solid var(--r-ink); border-left:4px solid var(--r-ink); background:none; padding:14px 18px; margin:26px 0 8px; border-radius:0}
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-status p{margin:0; font-size:17.5px !important}
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-next{font-family:var(--r-sans); font-size:16px !important; margin-top:22px}
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-next a{margin-right:22px; white-space:nowrap}
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-rule{border:0; border-top:1px solid var(--r-ink); margin:56px 0 0}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq details{border:0; border-bottom:1px solid var(--r-rule); background:none; padding:0; margin:0; border-radius:0}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq summary{font-family:var(--r-serif); font-size:19.5px; font-weight:600; color:var(--r-ink); padding:15px 0; cursor:pointer; display:flex; gap:14px; align-items:baseline; list-style:none}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq summary::-webkit-details-marker{display:none}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq summary .n{font-family:var(--r-sans); font-size:12.5px; font-weight:500; color:var(--r-ink2); min-width:22px}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq summary .q{flex:1; font-family:var(--r-serif); font-size:19.5px; color:var(--r-ink)}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq summary .pm{font-family:var(--r-sans); color:var(--r-ink2); font-size:20px}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq details[open] summary .pm{transform:rotate(45deg)}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq .ans{font-family:var(--r-serif); font-size:18.5px; line-height:1.62; color:var(--r-ink); padding:0 0 18px 36px; max-width:none}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq{margin:0 0 8px; border-top:1px solid var(--r-ink)}
+@media(max-width:700px){
+  html[data-theme="bright"]:has(main.page) body.read article.prose p,
+  html[data-theme="bright"]:has(main.page) body.read article.prose li{font-size:17.5px !important}
+  html[data-theme="bright"]:has(main.page) body.read article.prose .faq .ans{padding-left:0; font-size:17.5px}
+  html[data-theme="bright"]:has(main.page) body.read article.prose table{display:block; overflow-x:auto}
+}
+
+/* ---- Game manual look (2026-11-14). The furniture keeps the site's pixel font, blue and yellow.
+   The reading text stays a plain serif at about 70 characters per line. */
+html[data-theme="bright"]:has(main.page) body.read{--r-blue:#0A5CFF; --r-yel:#FFF200; --r-black:#111; --r-ink:#14213d; --r-ink2:#4a5674}
+html[data-theme="bright"]:has(main.page) body.read .page-hero{border-bottom:3px solid var(--r-blue)}
+html[data-theme="bright"]:has(main.page) body.read .page-hero h1{font-family:var(--pixel) !important; color:var(--r-blue) !important; font-size:clamp(46px,6vw,70px) !important; font-weight:400 !important; line-height:.98 !important; letter-spacing:.01em !important; font-synthesis:none; font-variant-ligatures:none}
+html[data-theme="bright"]:has(main.page) body.read .page-hero .dek, html[data-theme="bright"]:has(main.page) body.read .page-hero p{font-style:normal; color:var(--r-ink) !important}
+html[data-theme="bright"]:has(main.page) body.read article.prose h2{font-family:var(--pixel) !important; color:var(--r-blue) !important; font-size:36px !important; font-weight:400 !important; line-height:1.05 !important; letter-spacing:.01em; font-synthesis:none; font-variant-ligatures:none; margin:50px 0 12px}
+html[data-theme="bright"]:has(main.page) body.read article.prose h2::before{content:""; display:inline-block; width:13px; height:13px; background:var(--r-yel); border:2px solid var(--r-black); margin-right:12px; transform:translateY(-3px)}
+html[data-theme="bright"]:has(main.page) body.read article.prose h3{font-family:var(--pixel) !important; font-style:normal !important; color:var(--r-ink) !important; font-size:26px !important; font-weight:400 !important; letter-spacing:.01em !important; font-synthesis:none; font-variant-ligatures:none; margin:28px 0 6px}
+html[data-theme="bright"]:has(main.page) body.read article.prose a:not(.btn):not(.bp-pager-n):not(.bp-pager-step):not(.bp-chip){color:var(--r-blue) !important; text-decoration-thickness:2px !important}
+html[data-theme="bright"]:has(main.page) body.read article.prose a:not(.btn):not(.bp-pager-n):not(.bp-pager-step):not(.bp-chip):hover{background:var(--r-yel); color:var(--r-black) !important}
+/* numbered and bulleted lists */
+html[data-theme="bright"]:has(main.page) body.read article.prose ol{list-style:none; padding-left:0; counter-reset:r}
+html[data-theme="bright"]:has(main.page) body.read article.prose ol > li{counter-increment:r; position:relative; padding-left:48px; margin-bottom:12px}
+html[data-theme="bright"]:has(main.page) body.read article.prose ol > li::before{content:counter(r); position:absolute; left:0; top:1px; width:30px; height:30px; display:grid; place-items:center; background:var(--r-blue); color:#fff; font-family:var(--pixel); font-size:25px; line-height:1}
+html[data-theme="bright"]:has(main.page) body.read article.prose ul{list-style:none; padding-left:0}
+html[data-theme="bright"]:has(main.page) body.read article.prose ul > li{position:relative; padding-left:26px}
+html[data-theme="bright"]:has(main.page) body.read article.prose ul > li::before{content:""; position:absolute; left:3px; top:.62em; width:9px; height:9px; background:var(--r-blue)}
+/* status box, like a dialog box in a game */
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-status{border:3px solid var(--r-blue); border-left:3px solid var(--r-blue); background:#fff; box-shadow:7px 7px 0 var(--r-blue); padding:16px 20px; margin:30px 7px 14px 0}
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-status p strong:first-child{font-family:var(--pixel); font-weight:400; font-size:22px; line-height:1; background:var(--r-yel); border:2px solid var(--r-black); color:var(--r-black) !important; padding:1px 9px 2px; margin-right:10px; font-synthesis:none}
+/* next steps as buttons */
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-next{margin-top:26px}
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-next a:not(.btn):not(.bp-pager-n):not(.bp-pager-step):not(.bp-chip){display:inline-block; font-family:var(--pixel); font-size:23px; line-height:1; color:var(--r-blue) !important; background:#fff; border:3px solid var(--r-blue) !important; padding:8px 14px 9px; margin:0 20px 16px 0; text-decoration:none !important; box-shadow:5px 5px 0 var(--r-blue); font-synthesis:none}
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-next a:not(.btn):not(.bp-pager-n):not(.bp-pager-step):not(.bp-chip):hover{background:var(--r-yel); color:var(--r-black) !important; border-color:var(--r-black) !important; box-shadow:5px 5px 0 var(--r-black)}
+/* tables */
+html[data-theme="bright"]:has(main.page) body.read article.prose table{border-top:3px solid var(--r-blue); border-bottom:3px solid var(--r-blue)}
+html[data-theme="bright"]:has(main.page) body.read article.prose th{font-family:var(--pixel); font-size:20px; font-weight:400; letter-spacing:.02em; text-transform:none; color:var(--r-blue); border-bottom:2px solid var(--r-blue); padding-top:7px; padding-bottom:7px; font-synthesis:none}
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-rule{border-top:3px dashed var(--r-blue)}
+/* side list */
+html[data-theme="bright"]:has(main.page) body.read main.page > .read-toc{border-left:3px solid var(--r-blue)}
+html[data-theme="bright"]:has(main.page) body.read .read-toc b{font-family:var(--pixel); font-weight:400; font-size:21px; letter-spacing:.02em; text-transform:none; color:var(--r-blue); font-synthesis:none}
+html[data-theme="bright"]:has(main.page) body.read main .read-toc a:not(.btn):not(.bp-pager-n):not(.bp-pager-step):not(.bp-chip):hover{color:var(--r-blue) !important; background:none}
+/* FAQ */
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq{border-top:3px solid var(--r-blue)}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq summary .n{font-family:var(--pixel); font-size:22px; color:var(--r-blue); min-width:30px; font-synthesis:none}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq summary .pm{font-family:var(--pixel); font-size:28px; color:var(--r-blue)}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq summary:hover .q{text-decoration:none; color:var(--r-blue)}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq ul > li::before, html[data-theme="bright"]:has(main.page) body.read article.prose .faq ol > li::before{display:none}
+
+
+/* ---- v3 (2026-11-14): the page as a game window. Black outlines, blue hard shadows, yellow chips.
+   Reading text is untouched: serif, about 70 characters per line, on white. */
+html[data-theme="bright"]:has(main.page) body.read{--r-shadow:#0A5CFF; --r-deep:#0745D9; background-color:#eef4ff; background-image:radial-gradient(#b7ceff 1.6px, transparent 1.8px); background-size:22px 22px}
+html[data-theme="bright"]:has(main.page) body.read .bg-glow{display:none}
+html[data-theme="bright"]:has(main.page) body.read main.page{max-width:1180px; grid-template-columns:minmax(0,46rem) 16rem; column-gap:3.4rem}
+
+/* header of the window */
+html[data-theme="bright"]:has(main.page) body.read .page-hero{position:relative; background:var(--r-blue); border:3px solid var(--r-black); box-shadow:9px 9px 0 var(--r-shadow); padding:0 30px 30px; margin:0; overflow:hidden}
+html[data-theme="bright"]:has(main.page) body.read .page-hero .eyebrow{display:flex; align-items:center; gap:10px; margin:0 -30px 26px; padding:8px 14px; background:var(--r-black); color:#fff !important; font-family:var(--pixel); font-size:19px; letter-spacing:.06em}
+html[data-theme="bright"]:has(main.page) body.read .page-hero .eyebrow span{color:#fff !important}
+html[data-theme="bright"]:has(main.page) body.read .page-hero .eyebrow .sq{background:var(--r-yel); border:0; width:12px; height:12px}
+html[data-theme="bright"]:has(main.page) body.read .page-hero .eyebrow::after{content:""; margin-left:auto; width:12px; height:12px; background:#fff; box-shadow:-20px 0 0 #fff, -40px 0 0 var(--r-yel)}
+html[data-theme="bright"]:has(main.page) body.read .page-hero h1{color:#fff !important; font-size:clamp(46px,6.2vw,78px) !important; text-shadow:5px 5px 0 var(--r-deep); max-width:calc(100% - 150px); margin:0 0 16px}
+html[data-theme="bright"]:has(main.page) body.read .page-hero .dek, html[data-theme="bright"]:has(main.page) body.read .page-hero p{color:#fff !important; max-width:34rem; font-size:20px !important}
+html[data-theme="bright"]:has(main.page) body.read .page-hero .r-icon{position:absolute; right:30px; bottom:28px; width:118px; height:auto; animation:r-bob 1.2s steps(2) infinite}
+@keyframes r-bob{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+@keyframes r-blink{0%{opacity:1}50%{opacity:.25}100%{opacity:1}}
+
+/* body of the window */
+html[data-theme="bright"]:has(main.page) body.read article.prose{position:relative; background:#fff; border:3px solid var(--r-black); border-top:0; box-shadow:9px 9px 0 var(--r-shadow); padding:4px 36px 40px; counter-reset:sec}
+html[data-theme="bright"]:has(main.page) body.read article.prose h2{counter-increment:sec; margin:46px 0 12px; display:flex; align-items:flex-start; gap:12px}
+html[data-theme="bright"]:has(main.page) body.read article.prose h2::before{content:counter(sec, decimal-leading-zero); flex:none; width:auto; height:auto; font-family:var(--pixel); font-size:22px; line-height:1; color:var(--r-black); background:var(--r-yel); border:2px solid var(--r-black); padding:3px 7px 4px; margin:4px 0 0; transform:none}
+html[data-theme="bright"]:has(main.page) body.read article.prose:has(.faq) h2::before{content:""; width:12px; height:12px; padding:0; margin-top:9px}
+html[data-theme="bright"]:has(main.page) body.read article.prose h3{display:flex; align-items:center; gap:10px}
+html[data-theme="bright"]:has(main.page) body.read article.prose h3::before{content:""; flex:none; width:10px; height:10px; background:var(--r-blue)}
+
+/* status box */
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-status{position:relative; border:3px solid var(--r-black); border-left:3px solid var(--r-black); box-shadow:7px 7px 0 var(--r-shadow); margin:34px 7px 16px 0}
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-status::after{content:"!"; position:absolute; top:-18px; right:-16px; width:32px; height:32px; display:grid; place-items:center; background:var(--r-yel); border:3px solid var(--r-black); color:var(--r-black); font-family:var(--pixel); font-size:28px; line-height:1; animation:r-blink 1.1s steps(2) infinite}
+
+/* buttons */
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-next{margin-top:34px; padding-top:20px; border-top:3px dashed var(--r-black)}
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-next::before{content:"Where to next"; display:block; font-family:var(--pixel); font-size:22px; color:var(--r-blue); margin-bottom:14px}
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-next a:not(.btn):not(.bp-pager-n):not(.bp-pager-step):not(.bp-chip){color:var(--r-black) !important; background:#fff; border:3px solid var(--r-black) !important; box-shadow:5px 5px 0 var(--r-shadow); transition:none}
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-next a:not(.btn):not(.bp-pager-n):not(.bp-pager-step):not(.bp-chip):first-child{background:var(--r-yel)}
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-next a:not(.btn):not(.bp-pager-n):not(.bp-pager-step):not(.bp-chip):hover{background:var(--r-blue); color:#fff !important; border-color:var(--r-black) !important; box-shadow:5px 5px 0 var(--r-black)}
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-next a:not(.btn):not(.bp-pager-n):not(.bp-pager-step):not(.bp-chip):active{transform:translate(5px,5px); box-shadow:0 0 0 var(--r-black)}
+
+/* tables */
+html[data-theme="bright"]:has(main.page) body.read article.prose table{border:3px solid var(--r-black); border-top:3px solid var(--r-black); border-bottom:3px solid var(--r-black)}
+html[data-theme="bright"]:has(main.page) body.read article.prose th{background:var(--r-blue); color:#fff; border-bottom:3px solid var(--r-black); padding:8px 12px}
+html[data-theme="bright"]:has(main.page) body.read article.prose td{padding:10px 12px}
+html[data-theme="bright"]:has(main.page) body.read article.prose tbody tr:nth-child(even) td{background:#f1f6ff}
+html[data-theme="bright"]:has(main.page) body.read article.prose .r-rule{border-top:3px dashed var(--r-black)}
+
+/* numbered steps */
+html[data-theme="bright"]:has(main.page) body.read article.prose ol > li::before{border:2px solid var(--r-black); box-shadow:3px 3px 0 var(--r-black); width:28px; height:28px}
+
+/* FAQ as a menu */
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq{border-top:3px solid var(--r-black)}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq details{border-bottom:2px solid var(--r-black)}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq summary{padding:15px 10px; margin:0 -10px}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq summary:hover{background:#f1f6ff}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq summary:hover .n{color:var(--r-black); background:var(--r-yel); outline:2px solid var(--r-black)}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq summary .n{padding:0 4px; text-align:center}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq details[open] summary .q{color:var(--r-blue)}
+html[data-theme="bright"]:has(main.page) body.read article.prose .faq details[open] .ans{border-left:4px solid var(--r-blue); margin:0 0 18px 12px; padding:2px 0 2px 20px}
+
+/* the section list as a panel with reading progress */
+html[data-theme="bright"]:has(main.page) body.read main.page > .read-toc{background:#fff; border:3px solid var(--r-black); border-left:3px solid var(--r-black); box-shadow:7px 7px 0 var(--r-shadow); padding:0 0 12px; top:96px; grid-row:1 / span 2; margin-top:0}
+html[data-theme="bright"]:has(main.page) body.read .read-toc .rt-head{background:var(--r-black); color:#fff; font-family:var(--pixel); font-size:20px; letter-spacing:.04em; padding:7px 12px 8px}
+html[data-theme="bright"]:has(main.page) body.read .read-toc .rt-bar{display:grid; grid-template-columns:repeat(10,1fr); gap:3px; padding:14px 12px 6px}
+html[data-theme="bright"]:has(main.page) body.read .read-toc .rt-bar i{display:block; height:13px; border:2px solid var(--r-black); background:#fff}
+html[data-theme="bright"]:has(main.page) body.read .read-toc .rt-bar i.on{background:var(--r-yel)}
+html[data-theme="bright"]:has(main.page) body.read .read-toc .rt-pct{font-family:var(--pixel); font-size:19px; color:var(--r-blue); padding:0 12px 8px; border-bottom:2px solid var(--r-black); margin-bottom:8px}
+html[data-theme="bright"]:has(main.page) body.read main .read-toc a:not(.btn):not(.bp-pager-n):not(.bp-pager-step):not(.bp-chip){display:flex; gap:9px; align-items:flex-start; padding:6px 12px; font-size:13.5px; line-height:1.35}
+html[data-theme="bright"]:has(main.page) body.read .read-toc .rt-box{flex:none; width:12px; height:12px; margin-top:3px; border:2px solid var(--r-black); background:#fff}
+html[data-theme="bright"]:has(main.page) body.read .read-toc a.done .rt-box{background:var(--r-yel)}
+html[data-theme="bright"]:has(main.page) body.read .read-toc a.now .rt-box{background:var(--r-blue)}
+html[data-theme="bright"]:has(main.page) body.read main .read-toc a.now:not(.btn):not(.bp-pager-n):not(.bp-pager-step):not(.bp-chip){color:var(--r-blue) !important; font-weight:600}
+
+@media(max-width:1100px){
+  html[data-theme="bright"]:has(main.page) body.read main.page{max-width:48rem}
+}
+@media(max-width:700px){
+  html[data-theme="bright"]:has(main.page) body.read .page-hero{padding:0 18px 22px; box-shadow:5px 5px 0 var(--r-shadow)}
+  html[data-theme="bright"]:has(main.page) body.read .page-hero .eyebrow{margin:0 -18px 18px}
+  html[data-theme="bright"]:has(main.page) body.read .page-hero h1{max-width:none}
+  html[data-theme="bright"]:has(main.page) body.read .page-hero .r-icon{display:none}
+  html[data-theme="bright"]:has(main.page) body.read article.prose{padding:2px 18px 28px; box-shadow:5px 5px 0 var(--r-shadow)}
+  html[data-theme="bright"]:has(main.page) body.read article.prose h2{font-size:30px !important}
+}
+@media (prefers-reduced-motion: reduce){
+  html[data-theme="bright"]:has(main.page) body.read .page-hero .r-icon, html[data-theme="bright"]:has(main.page) body.read article.prose .r-status::after{animation:none}
+}

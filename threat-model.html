@@ -5,10 +5,10 @@
 <script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Threat Model | Agent Passport System</title>
-<meta name="description" content="Threat model for the Agent Passport System: assets, threat actors, attack surface by layer, mitigations with test references, assumptions, and non-goals. 38 adversarial scenarios tested.">
+<meta name="description" content="Threat model for the Agent Passport System: what APS checks, what stays outside, assets, threat actors, attack cases with test references, assumptions and non-goals.">
 <link rel="canonical" href="https://agent-passport.org/threat-model.html">
 <meta property="og:title" content="Threat Model | Agent Passport System">
-<meta property="og:description" content="Threat model for the Agent Passport System: assets, threat actors, attack surface by layer, mitigations with test references, assumptions, and non-goals. 38 adversarial scenarios tested.">
+<meta property="og:description" content="Threat model for the Agent Passport System: what APS checks, what stays outside, assets, threat actors, attack cases with test references, assumptions and non-goals.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Agent Passport System">
 <meta property="og:url" content="https://agent-passport.org/threat-model.html">
@@ -28,7 +28,7 @@
   .tm-tag.ngoal{background:rgba(230,120,120,0.16);color:var(--alert)}
   .test-ref{display:block;margin-top:.3rem;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.78rem}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"Threat Model: Agent Passport System | Agent Passport System Security Analysis","description":"Threat model for the Agent Passport System: assets, threat actors, attack surface by layer, mitigations with test references, assumptions, and non-goals. 38 adversarial scenarios tested.","url":"https://agent-passport.org/threat-model.html","dateModified":"2026-07-16","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"Agent Passport System Threat Model","articleSection":"Security Analysis","mainEntityOfPage":{"@type":"WebPage","@id":"https://agent-passport.org/threat-model.html"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "name": "Threat Model: Agent Passport System | Agent Passport System Security Analysis", "description": "Threat model for the Agent Passport System: what APS checks, what stays outside, assets, threat actors, attack cases with test references, assumptions and non-goals.", "url": "https://agent-passport.org/threat-model.html", "dateModified": "2026-07-16", "publisher": {"@type": "Organization", "name": "Agent Passport System", "url": "https://agent-passport.org/", "logo": {"@type": "ImageObject", "url": "https://agent-passport.org/assets/images/aeoess_logo.png"}}, "inLanguage": "en", "headline": "Agent Passport System Threat Model", "articleSection": "Security Analysis", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://agent-passport.org/threat-model.html"}}</script>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S7QVCJGMKR"></script>
 <script>
@@ -40,8 +40,9 @@
 <script src="/nav.js?v=20260907a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
+<link rel="stylesheet" href="/reading.css?v=20261114d">
 </head>
-<body>
+<body class="read">
 <div class="bg-glow"></div>
 <header class="nav">
   <div class="brand">
@@ -80,17 +81,32 @@
 </div>
 <main class="page">
   <section class="page-hero">
-    <div class="eyebrow"><span class="sq"></span><span></span></div>
-    <h1>Threat Model</h1>
-    <p class="dek">Security analysis of the Agent Passport System. What we protect, what we assume, what we test, and what we explicitly do not solve. Every mitigation references a specific test. Current as of SDK v8.0.1 (6,280 passing tests, including adversarial scenario suites).</p>
+    <div class="eyebrow"><span class="sq"></span><span>Threat model</span></div>
+    <h1>What APS protects and what it cannot</h1>
+    <p class="dek">APS helps a system restrict what an AI agent may do and record the decisions made where that restriction is enforced. It does not secure the whole runtime of the agent, and it cannot record an action that never passes through it.</p>
   </section>
   <article class="prose">
+    <h2>What APS checks</h2>
+    <h3>Identity</h3>
+    <p>A valid signature shows that the holder of the private key signed the record and that the record was not changed. The deployment still decides whether it trusts that key.</p>
+    <h3>Authority</h3>
+    <p>A verifier checks the delegation chain, its limits, its validity period and the revocation state it has. Checking a signature alone is not an authority check.</p>
+    <h3>Enforcement</h3>
+    <p>A gateway can refuse an action before it reaches a protected resource. This works only where the gateway controls the path to the resource and the calling system obeys the decision.</p>
+    <h3>Evidence</h3>
+    <p>Signed records let a reviewer inspect what a participating component declared or decided. The signatures do not show that every action was captured or that an outside operation succeeded.</p>
 
-    <h2>1. System Model</h2>
-    <p>The Agent Passport System operates as a <strong>client-side protocol library</strong>. It runs inside agent runtimes (Node.js, browser, Python via canonical serialization). There is no central server, no blockchain, no consensus network. Each agent holds its own Ed25519 private key and produces signed artifacts (passports, delegations, receipts, messages) that any other party can verify using only the public key and the signed data.</p>
-    <p>The protocol boundary is the <strong>signed artifact</strong>. What a verifying signature establishes, and only that: if a signature verifies, the claimed agent produced the data, the data has not been tampered with, and the delegation chain is valid at verification time. Everything outside this boundary (key storage, network transport, runtime integrity) is outside scope.</p>
+    <h2>What stays outside</h2>
+    <p>APS does not protect private key storage, a compromised agent runtime, the confidentiality of the network transport, the behavior of the model or a resource that the agent can reach without the gateway. Revocation depends on the verifier receiving the new state, and it cannot undo an action that already ran.</p>
 
-    <h2>2. Assets</h2>
+    <h2>How the protections are tested</h2>
+    <p>The tests linked below run specific attacks against the implementation. A passing test shows that the tested code behaved as expected in that case. The APS developers wrote these tests unless a record says otherwise, and they do not replace an independent security audit.</p>
+
+    <hr class="r-rule">
+    <h2>Detailed model</h2>
+    <p>The detailed tables below keep descriptions of older SDK APIs and of optional modules (reputation, Agora and the Values Floor). They have not been rechecked against SDK 8.0.1. In the tables, Blocked means that the tested implementation rejected the attack in that test. Detected means that the attack was identified afterwards with evidence. Mitigated means that the attack surface was reduced and not removed.</p>
+
+    <h2>Assets</h2>
     <p>What the protocol protects, ordered by criticality.</p>
     <table>
     <thead><tr><th>Asset</th><th>Description</th><th>Compromise Impact</th></tr></thead>
@@ -104,7 +120,7 @@
     </tbody>
     </table>
 
-    <h2>3. Threat Actors</h2>
+    <h2>Threat Actors</h2>
     <p>The protocol assumes agents may be adversarial. Agents are software. They can be compromised, misconfigured, or intentionally malicious. The threat model does not assume good faith from any agent.</p>
     <table>
     <thead><tr><th>Actor</th><th>Capability</th><th>Goal</th></tr></thead>
@@ -119,21 +135,21 @@
     </tbody>
     </table>
 
-    <h2>4. Trust Assumptions</h2>
+    <h2>Trust Assumptions</h2>
     <p>Security properties hold only when these assumptions hold. If an assumption is violated, the corresponding properties degrade as described.</p>
     <ul>
-    <li><strong>Ed25519 is cryptographically sound.</strong> We use Node.js native <code>node:crypto</code> Ed25519, the same implementation used by OpenSSH. If Ed25519 is broken, all signature-based guarantees fail. This is a foundational assumption shared with SSH, Signal, and TLS 1.3.</li>
-    <li><strong>Private keys are held securely by the agent runtime.</strong> The protocol does not manage key storage. If a private key is extracted, the attacker can produce valid signatures indistinguishable from the legitimate agent. Key management is the responsibility of the deployment environment (HSM, secure enclave, encrypted storage). See <a href="#nongoals">Non-Goals §7.1</a>.</li>
+    <li><strong>Ed25519 is cryptographically sound.</strong> We use Node.js native <code>node:crypto</code> Ed25519. If Ed25519 is broken, all signature-based guarantees fail. This is a foundational assumption shared with SSH, Signal, and TLS 1.3.</li>
+    <li><strong>Private keys are held securely by the agent runtime.</strong> The protocol does not manage key storage. If a private key is extracted, the attacker can produce valid signatures indistinguishable from the legitimate agent. Key management is the responsibility of the deployment environment (HSM, secure enclave, encrypted storage). See <a href="#key-management">Key Management</a>.</li>
     <li><strong>The human principal is reachable for high-value approvals.</strong> The commerce layer generates signed approval requests for purchases above configurable thresholds. The protocol assumes a human can countersign within the approval window (default: 30 minutes). If the human is unreachable, the purchase blocks. This is the intended behavior.</li>
     <li><strong>Clocks are roughly synchronized.</strong> Delegation expiry and receipt timestamps depend on system clocks. The protocol uses ISO 8601 timestamps and checks expiry at verification time. Clock skew beyond the delegation's validity window can cause false rejections (fail-safe) or delayed revocation detection (fail-open, bounded by the skew).</li>
     <li><strong>Network transport is not our layer.</strong> The protocol does not provide confidentiality or transport-layer security. Signed artifacts can be transmitted over any channel (HTTPS, WebSocket, file system, email) and verified independently. Use TLS for confidentiality. Use the Agora for signed, verifiable communication.</li>
-    <li><strong>Agent creation is human-gated.</strong> Agents are created by humans who hold the root delegation authority. The protocol does not provide permissionless agent creation or sybil resistance at the identity layer. One human can create many agents, but all trace back to that human through the delegation chain. See <a href="#nongoals">Non-Goals §7.3</a>.</li>
+    <li><strong>Agent creation is human-gated.</strong> Agents are created by humans who hold the root delegation authority. The protocol does not provide permissionless agent creation or sybil resistance at the identity layer. A delegation chain identifies its root. Showing which human stands behind that root needs separate evidence. See <a href="#sybil-resistance">Sybil Resistance</a>.</li>
     </ul>
 
-    <h2>5. Attack Surface &amp; Mitigations</h2>
+    <h2>Attack Surface &amp; Mitigations</h2>
     <p>Organized by protocol layer. Each attack maps to a specific defense mechanism and a test that verifies it. Test references link to the <a href="https://github.com/agent-passport-system/agent-passport-system/tree/main/tests" target="_blank">test directory on GitHub</a>.</p>
 
-    <h3>5.1 Identity (Layer 1)</h3>
+    <h3>Identity (Layer 1)</h3>
     <table>
     <thead><tr><th>Attack</th><th>Mitigation</th><th>Status</th><th>Test</th></tr></thead>
     <tbody>
@@ -176,7 +192,7 @@
     </tbody>
     </table>
 
-    <h3>5.2 Revocation (Layer 6)</h3>
+    <h3>Revocation (Layer 6)</h3>
     <table>
     <thead><tr><th>Attack</th><th>Mitigation</th><th>Status</th><th>Test</th></tr></thead>
     <tbody>
@@ -207,7 +223,7 @@
     </tbody>
     </table>
 
-    <h3>5.3 Attribution (Layer 3)</h3>
+    <h3>Attribution (Layer 3)</h3>
     <table>
     <thead><tr><th>Attack</th><th>Mitigation</th><th>Status</th><th>Test</th></tr></thead>
     <tbody>
@@ -250,7 +266,7 @@
     </tbody>
     </table>
 
-    <h3>5.4 Policy Engine (Layer 5)</h3>
+    <h3>Policy Engine (Layer 5)</h3>
     <table>
     <thead><tr><th>Attack</th><th>Mitigation</th><th>Status</th><th>Test</th></tr></thead>
     <tbody>
@@ -298,7 +314,7 @@
     </tr>
     <tr>
       <td><strong>Forged policy receipt for denied intent</strong><br>Agent creates an execution receipt for an intent that was denied</td>
-      <td>Policy receipt creation requires a <code>permit</code> decision. Denied intents → receipt creation throws. Execution proof cannot exist without authorization proof.</td>
+      <td>Policy receipt creation requires a <code>permit</code> decision. Denied intents → receipt creation throws.</td>
       <td><span class="tm-tag blocked">Blocked</span></td>
       <td><span class="test-ref"><a href="https://github.com/agent-passport-system/agent-passport-system/blob/main/tests/policy.test.ts">policy.test.ts</a><br>[ADVERSARIAL] cannot create policy receipt for denied intent</span></td>
     </tr>
@@ -311,7 +327,7 @@
     </tbody>
     </table>
 
-    <h3>5.5 Commerce (Layer 8)</h3>
+    <h3>Commerce (Layer 8)</h3>
     <table>
     <thead><tr><th>Attack</th><th>Mitigation</th><th>Status</th><th>Test</th></tr></thead>
     <tbody>
@@ -341,7 +357,7 @@
     </tr>
     <tr>
       <td><strong>Cross-agent spend leakage</strong><br>Agent A's purchases counted against Agent B's budget</td>
-      <td>Spend tracking is scoped per agent ID and delegation ID. Preflight checks are isolated. One agent's spend state cannot affect another's.</td>
+      <td>Spend tracking is scoped per agent ID and delegation ID. Preflight checks are isolated. Agents under a shared bounded ancestor draw on the same ancestor budget.</td>
       <td><span class="tm-tag blocked">Blocked</span></td>
       <td><span class="test-ref"><a href="https://github.com/agent-passport-system/agent-passport-system/blob/main/tests/commerce.test.ts">commerce.test.ts</a><br>tracks spend across multiple preflight checks</span></td>
     </tr>
@@ -360,7 +376,7 @@
     </tbody>
     </table>
 
-    <h3>5.6 Compliance &amp; Values Floor (Layer 2)</h3>
+    <h3>Compliance &amp; Values Floor (Layer 2)</h3>
     <table>
     <thead><tr><th>Attack</th><th>Mitigation</th><th>Status</th><th>Test</th></tr></thead>
     <tbody>
@@ -391,7 +407,7 @@
     </tbody>
     </table>
 
-    <h3>5.7 Communication: Agora (Layer 4)</h3>
+    <h3>Communication: Agora (Layer 4)</h3>
     <table>
     <thead><tr><th>Attack</th><th>Mitigation</th><th>Status</th><th>Test</th></tr></thead>
     <tbody>
@@ -410,13 +426,13 @@
     </tbody>
     </table>
 
-    <h3>5.8 Cross-Language Signature Compatibility</h3>
+    <h3>Cross-Language Signature Compatibility</h3>
     <table>
     <thead><tr><th>Attack</th><th>Mitigation</th><th>Status</th><th>Test</th></tr></thead>
     <tbody>
     <tr>
       <td><strong>Signature divergence across runtimes</strong><br>Node.js <code>JSON.stringify()</code> produces different bytes than Python <code>json.dumps()</code> for identical data → valid signature in one language fails in another</td>
-      <td>Canonical serialization spec: deterministic key ordering, consistent whitespace, unicode normalization. All signatures computed over canonical form. Python reference implementation provided.</td>
+      <td>Each record format has its own canonicalization rules, and signatures are computed over the canonical form. Python reference implementation provided.</td>
       <td><span class="tm-tag blocked">Blocked</span></td>
       <td><span class="test-ref"><a href="https://github.com/agent-passport-system/agent-passport-system/blob/main/tests/canonical.test.ts">canonical.test.ts</a><br>Deterministic serialization edge cases<br><a href="https://github.com/agent-passport-system/agent-passport-system/blob/main/docs/CANONICAL-SPEC.md">CANONICAL-SPEC.md</a></span></td>
     </tr>
@@ -424,51 +440,34 @@
     </table>
     <p><em>This attack was discovered during a real cross-agent coordination task where PortalX2 (Python) signed data that couldn't be verified by the Node.js SDK. The canonical serialization spec and Python reference implementation shipped the same day.</em></p>
 
-    <h2>6. Coverage Summary</h2>
-    <p>Aggregate view of adversarial test coverage across the protocol. These are a developer-authored internal evaluation, not an independent red-team or neutral third-party adversarial harness.</p>
-    <table>
-    <thead><tr><th>Layer</th><th>Attacks Tested</th><th>Blocked</th><th>Detected</th><th>Mitigated</th></tr></thead>
-    <tbody>
-    <tr><td>1 · Identity &amp; Delegation</td><td>6</td><td>6</td><td>0</td><td>0</td></tr>
-    <tr><td>2 · Values Floor &amp; Compliance</td><td>4</td><td>2</td><td>2</td><td>0</td></tr>
-    <tr><td>3 · Attribution</td><td>6</td><td>3</td><td>1</td><td>2</td></tr>
-    <tr><td>4 · Agora (Communication)</td><td>2</td><td>2</td><td>0</td><td>0</td></tr>
-    <tr><td>5 · Policy Engine</td><td>9</td><td>9</td><td>0</td><td>0</td></tr>
-    <tr><td>6 · Revocation</td><td>4</td><td>1</td><td>2</td><td>1</td></tr>
-    <tr><td>8 · Commerce</td><td>7</td><td>7</td><td>0</td><td>0</td></tr>
-    <tr><td><strong>Total</strong></td><td><strong>38</strong></td><td><strong>30</strong></td><td><strong>5</strong></td><td><strong>3</strong></td></tr>
-    </tbody>
-    </table>
-    <p><strong>Blocked</strong> = attack prevented at the protocol level (creation or verification throws/rejects). <strong>Detected</strong> = attack identified at audit/compliance time with evidence. <strong>Mitigated</strong> = attack surface reduced but not fully eliminated (e.g., logarithmic scaling reduces gaming incentive but doesn't make it zero).</p>
-
-    <h2 id="nongoals">7. Non-Goals &amp; Known Limitations</h2>
+    <h2 id="nongoals">Non-Goals &amp; Known Limitations</h2>
     <p>What the protocol explicitly does not solve. Stating non-goals is not an admission of weakness. It is a scoping decision. Protocols that claim to solve everything solve nothing well.</p>
 
-    <h3>7.1 Key Management</h3>
+    <h3 id="key-management">Key Management</h3>
     <p>The protocol assumes private keys exist and are held securely. It does not provide key storage, rotation, recovery, or HSM integration. If a private key is compromised, the attacker can produce valid signatures indistinguishable from the legitimate agent. The correct response is revocation (which the protocol does provide: cascade revocation invalidates the compromised agent and all its sub-delegations).</p>
     <p><strong>Deployment guidance:</strong> Use OS-level secure storage, encrypted key files, or hardware security modules. Rotate keys by creating a new passport and re-delegating. The protocol supports this via <code>updatePassport</code>.</p>
 
-    <h3>7.2 Network Security</h3>
+    <h3>Network Security</h3>
     <p>The protocol does not provide transport-layer encryption, message confidentiality, or DDoS protection. Signed artifacts can be transmitted over any channel and verified independently. Confidentiality is the transport layer's responsibility (TLS, WireGuard, etc.).</p>
 
-    <h3>7.3 Sybil Resistance</h3>
-    <p>The protocol does not prevent a single human from creating multiple agents. Agent creation is not permissionless. It requires a human to hold root delegation authority and explicitly create each agent. However, there is no identity verification (KYC) or proof-of-personhood at the protocol level. All agents trace back to a human through the delegation chain, but the protocol cannot verify that different delegation roots map to different humans.</p>
+    <h3 id="sybil-resistance">Sybil Resistance</h3>
+    <p>The protocol does not prevent a single human from creating multiple agents. Agent creation is not permissionless. It requires a human to hold root delegation authority and explicitly create each agent. However, there is no identity verification (KYC) or proof-of-personhood at the protocol level. Every chain leads to a root, and the protocol cannot verify which human stands behind a root or that different roots map to different humans.</p>
     <p><strong>Implication for governance:</strong> The Agora and governance features (voting, proposals) are explicitly research-stage and not hardened against sybil attacks. "One agent one vote" is a simplifying assumption for experimentation, not a production-grade governance mechanism. Sybil-resistant governance would require external identity binding (out of scope for this protocol).</p>
 
-    <h3>7.4 Runtime Integrity</h3>
+    <h3>Runtime Integrity</h3>
     <p>The protocol cannot detect whether an agent runtime has been compromised. A compromised runtime with access to the private key can forge any signed artifact. The protocol's defense is compartmentalization: scoped delegation limits blast radius (a compromised sub-agent can only act within its delegated scope), and cascade revocation provides containment (revoke the compromised agent's delegation to invalidate all downstream authority).</p>
 
-    <h3>7.5 Semantic Correctness of Actions</h3>
+    <h3>Semantic Correctness of Actions</h3>
     <p>The protocol verifies that an agent <em>was authorized</em> to take an action (scope, delegation, spend limits). It does not verify that the action <em>was correct</em> or <em>produced good results</em>. A validly authorized agent can still make bad decisions. The coordination layer's review gates and reputation scoring provide partial mitigation, but semantic correctness is fundamentally an application-layer concern.</p>
 
-    <h3>7.6 Real-Time Revocation Propagation</h3>
-    <p>Cascade revocation is immediate within a single runtime instance. In distributed deployments where multiple runtimes cache delegation state, revocation propagation depends on cache invalidation timing. The protocol emits revocation events (observable via <code>onRevocation</code> callbacks) but does not mandate a specific propagation mechanism. Stale caches could allow a narrow window where a revoked agent's cached delegation is still accepted.</p>
+    <h3>Real-Time Revocation Propagation</h3>
+    <p>Cascade revocation is immediate within a single runtime instance. In distributed deployments where multiple runtimes cache delegation state, revocation propagation depends on cache invalidation timing. The protocol does not mandate a specific propagation mechanism. The older <code>onRevocation</code> export throws a migration error in SDK 8.0.1, and chain verification uses the revocation source that the caller supplies. Stale caches could allow a narrow window where a revoked agent's cached delegation is still accepted.</p>
     <p><strong>Mitigation:</strong> Short delegation TTLs, frequent re-validation, and revocation event subscriptions reduce the window. This is an explicit tradeoff between verification latency and operational overhead.</p>
 
-    <h3>7.7 Privacy</h3>
+    <h3>Privacy</h3>
     <p>All protocol artifacts (passports, delegations, receipts, Agora messages) are designed to be verifiable by any party. This means they are not private. The delegation chain from agent to human beneficiary is traceable by design. This is a feature for accountability and a limitation for privacy-sensitive deployments. The protocol does not currently support zero-knowledge proofs, selective disclosure, or pseudonymous operation.</p>
 
-    <h2>8. Future Work</h2>
+    <h2>Future Work</h2>
     <p>Security improvements under consideration. Not committed to a timeline.</p>
     <table>
     <thead><tr><th>Area</th><th>Description</th><th>Status</th></tr></thead>
@@ -481,26 +480,25 @@
     </tbody>
     </table>
 
-    <h2>9. How to Verify</h2>
-    <p>Every claim in this document maps to a test. Run the full adversarial suite:</p>
+    <h2>How to Verify</h2>
+    <p>The attack tables name the tests they rely on. Run the suite yourself:</p>
     <pre><span># Clone and run</span>
 git clone https://github.com/agent-passport-system/agent-passport-system
 cd agent-passport-system
 npm install
 npm test
 
-<span># 214 tests, 55 suites, 15 files</span>
-<span># Adversarial scenarios: tests/adversarial.ts (23 tests)</span>
-<span># Policy adversarial: tests/policy.test.ts (11 [ADVERSARIAL] tests)</span>
-<span># Commerce gates: tests/commerce.test.ts (17 tests)</span>
-<span># Cascade revocation: tests/cascade.test.ts (16 tests)</span>
-<span># Enforcement modes: tests/enforcement.test.ts (18 tests)</span></pre>
+<span># Adversarial scenarios: tests/adversarial.ts</span>
+<span># Policy adversarial: tests/policy.test.ts</span>
+<span># Commerce gates: tests/commerce.test.ts</span>
+<span># Cascade revocation: tests/cascade.test.ts</span>
+<span># Enforcement modes: tests/enforcement.test.ts</span></pre>
     <p>The canonical serialization spec and Python reference implementation are at <a href="https://github.com/agent-passport-system/agent-passport-system/blob/main/docs/CANONICAL-SPEC.md" target="_blank">docs/CANONICAL-SPEC.md</a> and <a href="https://github.com/agent-passport-system/agent-passport-system/blob/main/python/aps_canonical.py" target="_blank">python/aps_canonical.py</a>.</p>
 
-    <blockquote><strong>🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt">llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt">llms-full.txt</a> for the complete technical reference (6,280 passing tests, 154 MCP tools, 107 modules). This page is designed for humans.</blockquote>
+    <blockquote><strong>🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt">llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt">llms-full.txt</a> for the complete technical reference. This page is designed for humans.</blockquote>
 
   
-  </article>
+    </article>
 </main>
 <footer class="r" style="scroll-snap-align:start;position:relative;z-index:1">
   <section class="bodies" aria-label="Standards and open source work">
@@ -580,5 +578,6 @@ npm test
     <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
   </div>
 </footer>
+<script src="/reading.js?v=20261114c"></script>
 </body>
 </html>

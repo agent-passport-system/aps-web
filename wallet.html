@@ -5,10 +5,10 @@
 <script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agent Wallet | Agent Passport System</title>
-<meta name="description" content="Agent wallets tied to APS passports. Nano-powered, feeless, instant. Every spend is delegation-scoped. Every transaction produces a signed receipt. Zero gas fees.">
+<meta name="description" content="Spending limits for AI agents come from the delegation a person signs and do not depend on the currency. The open source gateway has experimental payment code with real sends switched off.">
 <link rel="canonical" href="https://agent-passport.org/wallet.html">
 <meta property="og:title" content="Agent Wallet | Agent Passport System">
-<meta property="og:description" content="Agent wallets tied to APS passports. Nano-powered, feeless, instant. Every spend is delegation-scoped. Every transaction produces a signed receipt. Zero gas fees.">
+<meta property="og:description" content="Spending limits for AI agents come from the delegation a person signs and do not depend on the currency. The open source gateway has experimental payment code with real sends switched off.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Agent Passport System">
 <meta property="og:url" content="https://agent-passport.org/wallet.html">
@@ -29,14 +29,13 @@
 .w-card-title{font-family:var(--disp);font-size:19px;font-weight:600;letter-spacing:-0.01em;margin:0 0 8px}
 @media(max-width:768px){.w-flow{grid-template-columns:1fr 1fr}}
 </style>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","dateModified":"2026-07-02","name":"Agent Wallet · Feeless Crypto for AI Agents","description":"Nano-powered agent wallets tied to APS passports. Feeless, instant, delegation-scoped. Every transaction produces a signed receipt.","url":"https://agent-passport.org/wallet.html","isPartOf":{"@type":"WebSite","name":"Agent Passport System","url":"https://agent-passport.org/"},"about":{"@type":"SoftwareApplication","name":"Agent Wallet","applicationCategory":"FinanceApplication","description":"Feeless cryptocurrency wallet for AI agents. HD key derivation, delegation-scoped spending limits, signed receipts, Nano-powered with zero gas fees.","operatingSystem":"Cross-platform","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}}
-</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "dateModified": "2026-07-02", "name": "Agent Wallet · Feeless Crypto for AI Agents", "description": "Spending limits for AI agents come from the delegation a person signs and do not depend on the currency. The open source gateway has experimental payment code with real sends switched off.", "url": "https://agent-passport.org/wallet.html", "isPartOf": {"@type": "WebSite", "name": "Agent Passport System", "url": "https://agent-passport.org/"}, "about": {"@type": "SoftwareApplication", "name": "Agent Wallet", "applicationCategory": "FinanceApplication", "description": "Feeless cryptocurrency wallet for AI agents. HD key derivation, delegation-scoped spending limits, signed receipts, Nano-powered with zero gas fees.", "operatingSystem": "Cross-platform", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}}</script>
 <script src="/nav.js?v=20260907a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
+<link rel="stylesheet" href="/reading.css?v=20261114d">
 </head>
-<body>
+<body class="read">
 <div class="bg-glow"></div>
 <header class="nav">
   <div class="brand">
@@ -75,104 +74,37 @@
 </div>
 <main class="page">
   <section class="page-hero">
-    <div class="eyebrow"><span class="sq"></span><span>Agent wallet</span></div>
-    <h1>Your Agent Gets a Wallet. Your Rules Decide How It Spends.</h1>
-    <p class="dek">Every agent with a passport gets a crypto wallet. Nano-powered: feeless, instant, Layer 1 finality. Every transaction goes through the APS delegation pipeline. Scope check. Spend limit. Signed receipt. No gas fees. No session caps. No intermediary taking a cut.</p>
+    <div class="eyebrow"><span class="sq"></span><span>Agent payments</span></div>
+    <h1>Spending limits for agents, set by people</h1>
+    <p class="dek">In APS a delegation can set how much an agent may spend. The limit belongs to the delegation and applies in the unit it names, whichever payment network carries the payment.</p>
   </section>
   <article class="prose">
+    <div class="r-status"><p><strong>Status.</strong> The payment code in the open source gateway is experimental. In this release the server refuses send requests, and turning payments on needs a separate review and a release decision.</p></div>
 
-    <p><a href="/">Agent Passport System</a> / Agent Wallet</p>
+    <h2>The limit comes from the delegation</h2>
+    <p>A person or an organization delegates authority to an agent and can set a spending limit in that delegation. A bounded limit names a unit, an amount for one action and a cumulative amount. An agent that passes authority on cannot give a larger limit than it received. APS converts no currencies, so a limit applies in the unit it names.</p>
 
-    <h2 class="no-rule">Why Agents Need Wallets</h2>
-    <p>Agents are already spending money. Coinbase Agentic Wallets charge gas. Most agent payment systems require a human to approve every transaction, or worse, give the agent an unlimited credit card.</p>
-    <p>The APS Agent Wallet is different. When an agent registers with the gateway, it gets a Nano wallet tied to its cryptographic passport. The delegation chain defines exactly what the agent can spend, on what, and how much. The gateway enforces it. Every transaction produces a signed receipt anchored to the agent's identity.</p>
+    <h2>What the gateway checks before a payment</h2>
+    <p>In the wallet code a send has to pass the three checks below, next to the operator switches that turn sending on or off.</p>
+    <ol>
+      <li><strong>The wallet is active.</strong> A frozen or revoked wallet cannot send.</li>
+      <li><strong>The delegation covers spending.</strong> A send needs an active delegation that carries the commerce scope and whose chain is still valid. An agent that was delegated only to review cannot pay.</li>
+      <li><strong>The amount fits the limit.</strong> The gateway counts what was already spent against the spending limit in the delegation.</li>
+    </ol>
+    <p>The wallet service records send attempts and their outcomes in its database. The send route does not issue a signed APS decision receipt.</p>
 
-    <h2>How It Works</h2>
-    <div class="w-flow">
-      <div class="w-step"><div class="num">1</div><div class="label">Provision</div><p>Agent registers, gets a Nano address tied to its passport</p></div>
-      <div class="w-step"><div class="num">2</div><div class="label">Delegate</div><p>Principal sets scope and spend limit via delegation chain</p></div>
-      <div class="w-step"><div class="num">3</div><div class="label">Enforce</div><p>Gateway checks: active wallet, commerce scope, budget remaining</p></div>
-      <div class="w-step"><div class="num">4</div><div class="label">Receipt</div><p>Transaction signed, on-chain, receipt stored in audit trail</p></div>
-    </div>
+    <h2>Payment networks are adapters</h2>
+    <p>The gateway reaches a payment network through an adapter. The source has two today. One is for Nano. The other is a reference adapter for Stripe Issuing that accepts only test keys and is not wired into the server. Another currency or network can be added as a new adapter.</p>
 
-    <h2>Three Gates Before Every Send</h2>
-    <p>No transaction goes through without passing all three gates in the delegation pipeline:</p>
-    <div class="aps-grid-3">
-      <div class="aps-card"><div class="w-card-title">Wallet Active</div><p>Agent's wallet must not be frozen or revoked. Cascade revocation from any point in the delegation chain locks the wallet automatically.</p></div>
-      <div class="aps-card"><div class="w-card-title">Commerce Scope</div><p>The delegation must include commerce scope. An agent delegated for "review" cannot spend. Monotonic narrowing applies.</p></div>
-      <div class="aps-card"><div class="w-card-title">Budget Check</div><p>Cumulative spend tracked against the delegation's spend limit. Idempotency keys prevent double-spend on retry.</p></div>
-    </div>
+    <h2>Why Nano came first</h2>
+    <p>Nano came first because its transfers carry no network fee. The spending limit in a delegation is not specific to Nano. A limit can name any unit.</p>
 
-    <h2>Why Nano</h2>
-    <p>Agent-to-agent payments need three properties: feeless (micro-transactions must be viable), instant (sub-second finality for real-time workflows), and programmable (the gateway controls the wallet, not the agent). Nano is the only Layer 1 that delivers all three natively. No gas estimation. No mempool. No bridge fees. A 0.001 XNO payment costs exactly 0.001 XNO.</p>
-    <p>Nano is the first payment rail. The <code>PaymentRail</code> interface is generic. Future rails (Lightning, Solana, stablecoins) plug in the same way. The governance layer stays the same.</p>
+    <h2>Wallets</h2>
+    <p>A registered agent can request a Nano wallet. Provisioning needs an active delegation and passes further checks, and each wallet has its own Nano address.</p>
 
-    <h2>API Endpoints</h2>
-    <pre>POST /wallets/provision     Provision a wallet for an agent
-GET  /wallets/:id/balance   Live on-chain balance query
-POST /wallets/send          3-gate delegation pipeline send
-POST /wallets/:id/receive   Pocket pending incoming blocks
-GET  /wallets/:id/txs       Transaction history with receipts
-POST /wallets/:id/freeze    Freeze wallet (reversible)
-POST /wallets/:id/unfreeze  Unfreeze a frozen wallet
-GET  /wallets               List all agent wallets
-GET  /wallets/dashboard     Aggregate wallet stats</pre>
-    <p>Plus the payment rail endpoints for direct invoice-based payments:</p>
-    <pre>POST /pay/nano/invoice      Create amount-unique invoice
-GET  /pay/nano/status/:id   Poll payment status
-POST /pay/nano/settle/:id   Settle a completed payment
-GET  /pay/nano/balance      Gateway treasury balance
-GET  /pay/nano/history      Payment transaction history
-POST /pay/nano/verify       Verify a Nano block hash</pre>
-
-    <h2>Architecture</h2>
-    <pre>Agent (MCP client)
-  |
-  v
-Gateway (reference implementation: gateway.aeoess.com, operated by AEOESS, Inc.)
-  ├── wallet-crypto.ts    Local HD key derivation + block signing
-  ├── wallet.ts           3-gate delegation enforcement
-  ├── wallet-routes.ts    REST API (9 endpoints)
-  ├── nano-rail.ts        PaymentRail adapter (6 endpoints)
-  └── Public Nano RPC     Work generation + block publishing
-
-Private keys never leave the gateway process.
-Master seed stored locally (mode 600).
-One deterministic address per agent via HD derivation.</pre>
-
-    <h2>Compared to Alternatives</h2>
-    <div class="aps-grid-2">
-      <div class="aps-card"><div class="w-card-title">Coinbase Agentic</div><p>EVM gas fees on every transaction. Session-based. No delegation scoping. No cryptographic receipts tied to agent identity.</p></div>
-      <div class="aps-card"><div class="w-card-title">APS Wallet</div><p>0% fees. Delegation-scoped. Budget-enforced. Signed receipts. Cascade revocation. On-chain finality in under 1 second.</p></div>
-    </div>
-
-    <h2>Sybil Resistance</h2>
-    <p>Passport generation is free and open source. Anyone can create a valid Ed25519 keypair. The protocol is designed this way. The Sybil boundary is the <strong>issuer countersignature</strong>: passports issued through official Agent Passport System infrastructure are countersigned with the Agent Passport System issuer key. A self-signed passport is just a keypair. A countersigned passport is an identity backed by signed credentials.</p>
-    <pre>Agent Passport System Issuer Public Key:
-e11f46f5831432d17852189d5df10ed21d5774797ae9ee52dbab8c650fec16ae
-
-Verify: verifyIssuerSignature(passport, issuerPublicKey)
-MCP tool: verify_issuer
-Published by reference implementation: aeoess.com/.well-known/aeoess-issuer.json</pre>
-    <p>Wallet provisioning requires a countersigned passport. Additional layers: principal endorsement (verified human vouches for agent), reputation tiers (UNTRUSTED agents cannot transact), anomaly detection (Monolith pattern detects mass creation), and cryptographic scarring (caught farming permanently damages reputation).</p>
-
-    <h2>Get Started</h2>
-    <p>The Agent Wallet is part of the Agent Passport System. Connect your MCP client, register an agent, and provision a wallet in three API calls.</p>
-    <pre># 1. Register agent with the gateway
-POST /agents/register { "agentId": "my-agent", "publicKey": "..." }
-
-# 2. Create delegation with commerce scope
-POST /delegations { "scope": ["commerce:*"], "spendLimit": 10.0 }
-
-# 3. Provision wallet
-POST /wallets/provision { "agentId": "my-agent" }
-
-# Done. Agent can now send within its delegation scope.</pre>
-    <p><a href="passport.html">Read the full protocol docs</a> or <a href="https://github.com/aeoess">explore the code on GitHub</a>.</p>
-
-    <p><strong>🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt">llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt">llms-full.txt</a> for the complete technical reference (6,280 passing tests, 154 MCP tools, 107 modules). This page is designed for humans.</p>
-
-  
+    <h2>Where the code is</h2>
+    <p>The wallet routes, the payment adapters and their tests are in the <a href="https://github.com/agent-passport-system/agent-passport-gateway">gateway repository</a> under Apache 2.0. Passing tests do not make the code ready to hold funds.</p>
+    <p class="r-next"><a href="/docs/gateway/">Read the gateway documentation</a> <a href="/docs/authority/">Read how spending limits narrow</a></p>
   </article>
 </main>
 <footer class="r" style="scroll-snap-align:start;position:relative;z-index:1">
@@ -253,5 +185,6 @@ POST /wallets/provision { "agentId": "my-agent" }
     <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
   </div>
 </footer>
+<script src="/reading.js?v=20261114c"></script>
 </body>
 </html>
