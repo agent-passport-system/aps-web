@@ -209,6 +209,18 @@ html[data-theme="bright"]:has(main.page) body.read.read-wide main.page{display:b
 html[data-theme="bright"]:has(main.page) body.read .r-window{position:relative; z-index:1; margin:0; background:#fff; border:3px solid var(--r-black); border-top:0; box-shadow:9px 9px 0 var(--r-shadow); padding:26px 40px 40px}
 html[data-theme="bright"]:has(main.page) body.read .r-window > :first-child{margin-top:0}
 
+/* folded reference blocks, and the group key on Research */
+html[data-theme="bright"]:has(main.page) body.read article.prose details.r-fold{border:3px solid var(--r-black); margin:26px 0 8px; padding:0 18px; background:#fff}
+html[data-theme="bright"]:has(main.page) body.read article.prose details.r-fold > summary{cursor:pointer; list-style:none; margin:0 -18px; padding:10px 18px 11px; font-family:var(--pixel); font-size:23px; line-height:1.1; color:var(--r-black); background:var(--r-yel)}
+html[data-theme="bright"]:has(main.page) body.read article.prose details.r-fold > summary::-webkit-details-marker{display:none}
+html[data-theme="bright"]:has(main.page) body.read article.prose details.r-fold > summary::before{content:"+ "}
+html[data-theme="bright"]:has(main.page) body.read article.prose details.r-fold[open] > summary{border-bottom:3px solid var(--r-black)}
+html[data-theme="bright"]:has(main.page) body.read article.prose details.r-fold[open] > summary::before{content:"- "}
+html[data-theme="bright"]:has(main.page) body.read article.prose details.r-fold > p:first-of-type{margin-top:16px}
+html[data-theme="bright"]:has(main.page) body.read .rg-groups{list-style:none; margin:0 0 22px; padding:0; font-size:15px; line-height:1.5}
+html[data-theme="bright"]:has(main.page) body.read .rg-groups li{margin:0 0 4px}
+html[data-theme="bright"]:has(main.page) body.read .rg-groups strong{font-family:var(--pixel); font-weight:400; font-size:20px; color:var(--r-blue); margin-right:10px}
+
 @media(max-width:1100px){
   html[data-theme="bright"]:has(main.page) body.read main.page{max-width:48rem}
   html[data-theme="bright"]:has(main.page) body.read.read-wide main.page{max-width:1120px}

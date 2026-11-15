@@ -33,7 +33,7 @@
 <script src="/nav.js?v=20260907a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
-<link rel="stylesheet" href="/reading.css?v=20261114i">
+<link rel="stylesheet" href="/reading.css?v=20261114j">
 </head>
 <body class="read">
 <div class="bg-glow"></div>
@@ -104,6 +104,30 @@
 
     <h2>Where the code is</h2>
     <p>The wallet routes, the payment adapters and their tests are in the <a href="https://github.com/agent-passport-system/agent-passport-gateway">gateway repository</a> under Apache 2.0. Passing tests do not make the code ready to hold funds.</p>
+    <details class="r-fold">
+      <summary>Routes in the gateway source</summary>
+      <p>These routes are listed in <code>src/server.ts</code> of the gateway at commit <code>4784153</code>. In this release the server refuses send requests. Each wallet address is derived from a master seed, one address per agent.</p>
+      <table>
+        <thead><tr><th>Route</th><th>What it does</th></tr></thead>
+        <tbody>
+        <tr><td><code>POST /api/v1/wallets/provision</code></td><td>Create a wallet for an agent</td></tr>
+        <tr><td><code>GET /api/v1/wallets/:id/balance</code></td><td>Read the balance from the network</td></tr>
+        <tr><td><code>POST /api/v1/wallets/send</code></td><td>Send, checked against the delegation</td></tr>
+        <tr><td><code>POST /api/v1/wallets/:id/receive</code></td><td>Pocket pending funds</td></tr>
+        <tr><td><code>GET /api/v1/wallets/:id/txs</code></td><td>Transaction history</td></tr>
+        <tr><td><code>POST /api/v1/wallets/:id/freeze</code></td><td>Freeze a wallet</td></tr>
+        <tr><td><code>POST /api/v1/wallets/:id/unfreeze</code></td><td>Reactivate a wallet</td></tr>
+        <tr><td><code>GET /api/v1/wallets</code></td><td>List all wallets</td></tr>
+        <tr><td><code>GET /api/v1/wallets/dashboard</code></td><td>Wallet overview for a tenant</td></tr>
+        <tr><td><code>POST /api/v1/pay/nano/invoice</code></td><td>Create a Nano payment request</td></tr>
+        <tr><td><code>GET /api/v1/pay/nano/status/:id</code></td><td>Check the status of an invoice</td></tr>
+        <tr><td><code>POST /api/v1/pay/nano/settle/:id</code></td><td>Execute a settlement</td></tr>
+        <tr><td><code>GET /api/v1/pay/nano/balance</code></td><td>Balance of the gateway wallet</td></tr>
+        <tr><td><code>GET /api/v1/pay/nano/history</code></td><td>Recent Nano transactions</td></tr>
+        <tr><td><code>POST /api/v1/pay/nano/verify</code></td><td>Verify a transaction on the network</td></tr>
+        </tbody>
+      </table>
+    </details>
     <p class="r-next"><a href="/docs/gateway/">Read the gateway documentation</a> <a href="/docs/authority/">Read how spending limits narrow</a></p>
   </article>
 </main>

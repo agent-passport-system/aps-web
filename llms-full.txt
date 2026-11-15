@@ -822,7 +822,7 @@ StorageBackend is the interface for persistent gateway state. Events are truth (
 
 ## Hosted Gateway (gateway.aeoess.com)
 
-Private enforcement gateway with 37 API routes, multi-tenant with API key auth (SHA-256 hashed, displayed once). SQLite on Railway Volume. Three tiers: free (1K evals/month, 3 agents), pro (50K evals, 25 agents), enterprise (unlimited).
+Enforcement gateway for multiple tenants, with API key authentication. The gateway source is public under Apache 2.0 at https://github.com/agent-passport-system/agent-passport-gateway.
 
 **Core endpoints:** policy evaluation (billable unit), cascade revocation (agents + delegations + wallets frozen), agent registration, delegation management, audit trail, dashboard summary, usage metering.
 

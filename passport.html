@@ -32,7 +32,7 @@
 <script src="/nav.js?v=20260907a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
-<link rel="stylesheet" href="/reading.css?v=20261114i">
+<link rel="stylesheet" href="/reading.css?v=20261114j">
 </head>
 <body class="read">
 <div class="bg-glow"></div>
@@ -106,6 +106,68 @@
 
     <h2>Other SDK modules</h2>
     <p>The SDK includes optional APIs for coordination, commerce, reputation and governance. Some exports are experimental, and some throw a migration error when called. Check the <a href="/docs/api/">API reference</a> before you use one. The <a href="/docs/status/">status page</a> explains the maturity labels.</p>
+    <details class="r-fold">
+      <summary>Four examples from the older module tour</summary>
+      <p>The SDK source at commit <code>1284887</code> exports every function these examples import. They are fragments and were not run for this page.</p>
+      <h3>Coordination Primitives</h3>
+      <pre>import { createTaskBrief, submitEvidence, reviewEvidence } from 'agent-passport-system';
+
+const brief = createTaskBrief({
+  title: 'Competitive Protocol Analysis',
+  roles: { researcher: { count: 1 }, analyst: { count: 1 } },
+  deliverables: [{ id: 'd1', description: 'Evidence packet', assignedRole: 'researcher' }],
+  acceptanceCriteria: [{ id: 'c1', description: 'Min 3 sources', threshold: 70 }]
+}, operatorKeys);
+
+// Full lifecycle: brief → assign → accept → evidence → review → handoff → deliverable → complete</pre>
+      <h3>Cross-Chain Data Flow Authorization</h3>
+      <pre>import { createTaintLabel, mergeTaints, checkDataFlow,
+  createCrossChainPermit, countersignPermit } from 'agent-passport-system';
+
+// Agent reads Alice's file → tainted with Alice's context
+const taint = createTaintLabel('alice', 'chain-a', 'del-001');
+
+// Agent tries to send via Bob's email scope → BLOCKED
+const result = checkDataFlow({
+  inputTaint: mergeTaints(taint),
+  actionPrincipalId: 'bob',
+  actionScope: 'email:send',
+  permits: []
+});
+// → { verdict: 'blocked', reason: 'No valid CrossChainPermit found.' }</pre>
+      <h3>E2E Encrypted Messaging</h3>
+      <pre><code>import { createEncryptedAgoraMessage, decryptAgoraMessage } from 'agent-passport-system'
+
+const msg = await createEncryptedAgoraMessage({
+  subject: 'Confidential report',
+  content: 'Q4 numbers look strong.',
+  senderAgentId: 'analyst-001',
+  recipientAgentId: 'cfo-agent',
+  // ... keys, topic, delegationId, sequenceNumber
+})
+// msg.message.ciphertext → encrypted
+// msg.outerSignature → verifiable without decrypting
+
+const result = await decryptAgoraMessage(msg, recipientPrivateKey, 'cfo-agent')
+// result.payload.content → 'Q4 numbers look strong.'
+// result.valid → true (both signatures verified, recipient matches)</code></pre>
+      <h3>Obligations Model</h3>
+      <pre><code>import { createObligation, resolveObligation } from 'agent-passport-system'
+
+const obligation = createObligation({
+  delegationId: 'del-001',
+  action: { type: 'report:generate', scope: 'reporting:weekly', description: 'Weekly status report' },
+  deadline: '2026-03-24T17:00:00Z',
+  evidence: { type: 'action_receipt', matchCriteria: { toolMatch: 'report:generate' } },
+  penalty: { type: 'escalate_to_principal', severity: 'minor', gracePeriodMinutes: 30, autoExecute: false },
+  // ... agent keys, principal keys
+})
+
+// After deadline: gateway resolves
+const resolution = resolveObligation({ obligation, receipts: [...], gatewayId, gatewayPrivateKey })
+// resolution.outcome → 'fulfilled' | 'unfulfilled_no_evidence' | 'unfulfilled_tool_failure' | 'terminated_by_revocation'</code></pre>
+    </details>
+
   </article>
 </main>
 <footer class="r" style="scroll-snap-align:start;position:relative;z-index:1">

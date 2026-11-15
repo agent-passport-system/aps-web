@@ -104,7 +104,7 @@
 
     <hr class="r-rule">
     <h2>Detailed model</h2>
-    <p>The detailed tables below keep descriptions of older SDK APIs and of optional modules (reputation, Agora and the Values Floor). They have not been rechecked against SDK 8.0.1. In the tables, Blocked means that the tested implementation rejected the attack in that test. Detected means that the attack was identified afterwards with evidence. Mitigated means that the attack surface was reduced and not removed.</p>
+    <p>The detailed tables below keep descriptions of older SDK APIs and of optional modules (reputation, Agora and the Values Floor). The APS project ran the SDK test suite on 2026-11-14 at commit <code>1284887</code>, which is 17 commits after v8.0.1. Of 6,303 tests, 6,293 passed, 5 failed and 5 were skipped, and no failure was in a test file that these tables link to. Two linked files, <code>cascade.test.ts</code> and <code>integration-wiring.test.ts</code>, are no longer in the repository, so four rows have no current test behind them. The descriptions in the rows were not reviewed one by one. In the tables, Blocked means that the tested implementation rejected the attack in that test. Detected means that the attack was identified afterwards with evidence. Mitigated means that the attack surface was reduced and not removed.</p>
 
     <h2>Assets</h2>
     <p>What the protocol protects, ordered by criticality.</p>
@@ -200,7 +200,7 @@
       <td><strong>Zombie delegation</strong><br>Parent revoked but child delegation still accepted</td>
       <td>Cascade revocation: revoking any delegation automatically revokes all descendants. Chain registry tracks parent→child relationships. Validation checks every link.</td>
       <td><span class="tm-tag blocked">Blocked</span></td>
-      <td><span class="test-ref"><a href="https://github.com/agent-passport-system/agent-passport-system/blob/main/tests/cascade.test.ts">cascade.test.ts</a><br>revokes root and all descendants / cascade from middle of chain</span></td>
+      <td><span class="test-ref">cascade.test.ts (no longer in the repository)<br>revokes root and all descendants / cascade from middle of chain</span></td>
     </tr>
     <tr>
       <td><strong>Acting under revoked delegation</strong><br>Agent creates receipts after delegation is revoked</td>
@@ -212,13 +212,13 @@
       <td><strong>Double-revocation amplification</strong><br>Repeatedly revoking already-revoked delegations to cause overhead</td>
       <td>Revocation checks current status before propagating. Already-revoked delegations are no-ops, with no re-traversal of descendants.</td>
       <td><span class="tm-tag mitigated">Mitigated</span></td>
-      <td><span class="test-ref"><a href="https://github.com/agent-passport-system/agent-passport-system/blob/main/tests/cascade.test.ts">cascade.test.ts</a><br>[ADVERSARIAL] does not double-revoke already revoked descendants</span></td>
+      <td><span class="test-ref">cascade.test.ts (no longer in the repository)<br>[ADVERSARIAL] does not double-revoke already revoked descendants</span></td>
     </tr>
     <tr>
       <td><strong>Chain continuity break</strong><br>Delegation chain has gap (A→B, C→D, missing B→C link)</td>
       <td>Chain validation walks every link. Missing or unknown delegation → validation fails with <code>unknown_delegation</code> or <code>continuity_break</code> status.</td>
       <td><span class="tm-tag detected">Detected</span></td>
-      <td><span class="test-ref"><a href="https://github.com/agent-passport-system/agent-passport-system/blob/main/tests/cascade.test.ts">cascade.test.ts</a><br>detects chain continuity break / detects unknown delegation</span></td>
+      <td><span class="test-ref">cascade.test.ts (no longer in the repository)<br>detects chain continuity break / detects unknown delegation</span></td>
     </tr>
     </tbody>
     </table>
@@ -371,7 +371,7 @@
       <td><strong>Commerce delegation exceeds protocol delegation</strong><br>Commerce delegation claims wider scope or higher spend than protocol delegation allows</td>
       <td>Integration wiring validates commerce delegation against the underlying protocol delegation: scope ⊆, spend ≤, matching delegation IDs.</td>
       <td><span class="tm-tag blocked">Blocked</span></td>
-      <td><span class="test-ref"><a href="https://github.com/agent-passport-system/agent-passport-system/blob/main/tests/integration-wiring.test.ts">integration-wiring.test.ts</a><br>rejects when commerce spend limit exceeds protocol limit / rejects when commerce scopes not in protocol delegation</span></td>
+      <td><span class="test-ref">integration-wiring.test.ts (no longer in the repository)<br>rejects when commerce spend limit exceeds protocol limit / rejects when commerce scopes not in protocol delegation</span></td>
     </tr>
     </tbody>
     </table>
