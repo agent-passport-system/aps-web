@@ -1,6 +1,6 @@
 // Reading pages: the section list with reading progress, and the pixel icon in the page header.
 (function () {
-  var art = document.querySelector('body.read article.prose');
+  var art = document.querySelector('body.read article.prose, body.read .r-window');
   if (!art) return;
 
   // ---- pixel icon in the header. k = black, w = white, y = yellow, . = empty
@@ -10,11 +10,12 @@
     shield: ['kkkkkkkkkkkk', 'kwwwwwyyyyyk', 'kwwwwwyyyyyk', 'kwwwwwyyyyyk', 'kwwwwwyyyyyk', 'kyyyyywwwwwk', 'kyyyyywwwwwk', '.kyyyywwwwk.', '.kyyyywwwwk.', '..kyyywwwk..', '...kkywkk...', '.....kk.....'],
     bubble: ['.kkkkkkkkkk.', 'kwwwwwwwwwwk', 'kwwwkkkkwwwk', 'kwwkwwwwkwwk', 'kwwwwwwkkwwk', 'kwwwwwkkwwwk', 'kwwwwwkwwwwk', 'kwwwwwwwwwwk', 'kwwwwwkwwwwk', 'kwwwwwwwwwwk', '.kkkkkkkkkk.', '...kk.......'],
     blocks: ['kkkkkkkk....', 'kwwwwwwk....', 'kwwwwwwk....', 'kwwwkkkkkkkk', 'kwwwkyyyyyyk', 'kwwwkyyyyyyk', 'kwwwkyyyyyyk', 'kkkkkyyyyyyk', '....kyyyyyyk', '....kyyyyyyk', '....kyyyyyyk', '....kkkkkkkk'],
+    check: ['kkkkkkkkkkkk', 'kwwwwwwwwwwk', 'kwwwwwwwwyyk', 'kwwwwwwwyykk', 'kwwwwwwyykwk', 'kwyywwyykwwk', 'kwkyyyykwwwk', 'kwwkyykwwwwk', 'kwwwkkwwwwwk', 'kwwwwwwwwwwk', 'kkkkkkkkkkkk'],
     doc: ['.kkkkkkkk...', '.kwwwwwwkk..', '.kwwwwwwkwk.', '.kwkkkkwkkk.', '.kwwwwwwwwk.', '.kwkkkkkkwk.', '.kwwwwwwwwk.', '.kwkkkkkkwk.', '.kwwwwwwwwk.', '.kwkkkkwyyk.', '.kwwwwwwyyk.', '.kkkkkkkkkk.'],
     lens: ['..kkkkk.....', '.kwwwwwk....', 'kwwwwwwwk...', 'kwwwwwwwk...', 'kwwwwwwwk...', 'kwwwwwwwk...', '.kwwwwwk....', '..kkkkkkk...', '.......kyk..', '........kyk.', '.........kyk', '..........kk'],
     frame: ['kkkkkkkkkkkk', 'kyyyyyyyyyyk', 'kykkkkkkkkyk', 'kykwwwwwwkyk', 'kykwwwwkwkyk', 'kykwwwkkkkyk', 'kykwkkkkkkyk', 'kykkkkkkkkyk', 'kyyyyyyyyyyk', 'kkkkkkkkkkkk']
   };
-  var BY_PAGE = { wallet: 'coin', passport: 'key', 'threat-model': 'shield', faq: 'bubble', compare: 'blocks', compliance: 'doc', verify: 'lens', 'data-usage-evidence': 'frame' };
+  var BY_PAGE = { wallet: 'coin', passport: 'key', 'threat-model': 'shield', faq: 'bubble', compare: 'blocks', compliance: 'doc', protocol: 'check', verify: 'lens', 'data-usage-evidence': 'frame' };
   var page = (location.pathname.split('/').pop() || '').replace('.html', '');
   var rows = ICONS[BY_PAGE[page]];
   var hero = document.querySelector('body.read .page-hero');
@@ -40,6 +41,7 @@
   }
 
   // ---- section list with a progress bar
+  if (document.body.classList.contains('read-wide')) return;
   var hs = Array.prototype.slice.call(art.querySelectorAll('h2'));
   if (hs.length < 3) return;
   var nav = document.createElement('nav');

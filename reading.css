@@ -203,8 +203,14 @@ html[data-theme="bright"]:has(main.page) body.read article.prose .aps-card{backg
 html[data-theme="bright"]:has(main.page) body.read article.prose h2.no-rule{border:0}
 html[data-theme="bright"]:has(main.page) body.read article.prose > :first-child:not(h2):not(.r-status):not(.av-disclaimer){margin-top:26px}
 
+/* wide pages with their own components (Protocol): the same window, one column, inner design untouched */
+html[data-theme="bright"]:has(main.page) body.read.read-wide main.page{display:block; max-width:1120px}
+html[data-theme="bright"]:has(main.page) body.read .r-window{position:relative; z-index:1; margin:0; background:#fff; border:3px solid var(--r-black); border-top:0; box-shadow:9px 9px 0 var(--r-shadow); padding:26px 40px 40px}
+html[data-theme="bright"]:has(main.page) body.read .r-window > :first-child{margin-top:0}
+
 @media(max-width:1100px){
   html[data-theme="bright"]:has(main.page) body.read main.page{max-width:48rem}
+  html[data-theme="bright"]:has(main.page) body.read.read-wide main.page{max-width:1120px}
 }
 @media(max-width:700px){
   html[data-theme="bright"]:has(main.page) body.read .page-hero{padding:0 18px 22px; box-shadow:5px 5px 0 var(--r-shadow)}
@@ -212,6 +218,7 @@ html[data-theme="bright"]:has(main.page) body.read article.prose > :first-child:
   html[data-theme="bright"]:has(main.page) body.read .page-hero h1{max-width:none}
   html[data-theme="bright"]:has(main.page) body.read .page-hero .r-icon{display:none}
   html[data-theme="bright"]:has(main.page) body.read article.prose{padding:2px 18px 28px; box-shadow:5px 5px 0 var(--r-shadow)}
+  html[data-theme="bright"]:has(main.page) body.read .r-window{padding:16px 16px 26px; box-shadow:5px 5px 0 var(--r-shadow)}
   html[data-theme="bright"]:has(main.page) body.read article.prose h2{font-size:30px !important}
 }
 @media (prefers-reduced-motion: reduce){
