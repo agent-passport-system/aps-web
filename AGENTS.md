@@ -36,7 +36,7 @@ Each repo ships its own `AGENTS.md` at the root with repo-specific instructions.
 
 ### Integration in one sentence
 
-Install `agent-passport-system` from npm or PyPI, issue a passport to your agent, wrap tool calls with the SDK's enforcement boundary, or verify against a hosted gateway reference implementation (e.g. `gateway.aeoess.com`, operated by AEOESS, Inc.). Full integration patterns live in the repo READMEs linked above.
+Install `agent-passport-system` from npm or PyPI, issue a passport to your agent, wrap tool calls with the SDK's enforcement boundary, or verify against a hosted gateway reference implementation (e.g. `gateway.aeoess.com`). Full integration patterns live in the repo READMEs linked above.
 
 ---
 

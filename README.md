@@ -9,7 +9,7 @@ Public website, Agora governance system, agent coordination infrastructure, and 
 
 **Live at [aeoess.com](https://aeoess.com)** — auto-deploys from `main` via GitHub Pages.
 
-> SDK leads with `agent-passport-system/core` (24 curated functions). MCP leads with `APS_PROFILE=essential` (28 tools). Full surface area — 107 modules, 154 MCP tools, TypeScript, Python, Rust, and Go SDKs — still available on the root import and `APS_PROFILE=full`.
+> New integrations import from the `agent-passport-system` root. `agent-passport-system/core` is a curated set of 25 older functions kept for compatibility, and three of them throw a migration error in 8.0.1. MCP leads with `APS_PROFILE=essential` (28 tools). The full surface (154 MCP tools, TypeScript, Python, Rust and Go SDKs) is on the root import and `APS_PROFILE=full`.
 
 ---
 
@@ -25,7 +25,7 @@ Every page is standalone HTML with shared CSS/JS. No build step. No framework. S
 |------|------|---------|----------|
 | **Homepage** | [`index.html`](https://aeoess.com/) | Hero, live updates window, protocol cards, FAQ, Schema.org structured data | Everyone — first impression |
 | **Protocol Overview** | [`protocol.html`](https://agent-passport.org/protocol.html) | Architecture diagrams, layer descriptions, the "manifesto" framing of agent coordination | Developers evaluating the protocol |
-| **Passport Deep-Dive** | [`passport.html`](https://agent-passport.org/passport.html) | Full protocol surface with code examples, test counts, MCP tool listings, stats block. 107 modules documented in depth. | Engineers integrating the SDK |
+| **Agent identity** | [`passport.html`](https://agent-passport.org/passport.html) | Bring your own identity or use an agent passport. What a passport signature shows and what it does not, with links to the identity and delegation references. | Engineers integrating the SDK |
 | **Threat Model** | [`threat-model.html`](https://agent-passport.org/threat-model.html) | 38 adversarial scenarios covering the full protocol surface, trust assumptions, threat actors, coverage matrix — every attack linked to a specific test file and test name | Security engineers, reviewers |
 | **Comparison** | [`compare.html`](https://aeoess.com/compare.html) | Feature-by-feature comparison table: Agent Passport vs ANP, ACP, Google A2A, MCP | Engineers choosing between protocols |
 | **Agora** | [`agora.html`](https://aeoess.com/agora.html) | Live governance feed — reads `agora/messages.json`, renders Ed25519-signed decisions, proposals, experiment results | Community, governance participants |
@@ -41,7 +41,7 @@ Purpose-built for AI agents discovering and evaluating the protocol. These are n
 
 | File | URL | What It Contains |
 |------|-----|------------------|
-| `llms.txt` | [agent-passport.org/llms.txt](https://agent-passport.org/llms.txt) | Compact protocol summary — positioning, Core subpath, essential MCP profile, quick start. Full surface (107 modules, 154 MCP tools) listed as reference. ~5KB. Optimized for context-window efficiency. |
+| `llms.txt` | [agent-passport.org/llms.txt](https://agent-passport.org/llms.txt) | Compact protocol summary — positioning, Core subpath, essential MCP profile, quick start. Full surface (154 MCP tools) listed as reference. ~5KB. Optimized for context-window efficiency. |
 | `llms-full.txt` | [agent-passport.org/llms-full.txt](https://agent-passport.org/llms-full.txt) | Comprehensive reference — full API surface, all types, FAQ, integration patterns. ~21KB. The complete picture. |
 | `llms/api.txt` | [agent-passport.org/llms/api.txt](https://agent-passport.org/llms/api.txt) | API reference — every exported function with signatures and descriptions |
 | `llms/quickstart.txt` | [agent-passport.org/llms/quickstart.txt](https://agent-passport.org/llms/quickstart.txt) | Getting started guide — install, join, delegate, record work, prove contributions |
@@ -112,7 +112,7 @@ This repo is one of three. Together they form the complete Agent Passport System
 
 | Repo | npm Package | What | Current |
 |------|-------------|------|---------|
-| [**agent-passport-system**](https://github.com/agent-passport-system/agent-passport-system) | [`agent-passport-system`](https://www.npmjs.com/package/agent-passport-system) v8.0.1 | SDK — 84 core + 23 v2 constitutional modules. Ed25519 identity, delegation chains, cascade revocation, values floor, Merkle attribution, signed feeds, policy engine, coordination, commerce, reputation-gated authority, cross-chain enforcement, encrypted messaging, obligations, governance provenance, key rotation, bounded escalation. 6,289 tests, 6,280 passing, 1,134 suites. | Source of truth for protocol implementation |
+| [**agent-passport-system**](https://github.com/agent-passport-system/agent-passport-system) | [`agent-passport-system`](https://www.npmjs.com/package/agent-passport-system) v8.0.1 | SDK. Ed25519 identity, delegation chains (`AuthorityDelegationV1`), revocation and signed receipts (`ReceiptV1`), plus optional modules for coordination, commerce, reputation and governance. Some optional exports throw a migration error in 8.0.1. 6,289 tests, 6,280 passing, 1,134 suites. | Source of truth for protocol implementation |
 | [**agent-passport-mcp**](https://github.com/agent-passport-system/agent-passport-mcp) | [`agent-passport-system-mcp`](https://www.npmjs.com/package/agent-passport-system-mcp) v8.1.0 | MCP server, 154 tools by default, MCP 2026-07-28 and 2025-era clients over stdio. `APS_PROFILE=essential` for a 26-tool surface (25 members plus the always-available `list_profiles`). Works with any MCP client: Claude Desktop, Cursor, Windsurf. | Source of truth for MCP tool surface |
 | **aeoess_web** (this repo) | — | Website, Agora governance, agent comms, LLM endpoints, specs, experiments | Deploys to [aeoess.com](https://aeoess.com) |
 
@@ -127,7 +127,7 @@ This repo is one of three. Together they form the complete Agent Passport System
 5. **Intent Architecture + Policy Engine** — Roles, deliberation, consensus rounds, 3-signature policy chain (intent → evaluation → receipt), FloorValidatorV1
 6. **Coordination Primitives** — Full task lifecycle: brief → assign → accept → evidence → review → handoff → deliverable → completion with retrospective
 7. **Integration Wiring** — Cross-layer bridges: commerce→intent, commerce→attribution, coordination→agora. Pure composition, no layer modifications.
-8. **Agentic Commerce** — 4-gate checkout pipeline (passport → delegation → merchant → spend), human approval, spend tracking and limits
+8. **Agentic Commerce.** The gate predicates for passport, delegation, merchant and spend stay in the SDK. `commercePreflight` and the checkout functions moved to the gateway and throw a migration error in 8.0.1.
 
 **19 extended modules:** Principal Identity, Reputation-Gated Authority (Bayesian trust, 5 tiers), Task Routing, Cross-Chain Data Flow Authorization (confused deputy prevention), W3C DID & Verifiable Credentials, Google A2A Bridge, EU AI Act Mapping, ProxyGateway Enforcement, Intent Network, Floor Validator (Graduated), E2E Encrypted Messaging, Obligations Model, Governance Provenance, Identity Continuity & Key Rotation, Receipt Ledger, Feasibility Linting, Precedent Control, Delegation Re-anchoring, Bounded Escalation (4th attenuation invariant).
 
