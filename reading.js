@@ -10,12 +10,15 @@
     shield: ['kkkkkkkkkkkk', 'kwwwwwyyyyyk', 'kwwwwwyyyyyk', 'kwwwwwyyyyyk', 'kwwwwwyyyyyk', 'kyyyyywwwwwk', 'kyyyyywwwwwk', '.kyyyywwwwk.', '.kyyyywwwwk.', '..kyyywwwk..', '...kkywkk...', '.....kk.....'],
     bubble: ['.kkkkkkkkkk.', 'kwwwwwwwwwwk', 'kwwwkkkkwwwk', 'kwwkwwwwkwwk', 'kwwwwwwkkwwk', 'kwwwwwkkwwwk', 'kwwwwwkwwwwk', 'kwwwwwwwwwwk', 'kwwwwwkwwwwk', 'kwwwwwwwwwwk', '.kkkkkkkkkk.', '...kk.......'],
     blocks: ['kkkkkkkk....', 'kwwwwwwk....', 'kwwwwwwk....', 'kwwwkkkkkkkk', 'kwwwkyyyyyyk', 'kwwwkyyyyyyk', 'kwwwkyyyyyyk', 'kkkkkyyyyyyk', '....kyyyyyyk', '....kyyyyyyk', '....kyyyyyyk', '....kkkkkkkk'],
+    bars: ['............', '.........kkk', '.........kyk', '......kkkkyk', '......kwkkyk', '...kkkkwkkyk', '...kykkwkkyk', 'kkkkykkwkkyk', 'kwkkykkwkkyk', 'kwkkykkwkkyk', 'kkkkkkkkkkkk'],
+    book: ['.kkkkk.kkkkk', 'kwwwwwkwwwwk', 'kwkkkwkwkkwk', 'kwwwwwkwwwwk', 'kwkkkwkwkkwk', 'kwwwwwkwwwwk', 'kwkkkwkwkkwk', 'kwwwwwkwwwwk', 'kyyyyykyyyyk', '.kkkkkkkkkk.'],
+    star: ['.....kk.....', '....kyyk....', '....kyyk....', 'kkkkkyykkkkk', 'kyyyyyyyyyyk', '.kyyyyyyyyk.', '..kyyyyyyk..', '..kyyyyyyk..', '.kyyykkyyyk.', '.kyykk.kkyyk', 'kkkk.....kkk'],
     check: ['kkkkkkkkkkkk', 'kwwwwwwwwwwk', 'kwwwwwwwwyyk', 'kwwwwwwwyykk', 'kwwwwwwyykwk', 'kwyywwyykwwk', 'kwkyyyykwwwk', 'kwwkyykwwwwk', 'kwwwkkwwwwwk', 'kwwwwwwwwwwk', 'kkkkkkkkkkkk'],
     doc: ['.kkkkkkkk...', '.kwwwwwwkk..', '.kwwwwwwkwk.', '.kwkkkkwkkk.', '.kwwwwwwwwk.', '.kwkkkkkkwk.', '.kwwwwwwwwk.', '.kwkkkkkkwk.', '.kwwwwwwwwk.', '.kwkkkkwyyk.', '.kwwwwwwyyk.', '.kkkkkkkkkk.'],
     lens: ['..kkkkk.....', '.kwwwwwk....', 'kwwwwwwwk...', 'kwwwwwwwk...', 'kwwwwwwwk...', 'kwwwwwwwk...', '.kwwwwwk....', '..kkkkkkk...', '.......kyk..', '........kyk.', '.........kyk', '..........kk'],
     frame: ['kkkkkkkkkkkk', 'kyyyyyyyyyyk', 'kykkkkkkkkyk', 'kykwwwwwwkyk', 'kykwwwwkwkyk', 'kykwwwkkkkyk', 'kykwkkkkkkyk', 'kykkkkkkkkyk', 'kyyyyyyyyyyk', 'kkkkkkkkkkkk']
   };
-  var BY_PAGE = { wallet: 'coin', passport: 'key', 'threat-model': 'shield', aivss: 'shield', faq: 'bubble', compare: 'blocks', compliance: 'doc', protocol: 'check', verify: 'lens', 'data-usage-evidence': 'frame' };
+  var BY_PAGE = { wallet: 'coin', passport: 'key', 'threat-model': 'shield', aivss: 'shield', faq: 'bubble', compare: 'blocks', compliance: 'doc', benchmarks: 'bars', research: 'book', media: 'star', protocol: 'check', verify: 'lens', 'data-usage-evidence': 'frame' };
   var page = (location.pathname.split('/').pop() || '').replace('.html', '');
   var rows = ICONS[BY_PAGE[page]];
   var hero = document.querySelector('body.read .page-hero');

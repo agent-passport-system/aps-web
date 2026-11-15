@@ -44,7 +44,7 @@
 <script src="/nav.js?v=20260907a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
-<link rel="stylesheet" href="/reading.css?v=20261114f">
+<link rel="stylesheet" href="/reading.css?v=20261114i">
 </head>
 <body class="read">
 <div class="bg-glow"></div>
@@ -87,7 +87,7 @@
   <section class="page-hero">
     <div class="eyebrow"><span class="sq"></span><span>Security Analysis</span></div>
     <h1>AIVSS Risk Mapping</h1>
-    <p class="dek">Which of the ten risks in the OWASP AI Vulnerability Scoring System the controls in APS bear on, and where they stop. This is an assessment by the APS project. It is not an OWASP assessment, a certification or an AIVSS score.</p>
+    <p class="dek">This page compares the controls in APS with the ten risks of the OWASP AI Vulnerability Scoring System and explains their limits. It is an assessment by the APS project. It is not an OWASP assessment, a certification or an AIVSS score.</p>
   </section>
   <article class="prose">
 
@@ -103,7 +103,7 @@
 
     <h3>#2 Access Control Violation</h3>
       
-      <p>Scope monotonic narrowing enforced at every delegation step. The deterministic gate checks scope on every action. Sub-delegations cannot exceed parent scope. The specification says the same for spend limits and depth ceilings and forbids a child that drops a bound its parent carries; the shipped verifiers compare those only when both hops carry the field (see the <a href="protocol.html#erratum-2026-08-17">erratum of 2026-08-17</a>).</p>
+      <p>Scope monotonic narrowing enforced at every delegation step. The deterministic gate checks scope on every action. Sub-delegations cannot exceed parent scope. The <a href="protocol.html#erratum-2026-08-17">erratum of 2026-08-17</a> concerns the older Delegation records. The AuthorityDelegationV1 verifier in SDK 8.0.1 requires all seven limits and rejects a wider spend limit or depth.</p>
       <div class="av-tags"><span class="av-tag inv">INV-2</span><span class="av-tag inv">INV-3</span><span class="av-tag">Layer 1: Delegation</span><span class="av-tag">Layer 5: Policy</span><span class="av-tag">Adversarial: S2</span></div>
 
     <h3>#3 Cascading Failures</h3>
@@ -113,12 +113,12 @@
 
     <h3>#4 Untraceable Agents</h3>
       
-      <p>A delegation chain identifies its root. Showing which human stands behind that root needs separate evidence. Merkle attribution gives a compact record of the beneficiary chain that others can check.</p>
+      <p>A delegation chain identifies its root. Showing which human stands behind that root needs separate evidence. The beneficiary proof generator of SDK 8.0.1, <code>proveContributions</code>, throws a migration error.</p>
       <div class="av-tags"><span class="av-tag inv">INV-8</span><span class="av-tag">Layer 3: Attribution</span><span class="av-tag">Adversarial: S3</span></div>
 
     <h3>#5 Tool Misuse</h3>
       
-      <p>Three-signature chain requires intent declaration before action, policy evaluation before execution, receipt after completion. Commerce actions gated by 4-gate preflight with spend limits.</p>
+      <p>Three-signature chain requires intent declaration before action, policy evaluation before execution, receipt after completion. Commerce orchestration moved to the gateway, and the <code>commercePreflight</code> export of SDK 8.0.1 throws a migration error.</p>
       <div class="av-tags"><span class="av-tag inv">INV-6</span><span class="av-tag">Layer 5: Policy</span><span class="av-tag">Layer 8: Commerce</span><span class="av-tag">Adversarial: S4</span></div>
 
 
@@ -133,11 +133,11 @@
       
       <p>Coordination layer provides structured task lifecycles with evidence, review, and handoff gates. MCP server, when deployed as gateway, mediates all agent actions.</p>
       <div class="av-tags"><span class="av-tag">Layer 6: Coordination</span><span class="av-tag">MCP Gateway</span><span class="av-tag">Adversarial: S7</span></div>
-      <div class="av-gap partial"><strong>Gap:</strong> Orchestration bypass is possible when agents interact outside the protocol or when the MCP server is not the sole enforcement point. The control holds when the MCP server is the only path to the action and is weak when agents use the SDK voluntarily.</div>
+      <div class="av-gap partial"><strong>Gap:</strong> Orchestration bypass is possible when agents interact outside the protocol or when the MCP server is not the sole enforcement point. The deployment has to route every action through the MCP server and block dispatch when authorization fails.</div>
 
     <h3>#8 Unsafe Interactions</h3>
       
-      <p>Policy engine evaluates intents against values floor. Advisory evaluation assesses proportionality and deception. Commerce actions independently gated even when triggered from coordination.</p>
+      <p>Policy engine evaluates intents against values floor. Advisory evaluation assesses proportionality and deception.</p>
       <div class="av-tags"><span class="av-tag">Layer 5: Policy</span><span class="av-tag">F-006, F-007</span><span class="av-tag">Adversarial: S8</span></div>
       <div class="av-gap partial"><strong>Gap:</strong> Advisory evaluations are LLM-based and carry reputation consequences, not hard blocks. An agent determined to act unsafely accumulates reputation damage but is not deterministically prevented.</div>
 
@@ -244,6 +244,6 @@
     <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
   </div>
 </footer>
-<script src="/reading.js?v=20261114g"></script>
+<script src="/reading.js?v=20261114h"></script>
 </body>
 </html>

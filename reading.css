@@ -139,6 +139,7 @@ html[data-theme="bright"]:has(main.page) body.read .page-hero .eyebrow .sq{backg
 html[data-theme="bright"]:has(main.page) body.read .page-hero .eyebrow::after{content:""; margin-left:auto; width:12px; height:12px; background:#fff; box-shadow:-20px 0 0 #fff, -40px 0 0 var(--r-yel)}
 html[data-theme="bright"]:has(main.page) body.read .page-hero h1{color:#fff !important; font-size:clamp(46px,6.2vw,78px) !important; text-shadow:5px 5px 0 var(--r-deep); max-width:calc(100% - 150px); margin:0 0 16px}
 html[data-theme="bright"]:has(main.page) body.read .page-hero .dek, html[data-theme="bright"]:has(main.page) body.read .page-hero p{color:#fff !important; max-width:34rem; font-size:20px !important}
+html[data-theme="bright"]:has(main.page) body.read main .page-hero a:not(.btn):not(.bp-pager-n):not(.bp-pager-step):not(.bp-chip){color:#fff !important; border-bottom:2px solid var(--r-yel) !important; text-decoration:none !important}
 html[data-theme="bright"]:has(main.page) body.read .page-hero .r-icon{position:absolute; right:30px; bottom:28px; width:118px; height:auto; animation:r-bob 1.2s steps(2) infinite}
 @keyframes r-bob{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
 @keyframes r-blink{0%{opacity:1}50%{opacity:.25}100%{opacity:1}}
