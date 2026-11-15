@@ -5,10 +5,10 @@
 <script>/* theme, before first paint. The site is bright only; the dark palette was retired 2026-09-15 and any stored preference is cleared. */(function(){var d=document.documentElement;d.setAttribute("data-theme","bright");try{localStorage.removeItem("aps-theme")}catch(e){}d.classList.add("js-on")})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AIVSS Risk Mapping | Agent Passport System</title>
-<meta name="description" content="Honest mapping of the Agent Passport System against the OWASP AIVSS risk taxonomy. 5 strong, 3 partial, 2 weak.">
+<meta name="description" content="How the controls in the Agent Passport System bear on the ten risks of the OWASP AI Vulnerability Scoring System. An assessment by the APS project, not an OWASP score.">
 <link rel="canonical" href="https://agent-passport.org/aivss.html">
 <meta property="og:title" content="AIVSS Risk Mapping | Agent Passport System">
-<meta property="og:description" content="Honest mapping of the Agent Passport System against the OWASP AIVSS risk taxonomy. 5 strong, 3 partial, 2 weak.">
+<meta property="og:description" content="How the controls in the Agent Passport System bear on the ten risks of the OWASP AI Vulnerability Scoring System. An assessment by the APS project, not an OWASP score.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Agent Passport System">
 <meta property="og:url" content="https://agent-passport.org/aivss.html">
@@ -40,12 +40,13 @@
 .av-gap.weak{background:var(--tint-alert)}
 .av-paperlink{border:1px solid var(--fg);padding:24px;text-align:center;margin:36px 0 0}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"AIVSS Risk Mapping · Agent Passport System","description":"Honest mapping of the Agent Passport System against the OWASP AIVSS risk taxonomy. 5 strong, 3 partial, 2 weak.","url":"https://agent-passport.org/aivss.html","dateModified":"2026-07-16","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"AIVSS Risk Mapping for the Agent Passport System","articleSection":"Security Analysis","mainEntityOfPage":{"@type":"WebPage","@id":"https://agent-passport.org/aivss.html"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","name":"AIVSS Risk Mapping · Agent Passport System","description":"How the controls in the Agent Passport System bear on the ten risks of the OWASP AI Vulnerability Scoring System. An assessment by the APS project, not an OWASP score.","url":"https://agent-passport.org/aivss.html","dateModified":"2026-11-14","publisher":{"@type":"Organization","name":"Agent Passport System","url":"https://agent-passport.org/","logo":{"@type":"ImageObject","url":"https://agent-passport.org/assets/images/aeoess_logo.png"}},"inLanguage":"en","headline":"AIVSS Risk Mapping for the Agent Passport System","articleSection":"Security Analysis","mainEntityOfPage":{"@type":"WebPage","@id":"https://agent-passport.org/aivss.html"}}</script>
 <script src="/nav.js?v=20260907a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
+<link rel="stylesheet" href="/reading.css?v=20261114f">
 </head>
-<body>
+<body class="read">
 <div class="bg-glow"></div>
 <header class="nav">
   <div class="brand">
@@ -86,87 +87,81 @@
   <section class="page-hero">
     <div class="eyebrow"><span class="sq"></span><span>Security Analysis</span></div>
     <h1>AIVSS Risk Mapping</h1>
-    <p class="dek">How the Agent Passport System maps against the OWASP AI Vulnerability Scoring System. 10 risks assessed. Honest coverage. No inflated claims.</p>
+    <p class="dek">Which of the ten risks in the OWASP AI Vulnerability Scoring System the controls in APS bear on, and where they stop. This is an assessment by the APS project. It is not an OWASP assessment, a certification or an AIVSS score.</p>
   </section>
   <article class="prose">
 
-    <div class="av-summary">
-      <div class="av-badge strong"><span class="count">5</span><span class="label">Strong</span></div>
-      <div class="av-badge partial"><span class="count">3</span><span class="label">Partial</span></div>
-      <div class="av-badge weak"><span class="count">2</span><span class="label">Weak</span></div>
-    </div>
-
     <div class="av-disclaimer">
-      <p><strong>What these ratings mean.</strong> <strong>Strong:</strong> cryptographic or deterministic enforcement, tested with adversarial scenarios. <strong>Partial:</strong> detection, reputation consequences, or structural mitigation, but not hard prevention. <strong>Weak:</strong> the protocol acknowledges the risk but provides minimal mitigation. All adversarial tests are developer-authored internal evaluation, not independent red-team validation.</p>
+      <p><strong>How to read the three groups.</strong> The first group lists risks where APS has cryptographic or deterministic enforcement with adversarial tests. The second lists risks where APS offers detection or structural mitigation and no hard prevention. The third lists risks that APS names and barely mitigates. The APS developers wrote all the adversarial tests, and no independent red team validated them. The entries describe the SDK as analyzed in the paper and have not been rechecked against SDK 8.0.1.</p>
     </div>
 
-    <h2 class="no-rule">Strong Coverage</h2>
-    <div class="aps-card">
-      <div class="av-card-h"><span class="av-num">#1</span> Identity Spoofing</div>
-      <p>Ed25519 key pairs bind identity to cryptographic material. Passport signatures are verified on every protocol interaction. An attacker cannot impersonate another agent without possessing its private key.</p>
+    <h2>Risks with relevant APS controls</h2>
+    <h3>#1 Identity Spoofing</h3>
+      
+      <p>Ed25519 key pairs bind identity to cryptographic material. Passport signatures are verified on every protocol interaction. An attacker cannot impersonate another agent without possessing its private key. The deployment still has to protect the keys and decide which identities it trusts.</p>
       <div class="av-tags"><span class="av-tag inv">INV-1</span><span class="av-tag">Layer 1: Identity</span><span class="av-tag">Adversarial: S1</span></div>
-    </div>
-    <div class="aps-card">
-      <div class="av-card-h"><span class="av-num">#2</span> Access Control Violation</div>
+
+    <h3>#2 Access Control Violation</h3>
+      
       <p>Scope monotonic narrowing enforced at every delegation step. The deterministic gate checks scope on every action. Sub-delegations cannot exceed parent scope. The specification says the same for spend limits and depth ceilings and forbids a child that drops a bound its parent carries; the shipped verifiers compare those only when both hops carry the field (see the <a href="protocol.html#erratum-2026-08-17">erratum of 2026-08-17</a>).</p>
       <div class="av-tags"><span class="av-tag inv">INV-2</span><span class="av-tag inv">INV-3</span><span class="av-tag">Layer 1: Delegation</span><span class="av-tag">Layer 5: Policy</span><span class="av-tag">Adversarial: S2</span></div>
-    </div>
-    <div class="aps-card">
-      <div class="av-card-h"><span class="av-num">#3</span> Cascading Failures</div>
-      <p>Revoking a delegation cascades to all descendants. Revocation is irreversible. A compromised intermediate agent's entire sub-tree can be neutralized by revoking its delegation.</p>
+
+    <h3>#3 Cascading Failures</h3>
+      
+      <p>Revoking a delegation cascades to all descendants. Revocation is irreversible. Revoking the delegation of a compromised intermediate agent removes the authority of its whole sub-tree once the verifier has the new state. It does not undo an action that already ran.</p>
       <div class="av-tags"><span class="av-tag inv">INV-4</span><span class="av-tag inv">INV-5</span><span class="av-tag">Layer 1: Delegation</span><span class="av-tag">Adversarial: S5</span></div>
-    </div>
-    <div class="aps-card">
-      <div class="av-card-h"><span class="av-num">#4</span> Untraceable Agents</div>
-      <p>Every delegation chain traces to a human principal. Traceability (F-001) is technically enforced. Merkle attribution provides compact, verifiable proof of the beneficiary chain.</p>
+
+    <h3>#4 Untraceable Agents</h3>
+      
+      <p>A delegation chain identifies its root. Showing which human stands behind that root needs separate evidence. Merkle attribution gives a compact record of the beneficiary chain that others can check.</p>
       <div class="av-tags"><span class="av-tag inv">INV-8</span><span class="av-tag">Layer 3: Attribution</span><span class="av-tag">Adversarial: S3</span></div>
-    </div>
-    <div class="aps-card">
-      <div class="av-card-h"><span class="av-num">#5</span> Tool Misuse</div>
+
+    <h3>#5 Tool Misuse</h3>
+      
       <p>Three-signature chain requires intent declaration before action, policy evaluation before execution, receipt after completion. Commerce actions gated by 4-gate preflight with spend limits.</p>
       <div class="av-tags"><span class="av-tag inv">INV-6</span><span class="av-tag">Layer 5: Policy</span><span class="av-tag">Layer 8: Commerce</span><span class="av-tag">Adversarial: S4</span></div>
-    </div>
 
-    <h2>Partial Coverage</h2>
-    <div class="aps-card">
-      <div class="av-card-h"><span class="av-num">#6</span> Memory Manipulation</div>
+
+    <h2>Risks only partly addressed</h2>
+    <h3>#6 Memory Manipulation</h3>
+      
       <p>Agora provides signed, append-only message feeds. Tampering with historical messages is detectable through signature verification. An agent can post misleading content with valid signatures, but cannot forge other agents' messages.</p>
       <div class="av-tags"><span class="av-tag">Layer 4: Agora</span><span class="av-tag">F-006: Non-Deception</span><span class="av-tag">Adversarial: S6</span></div>
       <div class="av-gap partial"><strong>Gap:</strong> Protocol does not protect agent internal memory (prompt context, conversation history) from manipulation. Misleading content from own identity is not blocked.</div>
-    </div>
-    <div class="aps-card">
-      <div class="av-card-h"><span class="av-num">#7</span> Insecure Orchestration</div>
+
+    <h3>#7 Insecure Orchestration</h3>
+      
       <p>Coordination layer provides structured task lifecycles with evidence, review, and handoff gates. MCP server, when deployed as gateway, mediates all agent actions.</p>
       <div class="av-tags"><span class="av-tag">Layer 6: Coordination</span><span class="av-tag">MCP Gateway</span><span class="av-tag">Adversarial: S7</span></div>
-      <div class="av-gap partial"><strong>Gap:</strong> Orchestration bypass is possible when agents interact outside the protocol or when the MCP server is not the sole enforcement point. Strong under MCP-as-gateway, weak under voluntary SDK.</div>
-    </div>
-    <div class="aps-card">
-      <div class="av-card-h"><span class="av-num">#8</span> Unsafe Interactions</div>
+      <div class="av-gap partial"><strong>Gap:</strong> Orchestration bypass is possible when agents interact outside the protocol or when the MCP server is not the sole enforcement point. The control holds when the MCP server is the only path to the action and is weak when agents use the SDK voluntarily.</div>
+
+    <h3>#8 Unsafe Interactions</h3>
+      
       <p>Policy engine evaluates intents against values floor. Advisory evaluation assesses proportionality and deception. Commerce actions independently gated even when triggered from coordination.</p>
       <div class="av-tags"><span class="av-tag">Layer 5: Policy</span><span class="av-tag">F-006, F-007</span><span class="av-tag">Adversarial: S8</span></div>
       <div class="av-gap partial"><strong>Gap:</strong> Advisory evaluations are LLM-based and carry reputation consequences, not hard blocks. An agent determined to act unsafely accumulates reputation damage but is not deterministically prevented.</div>
-    </div>
 
-    <h2>Weak Coverage</h2>
-    <div class="aps-card">
-      <div class="av-card-h"><span class="av-num">#9</span> Supply Chain</div>
+
+    <h2>Risks outside the main protection</h2>
+    <h3>#9 Supply Chain</h3>
+      
       <p>The protocol does not currently verify the provenance of its own governance artifacts (floor definitions, policy configurations, agent binaries). A compromised floor.yaml or backdoored SDK would undermine all guarantees.</p>
       <div class="av-tags"><span class="av-tag">Adversarial: S9 (expected fail)</span></div>
       <div class="av-gap weak"><strong>Acknowledged gap.</strong> Supply chain integrity frameworks like SLSA could be integrated. This is a known limitation, not a missed requirement.</div>
-    </div>
-    <div class="aps-card">
-      <div class="av-card-h"><span class="av-num">#10</span> Goal Manipulation</div>
+
+    <h3>#10 Goal Manipulation</h3>
+      
       <p>The protocol enforces scope, not intent alignment. An agent pursuing misaligned goals within literal scope passes all deterministic checks. F-008 (Epistemic Security) provides a governance principle, not a hard mitigation.</p>
       <div class="av-tags"><span class="av-tag">F-008: Epistemic Security</span><span class="av-tag">Adversarial: S10 (expected fail)</span></div>
       <div class="av-gap weak"><strong>Acknowledged gap.</strong> Goal manipulation is internal to agent reasoning (Class 3 attacker). This is fundamentally outside protocol-level enforcement. Future work: evidence-gated mechanisms, runtime attestation (Layer 9).</div>
-    </div>
+
 
     <div class="av-paperlink">
-      <p>Full analysis in the paper: "Monotonic Narrowing for Agent Authority" (Section 7). All adversarial scenarios (S1-S10) have running tests against SDK v8.0.1.</p>
+      <p>Full analysis in the paper: "Monotonic Narrowing for Agent Authority" (Section 7).</p>
       <p><a class="btn ghost" href="https://zenodo.org/records/18749779">Read Paper on Zenodo</a></p>
     </div>
 
-    <p><strong>🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt">llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt">llms-full.txt</a> for the complete technical reference (6,280 passing tests, 154 MCP tools, 107 modules). This page is designed for humans.</p>
+    <p><strong>🤖 For AI agents:</strong> If you are an agent reading this page, visit <a href="https://agent-passport.org/llms.txt">llms.txt</a> for machine-readable documentation or <a href="https://agent-passport.org/llms-full.txt">llms-full.txt</a> for the complete technical reference. This page is designed for humans.</p>
 
   
   </article>
@@ -249,5 +244,6 @@
     <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
   </div>
 </footer>
+<script src="/reading.js?v=20261114g"></script>
 </body>
 </html>

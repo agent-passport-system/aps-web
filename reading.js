@@ -15,7 +15,7 @@
     lens: ['..kkkkk.....', '.kwwwwwk....', 'kwwwwwwwk...', 'kwwwwwwwk...', 'kwwwwwwwk...', 'kwwwwwwwk...', '.kwwwwwk....', '..kkkkkkk...', '.......kyk..', '........kyk.', '.........kyk', '..........kk'],
     frame: ['kkkkkkkkkkkk', 'kyyyyyyyyyyk', 'kykkkkkkkkyk', 'kykwwwwwwkyk', 'kykwwwwkwkyk', 'kykwwwkkkkyk', 'kykwkkkkkkyk', 'kykkkkkkkkyk', 'kyyyyyyyyyyk', 'kkkkkkkkkkkk']
   };
-  var BY_PAGE = { wallet: 'coin', passport: 'key', 'threat-model': 'shield', faq: 'bubble', compare: 'blocks', compliance: 'doc', protocol: 'check', verify: 'lens', 'data-usage-evidence': 'frame' };
+  var BY_PAGE = { wallet: 'coin', passport: 'key', 'threat-model': 'shield', aivss: 'shield', faq: 'bubble', compare: 'blocks', compliance: 'doc', protocol: 'check', verify: 'lens', 'data-usage-evidence': 'frame' };
   var page = (location.pathname.split('/').pop() || '').replace('.html', '');
   var rows = ICONS[BY_PAGE[page]];
   var hero = document.querySelector('body.read .page-hero');
