@@ -24,8 +24,9 @@
 <script src="/nav.js?v=20260907a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
+<link rel="stylesheet" href="/reading.css?v=20261114e">
 </head>
-<body>
+<body class="read">
 <div class="bg-glow"></div>
 <header class="nav">
   <div class="brand">
@@ -69,13 +70,6 @@
     <p class="dek">Licenses and AI preference standards say how a work may be used. These records show what a participating gateway allowed or refused, and link the agent's recorded outputs back to the work and the person behind it, signed so the creator can check.</p>
   </section>
   <article class="prose">
-    <h2>What gets recorded</h2>
-    <ul>
-      <li><strong>Access.</strong> When a participating gateway lets an agent read a work, it signs an access receipt. The receipt names the agent, the delegation it acted under, the person or company at the root of that delegation, the hash of the data it read, the purpose it declared and the terms in force at that moment. The gateway signs it, not the agent.</li>
-      <li><strong>Refusal.</strong> When a request falls outside the terms, the gateway refuses before it loads the work and signs the refusal too, so a creator can see that a request was made and turned down.</li>
-      <li><strong>Attribution of output.</strong> When the agent produces something from the work, an attribution record binds the output's hash to the work, its creator, its license and how the output changes it.</li>
-      <li><strong>Proof a source can check alone.</strong> Access receipts are committed under a Merkle root, and an inclusion proof lets a source confirm that a receipt about its work is in the committed set without seeing the other receipts. Attribution reports for an output carry the same kind of root over the receipts behind them.</li>
-    </ul>
     <h2>Run it</h2>
     <p>The <a href="https://github.com/aeoess/noncommercial-access-demo">noncommercial access demo</a> shows the whole loop on a synthetic work marked CC BY-NC 4.0. The same agent asks twice, with two declared purposes. The commercial request is refused before retrieval. The noncommercial one is allowed, and its output carries attribution back to the work. A standalone verifier checks every signature and link, and seven tampered bundles each fail.</p>
 <pre><code>git clone https://github.com/aeoess/noncommercial-access-demo
@@ -83,9 +77,13 @@ cd noncommercial-access-demo
 npm install
 npm start
 npm run verify</code></pre>
-    <h2>Where it fits</h2>
-    <p>Other efforts already name the work and state the terms. The <a href="https://datatracker.ietf.org/wg/aipref/about/">IETF AI Preferences</a> work defines how preferences for AI uses are expressed. <a href="https://rslstandard.org/">RSL</a> states licensing and compensation terms. Creative Commons licenses and <a href="https://creativecommons.org/2026/04/23/update-on-cc-signals-what-changed-and-why/">CC signals</a> set the conditions creators choose. ISCC gives a work a content-derived identifier that records can bind to. These records add the evidence of what happened, built to sit next to all of them.</p>
-    <p>The closest related proposal is <a href="https://datatracker.ietf.org/doc/draft-reilly-aipref-compliance/">draft-reilly-aipref-compliance</a>, which defines compliance records for retrievals, aggregated under a signed Merkle root so a publisher can audit only its own records. The records here add the agent's side of a request, which that draft does not address. They carry the delegation behind the request, a refusal made before retrieval, and attribution of what the agent produced.</p>
+    <h2>What gets recorded</h2>
+    <ul>
+      <li><strong>Access.</strong> When a participating gateway lets an agent read a work, it signs an access receipt. The receipt names the agent, the delegation it acted under, the person or company at the root of that delegation, the hash of the data it read, the purpose it declared and the terms in force at that moment. The gateway signs it, not the agent.</li>
+      <li><strong>Refusal.</strong> When a request falls outside the terms, the gateway refuses before it loads the work and signs the refusal too, so a creator can see that a request was made and turned down.</li>
+      <li><strong>Attribution of output.</strong> When the agent produces something from the work, an attribution record binds the output's hash to the work, its creator, its license and how the output changes it.</li>
+      <li><strong>Proof a source can check alone.</strong> Access receipts are committed under a Merkle root, and an inclusion proof lets a source confirm that a receipt about its work is in the committed set without seeing the other receipts. Attribution reports for an output carry the same kind of root over the receipts behind them.</li>
+    </ul>
     <h2>What it does not do</h2>
     <ul>
       <li>It does not interpret a license or decide whether a use is legally permitted.</li>
@@ -93,6 +91,9 @@ npm run verify</code></pre>
       <li>It covers requests that pass through a gateway that produces these records. It cannot see use that happens elsewhere.</li>
       <li>It does not detect a work inside a trained model.</li>
     </ul>
+    <h2>Where it fits</h2>
+    <p>Other efforts already name the work and state the terms. The <a href="https://datatracker.ietf.org/wg/aipref/about/">IETF AI Preferences</a> work defines how preferences for AI uses are expressed. <a href="https://rslstandard.org/">RSL</a> states licensing and compensation terms. Creative Commons licenses and <a href="https://creativecommons.org/2026/04/23/update-on-cc-signals-what-changed-and-why/">CC signals</a> set the conditions creators choose. ISCC gives a work a content-derived identifier that records can bind to. These records add the evidence of what happened, built to sit next to all of them.</p>
+    <p>The closest related proposal is <a href="https://datatracker.ietf.org/doc/draft-reilly-aipref-compliance/">draft-reilly-aipref-compliance</a>, which defines compliance records for retrievals, aggregated under a signed Merkle root so a publisher can audit only its own records. The records here add the agent's side of a request, which that draft does not address. They carry the delegation behind the request, a refusal made before retrieval, and attribution of what the agent produced.</p>
     <h2>Code</h2>
     <ul>
       <li><a href="https://github.com/agent-passport-system/agent-passport-system/blob/main/src/types/data-source.ts">Access receipt and terms types</a> and <a href="https://github.com/agent-passport-system/agent-passport-system/blob/main/src/types/data-contribution.ts">contribution and attribution report types</a> in the SDK.</li>
@@ -179,5 +180,6 @@ npm run verify</code></pre>
     <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
   </div>
 </footer>
+<script src="/reading.js?v=20261114e"></script>
 </body>
 </html>

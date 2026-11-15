@@ -44,8 +44,9 @@
 <script src="/nav.js?v=20260907a" defer></script>
 <meta name="theme-color" content="#0A5CFF">
 <script src="/gh-stars.js" defer></script>
+<link rel="stylesheet" href="/reading.css?v=20261114e">
 </head>
-<body>
+<body class="read">
 <div class="bg-glow"></div>
 <header class="nav">
   <div class="brand">
@@ -94,42 +95,34 @@
       <p><strong>What this page is and is not.</strong> The Agent Passport System (APS) does not make a system compliant and does not certify anything. Compliance belongs to the organization and its auditors. APS produces signed records that an organization can use as evidence. Whether a rule applies to a given system is a legal question for that organization. Nothing here is legal advice.</p>
     </div>
 
-    <h2 class="no-rule">What an auditor asks, and what APS produces</h2>
-    <div class="aps-card">
-      <div class="av-card-h">Who is this agent, and who answers for it?</div>
-      <p>An agent passport is a self-signed identity record for one agent. A separately signed principal binding names the person or organization the agent acts for.</p>
-      <p><strong>What it does not show.</strong> That the named principal is a verified legal entity. The deployment has to check that itself.</p>
-    </div>
-    <div class="aps-card">
-      <div class="av-card-h">What was the agent allowed to do?</div>
-      <p>A delegation chain records the scope, the spending limit and the time window the agent received. Authority can only narrow each time it is passed on. A verifier rejects a chain in which a sub-agent holds more than its parent.</p>
-      <p><strong>What it does not show.</strong> Whether the grant itself was a good decision. That is the organization's policy.</p>
-    </div>
-    <div class="aps-card">
-      <div class="av-card-h">Was the action checked before it ran?</div>
-      <p>The gateway checks the agent's delegated authority before the action runs and signs its decision, whether it permits or refuses.</p>
-      <p><strong>What it does not show.</strong> Anything about actions that never pass through the gateway. A decision is enforced only where the gateway sits in the path of the action.</p>
-    </div>
-    <div class="aps-card">
-      <div class="av-card-h">What did the agent do, and can the record be changed afterwards?</div>
-      <p>Each decision produces a signed receipt. Changing a receipt after the fact breaks its signature, and anyone can check that with the published verifier or in the <a href="/verify.html">browser inspector</a>.</p>
-      <p><strong>What it does not show.</strong> That the outside effect happened. A receipt records the request and the decision. Evidence of the real outcome comes from the system that carried out the action.</p>
-    </div>
-    <div class="aps-card">
-      <div class="av-card-h">Can a person stop it?</div>
-      <p>Revoking a delegation also revokes every delegation derived from it, and the revocation is itself a signed record. Once the gateway has the revocation, its next check refuses the agent.</p>
-      <p><strong>What it does not show.</strong> The quality of human review, an action that already ran before the revocation, or a gateway that has not yet received it.</p>
-    </div>
-    <div class="aps-card">
-      <div class="av-card-h">What data did the agent use?</div>
-      <p>Data access receipts record which data an agent accessed, under whose authority and for which declared purpose, and what it was refused. See <a href="/data-usage-evidence.html">data usage evidence</a>.</p>
-      <p><strong>What it does not show.</strong> What a model did with the data internally.</p>
-    </div>
-    <div class="aps-card">
-      <div class="av-card-h">Can an outside party verify this without trusting the vendor?</div>
-      <p>The record formats, the specification and the test vectors are public under Apache 2.0. Verification runs offline with open source code.</p>
-      <p><strong>What it does not show.</strong> Who operated the gateway honestly. The signature shows which key signed, and the organization has to protect that key.</p>
-    </div>
+    <h2>What an auditor asks, and what APS produces</h2>
+    <h3>Who is this agent, and who answers for it?</h3>
+    <p>An agent passport is a self-signed identity record for one agent. A separately signed principal binding names the person or organization the agent acts for.</p>
+    <h3>What was the agent allowed to do?</h3>
+    <p>A delegation chain records the scope, the spending limit and the time window the agent received. Authority can only narrow each time it is passed on. A verifier rejects a chain in which a sub-agent holds more than its parent.</p>
+    <h3>Was the action checked before it ran?</h3>
+    <p>The gateway checks the agent's delegated authority before the action runs and signs its decision, whether it permits or refuses.</p>
+    <h3>What did the agent do, and can the record be changed afterwards?</h3>
+    <p>Each decision produces a signed receipt. Changing a receipt after the fact breaks its signature, and anyone can check that with the published verifier or in the <a href="/verify.html">browser inspector</a>.</p>
+    <h3>Can a person stop it?</h3>
+    <p>Revoking a delegation also revokes every delegation derived from it, and the revocation is itself a signed record. Once the gateway has the revocation, its next check refuses the agent.</p>
+    <h3>What data did the agent use?</h3>
+    <p>Data access receipts record which data an agent accessed, under whose authority and for which declared purpose, and what it was refused. See <a href="/data-usage-evidence.html">data usage evidence</a>.</p>
+    <h3>Can an outside party verify this without trusting the vendor?</h3>
+    <p>The record formats, the specification and the test vectors are public under Apache 2.0. Verification runs offline with open source code.</p>
+
+    <h2>What the records do not show</h2>
+    <p>A signed record has limits. For each question above, this is what the record does not show.</p>
+    <ul>
+      <li><strong>Who is this agent, and who answers for it?</strong> That the named principal is a verified legal entity. The deployment has to check that itself.</li>
+      <li><strong>What was the agent allowed to do?</strong> Whether the grant itself was a good decision. That is the organization's policy.</li>
+      <li><strong>Was the action checked before it ran?</strong> Anything about actions that never pass through the gateway. A decision is enforced only where the gateway sits in the path of the action.</li>
+      <li><strong>What did the agent do, and can the record be changed afterwards?</strong> That the outside effect happened. A receipt records the request and the decision. Evidence of the real outcome comes from the system that carried out the action.</li>
+      <li><strong>Can a person stop it?</strong> The quality of human review, an action that already ran before the revocation, or a gateway that has not yet received it.</li>
+      <li><strong>What data did the agent use?</strong> What a model did with the data internally.</li>
+      <li><strong>Can an outside party verify this without trusting the vendor?</strong> Who operated the gateway honestly. The signature shows which key signed, and the organization has to protect that key.</li>
+    </ul>
+
 
     <h2>Where these records fit in common frameworks</h2>
     <p>Each framework below covers much more than agent actions. The mapping is illustrative and is not a compliance determination. The second column names the area, the third names the records that can support it, and the last names what stays with the organization.</p>
@@ -251,5 +244,6 @@
     <span><em class="fbk">Also at</em><a href="https://aeoess.com" style="color:var(--sub); text-decoration:underline">aeoess.com</a></span>
   </div>
 </footer>
+<script src="/reading.js?v=20261114e"></script>
 </body>
 </html>

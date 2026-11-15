@@ -196,6 +196,13 @@ html[data-theme="bright"]:has(main.page) body.read .read-toc a.done .rt-box{back
 html[data-theme="bright"]:has(main.page) body.read .read-toc a.now .rt-box{background:var(--r-blue)}
 html[data-theme="bright"]:has(main.page) body.read main .read-toc a.now:not(.btn):not(.bp-pager-n):not(.bp-pager-step):not(.bp-chip){color:var(--r-blue) !important; font-weight:600}
 
+/* note box and leftover cards on the reworked pages */
+html[data-theme="bright"]:has(main.page) body.read article.prose .av-disclaimer{border:3px solid var(--r-black); box-shadow:7px 7px 0 var(--r-shadow); background:#fff; padding:14px 20px; margin:30px 7px 10px 0}
+html[data-theme="bright"]:has(main.page) body.read article.prose .av-disclaimer p{margin:0; font-size:17.5px !important}
+html[data-theme="bright"]:has(main.page) body.read article.prose .aps-card{background:#fff; border:2px solid var(--r-black); border-radius:0; padding:14px 18px 8px}
+html[data-theme="bright"]:has(main.page) body.read article.prose h2.no-rule{border:0}
+html[data-theme="bright"]:has(main.page) body.read article.prose > :first-child:not(h2):not(.r-status):not(.av-disclaimer){margin-top:26px}
+
 @media(max-width:1100px){
   html[data-theme="bright"]:has(main.page) body.read main.page{max-width:48rem}
 }

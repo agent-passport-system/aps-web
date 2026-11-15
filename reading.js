@@ -9,9 +9,12 @@
     key: ['............', '..kkkk......', '.kyyyyk.....', 'kyykkyyk....', 'kyk..kykkkkk', 'kyk..kyyyyyk', 'kyykkyykykyk', '.kyyyyk.k.k.', '..kkkk......', '............'],
     shield: ['kkkkkkkkkkkk', 'kwwwwwyyyyyk', 'kwwwwwyyyyyk', 'kwwwwwyyyyyk', 'kwwwwwyyyyyk', 'kyyyyywwwwwk', 'kyyyyywwwwwk', '.kyyyywwwwk.', '.kyyyywwwwk.', '..kyyywwwk..', '...kkywkk...', '.....kk.....'],
     bubble: ['.kkkkkkkkkk.', 'kwwwwwwwwwwk', 'kwwwkkkkwwwk', 'kwwkwwwwkwwk', 'kwwwwwwkkwwk', 'kwwwwwkkwwwk', 'kwwwwwkwwwwk', 'kwwwwwwwwwwk', 'kwwwwwkwwwwk', 'kwwwwwwwwwwk', '.kkkkkkkkkk.', '...kk.......'],
-    blocks: ['kkkkkkkk....', 'kwwwwwwk....', 'kwwwwwwk....', 'kwwwkkkkkkkk', 'kwwwkyyyyyyk', 'kwwwkyyyyyyk', 'kwwwkyyyyyyk', 'kkkkkyyyyyyk', '....kyyyyyyk', '....kyyyyyyk', '....kyyyyyyk', '....kkkkkkkk']
+    blocks: ['kkkkkkkk....', 'kwwwwwwk....', 'kwwwwwwk....', 'kwwwkkkkkkkk', 'kwwwkyyyyyyk', 'kwwwkyyyyyyk', 'kwwwkyyyyyyk', 'kkkkkyyyyyyk', '....kyyyyyyk', '....kyyyyyyk', '....kyyyyyyk', '....kkkkkkkk'],
+    doc: ['.kkkkkkkk...', '.kwwwwwwkk..', '.kwwwwwwkwk.', '.kwkkkkwkkk.', '.kwwwwwwwwk.', '.kwkkkkkkwk.', '.kwwwwwwwwk.', '.kwkkkkkkwk.', '.kwwwwwwwwk.', '.kwkkkkwyyk.', '.kwwwwwwyyk.', '.kkkkkkkkkk.'],
+    lens: ['..kkkkk.....', '.kwwwwwk....', 'kwwwwwwwk...', 'kwwwwwwwk...', 'kwwwwwwwk...', 'kwwwwwwwk...', '.kwwwwwk....', '..kkkkkkk...', '.......kyk..', '........kyk.', '.........kyk', '..........kk'],
+    frame: ['kkkkkkkkkkkk', 'kyyyyyyyyyyk', 'kykkkkkkkkyk', 'kykwwwwwwkyk', 'kykwwwwkwkyk', 'kykwwwkkkkyk', 'kykwkkkkkkyk', 'kykkkkkkkkyk', 'kyyyyyyyyyyk', 'kkkkkkkkkkkk']
   };
-  var BY_PAGE = { wallet: 'coin', passport: 'key', 'threat-model': 'shield', faq: 'bubble', compare: 'blocks' };
+  var BY_PAGE = { wallet: 'coin', passport: 'key', 'threat-model': 'shield', faq: 'bubble', compare: 'blocks', compliance: 'doc', verify: 'lens', 'data-usage-evidence': 'frame' };
   var page = (location.pathname.split('/').pop() || '').replace('.html', '');
   var rows = ICONS[BY_PAGE[page]];
   var hero = document.querySelector('body.read .page-hero');
