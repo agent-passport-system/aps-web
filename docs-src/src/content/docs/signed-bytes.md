@@ -7,7 +7,7 @@ Two implementations agree on a signature or an identifier only when they hash an
 
 ## Two canonicalizers
 
-`agent-passport-system` 8.0.1 exports two:
+`agent-passport-system` 8.1.1 exports two:
 
 - `canonicalize`, the legacy form. It sorts object keys and drops object members whose value is `null` or `undefined`. It is used by the compatibility formats: the legacy passport, the legacy `Delegation` and the camelCase `ActionReceipt`.
 - `canonicalizeJCS`, RFC 8785 JSON Canonicalization Scheme. It keeps `null` members. Every current artifact on this page uses it.
@@ -57,8 +57,8 @@ Every current artifact below is hashed and signed over `TAG || 0x00 || UTF8(JCS(
 | Action reference (`aps-action-ref-v2`) | `APS-ACTION-REF-V2` over the action reference input | none | 64 hex |
 | Action payload reference | `APS-ACTION-PAYLOAD-V1` over the payload | none | 64 hex |
 | Supporting record | `APS-SUPPORTING-RECORD-ID-V1`, then the `record_type` and one more zero byte, over the record without `record_id` and `sig` | `APS-SUPPORTING-RECORD-SIG-V1`, same layout, record without `sig` | 64 hex |
-| `PassportV2`, draft section 3.1 | `APS-PASSPORT-ID-V2` | `APS-PASSPORT-SIG-V2` | Not exposed by the 8.0.1 package. See [Identity](/docs/identity/) |
-| `PrincipalBindingV1`, draft section 3.3 | `APS-PRINCIPAL-BINDING-ID-V1` | `APS-PRINCIPAL-BINDING-SIG-V1` | Not exposed by the 8.0.1 package |
+| `PassportV2`, draft section 3.1 | `APS-PASSPORT-ID-V2` | `APS-PASSPORT-SIG-V2` | Not exposed by the 8.1.1 package. See [Identity](/docs/identity/) |
+| `PrincipalBindingV1`, draft section 3.3 | `APS-PRINCIPAL-BINDING-ID-V1` | `APS-PRINCIPAL-BINDING-SIG-V1` | Not exposed by the 8.1.1 package |
 
 Values must be I-JSON. Timestamps in these records use exact UTC milliseconds with seconds 00 to 59. The verifiers accept canonical arrays only, such as sorted and irredundant scope grants or sorted decision `constraints`, and reject an unsorted one rather than repairing it.
 

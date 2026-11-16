@@ -37,7 +37,7 @@ An action is gated only when it is routed through an enforcement boundary that h
 
 Status: [Production-Extension](/docs/evidence/#status-labels).
 
-The SDK exports gate predicates for payments: `checkPassportGate`, `checkScopeGate`, `checkSpendGate`, `checkMerchantGate` and `checkWalletGate`, with `signCommerceReceipt`. The combined `commercePreflight` orchestrator throws a migration error in 8.0.1.
+The SDK exports gate predicates for payments: `checkPassportGate`, `checkScopeGate`, `checkSpendGate`, `checkMerchantGate` and `checkWalletGate`, with `signCommerceReceipt`. The combined `commercePreflight` orchestrator throws a migration error in 8.1.1.
 
 ## Reputation
 

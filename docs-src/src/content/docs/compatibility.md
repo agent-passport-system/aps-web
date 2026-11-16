@@ -1,15 +1,15 @@
 ---
 title: "Compatibility: social contract API"
-description: The older social contract API of agent-passport-system 8.0.1, with tested programs for identity, trust, legacy delegation, work receipts, audit, roles and deliberation.
+description: The older social contract API of agent-passport-system 8.1.1, with tested programs for identity, trust, legacy delegation, work receipts, audit, roles and deliberation.
 ---
 
 Compatibility material. This page uses the social contract API, which produces the pre-draft `Delegation` and the camelCase `ActionReceipt` formats. They predate the current `AuthorityDelegationV1` record and `ReceiptV1`, are kept so existing integrations keep working, and are not on the draft path. New integrations start from the [Quickstart](/docs/quickstart/). A record signed in one format is never translated into the other.
 
-Both programs below were typechecked against the 8.0.1 declarations and run with Node.js. Their output is printed under each one.
+Both programs below were typechecked against the 8.1.1 declarations and run with Node.js. Their output is printed under each one.
 
 ## The compatibility formats
 
-| Format | Produced by | Canonical form | Verified by | Revocation in 8.0.1 |
+| Format | Produced by | Canonical form | Verified by | Revocation in 8.1.1 |
 | --- | --- | --- | --- | --- |
 | Legacy passport (`SignedPassport`) | `joinSocialContract`, `createPassport` | Legacy `canonicalize`, nulls dropped | `verifySocialContract`, `verifyPassport` | Not applicable |
 | Legacy `Delegation` (`delegationId`, `delegatedTo`, `scope`) | `delegate`, `createDelegation`, `subDelegate` | Legacy `canonicalize` | `verifyDelegation` | `revokeDelegation` and `cascadeRevoke` throw a migration error. The MCP server's `revoke_delegation` refuses these records |
@@ -20,7 +20,7 @@ The legacy scope rule lets a bare grant `p` cover `p:x`. The current `aps-hierar
 ## Install
 
 ```bash
-npm install agent-passport-system@8.0.1
+npm install agent-passport-system@8.1.1
 ```
 
 The package is ES modules only. Set `"type": "module"` in your `package.json`.
@@ -171,6 +171,6 @@ One assessment from one agent does not converge. `evaluateConsensus` returns `co
 
 ## Not covered here
 
-`proveContributions` and `commercePreflight` throw a migration error in 8.0.1 (`Moved to @aeoess/gateway`). The package that message names is not published on the npm registry, where `npm view @aeoess/gateway` returned E404 on 28 October 2026. The CLI `prove` command calls the same function and exits 1. The [API reference](/docs/api/) lists the exports that throw.
+`proveContributions` and `commercePreflight` throw a migration error in 8.1.1 (`Moved to @aeoess/gateway`). The package that message names is not published on the npm registry, where `npm view @aeoess/gateway` returned E404 on 28 October 2026. The CLI `prove` command calls the same function and exits 1. The [API reference](/docs/api/) lists the exports that throw.
 
 The command line path is in the [CLI reference](/docs/cli/).

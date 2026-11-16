@@ -1,6 +1,6 @@
 ---
 title: Identity and principal binding
-description: What a passport establishes, how a principal binding ties an agent to a person or organization, what the 8.0.1 package exposes, and which identifier schemes are parsed versus resolved.
+description: What a passport establishes, how a principal binding ties an agent to a person or organization, what the 8.1.1 package exposes, and which identifier schemes are parsed versus resolved.
 ---
 
 An agent's key shows that whoever signed holds that key. It does not show who the agent works for. APS keeps those two statements in separate records: a passport for the agent's own key, and a principal binding signed by the principal.
@@ -9,9 +9,9 @@ An agent's key shows that whoever signed holds that key. It does not show who th
 
 `draft-pidlisnyi-aps-04` section 3 specifies `PassportV2` (`record_type` `aps.agent-passport`, version `2.0`) and `PrincipalBindingV1` (`record_type` `aps.principal-binding`, version `1.0`). The SDK source at commit [`f95c916`](https://github.com/agent-passport-system/agent-passport-system/tree/f95c9168187cbac0493099fe4a7cddaff653bf39/src/v2/identity-binding) implements issuing and verifying both, in `src/v2/identity-binding/`.
 
-The published package does not reach that code. In `agent-passport-system` 8.0.1 the root import exports none of `issuePassportV2`, `verifyPassportV2`, `issuePrincipalBindingV1` or `verifyPrincipalBindingV1`, only the type `HistoricalKeyResolver`. A deep import of the compiled module fails with `ERR_PACKAGE_PATH_NOT_EXPORTED`. The Python SDK 4.3.0 has no module for these records either.
+The published package does not reach that code. In `agent-passport-system` 8.1.1 the root import exports none of `issuePassportV2`, `verifyPassportV2`, `issuePrincipalBindingV1` or `verifyPrincipalBindingV1`, only the type `HistoricalKeyResolver`. A deep import of the compiled module fails with `ERR_PACKAGE_PATH_NOT_EXPORTED`. The Python SDK 4.3.0 has no module for these records either.
 
-What 8.0.1 does export for identity:
+What 8.1.1 does export for identity:
 
 - The legacy passport: `createPassport`, `verifyPassport`, `countersignPassport` and `verifyIssuerSignature`, and the social contract wrappers on [Compatibility](/docs/compatibility/). These sign over the legacy canonicalizer.
 - Identifier strings in `AuthorityDelegationV1`. `issuer`, `subject` and `verification_method` are strings, and the verifier gets keys only through the `resolveVerificationKey` function you pass. The record format does not limit which identifier scheme you use.
@@ -50,9 +50,9 @@ A key that signed a record is selected by the record's own `issued_at`, not by w
 
 The timestamp in a record is the issuer's claim. When a key was retired and the result depends on whether a record was signed before that, a profile must name acceptable timestamp evidence. Without it the key authority result is indeterminate, even with a valid signature.
 
-## Identifier schemes in 8.0.1
+## Identifier schemes in 8.1.1
 
-| Scheme | What 8.0.1 exports | Resolves a key | Verifies a credential |
+| Scheme | What 8.1.1 exports | Resolves a key | Verifies a credential |
 | --- | --- | --- | --- |
 | `did:key` | `toDIDKey`, `fromDIDKey`, `passportToDIDKeyDocument` | Yes, the key is in the identifier. `fromDIDKey(toDIDKey(k))` returns `k` | Not applicable |
 | `did:web` | `didWebToUrl`, `resolveDIDWeb` | `resolveDIDWeb` fetches the DID document over HTTPS. It reads the current document, so it cannot select a key by time | No |
@@ -64,4 +64,4 @@ Parsing or carrying an identifier is not the same as resolving its key, and reso
 
 ## Where the rules come from
 
-The record layouts, claim levels and key selection rules on this page are from `draft-pidlisnyi-aps-04` sections 3.1 to 3.5. The export lists are from the 8.0.1 package, checked by importing it.
+The record layouts, claim levels and key selection rules on this page are from `draft-pidlisnyi-aps-04` sections 3.1 to 3.5. The export lists are from the 8.1.1 package, checked by importing it.

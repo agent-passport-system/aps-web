@@ -9,7 +9,7 @@ APS uses several status labels, and each answers a different question. None of t
 
 | Axis | Labels | What it answers | Where it is defined |
 | --- | --- | --- | --- |
-| Package entry point | `agent-passport-system` (root) and `agent-passport-system/core` | Which functions an import reaches. `/core` is a curated set of 25 older functions, and three of them throw in 8.0.1 | The package `exports` map |
+| Package entry point | `agent-passport-system` (root) and `agent-passport-system/core` | Which functions an import reaches. `/core` is a curated set of 25 older functions, and three of them throw in 8.1.1 | The package `exports` map |
 | SDK maturity | Canonical, Production-Extension, Experimental | How stable an SDK surface is expected to be | [Status labels](/docs/evidence/#status-labels) |
 | Draft normative status | Core, Candidate | Whether a requirement binds every implementation of a conformance class, or only one that claims an opt-in feature | `draft-pidlisnyi-aps-04` section 13.3 |
 | Conformance class | Authority issuer, Delegation verifier, Lifecycle and status verifier, Receipt verifier, Enforcement boundary, Profile implementation, Protocol adapter | Which obligations a claim covers | Draft section 13.1 |

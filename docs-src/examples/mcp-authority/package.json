@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.2",
-    "agent-passport-system": "8.0.1",
+    "agent-passport-system": "8.1.1",
     "agent-passport-system-mcp": "8.1.1"
   }
 }
