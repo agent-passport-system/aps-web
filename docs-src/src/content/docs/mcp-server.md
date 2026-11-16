@@ -3,7 +3,7 @@ title: MCP server
 description: Install and configure the APS MCP server locally or over SSE, choose a tool profile, and see what it reads, writes and contacts.
 ---
 
-The MCP server exposes APS functions as MCP tools. With the default profile, `tools/list` returns 154 tools. The current release is agent-passport-system-mcp 8.1.0 on [npm](https://www.npmjs.com/package/agent-passport-system-mcp), which runs on Node.js 20 or later and depends on agent-passport-system 8.0.1. The source is at [agent-passport-system/agent-passport-mcp](https://github.com/agent-passport-system/agent-passport-mcp).
+The MCP server exposes APS functions as MCP tools. With the default profile, `tools/list` returns 154 tools. The current release is agent-passport-system-mcp 8.1.1 on [npm](https://www.npmjs.com/package/agent-passport-system-mcp), which runs on Node.js 20 or later and depends on agent-passport-system `^8.0.0`. The source is at [agent-passport-system/agent-passport-mcp](https://github.com/agent-passport-system/agent-passport-mcp).
 
 Exposing a tool to an agent does not place a check in front of other tools the agent can call. To gate calls to an MCP server you do not control, the host has to check authority before it dispatches `tools/call`. See [Host pre-dispatch authorization](#host-pre-dispatch-authorization).
 
@@ -12,7 +12,7 @@ Exposing a tool to an agent does not place a check in front of other tools the a
 The local server runs over stdio on your machine.
 
 ```bash
-npm install agent-passport-system-mcp@8.1.0
+npm install agent-passport-system-mcp@8.1.1
 npx agent-passport-system-mcp setup
 ```
 
@@ -66,7 +66,7 @@ The response carries the signed record under `delegation`. Its `issuer` is `aps:
 4. `revoke_delegation` with `{ "delegation": <the record>, "reason_code": "task_complete" }`. It returns a signed `AuthorityRevocationV1` under `revocation`.
 5. `check_authority_delegation` again.
 
-The program `recipe.mjs` in [`docs-src/examples/mcp-authority/`](https://github.com/agent-passport-system/aps-web/tree/main/docs-src/examples/mcp-authority) runs these calls from an MCP client against agent-passport-system-mcp 8.1.0 over stdio, then a legacy revoke, a restart and an issue in remote mode. It prints only the fields that do not change between runs. Its output:
+The program `recipe.mjs` in [`docs-src/examples/mcp-authority/`](https://github.com/agent-passport-system/aps-web/tree/main/docs-src/examples/mcp-authority) runs these calls from an MCP client against agent-passport-system-mcp 8.1.1 over stdio, then a legacy revoke, a restart and an issue in remote mode. It prints only the fields that do not change between runs. Its output:
 
 ```text
 tools/list, default profile: 154
