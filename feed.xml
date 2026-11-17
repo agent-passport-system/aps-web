@@ -5,7 +5,28 @@
   <atom:link href="https://agent-passport.org/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Day-by-day record of building the Agent Passport System, by Tymofii Pidlisnyi.</description>
   <language>en</language>
-  <lastBuildDate>Fri, 13 Nov 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Mon, 16 Nov 2026 12:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Day 273: my fix put a new claim in every ID token, and the maintainer asked for a smaller one</title>
+    <link>https://agent-passport.org/blog.html#day-273-a-claim-in-every-id-token</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-273-a-claim-in-every-id-token</guid>
+    <pubDate>Mon, 16 Nov 2026 12:00:00 GMT</pubDate>
+    <description>In the morning I opened an issue on Dex (#5177). Dex is an open source identity provider, a CNCF project that many teams run to sign their users in. Its main branch has a new grant called ID-JAG. An app hands Dex a user's ID token and gets back a short signed assertion it can show to another service. The draft that defines it, in section 4.3.3, asks the identity provider to make sure the token...</description>
+  </item>
+  <item>
+    <title>Day 272: our Agent Cards signed one field too many, and 8.1.0 never reached npm</title>
+    <link>https://agent-passport.org/blog.html#day-272-a-version-that-never-shipped</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-272-a-version-that-never-shipped</guid>
+    <pubDate>Sun, 15 Nov 2026 12:00:00 GMT</pubDate>
+    <description>On agent-did #266, Edison and I have been checking that his Agent-DID SDKs and APS read each other's signed A2A Agent Cards the same way. An Agent Card is the document an agent publishes to say who it is and what it can do. A2A 1.0 says how to sign one. In section 8.4.1, a field that only holds its default value is removed before the card is turned into bytes and signed, so two signers produce...</description>
+  </item>
+  <item>
+    <title>Day 271: the site said things the code did not do</title>
+    <link>https://agent-passport.org/blog.html#day-271-the-site-said-more-than-the-code</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-271-the-site-said-more-than-the-code</guid>
+    <pubDate>Sat, 14 Nov 2026 12:00:00 GMT</pubDate>
+    <description>I asked for one thing on Saturday evening. The long pages on agent-passport.org were hard to read, and I wanted them easier to read. By the end of the night that was the smaller change.</description>
+  </item>
   <item>
     <title>Day 270: rain on the hill in Woodside, and a day spent fixing other people's bugs</title>
     <link>https://agent-passport.org/blog.html#day-270-rain-on-the-hill</link>
@@ -124,26 +145,5 @@
     <guid isPermaLink="false">https://agent-passport.org/blog#day-254-six-fixtures-through-the-sdk</guid>
     <pubDate>Wed, 28 Oct 2026 12:00:00 GMT</pubDate>
     <description>Six robot safety fixtures through the SDK. I had told Pashkov on #177 that I would run SINT's runtime safety fixtures against APS, so I ran all six through a local harness on the TypeScript SDK 8.0.1, with the fixture file pinned at d712598. Each SINT token became an AuthorityDelegationV1 grant and each fixture action became a decision. One fixture matched the expected verdict outright, three...</description>
-  </item>
-  <item>
-    <title>Day 252: a read before every decision, and a name on each piece of the refund sandbox</title>
-    <link>https://agent-passport.org/blog.html#day-252-a-name-on-each-piece</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-252-a-name-on-each-piece</guid>
-    <pubDate>Mon, 26 Oct 2026 12:00:00 GMT</pubDate>
-    <description>The read rule, stated. Larry asked in lab #192 whether an implementation of lease-revocation-axes revision 3 must read the authority source before it checks scope. My answer is that an implementation claiming live_standing_read must attempt one status read on every unexpired, correctly bound call before it returns a decision, including a call for an operation outside the grant. Computing scope...</description>
-  </item>
-  <item>
-    <title>Day 251: revision 3 separates a source we could not reach from a grant that was revoked</title>
-    <link>https://agent-passport.org/blog.html#day-251-could-not-reach-is-not-revoked</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-251-could-not-reach-is-not-revoked</guid>
-    <pubDate>Sun, 25 Oct 2026 12:00:00 GMT</pubDate>
-    <description>Revision 3, merged. Yesterday Lars and Lee agreed on what a refusal should say, and today it shipped as #191. Every decision record in lease-revocation-axes now carries refusal_reason. It is null on a permit, and on a deny it is the first that applies of evidence_binding_mismatch, evidence_expired, authority_not_determined, authority_revoked and operation_not_permitted....</description>
-  </item>
-  <item>
-    <title>Day 250: a cold run that reproduced the revocation family, and a refusal that had no reason to give</title>
-    <link>https://agent-passport.org/blog.html#day-250-cold-run-and-a-refusal-reason</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-250-cold-run-and-a-refusal-reason</guid>
-    <pubDate>Sat, 24 Oct 2026 12:00:00 GMT</pubDate>
-    <description>The revocation family merged as a candidate, and a cold run came in. PR #180 merged this morning with revision 2 of lease-revocation-axes, the timeline Lee and I agreed on the W3C list, with three axes scored separately and both declared modes. Tetsuroh Hori had already run revision 2 cold from his own catalog implementation at b745d25, and it matched 176 of 176 calls and 11 of 11 checkpoints....</description>
   </item>
 </channel></rss>

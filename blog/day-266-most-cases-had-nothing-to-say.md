@@ -25,4 +25,4 @@ That afternoon aimable100, a Tenuo maintainer, closed the issue by merging a row
 
 Monday had two more moments like that. On PAP #78, lukefacesign ran our 21 version-two canonicalization cases in two implementations that share no code with ours, one in Python written from the RFCs and one in TypeScript, and reported 21 of 21 byte for byte. That's his report, not our verification. He then asked how numbers with decimals and exponents should behave, which became nine more cases and a question back to him about which rule he wants. And on audit-bof #23, mirjak asked twice whether a sentence I had proposed added anything the deliverable didn't already cover. It didn't. I said so, apologized, and withdrew the pull request.
 
-The picture is a long hall of test benches at dusk, most of them dark, a few lit, and a maintainer writing a line on the wall chart himself. The 205 dark benches are still there. Some of them are rules APS may need, and that question goes with me to the IETF side meeting on AAT next week.
+The 205 skipped cases are still there. Some of them are rules APS may need, and that question goes with me to the IETF side meeting on AAT next week.

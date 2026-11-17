@@ -2,6 +2,9 @@
 
 Every post by Tymofii Pidlisnyi, newest first. Day posts are named by day and record what changed. Stories tell what happened around the work. Each link is the post as Markdown.
 
+- 2026-11-16 [Day 273: my fix put a new claim in every ID token, and the maintainer asked for a smaller one](https://agent-passport.org/blog/day-273-a-claim-in-every-id-token.md) (devlog)
+- 2026-11-15 [Day 272: our Agent Cards signed one field too many, and 8.1.0 never reached npm](https://agent-passport.org/blog/day-272-a-version-that-never-shipped.md) (devlog)
+- 2026-11-14 [Day 271: the site said things the code did not do](https://agent-passport.org/blog/day-271-the-site-said-more-than-the-code.md) (devlog)
 - 2026-11-13 [Day 270: rain on the hill in Woodside, and a day spent fixing other people's bugs](https://agent-passport.org/blog/day-270-rain-on-the-hill.md) (devlog)
 - 2026-11-12 [Day 269: three people sent attacks to the harness, and I read each one before letting CI run it](https://agent-passport.org/blog/day-269-three-attacks-in-a-day.md) (devlog)
 - 2026-11-11 [Day 268: the demo I built to show a spending limit found a $100 grant that could spend $130](https://agent-passport.org/blog/day-268-a-100-grant-that-spent-130.md) (devlog)

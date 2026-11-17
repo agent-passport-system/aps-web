@@ -25,4 +25,4 @@ One more defect turned up in our own spec. The governance attestation document l
 
 Late at night I published one more thing, payment-lifecycle-attack-harness. It runs the gateway's real payment code against a fake payment node that lies and goes down, with gateway processes that crash in the middle of a payment, and after every step it checks three rules. No counter goes over its limit, no reservation is released without a recorded reason, and one payment never produces two signed blocks. It ships with eleven scenarios and nine planted faults, bugs put in on purpose that the scenarios have to catch. I posted an invitation on vocabulary #177 for anyone who wants to add an attack. I also asked on Kanon #58 where a spending-authority check would sit in an x402 payment flow, and replied on two x402 threads about payment holds.
 
-The picture is late night back home in Los Angeles, a laptop open, and a ledger with one column added up twice. The harness is public now. Whether anyone tries to break it is a question for tomorrow.
+The harness is public now. Whether anyone tries to break it is a question for tomorrow.

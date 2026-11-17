@@ -26,4 +26,4 @@ The site got attention too. There is a new compliance page, the FAQ has four new
 
 In the evening we went with the whole Synoptic team to an Uzbek restaurant and ate a lot. Then back up the hill, and the second ADK pull request went out a few minutes after midnight.
 
-The picture is the house on the hill at night, with small lit paths running down through the forest to other houses. None of today's pull requests has a review yet. Next is waiting for the maintainers, and rebasing the second ADK fix once the first one merges.
+None of today's pull requests has a review yet. Next is waiting for the maintainers, and rebasing the second ADK fix once the first one merges.

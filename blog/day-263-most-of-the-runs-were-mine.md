@@ -27,4 +27,4 @@ None of these were big. All of them were the same kind of mistake, a claim that 
 
 So the proposal goes back for rework. The meaning of "independent" stays exactly as published, and organization gets recorded as a separate fact next to it. The reply to Edison went out in its corrected form. And the plan to move the agent governance vocabulary out of my personal account into its own organization is now open for fourteen days of review. Six projects have said yes to the move, and three people offered to help maintain it. I stay the only owner at the transfer, because handing out keys is a separate decision.
 
-The picture for this post is a librarian stepping down from a tall chair and setting a second one beside it. Nobody is sitting in it yet. TRACE and Bernstein haven't answered. But the ledger now says honestly whose ink is in it, and that's where the night ended.
+TRACE and Bernstein haven't answered. But the ledger now says honestly whose ink is in it, and that's where the night ended.

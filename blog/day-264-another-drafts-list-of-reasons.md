@@ -25,4 +25,4 @@ That was the second thing of mine on Saturday that looked right and wasn't. In t
 
 The rest of the day was quieter. Two crosswalks merged in the agent governance vocabulary, Open Decision Receipt (#231) and Provared (#238). Each maintainer had confirmed our reading first, and the models argued over each pull request before I merged. Provared needed six edits before that. REMORA's crosswalk (#232) got a four-point request instead of a merge. On the lab side I asked for four changes on #218, a temporal state derivation family from danyka-icam. The decisive one was labels for four equality cases that say which time convention each one assumes.
 
-Larry hasn't answered yet. The picture is a crossroads with two signposts carved with the same five marks, and me reading the wrong one. The lab's list still has five reasons. A sixth is waiting for someone besides me to agree it should exist.
+Larry hasn't answered yet. The lab's list still has five reasons. A sixth is waiting for someone besides me to agree it should exist.
