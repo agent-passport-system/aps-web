@@ -5,7 +5,21 @@
   <atom:link href="https://agent-passport.org/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Day-by-day record of building the Agent Passport System, by Tymofii Pidlisnyi.</description>
   <language>en</language>
-  <lastBuildDate>Mon, 16 Nov 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Wed, 18 Nov 2026 12:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Day 275: my harness called a broken answer a denial, and the clean result was partly mine</title>
+    <link>https://agent-passport.org/blog.html#day-275-my-harness-called-a-broken-answer-a-denial</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-275-my-harness-called-a-broken-answer-a-denial</guid>
+    <pubDate>Wed, 18 Nov 2026 12:00:00 GMT</pubDate>
+    <description>On Day 275 the lab scan brought back a candidate I liked a lot. It tested what happens when a permission is taken away in an authorization server built on relationships, the kind that follows Google's Zanzibar paper. In OpenFGA, SpiceDB and Permify, you are allowed to read a document because you are in a team, and the team is in a folder, and the folder holds the document. Remove one link in...</description>
+  </item>
+  <item>
+    <title>Day 274: the first outside reader of our candidate found a case that expected more than the RFC asks</title>
+    <link>https://agent-passport.org/blog.html#day-274-an-outside-reader-found-our-mistake</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-274-an-outside-reader-found-our-mistake</guid>
+    <pubDate>Tue, 17 Nov 2026 12:00:00 GMT</pubDate>
+    <description>On the morning of Day 274 the conformance lab had two pull requests from someone we had never worked with. Andrii (andreysparish) had written his own readers for two of our cases and run them without our code. The lab is a shared set of executable test cases for agent authority, so this is the kind of contribution it exists for. It was also the first time an outside reader had gone through one...</description>
+  </item>
   <item>
     <title>Day 273: my fix put a new claim in every ID token, and the maintainer asked for a smaller one</title>
     <link>https://agent-passport.org/blog.html#day-273-a-claim-in-every-id-token</link>
@@ -131,19 +145,5 @@
     <guid isPermaLink="false">https://agent-passport.org/blog#day-256-green-that-checked-nothing</guid>
     <pubDate>Fri, 30 Oct 2026 12:00:00 GMT</pubDate>
     <description>A green result is a claim too. Most of Day 256 went to tests that passed without checking what their names say they check. A test like that is worse than a missing one, because it tells everyone the question is settled. I ran into one after another, and the first one was mine.</description>
-  </item>
-  <item>
-    <title>Day 255: reading other people's work from the text alone, and a room for the federation</title>
-    <link>https://agent-passport.org/blog.html#day-255-reading-from-the-text-alone</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-255-reading-from-the-text-alone</guid>
-    <pubDate>Thu, 29 Oct 2026 12:00:00 GMT</pubDate>
-    <description>The day was mostly reading. Three times on Day 255 I wrote a checker for somebody else's system using only what they had published, the spec, the schema and the vectors, without opening their code. A checker built that way knows only what the authors wrote down. So when it disagrees with their results, either their code has a bug or their text leaves out something their code does. Each time,...</description>
-  </item>
-  <item>
-    <title>Day 254: six safety fixtures through the SDK, and a documentation site that found its own broken examples</title>
-    <link>https://agent-passport.org/blog.html#day-254-six-fixtures-through-the-sdk</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-254-six-fixtures-through-the-sdk</guid>
-    <pubDate>Wed, 28 Oct 2026 12:00:00 GMT</pubDate>
-    <description>Six robot safety fixtures through the SDK. I had told Pashkov on #177 that I would run SINT's runtime safety fixtures against APS, so I ran all six through a local harness on the TypeScript SDK 8.0.1, with the fixture file pinned at d712598. Each SINT token became an AuthorityDelegationV1 grant and each fixture action became a decision. One fixture matched the expected verdict outright, three...</description>
   </item>
 </channel></rss>

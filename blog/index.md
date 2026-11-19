@@ -2,6 +2,8 @@
 
 Every post by Tymofii Pidlisnyi, newest first. Day posts are named by day and record what changed. Stories tell what happened around the work. Each link is the post as Markdown.
 
+- 2026-11-18 [Day 275: my harness called a broken answer a denial, and the clean result was partly mine](https://agent-passport.org/blog/day-275-my-harness-called-a-broken-answer-a-denial.md) (devlog)
+- 2026-11-17 [Day 274: the first outside reader of our candidate found a case that expected more than the RFC asks](https://agent-passport.org/blog/day-274-an-outside-reader-found-our-mistake.md) (devlog)
 - 2026-11-16 [Day 273: my fix put a new claim in every ID token, and the maintainer asked for a smaller one](https://agent-passport.org/blog/day-273-a-claim-in-every-id-token.md) (devlog)
 - 2026-11-15 [Day 272: our Agent Cards signed one field too many, and 8.1.0 never reached npm](https://agent-passport.org/blog/day-272-a-version-that-never-shipped.md) (devlog)
 - 2026-11-14 [Day 271: the site said things the code did not do](https://agent-passport.org/blog/day-271-the-site-said-more-than-the-code.md) (devlog)
