@@ -5,7 +5,42 @@
   <atom:link href="https://agent-passport.org/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Day-by-day record of building the Agent Passport System, by Tymofii Pidlisnyi.</description>
   <language>en</language>
-  <lastBuildDate>Wed, 18 Nov 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Mon, 23 Nov 2026 12:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Day 280: I wanted to drop a 14 day wait, and a reviewer showed me who it protects</title>
+    <link>https://agent-passport.org/blog.html#day-280-a-reviewer-showed-me-who-the-wait-protects</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-280-a-reviewer-showed-me-who-the-wait-protects</guid>
+    <pubDate>Mon, 23 Nov 2026 12:00:00 GMT</pubDate>
+    <description>On Day 280 every call I had was rescheduled, so I spent the day on things I had promised. One of them was two days old. When the vocabulary moved to its own organization, two maintainers from other projects had offered to help look after it, and I had said their access would go through a public pull request.</description>
+  </item>
+  <item>
+    <title>Day 279: I asked for everything that was waiting, and found security alerts switched off</title>
+    <link>https://agent-passport.org/blog.html#day-279-security-alerts-were-switched-off</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-279-security-alerts-were-switched-off</guid>
+    <pubDate>Sun, 22 Nov 2026 12:00:00 GMT</pubDate>
+    <description>Day 279 was a Sunday, and I started it by asking for everything that was waiting on me. Every notification, and every automated pull request too. I expected a list of conversations. The part that mattered was not a conversation.</description>
+  </item>
+  <item>
+    <title>Day 278: the vocabulary left my account, and the first pull request after the move was blocked by its own rules</title>
+    <link>https://agent-passport.org/blog.html#day-278-the-first-pull-request-was-blocked-by-its-own-rules</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-278-the-first-pull-request-was-blocked-by-its-own-rules</guid>
+    <pubDate>Sat, 21 Nov 2026 12:00:00 GMT</pubDate>
+    <description>On Day 278 at 18:00 UTC I moved the vocabulary repository out of my personal account. It took four seconds. The two weeks before it took longer.</description>
+  </item>
+  <item>
+    <title>Day 277: two maintainers asked for two fields, and I proposed one list with a cost they both had to accept</title>
+    <link>https://agent-passport.org/blog.html#day-277-one-list-with-a-cost-they-both-had-to-accept</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-277-one-list-with-a-cost-they-both-had-to-accept</guid>
+    <pubDate>Fri, 20 Nov 2026 12:00:00 GMT</pubDate>
+    <description>On Day 277 two maintainers were waiting on the same answer from me, and they had asked for different things.</description>
+  </item>
+  <item>
+    <title>Day 276: a bank asks customers for evidence of revocation, and my checker could not say it did not know</title>
+    <link>https://agent-passport.org/blog.html#day-276-my-checker-could-not-say-it-did-not-know</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-276-my-checker-could-not-say-it-did-not-know</guid>
+    <pubDate>Thu, 19 Nov 2026 12:00:00 GMT</pubDate>
+    <description>On Day 276 I was answering a thread on the IETF AUDIT mailing list, where people are working out how the actions of AI agents should be recorded and checked. I had brought one concrete case to it. Wells Fargo's updated online banking agreement takes effect on November 24, and Section 15(f) says a customer who revokes an AI agent's authorization &quot;must retain evidence of such revocation&quot;. It...</description>
+  </item>
   <item>
     <title>Day 275: my harness called a broken answer a denial, and the clean result was partly mine</title>
     <link>https://agent-passport.org/blog.html#day-275-my-harness-called-a-broken-answer-a-denial</link>
@@ -110,40 +145,5 @@
     <guid isPermaLink="false">https://agent-passport.org/blog#day-261-the-matrix-leaves-every-pr</guid>
     <pubDate>Wed, 04 Nov 2026 12:00:00 GMT</pubDate>
     <description>On Wednesday, three maintainers corrected my readings of their formats, and one crosswalk merged with its maintainer's confirmation. The registry also stopped committing a generated file that went stale in every open pull request each time another one merged. My own escaping bug in that change was caught by CodeQL before it reached main.</description>
-  </item>
-  <item>
-    <title>Day 260: a payment seed that could have come from Math.random, fixed and disclosed</title>
-    <link>https://agent-passport.org/blog.html#day-260-a-seed-from-math-random</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-260-a-seed-from-math-random</guid>
-    <pubDate>Tue, 03 Nov 2026 12:00:00 GMT</pubDate>
-    <description>The most important change on Tuesday was a security fix in our own gateway. A dependency review found that the gateway's Nano payment rail could create its master seed from a random generator built on Math.random. The fix is released as gateway 0.4.2, with a public advisory.</description>
-  </item>
-  <item>
-    <title>Day 259: second readers written from the published rules, with my own mistakes kept in the record</title>
-    <link>https://agent-passport.org/blog.html#day-259-second-readers</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-259-second-readers</guid>
-    <pubDate>Mon, 02 Nov 2026 12:00:00 GMT</pubDate>
-    <description>Monday went to writing second readers for other people's protocols, working only from what each project published. A second reader matters because a test suite checked only by its own author can share that author's mistakes. Three projects got one, and in each case I kept my own errors in the record.</description>
-  </item>
-  <item>
-    <title>Day 258: two of Sunday's corrections were mine</title>
-    <link>https://agent-passport.org/blog.html#day-258-two-corrections-were-mine</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-258-two-corrections-were-mine</guid>
-    <pubDate>Sun, 01 Nov 2026 12:00:00 GMT</pubDate>
-    <description>Sunday went to checking whether tests and claims match the rules they are supposed to represent. I found gaps in several outside projects. I also had to correct two mistakes of my own, an approval I gave too early and a source commit I pinned wrong. Both corrections are public.</description>
-  </item>
-  <item>
-    <title>Day 257: an automated tester on Mingle, fixed while it ran</title>
-    <link>https://agent-passport.org/blog.html#day-257-a-tester-on-mingle</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-257-a-tester-on-mingle</guid>
-    <pubDate>Sat, 31 Oct 2026 12:00:00 GMT</pubDate>
-    <description>Halloween night, Mingle had a visitor. At 21:11 PT an automated client signed its first card for Mingle, the introduction network at api.aeoess.com. Over the next three hours it published 32 cards from three keys, all from one cloud address. Nobody real was matched or introduced through them. The client tested almost every rule the server has and found real defects, and four fixed builds were...</description>
-  </item>
-  <item>
-    <title>Day 256: tests that passed without checking, starting with mine</title>
-    <link>https://agent-passport.org/blog.html#day-256-green-that-checked-nothing</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-256-green-that-checked-nothing</guid>
-    <pubDate>Fri, 30 Oct 2026 12:00:00 GMT</pubDate>
-    <description>A green result is a claim too. Most of Day 256 went to tests that passed without checking what their names say they check. A test like that is worse than a missing one, because it tells everyone the question is settled. I ran into one after another, and the first one was mine.</description>
   </item>
 </channel></rss>

@@ -2,6 +2,11 @@
 
 Every post by Tymofii Pidlisnyi, newest first. Day posts are named by day and record what changed. Stories tell what happened around the work. Each link is the post as Markdown.
 
+- 2026-11-23 [Day 280: I wanted to drop a 14 day wait, and a reviewer showed me who it protects](https://agent-passport.org/blog/day-280-a-reviewer-showed-me-who-the-wait-protects.md) (devlog)
+- 2026-11-22 [Day 279: I asked for everything that was waiting, and found security alerts switched off](https://agent-passport.org/blog/day-279-security-alerts-were-switched-off.md) (devlog)
+- 2026-11-21 [Day 278: the vocabulary left my account, and the first pull request after the move was blocked by its own rules](https://agent-passport.org/blog/day-278-the-first-pull-request-was-blocked-by-its-own-rules.md) (devlog)
+- 2026-11-20 [Day 277: two maintainers asked for two fields, and I proposed one list with a cost they both had to accept](https://agent-passport.org/blog/day-277-one-list-with-a-cost-they-both-had-to-accept.md) (devlog)
+- 2026-11-19 [Day 276: a bank asks customers for evidence of revocation, and my checker could not say it did not know](https://agent-passport.org/blog/day-276-my-checker-could-not-say-it-did-not-know.md) (devlog)
 - 2026-11-18 [Day 275: my harness called a broken answer a denial, and the clean result was partly mine](https://agent-passport.org/blog/day-275-my-harness-called-a-broken-answer-a-denial.md) (devlog)
 - 2026-11-17 [Day 274: the first outside reader of our candidate found a case that expected more than the RFC asks](https://agent-passport.org/blog/day-274-an-outside-reader-found-our-mistake.md) (devlog)
 - 2026-11-16 [Day 273: my fix put a new claim in every ID token, and the maintainer asked for a smaller one](https://agent-passport.org/blog/day-273-a-claim-in-every-id-token.md) (devlog)
