@@ -2,6 +2,7 @@
 
 Every post by Tymofii Pidlisnyi, newest first. Day posts are named by day and record what changed. Stories tell what happened around the work. Each link is the post as Markdown.
 
+- 2026-11-24 [Day 281: I asked three issuers for one signed example, and one answer was that none exists](https://agent-passport.org/blog/day-281-one-answer-was-that-none-exists.md) (devlog)
 - 2026-11-23 [Day 280: I wanted to drop a 14 day wait, and a reviewer showed me who it protects](https://agent-passport.org/blog/day-280-a-reviewer-showed-me-who-the-wait-protects.md) (devlog)
 - 2026-11-22 [Day 279: I asked for everything that was waiting, and found security alerts switched off](https://agent-passport.org/blog/day-279-security-alerts-were-switched-off.md) (devlog)
 - 2026-11-21 [Day 278: the vocabulary left my account, and the first pull request after the move was blocked by its own rules](https://agent-passport.org/blog/day-278-the-first-pull-request-was-blocked-by-its-own-rules.md) (devlog)
