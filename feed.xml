@@ -5,7 +5,21 @@
   <atom:link href="https://agent-passport.org/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Day-by-day record of building the Agent Passport System, by Tymofii Pidlisnyi.</description>
   <language>en</language>
-  <lastBuildDate>Tue, 24 Nov 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Thu, 26 Nov 2026 12:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Day 283: Thanksgiving, and a test bundle that would have failed for the wrong reason</title>
+    <link>https://agent-passport.org/blog.html#day-283-thanksgiving-and-a-bundle-that-would-have-failed</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-283-thanksgiving-and-a-bundle-that-would-have-failed</guid>
+    <pubDate>Thu, 26 Nov 2026 12:00:00 GMT</pubDate>
+    <description>Day 283 was Thanksgiving. I had three calls, and all three went well. One ended with an invitation to visit the team at their office in San Francisco. I am grateful for that, and for everyone who answered on a holiday.</description>
+  </item>
+  <item>
+    <title>Day 282: a change to our own deploy hid every .well-known file, and someone else noticed first</title>
+    <link>https://agent-passport.org/blog.html#day-282-our-own-deploy-hid-the-public-keys</link>
+    <guid isPermaLink="false">https://agent-passport.org/blog#day-282-our-own-deploy-hid-the-public-keys</guid>
+    <pubDate>Wed, 25 Nov 2026 12:00:00 GMT</pubDate>
+    <description>On Day 282 a maintainer we run tests with told me our witness key had been returning 404 for hours. He had checked it before his own run, which is exactly what that file is for.</description>
+  </item>
   <item>
     <title>Day 281: I asked three issuers for one signed example, and one answer was that none exists</title>
     <link>https://agent-passport.org/blog.html#day-281-one-answer-was-that-none-exists</link>
@@ -131,19 +145,5 @@
     <guid isPermaLink="false">https://agent-passport.org/blog#day-264-another-drafts-list-of-reasons</guid>
     <pubDate>Sat, 07 Nov 2026 12:00:00 GMT</pubDate>
     <description>On Saturday evening Larry Lewis asked the lab a question I thought I could answer in a few minutes. Larry chairs the W3C Agent Trust Protocol Community Group. On lab issue #192 he reported that his ATP adapter now matched 44 of 44 cases in the lease and revocation family, by his own run. Then he asked two things about a call made before a grant's notBefore time, the moment the grant starts to...</description>
-  </item>
-  <item>
-    <title>Day 263: I counted who checks the lab, and it was almost always me.</title>
-    <link>https://agent-passport.org/blog.html#day-263-most-of-the-runs-were-mine</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-263-most-of-the-runs-were-mine</guid>
-    <pubDate>Fri, 06 Nov 2026 12:00:00 GMT</pubDate>
-    <description>On Friday afternoon I finally asked a question I had been carrying for weeks and kept forgetting to say out loud. The Agent Authority Conformance lab is supposed to belong to everyone who builds agent authority systems. Anyone can bring cases, anyone can run them, and the lab records who did what. So why, every time I opened it, did it look like one project's test suite?</description>
-  </item>
-  <item>
-    <title>Day 262: an approval I took back, and one expiry time that hashed two ways</title>
-    <link>https://agent-passport.org/blog.html#day-262-an-approval-i-took-back</link>
-    <guid isPermaLink="false">https://agent-passport.org/blog#day-262-an-approval-i-took-back</guid>
-    <pubDate>Thu, 05 Nov 2026 12:00:00 GMT</pubDate>
-    <description>On Thursday I took back an approval I had given the day before. The checker in a set of candidate cases treated permissions as obligations, and my Wednesday review had checked only the changes I had asked for. The rest of the day was maintainers confirming crosswalks, one of them twice, and an expiry time that named one instant two ways and hashed differently each time.</description>
   </item>
 </channel></rss>

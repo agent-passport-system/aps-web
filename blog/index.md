@@ -2,6 +2,8 @@
 
 Every post by Tymofii Pidlisnyi, newest first. Day posts are named by day and record what changed. Stories tell what happened around the work. Each link is the post as Markdown.
 
+- 2026-11-26 [Day 283: Thanksgiving, and a test bundle that would have failed for the wrong reason](https://agent-passport.org/blog/day-283-thanksgiving-and-a-bundle-that-would-have-failed.md) (devlog)
+- 2026-11-25 [Day 282: a change to our own deploy hid every .well-known file, and someone else noticed first](https://agent-passport.org/blog/day-282-our-own-deploy-hid-the-public-keys.md) (devlog)
 - 2026-11-24 [Day 281: I asked three issuers for one signed example, and one answer was that none exists](https://agent-passport.org/blog/day-281-one-answer-was-that-none-exists.md) (devlog)
 - 2026-11-23 [Day 280: I wanted to drop a 14 day wait, and a reviewer showed me who it protects](https://agent-passport.org/blog/day-280-a-reviewer-showed-me-who-the-wait-protects.md) (devlog)
 - 2026-11-22 [Day 279: I asked for everything that was waiting, and found security alerts switched off](https://agent-passport.org/blog/day-279-security-alerts-were-switched-off.md) (devlog)
