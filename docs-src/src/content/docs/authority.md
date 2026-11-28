@@ -164,7 +164,7 @@ Each action is checked against one selected root to leaf chain. A verifier must 
 
 The signed `cumulative` value is a ceiling for the whole subtree under that delegation, not an amount reserved for each child. Before dispatching an action of amount q, the boundary checks, in one atomic step over every bounded delegation in the chain, that the unit matches, that q is within each `per_action`, and that committed plus reserved plus q is within each `cumulative`. It reserves q against all of them or none.
 
-`InMemoryAuthorityBudgetLedger` does this in one JavaScript process. Its `reserve(chain, actionRef, unit, amount)` is keyed by `action_ref`: an identical retry returns `IDEMPOTENT`, and the same `action_ref` with a different unit, amount or chain returns `CONFLICT`. `markDispatched`, `commit` and `cancel` move a reservation on, and `cancel` works only before dispatch. A deployment with several processes needs one linearizable ledger. Without one, the current spend total is not established.
+`InMemoryAuthorityBudgetLedger` does this in one JavaScript process. Its `reserve(chain, actionRef, unit, amount)` is keyed by `action_ref`: an identical retry returns `IDEMPOTENT`, and the same `action_ref` with a different unit, amount or set of bounded delegations to charge returns `CONFLICT`. Unbounded members are not part of that set, so two chains that differ only in unbounded members give an identical retry. `markDispatched`, `commit` and `cancel` move a reservation on, and `cancel` works only before dispatch. A deployment with several processes needs one linearizable ledger. Without one, the current spend total is not established.
 
 ## Revocation
 
