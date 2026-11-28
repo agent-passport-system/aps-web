@@ -823,9 +823,9 @@ StorageBackend is the interface for persistent gateway state. Events are truth (
 
 **StorageBackend interface** (20 methods): putAgent/getAgent, putDelegation/getDelegation, reserveSpend/commitSpend/releaseSpend (atomic, no race conditions), appendRevocation/isRevoked, appendReceipt/queryReceipts (cursor pagination), tombstoneReceipt (GDPR: redact payload, preserve chain), getReputation/putReputation, appendDemotion, appendKeyRotation, checkAndStoreNonce. Plus: transaction(), verifyIntegrity(), rebuildDerivedState(), createCheckpoint(), onCheckpoint() (external anchoring), exportReceipts().
 
-**VolatileBackend**: in-memory implementation for testing. Ships with core SDK. WARNING: not for production.
+**VolatileBackend**: in-memory implementation for testing, development and single-process use. Ships with core SDK. It keeps nothing across restarts and is not a persistent store.
 
-**@aeoess/storage-sqlite**: separate npm package. SQLite with WAL mode, 12 tables, schema v1. Survives restarts. Reserve/commit/release spend pattern. Cursor pagination. GDPR tombstoning. Signed checkpoints with monotonic sequence. Startup integrity verification (receipt chain, checkpoint monotonicity, schema version). Install: `npm install @aeoess/storage-sqlite`.
+**@aeoess/storage-sqlite**: archived and not maintained. Version 0.1.0 has known spend validation and transaction isolation defects (GHSA-2fvp-gpw7-fj88, GHSA-gqp7-85q7-mr89) and no patched release. Do not use it to enforce authority or spend limits.
 
 **Gateway integration** (ProxyGateway is not exported in 8.0.1, gateway orchestration moved out of the SDK). In the former design, ProxyGateway accepted an optional StorageBackend. Write-through cache: Maps stay as hot path, StorageBackend persists behind them. loadFromStorage() hydrates on restart with integrity check. State survives process restarts.
 
@@ -893,7 +893,6 @@ This is not a replacement for either spec, not a prescription that all agents ne
 
 - npm package: https://www.npmjs.com/package/agent-passport-system
 - npm MCP server: https://www.npmjs.com/package/agent-passport-system-mcp
-- npm SQLite storage: https://www.npmjs.com/package/@aeoess/storage-sqlite
 - GitHub repository: https://github.com/agent-passport-system/agent-passport-system
 - Enforcement trust anchor spec (v1.2 feat branch, v1.1 on main): https://github.com/agent-passport-system/agent-passport-system/blob/main/docs/ENFORCEMENT-TRUST-ANCHOR.md
 - Capability token spec (v0.2 feat branch, v0.1 on main): https://github.com/agent-passport-system/agent-passport-system/blob/main/docs/CAPABILITY-TOKEN-SPEC-DRAFT.md
