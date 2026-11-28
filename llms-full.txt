@@ -3,7 +3,7 @@
 > Enforcement and accountability layer for AI agents. Bring your own identity. We govern what it can do.
 
 Updated: 2026-11-28
-SDK version: agent-passport-system@8.2.2 (latest)
+SDK version: agent-passport-system@9.0.0 (latest)
 MCP version: agent-passport-system-mcp@8.1.3 (154 tools)
 Python SDK: agent-passport-system==4.3.0
 Rust SDK: agent-passport-system 0.3.0 on crates.io (library crate agent_passport)
@@ -204,7 +204,7 @@ Structural safeguards: Separation of Powers (legislative/executive/judicial bran
 <!-- BEGIN generated from docs-src/src/content/docs/quickstart.md by docs-src/scripts/build-llms.mjs -->
 This page builds one governed action with the current wire format: an `AuthorityDelegationV1` grant, an `AuthorityRevocationV1` revocation and `ReceiptV1` records. Everything runs locally and deterministically, with fixed key seeds, fixed nonces and an explicit clock. Fixed seeds are for the example only.
 
-The complete source is in `docs-src/examples/governed-action/` in the [aps-web repository](https://github.com/agent-passport-system/aps-web). Its `package.json` pins `agent-passport-system` 8.1.1, and `npm test` asserts every outcome below. Every output on this page is pasted from `npm start`.
+The complete source is in `docs-src/examples/governed-action/` in the [aps-web repository](https://github.com/agent-passport-system/aps-web). Its `package.json` pins `agent-passport-system` 9.0.0, and `npm test` asserts every outcome below. Every output on this page is pasted from `npm start`.
 
 ### Run it
 
@@ -319,42 +319,59 @@ The boundary runs these checks for every request, in this order. It refuses at t
 1. The action-intent receipt is signed by the acting agent and its `action_ref` matches the action the agent presented.
 2. The `action_ref` has not been dispatched before.
 3. The whole chain verifies at the boundary's clock: shape, content address, signature through the key resolver, root trust, time window and revocation status of every member.
-4. Every scope the action requires is covered by a grant in the leaf delegation.
+4. Every scope the action requires is covered by a grant in the leaf of the verified chain's frozen records.
 5. The ledger reserves the cost against every bounded grant in the chain.
 
-Excerpt from `governed-action.mjs`, not runnable on its own:
+The boundary creates one configured verifier and gives that same object to the ledger. Both read the example clock. Excerpts from `governed-action.mjs`, not runnable on their own:
+
+```js
+const verifier = createAuthorityChainVerifier({
+  policyId: 'docs-example-policy-v1',
+  revocationSourceId: 'docs-example-revocations',
+  now: () => clock.now,
+  resolveVerificationKey: resolveKey,
+  trustRoot,
+  resolveRevocation,
+})
+const ledger = new InMemoryAuthorityBudgetLedger(verifier, { now: () => clock.now })
+```
 
 ```js
   // 3. Authority: the full chain, at the boundary's own clock.
-  const chainResult = verifyAuthorityDelegationChain(chain, {
-    now: clock.now,
-    resolveVerificationKey: resolveKey,
-    trustRoot,
-    resolveRevocation,
-  })
-  const leaf = chain[chain.length - 1]
+  const checked = verifyAuthorityChainForBudget(chain, verifier)
+  const chainResult = checked.result
+  const leaf = checked.ok ? checked.chain.records[checked.chain.records.length - 1] : chain[chain.length - 1]
 
-  // 4. Scope: every scope the action requires must be covered by a leaf grant.
-  const scopeCovered = action.scope_required.every(s => leaf.authority.scope.grants.some(g => scopeGrantCovers(g, s)))
-
-  // 5. Spend: the ledger reserves the cost against every bounded grant in the chain and
-  //    refuses a wrong unit, a cost above per_action, or a total above cumulative.
-  const spend = leaf.authority.spend
   /** @type {string | null} */
   let reason = null
-  if (chainResult.state !== 'valid') reason = chainResult.failures[0].code
-  else if (!scopeCovered) reason = 'SCOPE_NOT_GRANTED'
-  else if (spend.mode === 'bounded') {
-    const reservation = ledger.reserve(chain, actionRef, spend.unit, cost)
-    if (!reservation.ok) reason = reservation.code
+  if (!checked.ok) reason = chainResult.failures[0].code
+  else {
+    // 4. Scope: check the same frozen records the ledger will use.
+    const scopeCovered = action.scope_required.every(s => leaf.authority.scope.grants.some(g => scopeGrantCovers(g, s)))
+
+    // 5. Spend: reserve against every bounded grant using the verified handle.
+    const spend = leaf.authority.spend
+    if (!scopeCovered) reason = 'SCOPE_NOT_GRANTED'
+    else if (spend.mode === 'bounded') {
+      const reservation = ledger.reserve(checked.chain, actionRef, spend.unit, cost)
+      if (!reservation.ok) reason = reservation.code
+    }
   }
   const permit = reason === null
 ```
 
-Only after a permit does the boundary claim the action, call the resource and commit the spend:
+After a permit, the boundary verifies the frozen records again to check current authority and revocation. If that check fails, it cancels the reservation and refuses dispatch. Otherwise it claims the action, calls the resource and commits the spend. `markDispatched` only changes ledger state and does not verify the chain:
 
 ```js
-  // 7. Claim the action before dispatch, so a second copy cannot also be dispatched.
+  // 7. Dispatch admission: check current authority and revocation again.
+  //    markDispatched only changes ledger state. It does not verify authority.
+  const admission = verifyAuthorityChainForBudget(checked.chain.records, verifier)
+  if (!admission.ok) {
+    ledger.cancel(actionRef)
+    return { outcome: 'refused', reason: admission.result.failures[0].code, dispatched: false, chainState: admission.result.state, receipts: [decision], evidence }
+  }
+
+  // 8. Claim the action before dispatch, so a second copy cannot also be dispatched.
   consumedActions.add(actionRef)
   ledger.markDispatched(actionRef)
   const output = resource.read(action.target)
@@ -430,11 +447,11 @@ After that, every chain that contains the grant verifies `invalid` with `REVOKED
 
 ### What the verifiers establish
 
-`verifyAuthorityDelegationChain` returns `valid` when every check it runs passes. It does not decide whether this particular action may run, and it reserves nothing. Scope coverage, the replay claim and the spend reservation are the boundary's steps 2, 4 and 5 above.
+`verifyAuthorityChainForBudget` returns `{ ok: true, result, chain }` when every authority check passes. The `chain` handle holds the frozen records and verification context that the ledger accepts. A failure returns `{ ok: false, result }` with no handle. Verification does not decide whether this particular action may run, and it reserves nothing. Scope coverage, the replay claim and the spend reservation are the boundary's steps 2, 4 and 5 above.
 
 `verifyReceiptWithDecisionV1`, used in the `audit` fields above, checks a receipt's signature through the key resolver, its stage rules, that its `decision_ref` recomputes from the decision evidence, and, when asked, that the result names its decision receipt as `prev`. With `boundaryIdentity` it also checks the issuer is the boundary the relying party expects. It does not authorize dispatch, consume a receipt, enforce single use, recheck revocation or time, or reserve spend. A valid result says the records are intact and bound to each other. It is not permission to act.
 
-In this example a refused request still gets a signed policy-decision receipt with `"verdict":"deny"`, except a replay, which the boundary refuses before evaluating anything. Signing denials is a choice of this boundary.
+In the six cases above, a refused request gets a signed policy-decision receipt with `"verdict":"deny"`, except a replay, which the boundary refuses before evaluating anything. If authority changes after a permit, the dispatch check refuses the call and keeps that earlier permit receipt without an action-result receipt. Signing denials is a choice of this boundary.
 
 ### Next
 

@@ -109,7 +109,7 @@ attempt('api signatures', () => {
     }`
   const declared = new Set(execFileSync('node', ['--input-type=module', '-e', script], { cwd: gaWork, encoding: 'utf8' }).split('\n'))
   const wrong = sigLines.filter(l => !declared.has(l))
-  console.log(`api.md signature lines: ${sigLines.length}, not matching the 8.1.1 declarations: ${wrong.length}`)
+  console.log(`api.md signature lines: ${sigLines.length}, not matching the installed SDK declarations: ${wrong.length}`)
   for (const l of wrong) fail('  ' + l.slice(0, 160))
 })
 if (gaWork) rmSync(gaWork, { recursive: true, force: true })
