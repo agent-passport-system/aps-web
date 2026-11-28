@@ -92,7 +92,7 @@ What the output shows:
 
 ## Host pre-dispatch authorization
 
-The SDK's `aps-mcp-1` profile is how a host checks an APS authorization before it dispatches an MCP `tools/call`. It is specified in [`MCP-AUTHORIZATION-PROFILE.md`](https://github.com/agent-passport-system/agent-passport-system/blob/f95c9168187cbac0493099fe4a7cddaff653bf39/docs/MCP-AUTHORIZATION-PROFILE.md). The agent signs an `ApsMcpAuthorizationV1` with `issueApsMcpAuthorizationV1`, bound to the server URI, the tool name, a hash of the arguments, the required scope, a nonce and a validity window, and sends it in the request's `_meta` under `org.agent-passport/authorization`. The host wraps its dispatch in `createApsMcpToolCallMiddleware`, which in 9.0.0 runs these steps in order and throws an `ApsMcpAuthorizationError` with a `code` at the first failure:
+The SDK's `aps-mcp-1` profile is how a host checks an APS authorization before it dispatches an MCP `tools/call`. It is specified in [`MCP-AUTHORIZATION-PROFILE.md`](https://github.com/agent-passport-system/agent-passport-system/blob/f95c9168187cbac0493099fe4a7cddaff653bf39/docs/MCP-AUTHORIZATION-PROFILE.md). The agent signs an `ApsMcpAuthorizationV1` with `issueApsMcpAuthorizationV1`, bound to the server URI, the tool name, a hash of the arguments, the required scope, a nonce and a validity window, and sends it in the request's `_meta` under `org.agent-passport/authorization`. The host wraps its dispatch in `createApsMcpToolCallMiddleware`, which in 9.0.1 runs these steps in order and throws an `ApsMcpAuthorizationError` with a `code` at the first failure:
 
 1. The transport is authenticated. The host says so through `context.transport_authenticated`.
 2. The method is `tools/call`.
@@ -206,7 +206,7 @@ await attempt('out of scope', request('notes_write', args, authorize('notes_writ
 console.log('tool calls:', toolCalls, 'receipts emitted:', JSON.stringify(receipts.map(r => /** @type {any} */ (r).authority)))
 ```
 
-Its output with agent-passport-system 9.0.0:
+Its output with agent-passport-system 9.0.1:
 
 ```text
 allowed                  {"outcome":"dispatched","tool_called":true,"text":"note project-x"}

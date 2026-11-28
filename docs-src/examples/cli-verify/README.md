@@ -1,6 +1,6 @@
 # CLI example
 
-Runs the `agent-passport` binary of `agent-passport-system` 9.0.0 the way the CLI reference shows it: a local session (`join --no-register`, `status`, `verify`, `delegate`, `work`, `audit`), `verify-bundle` on a signed, a tampered and a wrong-key evidence bundle, and `verify-regulated` on two receipts. Each command runs in a fresh temp directory with `HOME` pointed at it, so nothing is written to your home directory and nothing is registered publicly.
+Runs the `agent-passport` binary of `agent-passport-system` 9.0.1 the way the CLI reference shows it: a local session (`join --no-register`, `status`, `verify`, `delegate`, `work`, `audit`), `verify-bundle` on a signed, a tampered and a wrong-key evidence bundle, and `verify-regulated` on two receipts. Each command runs in a fresh temp directory with `HOME` pointed at it, so nothing is written to your home directory and nothing is registered publicly.
 
 ```bash
 npm install
