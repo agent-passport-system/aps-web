@@ -1,7 +1,7 @@
 // Copyright (c) 2026 Tymofii Pidlisnyi
 // SPDX-License-Identifier: Apache-2.0
 //
-// How the current functions of agent-passport-system 9.0.0 report failure: which ones
+// How the current functions of agent-passport-system 9.0.1 report failure: which ones
 // throw and which return a coded result. Each line is one call with bad input.
 import {
   issueAuthorityDelegation, verifyAuthorityDelegationChain, issueAuthorityRevocation,

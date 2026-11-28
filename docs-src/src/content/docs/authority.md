@@ -3,7 +3,7 @@ title: Authority and revocation
 description: The AuthorityDelegationV1 wire record, its seven facets and how a child narrows them, chain verification and its four results, cumulative spend, and AuthorityRevocationV1.
 ---
 
-This page describes `AuthorityDelegationV1` as specified in `draft-pidlisnyi-aps-04` section 4 and as implemented by `agent-passport-system` 9.0.0 and the Python SDK 4.3.0. Every function named here is a root export of the npm package. None is in `agent-passport-system/core`.
+This page describes `AuthorityDelegationV1` as specified in `draft-pidlisnyi-aps-04` section 4 and as implemented by `agent-passport-system` 9.0.1 and the Python SDK 4.3.0. Every function named here is a root export of the npm package. None is in `agent-passport-system/core`.
 
 ## The wire record
 
@@ -57,7 +57,7 @@ Python 4.3.0 has the same two functions in `agent_passport.v2.authority_delegati
 
 The checks run phase by phase over the whole chain, in this order: closed schema and canonical values, `delegation_id`, key resolution and signature, duplicate identifiers, root trust, parent links, issuer to subject continuity, child issuance time, the seven facet comparisons, current validity, and revocation of every member. The first phase in which any member fails decides the result, at the lowest failing index.
 
-| Result | When | Example codes in 9.0.0 |
+| Result | When | Example codes in 9.0.1 |
 | --- | --- | --- |
 | `valid` | Every check passed | none |
 | `invalid` | A cryptographic, structural, attenuation, time or revocation failure, or a root the trust policy rejects | `SIGNATURE_INVALID`, `ID_MISMATCH`, `ROOT_UNTRUSTED`, `SCOPE_WIDENING`, `EXPIRED`, `NOT_YET_VALID`, `REVOKED` |
@@ -70,7 +70,7 @@ A `valid` chain is admissible authority at `now`. The verifier does not check th
 
 ### Example
 
-This program issues a root with depth 1, narrows it for a sub-agent, has the issuer refuse a wider child, verifies the chain, then revokes the root. It is `chain.mjs` in `docs-src/examples/governed-action/`, run with Node.js against 9.0.0:
+This program issues a root with depth 1, narrows it for a sub-agent, has the issuer refuse a wider child, verifies the chain, then revokes the root. It is `chain.mjs` in `docs-src/examples/governed-action/`, run with Node.js against 9.0.1:
 
 ```js
 // Copyright (c) 2026 Tymofii Pidlisnyi
