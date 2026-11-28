@@ -1,11 +1,11 @@
 ---
 title: Quickstart
-description: One governed action with agent-passport-system 9.0.2. A signed AuthorityDelegationV1 grant, an enforcement boundary that holds the resource, ReceiptV1 records, and refusals for out of scope, over budget, replayed, unknown status and revoked requests.
+description: One governed action with agent-passport-system 9.0.3. A signed AuthorityDelegationV1 grant, an enforcement boundary that holds the resource, ReceiptV1 records, and refusals for out of scope, over budget, replayed, unknown status and revoked requests.
 ---
 
 This page builds one governed action with the current wire format: an `AuthorityDelegationV1` grant, an `AuthorityRevocationV1` revocation and `ReceiptV1` records. Everything runs locally and deterministically, with fixed key seeds, fixed nonces and an explicit clock. Fixed seeds are for the example only.
 
-The complete source is in `docs-src/examples/governed-action/` in the [aps-web repository](https://github.com/agent-passport-system/aps-web). Its `package.json` pins `agent-passport-system` 9.0.2, and `npm test` asserts every outcome below. Every output on this page is pasted from `npm start`.
+The complete source is in `docs-src/examples/governed-action/` in the [aps-web repository](https://github.com/agent-passport-system/aps-web). Its `package.json` pins `agent-passport-system` 9.0.3, and `npm test` asserts every outcome below. Every output on this page is pasted from `npm start`.
 
 ## Run it
 

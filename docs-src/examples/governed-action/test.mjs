@@ -12,8 +12,8 @@ const pkg = JSON.parse(readFileSync(new URL('./node_modules/agent-passport-syste
 const { rows, allowed, revocation, ledger, resourceCalls } = runAll()
 const byCase = Object.fromEntries(rows.map(r => [r.case, r]))
 
-test('runs against agent-passport-system 9.0.2', () => {
-  assert.equal(pkg.version, '9.0.2')
+test('runs against agent-passport-system 9.0.3', () => {
+  assert.equal(pkg.version, '9.0.3')
 })
 
 test('allowed: permit, resource called once, both receipts verify', () => {
