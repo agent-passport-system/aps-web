@@ -1,7 +1,7 @@
 {
   "name": "AEOESS — Agent Passport System",
   "description": "Enforcement infrastructure for AI agents. Cryptographic identity, scoped delegation, earned reputation, gateway enforcement, passport grades, Merkle attribution.",
-  "version": "8.1.0",
+  "version": "8.1.2",
   "servers": [
     {
       "name": "agent-passport-system-mcp",
@@ -16,7 +16,7 @@
   "sdk": {
     "npm": "agent-passport-system",
     "pypi": "agent-passport-system",
-    "version": "8.1.1",
+    "version": "8.2.0",
     "modules": 107,
     "tests": 6289,
     "python_version": "4.3.0",

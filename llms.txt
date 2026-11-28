@@ -2,7 +2,7 @@
 
 > Enforcement and accountability layer for AI agents. Bring your own identity. We govern what it can do.
 
-Updated 2026-11-16 · SDK 8.1.1 · MCP 8.1.1 (154 tools) · Python 4.3.0 · Rust 0.3.0 · Go v0.7.0 · License Apache-2.0 · 6,307 passing tests · 9 papers · © 2026 Tymofii Pidlisnyi
+Updated 2026-11-28 · SDK 8.2.0 · MCP 8.1.2 (154 tools) · Python 4.3.0 · Rust 0.3.0 · Go v0.7.0 · License Apache-2.0 · 6,307 passing tests · 9 papers · © 2026 Tymofii Pidlisnyi
 
 APS adds signed authority and evidence on top of whatever identity an agent already has. Accepts did:key, did:web, SPIFFE SVID, OAuth, and native did:aps. A decision is enforced only where the code that obeys it is the only path to the resource. Authority can only decrease at each transfer point.
 
@@ -19,7 +19,7 @@ The SDK has two entry points. `agent-passport-system/core` is a curated set of 2
 - [Documentation](https://agent-passport.org/docs/): install, quickstart, receipts, gateway, MCP server, CLI and API reference, specifications, with samples tested against agent-passport-system 8.0.1
 - [Source on GitHub](https://github.com/agent-passport-system/agent-passport-system): the main repository, with related repositories under [@agent-passport-system](https://github.com/agent-passport-system) and [@aeoess](https://github.com/aeoess)
 
-MCP server (agent-passport-system-mcp 8.1.0): 154 tools over stdio. It supports MCP 2026-07-28 and 2025-era clients through era negotiation. The remote server README at commit b0cfb7f says the hosted endpoint at mcp.aeoess.com is temporarily restricted and anonymous connections return HTTP 401. Use the local server.
+MCP server (agent-passport-system-mcp 8.1.2): 154 tools over stdio. It supports MCP 2026-07-28 and 2025-era clients through era negotiation. The remote server README at commit b0cfb7f says the hosted endpoint at mcp.aeoess.com is temporarily restricted and anonymous connections return HTTP 401. Use the local server.
 
 ## Documentation
 
