@@ -1,7 +1,7 @@
 // Copyright (c) 2026 Tymofii Pidlisnyi
 // SPDX-License-Identifier: Apache-2.0
 //
-// One governed action, end to end, with agent-passport-system 9.0.1.
+// One governed action, end to end, with agent-passport-system 9.0.2.
 //
 // A principal issues an AuthorityDelegationV1 grant to an agent. The agent asks an
 // enforcement boundary to read a note. The boundary is the only code that holds the

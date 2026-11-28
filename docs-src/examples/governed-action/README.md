@@ -1,6 +1,6 @@
 # Governed action example
 
-One governed action with `agent-passport-system` 9.0.1: a principal signs an `AuthorityDelegationV1` grant, an enforcement boundary verifies it and holds the resource, and the boundary signs `ReceiptV1` records. The cases cover an allowed call and refusals for out of scope, over budget, replay, unknown revocation status and revoked authority.
+One governed action with `agent-passport-system` 9.0.2: a principal signs an `AuthorityDelegationV1` grant, an enforcement boundary verifies it and holds the resource, and the boundary signs `ReceiptV1` records. The cases cover an allowed call and refusals for out of scope, over budget, replay, unknown revocation status and revoked authority.
 
 ```bash
 npm install
