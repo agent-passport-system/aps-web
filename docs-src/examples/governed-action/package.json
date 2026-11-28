@@ -2,13 +2,13 @@
   "name": "aps-governed-action-example",
   "private": true,
   "type": "module",
-  "description": "One governed action with agent-passport-system 9.0.1: grant, boundary, receipts, refusals.",
+  "description": "One governed action with agent-passport-system 9.0.2: grant, boundary, receipts, refusals.",
   "scripts": {
     "start": "node run.mjs",
     "test": "node --test test.mjs && tsc -p tsconfig.json"
   },
   "dependencies": {
-    "agent-passport-system": "9.0.1"
+    "agent-passport-system": "9.0.2"
   },
   "devDependencies": {
     "@types/node": "24.19.2",

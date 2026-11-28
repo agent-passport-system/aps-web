@@ -3,7 +3,7 @@
 > Enforcement and accountability layer for AI agents. Bring your own identity. We govern what it can do.
 
 Updated: 2026-11-28
-SDK version: agent-passport-system@9.0.1 (latest)
+SDK version: agent-passport-system@9.0.2 (latest)
 MCP version: agent-passport-system-mcp@8.1.3 (154 tools)
 Python SDK: agent-passport-system==4.3.0
 Rust SDK: agent-passport-system 0.3.0 on crates.io (library crate agent_passport)
@@ -204,7 +204,7 @@ Structural safeguards: Separation of Powers (legislative/executive/judicial bran
 <!-- BEGIN generated from docs-src/src/content/docs/quickstart.md by docs-src/scripts/build-llms.mjs -->
 This page builds one governed action with the current wire format: an `AuthorityDelegationV1` grant, an `AuthorityRevocationV1` revocation and `ReceiptV1` records. Everything runs locally and deterministically, with fixed key seeds, fixed nonces and an explicit clock. Fixed seeds are for the example only.
 
-The complete source is in `docs-src/examples/governed-action/` in the [aps-web repository](https://github.com/agent-passport-system/aps-web). Its `package.json` pins `agent-passport-system` 9.0.1, and `npm test` asserts every outcome below. Every output on this page is pasted from `npm start`.
+The complete source is in `docs-src/examples/governed-action/` in the [aps-web repository](https://github.com/agent-passport-system/aps-web). Its `package.json` pins `agent-passport-system` 9.0.2, and `npm test` asserts every outcome below. Every output on this page is pasted from `npm start`.
 
 ### Run it
 
