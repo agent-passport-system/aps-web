@@ -16,12 +16,12 @@
   "sdk": {
     "npm": "agent-passport-system",
     "pypi": "agent-passport-system",
-    "version": "8.2.0",
+    "version": "8.2.1",
     "modules": 107,
     "tests": 6289,
-    "python_version": "4.3.0",
+    "python_version": "4.3.1",
     "rust": "agent-passport-system",
-    "rust_version": "0.3.0",
+    "rust_version": "0.3.1",
     "go": "github.com/aeoess/agent-passport-go",
     "go_version": "v0.7.0"
   },
