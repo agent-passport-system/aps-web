@@ -1,13 +1,13 @@
 # Agent Passport System: CLI reference
 
-> Commands, options, exit codes and local state of the agent-passport command line tool in agent-passport-system 9.0.2.
+> Commands, options, exit codes and local state of the agent-passport command line tool in agent-passport-system 9.0.3.
 
 Generated from https://agent-passport.org/docs/cli/ by docs-src/scripts/build-llms.mjs. Edit the page, not this file.
 
 The command line tool is the `agent-passport` binary of the npm package `agent-passport-system`. In a project with the package installed, run it as `npx agent-passport <command>`. Without a local install, name the package so npm does not resolve a different package called `agent-passport`:
 
 ```bash
-npm exec --package=agent-passport-system@9.0.2 -- agent-passport help
+npm exec --package=agent-passport-system@9.0.3 -- agent-passport help
 ```
 
 Run from an empty directory, that command exits 0 and prints the help. The help text writes commands as `passport <command>`. The installed binary is `agent-passport`.
@@ -38,7 +38,7 @@ npx agent-passport work --scope web_search --summary Searched
 npx agent-passport audit --floor node_modules/agent-passport-system/values/floor.yaml
 ```
 
-The program `run.mjs` in [`docs-src/examples/cli-verify/`](https://github.com/agent-passport-system/aps-web/tree/main/docs-src/examples/cli-verify) runs these commands with agent-passport-system 9.0.2 in a fresh directory. Every one exits 0 except the second `work`, which exits 1 because no stored delegation covers `web_search`:
+The program `run.mjs` in [`docs-src/examples/cli-verify/`](https://github.com/agent-passport-system/aps-web/tree/main/docs-src/examples/cli-verify) runs these commands with agent-passport-system 9.0.3 in a fresh directory. Every one exits 0 except the second `work`, which exits 1 because no stored delegation covers `web_search`:
 
 ```text
 $ npx agent-passport work --scope web_search --summary Searched
@@ -61,7 +61,7 @@ exit 1
 | `verify-bundle` | Report produced, no axis `INVALID` | 2: an axis is `INVALID`, or `--strict` with `MISSING` authority or evidence. 3: bundle unreadable or manifest signature failed. 1: no file argument |
 | `verify-regulated` | Disposition `reconciled` or `regulator_grade_for_class` | 2: any other disposition. 1: missing `--receipt` or `--context`, or an unreadable input |
 | `work` | Receipt recorded | 1: no `--scope`, or no stored delegation covers the scope |
-| `prove` | Never in 9.0.2 | 1: the command calls `proveContributions`, which throws `Moved to @aeoess/gateway` |
+| `prove` | Never in 9.0.3 | 1: the command calls `proveContributions`, which throws `Moved to @aeoess/gateway` |
 | other commands | Success | 1: usage error or missing `.passport/agent.json` |
 
 `verify` exits 0 for a passport that verifies but that no supplied issuer countersigned. A script that needs a trust decision has to read the printed `Issuer:` line, or call `verifySocialContract` and read `issuerTrusted`.
@@ -133,7 +133,7 @@ agent-passport work --scope <scope> [--type <type>] [--target <x>] [--spend <n>]
                     [--delegation <id>] [--chain <key1,key2>]
 ```
 
-Synopsis. Only `--scope` is required. The defaults are `--type task`, `--target unknown`, `--spend 0`, `--result success` and an empty summary. Without `--delegation`, `work` uses the first stored delegation whose scope covers `--scope`. In 9.0.2 it does not check that this delegation names the local agent as its delegate, so a delegation the agent issued to another key is accepted too. Pass `--delegation` to choose one explicitly. `--chain` sets the delegation chain recorded in the receipt, by default the delegator and the agent.
+Synopsis. Only `--scope` is required. The defaults are `--type task`, `--target unknown`, `--spend 0`, `--result success` and an empty summary. Without `--delegation`, `work` uses the first stored delegation whose scope covers `--scope`. In 9.0.3 it does not check that this delegation names the local agent as its delegate, so a delegation the agent issued to another key is accepted too. Pass `--delegation` to choose one explicitly. `--chain` sets the delegation chain recorded in the receipt, by default the delegator and the agent.
 
 ### audit
 
@@ -145,7 +145,7 @@ Synopsis. Audits the stored receipts against a Values Floor file and prints a pe
 
 ### prove
 
-`prove --beneficiary <id>` calls `proveContributions`, which throws a migration error in 9.0.2. The command exits 1.
+`prove --beneficiary <id>` calls `proveContributions`, which throws a migration error in 9.0.3. The command exits 1.
 
 ## Verification commands
 

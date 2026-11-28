@@ -1,17 +1,17 @@
 # Agent Passport System: API reference
 
-> Signatures, options, results and failure behavior of the current agent-passport-system 9.0.2 surface, with deprecated and throwing exports marked.
+> Signatures, options, results and failure behavior of the current agent-passport-system 9.0.3 surface, with deprecated and throwing exports marked.
 
 Generated from https://agent-passport.org/docs/api/ by docs-src/scripts/build-llms.mjs. Edit the page, not this file.
 
-This page is the reference for npm `agent-passport-system` 9.0.2. The package declares Node.js 18 or later (`engines`). Signature blocks are copied from the package's declaration files under `dist/src/` and are declarations, not runnable code. A check in the docs build compares every signature line on this page with the published declarations. The runnable programs that use these functions are in [`docs-src/examples/governed-action/`](https://github.com/agent-passport-system/aps-web/tree/main/docs-src/examples/governed-action), and the [Quickstart](https://agent-passport.org/docs/quickstart/) walks through one.
+This page is the reference for npm `agent-passport-system` 9.0.3. The package declares Node.js 18 or later (`engines`). Signature blocks are copied from the package's declaration files under `dist/src/` and are declarations, not runnable code. A check in the docs build compares every signature line on this page with the published declarations. The runnable programs that use these functions are in [`docs-src/examples/governed-action/`](https://github.com/agent-passport-system/aps-web/tree/main/docs-src/examples/governed-action), and the [Quickstart](https://agent-passport.org/docs/quickstart/) walks through one.
 
 ## Entry points
 
 | Import | What it carries |
 | --- | --- |
-| `agent-passport-system` | The full surface, 2750 export names in 9.0.2, values and types together. Everything on this page except the `/core` list below comes from here. |
-| `agent-passport-system/core` | A curated set of 34 names for the legacy formats: `createPassport`, `verifyPassport`, `createDelegation`, `verifyDelegation`, `subDelegate`, `scopeAuthorizes`, `evaluateIntent`, `createActionIntent`, `computeActionRef`, `computeExternalActionRefV1`, `parseExternalActionRefV1Preimage`, `computeIdempotencyKey`, `attestFloor`, `loadFloor`, `generateKeyPair`, `rotateKey`, `recordSpend`, `getSpendSummary`, `checkTierForIntent`, `resolveAuthorityTier`, `requestHumanApproval`, `createCommerceDelegation`, `commercePreflight`, `revokeDelegation`, `cascadeRevoke`, plus types. The last three throw in 9.0.2. |
+| `agent-passport-system` | The full surface, 2750 export names in 9.0.3, values and types together. Everything on this page except the `/core` list below comes from here. |
+| `agent-passport-system/core` | A curated set of 34 names for the legacy formats: `createPassport`, `verifyPassport`, `createDelegation`, `verifyDelegation`, `subDelegate`, `scopeAuthorizes`, `evaluateIntent`, `createActionIntent`, `computeActionRef`, `computeExternalActionRefV1`, `parseExternalActionRefV1Preimage`, `computeIdempotencyKey`, `attestFloor`, `loadFloor`, `generateKeyPair`, `rotateKey`, `recordSpend`, `getSpendSummary`, `checkTierForIntent`, `resolveAuthorityTier`, `requestHumanApproval`, `createCommerceDelegation`, `commercePreflight`, `revokeDelegation`, `cascadeRevoke`, plus types. The last three throw in 9.0.3. |
 
 `/core` is a packaging choice. It is not the draft's Core conformance class, and it does not contain `AuthorityDelegationV1`, `ReceiptV1` or the MCP profile. See [Status and conformance](https://agent-passport.org/docs/status/).
 
@@ -19,7 +19,7 @@ The counts come from the TypeScript checker over `dist/src/index.d.ts` and `dist
 
 ## How functions fail
 
-Issuers throw on bad input. Verifiers return a coded result and do not throw. Each line below is one call with bad input, from `api-errors.mjs` in the example directory, run against 9.0.2:
+Issuers throw on bad input. Verifiers return a coded result and do not throw. Each line below is one call with bad input, from `api-errors.mjs` in the example directory, run against 9.0.3:
 
 ```text
 issueAuthorityDelegation, signed record as body  threw Error: authority delegation body must carry neither delegation_id nor signature (SCHEMA_INVALID)
@@ -183,7 +183,7 @@ A bundle is a signed manifest of member digests and a Merkle root, with the memb
 
 ## Deprecated and throwing exports
 
-Deprecated in 9.0.2:
+Deprecated in 9.0.3:
 
 - `isIssuerVerified`: tagged `@deprecated` with "Use verifyIssuerSignature() for security-critical checks."
 - `TrustVerification.overall`, returned by `verifySocialContract`: reading it prints a `DeprecationWarning`. Read `structurallyValid`, `issuerChecked` and `issuerTrusted`.
@@ -238,7 +238,7 @@ countersignPassport(signedPassport: SignedPassport, issuerPrivateKey: string, is
 proveContributions(_agent: SocialContractAgent, _receipts: ActionReceipt[], _delegations: Delegation[], _beneficiary: string, _beneficiaryMap?: Map<string, BeneficiaryInfo> | undefined): ContributionProof
 ```
 
-`proveContributions` throws in 9.0.2.
+`proveContributions` throws in 9.0.3.
 
 ### joinSocialContract
 
@@ -341,7 +341,7 @@ Returns `ActionReceipt`:
 
 `proveContributions(agent, receipts, delegations, beneficiary, beneficiaryMap?)` is declared to return `ContributionProof`.
 
-Throws in 9.0.2 with `Moved to @aeoess/gateway. See MIGRATION.md#attribution-reports`. The signature is kept, so a typecheck passes and the call fails at run time. The declared return type is:
+Throws in 9.0.3 with `Moved to @aeoess/gateway. See MIGRATION.md#attribution-reports`. The signature is kept, so a typecheck passes and the call fails at run time. The declared return type is:
 
 - `attribution: AttributionReport`: weighted attribution across scopes
 - `merkleRoot: string`: 32-byte SHA-256 commitment to all receipts
