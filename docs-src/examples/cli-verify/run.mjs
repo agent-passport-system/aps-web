@@ -1,7 +1,7 @@
 // Copyright (c) 2026 Tymofii Pidlisnyi
 // SPDX-License-Identifier: Apache-2.0
 //
-// Runs the agent-passport binary of agent-passport-system 8.1.1 the way the CLI page shows
+// Runs the agent-passport binary of agent-passport-system 9.0.0 the way the CLI page shows
 // it, in a fresh temp directory with HOME pointed at it, and prints each command, its exit
 // code and the lines of its output that do not change between runs.
 import { spawnSync } from 'node:child_process'

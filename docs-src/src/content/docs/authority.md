@@ -3,7 +3,7 @@ title: Authority and revocation
 description: The AuthorityDelegationV1 wire record, its seven facets and how a child narrows them, chain verification and its four results, cumulative spend, and AuthorityRevocationV1.
 ---
 
-This page describes `AuthorityDelegationV1` as specified in `draft-pidlisnyi-aps-04` section 4 and as implemented by `agent-passport-system` 8.1.1 and the Python SDK 4.3.0. Every function named here is a root export of the npm package. None is in `agent-passport-system/core`.
+This page describes `AuthorityDelegationV1` as specified in `draft-pidlisnyi-aps-04` section 4 and as implemented by `agent-passport-system` 9.0.0 and the Python SDK 4.3.0. Every function named here is a root export of the npm package. None is in `agent-passport-system/core`.
 
 ## The wire record
 
@@ -57,7 +57,7 @@ Python 4.3.0 has the same two functions in `agent_passport.v2.authority_delegati
 
 The checks run phase by phase over the whole chain, in this order: closed schema and canonical values, `delegation_id`, key resolution and signature, duplicate identifiers, root trust, parent links, issuer to subject continuity, child issuance time, the seven facet comparisons, current validity, and revocation of every member. The first phase in which any member fails decides the result, at the lowest failing index.
 
-| Result | When | Example codes in 8.1.1 |
+| Result | When | Example codes in 9.0.0 |
 | --- | --- | --- |
 | `valid` | Every check passed | none |
 | `invalid` | A cryptographic, structural, attenuation, time or revocation failure, or a root the trust policy rejects | `SIGNATURE_INVALID`, `ID_MISMATCH`, `ROOT_UNTRUSTED`, `SCOPE_WIDENING`, `EXPIRED`, `NOT_YET_VALID`, `REVOKED` |
@@ -70,7 +70,7 @@ A `valid` chain is admissible authority at `now`. The verifier does not check th
 
 ### Example
 
-This program issues a root with depth 1, narrows it for a sub-agent, has the issuer refuse a wider child, verifies the chain, then revokes the root. It is `chain.mjs` in `docs-src/examples/governed-action/`, run with Node.js against 8.1.1:
+This program issues a root with depth 1, narrows it for a sub-agent, has the issuer refuse a wider child, verifies the chain, then revokes the root. It is `chain.mjs` in `docs-src/examples/governed-action/`, run with Node.js against 9.0.0:
 
 ```js
 // Copyright (c) 2026 Tymofii Pidlisnyi
@@ -158,13 +158,29 @@ The child carries no revocation record of its own. Its chain fails because the v
 
 ## One chain per action
 
-Each action is checked against one selected root to leaf chain. A verifier must not combine scopes or budgets from separate chains to assemble authority that no single chain grants. Composition across principals needs a separate profile. The SDK's `selectChainForAction` evaluates the chains an agent holds in order and selects the first one that verifies `valid` and covers every scope the action needs. Spend is then reserved against that chain only. The draft does not state a selection rule, so this order is the SDK's own.
+Each action is checked against one selected root to leaf chain. A verifier must not combine scopes or budgets from separate chains to assemble authority that no single chain grants. Composition across principals needs a separate profile. The SDK's `selectChainForAction` takes a `verifier` shared with the ledger, evaluates the chains an agent holds in order and selects the first one that verifies `valid` and covers every scope the action needs. It checks scope on the verified records and passes the verified handle to the reserver. Spend is reserved against that chain only. The draft does not state a selection rule, so this order is the SDK's own.
 
 ## Cumulative spend
 
 The signed `cumulative` value is a ceiling for the whole subtree under that delegation, not an amount reserved for each child. Before dispatching an action of amount q, the boundary checks, in one atomic step over every bounded delegation in the chain, that the unit matches, that q is within each `per_action`, and that committed plus reserved plus q is within each `cumulative`. It reserves q against all of them or none.
 
-`InMemoryAuthorityBudgetLedger` does this in one JavaScript process. Its `reserve(chain, actionRef, unit, amount)` is keyed by `action_ref`: an identical retry returns `IDEMPOTENT`, and the same `action_ref` with a different unit, amount or set of bounded delegations to charge returns `CONFLICT`. Unbounded members are not part of that set, so two chains that differ only in unbounded members give an identical retry. `markDispatched`, `commit` and `cancel` move a reservation on, and `cancel` works only before dispatch. A deployment with several processes needs one linearizable ledger. Without one, the current spend total is not established.
+`InMemoryAuthorityBudgetLedger` does this in one JavaScript process. Create one configured verifier and pass that same object to the ledger. This excerpt from `governed-action.mjs` uses the example's fixed clock:
+
+```js
+const verifier = createAuthorityChainVerifier({
+  policyId: 'docs-example-policy-v1',
+  revocationSourceId: 'docs-example-revocations',
+  now: () => clock.now,
+  resolveVerificationKey: resolveKey,
+  trustRoot,
+  resolveRevocation,
+})
+const ledger = new InMemoryAuthorityBudgetLedger(verifier, { now: () => clock.now })
+```
+
+Call `verifyAuthorityChainForBudget(rawChain, verifier)`. On success, check the action's scope on `checked.chain.records` and call `ledger.reserve(checked.chain, actionRef, unit, amountString)`. The records are a frozen snapshot. The result-only `verifyAuthorityDelegationChain` does not produce a handle for the ledger. The [Quickstart](/docs/quickstart/#the-boundary) shows scope checking and reservation together.
+
+The ledger's `reserve(verifiedChain, actionRef, unit, amountString)` is keyed by `action_ref`: an identical retry returns `IDEMPOTENT`, and the same `action_ref` with a different unit, amount or set of bounded delegations to charge returns `CONFLICT`. Unbounded members are not part of that set, so two chains that differ only in unbounded members give an identical retry. `markDispatched`, `commit` and `cancel` move a reservation on, and `cancel` works only before dispatch. Before any idempotent success or state change in `reserve`, the ledger checks the handle, verifier identity and consumer clock. It returns `AUTHORITY_UNVERIFIED`, `AUTHORITY_CONTEXT_MISMATCH` or `AUTHORITY_STALE` when those checks fail. The optional constructor setting `maxVerificationAgeMs` limits handle age. `markDispatched` does not verify the chain. Before dispatch, verify the records again to check current authority and revocation. Cancel the reservation if admission fails. A deployment with several processes needs one linearizable ledger. Without one, the current spend total is not established.
 
 ## Revocation
 

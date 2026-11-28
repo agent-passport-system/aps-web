@@ -1,7 +1,7 @@
 // Copyright (c) 2026 Tymofii Pidlisnyi
 // SPDX-License-Identifier: Apache-2.0
 //
-// One governed action, end to end, with agent-passport-system 8.1.1.
+// One governed action, end to end, with agent-passport-system 9.0.0.
 //
 // A principal issues an AuthorityDelegationV1 grant to an agent. The agent asks an
 // enforcement boundary to read a note. The boundary is the only code that holds the
@@ -17,7 +17,8 @@ import { createHash } from 'node:crypto'
 import {
   publicKeyFromPrivate,
   issueAuthorityDelegation,
-  verifyAuthorityDelegationChain,
+  createAuthorityChainVerifier,
+  verifyAuthorityChainForBudget,
   scopeGrantCovers,
   InMemoryAuthorityRevocationStore,
   createAuthorityRevocationResolver,
@@ -126,7 +127,15 @@ export const resource = {
 // Replay claims and spend reservations belong to the boundary, not to any verifier.
 // Both stores here live in process memory. A deployment needs durable, atomic stores.
 const consumedActions = new Set()
-const ledger = new InMemoryAuthorityBudgetLedger()
+const verifier = createAuthorityChainVerifier({
+  policyId: 'docs-example-policy-v1',
+  revocationSourceId: 'docs-example-revocations',
+  now: () => clock.now,
+  resolveVerificationKey: resolveKey,
+  trustRoot,
+  resolveRevocation,
+})
+const ledger = new InMemoryAuthorityBudgetLedger(verifier, { now: () => clock.now })
 
 /**
  * The agent's side: build the action reference and sign an action-intent receipt.
@@ -180,27 +189,24 @@ export function boundary(request) {
   }
 
   // 3. Authority: the full chain, at the boundary's own clock.
-  const chainResult = verifyAuthorityDelegationChain(chain, {
-    now: clock.now,
-    resolveVerificationKey: resolveKey,
-    trustRoot,
-    resolveRevocation,
-  })
-  const leaf = chain[chain.length - 1]
+  const checked = verifyAuthorityChainForBudget(chain, verifier)
+  const chainResult = checked.result
+  const leaf = checked.ok ? checked.chain.records[checked.chain.records.length - 1] : chain[chain.length - 1]
 
-  // 4. Scope: every scope the action requires must be covered by a leaf grant.
-  const scopeCovered = action.scope_required.every(s => leaf.authority.scope.grants.some(g => scopeGrantCovers(g, s)))
-
-  // 5. Spend: the ledger reserves the cost against every bounded grant in the chain and
-  //    refuses a wrong unit, a cost above per_action, or a total above cumulative.
-  const spend = leaf.authority.spend
   /** @type {string | null} */
   let reason = null
-  if (chainResult.state !== 'valid') reason = chainResult.failures[0].code
-  else if (!scopeCovered) reason = 'SCOPE_NOT_GRANTED'
-  else if (spend.mode === 'bounded') {
-    const reservation = ledger.reserve(chain, actionRef, spend.unit, cost)
-    if (!reservation.ok) reason = reservation.code
+  if (!checked.ok) reason = chainResult.failures[0].code
+  else {
+    // 4. Scope: check the same frozen records the ledger will use.
+    const scopeCovered = action.scope_required.every(s => leaf.authority.scope.grants.some(g => scopeGrantCovers(g, s)))
+
+    // 5. Spend: reserve against every bounded grant using the verified handle.
+    const spend = leaf.authority.spend
+    if (!scopeCovered) reason = 'SCOPE_NOT_GRANTED'
+    else if (spend.mode === 'bounded') {
+      const reservation = ledger.reserve(checked.chain, actionRef, spend.unit, cost)
+      if (!reservation.ok) reason = reservation.code
+    }
   }
   const permit = reason === null
 
@@ -235,11 +241,19 @@ export function boundary(request) {
     prev: intent.receipt_id,
   }, boundarySigner)
 
-  if (!permit) {
+  if (!checked.ok || !permit) {
     return { outcome: 'refused', reason, dispatched: false, chainState: chainResult.state, receipts: [decision], evidence }
   }
 
-  // 7. Claim the action before dispatch, so a second copy cannot also be dispatched.
+  // 7. Dispatch admission: check current authority and revocation again.
+  //    markDispatched only changes ledger state. It does not verify authority.
+  const admission = verifyAuthorityChainForBudget(checked.chain.records, verifier)
+  if (!admission.ok) {
+    ledger.cancel(actionRef)
+    return { outcome: 'refused', reason: admission.result.failures[0].code, dispatched: false, chainState: admission.result.state, receipts: [decision], evidence }
+  }
+
+  // 8. Claim the action before dispatch, so a second copy cannot also be dispatched.
   consumedActions.add(actionRef)
   ledger.markDispatched(actionRef)
   const output = resource.read(action.target)

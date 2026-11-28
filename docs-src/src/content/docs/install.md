@@ -5,7 +5,7 @@ description: Install commands, runtime requirements and a smoke check for the Ty
 
 | Package | Version | Runtime (from the package manifest) | Install |
 | --- | --- | --- | --- |
-| [TypeScript SDK on npm](https://www.npmjs.com/package/agent-passport-system) | 8.1.1 | Node.js 18 or later, ES modules only | `npm install agent-passport-system@8.1.1` |
+| [TypeScript SDK on npm](https://www.npmjs.com/package/agent-passport-system) | 9.0.0 | Node.js 18 or later, ES modules only | `npm install agent-passport-system@9.0.0` |
 | [Python SDK on PyPI](https://pypi.org/project/agent-passport-system/) | 4.3.0 | Python 3.10 or later | `pip install agent-passport-system==4.3.0` |
 | [Rust SDK on crates.io](https://crates.io/crates/agent-passport-system) | 0.3.0 | No minimum compiler version is declared | `cargo add agent-passport-system@0.3.0` |
 | [Go SDK on pkg.go.dev](https://pkg.go.dev/github.com/aeoess/agent-passport-go) | v0.7.0 | `go 1.22` in `go.mod` | `go get github.com/aeoess/agent-passport-go@v0.7.0` |
@@ -16,7 +16,7 @@ The four SDKs do different jobs. TypeScript and Python issue and verify the curr
 ## TypeScript
 
 ```bash
-npm install agent-passport-system@8.1.1
+npm install agent-passport-system@9.0.0
 ```
 
 The package is ES modules only. Your project needs `"type": "module"` in its `package.json`, or `.mjs` files. A CommonJS `require('agent-passport-system')` fails with `ERR_PACKAGE_PATH_NOT_EXPORTED`.
@@ -32,7 +32,7 @@ console.log(pkg.version, typeof issueAuthorityDelegation)
 
 ```text
 $ node smoke.mjs
-8.1.1 function
+9.0.0 function
 ```
 
 ### Package name and binary name
@@ -40,7 +40,7 @@ $ node smoke.mjs
 The npm package is `agent-passport-system`. The command line tool it installs is called `agent-passport`. Inside a project that has the package installed, `npx agent-passport <command>` runs it. In a directory without the package, `npx agent-passport` asks npm for a different package named `agent-passport`. Name the package explicitly instead:
 
 ```bash
-npm exec --package=agent-passport-system@8.1.1 -- agent-passport help
+npm exec --package=agent-passport-system@9.0.0 -- agent-passport help
 ```
 
 See the [CLI reference](/docs/cli/).

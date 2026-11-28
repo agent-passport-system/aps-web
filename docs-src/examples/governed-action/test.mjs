@@ -5,14 +5,15 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { runAll } from './governed-action.mjs'
+import { createAuthorityChainVerifier, verifyAuthorityChainForBudget, InMemoryAuthorityBudgetLedger } from 'agent-passport-system'
+import { runAll, grant, resolveKey } from './governed-action.mjs'
 
 const pkg = JSON.parse(readFileSync(new URL('./node_modules/agent-passport-system/package.json', import.meta.url), 'utf8'))
 const { rows, allowed, revocation, ledger, resourceCalls } = runAll()
 const byCase = Object.fromEntries(rows.map(r => [r.case, r]))
 
-test('runs against agent-passport-system 8.1.1', () => {
-  assert.equal(pkg.version, '8.1.1')
+test('runs against agent-passport-system 9.0.0', () => {
+  assert.equal(pkg.version, '9.0.0')
 })
 
 test('allowed: permit, resource called once, both receipts verify', () => {
@@ -73,3 +74,64 @@ test('the resource ran once and the ledger committed only the allowed cost', () 
   assert.equal(resourceCalls, 1)
   assert.deepEqual(ledger, { reserved: '0', committed: '3' })
 })
+
+test('budget handles bind frozen records, verifier identity and verification time', () => {
+  let now = '2026-10-28T10:00:00.000Z'
+  const config = {
+    policyId: 'budget-test-v1', revocationSourceId: 'budget-test-revocations',
+    now: () => now, resolveVerificationKey: resolveKey,
+    trustRoot: () => true, resolveRevocation: () => 'active',
+  }
+  const verifier = createAuthorityChainVerifier(config)
+  const budget = new InMemoryAuthorityBudgetLedger(verifier, { now: () => now, maxVerificationAgeMs: 1000 })
+  const raw = structuredClone(grant)
+  const checked = verifyAuthorityChainForBudget([raw], verifier)
+  assert.equal(checked.ok, true)
+  const handle = checked.chain
+  raw.authority.scope.grants[0] = 'notes:write:*'
+  raw.authority.spend.per_action = '100'
+  assert.deepEqual(handle.records[0].authority.scope.grants, ['notes:read:*'])
+  assert.equal(Object.isFrozen(handle.records[0].authority.scope.grants), true)
+  const ref = 'd'.repeat(64)
+  assert.deepEqual(budget.reserve([raw], ref, 'example:credit', '3'), { ok: false, code: 'AUTHORITY_UNVERIFIED' })
+  assert.deepEqual(budget.reserve(structuredClone(handle), ref, 'example:credit', '3'), { ok: false, code: 'AUTHORITY_UNVERIFIED' })
+  const other = verifyAuthorityChainForBudget([grant], createAuthorityChainVerifier(config))
+  assert.equal(other.ok, true)
+  assert.deepEqual(budget.reserve(other.chain, ref, 'example:credit', '3'), { ok: false, code: 'AUTHORITY_CONTEXT_MISMATCH' })
+  assert.deepEqual(budget.counter(grant.delegation_id), { reserved: '0', committed: '0' })
+  assert.equal(budget.reserve(handle, ref, 'example:credit', '3').code, 'RESERVED')
+  now = '2026-10-28T10:00:02.000Z'
+  assert.deepEqual(budget.reserve(handle, ref, 'example:credit', '3'), { ok: false, code: 'AUTHORITY_STALE' })
+  assert.deepEqual(budget.counter(grant.delegation_id), { reserved: '3', committed: '0' })
+})
+
+for (const change of ['revocation', 'expiry']) {
+  test(`dispatch admission refuses ${change} after reservation and releases spend`, async () => {
+    const example = await import(`./governed-action.mjs?admission=${change}`)
+    const reserve = InMemoryAuthorityBudgetLedger.prototype.reserve
+    let budget
+    // Change authority after reserve succeeds, before the boundary checks dispatch.
+    InMemoryAuthorityBudgetLedger.prototype.reserve = function (...args) {
+      budget = this
+      const result = reserve.apply(this, args)
+      if (change === 'revocation') {
+        example.revokeGrant()
+        example.clock.now = '2026-10-28T10:10:00.000Z'
+      } else example.clock.now = '2026-10-28T17:00:00.000Z'
+      return result
+    }
+    try {
+      const handled = example.boundary(example.agentRequest({
+        target: 'notes:read:project-x', scope: 'notes:read:project-x', cost: '3',
+        nonce: '30000000000000000000000000000001', delegation: example.grant,
+      }))
+      assert.equal(handled.dispatched, false)
+      assert.equal(handled.reason, change === 'revocation' ? 'REVOKED' : 'EXPIRED')
+      assert.equal(example.resource.calls, 0)
+      assert.deepEqual(budget.counter(example.grant.delegation_id), { reserved: '0', committed: '0' })
+      assert.equal(handled.receipts.length, 1)
+    } finally {
+      InMemoryAuthorityBudgetLedger.prototype.reserve = reserve
+    }
+  })
+}

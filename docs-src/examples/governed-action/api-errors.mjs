@@ -1,11 +1,12 @@
 // Copyright (c) 2026 Tymofii Pidlisnyi
 // SPDX-License-Identifier: Apache-2.0
 //
-// How the current functions of agent-passport-system 8.1.1 report failure: which ones
+// How the current functions of agent-passport-system 9.0.0 report failure: which ones
 // throw and which return a coded result. Each line is one call with bad input.
 import {
   issueAuthorityDelegation, verifyAuthorityDelegationChain, issueAuthorityRevocation,
   recordAuthorityRevocation, InMemoryAuthorityRevocationStore, InMemoryAuthorityBudgetLedger,
+  createAuthorityChainVerifier, verifyAuthorityChainForBudget,
   createReceiptV1, verifyReceiptV1, verifyReceiptV1Serialized, verifyApsMcpAuthorizationV1,
   proveContributions, commercePreflight,
 } from 'agent-passport-system'
@@ -35,9 +36,15 @@ await probe('verifyAuthorityDelegationChain, root untrusted', () => brief(verify
 await probe('verifyAuthorityDelegationChain, after not_after', () => brief(verifyAuthorityDelegationChain([grant], { ...opts, now: '2026-10-29T00:00:00.000Z' })))
 await probe('issueAuthorityRevocation, revoker not issuer', () => issueAuthorityRevocation(grant, { now: '2026-10-28T10:05:00.000Z', revoker: agent.id, verification_method: agent.vm, reason_code: 'x', nonce: '000000000000000000000000000000bb' }, agent.privateKey).revocation_id)
 await probe('recordAuthorityRevocation, junk candidate', () => { const r = recordAuthorityRevocation(new InMemoryAuthorityRevocationStore(), grant, { record_type: 'x' }, { resolveVerificationKey: resolveKey }); return { recorded: r.recorded, state: r.verification.state, codes: r.verification.failures.map(f => f.code) } })
-const ledger = new InMemoryAuthorityBudgetLedger()
-await probe('ledger.reserve, wrong unit', () => ledger.reserve([grant], 'a'.repeat(64), 'other:unit', '1'))
-await probe('ledger.reserve, above per_action', () => ledger.reserve([grant], 'b'.repeat(64), 'example:credit', '6'))
+const verifier = createAuthorityChainVerifier({
+  ...opts, policyId: 'api-errors-policy-v1', revocationSourceId: 'api-errors-revocations',
+  now: () => opts.now,
+})
+const ledger = new InMemoryAuthorityBudgetLedger(verifier, { now: () => opts.now })
+const checked = verifyAuthorityChainForBudget([grant], verifier)
+if (!checked.ok) throw new Error('example grant must verify')
+await probe('ledger.reserve, wrong unit', () => ledger.reserve(checked.chain, 'a'.repeat(64), 'other:unit', '1'))
+await probe('ledger.reserve, above per_action', () => ledger.reserve(checked.chain, 'b'.repeat(64), 'example:credit', '6'))
 await probe('ledger.commit, unknown action', () => ledger.commit('c'.repeat(64)))
 await probe('createReceiptV1, bad issued_at', () => createReceiptV1(/** @type {any} */ ({ profile: 'aps-receipt-v1', receipt_type: 'aps:action-intent:v1', issuer: agent.id, subject_agent: agent.id, action_ref: 'a'.repeat(64), delegation_ref: grant.delegation_id, issued_at: 'yesterday', evidence_refs: [], result: {} }), [{ signer: agent.id, key_id: agent.vm, private_key: agent.privateKey }]).receipt_id)
 const receipt = createReceiptV1({ profile: 'aps-receipt-v1', receipt_type: 'aps:action-intent:v1', issuer: agent.id, subject_agent: agent.id, action_ref: 'a'.repeat(64), delegation_ref: grant.delegation_id, issued_at: '2026-10-28T10:00:00.000Z', evidence_refs: [], result: { profile: 'aps-action-intent-result-v1', status: 'declared' } }, [{ signer: agent.id, key_id: agent.vm, private_key: agent.privateKey }])
