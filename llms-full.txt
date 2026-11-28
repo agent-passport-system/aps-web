@@ -819,9 +819,9 @@ Day-by-day development log: https://aeoess.com/blog.html
 
 ## Persistence Layer (v2.0.0)
 
-StorageBackend is the interface for persistent gateway state. Events are truth (receipts, revocations, demotions, key rotations), state is derived (spend totals, reputation, delegation status). Transactions mandatory for invariant preservation.
+StorageBackend is the interface for persistent gateway state. Events are truth (receipts, revocations, demotions, key rotations), state is derived (spend totals, reputation, delegation status). Group writes that must succeed or fail together in transaction().
 
-**StorageBackend interface** (20 methods): putAgent/getAgent, putDelegation/getDelegation, reserveSpend/commitSpend/releaseSpend (atomic, no race conditions), appendRevocation/isRevoked, appendReceipt/queryReceipts (cursor pagination), tombstoneReceipt (GDPR: redact payload, preserve chain), getReputation/putReputation, appendDemotion, appendKeyRotation, checkAndStoreNonce. Plus: transaction(), verifyIntegrity(), rebuildDerivedState(), createCheckpoint(), onCheckpoint() (external anchoring), exportReceipts().
+**StorageBackend interface** (20 methods): putAgent/getAgent, putDelegation/getDelegation, reserveSpend/commitSpend/releaseSpend (spend accounting: they check amounts and the stored spend limit, not authorization, so verify authority first), appendRevocation/isRevoked, appendReceipt/queryReceipts (cursor pagination), tombstoneReceipt (GDPR: redact payload, preserve chain), getReputation/putReputation, appendDemotion, appendKeyRotation, checkAndStoreNonce. Plus: transaction(), verifyIntegrity(), rebuildDerivedState(), createCheckpoint(), onCheckpoint() (external anchoring), exportReceipts().
 
 **VolatileBackend**: in-memory implementation for testing, development and single-process use. Ships with core SDK. It keeps nothing across restarts and is not a persistent store.
 
